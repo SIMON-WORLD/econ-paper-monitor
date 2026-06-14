@@ -9,7 +9,7 @@ import re
 import time
 import urllib.parse
 import urllib.request
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -19,10 +19,11 @@ DATA_DIR = ROOT / "data"
 DOCS_DIR = ROOT / "docs"
 
 USER_AGENT = "econ-paper-monitor/0.1 (mailto:example@example.com)"
+BEIJING_TZ = timezone(timedelta(hours=8))
 
 
 def today_str() -> str:
-    return date.today().isoformat()
+    return datetime.now(BEIJING_TZ).date().isoformat()
 
 
 def now_iso() -> str:
@@ -234,9 +235,8 @@ def date_from_parts(parts: Any) -> str | None:
 
 
 def recent_cutoff(days: int) -> str:
-    return (date.today() - timedelta(days=days)).isoformat()
+    return (datetime.now(BEIJING_TZ).date() - timedelta(days=days)).isoformat()
 
 
 def html_escape(value: Any) -> str:
     return html.escape("" if value is None else str(value), quote=True)
-

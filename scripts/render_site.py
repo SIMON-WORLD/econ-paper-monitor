@@ -4,18 +4,17 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str
+from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str
 
 
 SITE_NAME = "Econ Papers Daily"
 SITE_SUBTITLE = "每日追踪 TOP 经济学期刊论文"
 BASE = "/docs"
-CN_TZ = UTC
-BEIJING_OFFSET = timedelta(hours=8)
+CN_TZ = BEIJING_TZ
 CHINA_KEYWORDS = [
     "china",
     "chinese",
@@ -162,7 +161,7 @@ def beijing_datetime(value: str | None) -> datetime | None:
         return None
     if parsed.tzinfo is None:
         parsed = parsed.replace(tzinfo=UTC)
-    return parsed.astimezone(UTC) + BEIJING_OFFSET
+    return parsed.astimezone(CN_TZ)
 
 
 def beijing_date(value: str | None) -> str:
@@ -397,6 +396,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         if not today_records
         else '<div class="empty">说明：首次建库当天会把抓取窗口内尚未见过的论文都记为“新发现”。部署到 GitHub Actions 定时运行后，这里会变成真正的当天增量流。</div>'
     )
+    events_html = paper_events(today_records) if today_records else ""
     return f"""<section class="banner">
   <div class="banner-main">
     <p class="eyebrow">Today&apos;s economics papers</p>
@@ -424,7 +424,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 </div>
 <section class="section-head"><div><h2>今日论文流</h2><p>按本站监测时间倒序排列。</p></div><p>{html_escape(today_str())}</p></section>
 {init_note}
-{paper_events(today_records)}
+{events_html}
 <script>
 (() => {{
   const search = document.getElementById('searchInput');
@@ -483,7 +483,7 @@ def main() -> None:
     by_field: dict[str, list[dict[str, Any]]] = defaultdict(list)
     by_topic: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
-        by_date[record.get("_daily_date") or detected_date(record) or "unknown"].append(record)
+        by_date[detected_date(record) or record.get("_daily_date") or "unknown"].append(record)
         by_journal[record.get("journal_id") or "unknown"].append(record)
         for field in record.get("fields", []) or ["unknown"]:
             by_field[field].append(record)
