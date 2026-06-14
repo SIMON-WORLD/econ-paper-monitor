@@ -5,58 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Explorations in Economic History</title>
   <style>
-:root{color-scheme:light;--ink:#182026;--muted:#5b6670;--line:#d9e0e6;--soft:#f5f7f9;--accent:#0f766e}
-body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
-header{border-bottom:1px solid var(--line);background:var(--soft)}
-.wrap{max-width:1120px;margin:0 auto;padding:24px}
-h1{margin:0 0 8px;font-size:30px;letter-spacing:0}
-h2{font-size:20px;margin:28px 0 12px}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.meta,.empty{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.paper{border-top:1px solid var(--line);padding:14px 0}
-.paper h3{font-size:16px;margin:0 0 6px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.tag{font-size:12px;background:var(--soft);border:1px solid var(--line);padding:2px 6px;border-radius:6px;color:var(--muted)}
-nav a{margin-right:14px}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}
+.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0 auto;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f6f8fa 0%,#fff 52%,#ddf4ff 100%);display:grid;grid-template-columns:1fr 260px;min-height:168px}
+.banner-main{padding:26px 28px}.eyebrow{color:var(--blue);font-size:13px;font-weight:700;margin:0 0 8px}.banner h1{font-size:34px;line-height:1.18;margin:0 0 10px}.banner p{color:var(--muted);max-width:720px;margin:0}
+.signal{border-left:1px solid var(--line);padding:24px;background:rgba(255,255,255,.55);display:flex;flex-direction:column;justify-content:center;gap:10px}.signal-row{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:13px}.signal-row strong{color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 6px}.authors{color:var(--muted);margin:0 0 7px}.meta{display:flex;flex-wrap:wrap;gap:7px;color:var(--muted);font-size:13px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
+.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-  <header><div class="wrap">
-    <h1>经济学论文雷达</h1>
-    <p class="meta">自动追踪重点经济学期刊的最新论文，按更新时间、期刊和领域整理为公开网页与订阅源。</p>
-    <nav><a href="/docs/">首页</a><a href="/docs/archive/">归档</a><a href="/docs/previews/">主题预览</a><a href="/docs/feed.xml">RSS 订阅</a></nav>
-  </div></header>
-  <main class="wrap"><h2>Explorations in Economic History</h2><article class="paper">
-  <h3><a href="https://doi.org/10.1016/j.eeh.2026.101770">Politics and institutional change: The Water Commission Act of 1913</a></h3>
-  <div class="meta">EEH · 2026-07-01 · crossref</div>
-  <div>Mark Tooru Kanazawa</div>
-  <div class="tags"><span class="tag">economic_history</span></div>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">经济学论文速递</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="/docs/"><strong>今日速递</strong><span>Today</span></a>
+    <a class="side-link" href="/docs/archive/"><strong>历史归档</strong><span>Archive</span></a>
+    <a class="side-link" href="/docs/previews/"><strong>主题预览</strong><span>Preview</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">领域</div><a class="side-link" href="/docs/fields/agriculture_environment_resource/"><strong>农业/环境/资源</strong><span>57</span></a><a class="side-link" href="/docs/fields/general/"><strong>综合</strong><span>49</span></a><a class="side-link" href="/docs/fields/macroeconomics/"><strong>宏观</strong><span>20</span></a><a class="side-link" href="/docs/fields/public_political/"><strong>公共/政治经济学</strong><span>17</span></a><a class="side-link" href="/docs/fields/theory/"><strong>理论</strong><span>16</span></a><a class="side-link" href="/docs/fields/development/"><strong>发展</strong><span>15</span></a><a class="side-link" href="/docs/fields/economic_history/"><strong>经济史</strong><span>11</span></a><a class="side-link" href="/docs/fields/finance/"><strong>金融</strong><span>10</span></a><a class="side-link" href="/docs/fields/law_comparative/"><strong>法律/比较</strong><span>9</span></a><a class="side-link" href="/docs/fields/applied_empirical/"><strong>应用实证</strong><span>9</span></a><a class="side-link" href="/docs/fields/industrial_organization/"><strong>产业组织</strong><span>9</span></a><a class="side-link" href="/docs/fields/game_theory/"><strong>博弈</strong><span>8</span></a></div>
+  <div class="side-block"><div class="side-title">期刊</div><a class="side-link" href="#"><strong>AJARE</strong><span>5</span></a><a class="side-link" href="#"><strong>ERE</strong><span>5</span></a><a class="side-link" href="#"><strong>ERAE</strong><span>5</span></a><a class="side-link" href="#"><strong>LUP</strong><span>5</span></a><a class="side-link" href="#"><strong>JAERE</strong><span>5</span></a><a class="side-link" href="#"><strong>FP</strong><span>5</span></a><a class="side-link" href="#"><strong>JCE</strong><span>5</span></a><a class="side-link" href="#"><strong>JEEM</strong><span>5</span></a><a class="side-link" href="#"><strong>JoE</strong><span>5</span></a><a class="side-link" href="#"><strong>JEDC</strong><span>5</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">经济学论文速递</span></div>
+        <nav class="nav">
+          <a class="" href="/docs/">今日</a>
+          <a class="" href="/docs/archive/">归档</a>
+          <a href="/docs/feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>Explorations in Economic History</h2><p>该期刊历史发现记录。</p></div></section><article class="event">
+  <div><div class="time">09:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.eeh.2026.101770">Politics and institutional change: The Water Commission Act of 1913</a></h3>
+    <p class="authors">Mark Tooru Kanazawa</p>
+    <div class="meta"><span class="pill">EEH</span><span class="pill">crossref</span><span class="pill">官方日期 2026-07-01</span><span class="pill">经济史</span><span class="pill doi">10.1016/j.eeh.2026.101770</span></div>
+  </div>
 </article>
-<article class="paper">
-  <h3><a href="https://doi.org/10.1016/j.eeh.2026.101768">Epidemic mortality and redistribution of housing wealth in Leiden, 1632–1668</a></h3>
-  <div class="meta">EEH · 2026-07-01 · crossref</div>
-  <div>Bram van Besouw, Daniel R. Curtis, Roos van Oosten</div>
-  <div class="tags"><span class="tag">economic_history</span></div>
+<article class="event">
+  <div><div class="time">09:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.eeh.2026.101768">Epidemic mortality and redistribution of housing wealth in Leiden, 1632–1668</a></h3>
+    <p class="authors">Bram van Besouw, Daniel R. Curtis, Roos van Oosten</p>
+    <div class="meta"><span class="pill">EEH</span><span class="pill">crossref</span><span class="pill">官方日期 2026-07-01</span><span class="pill">经济史</span><span class="pill doi">10.1016/j.eeh.2026.101768</span></div>
+  </div>
 </article>
-<article class="paper">
-  <h3><a href="https://doi.org/10.1016/j.eeh.2026.101766">Quarterly GDP for Ireland since 1950</a></h3>
-  <div class="meta">EEH · 2026-07-01 · crossref</div>
-  <div>Seán Kenny, Rebecca Stuart</div>
-  <div class="tags"><span class="tag">economic_history</span></div>
+<article class="event">
+  <div><div class="time">09:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.eeh.2026.101766">Quarterly GDP for Ireland since 1950</a></h3>
+    <p class="authors">Seán Kenny, Rebecca Stuart</p>
+    <div class="meta"><span class="pill">EEH</span><span class="pill">crossref</span><span class="pill">官方日期 2026-07-01</span><span class="pill">经济史</span><span class="pill doi">10.1016/j.eeh.2026.101766</span></div>
+  </div>
 </article>
-<article class="paper">
-  <h3><a href="https://doi.org/10.1016/j.eeh.2026.101756">Academic human capital in European countries and regions, 1200–1793</a></h3>
-  <div class="meta">EEH · 2026-07-01 · crossref</div>
-  <div>Matthew Curtis, David de la Croix, Filippo Manfredini, Mara Vitale</div>
-  <div class="tags"><span class="tag">economic_history</span></div>
+<article class="event">
+  <div><div class="time">09:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.eeh.2026.101756">Academic human capital in European countries and regions, 1200–1793</a></h3>
+    <p class="authors">Matthew Curtis, David de la Croix, Filippo Manfredini, Mara Vitale</p>
+    <div class="meta"><span class="pill">EEH</span><span class="pill">crossref</span><span class="pill">官方日期 2026-07-01</span><span class="pill">经济史</span><span class="pill doi">10.1016/j.eeh.2026.101756</span></div>
+  </div>
 </article>
-<article class="paper">
-  <h3><a href="https://doi.org/10.1016/j.eeh.2026.101765">Economic dynamics of the Early Roman Empire: Insights from lead pollution, coinage, weather, and war</a></h3>
-  <div class="meta">EEH · 2026-07-01 · crossref</div>
-  <div>Luigi Oddo, Silvio Traverso, Koenraad Verboven</div>
-  <div class="tags"><span class="tag">economic_history</span></div>
+<article class="event">
+  <div><div class="time">09:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.eeh.2026.101765">Economic dynamics of the Early Roman Empire: Insights from lead pollution, coinage, weather, and war</a></h3>
+    <p class="authors">Luigi Oddo, Silvio Traverso, Koenraad Verboven</p>
+    <div class="meta"><span class="pill">EEH</span><span class="pill">crossref</span><span class="pill">官方日期 2026-07-01</span><span class="pill">经济史</span><span class="pill doi">10.1016/j.eeh.2026.101765</span></div>
+  </div>
 </article></main>
+    </div>
+  </div>
 </body>
 </html>
