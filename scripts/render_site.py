@@ -12,7 +12,7 @@ from common import DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, to
 
 
 SITE_NAME = "Econ Papers Daily"
-SITE_SUBTITLE = "每日追踪 TOP 期刊经济学论文"
+SITE_SUBTITLE = "每日追踪 TOP 经济学期刊论文"
 BASE = "/docs"
 CN_TZ = UTC
 BEIJING_OFFSET = timedelta(hours=8)
@@ -38,7 +38,7 @@ CHINA_KEYWORDS = [
 FIELD_LABELS = {
     "general": "综合",
     "development": "发展",
-    "agriculture_environment_resource": "农业/环境/资源",
+    "agriculture_environment_resource": "农业/环境/资源期刊",
     "applied_empirical": "应用实证",
     "macroeconomics": "宏观",
     "finance": "金融",
@@ -60,6 +60,47 @@ FIELD_LABELS = {
     "chinese": "中文期刊",
 }
 
+TOPIC_LABELS = {
+    "china": "与中国相关",
+    "agriculture": "农业与食品",
+    "environment": "环境与气候",
+    "development": "发展经济学",
+    "finance": "金融",
+    "macro": "宏观与货币",
+    "labor": "劳动",
+    "public": "公共与政治经济学",
+    "trade": "国际贸易",
+    "urban": "城市与区域",
+    "econometrics": "计量方法",
+    "theory": "理论与博弈",
+    "behavior": "行为与组织",
+    "health": "健康",
+    "education": "教育",
+    "firms": "企业与产业",
+    "inequality": "不平等",
+    "history": "经济史",
+}
+
+TOPIC_RULES = {
+    "agriculture": ["agricultur", "farm", "food", "rice", "dairy", "rural", "crop", "land use"],
+    "environment": ["climate", "weather", "carbon", "emission", "environment", "forest", "pollution", "energy", "electricity"],
+    "development": ["development", "poverty", "displacement", "household", "informal", "low-income"],
+    "finance": ["finance", "financial", "bank", "stock", "market", "asset", "investor", "credit"],
+    "macro": ["monetary", "inflation", "growth", "business cycle", "exchange rate", "macro", "productivity"],
+    "labor": ["labor", "labour", "wage", "worker", "employment", "unemployment", "migration"],
+    "public": ["tax", "public", "policy", "political", "government", "regulation", "welfare"],
+    "trade": ["trade", "export", "import", "tariff", "global", "supply chain"],
+    "urban": ["urban", "city", "cities", "housing", "regional", "zimbabwe households"],
+    "econometrics": ["estimator", "identification", "causal", "regression", "bayesian", "machine learning"],
+    "theory": ["equilibrium", "game", "theory", "mechanism", "auction", "contract"],
+    "behavior": ["behavior", "behaviour", "willingness", "preferences", "consumer", "profiles"],
+    "health": ["health", "mortality", "hospital", "medical", "disease"],
+    "education": ["education", "school", "student", "teacher"],
+    "firms": ["firm", "enterprise", "industrial", "organization", "outsourcing", "services"],
+    "inequality": ["inequality", "distribution", "mobility", "gender", "racial"],
+    "history": ["history", "historical", "nineteenth", "twentieth"],
+}
+
 
 STYLE = """
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
@@ -74,9 +115,9 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
 .nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
 .wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f6f8fa 0%,#fff 52%,#ddf4ff 100%);display:grid;grid-template-columns:1fr 260px;min-height:168px}
-.banner-main{padding:26px 28px}.eyebrow{color:var(--blue);font-size:13px;font-weight:700;margin:0 0 8px}.banner h1{font-size:34px;line-height:1.18;margin:0 0 10px}.banner p{color:var(--muted);max-width:720px;margin:0}
-.signal{border-left:1px solid var(--line);padding:24px;background:rgba(255,255,255,.55);display:flex;flex-direction:column;justify-content:center;gap:10px}.signal-row{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:13px}.signal-row strong{color:var(--ink)}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
+.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
+.signal{border-left:1px solid var(--line);padding:30px 32px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:20px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
@@ -84,12 +125,16 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
 .archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 """
 
 
 def field_label(field: str) -> str:
     return FIELD_LABELS.get(field, field.replace("_", " "))
+
+
+def topic_label(topic: str) -> str:
+    return TOPIC_LABELS.get(topic, topic.replace("_", " "))
 
 
 def normalize_attr(value: Any) -> str:
@@ -182,17 +227,56 @@ def is_china_related(record: dict[str, Any]) -> bool:
     return any(keyword.casefold() in haystack for keyword in CHINA_KEYWORDS)
 
 
+def article_topics(record: dict[str, Any]) -> list[str]:
+    haystack = " ".join(
+        str(value or "")
+        for value in [
+            record.get("title"),
+            record.get("title_zh"),
+            record.get("abstract"),
+            record.get("abstract_zh"),
+            record.get("journal"),
+        ]
+    ).casefold()
+    topics = []
+    if is_china_related(record):
+        topics.append("china")
+    for topic, keywords in TOPIC_RULES.items():
+        if any(keyword in haystack for keyword in keywords):
+            topics.append(topic)
+    if topics:
+        return list(dict.fromkeys(topics))[:4]
+
+    fallback = []
+    for field in record.get("fields", []):
+        if field == "agriculture_environment_resource":
+            fallback.extend(["agriculture", "environment"])
+        elif field == "public_political":
+            fallback.append("public")
+        elif field == "industrial_organization":
+            fallback.append("firms")
+        elif field == "game_theory":
+            fallback.append("theory")
+        elif field == "economic_history":
+            fallback.append("history")
+        elif field == "applied_empirical":
+            fallback.append("econometrics")
+        elif field in {"development", "finance", "urban", "labor", "international", "econometrics", "theory"}:
+            fallback.append("trade" if field == "international" else field)
+    return list(dict.fromkeys(fallback))[:3] or ["development"]
+
+
 def journal_lookup() -> dict[str, dict[str, Any]]:
     return {journal["id"]: journal for journal in load_journals(DATA_DIR / "journals.yml")}
 
 
 def sidebar(records: list[dict[str, Any]]) -> str:
-    field_counts = Counter(field for record in records for field in record.get("fields", []))
+    topic_counts = Counter(topic for record in records for topic in article_topics(record))
     journal_counts = Counter(record.get("journal_id") for record in records if record.get("journal_id"))
     journals_by_id = journal_lookup()
-    fields = "".join(
-        f'<a class="side-link" href="{BASE}/fields/{html_escape(field)}/"><span class="side-main"><strong>{html_escape(field_label(field))}</strong></span><span class="count">{count}</span></a>'
-        for field, count in field_counts.most_common(12)
+    topics = "".join(
+        f'<a class="side-link" href="{BASE}/topics/{html_escape(topic)}/"><span class="side-main"><strong>{html_escape(topic_label(topic))}</strong></span><span class="count">{count}</span></a>'
+        for topic, count in topic_counts.most_common(12)
     )
     journal_links = []
     for journal_id, count in journal_counts.most_common(10):
@@ -212,7 +296,7 @@ def sidebar(records: list[dict[str, Any]]) -> str:
     <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">领域</div>{fields}</div>
+  <div class="side-block"><div class="side-title">文章主题</div>{topics}</div>
   <div class="side-block"><div class="side-title">今日涉及期刊</div>{journals}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
 </aside>"""
 
@@ -261,9 +345,9 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     for record in selected:
         doi = f'<span class="doi">{html_escape(record.get("doi"))}</span>' if record.get("doi") else "暂无 DOI"
         official_date = html_escape(record.get("published_online") or "未知")
-        fields = "".join(f'<span class="pill">{html_escape(field_label(field))}</span>' for field in record.get("fields", [])[:3])
+        fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in article_topics(record)[:3] if topic != "china")
         title_zh = record.get("title_zh")
-        title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else '<p class="title-zh pending">中文标题待翻译</p>'
+        title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
         china_related = is_china_related(record)
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
         search_text = " ".join(
@@ -276,7 +360,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
                 record.get("doi"),
             ]
         )
-        field_attr = " ".join(str(field) for field in record.get("fields", []))
+        field_attr = " ".join(article_topics(record))
         chunks.append(
             f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
@@ -304,9 +388,9 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         },
         key=lambda item: item[1],
     )
-    today_fields = sorted({field for record in today_records for field in record.get("fields", [])}, key=field_label)
+    today_fields = sorted({topic for record in today_records for topic in article_topics(record)}, key=topic_label)
     journal_options = "".join(f'<option value="{html_escape(jid)}">{html_escape(title)}</option>' for jid, title in today_journals)
-    field_options = "".join(f'<option value="{html_escape(field)}">{html_escape(field_label(field))}</option>' for field in today_fields)
+    field_options = "".join(f'<option value="{html_escape(field)}">{html_escape(topic_label(field))}</option>' for field in today_fields)
     toolbar_hidden = " hidden" if not today_records else ""
     init_note = (
         '<div class="empty">今天暂未监测到新论文。你可以先查看<a href="/docs/archive/">历史归档</a>或<a href="/docs/journals/">监测期刊</a>；部署到 GitHub Actions 后，首页会按每小时监测结果更新。</div>'
@@ -334,7 +418,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 <div class="toolbar" id="filters"{toolbar_hidden}>
   <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者">
   <select class="control" id="journalFilter"><option value="">筛选期刊</option>{journal_options}</select>
-  <select class="control" id="fieldFilter"><option value="">筛选领域</option>{field_options}</select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option>{field_options}</select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   <a class="control primary" href="{BASE}/feed.xml">RSS 订阅</a>
 </div>
@@ -397,11 +481,14 @@ def main() -> None:
     by_date: dict[str, list[dict[str, Any]]] = defaultdict(list)
     by_journal: dict[str, list[dict[str, Any]]] = defaultdict(list)
     by_field: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    by_topic: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
         by_date[record.get("_daily_date") or detected_date(record) or "unknown"].append(record)
         by_journal[record.get("journal_id") or "unknown"].append(record)
         for field in record.get("fields", []) or ["unknown"]:
             by_field[field].append(record)
+        for topic in article_topics(record):
+            by_topic[topic].append(record)
 
     archive_links = []
     for daily_date, daily_records in sorted(by_date.items(), reverse=True):
@@ -442,6 +529,13 @@ def main() -> None:
     china_body = f"""<section class="section-head"><div><h2>与中国相关</h2><p>基于标题和摘要关键词初筛，后续可升级为 AI 主题判断。</p></div><p>{len(china_records)} 篇</p></section>
 {paper_events(china_records)}"""
     write_page(args.docs_dir / "topics" / "china" / "index.html", page("与中国相关", records, china_body))
+
+    for topic, topic_records in by_topic.items():
+        if topic == "china":
+            continue
+        title = topic_label(topic)
+        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>基于标题、摘要和期刊信息的文章主题标签，后续可升级为 AI 主题判断。</p></div><p>{len(topic_records)} 篇</p></section>{paper_events(topic_records)}'
+        write_page(args.docs_dir / "topics" / topic / "index.html", page(title, records, body))
 
     archive_body = '<section class="section-head"><div><h2>历史归档</h2><p>按本站首次监测日期整理。</p></div></section><ul class="archive-list">' + "\n".join(archive_links) + "</ul>"
     write_page(args.docs_dir / "archive" / "index.html", page("历史归档", records, archive_body, active="archive"))

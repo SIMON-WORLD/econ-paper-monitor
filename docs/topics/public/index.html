@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>公共与政治经济学</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
+.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
+.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
+.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
+.signal{border-left:1px solid var(--line);padding:30px 32px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:20px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
+.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
+.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="/docs/"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="/docs/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="/docs/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="/docs/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="/docs/topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">91</span></a><a class="side-link" href="/docs/topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">72</span></a><a class="side-link" href="/docs/topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">68</span></a><a class="side-link" href="/docs/topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">49</span></a><a class="side-link" href="/docs/topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">49</span></a><a class="side-link" href="/docs/topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">46</span></a><a class="side-link" href="/docs/topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">45</span></a><a class="side-link" href="/docs/topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">34</span></a><a class="side-link" href="/docs/topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">32</span></a><a class="side-link" href="/docs/topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">25</span></a><a class="side-link" href="/docs/topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">24</span></a><a class="side-link" href="/docs/topics/urban/"><span class="side-main"><strong>城市与区域</strong></span><span class="count">22</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="/docs/journals/australian-journal-of-agricultural-and-resource-economics/"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/environmental-and-resource-economics/"><span class="side-main"><strong>Environmental and Resource Economics</strong><em>环境与资源经济学</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/european-review-of-agricultural-economics/"><span class="side-main"><strong>European Review of Agricultural Economics</strong><em>欧洲农业经济评论</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-the-association-of-environmental-and-resource-economists/"><span class="side-main"><strong>Journal of the Association of Environmental and Resource Economists</strong><em>环境与资源经济学会会刊</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-environmental-economics-and-management/"><span class="side-main"><strong>Journal of Environmental Economics and Management</strong><em>环境经济学与管理杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-econometrics/"><span class="side-main"><strong>Journal of Econometrics</strong><em>计量经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-economic-dynamics-and-control/"><span class="side-main"><strong>Journal of Economic Dynamics and Control</strong><em>经济动态与控制杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="/docs/">今日</a>
+          <a href="/docs/topics/china/">与中国相关</a>
+          <a class="" href="/docs/archive/">归档</a>
+          <a href="/docs/journals/">监测期刊</a>
+          <a href="/docs/feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>公共与政治经济学</h2><p>基于标题、摘要和期刊信息的文章主题标签，后续可升级为 AI 主题判断。</p></div><p>91 篇</p></section><article class="event" data-search="issue information   applied economic perspectives and policy 10.1002/aepp.70092" data-journal="applied-economic-perspectives-and-policy" data-fields="public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70092">Issue Information</a></h3>
+    
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Applied Economic Perspectives and Policy</span><span>官方日期 2026-06-04</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1002/aepp.70092</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="how video‐based information affects farmers&#x27; willingness to pay for drone services  hua zhang, lena kuhn, hang xiong, zhanli sun, thomas glauben applied economic perspectives and policy 10.1002/aepp.70094" data-journal="applied-economic-perspectives-and-policy" data-fields="china agriculture finance public" data-china="true">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70094">How Video‐Based Information Affects Farmers&#x27; Willingness to Pay for Drone Services</a></h3>
+    
+    <p class="authors">Hua Zhang, Lena Kuhn, Hang Xiong, Zhanli Sun, Thomas Glauben</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Applied Economic Perspectives and Policy</span><span>官方日期 2026-06-03</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1002/aepp.70094</span></span><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="recommendations to reform the national electricity market (
+                    &lt;scp&gt;nem&lt;/scp&gt;
+                    )  tim nelson, paula conboy, ava hancock, phil hirschhorn australian journal of agricultural and resource economics 10.1111/1467-8489.70125" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment finance public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70125">Recommendations to Reform the National Electricity Market (
+                    &lt;scp&gt;NEM&lt;/scp&gt;
+                    )</a></h3>
+    
+    <p class="authors">Tim Nelson, Paula Conboy, Ava Hancock, Phil Hirschhorn</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Australian Journal of Agricultural and Resource Economics</span><span>官方日期 2026-06-12</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/1467-8489.70125</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the feasibility of household food waste reduction in finland: insights from five consumer profiles  aino friman, dušan drabik australian journal of agricultural and resource economics 10.1111/1467-8489.70126" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development labor public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70126">The Feasibility of Household Food Waste Reduction in Finland: Insights From Five Consumer Profiles</a></h3>
+    
+    <p class="authors">Aino Friman, Dušan Drabik</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Australian Journal of Agricultural and Resource Economics</span><span>官方日期 2026-06-11</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/1467-8489.70126</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the impact of income subsidies on maize harvest losses: evidence from chinese farmers  xue qu, yi luo, yonghao hu, laping wu australian journal of agricultural and resource economics 10.1111/1467-8489.70118" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="china agriculture public trade" data-china="true">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70118">The Impact of Income Subsidies on Maize Harvest Losses: Evidence From Chinese Farmers</a></h3>
+    
+    <p class="authors">Xue Qu, Yi Luo, Yonghao Hu, Laping Wu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Australian Journal of Agricultural and Resource Economics</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/1467-8489.70118</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="facilitating sugar taxes with top‐down and bottom‐up information: a combined approach for improved tax efficacy  jingbin wang, wuyang hu, kevin gu, yuxuan peng, yang qing canadian journal of agricultural economics 10.1111/cjag.70017" data-journal="canadian-journal-of-agricultural-economics" data-fields="agriculture public behavior health" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/cjag.70017">Facilitating sugar taxes with top‐down and bottom‐up information: A combined approach for improved tax efficacy</a></h3>
+    
+    <p class="authors">Jingbin Wang, Wuyang Hu, Kevin Gu, Yuxuan Peng, Yang Qing</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Canadian Journal of Agricultural Economics</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/cjag.70017</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="interplay of crop diversity and agricultural area in agroecosystem services: analytical and empirical study on local water quality  yunsun park, seong d. yun, matthew g. interis, t. edward yu canadian journal of agricultural economics 10.1111/cjag.70018" data-journal="canadian-journal-of-agricultural-economics" data-fields="agriculture public firms" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/cjag.70018">Interplay of crop diversity and agricultural area in agroecosystem services: Analytical and empirical study on local water quality</a></h3>
+    
+    <p class="authors">Yunsun Park, Seong D. Yun, Matthew G. Interis, T. Edward Yu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Canadian Journal of Agricultural Economics</span><span>官方日期 2026-05-25</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/cjag.70018</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="population ageing and the environment: a comparative study of nature-concerning and action-requiring outcomes  andreas irmen, maria krelifa, anastasia litina environmental and resource economics 10.1007/s10640-026-01094-1" data-journal="environmental-and-resource-economics" data-fields="environment public theory" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10640-026-01094-1">Population Ageing and the Environment: A Comparative Study of Nature-Concerning and Action-Requiring Outcomes</a></h3>
+    
+    <p class="authors">Andreas Irmen, Maria Krelifa, Anastasia Litina</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Environmental and Resource Economics</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10640-026-01094-1</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="tax progressivity of carbon and gasoline taxes: the role of income inequality  julius j. andersson, giles atkinson environmental and resource economics 10.1007/s10640-026-01093-2" data-journal="environmental-and-resource-economics" data-fields="environment public urban inequality" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10640-026-01093-2">Tax Progressivity of Carbon and Gasoline Taxes: The Role of Income Inequality</a></h3>
+    
+    <p class="authors">Julius J. Andersson, Giles Atkinson</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Environmental and Resource Economics</span><span>官方日期 2026-06-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10640-026-01093-2</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the role of specialized knowledge and ‘know-how’ for firm productivity: evidence from the equine sector  pia nilsson, hans andersson, tobias heldt european review of agricultural economics 10.1093/erae/jbag011" data-journal="european-review-of-agricultural-economics" data-fields="agriculture macro public education" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/erae/jbag011">The role of specialized knowledge and ‘know-how’ for firm productivity: Evidence from the equine sector</a></h3>
+    
+    <p class="authors">Pia Nilsson, Hans Andersson, Tobias Heldt</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>European Review of Agricultural Economics</span><span>官方日期 2026-06-04</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/erae/jbag011</span></span><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="comparing the effects of regulating new genomic techniques on investment decisions in the european union  maximilian kardung, yasmine ambrogio, kutay cingiz, nicola consmüller, katharina unkel 等 european review of agricultural economics 10.1093/erae/jbag004" data-journal="european-review-of-agricultural-economics" data-fields="agriculture public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/erae/jbag004">Comparing the effects of regulating new genomic techniques on investment decisions in the European Union</a></h3>
+    
+    <p class="authors">Maximilian Kardung, Yasmine Ambrogio, Kutay Cingiz, Nicola Consmüller, Katharina Unkel 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>European Review of Agricultural Economics</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/erae/jbag004</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="correction to: experimental mindset for environmental challenges: the puzzling case of public good contributions   european review of agricultural economics 10.1093/erae/jbag009" data-journal="european-review-of-agricultural-economics" data-fields="agriculture environment public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/erae/jbag009">Correction to: Experimental mindset for environmental challenges: the puzzling case of public good contributions</a></h3>
+    
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>European Review of Agricultural Economics</span><span>官方日期 2026-05-28</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/erae/jbag009</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="behavioural and social factors in farm-level agent-based models for european agricultural policy evaluations  robert huber, jesús barreiro-hurlé, robert finger european review of agricultural economics 10.1093/erae/jbag006" data-journal="european-review-of-agricultural-economics" data-fields="agriculture public trade behavior" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/erae/jbag006">Behavioural and social factors in farm-level agent-based models for European agricultural policy evaluations</a></h3>
+    
+    <p class="authors">Robert Huber, Jesús Barreiro-Hurlé, Robert Finger</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>European Review of Agricultural Economics</span><span>官方日期 2026-05-26</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/erae/jbag006</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="estimating the value of land in iran’s economy  ensieh mosaddeghi, mohammadbagher asadi land use policy 10.1016/j.landusepol.2026.108107" data-journal="land-use-policy" data-fields="agriculture public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108107">Estimating the value of land in Iran’s economy</a></h3>
+    
+    <p class="authors">Ensieh Mosaddeghi, Mohammadbagher Asadi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Land Use Policy</span><span>官方日期 2026-10-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.landusepol.2026.108107</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="land sparing and sharing: understanding the relationship between different construction land strategies and land functions in karst areas  lei kang, erqi xu land use policy 10.1016/j.landusepol.2026.108141" data-journal="land-use-policy" data-fields="agriculture public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108141">Land sparing and sharing: Understanding the relationship between different construction land strategies and land functions in karst areas</a></h3>
+    
+    <p class="authors">Lei Kang, Erqi Xu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Land Use Policy</span><span>官方日期 2026-10-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.landusepol.2026.108141</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="impact of gender equality on forest protection: role of economic, social, political and energy factors  xiaojiao zhu, haochang yang land use policy 10.1016/j.landusepol.2026.108148" data-journal="land-use-policy" data-fields="agriculture environment public inequality" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108148">Impact of gender equality on forest protection: Role of economic, social, political and energy factors</a></h3>
+    
+    <p class="authors">Xiaojiao Zhu, Haochang Yang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Land Use Policy</span><span>官方日期 2026-10-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.landusepol.2026.108148</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="exploring land cover change patterns in hyrcanian forests through spatiotemporal trend analysis (2000–2022)  qadir ashournejad, fateme garshasbi land use policy 10.1016/j.landusepol.2026.108116" data-journal="land-use-policy" data-fields="agriculture environment public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108116">Exploring land cover change patterns in Hyrcanian forests through spatiotemporal trend analysis (2000–2022)</a></h3>
+    
+    <p class="authors">Qadir Ashournejad, Fateme Garshasbi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Land Use Policy</span><span>官方日期 2026-10-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.landusepol.2026.108116</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="de-localization of global cities: how advanced producer services exacerbate regional spatial inequality?  jiaming li, jiachuan liu land use policy 10.1016/j.landusepol.2026.108140" data-journal="land-use-policy" data-fields="agriculture public trade urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108140">De-localization of global cities: How advanced producer services exacerbate regional spatial inequality?</a></h3>
+    
+    <p class="authors">Jiaming Li, Jiachuan Liu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Land Use Policy</span><span>官方日期 2026-10-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.landusepol.2026.108140</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the role of economic and weather conditions in farmer suicide in the united states  qi wu, pierre mérel, richard j. sexton agricultural economics 10.1111/agec.70127" data-journal="agricultural-economics" data-fields="agriculture environment finance public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/agec.70127">The Role of Economic and Weather Conditions in Farmer Suicide in the United States</a></h3>
+    
+    <p class="authors">Qi Wu, Pierre Mérel, Richard J. Sexton</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Agricultural Economics</span><span>官方日期 2026-06-12</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/agec.70127</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="from meat to plant‐based products? the enduring impact of bse on beef consumption  jader velásquez, shon ferguson agricultural economics 10.1111/agec.70120" data-journal="agricultural-economics" data-fields="agriculture environment public behavior" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/agec.70120">From Meat to Plant‐Based Products? The Enduring Impact of BSE on Beef Consumption</a></h3>
+    
+    <p class="authors">Jader Velásquez, Shon Ferguson</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Agricultural Economics</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/agec.70120</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="fertilising climate policy: the dual impact of
+                    &lt;scp&gt;cbam&lt;/scp&gt;
+                    on
+                    &lt;scp&gt;eu&lt;/scp&gt;
+                    agricultural emissions and regional disparities  davit stepanyan, omid zamani, claudia heidecke, janine pelikan, jörg rieger 等 journal of agricultural economics 10.1111/1477-9552.70060" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment public trade" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1477-9552.70060">Fertilising Climate Policy: The Dual Impact of
+                    &lt;scp&gt;CBAM&lt;/scp&gt;
+                    on
+                    &lt;scp&gt;EU&lt;/scp&gt;
+                    Agricultural Emissions and Regional Disparities</a></h3>
+    
+    <p class="authors">Davit Stepanyan, Omid Zamani, Claudia Heidecke, Janine Pelikan, Jörg Rieger 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Agricultural Economics</span><span>官方日期 2026-06-03</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/1477-9552.70060</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="food price inflation forecasting: insights from a macroeconomic auto-regressive random forest approach  william mcwilliams, shamar l. stewart, olga isengildina massa food policy 10.1016/j.foodpol.2026.103115" data-journal="food-policy" data-fields="agriculture environment macro public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103115">Food price inflation forecasting: Insights from a Macroeconomic Auto-Regressive Random Forest approach</a></h3>
+    
+    <p class="authors">William McWilliams, Shamar L. Stewart, Olga Isengildina Massa</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Food Policy</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.foodpol.2026.103115</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="managed urbanization and agricultural productivity: evidence from china’s new-type urbanization pilot program  tianxiang li, yuanyi liao, tomas baležentis, zhiyang shen food policy 10.1016/j.foodpol.2026.103129" data-journal="food-policy" data-fields="china agriculture macro public" data-china="true">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103129">Managed urbanization and agricultural productivity: evidence from China’s New-type urbanization pilot program</a></h3>
+    
+    <p class="authors">Tianxiang Li, Yuanyi Liao, Tomas Baležentis, Zhiyang Shen</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Food Policy</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.foodpol.2026.103129</span></span><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="strait of hormuz disruption, fertilizer market transmission, and food policy response  sandro steinbach, shawn arita, rwit chakravorty, jiyeon kim, ming wang food policy 10.1016/j.foodpol.2026.103116" data-journal="food-policy" data-fields="agriculture finance public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103116">Strait of Hormuz disruption, fertilizer market transmission, and food policy response</a></h3>
+    
+    <p class="authors">Sandro Steinbach, Shawn Arita, Rwit Chakravorty, Jiyeon Kim, Ming Wang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Food Policy</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.foodpol.2026.103116</span></span><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="is newer better? the effect of varietal age on real-world maize yield in kenya  michael k. ndegwa, paul n. nyangáu, sarah kariuki, moti jaleta, hope michelson 等 food policy 10.1016/j.foodpol.2026.103112" data-journal="food-policy" data-fields="agriculture public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103112">Is newer better? The effect of varietal age on real-world maize yield in Kenya</a></h3>
+    
+    <p class="authors">Michael K. Ndegwa, Paul N. Nyangáu, Sarah Kariuki, Moti Jaleta, Hope Michelson 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Food Policy</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.foodpol.2026.103112</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="do producer organizations promote climate-smart agriculture? assessing direct and spillover effects in nigeria  abebayehu girma geffersa, martin paul jr. tabe-ojong food policy 10.1016/j.foodpol.2026.103117" data-journal="food-policy" data-fields="agriculture environment public firms" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103117">Do Producer organizations Promote Climate-Smart Agriculture? assessing direct and spillover effects in Nigeria</a></h3>
+    
+    <p class="authors">Abebayehu Girma Geffersa, Martin Paul Jr. Tabe-Ojong</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Food Policy</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.foodpol.2026.103117</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="international tax evasion, state purchases of confidential bank data and voluntary disclosures  dirk bethmann, michael kvasnicka journal of comparative economics 10.1016/j.jce.2025.11.005" data-journal="journal-of-comparative-economics" data-fields="finance public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jce.2025.11.005">International tax evasion, state purchases of confidential bank data and voluntary disclosures</a></h3>
+    
+    <p class="authors">Dirk Bethmann, Michael Kvasnicka</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jce.2025.11.005</span></span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="perizinan berusaha dalam perspektif hukum administrasi negara dan ekonomi  zulfikar ali, intan meitasari, yuniwati yuniwati journal of law &amp; economics 10.56347/jle.v5i1.426" data-journal="journal-of-law-and-economics" data-fields="finance public trade behavior" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.56347/jle.v5i1.426">Perizinan Berusaha dalam Perspektif Hukum Administrasi Negara dan Ekonomi</a></h3>
+    
+    <p class="authors">Zulfikar Ali, Intan Meitasari, Yuniwati Yuniwati</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Law &amp; Economics</span><span>官方日期 2026-05-30</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.56347/jle.v5i1.426</span></span><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="pemahaman dan kepatuhan wajib pajak terhadap ppn dan pph pasal 21 di jawa barat  faridz maulana arif, fauzan ali nursya’bani, muhammad afif, muhammad ikhsan al anshori, rakha al gifhari budiman 等 journal of law &amp; economics 10.56347/jle.v5i1.427" data-journal="journal-of-law-and-economics" data-fields="public behavior education" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.56347/jle.v5i1.427">Pemahaman dan Kepatuhan Wajib Pajak terhadap PPN dan PPh Pasal 21 di Jawa Barat</a></h3>
+    
+    <p class="authors">Faridz Maulana Arif, Fauzan Ali Nursya’bani, Muhammad Afif, Muhammad Ikhsan Al Anshori, Rakha Al Gifhari Budiman 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Law &amp; Economics</span><span>官方日期 2026-05-30</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.56347/jle.v5i1.427</span></span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">教育</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="public information and coordination with a divided majority  caleb a. cox, angela de oliveira, brock stoddard experimental economics 10.1017/eec.2026.10051" data-journal="experimental-economics" data-fields="labor public trade theory" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1017/eec.2026.10051">Public information and coordination with a divided majority</a></h3>
+    
+    <p class="authors">Caleb A. Cox, Angela de Oliveira, Brock Stoddard</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Experimental Economics</span><span>官方日期 2026-06-04</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1017/eec.2026.10051</span></span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="information preferences, reference points and hedonic editing: experimental evidence  noemi peter, mark van oldeniel experimental economics 10.1017/eec.2026.10052" data-journal="experimental-economics" data-fields="macro public behavior" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1017/eec.2026.10052">Information preferences, reference points and hedonic editing: experimental evidence</a></h3>
+    
+    <p class="authors">Noemi Peter, Mark van Oldeniel</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Experimental Economics</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1017/eec.2026.10052</span></span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="virtual currencies in online gaming increase the willingness to pay for loot boxes: an experimental analysis  niccolò toccafondi, roberto di paolo, sibilla di guida experimental economics 10.1017/eec.2026.10049" data-journal="experimental-economics" data-fields="environment macro public theory" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1017/eec.2026.10049">Virtual currencies in online gaming increase the willingness to pay for loot boxes: an experimental analysis</a></h3>
+    
+    <p class="authors">Niccolò Toccafondi, Roberto Di Paolo, Sibilla Di Guida</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Experimental Economics</span><span>官方日期 2026-05-18</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1017/eec.2026.10049</span></span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="an experiment on a multi-period beauty contest game  nobuyuki hanaki, yuta takahashi experimental economics 10.1017/eec.2026.10048" data-journal="experimental-economics" data-fields="agriculture environment public theory" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1017/eec.2026.10048">An experiment on a multi-period beauty contest game</a></h3>
+    
+    <p class="authors">Nobuyuki Hanaki, Yuta Takahashi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Experimental Economics</span><span>官方日期 2026-05-15</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1017/eec.2026.10048</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="occupational affiliation and the incidence of environmental regulation  alex l. marten, andrew schreiber, ann wolverton journal of environmental economics and management 10.1016/j.jeem.2026.103361" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jeem.2026.103361">Occupational affiliation and the incidence of environmental regulation</a></h3>
+    
+    <p class="authors">Alex L. Marten, Andrew Schreiber, Ann Wolverton</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jeem.2026.103361</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="long‐term debt and short‐term rates: fixed‐rate mortgages and monetary transmission  alessia de stefani, rui c. mano journal of money, credit and banking 10.1111/jmcb.70069" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro public theory" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/jmcb.70069">Long‐Term Debt and Short‐Term Rates: Fixed‐Rate Mortgages and Monetary Transmission</a></h3>
+    
+    <p class="authors">ALESSIA DE STEFANI, RUI C. MANO</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Money, Credit and Banking</span><span>官方日期 2026-06-12</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/jmcb.70069</span></span><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="delisting regulation and intra-industry spillover effect: from the perspective of common institutional ownership  jingtong wu, haifang xiong, zhiqiang wang applied economics 10.1080/00036846.2026.2687731" data-journal="applied-economics" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1080/00036846.2026.2687731">Delisting regulation and intra-industry spillover effect: from the perspective of common institutional ownership</a></h3>
+    
+    <p class="authors">Jingtong Wu, Haifang Xiong, Zhiqiang Wang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Applied Economics</span><span>官方日期 2026-06-13</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1080/00036846.2026.2687731</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="regularization of synthetic controls for policy evaluation  yi‐ting chen journal of applied econometrics 10.1002/jae.70071" data-journal="journal-of-applied-econometrics" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/jae.70071">Regularization of Synthetic Controls for Policy Evaluation</a></h3>
+    
+    <p class="authors">Yi‐Ting Chen</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Applied Econometrics</span><span>官方日期 2026-05-27</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1002/jae.70071</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="government demand and firm growth  bernard hoekman, marco sanfilippo, filippo santi, rohit ticku journal of development economics 10.1016/j.jdeveco.2026.103832" data-journal="journal-of-development-economics" data-fields="development macro public firms" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103832">Government demand and firm growth</a></h3>
+    
+    <p class="authors">Bernard Hoekman, Marco Sanfilippo, Filippo Santi, Rohit Ticku</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jdeveco.2026.103832</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="non-normal empirical bayes prediction of local welfare  chris elbers, roy van der weide journal of development economics 10.1016/j.jdeveco.2026.103835" data-journal="journal-of-development-economics" data-fields="development public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103835">Non-normal Empirical Bayes prediction of local welfare</a></h3>
+    
+    <p class="authors">Chris Elbers, Roy van der Weide</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jdeveco.2026.103835</span></span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="voting on public goods: citizens vs shareholders  robin döttling, doron levit, nadya malenko, magdalena rola-janicka review of financial studies 10.1093/rfs/hhag051" data-journal="review-of-financial-studies" data-fields="finance public trade behavior" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/rfs/hhag051">Voting on Public Goods: Citizens vs Shareholders</a></h3>
+    
+    <p class="authors">Robin Döttling, Doron Levit, Nadya Malenko, Magdalena Rola-Janicka</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Financial Studies</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/rfs/hhag051</span></span><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the real effect of sociopolitical racial/ethnic animus: mutual fund manager performance during aapi hate  vikas agarwal, wei jiang, yuchen luo, hong zou review of financial studies 10.1093/rfs/hhag052" data-journal="review-of-financial-studies" data-fields="china finance macro public" data-china="true">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/rfs/hhag052">The Real Effect of Sociopolitical Racial/Ethnic Animus: Mutual Fund Manager Performance during AAPI Hate</a></h3>
+    
+    <p class="authors">Vikas Agarwal, Wei Jiang, Yuchen Luo, Hong Zou</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Financial Studies</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/rfs/hhag052</span></span><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="global capital and local assets: house prices, quantities, and elasticities*  caitlin s gorback, benjamin j keys review of financial studies 10.1093/rfs/hhag040" data-journal="review-of-financial-studies" data-fields="agriculture finance public trade" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/rfs/hhag040">Global Capital and Local Assets: House Prices, Quantities, and Elasticities*</a></h3>
+    
+    <p class="authors">Caitlin S Gorback, Benjamin J Keys</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Financial Studies</span><span>官方日期 2026-05-22</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/rfs/hhag040</span></span><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="monetary policy transmission through the exchange rate factor structure  erik loualiche, alexandre r. pecora, fabricius somogyi, colin ward journal of financial economics 10.1016/j.jfineco.2026.104305" data-journal="journal-of-financial-economics" data-fields="finance macro public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104305">Monetary policy transmission through the exchange rate factor structure</a></h3>
+    
+    <p class="authors">Erik Loualiche, Alexandre R. Pecora, Fabricius Somogyi, Colin Ward</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Financial Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jfineco.2026.104305</span></span><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="income distribution, taxation and shifting in a federal fiscal structure  federico revelli, tsung‐sheng tsai, roberto zotti canadian journal of economics 10.1111/caje.70055" data-journal="canadian-journal-of-economics" data-fields="public urban inequality" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/caje.70055">Income distribution, taxation and shifting in a federal fiscal structure</a></h3>
+    
+    <p class="authors">Federico Revelli, Tsung‐Sheng Tsai, Roberto Zotti</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Canadian Journal of Economics</span><span>官方日期 2026-05-18</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/caje.70055</span></span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">不平等</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="regional and local divergence in welfare provision in england and wales, 1776–1815  john broad economic history review 10.1111/ehr.70129" data-journal="economic-history-review" data-fields="public urban history" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/ehr.70129">Regional and local divergence in welfare provision in England and Wales, 1776–1815</a></h3>
+    
+    <p class="authors">John Broad</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic History Review</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/ehr.70129</span></span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">经济史</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="shaking giants: tax accounting, profit shifting, and the slow art of challenging the status quo  leslie robinson international tax and public finance 10.1007/s10797-026-09980-6" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10797-026-09980-6">Shaking giants: tax accounting, profit shifting, and the slow art of challenging the status quo</a></h3>
+    
+    <p class="authors">Leslie Robinson</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Tax and Public Finance</span><span>官方日期 2026-06-12</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10797-026-09980-6</span></span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="public pensions and ltc insurance with family solidarity  yukihiro nishimura, pierre pestieau international tax and public finance 10.1007/s10797-026-09978-0" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10797-026-09978-0">Public pensions and LTC insurance with family solidarity</a></h3>
+    
+    <p class="authors">Yukihiro Nishimura, Pierre Pestieau</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Tax and Public Finance</span><span>官方日期 2026-06-08</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10797-026-09978-0</span></span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="incentives versus deterrent measures and tax compliance of landowners in benin: a randomized controlled trial approach  damas hounsounon, jonas fassinou international tax and public finance 10.1007/s10797-026-09969-1" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10797-026-09969-1">Incentives versus deterrent measures and tax compliance of landowners in Benin: a randomized controlled trial approach</a></h3>
+    
+    <p class="authors">Damas Hounsounon, Jonas Fassinou</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Tax and Public Finance</span><span>官方日期 2026-06-03</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10797-026-09969-1</span></span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="willing but unable to pay? gender, preferences, resources, and tax compliance  andrea lopez-luzuriaga, carlos scartascini international tax and public finance 10.1007/s10797-026-09975-3" data-journal="international-tax-and-public-finance" data-fields="development finance public econometrics" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10797-026-09975-3">Willing but unable to pay? Gender, preferences, resources, and tax compliance</a></h3>
+    
+    <p class="authors">Andrea Lopez-Luzuriaga, Carlos Scartascini</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Tax and Public Finance</span><span>官方日期 2026-05-29</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10797-026-09975-3</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="can energy transition strengthen tax revenue mobilization in developing countries? empirical evidence and policy implications  atangana ondoa henri, ngobo philibert junior international tax and public finance 10.1007/s10797-026-09973-5" data-journal="international-tax-and-public-finance" data-fields="environment finance public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10797-026-09973-5">Can energy transition strengthen tax revenue mobilization in developing countries? Empirical evidence and policy implications</a></h3>
+    
+    <p class="authors">Atangana Ondoa Henri, Ngobo Philibert Junior</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Tax and Public Finance</span><span>官方日期 2026-05-21</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10797-026-09973-5</span></span><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="downstream centrality and industry lobbying in production networks  kwok ping tsang public choice 10.1007/s11127-026-01428-z" data-journal="public-choice" data-fields="public econometrics theory" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01428-z">Downstream centrality and industry lobbying in production networks</a></h3>
+    
+    <p class="authors">Kwok Ping Tsang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Public Choice</span><span>官方日期 2026-06-10</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s11127-026-01428-z</span></span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="when the money stops: fiscal and political reactions to changing grant eligibility  touria jaaidane, sophie larribeau public choice 10.1007/s11127-026-01410-9" data-journal="public-choice" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01410-9">When the money stops: fiscal and political reactions to changing grant eligibility</a></h3>
+    
+    <p class="authors">Touria Jaaidane, Sophie Larribeau</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Public Choice</span><span>官方日期 2026-06-10</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s11127-026-01410-9</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="why bloomington is not in virginia: contrasting the social ontologies, methodologies, and governance theories of the ostroms and buchanan  massimo cervesato public choice 10.1007/s11127-026-01419-0" data-journal="public-choice" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01419-0">Why Bloomington is not in Virginia: Contrasting the social ontologies, methodologies, and governance theories of the Ostroms and Buchanan</a></h3>
+    
+    <p class="authors">Massimo Cervesato</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Public Choice</span><span>官方日期 2026-06-09</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s11127-026-01419-0</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="loose bricks in the wall: underground press and political opposition in non-democracies  olga tcaci public choice 10.1007/s11127-026-01401-w" data-journal="public-choice" data-fields="public behavior" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01401-w">Loose bricks in the wall: Underground press and political opposition in non-democracies</a></h3>
+    
+    <p class="authors">Olga Tcaci</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Public Choice</span><span>官方日期 2026-06-08</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s11127-026-01401-w</span></span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="ethnic bias, commitment and public good provisioning  sukanta bhattacharya, t c shinali public choice 10.1007/s11127-026-01417-2" data-journal="public-choice" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01417-2">Ethnic bias, commitment and public good provisioning</a></h3>
+    
+    <p class="authors">Sukanta Bhattacharya, T C Shinali</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Public Choice</span><span>官方日期 2026-06-03</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s11127-026-01417-2</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="do grades have absolute meaning? an experiment on majority judgment  théo delemazure, roberto brunetti, antoinette baujard, sylvain bouveret social choice and welfare 10.1007/s00355-026-01665-7" data-journal="social-choice-and-welfare" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s00355-026-01665-7">Do grades have absolute meaning? An experiment on majority judgment</a></h3>
+    
+    <p class="authors">Théo Delemazure, Roberto Brunetti, Antoinette Baujard, Sylvain Bouveret</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Social Choice and Welfare</span><span>官方日期 2026-06-10</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s00355-026-01665-7</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="formation of teams in contests: tradeoffs between inter- and intra-team inequalities  hideo konishi, chen-yu pan, dimitar simeonov social choice and welfare 10.1007/s00355-026-01663-9" data-journal="social-choice-and-welfare" data-fields="public trade" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s00355-026-01663-9">Formation of teams in contests: tradeoffs between inter- and intra-team inequalities</a></h3>
+    
+    <p class="authors">Hideo Konishi, Chen-Yu Pan, Dimitar Simeonov</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Social Choice and Welfare</span><span>官方日期 2026-06-03</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s00355-026-01663-9</span></span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="fiscal externalities of transaction taxes: evidence from the los angeles mansion tax  daniel green, vikram jambulapati, jack liebersohn, tejaswi velayudhan journal of public economics 10.1016/j.jpubeco.2026.105678" data-journal="journal-of-public-economics" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105678">Fiscal externalities of transaction taxes: Evidence from the Los Angeles mansion tax</a></h3>
+    
+    <p class="authors">Daniel Green, Vikram Jambulapati, Jack Liebersohn, Tejaswi Velayudhan</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Public Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jpubeco.2026.105678</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="do pensions enhance effort and selective retention?: evidence from public schools  michael bates, andrew c. johnston journal of public economics 10.1016/j.jpubeco.2026.105684" data-journal="journal-of-public-economics" data-fields="public education" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105684">Do pensions enhance effort and selective retention?: Evidence from public schools</a></h3>
+    
+    <p class="authors">Michael Bates, Andrew C. Johnston</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Public Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jpubeco.2026.105684</span></span><span class="pill">公共与政治经济学</span><span class="pill">教育</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="occupational hazard? an analysis of birth outcomes among physician mothers  anupam b. jena, david slusky, lilly springer journal of public economics 10.1016/j.jpubeco.2026.105680" data-journal="journal-of-public-economics" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105680">Occupational Hazard? An analysis of birth outcomes among physician mothers</a></h3>
+    
+    <p class="authors">Anupam B. Jena, David Slusky, Lilly Springer</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Public Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jpubeco.2026.105680</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="noncredit workforce training, industry credentials, and labor market outcomes  di xu, kelli a. bird, michael cooper, benjamin l. castleman journal of public economics 10.1016/j.jpubeco.2026.105679" data-journal="journal-of-public-economics" data-fields="finance labor public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105679">Noncredit workforce training, industry credentials, and labor market outcomes</a></h3>
+    
+    <p class="authors">Di Xu, Kelli A. Bird, Michael Cooper, Benjamin L. Castleman</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Public Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jpubeco.2026.105679</span></span><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="combining part-time work and social benefits: empirical evidence from finland  salla kalin, tomi kyyrä, tuomas matikka journal of public economics 10.1016/j.jpubeco.2026.105685" data-journal="journal-of-public-economics" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105685">Combining part-time work and social benefits: Empirical evidence from Finland</a></h3>
+    
+    <p class="authors">Salla Kalin, Tomi Kyyrä, Tuomas Matikka</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Public Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jpubeco.2026.105685</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="make or buy decisions and data sharing  antoine dubus, patrick legros journal of industrial economics 10.1111/joie.70030" data-journal="journal-of-industrial-economics" data-fields="public behavior firms" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/joie.70030">Make or Buy Decisions and Data Sharing</a></h3>
+    
+    <p class="authors">Antoine Dubus, Patrick Legros</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Industrial Economics</span><span>官方日期 2026-05-22</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/joie.70030</span></span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="network attrition: theory and policy implications  christophe bravard, promit k. chaudhuri, sudipta sarangi, hector tzavellas games and economic behavior 10.1016/j.geb.2026.06.002" data-journal="games-and-economic-behavior" data-fields="public theory behavior" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.geb.2026.06.002">Network attrition: Theory and policy implications</a></h3>
+    
+    <p class="authors">Christophe Bravard, Promit K. Chaudhuri, Sudipta Sarangi, Hector Tzavellas</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Games and Economic Behavior</span><span>官方日期 2026-09-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.geb.2026.06.002</span></span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="shifting the reference point in environmental regulation: from polluter‐pays to beneficiaries‐compensate  jens gudmundsson, jens leth hougaard, erik ansink scandinavian journal of economics 10.1111/sjoe.70030" data-journal="scandinavian-journal-of-economics" data-fields="environment finance public theory" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/sjoe.70030">Shifting the reference point in environmental regulation: from polluter‐pays to beneficiaries‐compensate</a></h3>
+    
+    <p class="authors">Jens Gudmundsson, Jens Leth Hougaard, Erik Ansink</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Scandinavian Journal of Economics</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/sjoe.70030</span></span><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="on the optimality of social security instruments  pablo garcia‐sanchez, luca marchiori, olivier pierrard scandinavian journal of economics 10.1111/sjoe.70029" data-journal="scandinavian-journal-of-economics" data-fields="finance public health" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/sjoe.70029">On the optimality of social security instruments</a></h3>
+    
+    <p class="authors">Pablo Garcia‐Sanchez, Luca Marchiori, Olivier Pierrard</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Scandinavian Journal of Economics</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/sjoe.70029</span></span><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">健康</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="self‐esteem and rational self‐handicapping  rachel mannahan scandinavian journal of economics 10.1111/sjoe.70028" data-journal="scandinavian-journal-of-economics" data-fields="public behavior education" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/sjoe.70028">Self‐esteem and rational self‐handicapping</a></h3>
+    
+    <p class="authors">Rachel Mannahan</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Scandinavian Journal of Economics</span><span>官方日期 2026-06-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/sjoe.70028</span></span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">教育</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="information disclosure and questionnaires in public tenders  thomas greve, hans keiding scandinavian journal of economics 10.1111/sjoe.70027" data-journal="scandinavian-journal-of-economics" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/sjoe.70027">Information disclosure and questionnaires in public tenders</a></h3>
+    
+    <p class="authors">Thomas Greve, Hans Keiding</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Scandinavian Journal of Economics</span><span>官方日期 2026-05-19</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/sjoe.70027</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="are the upwardly mobile more left‐wing?  andrew e. clark, maria cotofan economica 10.1111/ecca.70059" data-journal="economica" data-fields="public behavior inequality" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/ecca.70059">Are the upwardly mobile more Left‐wing?</a></h3>
+    
+    <p class="authors">Andrew E. Clark, Maria Cotofan</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economica</span><span>官方日期 2026-06-06</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/ecca.70059</span></span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">不平等</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="creative‐class dynamics, technological evolution and growth  torben klarl economica 10.1111/ecca.70060" data-journal="economica" data-fields="development macro public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/ecca.70060">Creative‐class dynamics, technological evolution and growth</a></h3>
+    
+    <p class="authors">Torben Klarl</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economica</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/ecca.70060</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="improving tax revenues in the emerging markets: a laffer curve analysis  sargam gupta, snigdha kalra economic inquiry 10.1111/ecin.70069" data-journal="economic-inquiry" data-fields="development finance macro public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/ecin.70069">Improving tax revenues in the emerging markets: A Laffer curve analysis</a></h3>
+    
+    <p class="authors">Sargam Gupta, Snigdha Kalra</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Inquiry</span><span>官方日期 2026-06-13</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/ecin.70069</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="a qualitative assessment of quantitative easing sentiment  niamh wylie, martha o’hagan‐luff economic inquiry 10.1111/ecin.70068" data-journal="economic-inquiry" data-fields="agriculture finance macro public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/ecin.70068">A qualitative assessment of quantitative easing sentiment</a></h3>
+    
+    <p class="authors">Niamh Wylie, Martha O’Hagan‐Luff</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Inquiry</span><span>官方日期 2026-06-06</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/ecin.70068</span></span><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="corruption as a political control device: enforceable vulnerability and coalition breakdown  xiaodong zhang economics letters 10.1016/j.econlet.2026.113073" data-journal="economics-letters" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.econlet.2026.113073">Corruption as a political control device: Enforceable vulnerability and coalition breakdown</a></h3>
+    
+    <p class="authors">Xiaodong Zhang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.econlet.2026.113073</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="college loans and human capital investment  chao fu, hsuan‐chih (luke) lin, atsuko tanaka international economic review 10.1111/iere.70080" data-journal="international-economic-review" data-fields="labor public education" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/iere.70080">College Loans and Human Capital Investment</a></h3>
+    
+    <p class="authors">Chao Fu, Hsuan‐Chih (Luke) Lin, Atsuko Tanaka</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Economic Review</span><span>官方日期 2026-06-07</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/iere.70080</span></span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">教育</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="what determines state heterogeneity in response to u.s. tariff changes?  ana maria santacreu, michael sposi, jing zhang international economic review 10.1111/iere.70081" data-journal="international-economic-review" data-fields="public trade urban inequality" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/iere.70081">What Determines State Heterogeneity in Response to U.S. Tariff Changes?</a></h3>
+    
+    <p class="authors">Ana Maria Santacreu, Michael Sposi, Jing Zhang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Economic Review</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/iere.70081</span></span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="a demand theory of the price level  marcus hagedorn international economic review 10.1111/iere.70064" data-journal="international-economic-review" data-fields="agriculture finance macro public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/iere.70064">A Demand Theory of the Price Level</a></h3>
+    
+    <p class="authors">Marcus Hagedorn</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Economic Review</span><span>官方日期 2026-05-23</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/iere.70064</span></span><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="socially optimal crime and punishment  eduardo ferraz, rodrigo r soares journal of the european economic association 10.1093/jeea/jvag025" data-journal="journal-of-the-european-economic-association" data-fields="public trade theory education" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/jeea/jvag025">Socially Optimal Crime and Punishment</a></h3>
+    
+    <p class="authors">Eduardo Ferraz, Rodrigo R Soares</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of the European Economic Association</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/jeea/jvag025</span></span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="climate change and migration: the case of africa,  bruno conte journal of the european economic association 10.1093/jeea/jvag035" data-journal="journal-of-the-european-economic-association" data-fields="environment labor public trade" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/jeea/jvag035">Climate Change and Migration: The Case of Africa,</a></h3>
+    
+    <p class="authors">Bruno Conte</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of the European Economic Association</span><span>官方日期 2026-05-29</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/jeea/jvag035</span></span><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="an empirical model of quantity discounts with large choice sets  alessandro iaria, ao wang journal of the european economic association 10.1093/jeea/jvag033" data-journal="journal-of-the-european-economic-association" data-fields="agriculture environment public behavior" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/jeea/jvag033">An Empirical Model of Quantity Discounts with Large Choice Sets</a></h3>
+    
+    <p class="authors">Alessandro Iaria, Ao Wang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of the European Economic Association</span><span>官方日期 2026-05-23</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/jeea/jvag033</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="mis(sed) diagnosis: physician decision making and adhd  kelli marquardt journal of political economy 10.1086/742421" data-journal="journal-of-political-economy" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742421">Mis(sed) Diagnosis: Physician Decision Making and ADHD</a></h3>
+    
+    <p class="authors">Kelli Marquardt</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Political Economy</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1086/742421</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="from doubt to devotion: trials and learning-based pricing  tan gan, nicholas wu journal of political economy 10.1086/742434" data-journal="journal-of-political-economy" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742434">From Doubt to Devotion: Trials and Learning-Based Pricing</a></h3>
+    
+    <p class="authors">Tan Gan, Nicholas Wu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Political Economy</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1086/742434</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="markups: a search-theoretic perspective  guido menzio journal of political economy 10.1086/742420" data-journal="journal-of-political-economy" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742420">Markups: A Search-Theoretic Perspective</a></h3>
+    
+    <p class="authors">Guido Menzio</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Political Economy</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1086/742420</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the effect of education policy on crime: an intergenerational perspective  ulrika ahrsjö, costas meghir, marten palme, marieke schnabel journal of political economy 10.1086/742423" data-journal="journal-of-political-economy" data-fields="public education" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742423">The Effect of Education Policy on Crime: An Intergenerational Perspective</a></h3>
+    
+    <p class="authors">Ulrika Ahrsjö, Costas Meghir, Marten Palme, Marieke Schnabel</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Political Economy</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1086/742423</span></span><span class="pill">公共与政治经济学</span><span class="pill">教育</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="optimal tests following sequential experiments  karun adusumilli journal of political economy 10.1086/742418" data-journal="journal-of-political-economy" data-fields="public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742418">Optimal Tests Following Sequential Experiments</a></h3>
+    
+    <p class="authors">Karun Adusumilli</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Political Economy</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1086/742418</span></span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="spatial implications of telecommuting  matthew j delventhal, andrii parkhomenko review of economic studies 10.1093/restud/rdag057" data-journal="review-of-economic-studies" data-fields="macro labor public urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/restud/rdag057">Spatial Implications of Telecommuting</a></h3>
+    
+    <p class="authors">Matthew J Delventhal, Andrii Parkhomenko</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-11</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/restud/rdag057</span></span><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="a temporary vat cut as unconventional fiscal policy  rüdiger bachmann, benjamin born, olga goldfayn-frank, georgi kocharkov, ralph luetticke 等 review of economic studies 10.1093/restud/rdag055" data-journal="review-of-economic-studies" data-fields="agriculture development public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/restud/rdag055">A Temporary VAT Cut as Unconventional Fiscal Policy</a></h3>
+    
+    <p class="authors">Rüdiger Bachmann, Benjamin Born, Olga Goldfayn-Frank, Georgi Kocharkov, Ralph Luetticke 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-10</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/restud/rdag055</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="liquidity traps, prudential policies and international spillovers  javier bianchi, louphou coulibaly review of economic studies 10.1093/restud/rdag054" data-journal="review-of-economic-studies" data-fields="agriculture macro public" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/restud/rdag054">Liquidity Traps, Prudential Policies and International Spillovers</a></h3>
+    
+    <p class="authors">Javier Bianchi, Louphou Coulibaly</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-09</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/restud/rdag054</span></span><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="quantifying supply-side climate policies  lassi ahlvik, jørgen juel andersen, jonas hveding hamang, torfinn harding review of economic studies 10.1093/restud/rdag024" data-journal="review-of-economic-studies" data-fields="environment finance public trade" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/restud/rdag024">Quantifying Supply-Side Climate Policies</a></h3>
+    
+    <p class="authors">Lassi Ahlvik, Jørgen Juel Andersen, Jonas Hveding Hamang, Torfinn Harding</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-08</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/restud/rdag024</span></span><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="unpacking aggregate welfare in a spatial economy  eric donald, masao fukui, yuhei miyauchi review of economic studies 10.1093/restud/rdag021" data-journal="review-of-economic-studies" data-fields="macro public trade urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/restud/rdag021">Unpacking Aggregate Welfare in a Spatial Economy</a></h3>
+    
+    <p class="authors">Eric Donald, Masao Fukui, Yuhei Miyauchi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/restud/rdag021</span></span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="mergers, foreign competition, and jobs: evidence from the us appliance industry  felix montag american economic review 10.1257/aer.20230017" data-journal="american-economic-review" data-fields="labor public trade behavior" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1257/aer.20230017">Mergers, Foreign Competition, and Jobs: Evidence from the US Appliance Industry</a></h3>
+    
+    <p class="authors">Felix Montag</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>American Economic Review</span><span>官方日期 2026-06-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1257/aer.20230017</span></span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the private provision of public services: evidence from random assignment in medicaid  danil agafiev macambira, michael geruso, anthony lollo, chima d. ndumele, jacob wallace american economic review 10.1257/aer.20230541" data-journal="american-economic-review" data-fields="agriculture public theory behavior" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1257/aer.20230541">The Private Provision of Public Services: Evidence from Random Assignment in Medicaid</a></h3>
+    
+    <p class="authors">Danil Agafiev Macambira, Michael Geruso, Anthony Lollo, Chima D. Ndumele, Jacob Wallace</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>American Economic Review</span><span>官方日期 2026-06-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1257/aer.20230541</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></div>
+    </div>
+  </div>
+</article></main>
+    </div>
+  </div>
+</body>
+</html>

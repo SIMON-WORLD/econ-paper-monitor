@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>城市与区域</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
+.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
+.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
+.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
+.signal{border-left:1px solid var(--line);padding:30px 32px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:20px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
+.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
+.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="/docs/"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="/docs/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="/docs/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="/docs/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="/docs/topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">91</span></a><a class="side-link" href="/docs/topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">72</span></a><a class="side-link" href="/docs/topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">68</span></a><a class="side-link" href="/docs/topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">49</span></a><a class="side-link" href="/docs/topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">49</span></a><a class="side-link" href="/docs/topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">46</span></a><a class="side-link" href="/docs/topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">45</span></a><a class="side-link" href="/docs/topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">34</span></a><a class="side-link" href="/docs/topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">32</span></a><a class="side-link" href="/docs/topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">25</span></a><a class="side-link" href="/docs/topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">24</span></a><a class="side-link" href="/docs/topics/urban/"><span class="side-main"><strong>城市与区域</strong></span><span class="count">22</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="/docs/journals/australian-journal-of-agricultural-and-resource-economics/"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/environmental-and-resource-economics/"><span class="side-main"><strong>Environmental and Resource Economics</strong><em>环境与资源经济学</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/european-review-of-agricultural-economics/"><span class="side-main"><strong>European Review of Agricultural Economics</strong><em>欧洲农业经济评论</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-the-association-of-environmental-and-resource-economists/"><span class="side-main"><strong>Journal of the Association of Environmental and Resource Economists</strong><em>环境与资源经济学会会刊</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-environmental-economics-and-management/"><span class="side-main"><strong>Journal of Environmental Economics and Management</strong><em>环境经济学与管理杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-econometrics/"><span class="side-main"><strong>Journal of Econometrics</strong><em>计量经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-economic-dynamics-and-control/"><span class="side-main"><strong>Journal of Economic Dynamics and Control</strong><em>经济动态与控制杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="/docs/">今日</a>
+          <a href="/docs/topics/china/">与中国相关</a>
+          <a class="" href="/docs/archive/">归档</a>
+          <a href="/docs/journals/">监测期刊</a>
+          <a href="/docs/feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>城市与区域</h2><p>基于标题、摘要和期刊信息的文章主题标签，后续可升级为 AI 主题判断。</p></div><p>22 篇</p></section><article class="event" data-search="tax progressivity of carbon and gasoline taxes: the role of income inequality  julius j. andersson, giles atkinson environmental and resource economics 10.1007/s10640-026-01093-2" data-journal="environmental-and-resource-economics" data-fields="environment public urban inequality" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s10640-026-01093-2">Tax Progressivity of Carbon and Gasoline Taxes: The Role of Income Inequality</a></h3>
+    
+    <p class="authors">Julius J. Andersson, Giles Atkinson</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Environmental and Resource Economics</span><span>官方日期 2026-06-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s10640-026-01093-2</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="de-localization of global cities: how advanced producer services exacerbate regional spatial inequality?  jiaming li, jiachuan liu land use policy 10.1016/j.landusepol.2026.108140" data-journal="land-use-policy" data-fields="agriculture public trade urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108140">De-localization of global cities: How advanced producer services exacerbate regional spatial inequality?</a></h3>
+    
+    <p class="authors">Jiaming Li, Jiachuan Liu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Land Use Policy</span><span>官方日期 2026-10-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.landusepol.2026.108140</span></span><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the effect of social media, marketing communication, and customer reviews on purchasing decisions in e-commerce among generation z students in medan city  achiruddin siregar, moh. zaini, dwi wahyono, yuni candra, dikdik purwadisastra journal of law &amp; economics 10.56347/jle.v5i1.424" data-journal="journal-of-law-and-economics" data-fields="finance urban econometrics behavior" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.56347/jle.v5i1.424">The Effect of Social Media, Marketing Communication, and Customer Reviews on Purchasing Decisions in E-Commerce among Generation Z Students in Medan City</a></h3>
+    
+    <p class="authors">Achiruddin Siregar, Moh. Zaini, Dwi Wahyono, Yuni Candra, Dikdik Purwadisastra</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Law &amp; Economics</span><span>官方日期 2026-05-30</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.56347/jle.v5i1.424</span></span><span class="pill">金融</span><span class="pill">城市与区域</span><span class="pill">计量方法</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="who benefits from capacity reduction programs? insights from the u.s. pacific coast groundfish fishery  frederik strabo, matthew n. reimer, james n. sanchirico journal of environmental economics and management 10.1016/j.jeem.2026.103362" data-journal="journal-of-environmental-economics-and-management" data-fields="environment urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jeem.2026.103362">Who benefits from capacity reduction programs? Insights from the U.S. Pacific Coast groundfish fishery</a></h3>
+    
+    <p class="authors">Frederik Strabo, Matthew N. Reimer, James N. Sanchirico</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jeem.2026.103362</span></span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="how do smallholder farmers adapt to water scarcity? evidence from the three gorges dam  ting chen, chong liu, sen ma journal of environmental economics and management 10.1016/j.jeem.2026.103357" data-journal="journal-of-environmental-economics-and-management" data-fields="agriculture environment urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jeem.2026.103357">How do smallholder farmers adapt to water scarcity? Evidence from the three Gorges Dam</a></h3>
+    
+    <p class="authors">Ting Chen, Chong Liu, Sen Ma</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jeem.2026.103357</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="development approval times and new housing supply: evidence from los angeles  stuart gabriel, edward kung journal of urban economics 10.1016/j.jue.2026.103872" data-journal="journal-of-urban-economics" data-fields="development urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jue.2026.103872">Development approval times and new housing supply: Evidence from Los Angeles</a></h3>
+    
+    <p class="authors">Stuart Gabriel, Edward Kung</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Urban Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jue.2026.103872</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="industrial spillovers from agricultural processing: evidence from the beet sugar industry  youn baek journal of urban economics 10.1016/j.jue.2026.103883" data-journal="journal-of-urban-economics" data-fields="agriculture urban firms" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jue.2026.103883">Industrial spillovers from agricultural processing: Evidence from the beet sugar industry</a></h3>
+    
+    <p class="authors">Youn Baek</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Urban Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jue.2026.103883</span></span><span class="pill">农业与食品</span><span class="pill">城市与区域</span><span class="pill">企业与产业</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="fracking ghost towns: how neighborhood exposure drives population decline  arman khachiyan journal of urban economics 10.1016/j.jue.2026.103870" data-journal="journal-of-urban-economics" data-fields="urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jue.2026.103870">Fracking ghost towns: How neighborhood exposure drives population decline</a></h3>
+    
+    <p class="authors">Arman Khachiyan</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Urban Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jue.2026.103870</span></span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="is ride-sharing good for environment? evidence from combining satellite and survey data on u.s. cities  yoshifumi konishi, akari ono journal of urban economics 10.1016/j.jue.2026.103882" data-journal="journal-of-urban-economics" data-fields="environment urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jue.2026.103882">Is ride-sharing good for environment? Evidence from combining satellite and survey data on U.S. cities</a></h3>
+    
+    <p class="authors">Yoshifumi Konishi, Akari Ono</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Urban Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jue.2026.103882</span></span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="jue insight: city size, monopsony, and the employment effects of minimum wages  priyaranjan jha, jyotsana kala, david neumark, antonio rodriguez-lopez journal of urban economics 10.1016/j.jue.2026.103868" data-journal="journal-of-urban-economics" data-fields="labor urban" data-china="false">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jue.2026.103868">JUE insight: City size, monopsony, and the employment effects of minimum wages</a></h3>
+    
+    <p class="authors">Priyaranjan Jha, Jyotsana Kala, David Neumark, Antonio Rodriguez-Lopez</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Urban Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jue.2026.103868</span></span><span class="pill">劳动</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="distance, prospects, and migration to towns and cities  joachim de weerdt, luc christiaensen, ravi kanbur world development 10.1016/j.worlddev.2026.107419" data-journal="world-development" data-fields="development labor urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107419">Distance, prospects, and migration to towns and cities</a></h3>
+    
+    <p class="authors">Joachim De Weerdt, Luc Christiaensen, Ravi Kanbur</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-11-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.worlddev.2026.107419</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="slum housing externalities  raimundo undurraga economic development and cultural change 10.1086/742606" data-journal="economic-development-and-cultural-change" data-fields="development urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742606">Slum Housing Externalities</a></h3>
+    
+    <p class="authors">Raimundo Undurraga</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Development and Cultural Change</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1086/742606</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="income distribution, taxation and shifting in a federal fiscal structure  federico revelli, tsung‐sheng tsai, roberto zotti canadian journal of economics 10.1111/caje.70055" data-journal="canadian-journal-of-economics" data-fields="public urban inequality" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/caje.70055">Income distribution, taxation and shifting in a federal fiscal structure</a></h3>
+    
+    <p class="authors">Federico Revelli, Tsung‐Sheng Tsai, Roberto Zotti</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Canadian Journal of Economics</span><span>官方日期 2026-05-18</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/caje.70055</span></span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">不平等</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="trade models, trade elasticities, and the gains from trade  ina simonovska, michael e. waugh journal of international economics 10.1016/j.jinteco.2026.104268" data-journal="journal-of-international-economics" data-fields="trade urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104268">Trade models, trade elasticities, and the gains from trade</a></h3>
+    
+    <p class="authors">Ina Simonovska, Michael E. Waugh</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of International Economics</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.jinteco.2026.104268</span></span><span class="pill">国际贸易</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="regional and local divergence in welfare provision in england and wales, 1776–1815  john broad economic history review 10.1111/ehr.70129" data-journal="economic-history-review" data-fields="public urban history" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/ehr.70129">Regional and local divergence in welfare provision in England and Wales, 1776–1815</a></h3>
+    
+    <p class="authors">John Broad</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic History Review</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/ehr.70129</span></span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">经济史</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the depth and breadth of capitalism at the cape  edward kerby, lloyd melusi maphosa economic history review 10.1111/ehr.70123" data-journal="economic-history-review" data-fields="finance macro urban behavior" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/ehr.70123">The depth and breadth of capitalism at the Cape</a></h3>
+    
+    <p class="authors">Edward Kerby, Lloyd Melusi Maphosa</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic History Review</span><span>官方日期 2026-05-24</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/ehr.70123</span></span><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="epidemic mortality and redistribution of housing wealth in leiden, 1632–1668  bram van besouw, daniel r. curtis, roos van oosten explorations in economic history 10.1016/j.eeh.2026.101768" data-journal="explorations-in-economic-history" data-fields="urban health inequality history" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.eeh.2026.101768">Epidemic mortality and redistribution of housing wealth in Leiden, 1632–1668</a></h3>
+    
+    <p class="authors">Bram van Besouw, Daniel R. Curtis, Roos van Oosten</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Explorations in Economic History</span><span>官方日期 2026-07-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.eeh.2026.101768</span></span><span class="pill">城市与区域</span><span class="pill">健康</span><span class="pill">不平等</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="interim agreements  dov samet international journal of game theory 10.1007/s00182-026-00996-0" data-journal="international-journal-of-game-theory" data-fields="urban theory" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s00182-026-00996-0">Interim agreements</a></h3>
+    
+    <p class="authors">Dov Samet</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Journal of Game Theory</span><span>官方日期 2026-05-22</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1007/s00182-026-00996-0</span></span><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="what determines state heterogeneity in response to u.s. tariff changes?  ana maria santacreu, michael sposi, jing zhang international economic review 10.1111/iere.70081" data-journal="international-economic-review" data-fields="public trade urban inequality" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/iere.70081">What Determines State Heterogeneity in Response to U.S. Tariff Changes?</a></h3>
+    
+    <p class="authors">Ana Maria Santacreu, Michael Sposi, Jing Zhang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>International Economic Review</span><span>官方日期 2026-06-02</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1111/iere.70081</span></span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="gentrification and affordable housing policies  rainald borck, niklas gohl, oliver krebs european economic review 10.1016/j.euroecorev.2026.105387" data-journal="european-economic-review" data-fields="urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105387">Gentrification and affordable housing policies</a></h3>
+    
+    <p class="authors">Rainald Borck, Niklas Gohl, Oliver Krebs</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>European Economic Review</span><span>官方日期 2026-08-01</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1016/j.euroecorev.2026.105387</span></span><span class="pill">城市与区域</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="spatial implications of telecommuting  matthew j delventhal, andrii parkhomenko review of economic studies 10.1093/restud/rdag057" data-journal="review-of-economic-studies" data-fields="macro labor public urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/restud/rdag057">Spatial Implications of Telecommuting</a></h3>
+    
+    <p class="authors">Matthew J Delventhal, Andrii Parkhomenko</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-11</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/restud/rdag057</span></span><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="unpacking aggregate welfare in a spatial economy  eric donald, masao fukui, yuhei miyauchi review of economic studies 10.1093/restud/rdag021" data-journal="review-of-economic-studies" data-fields="macro public trade urban" data-china="false">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1093/restud/rdag021">Unpacking Aggregate Welfare in a Spatial Economy</a></h3>
+    
+    <p class="authors">Eric Donald, Masao Fukui, Yuhei Miyauchi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-05</span></div>
+      <div class="meta-line"><span class="meta-label">标识</span><span><span class="doi">10.1093/restud/rdag021</span></span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></div>
+    </div>
+  </div>
+</article></main>
+    </div>
+  </div>
+</body>
+</html>
