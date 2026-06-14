@@ -9,11 +9,11 @@
 *{box-sizing:border-box}
 body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
 a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
 .sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
 .brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}
+.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
 .nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
 .wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
@@ -21,9 +21,9 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .banner-main{padding:26px 28px}.eyebrow{color:var(--blue);font-size:13px;font-weight:700;margin:0 0 8px}.banner h1{font-size:34px;line-height:1.18;margin:0 0 10px}.banner p{color:var(--muted);max-width:720px;margin:0}
 .signal{border-left:1px solid var(--line);padding:24px;background:rgba(255,255,255,.55);display:flex;flex-direction:column;justify-content:center;gap:10px}.signal-row{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:13px}.signal-row strong{color:var(--ink)}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
 .archive-list{padding-left:18px}.archive-list li{margin:8px 0}
@@ -34,30 +34,32 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <div class="shell">
     <aside class="sidebar">
   <h1 class="brand">Econ Papers Daily</h1>
-  <div class="subtitle">经济学论文速递</div>
+  <div class="subtitle">每日追踪 TOP 期刊经济学论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="/docs/"><strong>今日速递</strong><span>Today</span></a>
-    <a class="side-link" href="/docs/archive/"><strong>历史归档</strong><span>Archive</span></a>
-    <a class="side-link" href="/docs/journals/"><strong>监测期刊</strong><span>List</span></a>
+    <a class="side-link" href="/docs/"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="/docs/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="/docs/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="/docs/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">领域</div><a class="side-link" href="/docs/fields/agriculture_environment_resource/"><strong>农业/环境/资源</strong><span>57</span></a><a class="side-link" href="/docs/fields/general/"><strong>综合</strong><span>49</span></a><a class="side-link" href="/docs/fields/macroeconomics/"><strong>宏观</strong><span>20</span></a><a class="side-link" href="/docs/fields/public_political/"><strong>公共/政治经济学</strong><span>17</span></a><a class="side-link" href="/docs/fields/theory/"><strong>理论</strong><span>16</span></a><a class="side-link" href="/docs/fields/development/"><strong>发展</strong><span>15</span></a><a class="side-link" href="/docs/fields/economic_history/"><strong>经济史</strong><span>11</span></a><a class="side-link" href="/docs/fields/finance/"><strong>金融</strong><span>10</span></a><a class="side-link" href="/docs/fields/law_comparative/"><strong>法律/比较</strong><span>9</span></a><a class="side-link" href="/docs/fields/applied_empirical/"><strong>应用实证</strong><span>9</span></a><a class="side-link" href="/docs/fields/industrial_organization/"><strong>产业组织</strong><span>9</span></a><a class="side-link" href="/docs/fields/game_theory/"><strong>博弈</strong><span>8</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="/docs/journals/"><strong>AJARE</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>ERE</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>ERAE</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>LUP</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>JAERE</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>FP</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>JCE</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>JEEM</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>JoE</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>JEDC</strong><span>5</span></a><a class="side-link" href="/docs/journals/"><strong>查看完整监测名单</strong><span>84</span></a></div>
+  <div class="side-block"><div class="side-title">领域</div><a class="side-link" href="/docs/fields/agriculture_environment_resource/"><span class="side-main"><strong>农业/环境/资源</strong></span><span class="count">57</span></a><a class="side-link" href="/docs/fields/general/"><span class="side-main"><strong>综合</strong></span><span class="count">49</span></a><a class="side-link" href="/docs/fields/macroeconomics/"><span class="side-main"><strong>宏观</strong></span><span class="count">20</span></a><a class="side-link" href="/docs/fields/public_political/"><span class="side-main"><strong>公共/政治经济学</strong></span><span class="count">17</span></a><a class="side-link" href="/docs/fields/theory/"><span class="side-main"><strong>理论</strong></span><span class="count">16</span></a><a class="side-link" href="/docs/fields/development/"><span class="side-main"><strong>发展</strong></span><span class="count">15</span></a><a class="side-link" href="/docs/fields/economic_history/"><span class="side-main"><strong>经济史</strong></span><span class="count">11</span></a><a class="side-link" href="/docs/fields/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">10</span></a><a class="side-link" href="/docs/fields/law_comparative/"><span class="side-main"><strong>法律/比较</strong></span><span class="count">9</span></a><a class="side-link" href="/docs/fields/applied_empirical/"><span class="side-main"><strong>应用实证</strong></span><span class="count">9</span></a><a class="side-link" href="/docs/fields/industrial_organization/"><span class="side-main"><strong>产业组织</strong></span><span class="count">9</span></a><a class="side-link" href="/docs/fields/game_theory/"><span class="side-main"><strong>博弈</strong></span><span class="count">8</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="/docs/journals/australian-journal-of-agricultural-and-resource-economics/"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/environmental-and-resource-economics/"><span class="side-main"><strong>Environmental and Resource Economics</strong><em>环境与资源经济学</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/european-review-of-agricultural-economics/"><span class="side-main"><strong>European Review of Agricultural Economics</strong><em>欧洲农业经济评论</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-the-association-of-environmental-and-resource-economists/"><span class="side-main"><strong>Journal of the Association of Environmental and Resource Economists</strong><em>环境与资源经济学会会刊</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-environmental-economics-and-management/"><span class="side-main"><strong>Journal of Environmental Economics and Management</strong><em>环境经济学与管理杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-econometrics/"><span class="side-main"><strong>Journal of Econometrics</strong><em>计量经济学杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/journal-of-economic-dynamics-and-control/"><span class="side-main"><strong>Journal of Economic Dynamics and Control</strong><em>经济动态与控制杂志</em></span><span class="count">5</span></a><a class="side-link" href="/docs/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
-        <div><strong>Econ Papers Daily</strong> <span class="subtitle">经济学论文速递</span></div>
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 期刊经济学论文</span></div>
         <nav class="nav">
           <a class="" href="/docs/">今日</a>
+          <a href="/docs/topics/china/">与中国相关</a>
           <a class="" href="/docs/archive/">归档</a>
           <a href="/docs/journals/">监测期刊</a>
           <a href="/docs/feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>Journal of Mathematical Economics</h2><p>该期刊历史发现记录。</p></div></section><article class="event">
+      <main class="wrap"><section class="section-head"><div><h2>Journal of Mathematical Economics</h2><p>该期刊历史发现记录。</p></div></section><article class="event" data-search="affine virtual values and the generalized pareto distribution  paolo morganti journal of mathematical economics 10.1016/j.jmateco.2026.103267" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103267">Affine Virtual Values and the Generalized Pareto distribution</a></h3>
-    
+    <p class="title-zh pending">中文标题待翻译</p>
     <p class="authors">Paolo Morganti</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Mathematical Economics</span><span>官方日期 2026-08-01</span></div>
@@ -65,11 +67,11 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     </div>
   </div>
 </article>
-<article class="event">
+<article class="event" data-search="data-driven persuasion  maxwell rosenthal journal of mathematical economics 10.1016/j.jmateco.2026.103268" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103268">Data-driven persuasion</a></h3>
-    
+    <p class="title-zh pending">中文标题待翻译</p>
     <p class="authors">Maxwell Rosenthal</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Mathematical Economics</span><span>官方日期 2026-08-01</span></div>
@@ -77,11 +79,11 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     </div>
   </div>
 </article>
-<article class="event">
+<article class="event" data-search="maximal matchings  anh triêu, iwan bos, marc schröder, dries vermeulen journal of mathematical economics 10.1016/j.jmateco.2026.103254" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103254">Maximal matchings</a></h3>
-    
+    <p class="title-zh pending">中文标题待翻译</p>
     <p class="authors">Anh Triêu, Iwan Bos, Marc Schröder, Dries Vermeulen</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Mathematical Economics</span><span>官方日期 2026-08-01</span></div>
@@ -89,11 +91,11 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     </div>
   </div>
 </article>
-<article class="event">
+<article class="event" data-search="the certainty effect and neo-continuous subjective sources in hurwicz expected utility  simon grant journal of mathematical economics 10.1016/j.jmateco.2026.103257" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103257">The certainty effect and neo-continuous subjective sources in Hurwicz expected utility</a></h3>
-    
+    <p class="title-zh pending">中文标题待翻译</p>
     <p class="authors">Simon Grant</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Mathematical Economics</span><span>官方日期 2026-08-01</span></div>
@@ -101,11 +103,11 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     </div>
   </div>
 </article>
-<article class="event">
+<article class="event" data-search="existence and calculation of optimal monetary equilibria on overlapping generations economies  leandro lyra braga dognini journal of mathematical economics 10.1016/j.jmateco.2026.103255" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103255">Existence and calculation of optimal monetary equilibria on overlapping generations economies</a></h3>
-    
+    <p class="title-zh pending">中文标题待翻译</p>
     <p class="authors">Leandro Lyra Braga Dognini</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Mathematical Economics</span><span>官方日期 2026-08-01</span></div>
