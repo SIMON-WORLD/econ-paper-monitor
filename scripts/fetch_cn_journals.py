@@ -165,6 +165,21 @@ def extract_date(text: str) -> str | None:
     return None
 
 
+def extract_upload_date(path: str | None) -> str | None:
+    if not path:
+        return None
+    matches = re.findall(r"(20\d{2})(\d{2})(\d{2})\d{0,6}", path)
+    if not matches:
+        return None
+    for year_text, month_text, day_text in reversed(matches):
+        try:
+            year, month, day = (int(year_text), int(month_text), int(day_text))
+            return f"{year:04d}-{month:02d}-{day:02d}"
+        except ValueError:
+            continue
+    return None
+
+
 def first_nonempty(*values: str | None) -> str | None:
     for value in values:
         if value and value.strip():
@@ -315,14 +330,22 @@ def parse_world_economy(html_text: str, journal: dict[str, Any], limit: int) -> 
         authors_match = re.search(r'class=["\']j-author["\'][^>]*>([\s\S]*?)</div>', block, flags=re.I)
         issue_match = re.search(r'class=["\']j-volumn["\'][^>]*>([\s\S]*?)</span>', block, flags=re.I)
         abstract_match = re.search(r'class=["\']j-abstract["\'][^>]*>([\s\S]*?)</div>', block, flags=re.I)
+        published_online = None
+        try:
+            detail_text = fetch_text_partial(url, timeout=12, max_bytes=220_000)
+            date_match = re.search(r"发布日期\s*(20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)", clean_text(detail_text))
+            published_online = extract_date(date_match.group(1)) if date_match else None
+        except Exception:
+            published_online = None
         record = make_record(
             journal,
             clean_title(title_html),
             url,
             authors=split_authors(authors_match.group(1) if authors_match else None),
             abstract=abstract_match.group(1) if abstract_match else None,
+            published_online=published_online,
             source_issue=clean_text(issue_match.group(1)) if issue_match else None,
-            date_source="issue_only",
+            date_source="official_publish_date" if published_online else "issue_only",
             source_url=base_url,
         )
         if record:
@@ -518,14 +541,16 @@ def parse_ajcass_api(journal: dict[str, Any], limit: int) -> list[dict[str, Any]
         )
         file_path = first_nonempty(str(item.get("filePath")) if item.get("filePath") else None)
         pdf_url = urllib.parse.urljoin("https://api.ajcass.com", file_path) if file_path else None
+        upload_date = extract_upload_date(file_path)
         record = make_record(
             journal,
             title,
             url,
             authors=split_authors(first_nonempty(str(item.get("authorsName")) if item.get("authorsName") else None, str(item.get("authors")) if item.get("authors") else None)),
             abstract=first_nonempty(str(item.get("abstract")) if item.get("abstract") else None),
+            published_online=upload_date,
             source_issue=source_issue,
-            date_source="issue_only",
+            date_source="file_upload_date" if upload_date else "issue_only",
             source_url="https://api.ajcass.com/api/" + endpoint,
         )
         if record:

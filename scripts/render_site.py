@@ -219,6 +219,10 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
 def date_confidence_label(record: dict[str, Any]) -> str:
     if record.get("available_online"):
         return "在线日期"
+    if record.get("date_source") == "official_publish_date":
+        return "发布日期"
+    if record.get("date_source") == "file_upload_date":
+        return "官网上传日期"
     if record.get("published_online"):
         return "来源日期"
     if record.get("source_issue"):

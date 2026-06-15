@@ -25,6 +25,15 @@ ENRICH_FIELDS = [
     "pdf_url",
 ]
 
+DATE_SOURCE_RANK = {
+    None: 0,
+    "": 0,
+    "issue_only": 1,
+    "file_upload_date": 2,
+    "official_publish_date": 3,
+    "rss_published": 4,
+}
+
 
 def iter_raw_records(raw_dir: Path) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
@@ -59,6 +68,19 @@ def has_value(value: Any) -> bool:
 
 def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
     changed = False
+    incoming_date_source = incoming.get("date_source")
+    existing_date_source = existing.get("date_source")
+    if has_value(incoming.get("published_online")) and (
+        not has_value(existing.get("published_online"))
+        or DATE_SOURCE_RANK.get(incoming_date_source, 1) > DATE_SOURCE_RANK.get(existing_date_source, 1)
+        or incoming_date_source == existing_date_source
+    ):
+        if existing.get("published_online") != incoming.get("published_online"):
+            existing["published_online"] = incoming["published_online"]
+            changed = True
+        if incoming_date_source and existing.get("date_source") != incoming_date_source:
+            existing["date_source"] = incoming_date_source
+            changed = True
     for field in ENRICH_FIELDS:
         if not has_value(existing.get(field)) and has_value(incoming.get(field)):
             existing[field] = incoming[field]
