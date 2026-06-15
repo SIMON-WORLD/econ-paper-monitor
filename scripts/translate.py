@@ -71,9 +71,14 @@ def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
 
 def translate_daily_file(path: Path, args: argparse.Namespace, key: str, base_url: str, model: str) -> tuple[int, int]:
     records = read_json(path, [])
+    records_to_translate = sorted(
+        records,
+        key=lambda record: str(record.get("detected_at") or ""),
+        reverse=True,
+    )
     changed = 0
     attempted = 0
-    for record in records:
+    for record in records_to_translate:
         if args.limit and attempted >= args.limit:
             break
         title = str(record.get("title") or "").strip()
