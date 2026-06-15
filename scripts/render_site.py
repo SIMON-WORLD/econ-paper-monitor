@@ -203,8 +203,10 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     all_journals = {record.get("journal_id") for record in records if record.get("journal_id")}
     sources = {record.get("source") for record in records if record.get("source")}
     last_seen = max((record.get("detected_at") or "" for record in records), default="")
+    today = today_str()
     return {
         "today": len(today_records),
+        "published_today": sum(1 for record in today_records if record.get("published_online") == today),
         "today_journals": len(today_journals),
         "all_records": len(records),
         "all_journals": len(all_journals),
@@ -369,7 +371,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span>{html_escape(record.get('journal'))}</span><span>官方日期 {official_date}</span></div>
-      <div class="meta-line"><span class="meta-label">标识</span><span>{doi}</span>{fields}{china_tag}</div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span>{doi}</span>{fields}{china_tag}</div>
     </div>
   </div>
 </article>"""
@@ -394,7 +396,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     init_note = (
         f'<div class="empty">今天暂未监测到新论文。你可以先查看<a href="{BASE}/archive/">历史归档</a>或<a href="{BASE}/journals/">监测期刊</a>；部署到 GitHub Actions 后，首页会按每小时监测结果更新。</div>'
         if not today_records
-        else '<div class="empty">说明：首次建库当天会把抓取窗口内尚未见过的论文都记为“新发现”。部署到 GitHub Actions 定时运行后，这里会变成真正的当天增量流。</div>'
+        else '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录，不等同于期刊今天正式发表；“今日正式发表”按论文官方日期统计。系统上线初期会回看过去 14 天，因此前几轮新发现数量会偏高，稳定运行后会更接近真实增量。</div>'
     )
     events_html = paper_events(today_records) if today_records else ""
     return f"""<section class="banner">
@@ -411,9 +413,9 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 </section>
 <section class="stats">
   <div class="stat"><strong>{s['today']}</strong><span>今日新发现</span></div>
+  <div class="stat"><strong>{s['published_today']}</strong><span>今日正式发表</span></div>
   <div class="stat"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></div>
   <div class="stat"><strong>{s['all_records']}</strong><span>当前索引记录</span></div>
-  <div class="stat"><strong>{s['last_seen'].split(' ')[1] if s['last_seen'] != '暂无' else '暂无'}</strong><span>最后监测</span></div>
 </section>
 <div class="toolbar" id="filters"{toolbar_hidden}>
   <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者">
