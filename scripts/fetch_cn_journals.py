@@ -178,6 +178,7 @@ def issue_key(source_issue: str | None) -> tuple[int, int] | None:
         return None
     patterns = [
         r"(20\d{2})\s*年\s*,?\s*第\s*(\d{1,2})\s*期",
+        r"(20\d{2})\s*年\s*(\d{1,2})\s*期",
         r"(20\d{2})\s*,\s*\d+\s*\(\s*(\d{1,2})\s*\)",
         r"(20\d{2})\s*,\s*\(\s*(\d{1,2})\s*\)",
         r"(20\d{2})\s*年第\s*(\d{1,2})\s*期",
@@ -195,6 +196,9 @@ def keep_latest_issue(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if not keys:
         return records
     latest = max(keys)
+    current_year = int(today_str()[:4])
+    if latest[0] < current_year:
+        return []
     latest_records = [record for key, record in keyed if key == latest]
     # Keep undated records only when the source produced no usable issue keys.
     return latest_records

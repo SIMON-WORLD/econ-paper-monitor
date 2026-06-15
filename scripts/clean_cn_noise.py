@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, read_json, write_json
+from common import DATA_DIR, read_json, today_str, write_json
 from status import record_source
 
 
@@ -87,6 +87,7 @@ def issue_key(source_issue: str | None) -> tuple[int, int] | None:
     text = str(source_issue or "")
     patterns = [
         r"(20\d{2})\s*年\s*,?\s*第\s*(\d{1,2})\s*期",
+        r"(20\d{2})\s*年\s*(\d{1,2})\s*期",
         r"(20\d{2})\s*,\s*\d+\s*\(\s*(\d{1,2})\s*\)",
         r"(20\d{2})\s*,\s*\(\s*(\d{1,2})\s*\)",
         r"(20\d{2})\s*年第\s*(\d{1,2})\s*期",
@@ -110,11 +111,14 @@ def latest_issue_filter(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
         latest_by_journal[journal_id] = max(latest_by_journal.get(journal_id, key), key)
     if not latest_by_journal:
         return records
+    current_year = int(today_str()[:4])
     kept = []
     for record in records:
         journal_id = record.get("journal_id")
         key = issue_key(record.get("source_issue"))
         if journal_id in latest_by_journal and key is not None and key != latest_by_journal[journal_id]:
+            continue
+        if journal_id in latest_by_journal and key is not None and key[0] < current_year:
             continue
         kept.append(record)
     return kept
