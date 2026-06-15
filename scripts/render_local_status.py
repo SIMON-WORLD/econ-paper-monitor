@@ -61,7 +61,7 @@ def main() -> None:
     <div class="card"><strong>{pct(translated, len(records))}</strong><span>标题翻译覆盖率</span></div>
     <div class="card"><strong>{html_escape(latest_run.get('new', '暂无'))}</strong><span>最近新增</span></div>
   </div>
-  <h2>来源记录数</h2>
+  <h2>来源数量</h2>
   <ul>{source_counts}</ul>
   <h2>运行状态</h2>
   <table><thead><tr><th>来源</th><th>状态</th><th>数量</th><th>更新时间 UTC</th><th>信息</th></tr></thead><tbody>{source_rows}</tbody></table>

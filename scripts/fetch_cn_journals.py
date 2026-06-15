@@ -1,8 +1,9 @@
-"""Fetch Chinese journal latest-article pages with low-cost parsers.
+"""Fetch Chinese journal article detail pages.
 
-This first version avoids browser automation. It tries configured RSS feeds,
-RSS auto-discovery, and simple HTML article-link extraction. Failures are
-recorded in data/status.json for follow-up parser work.
+This parser is intentionally conservative:
+- only article-detail URLs are kept
+- news/navigation/platform pages are dropped
+- available_online is extracted from the article page when possible
 """
 
 from __future__ import annotations
@@ -13,6 +14,7 @@ import urllib.parse
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
+from xml.etree import ElementTree
 
 from common import DATA_DIR, fetch_text, load_journals, now_iso, today_str, write_json
 from fetch_rss import parse_feed
@@ -28,7 +30,29 @@ CN_HOME_URLS = {
     "journal-edcb877d78": "https://www.jqte.net/sljjjsjjyj/ch/index.aspx",
 }
 
-ARTICLE_HINTS = ("Article", "article", "abstract", "CN/abstract", "ch/reader", "期", "摘要", "目录")
+ARTICLE_URL_PATTERNS = (
+    "view_abstract.aspx",
+    "reader/view_abstract.aspx",
+    "article/abstract",
+    "CN/abstract/abstract",
+    "/CN/Y",
+)
+NOISE_TEXT = (
+    "平台",
+    "数据库",
+    "征文",
+    "会议",
+    "新闻",
+    "规范",
+    "说明",
+    "投稿",
+    "采编",
+    "影响因子",
+    "获评",
+    "复现包",
+    "补充材料",
+    "期刊征文",
+)
 
 
 class LinkParser(HTMLParser):
@@ -58,6 +82,19 @@ class LinkParser(HTMLParser):
             self._text = []
 
 
+def normalize_url(url: str, base_url: str) -> str:
+    url = urllib.parse.urljoin(base_url, url)
+    return url.split("#", 1)[0]
+
+
+def is_article_url(url: str) -> bool:
+    return any(pattern.lower() in url.lower() for pattern in ARTICLE_URL_PATTERNS)
+
+
+def is_noise_text(text: str) -> bool:
+    return any(noise in text for noise in NOISE_TEXT)
+
+
 def discover_feeds(html: str, base_url: str) -> list[str]:
     feeds = []
     for match in re.finditer(r'<link[^>]+(?:rss|atom|application/(?:rss|atom)\+xml)[^>]+>', html, flags=re.I):
@@ -65,6 +102,96 @@ def discover_feeds(html: str, base_url: str) -> list[str]:
         if href_match:
             feeds.append(urllib.parse.urljoin(base_url, href_match.group(1)))
     return list(dict.fromkeys(feeds))
+
+
+def parse_meta(html: str) -> dict[str, str]:
+    meta: dict[str, str] = {}
+    for key, value in re.findall(r'<meta[^>]+(?:name|property)=["\']([^"\']+)["\'][^>]+content=["\']([^"\']+)["\']', html, flags=re.I):
+        meta[key.lower()] = value.strip()
+    return meta
+
+
+def extract_date(text: str) -> str | None:
+    patterns = [
+        r"(20\d{2}[-/.]\d{1,2}[-/.]\d{1,2})",
+        r"(20\d{2}年\d{1,2}月\d{1,2}日)",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if match:
+            value = match.group(1)
+            value = value.replace("年", "-").replace("月", "-").replace("日", "")
+            value = value.replace(".", "-").replace("/", "-")
+            parts = value.split("-")
+            if len(parts) == 3:
+                try:
+                    year, month, day = (int(parts[0]), int(parts[1]), int(parts[2]))
+                    return f"{year:04d}-{month:02d}-{day:02d}"
+                except ValueError:
+                    return None
+    return None
+
+
+def first_nonempty(*values: str | None) -> str | None:
+    for value in values:
+        if value and value.strip():
+            return value.strip()
+    return None
+
+
+def parse_detail_page(html: str, url: str, journal: dict[str, Any], source_url: str) -> dict[str, Any] | None:
+    meta = parse_meta(html)
+    title = first_nonempty(
+        meta.get("citation_title"),
+        meta.get("og:title"),
+        re.search(r"<title[^>]*>(.*?)</title>", html, flags=re.I | re.S).group(1) if re.search(r"<title[^>]*>(.*?)</title>", html, flags=re.I | re.S) else None,
+    )
+    if not title or is_noise_text(title):
+        return None
+
+    doi = first_nonempty(meta.get("citation_doi"), meta.get("dc.identifier"), meta.get("doi"))
+    if doi and doi.lower().startswith("10.") is False:
+        doi = None
+    if doi:
+        doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
+
+    published = first_nonempty(
+        meta.get("citation_online_date"),
+        meta.get("citation_publication_date"),
+        meta.get("article:published_time"),
+        meta.get("og:updated_time"),
+    )
+    available_online = extract_date(html) or (published[:10] if published else None)
+
+    abstract = first_nonempty(
+        meta.get("citation_abstract"),
+        meta.get("description"),
+    )
+    authors = [value.strip() for key, value in meta.items() if key.startswith("citation_author") and value.strip()]
+
+    return {
+        "title": title,
+        "title_zh": title if any("\u4e00" <= ch <= "\u9fff" for ch in title) else None,
+        "abstract": abstract,
+        "abstract_zh": abstract if abstract and any("\u4e00" <= ch <= "\u9fff" for ch in abstract) else None,
+        "authors": authors,
+        "journal": journal["title"],
+        "journal_short": journal.get("short_name"),
+        "journal_id": journal["id"],
+        "source_type": "journal",
+        "source": "cn-html",
+        "source_url": source_url,
+        "publisher": first_nonempty(meta.get("citation_publisher"), journal.get("publisher")),
+        "published_online": published[:10] if published else None,
+        "available_online": available_online,
+        "detected_at": now_iso(),
+        "doi": doi,
+        "url": url,
+        "pdf_url": None,
+        "fields": journal.get("fields", []),
+        "ai_tags": [],
+        "translation_status": "native_chinese" if any("\u4e00" <= ch <= "\u9fff" for ch in title) else "missing_abstract",
+    }
 
 
 def html_records(html: str, base_url: str, journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
@@ -75,45 +202,29 @@ def html_records(html: str, base_url: str, journal: dict[str, Any], limit: int) 
     for href, text in parser.links:
         if len(records) >= limit:
             break
-        url = urllib.parse.urljoin(base_url, href)
-        if url in seen or len(text) < 8:
+        url = normalize_url(href, base_url)
+        if url in seen or len(text) < 6:
             continue
-        if not any(hint in url or hint in text for hint in ARTICLE_HINTS):
+        if not is_article_url(url):
+            continue
+        if is_noise_text(text):
             continue
         seen.add(url)
-        records.append(
-            {
-                "title": text,
-                "title_zh": text if any("\u4e00" <= ch <= "\u9fff" for ch in text) else None,
-                "abstract": None,
-                "abstract_zh": None,
-                "authors": [],
-                "journal": journal["title"],
-                "journal_short": journal.get("short_name"),
-                "journal_id": journal["id"],
-                "source_type": "journal",
-                "source": "cn-html",
-                "source_url": base_url,
-                "publisher": journal.get("publisher"),
-                "published_online": None,
-                "available_online": None,
-                "detected_at": now_iso(),
-                "doi": None,
-                "url": url,
-                "pdf_url": None,
-                "fields": journal.get("fields", []),
-                "ai_tags": [],
-                "translation_status": "native_chinese" if any("\u4e00" <= ch <= "\u9fff" for ch in text) else "missing_abstract",
-            }
-        )
+        try:
+            detail_html = fetch_text(url, timeout=8)
+        except Exception:
+            continue
+        record = parse_detail_page(detail_html, url, journal, base_url)
+        if record:
+            records.append(record)
     return records
 
 
 def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[dict[str, Any]], str]:
-    html = fetch_text(url, timeout=20)
+    html = fetch_text(url, timeout=10)
     for feed_url in discover_feeds(html, url):
         try:
-            records = parse_feed(fetch_text(feed_url, timeout=20), journal, feed_url)
+            records = parse_feed(fetch_text(feed_url, timeout=8), journal, feed_url)
             if records:
                 for record in records:
                     record["source"] = "cn-rss"
@@ -121,7 +232,7 @@ def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[d
         except Exception:
             continue
     records = html_records(html, url, journal, limit)
-    return records, "html"
+    return records, "html-detail"
 
 
 def main() -> None:
@@ -148,8 +259,9 @@ def main() -> None:
         except Exception as exc:  # noqa: BLE001
             messages.append(f"{journal_id}: error {exc}")
 
-    write_json(output, records)
-    record_source("cn-journals", ok=True, count=len(records), message="; ".join(messages))
+    if records or not output.exists():
+        write_json(output, records)
+    record_source("cn-journals", ok=bool(records), count=len(records), message="; ".join(messages))
     print(f"wrote {len(records)} Chinese journal records to {output}")
     for message in messages:
         print(message)

@@ -6,6 +6,7 @@ import hashlib
 import html
 import json
 import re
+import ssl
 import time
 import urllib.parse
 import urllib.request
@@ -53,16 +54,42 @@ def fetch_json(url: str, params: dict[str, str | int] | None = None, timeout: in
         sep = "&" if "?" in url else "?"
         url = f"{url}{sep}{urllib.parse.urlencode(params)}"
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return json.loads(response.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except urllib.error.URLError:
+        if not url.startswith("https://"):
+            raise
+        context = ssl._create_unverified_context()
+        with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+            return json.loads(response.read().decode("utf-8"))
 
 
 def fetch_text(url: str, timeout: int = 30) -> str:
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        payload = response.read()
-        charset = response.headers.get_content_charset() or "utf-8"
-        return payload.decode(charset, errors="replace")
+    charset = None
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            payload = response.read()
+            charset = response.headers.get_content_charset() or "utf-8"
+    except urllib.error.URLError:
+        if not url.startswith("https://"):
+            raise
+        context = ssl._create_unverified_context()
+        with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+            payload = response.read()
+            charset = response.headers.get_content_charset() or "utf-8"
+
+    candidates = []
+    if charset:
+        candidates.append(charset)
+    candidates.extend(["utf-8", "gb18030", "gbk"])
+    for candidate in dict.fromkeys(candidates):
+        try:
+            return payload.decode(candidate)
+        except Exception:
+            continue
+    return payload.decode("utf-8", errors="replace")
 
 
 def polite_sleep(seconds: float) -> None:

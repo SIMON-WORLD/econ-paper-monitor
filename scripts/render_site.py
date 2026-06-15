@@ -216,6 +216,14 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     }
 
 
+def date_confidence_label(record: dict[str, Any]) -> str:
+    if record.get("available_online"):
+        return "在线日期"
+    if record.get("published_online"):
+        return "来源日期"
+    return "日期未知"
+
+
 def is_china_related(record: dict[str, Any]) -> bool:
     haystack = " ".join(
         str(value or "")
@@ -345,8 +353,13 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         return '<div class="empty">今天暂未发现新论文。可以前往归档查看历史记录。</div>'
     chunks = []
     for record in selected:
-        doi = f'<span class="doi">{html_escape(record.get("doi"))}</span>' if record.get("doi") else "暂无 DOI"
-        date_label = "在线日期" if record.get("available_online") else "来源日期"
+        if record.get("doi"):
+            link_or_doi = f'<a class="doi" href="https://doi.org/{html_escape(record.get("doi"))}">{html_escape(record.get("doi"))}</a>'
+        elif record.get("url"):
+            link_or_doi = f'<a class="doi" href="{html_escape(record.get("url"))}">文章链接</a>'
+        else:
+            link_or_doi = '<span class="doi">暂无链接</span>'
+        date_label = date_confidence_label(record)
         official_date = html_escape(record.get("available_online") or record.get("published_online") or "未知")
         fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in article_topics(record)[:3] if topic != "china")
         title_zh = record.get("title_zh")
@@ -373,7 +386,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>{html_escape(record.get('journal'))}</span><span>{date_label} {official_date}</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span>{doi}</span>{fields}{china_tag}</span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">{link_or_doi}{fields}{china_tag}</span></div>
     </div>
   </div>
 </article>"""
