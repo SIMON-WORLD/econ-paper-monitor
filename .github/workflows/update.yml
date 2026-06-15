@@ -22,6 +22,8 @@ jobs:
         run: python scripts/fetch_rss.py
       - name: Fetch Crossref metadata
         run: python scripts/fetch_crossref.py --days 14 --rows 20 --sleep 0.2
+      - name: Fetch Chinese journal pages
+        run: python scripts/fetch_cn_journals.py
       - name: Dedupe new papers
         run: python scripts/dedupe.py
       - name: Translate paper titles

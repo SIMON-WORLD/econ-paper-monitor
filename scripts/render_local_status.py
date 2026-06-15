@@ -1,0 +1,78 @@
+"""Render a local-only admin status page.
+
+Output is written to local_admin/status.html, which is ignored by git.
+"""
+
+from __future__ import annotations
+
+from collections import Counter
+from pathlib import Path
+from typing import Any
+
+from common import DATA_DIR, ROOT, html_escape, read_json
+from status import load_status
+
+
+def load_records() -> list[dict[str, Any]]:
+    records = []
+    for path in sorted((DATA_DIR / "daily").glob("*.json"), reverse=True):
+        payload = read_json(path, [])
+        if isinstance(payload, list):
+            records.extend(payload)
+    return records
+
+
+def pct(done: int, total: int) -> str:
+    return "0%" if total == 0 else f"{done / total:.1%}"
+
+
+def main() -> None:
+    records = load_records()
+    status = load_status()
+    translated = sum(1 for record in records if record.get("title_zh"))
+    by_source = Counter(record.get("source") or "unknown" for record in records)
+    rows = []
+    for source_id, item in sorted(status.get("sources", {}).items()):
+        ok = "OK" if item.get("ok") else "FAIL"
+        rows.append(
+            f"<tr><td>{html_escape(source_id)}</td><td>{ok}</td><td>{html_escape(item.get('count'))}</td>"
+            f"<td>{html_escape(item.get('updated_at'))}</td><td>{html_escape(item.get('message'))}</td></tr>"
+        )
+    source_rows = "".join(rows) or "<tr><td colspan='5'>暂无状态记录</td></tr>"
+    source_counts = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(by_source.items()))
+    latest_run = (status.get("runs") or [{}])[0]
+    html = f"""<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Econ Papers Daily 本地状态</title>
+  <style>
+    body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:32px;color:#1f2328}}
+    table{{border-collapse:collapse;width:100%;margin-top:12px}}td,th{{border:1px solid #d0d7de;padding:8px;text-align:left;vertical-align:top}}
+    th{{background:#f6f8fa}}.grid{{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px}}.card{{border:1px solid #d0d7de;padding:14px;border-radius:8px}}
+    strong{{font-size:24px;display:block}}
+  </style>
+</head>
+<body>
+  <h1>Econ Papers Daily 本地状态</h1>
+  <div class="grid">
+    <div class="card"><strong>{len(records)}</strong><span>总记录</span></div>
+    <div class="card"><strong>{translated}</strong><span>已翻译标题</span></div>
+    <div class="card"><strong>{pct(translated, len(records))}</strong><span>标题翻译覆盖率</span></div>
+    <div class="card"><strong>{html_escape(latest_run.get('new', '暂无'))}</strong><span>最近新增</span></div>
+  </div>
+  <h2>来源记录数</h2>
+  <ul>{source_counts}</ul>
+  <h2>运行状态</h2>
+  <table><thead><tr><th>来源</th><th>状态</th><th>数量</th><th>更新时间 UTC</th><th>信息</th></tr></thead><tbody>{source_rows}</tbody></table>
+</body>
+</html>
+"""
+    output = ROOT / "local_admin" / "status.html"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(html, encoding="utf-8")
+    print(output)
+
+
+if __name__ == "__main__":
+    main()

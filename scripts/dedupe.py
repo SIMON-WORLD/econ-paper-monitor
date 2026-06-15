@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, stable_id, today_str, write_json
+from status import record_run, record_source
 
 
 def iter_raw_records(raw_dir: Path) -> list[dict[str, Any]]:
@@ -69,9 +70,10 @@ def main() -> None:
 
     write_json(args.seen, seen)
     write_json(daily_path, daily_records)
+    record_source("dedupe", ok=True, count=len(new_records), message=f"daily_total={len(daily_records)} seen={len(seen_papers)}")
+    record_run({"new": len(new_records), "daily_total": len(daily_records), "seen": len(seen_papers)})
     print(f"new={len(new_records)} daily_total={len(daily_records)} seen={len(seen_papers)}")
 
 
 if __name__ == "__main__":
     main()
-

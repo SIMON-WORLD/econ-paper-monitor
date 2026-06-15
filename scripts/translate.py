@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, write_json
+from status import record_source
 
 
 def api_settings() -> tuple[str | None, str, str]:
@@ -111,6 +112,7 @@ def main() -> None:
     key, base_url, model = api_settings()
     if not key:
         print("translation skipped: DEEPSEEK_API_KEY, OPENAI_API_KEY, or TRANSLATION_API_KEY is not configured")
+        record_source("translation", ok=False, count=0, message="missing api key")
         return
 
     total_attempted = 0
@@ -119,6 +121,7 @@ def main() -> None:
         attempted, changed = translate_daily_file(path, args, key, base_url, model)
         total_attempted += attempted
         total_changed += changed
+    record_source("translation", ok=True, count=total_changed, message=f"attempted={total_attempted}")
     print(f"translation attempted={total_attempted} changed={total_changed}")
 
 

@@ -206,6 +206,7 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     today = today_str()
     return {
         "today": len(today_records),
+        "online_today": sum(1 for record in today_records if record.get("available_online") == today),
         "source_date_today": sum(1 for record in today_records if record.get("published_online") == today),
         "today_journals": len(today_journals),
         "all_records": len(records),
@@ -345,7 +346,8 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     chunks = []
     for record in selected:
         doi = f'<span class="doi">{html_escape(record.get("doi"))}</span>' if record.get("doi") else "暂无 DOI"
-        official_date = html_escape(record.get("published_online") or "未知")
+        date_label = "在线日期" if record.get("available_online") else "来源日期"
+        official_date = html_escape(record.get("available_online") or record.get("published_online") or "未知")
         fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in article_topics(record)[:3] if topic != "china")
         title_zh = record.get("title_zh")
         title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
@@ -370,7 +372,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     {title_zh_html}
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>{html_escape(record.get('journal'))}</span><span>来源日期 {official_date}</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>{html_escape(record.get('journal'))}</span><span>{date_label} {official_date}</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span>{doi}</span>{fields}{china_tag}</span></div>
     </div>
   </div>
@@ -396,7 +398,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     init_note = (
         f'<div class="empty">今天暂未监测到新论文。你可以先查看<a href="{BASE}/archive/">历史归档</a>或<a href="{BASE}/journals/">监测期刊</a>；部署到 GitHub Actions 后，首页会按每小时监测结果更新。</div>'
         if not today_records
-        else '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录；“来源日期为今日”按 Crossref/RSS 返回日期统计，可能是 online date、issue date 或卷期日期。系统上线初期会回看过去 14 天，因此前几轮新发现数量会偏高，稳定运行后会更接近真实增量。</div>'
+        else '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录；“在线日期为今日”优先按出版社 RSS/页面识别，缺失时仍显示来源日期。Crossref 日期可能是 online date、issue date 或卷期日期，系统上线初期回看过去 14 天，因此前几轮新发现数量会偏高。</div>'
     )
     events_html = paper_events(today_records) if today_records else ""
     return f"""<section class="banner">
@@ -413,7 +415,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 </section>
 <section class="stats">
   <div class="stat"><strong>{s['today']}</strong><span>今日新发现</span></div>
-  <div class="stat"><strong>{s['source_date_today']}</strong><span>来源日期为今日</span></div>
+  <div class="stat"><strong>{s['online_today']}</strong><span>在线日期为今日</span></div>
   <div class="stat"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></div>
   <div class="stat"><strong>{s['all_records']}</strong><span>当前索引记录</span></div>
 </section>

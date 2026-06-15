@@ -18,6 +18,7 @@ from common import (
     today_str,
     write_json,
 )
+from status import record_source
 
 
 def author_name(author: dict[str, Any]) -> str:
@@ -45,6 +46,7 @@ def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
         "source": "crossref",
         "publisher": item.get("publisher") or journal.get("publisher"),
         "published_online": published,
+        "available_online": None,
         "detected_at": now_iso(),
         "doi": item.get("DOI"),
         "url": item.get("URL"),
@@ -110,6 +112,7 @@ def main() -> None:
         polite_sleep(args.sleep)
 
     write_json(output, records)
+    record_source("crossref", ok=True, count=len(records), message=str(output))
     print(f"wrote {len(records)} Crossref records to {output}")
 
 

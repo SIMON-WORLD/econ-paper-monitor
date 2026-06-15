@@ -9,6 +9,7 @@ from typing import Any
 from xml.etree import ElementTree
 
 from common import DATA_DIR, fetch_text, first_text, load_journals, now_iso, today_str, write_json
+from status import record_source
 
 
 ATOM = "{http://www.w3.org/2005/Atom}"
@@ -77,6 +78,7 @@ def make_record(
         "source_url": feed_url,
         "publisher": journal.get("publisher"),
         "published_online": published,
+        "available_online": published,
         "detected_at": now_iso(),
         "doi": None,
         "url": link,
@@ -109,6 +111,7 @@ def main() -> None:
                 print(f"rss error for {journal.get('title')}: {exc}")
 
     write_json(output, records)
+    record_source("rss", ok=True, count=len(records), message=str(output))
     print(f"wrote {len(records)} RSS records to {output}")
 
 
