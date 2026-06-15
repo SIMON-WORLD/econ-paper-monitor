@@ -42,8 +42,6 @@ def is_article_url(url: str) -> bool:
 
 
 def is_noise_record(record: dict[str, Any]) -> bool:
-    if record.get("source") not in {"cn-html", "cn-rss"}:
-        return False
     if record.get("journal_id") not in CN_JOURNALS:
         return False
     title = str(record.get("title") or "")
