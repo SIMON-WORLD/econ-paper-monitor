@@ -19,11 +19,11 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
 .banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
 .banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 32px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:20px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35}
+.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;align-items:start}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
 .archive-list{padding-left:18px}.archive-list li{margin:8px 0}
@@ -62,8 +62,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Jingtong Liu, Dingyang Zhou, Guanghui Jiang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Land Use Policy</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.landusepol.2026.108121</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.landusepol.2026.108121</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -74,8 +74,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Gregori Galofré-Vilà</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jce.2026.02.007</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jce.2026.02.007</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -86,8 +86,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/s0147-5967(26)00055-7</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/s0147-5967(26)00055-7</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -98,8 +98,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Joanne Haddad</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jce.2026.02.005</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jce.2026.02.005</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -110,8 +110,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Niclas Berggren</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jce.2026.05.006</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jce.2026.05.006</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -122,8 +122,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Samuel Bícego, Paula Carvalho Pereda</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103376</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103376</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -134,8 +134,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Mark Robinson, Pedro Silos, Diego Vilán</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jedc.2026.105352</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jedc.2026.105352</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
@@ -146,8 +146,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-07-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/s0165-1889(26)00109-0</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/s0165-1889(26)00109-0</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -158,8 +158,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Andrew Hawley, Blake LeBaron, Mark Paddrik, Nathan Palmer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-07-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jedc.2026.105334</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jedc.2026.105334</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -170,8 +170,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Wenbin Huang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-11-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107490</span></span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107490</span></span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -182,8 +182,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Deborah S. DeGraff, Kone A.P. Siddhisena</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107459</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107459</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -194,8 +194,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Eiji Fujii</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107458</span></span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107458</span></span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -206,8 +206,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Vadlamannati Krishna Chaitanya, Iacono Roberto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107454</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107454</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -218,8 +218,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Julia Maia Goldani, Mariana Mota Prado</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107462</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107462</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -230,8 +230,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Christoph Sommer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107457</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">企业与产业</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107457</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
@@ -242,8 +242,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/s0305-750x(26)00173-7</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/s0305-750x(26)00173-7</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -254,8 +254,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Giovanni Cardillo, Alessandra Cavallo, Giuseppe Torluccio</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107455</span></span><span class="pill">发展经济学</span><span class="pill">金融</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107455</span></span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
@@ -266,8 +266,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Yemareshet Hailu Demeke, Dainn Wie</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107449</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">教育</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107449</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
@@ -278,8 +278,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Luis Escalante, Emerta Aragie, Manuel A. Hernandez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107450</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107450</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
@@ -290,8 +290,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Jonathan Bauchet, Ricardo Godoy, William R. Leonard, Victoria Reyes-García, Asher Y. Rosinger 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107452</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107452</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -302,8 +302,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Ahmed Racine Yago, Samba Diop, Cheikh Tidiane Ndiaye, Simplice A. Asongu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107461</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107461</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -314,8 +314,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Thea Johansen, Charles Butcher</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107456</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107456</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -326,8 +326,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Alexandra Bögner, Gabriele Spilker</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107469</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107469</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -338,8 +338,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Dwayne Woods</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107464</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107464</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -350,8 +350,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Fenghang Li, Shenglong Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103837</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103837</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -362,8 +362,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Yiran Du, Kai Feng, Gang Xu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103841</span></span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103841</span></span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -374,8 +374,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Palak Suri, Maureen Cropper</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103839</span></span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103839</span></span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -386,8 +386,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Shiyu Bo, Ting Chen, Cong Liu, Yan Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103827</span></span><span class="pill">发展经济学</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103827</span></span><span class="pill">发展经济学</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -398,8 +398,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Tahir Andrabi, Benjamin Daniels, Jishnu Das</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103795</span></span><span class="pill">发展经济学</span><span class="pill">健康</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103795</span></span><span class="pill">发展经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
 </article>
@@ -410,8 +410,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Santosh Anagol, Vimal Balasubramaniam, Tarun Ramadorai, Antoine Uettwiller</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103783</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103783</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -422,8 +422,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Wei Zou, Pinghan Liang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103757</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103757</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -434,8 +434,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Alan Finkelstein Shapiro, Victoria Nuguer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103782</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103782</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
@@ -446,8 +446,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Paul Castañeda Dower, Gunes Gokmen, Michel Le Breton, Shlomo Weber</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103776</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103776</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -458,8 +458,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Stefan Leeffers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103787</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103787</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
@@ -470,8 +470,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Malick Dione, Jessica Heckert, Melissa Hidrobo, Agnes Le Port, Amber Peterman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103748</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103748</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -482,8 +482,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Xuezheng Qin, Yingfei Wang, Haochen Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103801</span></span><span class="pill">发展经济学</span><span class="pill">教育</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103801</span></span><span class="pill">发展经济学</span><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
@@ -494,8 +494,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Nooman Rebei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103814</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103814</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -506,8 +506,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Sarah Langlotz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103751</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103751</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -518,8 +518,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Margaret E. Brehm, Paul A. Brehm, Alecia Cassidy, Traviss Cassidy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103811</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103811</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
@@ -530,8 +530,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">W. Scott Frame, Kristopher Gerardi, Erik J. Mayer, Billy Y. Xu, Lawrence Chengzhi Zhao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Financial Economics</span><span>官方日期 2026-07-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jfineco.2026.104279</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>官方日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jfineco.2026.104279</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -542,8 +542,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Denis Ivanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Public Choice</span><span>官方日期 2026-06-02</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1007/s11127-026-01408-3</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>官方日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1007/s11127-026-01408-3</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
@@ -554,8 +554,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Mark Koyama</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Public Choice</span><span>官方日期 2026-06-02</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1007/s11127-026-01407-4</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>官方日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1007/s11127-026-01407-4</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -566,8 +566,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Onil Boussim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113063</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113063</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -578,8 +578,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Bangru Shi, Yaoyao Wu, Siqi Zhao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113092</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113092</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -590,8 +590,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Sherzod B. Akhundjanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113074</span></span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113074</span></span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -602,8 +602,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Ritvana Rrukaj, Frode Steen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113066</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113066</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -614,8 +614,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Zelin Deng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113077</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113077</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -626,8 +626,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Luiggi Donayre, Eiji Goto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113075</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113075</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -638,8 +638,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">John William Hatfield, Fuhito Kojima, Scott Duke Kominers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>European Economic Review</span><span>官方日期 2026-07-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.euroecorev.2025.105256</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>官方日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.euroecorev.2025.105256</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -650,8 +650,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Eric P. Bettinger, Mari Rege, Ingeborg F. Solli, Maximiliaan W.P.T. Thijssen, David S. Yeager</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>European Economic Review</span><span>官方日期 2026-07-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.euroecorev.2026.105361</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>官方日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.euroecorev.2026.105361</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -662,8 +662,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Jamie L. Cross, Aubrey Poon, Dan Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>European Economic Review</span><span>官方日期 2026-07-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.euroecorev.2026.105352</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>官方日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.euroecorev.2026.105352</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -674,8 +674,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>European Economic Review</span><span>官方日期 2026-07-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/s0014-2921(26)00141-8</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>官方日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/s0014-2921(26)00141-8</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -686,8 +686,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Sebastian Doerr, Thomas Drechsel, Donggyu Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-03</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1093/restud/rdag053</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>官方日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1093/restud/rdag053</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
@@ -698,8 +698,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>American Economic Review</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1257/aer.116.6.2282</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1257/aer.116.6.2282</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -710,8 +710,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Ahmad Zia Wahdat, Joseph Balagtas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Applied Economic Perspectives and Policy</span><span>官方日期 2026-06-11</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1002/aepp.70095</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>官方日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1002/aepp.70095</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -722,8 +722,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Aino Friman, Dušan Drabik</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Australian Journal of Agricultural and Resource Economics</span><span>官方日期 2026-06-11</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/1467-8489.70126</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>官方日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/1467-8489.70126</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
@@ -734,8 +734,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Lloyd Chigusiwa, Asankha Pallegedara, Terrence Kairiza</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Australian Journal of Agricultural and Resource Economics</span><span>官方日期 2026-06-09</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/1467-8489.70120</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>官方日期 2026-06-09</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/1467-8489.70120</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
@@ -746,8 +746,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Erik Gråd, Anna Kristina Edenbrandt, Alexander Eriksson, Emilia Mattsson, Jens Rommel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Environmental and Resource Economics</span><span>官方日期 2026-05-26</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1007/s10640-026-01088-z</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>官方日期 2026-05-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1007/s10640-026-01088-z</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
@@ -758,8 +758,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Selina Bruns, Daniel Hermann, Oliver Musshoff</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Agricultural Economics</span><span>官方日期 2026-06-04</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/agec.70124</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>官方日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/agec.70124</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -770,8 +770,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Kim Lan Nguyen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Agricultural Economics</span><span>官方日期 2026-06-02</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/agec.70126</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>官方日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/agec.70126</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
@@ -782,8 +782,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Stefano Ghinoi, Simone Piras, Luca Tasciotti, Valdemar João Wesz Junior</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Agricultural Economics</span><span>官方日期 2026-06-11</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/1477-9552.70061</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>官方日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/1477-9552.70061</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -798,8 +798,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Jhih‐Yun Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>American Journal of Agricultural Economics</span><span>官方日期 2026-06-05</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1002/ajae.70081</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>官方日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1002/ajae.70081</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
@@ -810,8 +810,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Elena Perra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jce.2025.12.002</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jce.2025.12.002</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -822,8 +822,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Tribowo Rachmat Fauzan, Ajeung Syilva Syara Noor Silmi Sudrajat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Law &amp; Economics</span><span>官方日期 2026-05-30</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.56347/jle.v5i1.421</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law &amp; Economics</span><span>官方日期 2026-05-30</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.56347/jle.v5i1.421</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -834,8 +834,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Teegawende H. Zeida, Tomson Ogwang, Germano Mwabu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Population Economics</span><span>官方日期 2026-06-13</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1007/s00148-026-01183-x</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>官方日期 2026-06-13</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1007/s00148-026-01183-x</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -846,8 +846,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Krista Riukula</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Population Economics</span><span>官方日期 2026-05-28</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1007/s00148-026-01178-8</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>官方日期 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1007/s00148-026-01178-8</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
@@ -858,8 +858,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Weidong Tian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jedc.2026.105369</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jedc.2026.105369</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -870,8 +870,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Lukáš Janásek</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jedc.2026.105355</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jedc.2026.105355</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -882,8 +882,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Aruhan Rui Shi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jedc.2026.105349</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jedc.2026.105349</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -894,8 +894,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Axel Gottfries</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Dynamics</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.red.2026.101343</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.red.2026.101343</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -906,8 +906,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Andrew Y. Chen, Francisco Palomino</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Dynamics</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.red.2026.101347</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.red.2026.101347</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -918,8 +918,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">HANFENG CHEN, MARIA ELENA FILIPPIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Money, Credit and Banking</span><span>官方日期 2026-06-04</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/jmcb.70063</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>官方日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/jmcb.70063</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
@@ -930,8 +930,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Stuart Gabriel, Edward Kung</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Urban Economics</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jue.2026.103872</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jue.2026.103872</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
@@ -942,8 +942,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Xiqian Wang, Yiming Chen, Zongyue He</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Applied Economics</span><span>官方日期 2026-06-11</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1080/00036846.2026.2685879</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>官方日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1080/00036846.2026.2685879</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -954,8 +954,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Emilio Leguízamo, Ana María Montoya</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-11-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107441</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107441</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -966,8 +966,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Joachim De Weerdt, Luc Christiaensen, Ravi Kanbur</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-11-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107419</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">城市与区域</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107419</span></span><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
@@ -978,8 +978,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Gustavo Canavire-Bacarreza, Alejandro Puerta-Cuartas, Andrey Ramos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107468</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107468</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -990,8 +990,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Giovanni Dosi, Federico Riccio, Maria Enrica Virgillito</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107411</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107411</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1002,8 +1002,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Witsanu Attavanich, Adrian A. Lopes, Sailesh Tiwari, Ajalavat Viriyavipart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>World Development</span><span>官方日期 2026-10-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.worlddev.2026.107466</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>官方日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.worlddev.2026.107466</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1014,8 +1014,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Hong Cheng, Hongbin Li, Hui Wang, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Development and Cultural Change</span><span>官方日期 2026-06-08</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1086/742631</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>官方日期 2026-06-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1086/742631</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1026,8 +1026,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Raimundo Undurraga</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Development and Cultural Change</span><span>官方日期 2026-06-05</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1086/742606</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>官方日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1086/742606</span></span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
@@ -1038,8 +1038,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Prajwol Nepal, Yubraj Acharya</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Development and Cultural Change</span><span>官方日期 2026-06-04</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1086/742594</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>官方日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1086/742594</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1050,8 +1050,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Monira Essa Aloud, Sara Al-Rashood, Ina Ganguli, Basit Zafar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Development and Cultural Change</span><span>官方日期 2026-05-20</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1086/742354</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>官方日期 2026-05-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1086/742354</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
@@ -1062,8 +1062,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Xu He, Hongmei Yi, Scott Rozelle, Takeshi Sakurai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Development and Cultural Change</span><span>官方日期 2026-05-15</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1086/742299</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>官方日期 2026-05-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1086/742299</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1074,8 +1074,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Bernard Hoekman, Marco Sanfilippo, Filippo Santi, Rohit Ticku</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103832</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103832</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1086,8 +1086,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Edward N. Okeke, Isa S. Abubakar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103834</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103834</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1098,8 +1098,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Oscar Barrera Rodríguez, Karen Macours, Patrick Premand, Renos Vakis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103833</span></span><span class="pill">发展经济学</span><span class="pill">行为与组织</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103833</span></span><span class="pill">发展经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
@@ -1110,8 +1110,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Chris Elbers, Roy van der Weide</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103835</span></span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103835</span></span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1122,8 +1122,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Mateo Hoyos, José Alejandro Coronado, Guilherme Klein Martins</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jdeveco.2026.103840</span></span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>官方日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jdeveco.2026.103840</span></span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -1134,8 +1134,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Francesca Bastianello, Paul Fontanier</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Financial Studies</span><span>官方日期 2026-06-03</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1093/rfs/hhag053</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>官方日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1093/rfs/hhag053</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
@@ -1146,8 +1146,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Fanghao Chen, Ruichi Xiong, Xiaobo Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of International Economics</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jinteco.2026.104293</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jinteco.2026.104293</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1158,8 +1158,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Chris Wickham</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic History Review</span><span>官方日期 2026-06-05</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/ehr.70125</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>官方日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/ehr.70125</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1170,8 +1170,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Andrea Lopez-Luzuriaga, Carlos Scartascini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>International Tax and Public Finance</span><span>官方日期 2026-05-29</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1007/s10797-026-09975-3</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>官方日期 2026-05-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1007/s10797-026-09975-3</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1182,8 +1182,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Marco Fregoni, Marco Leonardi, Sauro Mocetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Law, Economics &amp; Organization</span><span>官方日期 2026-05-21</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1093/jleo/ewag015</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>官方日期 2026-05-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1093/jleo/ewag015</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
@@ -1194,8 +1194,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Tinna Laufey Ásgeirsdóttir, Viktor Andri Kárason</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Scandinavian Journal of Economics</span><span>官方日期 2026-05-21</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/sjoe.70026</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>官方日期 2026-05-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/sjoe.70026</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
@@ -1206,8 +1206,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Torben Klarl</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economica</span><span>官方日期 2026-06-05</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/ecca.70060</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>官方日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/ecca.70060</span></span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1218,8 +1218,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economica</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/ecca.70056</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/ecca.70056</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1230,8 +1230,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Sargam Gupta, Snigdha Kalra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economic Inquiry</span><span>官方日期 2026-06-13</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1111/ecin.70069</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>官方日期 2026-06-13</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1111/ecin.70069</span></span><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
@@ -1242,8 +1242,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Angela Dills, Manu Raghav</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113081</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113081</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1254,8 +1254,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Christoph K. Becker, Peter Duersch, Thomas Eife, Alexander Glas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Economics Letters</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.econlet.2026.113067</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.econlet.2026.113067</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1266,8 +1266,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Okan Akarsu, Emrehan Aktuğ</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of the European Economic Association</span><span>官方日期 2026-06-12</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1093/jeea/jvag036</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>官方日期 2026-06-12</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1093/jeea/jvag036</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1278,8 +1278,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Rüdiger Bachmann, Benjamin Born, Olga Goldfayn-Frank, Georgi Kocharkov, Ralph Luetticke 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Review of Economic Studies</span><span>官方日期 2026-06-10</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1093/restud/rdag055</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>官方日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1093/restud/rdag055</span></span><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -1290,8 +1290,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>American Economic Review</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1257/aer.116.6.i</span></span><span class="pill">发展经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1257/aer.116.6.i</span></span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article></main>

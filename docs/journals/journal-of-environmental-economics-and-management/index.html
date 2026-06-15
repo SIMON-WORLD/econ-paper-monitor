@@ -19,11 +19,11 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
 .banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
 .banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 32px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:20px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35}
+.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;align-items:start}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
 .archive-list{padding-left:18px}.archive-list li{margin:8px 0}
@@ -62,8 +62,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Markus Nabernegg, Stefan Nabernegg, Thomas Kopp</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103353</span></span><span class="pill">环境与气候</span><span class="pill">不平等</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103353</span></span><span class="pill">环境与气候</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
@@ -74,8 +74,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Mohammadhossein Lashkaripour, Seyedmehdi Hosseini, Rizwan Ahmed</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103351</span></span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103351</span></span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -86,8 +86,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Alberto Antonioni, Alice Ciccone, Cloé Garnache, Sara Ghivarello, Askill H. Halse 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103377</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103377</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -98,8 +98,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Haiqiang Chen, Shihe Fu, Zhuoyang Lyu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103374</span></span><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103374</span></span><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -110,8 +110,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Floris van Montfoort, Peter T. Dijkstra, Machiel Mulder, Dávid Kopányi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103354</span></span><span class="pill">环境与气候</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103354</span></span><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -122,8 +122,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Claire Lepault, Philippe Quirion, Pierre Uginet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103365</span></span><span class="pill">环境与气候</span><span class="pill">健康</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103365</span></span><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
 </article>
@@ -134,8 +134,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Anders Dugstad, Dag Einar Sommervoll</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103364</span></span><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">城市与区域</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103364</span></span><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
@@ -146,8 +146,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Saumya Deojain, David Lindequist</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103366</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103366</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -158,8 +158,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Lin Yang, Wenjie Luo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103363</span></span><span class="pill">环境与气候</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103363</span></span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
 </article>
@@ -170,8 +170,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Shashank Misra, Shobhit Kulshreshtha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103360</span></span><span class="pill">环境与气候</span><span class="pill">计量方法</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103360</span></span><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
@@ -182,8 +182,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Samuel Bícego, Paula Carvalho Pereda</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103376</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103376</span></span><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -194,8 +194,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Minsu Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103344</span></span><span class="pill">环境与气候</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103344</span></span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
 </article>
@@ -206,8 +206,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">François Bareille, Philippe Delacote, Abdoul Latif Sokoundou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103336</span></span><span class="pill">环境与气候</span><span class="pill">国际贸易</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103336</span></span><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
@@ -218,8 +218,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Patrick Lloyd-Smith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103315</span></span><span class="pill">环境与气候</span><span class="pill">计量方法</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103315</span></span><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
@@ -230,8 +230,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Finn Ole Semrau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103324</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103324</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
@@ -242,8 +242,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Takahiko Kiso</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103340</span></span><span class="pill">环境与气候</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103340</span></span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
 </article>
@@ -254,8 +254,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Frederik Strabo, Matthew N. Reimer, James N. Sanchirico</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103362</span></span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103362</span></span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
@@ -266,8 +266,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Ting Chen, Chong Liu, Sen Ma</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103357</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103357</span></span><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
@@ -278,8 +278,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Alex L. Marten, Andrew Schreiber, Ann Wolverton</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103361</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103361</span></span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -290,8 +290,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     
     <p class="authors">Jingbo Cui, Chunhua Wang, Zhenxuan Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span><span class="doi">10.1016/j.jeem.2026.103359</span></span><span class="pill">环境与气候</span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>官方日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span><span class="doi">10.1016/j.jeem.2026.103359</span></span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
 </article></main>
