@@ -18,6 +18,10 @@ from common import DATA_DIR, read_json, write_json
 from status import record_source
 
 
+def has_chinese(value: str | None) -> bool:
+    return any("\u4e00" <= ch <= "\u9fff" for ch in value or "")
+
+
 def api_settings() -> tuple[str | None, str, str]:
     deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
     key = deepseek_key or os.environ.get("OPENAI_API_KEY") or os.environ.get("TRANSLATION_API_KEY")
@@ -84,6 +88,11 @@ def translate_daily_file(path: Path, args: argparse.Namespace, key: str, base_ur
             break
         title = str(record.get("title") or "").strip()
         if not title or record.get("title_zh"):
+            continue
+        if has_chinese(title):
+            record["title_zh"] = title
+            record["translation_status"] = "native_chinese"
+            changed += 1
             continue
         attempted += 1
         try:

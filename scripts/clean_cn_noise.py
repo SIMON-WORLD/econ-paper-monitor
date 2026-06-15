@@ -43,6 +43,9 @@ NOISE_TEXT = (
     "补充材料",
     "公告",
     "通知",
+    "欢迎订阅",
+    "征订",
+    "——评《",
 )
 NOISE_URL = (
     "CommonBlock/SiteContentList",

@@ -18,6 +18,7 @@ import json
 import re
 import ssl
 import socket
+import http.cookiejar
 import urllib.parse
 import urllib.request
 from html.parser import HTMLParser
@@ -39,7 +40,12 @@ CN_HOME_URLS = {
 
 AJCASS_JOURNAL_IDS = {
     "journal-f69300dae2": "201606270007",
-    "journal-ba9f46c919": "201606270001",
+    "journal-ba9f46c919": "201803050001",
+}
+
+AJCASS_LIST_ENDPOINTS = {
+    "journal-f69300dae2": "IssueContentApi/GetIssueNormalSearch",
+    "journal-ba9f46c919": "IssueContentApi/GetIssueSimpleSearch",
 }
 
 NOISE_TEXT = (
@@ -60,6 +66,9 @@ NOISE_TEXT = (
     "公告",
     "通知",
     "目录",
+    "欢迎订阅",
+    "征订",
+    "——评《",
 )
 
 
@@ -279,20 +288,22 @@ def parse_world_economy(html_text: str, journal: dict[str, Any], limit: int) -> 
 
 def parse_jqte(html_text: str, journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
     base_url = CN_HOME_URLS[journal["id"]]
-    matches = re.findall(
-        r'<a[^>]+href=["\']([^"\']*reader/view_abstract\.aspx\?file_no=[^"\']+)["\'][^>]*>([\s\S]*?)</a>([\s\S]{0,900})',
-        html_text,
-        flags=re.I,
-    )
+    marker = html_text.find("本刊最新目录")
+    main = html_text[marker : marker + 30000] if marker >= 0 else html_text
+    matches = re.findall(r"<li><div class=\"aList\">([\s\S]*?)</li>", main, flags=re.I)
     records: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for href, title_html, tail in matches:
+    for block in matches:
+        title_match = re.search(r"<a[^>]+href=['\"]([^'\"]*reader/view_abstract\.aspx\?file_no=[^'\"]+)['\"][^>]*>([\s\S]*?)</a>", block, flags=re.I)
+        if not title_match:
+            continue
+        href, title_html = title_match.groups()
         url = normalize_url(href, base_url)
         if url in seen:
             continue
         seen.add(url)
-        authors_match = re.search(r"<span[^>]*>\s*(?:\[|【)([\s\S]*?)(?:\]|】)\s*</span>", tail, flags=re.I)
-        issue_match = re.search(r"<em[^>]*>([\s\S]*?)</em>", tail, flags=re.I)
+        authors_match = re.search(r"<span[^>]*>\s*(?:\[|【)([\s\S]*?)(?:\]|】)\s*</span>", block, flags=re.I)
+        issue_match = re.search(r"<em[^>]*>([\s\S]*?)</em>", block, flags=re.I)
         record = make_record(
             journal,
             clean_title(title_html),
@@ -315,22 +326,26 @@ def parse_cie(html_text: str, journal: dict[str, Any], limit: int) -> list[dict[
     marker = main.find("当期目录")
     if marker >= 0:
         main = main[marker : marker + 50000]
-    matches = re.findall(r'<a[^>]+href=["\']([^"\']*Magazine/Show\?id=\d+[^"\']*)["\'][^>]*>([\s\S]*?)</a>([\s\S]{0,1600})', main, flags=re.I)
+    matches = re.findall(r'<table[\s\S]*?</table>', main, flags=re.I)
     records: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for href, title_html, tail in matches:
+    for block in matches:
+        title_match = re.search(r'<a[^>]+href=["\']([^"\']*Magazine/Show\?id=\d+[^"\']*)["\'][^>]*font-weight:\s*bold[^>]*>([\s\S]*?)</a>', block, flags=re.I)
+        if not title_match:
+            continue
+        href, title_html = title_match.groups()
         url = normalize_url(href, base_url)
         if url in seen:
             continue
         seen.add(url)
-        text_tail = clean_text(tail)
-        issue_match = re.search(r"(20\d{2}\s*年,\s*第\s*\d+\s*期[:：]\s*\d+\s*-\s*\d+\s*页)", text_tail)
-        author_text = text_tail.split("20", 1)[0]
+        text_tail = clean_text(block)
+        issue_match = re.search(r"(20\d{2}\s*年,\s*第\s*\d+\s*期\s*[:：]\s*\d+\s*-\s*\d+\s*页)", text_tail)
+        authors_match = re.search(r"</a>\s*<span[^>]*>([\s\S]*?)</span>", block, flags=re.I)
         record = make_record(
             journal,
             clean_title(title_html),
             url,
-            authors=split_authors(author_text),
+            authors=split_authors(authors_match.group(1) if authors_match else None),
             source_issue=clean_text(issue_match.group(1)) if issue_match else None,
             date_source="issue_only",
             source_url=base_url,
@@ -368,17 +383,35 @@ class SimpleLinkParser(HTMLParser):
             self._text = []
 
 
-def fetch_json_api(path: str, params: dict[str, str], timeout: int = 6) -> Any:
+def fetch_json_api(path: str, params: dict[str, Any], *, method: str = "GET", timeout: int = 12) -> Any:
     url = "https://api.ajcass.com/api/" + path.lstrip("/")
-    query = urllib.parse.urlencode(params)
-    request = urllib.request.Request(f"{url}?{query}", headers={"User-Agent": "Mozilla/5.0"})
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            return json.loads(response.read().decode("utf-8", errors="replace"))
-    except Exception:
-        context = ssl._create_unverified_context()
-        with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
-            return json.loads(response.read().decode("utf-8", errors="replace"))
+    data = None
+    if method == "POST":
+        data = json.dumps(params, ensure_ascii=False).encode("utf-8")
+    else:
+        query = urllib.parse.urlencode(params)
+        url = f"{url}?{query}"
+    request = urllib.request.Request(
+        url,
+        data=data,
+        headers={"User-Agent": "Mozilla/5.0", "Content-Type": "application/json"},
+        method=method,
+    )
+    last_error: Exception | None = None
+    for attempt in range(3):
+        for context in (None, ssl._create_unverified_context()):
+            try:
+                open_kwargs = {"timeout": timeout + attempt * 4}
+                if context is not None:
+                    open_kwargs["context"] = context
+                with urllib.request.urlopen(request, **open_kwargs) as response:  # type: ignore[arg-type]
+                    return json.loads(response.read().decode("utf-8", errors="replace"))
+            except Exception as exc:  # noqa: BLE001
+                last_error = exc
+                continue
+    if last_error:
+        raise last_error
+    raise RuntimeError("empty API response")
 
 
 def walk_json(value: Any) -> list[dict[str, Any]]:
@@ -396,109 +429,113 @@ def walk_json(value: Any) -> list[dict[str, Any]]:
 
 def parse_ajcass_api(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
     journal_id = AJCASS_JOURNAL_IDS[journal["id"]]
-    endpoints = [
-        "Article/Search",
-        "Article/GetArticleList",
-        "Journal/GetArticleList",
-        "Paper/GetList",
-        "Article/GetList",
-        "Content/GetList",
-    ]
-    param_sets = [
-        {"JournalID": journal_id, "PageIndex": "1", "PageSize": str(limit)},
-        {"JournalID": journal_id, "page": "1", "limit": str(limit)},
-        {"JournalID": journal_id, "pageIndex": "1", "pageSize": str(limit)},
-    ]
+    endpoint = AJCASS_LIST_ENDPOINTS[journal["id"]]
+    params = {"JournalID": int(journal_id), "curr": 1, "limit": limit}
     records: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for endpoint in endpoints:
-        for params in param_sets:
-            try:
-                payload = fetch_json_api(endpoint, params)
-            except Exception:
-                continue
-            for item in walk_json(payload):
-                title = first_nonempty(
-                    str(item.get("Title")) if item.get("Title") else None,
-                    str(item.get("PaperTitle")) if item.get("PaperTitle") else None,
-                    str(item.get("Name")) if item.get("Name") else None,
-                    str(item.get("Subject")) if item.get("Subject") else None,
-                )
-                if not title:
-                    continue
-                content_id = first_nonempty(
-                    str(item.get("ContentID")) if item.get("ContentID") else None,
-                    str(item.get("ID")) if item.get("ID") else None,
-                    str(item.get("ArticleID")) if item.get("ArticleID") else None,
-                )
-                url = CN_HOME_URLS[journal["id"]]
-                if content_id:
-                    url = f"{url.rstrip('/')}/#/detail?id={urllib.parse.quote(content_id)}"
-                if url in seen:
-                    continue
-                seen.add(url)
-                issue = first_nonempty(
-                    str(item.get("IssueName")) if item.get("IssueName") else None,
-                    str(item.get("YearIssue")) if item.get("YearIssue") else None,
-                    str(item.get("Issue")) if item.get("Issue") else None,
-                )
-                date_text = first_nonempty(
-                    str(item.get("PublishDate")) if item.get("PublishDate") else None,
-                    str(item.get("CreateTime")) if item.get("CreateTime") else None,
-                    str(item.get("OnlineDate")) if item.get("OnlineDate") else None,
-                )
-                date_value = extract_date(date_text or "")
-                record = make_record(
-                    journal,
-                    title,
-                    url,
-                    authors=split_authors(first_nonempty(str(item.get("Author")) if item.get("Author") else None, str(item.get("Authors")) if item.get("Authors") else None)),
-                    abstract=first_nonempty(str(item.get("Summary")) if item.get("Summary") else None, str(item.get("Abstract")) if item.get("Abstract") else None),
-                    available_online=date_value if item.get("OnlineDate") else None,
-                    published_online=date_value if date_value and not item.get("OnlineDate") else None,
-                    source_issue=issue,
-                    date_source="ajcass_api",
-                    source_url=CN_HOME_URLS[journal["id"]],
-                )
-                if record:
-                    records.append(record)
-                if len(records) >= limit:
-                    return records
-            if records:
-                return records
+    payload = fetch_json_api(endpoint, params, method="POST")
+    for item in walk_json(payload):
+        title = first_nonempty(
+            str(item.get("title")) if item.get("title") else None,
+            str(item.get("Title")) if item.get("Title") else None,
+            str(item.get("name")) if item.get("name") else None,
+        )
+        if not title:
+            continue
+        content_id = first_nonempty(
+            str(item.get("contentId")) if item.get("contentId") else None,
+            str(item.get("contentID")) if item.get("contentID") else None,
+            str(item.get("id")) if item.get("id") else None,
+            str(item.get("ID")) if item.get("ID") else None,
+        )
+        base_url = CN_HOME_URLS[journal["id"]].split("#", 1)[0].rstrip("/")
+        url = f"{base_url}/#/detail?contentId={urllib.parse.quote(content_id)}" if content_id else base_url
+        if url in seen:
+            continue
+        seen.add(url)
+        year = item.get("year")
+        volume = item.get("volume")
+        issue_no = item.get("issue")
+        start_page = item.get("startPageName") or item.get("startPageNum")
+        end_page = item.get("endPageName") or item.get("pageNum")
+        if year and volume and issue_no and start_page and end_page:
+            issue_fallback = f"{year}, {volume}({issue_no}): {start_page}-{end_page}"
+        elif year and volume and issue_no and start_page:
+            issue_fallback = f"{year}, {volume}({issue_no}): {start_page}"
+        elif year and issue_no:
+            issue_fallback = f"{year}年第{issue_no}期"
+        else:
+            issue_fallback = None
+        source_issue = first_nonempty(
+            str(item.get("yearVolumeIssue")).replace("-0", "") if item.get("yearVolumeIssue") else None,
+            issue_fallback,
+        )
+        file_path = first_nonempty(str(item.get("filePath")) if item.get("filePath") else None)
+        pdf_url = urllib.parse.urljoin("https://api.ajcass.com", file_path) if file_path else None
+        record = make_record(
+            journal,
+            title,
+            url,
+            authors=split_authors(first_nonempty(str(item.get("authorsName")) if item.get("authorsName") else None, str(item.get("authors")) if item.get("authors") else None)),
+            abstract=first_nonempty(str(item.get("abstract")) if item.get("abstract") else None),
+            source_issue=source_issue,
+            date_source="issue_only",
+            source_url="https://api.ajcass.com/api/" + endpoint,
+        )
+        if record:
+            record["pdf_url"] = pdf_url
+            records.append(record)
+        if len(records) >= limit:
+            return records
     return records
 
 
 def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
-    # This site currently returns a validation/login page for anonymous AJAX
-    # calls from Actions. Keep this parser strict to avoid treating news/nav
-    # links as papers.
     base = "https://glsj.chinajournal.net.cn/WKB/WebPublication/"
-    endpoints = [
-        "getFirstPublishPaperInfo.ashx",
-        "getThisIssuePaperInfo.ashx?y=2026&i=5",
-    ]
+    cookie_jar = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
+    headers = {"User-Agent": "Mozilla/5.0", "Referer": base + "index.aspx?mid=glsj"}
+    opener.open(urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers), timeout=20).read()
     records: list[dict[str, Any]] = []
-    for endpoint in endpoints:
-        try:
-            page = fetch_text(base + endpoint, timeout=15)
-        except Exception:
-            continue
-        if "showValidateCode" in page or "login.css" in page:
-            continue
-        parser = SimpleLinkParser()
-        parser.feed(page)
-        for href, title in parser.links:
-            if is_noise_title(title):
+    latest_page = ""
+    latest_endpoint = ""
+    for year in range(2026, 2022, -1):
+        for issue in range(12, 0, -1):
+            endpoint = f"getThisIssuePaperInfo.ashx?y={year}&i={issue}"
+            try:
+                page = opener.open(urllib.request.Request(base + endpoint, headers=headers), timeout=10).read().decode("utf-8", errors="replace")
+            except Exception:
                 continue
-            url = normalize_url(href, base)
-            if "Paper" not in url and "Content" not in url and "Article" not in url:
+            if "暂无内容" in page or len(page) < 200:
                 continue
-            record = make_record(journal, title, url, source_url=base + endpoint)
-            if record:
-                records.append(record)
-            if len(records) >= limit:
-                return records
+            latest_page = page
+            latest_endpoint = endpoint
+            break
+        if latest_page:
+            break
+    if not latest_page:
+        return records
+    blocks = re.findall(r"<li>\s*<h3>[\s\S]*?</li>", latest_page, flags=re.I)
+    for block in blocks:
+        title_match = re.search(r'<a[^>]+href=["\']([^"\']*paperDigest\.aspx\?paperID=[^"\']+)["\'][^>]*>([\s\S]*?)</a>', block, flags=re.I)
+        if not title_match:
+            continue
+        href, title_html = title_match.groups()
+        authors_match = re.search(r"<samp>([\s\S]*?)</samp>", block, flags=re.I)
+        issue_match = re.search(r"<span>([\s\S]*?)<a", block, flags=re.I)
+        record = make_record(
+            journal,
+            title_html,
+            normalize_url(href, base),
+            authors=split_authors(authors_match.group(1) if authors_match else None),
+            source_issue=clean_text(issue_match.group(1)) if issue_match else None,
+            date_source="issue_only",
+            source_url=base + latest_endpoint,
+        )
+        if record:
+            records.append(record)
+        if len(records) >= limit:
+            return records
     return records
 
 

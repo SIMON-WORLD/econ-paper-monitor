@@ -23,11 +23,11 @@ jobs:
       - name: Fetch Crossref metadata
         run: python scripts/fetch_crossref.py --days 14 --rows 20 --sleep 0.2
       - name: Fetch Chinese journal pages
-        run: python scripts/fetch_cn_journals.py --only journal-679eaa2a0c
+        run: python scripts/fetch_cn_journals.py
       - name: Dedupe new papers
         run: python scripts/dedupe.py
       - name: Translate paper titles
-        run: python scripts/translate.py --date $(python -c "import sys; sys.path.insert(0, 'scripts'); from common import today_str; print(today_str())") --limit 200
+        run: python scripts/translate.py --limit 400
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
