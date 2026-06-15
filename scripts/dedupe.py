@@ -18,6 +18,8 @@ ENRICH_FIELDS = [
     "publisher",
     "published_online",
     "available_online",
+    "source_issue",
+    "date_source",
     "doi",
     "url",
     "pdf_url",

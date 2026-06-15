@@ -18,7 +18,14 @@ CN_JOURNALS = {
     "journal-ba9f46c919",
 }
 CN_JOURNAL_NAMES = {"管理世界", "数量经济技术经济研究", "中国工业经济", "中国农村经济", "世界经济", "经济研究"}
-ARTICLE_URL_PATTERNS = ("view_abstract.aspx", "article/abstract", "CN/abstract/abstract", "/CN/Y")
+ARTICLE_URL_PATTERNS = (
+    "reader/view_abstract.aspx?file_no=",
+    "view_abstract.aspx?file_no=",
+    "sjjj.magtech.com.cn/CN/Y",
+    "ciejournal.ajcass.com/Magazine/Show?id=",
+    "ajcass.com/#/detail",
+    "ajcass.com/#/enDetail",
+)
 NOISE_TEXT = (
     "平台",
     "数据库",
@@ -34,11 +41,21 @@ NOISE_TEXT = (
     "期刊征文",
     "复现包",
     "补充材料",
+    "公告",
+    "通知",
+)
+NOISE_URL = (
+    "CommonBlock/SiteContentList",
+    "mp.weixin.qq.com",
+    "nssd.cn",
+    "find.cb.cnki.net",
+    ".doc",
+    ".docx",
 )
 
 
 def is_article_url(url: str) -> bool:
-    return any(pattern in url for pattern in ARTICLE_URL_PATTERNS)
+    return any(pattern.lower() in url.lower() for pattern in ARTICLE_URL_PATTERNS)
 
 
 def is_noise_record(record: dict[str, Any]) -> bool:
@@ -48,11 +65,17 @@ def is_noise_record(record: dict[str, Any]) -> bool:
     url = str(record.get("url") or "")
     if any(noise in title for noise in NOISE_TEXT):
         return True
-    if "#" in url:
+    if any(noise.lower() in url.lower() for noise in NOISE_URL):
         return True
-    if not record.get("available_online") and not record.get("published_online"):
+    if record.get("journal_id") == "journal-edcb877d78" and not record.get("source_issue"):
         return True
-    return not is_article_url(url)
+    if "#" in url and "ajcass.com/#/" not in url:
+        return True
+    if is_article_url(url):
+        return False
+    if record.get("source_issue") and record.get("url"):
+        return False
+    return not (record.get("available_online") or record.get("published_online"))
 
 
 def clean_daily(path: Path) -> int:
@@ -74,7 +97,10 @@ def clean_seen(path: Path) -> int:
         url = str(value.get("url") or "")
         if journal not in CN_JOURNAL_NAMES:
             continue
-        if any(noise in title for noise in NOISE_TEXT) or not is_article_url(url):
+        if any(noise in title for noise in NOISE_TEXT):
+            removed.append(key)
+            continue
+        if url and not is_article_url(url):
             removed.append(key)
     for key in removed:
         papers.pop(key, None)

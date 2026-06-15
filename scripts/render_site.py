@@ -221,7 +221,9 @@ def date_confidence_label(record: dict[str, Any]) -> str:
         return "在线日期"
     if record.get("published_online"):
         return "来源日期"
-    return "日期未知"
+    if record.get("source_issue"):
+        return "来源期次"
+    return "日期待解析"
 
 
 def is_china_related(record: dict[str, Any]) -> bool:
@@ -360,7 +362,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         else:
             link_or_doi = '<span class="doi">暂无链接</span>'
         date_label = date_confidence_label(record)
-        official_date = html_escape(record.get("available_online") or record.get("published_online") or "未知")
+        official_date = html_escape(record.get("available_online") or record.get("published_online") or record.get("source_issue") or "待解析")
         fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in article_topics(record)[:3] if topic != "china")
         title_zh = record.get("title_zh")
         title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
@@ -517,12 +519,20 @@ def main() -> None:
         write_page(args.docs_dir / "daily" / daily_date / "index.html", page(f"{daily_date} 归档", records, body, active="archive"))
         archive_links.append(f'<li><a href="{BASE}/daily/{html_escape(daily_date)}/">{html_escape(daily_date)}</a> ({len(daily_records)})</li>')
 
+    journals = load_journals(DATA_DIR / "journals.yml")
+    journals_by_id = {journal["id"]: journal for journal in journals}
     for journal_id, journal_records in by_journal.items():
-        title = str(journal_records[0].get("journal") or journal_id)
+        title = str(journal_records[0].get("journal") or journals_by_id.get(journal_id, {}).get("title") or journal_id)
         body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊历史发现记录。</p></div></section>{paper_events(journal_records)}'
         write_page(args.docs_dir / "journals" / journal_id / "index.html", page(title, records, body))
 
-    journals = load_journals(DATA_DIR / "journals.yml")
+    for journal in journals:
+        if journal["id"] in by_journal:
+            continue
+        title = str(journal.get("title") or journal["id"])
+        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊暂未保留有效论文记录。</p></div></section>{paper_events([])}'
+        write_page(args.docs_dir / "journals" / journal["id"] / "index.html", page(title, records, body))
+
     journal_rows = []
     for journal in journals:
         fields = ", ".join(field_label(field) for field in journal.get("fields", []))
