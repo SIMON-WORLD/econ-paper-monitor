@@ -172,6 +172,34 @@ def first_nonempty(*values: str | None) -> str | None:
     return None
 
 
+def issue_key(source_issue: str | None) -> tuple[int, int] | None:
+    text = clean_text(source_issue)
+    if not text:
+        return None
+    patterns = [
+        r"(20\d{2})\s*年\s*,?\s*第\s*(\d{1,2})\s*期",
+        r"(20\d{2})\s*,\s*\d+\s*\(\s*(\d{1,2})\s*\)",
+        r"(20\d{2})\s*,\s*\(\s*(\d{1,2})\s*\)",
+        r"(20\d{2})\s*年第\s*(\d{1,2})\s*期",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if match:
+            return int(match.group(1)), int(match.group(2))
+    return None
+
+
+def keep_latest_issue(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    keyed = [(issue_key(record.get("source_issue")), record) for record in records]
+    keys = [key for key, _record in keyed if key is not None]
+    if not keys:
+        return records
+    latest = max(keys)
+    latest_records = [record for key, record in keyed if key == latest]
+    # Keep undated records only when the source produced no usable issue keys.
+    return latest_records
+
+
 def make_record(
     journal: dict[str, Any],
     title: str,
@@ -583,6 +611,11 @@ def main() -> None:
             continue
         try:
             fetched, mode = fetch_journal(journal, url, args.limit_per_journal)
+            if journal_id in CN_HOME_URLS:
+                before = len(fetched)
+                fetched = keep_latest_issue(fetched)
+                if before != len(fetched):
+                    mode = f"{mode}, latest-issue {len(fetched)}/{before}"
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
         except Exception as exc:  # noqa: BLE001

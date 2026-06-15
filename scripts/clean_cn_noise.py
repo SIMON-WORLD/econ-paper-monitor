@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, write_json
+from status import record_source
 
 
 CN_JOURNALS = {
@@ -81,9 +83,47 @@ def is_noise_record(record: dict[str, Any]) -> bool:
     return not (record.get("available_online") or record.get("published_online"))
 
 
+def issue_key(source_issue: str | None) -> tuple[int, int] | None:
+    text = str(source_issue or "")
+    patterns = [
+        r"(20\d{2})\s*年\s*,?\s*第\s*(\d{1,2})\s*期",
+        r"(20\d{2})\s*,\s*\d+\s*\(\s*(\d{1,2})\s*\)",
+        r"(20\d{2})\s*,\s*\(\s*(\d{1,2})\s*\)",
+        r"(20\d{2})\s*年第\s*(\d{1,2})\s*期",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if match:
+            return int(match.group(1)), int(match.group(2))
+    return None
+
+
+def latest_issue_filter(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    latest_by_journal: dict[str, tuple[int, int]] = {}
+    for record in records:
+        journal_id = record.get("journal_id")
+        if journal_id not in CN_JOURNALS:
+            continue
+        key = issue_key(record.get("source_issue"))
+        if key is None:
+            continue
+        latest_by_journal[journal_id] = max(latest_by_journal.get(journal_id, key), key)
+    if not latest_by_journal:
+        return records
+    kept = []
+    for record in records:
+        journal_id = record.get("journal_id")
+        key = issue_key(record.get("source_issue"))
+        if journal_id in latest_by_journal and key is not None and key != latest_by_journal[journal_id]:
+            continue
+        kept.append(record)
+    return kept
+
+
 def clean_daily(path: Path) -> int:
     records = read_json(path, [])
     kept = [record for record in records if not is_noise_record(record)]
+    kept = latest_issue_filter(kept)
     removed = len(records) - len(kept)
     if removed:
         write_json(path, kept)
@@ -122,6 +162,12 @@ def main() -> None:
     for path in args.daily_dir.glob("*.json"):
         daily_removed += clean_daily(path)
     seen_removed = clean_seen(args.seen)
+    record_source(
+        "clean-cn-noise",
+        ok=True,
+        count=daily_removed + seen_removed,
+        message=f"daily_removed={daily_removed} seen_removed={seen_removed}",
+    )
     print(f"removed daily={daily_removed} seen={seen_removed}")
 
 

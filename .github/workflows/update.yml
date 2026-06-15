@@ -26,6 +26,8 @@ jobs:
         run: python scripts/fetch_cn_journals.py
       - name: Dedupe new papers
         run: python scripts/dedupe.py
+      - name: Clean Chinese journal noise
+        run: python scripts/clean_cn_noise.py
       - name: Translate paper titles
         run: python scripts/translate.py --limit 400
         env:
