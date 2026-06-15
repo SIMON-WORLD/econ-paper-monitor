@@ -398,20 +398,77 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     return "\n".join(chunks)
 
 
-def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
-    s = stats(records, today_records)
-    today_journals = sorted(
+FILTER_SCRIPT = """
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+"""
+
+
+def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False) -> str:
+    if not records:
+        return ""
+    journals = sorted(
         {
             (record.get("journal_id"), record.get("journal"))
-            for record in today_records
+            for record in records
             if record.get("journal_id") and record.get("journal")
         },
         key=lambda item: item[1],
     )
-    today_fields = sorted({topic for record in today_records for topic in article_topics(record)}, key=topic_label)
-    journal_options = "".join(f'<option value="{html_escape(jid)}">{html_escape(title)}</option>' for jid, title in today_journals)
-    field_options = "".join(f'<option value="{html_escape(field)}">{html_escape(topic_label(field))}</option>' for field in today_fields)
-    toolbar_hidden = " hidden" if not today_records else ""
+    topics = sorted({topic for record in records for topic in article_topics(record)}, key=topic_label)
+    journal_options = "".join(f'<option value="{html_escape(jid)}">{html_escape(title)}</option>' for jid, title in journals)
+    field_options = "".join(f'<option value="{html_escape(topic)}">{html_escape(topic_label(topic))}</option>' for topic in topics)
+    rss = f'<a class="control primary" href="{BASE}/feed.xml">RSS 订阅</a>' if include_rss else ""
+    return f"""<div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option>{journal_options}</select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option>{field_options}</select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  {rss}
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div>"""
+
+
+def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
+    s = stats(records, today_records)
     init_note = (
         f'<div class="empty">今天暂未监测到新论文。你可以先查看<a href="{BASE}/archive/">历史归档</a>或<a href="{BASE}/journals/">监测期刊</a>；部署到 GitHub Actions 后，首页会按每小时监测结果更新。</div>'
         if not today_records
@@ -436,50 +493,11 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   <div class="stat"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></div>
   <div class="stat"><strong>{s['all_records']}</strong><span>当前索引记录</span></div>
 </section>
-<div class="toolbar" id="filters"{toolbar_hidden}>
-  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者">
-  <select class="control" id="journalFilter"><option value="">筛选期刊</option>{journal_options}</select>
-  <select class="control" id="fieldFilter"><option value="">筛选主题</option>{field_options}</select>
-  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
-  <a class="control primary" href="{BASE}/feed.xml">RSS 订阅</a>
-</div>
+{filter_toolbar(today_records, include_rss=True)}
 <section class="section-head"><div><h2>今日论文流</h2><p>按本站监测时间倒序排列。</p></div><p>{html_escape(today_str())}</p></section>
 {init_note}
 {events_html}
-<script>
-(() => {{
-  const search = document.getElementById('searchInput');
-  const journal = document.getElementById('journalFilter');
-  const field = document.getElementById('fieldFilter');
-  const china = document.getElementById('chinaToggle');
-  const events = Array.from(document.querySelectorAll('.event'));
-  if (!search || !journal || !field || !china) return;
-
-  function applyFilters() {{
-    const q = (search.value || '').trim().toLowerCase();
-    const journalValue = journal.value;
-    const fieldValue = field.value;
-    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
-    for (const item of events) {{
-      const okSearch = !q || item.dataset.search.includes(q);
-      const okJournal = !journalValue || item.dataset.journal === journalValue;
-      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
-      const okChina = !chinaOnly || item.dataset.china === 'true';
-      item.hidden = !(okSearch && okJournal && okField && okChina);
-    }}
-  }}
-
-  search.addEventListener('input', applyFilters);
-  journal.addEventListener('change', applyFilters);
-  field.addEventListener('change', applyFilters);
-  china.addEventListener('click', () => {{
-    const active = china.getAttribute('aria-pressed') !== 'true';
-    china.setAttribute('aria-pressed', String(active));
-    china.classList.toggle('active', active);
-    applyFilters();
-  }});
-}})();
-</script>
+{FILTER_SCRIPT}
 """
 
 
@@ -517,7 +535,11 @@ def main() -> None:
 
     archive_links = []
     for daily_date, daily_records in sorted(by_date.items(), reverse=True):
-        body = f'<section class="section-head"><div><h2>{html_escape(daily_date)} 监测记录</h2><p>按监测时间倒序排列。</p></div></section>{paper_events(daily_records)}'
+        body = (
+            f'<section class="section-head"><div><h2>{html_escape(daily_date)} 监测记录</h2>'
+            f'<p>按监测时间倒序排列，可按期刊、主题或“与中国相关”筛选。</p></div></section>'
+            f'{filter_toolbar(daily_records)}{paper_events(daily_records)}{FILTER_SCRIPT}'
+        )
         write_page(args.docs_dir / "daily" / daily_date / "index.html", page(f"{daily_date} 归档", records, body, active="archive"))
         archive_links.append(f'<li><a href="{BASE}/daily/{html_escape(daily_date)}/">{html_escape(daily_date)}</a> ({len(daily_records)})</li>')
 

@@ -204,6 +204,20 @@ def keep_latest_issue(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return latest_records
 
 
+def latest_issue_note(before: list[dict[str, Any]], after: list[dict[str, Any]]) -> str | None:
+    keyed = [issue_key(record.get("source_issue")) for record in before]
+    keys = [key for key in keyed if key is not None]
+    if not keys:
+        return None
+    latest = max(keys)
+    current_year = int(today_str()[:4])
+    if latest[0] < current_year:
+        return f"stale-latest {latest[0]}年第{latest[1]}期 excluded"
+    if len(after) != len(before):
+        return f"latest-issue {len(after)}/{len(before)}"
+    return None
+
+
 def make_record(
     journal: dict[str, Any],
     title: str,
@@ -617,9 +631,11 @@ def main() -> None:
             fetched, mode = fetch_journal(journal, url, args.limit_per_journal)
             if journal_id in CN_HOME_URLS:
                 before = len(fetched)
+                original = list(fetched)
                 fetched = keep_latest_issue(fetched)
-                if before != len(fetched):
-                    mode = f"{mode}, latest-issue {len(fetched)}/{before}"
+                note = latest_issue_note(original, fetched)
+                if note:
+                    mode = f"{mode}, {note}"
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
         except Exception as exc:  # noqa: BLE001

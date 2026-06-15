@@ -55,7 +55,14 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>2026-06-16 监测记录</h2><p>按监测时间倒序排列。</p></div></section><article class="event" data-search="the unintended exit: public childcare expansion and the crowding-out of non-public facilities in south korea 非预期退出：韩国公共托育扩张对非公立设施的挤出效应 jun yeong lee, seung jin cho applied economics 10.1080/00036846.2026.2687751" data-journal="applied-economics" data-fields="public" data-china="false">
+      <main class="wrap"><section class="section-head"><div><h2>2026-06-16 监测记录</h2><p>按监测时间倒序排列，可按期刊、主题或“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="applied-economics">Applied Economics</option><option value="journal-f69300dae2">中国农村经济</option><option value="journal-bf2aa9381f">中国工业经济</option><option value="journal-edcb877d78">数量经济技术经济研究</option><option value="journal-ba9f46c919">经济研究</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="development">发展经济学</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="the unintended exit: public childcare expansion and the crowding-out of non-public facilities in south korea 非预期退出：韩国公共托育扩张对非公立设施的挤出效应 jun yeong lee, seung jin cho applied economics 10.1080/00036846.2026.2687751" data-journal="applied-economics" data-fields="public" data-china="false">
   <div><div class="time">03:45</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687751">The unintended exit: public childcare expansion and the crowding-out of non-public facilities in South Korea</a></h3>
@@ -534,7 +541,48 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123016">文章链接</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
-</article></main>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+</main>
     </div>
   </div>
 </body>

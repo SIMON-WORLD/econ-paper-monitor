@@ -80,6 +80,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   <a class="control primary" href="./feed.xml">RSS 订阅</a>
 </div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div>
 <section class="section-head"><div><h2>今日论文流</h2><p>按本站监测时间倒序排列。</p></div><p>2026-06-16</p></section>
 <div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录；“在线日期为今日”优先按出版社 RSS/页面识别，缺失时仍显示来源日期。Crossref 日期可能是 online date、issue date 或卷期日期，系统上线初期回看过去 14 天，因此前几轮新发现数量会偏高。</div>
 <article class="event" data-search="the unintended exit: public childcare expansion and the crowding-out of non-public facilities in south korea 非预期退出：韩国公共托育扩张对非公立设施的挤出效应 jun yeong lee, seung jin cho applied economics 10.1080/00036846.2026.2687751" data-journal="applied-economics" data-fields="public" data-china="false">
@@ -562,12 +563,14 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     </div>
   </div>
 </article>
+
 <script>
 (() => {
   const search = document.getElementById('searchInput');
   const journal = document.getElementById('journalFilter');
   const field = document.getElementById('fieldFilter');
   const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
   const events = Array.from(document.querySelectorAll('.event'));
   if (!search || !journal || !field || !china) return;
 
@@ -576,13 +579,17 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     const journalValue = journal.value;
     const fieldValue = field.value;
     const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
     for (const item of events) {
       const okSearch = !q || item.dataset.search.includes(q);
       const okJournal = !journalValue || item.dataset.journal === journalValue;
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okChina = !chinaOnly || item.dataset.china === 'true';
-      item.hidden = !(okSearch && okJournal && okField && okChina);
+      const show = okSearch && okJournal && okField && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
     }
+    if (empty) empty.hidden = visible !== 0;
   }
 
   search.addEventListener('input', applyFilters);
@@ -594,8 +601,10 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     china.classList.toggle('active', active);
     applyFilters();
   });
+  applyFilters();
 })();
 </script>
+
 </main>
     </div>
   </div>
