@@ -120,7 +120,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;align-items:start}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0}.meta-label{color:var(--ink);font-weight:600}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:center;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 64px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:#fff8c5;border-color:#d4a72c;color:#7d4e00}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
 .archive-list{padding-left:18px}.archive-list li{margin:8px 0}
@@ -206,7 +206,7 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     today = today_str()
     return {
         "today": len(today_records),
-        "published_today": sum(1 for record in today_records if record.get("published_online") == today),
+        "source_date_today": sum(1 for record in today_records if record.get("published_online") == today),
         "today_journals": len(today_journals),
         "all_records": len(records),
         "all_journals": len(all_journals),
@@ -370,7 +370,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     {title_zh_html}
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>{html_escape(record.get('journal'))}</span><span>官方日期 {official_date}</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>{html_escape(record.get('journal'))}</span><span>来源日期 {official_date}</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><span>{doi}</span>{fields}{china_tag}</span></div>
     </div>
   </div>
@@ -396,7 +396,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     init_note = (
         f'<div class="empty">今天暂未监测到新论文。你可以先查看<a href="{BASE}/archive/">历史归档</a>或<a href="{BASE}/journals/">监测期刊</a>；部署到 GitHub Actions 后，首页会按每小时监测结果更新。</div>'
         if not today_records
-        else '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录，不等同于期刊今天正式发表；“今日正式发表”按论文官方日期统计。系统上线初期会回看过去 14 天，因此前几轮新发现数量会偏高，稳定运行后会更接近真实增量。</div>'
+        else '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录；“来源日期为今日”按 Crossref/RSS 返回日期统计，可能是 online date、issue date 或卷期日期。系统上线初期会回看过去 14 天，因此前几轮新发现数量会偏高，稳定运行后会更接近真实增量。</div>'
     )
     events_html = paper_events(today_records) if today_records else ""
     return f"""<section class="banner">
@@ -413,7 +413,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 </section>
 <section class="stats">
   <div class="stat"><strong>{s['today']}</strong><span>今日新发现</span></div>
-  <div class="stat"><strong>{s['published_today']}</strong><span>今日正式发表</span></div>
+  <div class="stat"><strong>{s['source_date_today']}</strong><span>来源日期为今日</span></div>
   <div class="stat"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></div>
   <div class="stat"><strong>{s['all_records']}</strong><span>当前索引记录</span></div>
 </section>
