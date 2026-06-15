@@ -13,7 +13,7 @@ from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, r
 
 SITE_NAME = "Econ Papers Daily"
 SITE_SUBTITLE = "每日追踪 TOP 经济学期刊论文"
-BASE = "/docs"
+BASE = "__BASE__"
 CN_TZ = BEIJING_TZ
 CHINA_KEYWORDS = [
     "china",
@@ -392,7 +392,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     field_options = "".join(f'<option value="{html_escape(field)}">{html_escape(topic_label(field))}</option>' for field in today_fields)
     toolbar_hidden = " hidden" if not today_records else ""
     init_note = (
-        '<div class="empty">今天暂未监测到新论文。你可以先查看<a href="/docs/archive/">历史归档</a>或<a href="/docs/journals/">监测期刊</a>；部署到 GitHub Actions 后，首页会按每小时监测结果更新。</div>'
+        f'<div class="empty">今天暂未监测到新论文。你可以先查看<a href="{BASE}/archive/">历史归档</a>或<a href="{BASE}/journals/">监测期刊</a>；部署到 GitHub Actions 后，首页会按每小时监测结果更新。</div>'
         if not today_records
         else '<div class="empty">说明：首次建库当天会把抓取窗口内尚未见过的论文都记为“新发现”。部署到 GitHub Actions 定时运行后，这里会变成真正的当天增量流。</div>'
     )
@@ -464,6 +464,10 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 
 def write_page(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    relative_parent = path.parent.relative_to(DOCS_DIR)
+    depth = len(relative_parent.parts)
+    page_base = "." if depth == 0 else "/".join([".."] * depth)
+    content = content.replace(BASE, page_base)
     path.write_text(content, encoding="utf-8")
 
 

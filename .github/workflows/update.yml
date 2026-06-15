@@ -27,7 +27,7 @@ jobs:
       - name: Render static site
         run: python scripts/render_site.py
       - name: Build RSS feed
-        run: python scripts/build_feed.py
+        run: python scripts/build_feed.py --site-url https://simon-world.github.io/econ-paper-monitor/
       - name: Commit generated updates
         run: |
           git config user.name "github-actions[bot]"
