@@ -58,6 +58,37 @@ def latest_records(records: list[dict[str, Any]], predicate, limit: int = 20) ->
     return sorted(selected, key=lambda item: item.get("detected_at") or item.get("_daily_date") or "", reverse=True)[:limit]
 
 
+def override_key(record: dict[str, Any]) -> str:
+    return str(record.get("doi") or record.get("id") or record.get("url") or "").strip()
+
+
+def yaml_quote(value: Any) -> str:
+    text = str(value or "")
+    return '"' + text.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def override_suggestions(records: list[dict[str, Any]]) -> str:
+    if not records:
+        return "# 当前没有需要人工确认的中国相关候选。"
+    lines = [
+        "# 复制到 data/manual_overrides.yml 的 records: 下面。",
+        "# 把 china_related 改成 true 或 false；确认后保留 china_reason。",
+    ]
+    for record in records:
+        key = override_key(record)
+        if not key:
+            continue
+        lines.extend(
+            [
+                f"  {yaml_quote(key)}:",
+                "    china_related: true  # TODO: 确认后保留 true，或改成 false",
+                f"    china_reason: {yaml_quote(record.get('china_relevance_reason') or '人工确认')}",
+                f"    title_zh: {yaml_quote(record.get('title_zh') or '')}",
+            ]
+        )
+    return "\n".join(lines)
+
+
 def health_items(status: dict[str, Any]) -> list[str]:
     items = []
     sources = status.get("sources", {})
@@ -106,6 +137,7 @@ def main() -> None:
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td><td>{html_escape(record.get('journal'))}</td><td>{html_escape(record.get('china_relevance_reason'))}</td></tr>"
         for record in china_candidates
     ]
+    suggestion_block = html_escape(override_suggestions(china_candidates))
     untranslated_rows = [
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td><td>{html_escape(record.get('journal'))}</td><td>{html_escape(record.get('translation_status'))}</td></tr>"
         for record in untranslated
@@ -132,6 +164,8 @@ def main() -> None:
     table{{border-collapse:collapse;width:100%;margin-top:12px;font-size:14px}}td,th{{border:1px solid #d0d7de;padding:8px;text-align:left;vertical-align:top}}
     th{{background:#f6f8fa}}.grid{{display:grid;grid-template-columns:repeat(5,minmax(140px,1fr));gap:12px}}.card{{border:1px solid #d0d7de;padding:14px;border-radius:8px}}
     strong{{font-size:24px;display:block}}.muted{{color:#656d76;font-size:13px}}h2{{margin-top:30px}}a{{color:#0969da;text-decoration:none}}
+    pre{{white-space:pre-wrap;background:#f6f8fa;border:1px solid #d0d7de;border-radius:8px;padding:14px;font-size:13px;line-height:1.45}}
+    code{{background:#f6f8fa;border:1px solid #d0d7de;border-radius:4px;padding:1px 4px}}
   </style>
 </head>
 <body>
@@ -153,6 +187,10 @@ def main() -> None:
 
   <h2>中国相关待人工确认</h2>
   {table(candidate_rows, ["日期", "论文", "期刊", "判定原因"])}
+
+  <h2>manual_overrides.yml 建议块</h2>
+  <p class="muted">将下面内容复制到 <code>data/manual_overrides.yml</code> 的 <code>records:</code> 下方；只需要把 <code>china_related</code> 改成 true 或 false。</p>
+  <pre>{suggestion_block}</pre>
 
   <h2>未翻译英文标题样本</h2>
   {table(untranslated_rows, ["日期", "论文", "期刊", "翻译状态"])}
