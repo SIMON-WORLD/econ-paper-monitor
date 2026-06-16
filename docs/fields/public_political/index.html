@@ -5,28 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>公共/政治经济学</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
-a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
-.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
-.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
-.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
-.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:center;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 64px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:#fff1f0;border-color:#ffccc7;color:#cf222e;font-weight:700}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
-.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
-.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
@@ -36,13 +25,13 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
     <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">222</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">157</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">115</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">98</span></a><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">92</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">75</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">58</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">417</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">221</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">155</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">119</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">102</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">94</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">70</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">56</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">49</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -55,15 +44,24 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>公共/政治经济学</h2><p>该领域历史发现记录。</p></div></section><article class="event" data-search="social observability and demand for transfers: experimental evidence from a low income population 社会可见性与转移支付需求：来自低收入群体的实验证据 marcel fafchamps, fadela sadou zouleya journal of public economics 10.1016/j.jpubeco.2026.105688" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+      <main class="wrap"><section class="section-head"><div><h2>公共/政治经济学</h2><p>该领域历史发现记录。</p></div></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="international-tax-and-public-finance">International Tax and Public Finance</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="public-choice">Public Choice</option><option value="social-choice-and-welfare">Social Choice and Welfare</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="social observability and demand for transfers: experimental evidence from a low income population 社会可见性与转移支付需求：来自低收入群体的实验证据 marcel fafchamps, fadela sadou zouleya journal of public economics 10.1016/j.jpubeco.2026.105688" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">19:37</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105688">Social observability and demand for transfers: Experimental evidence from a low income population</a></h3>
     <p class="title-zh">社会可见性与转移支付需求：来自低收入群体的实验证据</p>
     <p class="authors">Marcel Fafchamps, Fadela Sadou Zouleya</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105688">10.1016/j.jpubeco.2026.105688</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105688">10.1016/j.jpubeco.2026.105688</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -74,7 +72,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">政治关联、合同不完全性与企业外包</p>
     <p class="authors">Yi Zhang, Hein Roelfsema</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01421-6">10.1007/s11127-026-01421-6</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -86,7 +84,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">推广俱乐部</p>
     <p class="authors">Shuo Chen, Xinyu Fan, Zhitao Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01422-5">10.1007/s11127-026-01422-5</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -98,7 +96,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">市场中的谋杀</p>
     <p class="authors">Victoria Biagi, Alexander Cardazzi, Zachary Porreca</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01415-4">10.1007/s11127-026-01415-4</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -110,7 +108,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">温和政治胁迫的低效性：胁迫强度、国家合法性与政权稳定性的跨国比较</p>
     <p class="authors">Øivind Schøyen, Espen Sirnes, Chris Rune Andersen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01416-3">10.1007/s11127-026-01416-3</a><span class="pill">公共与政治经济学</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -122,7 +120,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣</p>
     <p class="authors">Vincent Geloso, Jamie Bologna Pavlik, Yang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01404-7">10.1007/s11127-026-01404-7</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -134,7 +132,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">政治权力与财富分配：反腐败改革如何重塑不平等</p>
     <p class="authors">Denis Ivanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01408-3">10.1007/s11127-026-01408-3</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -146,7 +144,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">政治组织中文化多样性的经济后果</p>
     <p class="authors">Jiale Yan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01406-5">10.1007/s11127-026-01406-5</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -158,7 +156,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">日本帝国、文官统治与民主逆转</p>
     <p class="authors">Jedediah Pida-Reese</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01414-5">10.1007/s11127-026-01414-5</a><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -170,7 +168,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">竞争性音乐创作评估中的性别偏见：一项实验研究</p>
     <p class="authors">Chaowen Ting, Yating Chuang, John Chung-En Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01405-6">10.1007/s11127-026-01405-6</a><span class="pill">公共与政治经济学</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -182,7 +180,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">人工智能工具治理的利益集团理论</p>
     <p class="authors">Niclas Berggren</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01420-7">10.1007/s11127-026-01420-7</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -194,7 +192,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">《庇护主义》</p>
     <p class="authors">Emil Panzaru</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01418-1">10.1007/s11127-026-01418-1</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -206,7 +204,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">亚当·斯密与封建欧洲城镇的角色</p>
     <p class="authors">Mark Koyama</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01407-4">10.1007/s11127-026-01407-4</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -218,44 +216,44 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">民主倒退作为庇古式政治外部性</p>
     <p class="authors">Thomas Barnebeck Andersen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01412-7">10.1007/s11127-026-01412-7</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="welfare state and natives’ preferences for immigrants’ types 福利国家与本地居民对移民类型的偏好 daiki kishishita, tomoko matsumoto public choice 10.1007/s11127-026-01411-8" data-journal="public-choice" data-fields="public behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="welfare state and natives’ preferences for immigrants’ types 福利国家与本地居民对移民类型的偏好 daiki kishishita, tomoko matsumoto public choice 10.1007/s11127-026-01411-8" data-journal="public-choice" data-fields="public behavior" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01411-8">Welfare state and natives’ preferences for immigrants’ types</a></h3>
     <p class="title-zh">福利国家与本地居民对移民类型的偏好</p>
     <p class="authors">Daiki Kishishita, Tomoko Matsumoto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01411-8">10.1007/s11127-026-01411-8</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the effect of dating markets on maternal and neonatal health 婚恋市场对孕产妇及新生儿健康的影响 krzysztof zaremba journal of public economics 10.1016/j.jpubeco.2026.105687" data-journal="journal-of-public-economics" data-fields="finance public health" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the effect of dating markets on maternal and neonatal health 婚恋市场对孕产妇及新生儿健康的影响 krzysztof zaremba journal of public economics 10.1016/j.jpubeco.2026.105687" data-journal="journal-of-public-economics" data-fields="china finance public health" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105687">The effect of dating markets on maternal and neonatal health</a></h3>
     <p class="title-zh">婚恋市场对孕产妇及新生儿健康的影响</p>
     <p class="authors">Krzysztof Zaremba</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105687">10.1016/j.jpubeco.2026.105687</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">健康</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105687">10.1016/j.jpubeco.2026.105687</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the (fiscal) dividend of infrastructure: roads and revenues in rwanda 基础设施的（财政）红利：卢旺达的道路与收入 abdou musonera, aimable nsabimana, daniel overbeck journal of public economics 10.1016/j.jpubeco.2026.105676" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the (fiscal) dividend of infrastructure: roads and revenues in rwanda 基础设施的（财政）红利：卢旺达的道路与收入 abdou musonera, aimable nsabimana, daniel overbeck journal of public economics 10.1016/j.jpubeco.2026.105676" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105676">The (fiscal) dividend of infrastructure: Roads and revenues in Rwanda</a></h3>
     <p class="title-zh">基础设施的（财政）红利：卢旺达的道路与收入</p>
     <p class="authors">Abdou Musonera, Aimable Nsabimana, Daniel Overbeck</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105676">10.1016/j.jpubeco.2026.105676</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105676">10.1016/j.jpubeco.2026.105676</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -266,116 +264,116 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">中国经济垂直结构模型</p>
     <p class="authors">Xi Li, Xuewen Liu, Zhikun Lu, Yong Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105662">10.1016/j.jpubeco.2026.105662</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="legal representation in disability claims 残疾索赔中的法律代理 hilary hoynes, nicole maestas, alexander strand journal of public economics 10.1016/j.jpubeco.2026.105661" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="legal representation in disability claims 残疾索赔中的法律代理 hilary hoynes, nicole maestas, alexander strand journal of public economics 10.1016/j.jpubeco.2026.105661" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105661">Legal representation in disability claims</a></h3>
     <p class="title-zh">残疾索赔中的法律代理</p>
     <p class="authors">Hilary Hoynes, Nicole Maestas, Alexander Strand</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105661">10.1016/j.jpubeco.2026.105661</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105661">10.1016/j.jpubeco.2026.105661</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="ballots, budgets and bricks: brexit and the polarisation of individual economic behaviours 选票、预算与砖块：英国脱欧与个体经济行为的极化 pei kuang, davide luca, zhiwu wei journal of public economics 10.1016/j.jpubeco.2026.105666" data-journal="journal-of-public-economics" data-fields="public behavior" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="ballots, budgets and bricks: brexit and the polarisation of individual economic behaviours 选票、预算与砖块：英国脱欧与个体经济行为的极化 pei kuang, davide luca, zhiwu wei journal of public economics 10.1016/j.jpubeco.2026.105666" data-journal="journal-of-public-economics" data-fields="china public behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105666">Ballots, budgets and bricks: Brexit and the polarisation of individual economic behaviours</a></h3>
     <p class="title-zh">选票、预算与砖块：英国脱欧与个体经济行为的极化</p>
     <p class="authors">Pei Kuang, Davide Luca, Zhiwu Wei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105666">10.1016/j.jpubeco.2026.105666</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105666">10.1016/j.jpubeco.2026.105666</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the employment effects of disability benefit reassessment 残疾津贴重新评估的就业效应 anikó bíró, cecília hornok, judit krekó, dániel prinz, ágota scharle journal of public economics 10.1016/j.jpubeco.2026.105652" data-journal="journal-of-public-economics" data-fields="labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the employment effects of disability benefit reassessment 残疾津贴重新评估的就业效应 anikó bíró, cecília hornok, judit krekó, dániel prinz, ágota scharle journal of public economics 10.1016/j.jpubeco.2026.105652" data-journal="journal-of-public-economics" data-fields="china labor public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105652">The employment effects of disability benefit reassessment</a></h3>
     <p class="title-zh">残疾津贴重新评估的就业效应</p>
     <p class="authors">Anikó Bíró, Cecília Hornok, Judit Krekó, Dániel Prinz, Ágota Scharle</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105652">10.1016/j.jpubeco.2026.105652</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105652">10.1016/j.jpubeco.2026.105652</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a quantitative urban model for transport appraisal 交通评估的定量城市模型 daniel hörcher, daniel j. graham journal of public economics 10.1016/j.jpubeco.2026.105683" data-journal="journal-of-public-economics" data-fields="public urban" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="a quantitative urban model for transport appraisal 交通评估的定量城市模型 daniel hörcher, daniel j. graham journal of public economics 10.1016/j.jpubeco.2026.105683" data-journal="journal-of-public-economics" data-fields="china public urban" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105683">A quantitative urban model for transport appraisal</a></h3>
     <p class="title-zh">交通评估的定量城市模型</p>
     <p class="authors">Daniel Hörcher, Daniel J. Graham</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105683">10.1016/j.jpubeco.2026.105683</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105683">10.1016/j.jpubeco.2026.105683</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="national content and local political consequences: evidence from public and private television 国家内容与地方政治后果：来自公共与私营电视的证据 mathias bühler, andrew dickens journal of public economics 10.1016/j.jpubeco.2026.105668" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="national content and local political consequences: evidence from public and private television 国家内容与地方政治后果：来自公共与私营电视的证据 mathias bühler, andrew dickens journal of public economics 10.1016/j.jpubeco.2026.105668" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105668">National content and local political consequences: Evidence from public and private television</a></h3>
     <p class="title-zh">国家内容与地方政治后果：来自公共与私营电视的证据</p>
     <p class="authors">Mathias Bühler, Andrew Dickens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105668">10.1016/j.jpubeco.2026.105668</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105668">10.1016/j.jpubeco.2026.105668</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="choosing (not) to choose: uncovering intrinsic preferences for choice autonomy 选择（不）选择：揭示对选择自主权的内在偏好 jana freundt, holger herz, leander kopp journal of public economics 10.1016/j.jpubeco.2026.105681" data-journal="journal-of-public-economics" data-fields="public behavior" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="choosing (not) to choose: uncovering intrinsic preferences for choice autonomy 选择（不）选择：揭示对选择自主权的内在偏好 jana freundt, holger herz, leander kopp journal of public economics 10.1016/j.jpubeco.2026.105681" data-journal="journal-of-public-economics" data-fields="china public behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105681">Choosing (not) to choose: Uncovering intrinsic preferences for choice autonomy</a></h3>
     <p class="title-zh">选择（不）选择：揭示对选择自主权的内在偏好</p>
     <p class="authors">Jana Freundt, Holger Herz, Leander Kopp</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105681">10.1016/j.jpubeco.2026.105681</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105681">10.1016/j.jpubeco.2026.105681</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="formalizing microentrepreneurs through targeted tax systems: evidence from brazil 通过目标税制规范微型企业家：来自巴西的证据 alison farias, roberto hsu rocha journal of public economics 10.1016/j.jpubeco.2026.105677" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="formalizing microentrepreneurs through targeted tax systems: evidence from brazil 通过目标税制规范微型企业家：来自巴西的证据 alison farias, roberto hsu rocha journal of public economics 10.1016/j.jpubeco.2026.105677" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105677">Formalizing microentrepreneurs through targeted tax systems: Evidence from Brazil</a></h3>
     <p class="title-zh">通过目标税制规范微型企业家：来自巴西的证据</p>
     <p class="authors">Alison Farias, Roberto Hsu Rocha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105677">10.1016/j.jpubeco.2026.105677</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105677">10.1016/j.jpubeco.2026.105677</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="what did we learn from the north american income maintenance experiments? new data and evidence on two-parent families 北美收入维持实验的启示：双亲家庭的新数据与证据 chris riddell, w. craig riddell journal of public economics 10.1016/j.jpubeco.2026.105658" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="what did we learn from the north american income maintenance experiments? new data and evidence on two-parent families 北美收入维持实验的启示：双亲家庭的新数据与证据 chris riddell, w. craig riddell journal of public economics 10.1016/j.jpubeco.2026.105658" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105658">What did we learn from the North American Income Maintenance Experiments? New data and evidence on two-parent families</a></h3>
     <p class="title-zh">北美收入维持实验的启示：双亲家庭的新数据与证据</p>
     <p class="authors">Chris Riddell, W. Craig Riddell</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105658">10.1016/j.jpubeco.2026.105658</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105658">10.1016/j.jpubeco.2026.105658</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="from housing gains to pension losses: micro-macro integration to reveal wealth inequality dynamics in chile 从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态 bastián castro nofal, ignacio flores, pablo gutiérrez cubillos journal of public economics 10.1016/j.jpubeco.2026.105665" data-journal="journal-of-public-economics" data-fields="macro public urban inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="from housing gains to pension losses: micro-macro integration to reveal wealth inequality dynamics in chile 从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态 bastián castro nofal, ignacio flores, pablo gutiérrez cubillos journal of public economics 10.1016/j.jpubeco.2026.105665" data-journal="journal-of-public-economics" data-fields="china macro public urban" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105665">From housing gains to pension losses: Micro-macro integration to reveal wealth inequality dynamics in Chile</a></h3>
     <p class="title-zh">从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态</p>
     <p class="authors">Bastián Castro Nofal, Ignacio Flores, Pablo Gutiérrez Cubillos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105665">10.1016/j.jpubeco.2026.105665</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105665">10.1016/j.jpubeco.2026.105665</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -386,32 +384,32 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">官僚如何回应混合激励合同？来自中国空气污染控制的证据</p>
     <p class="authors">Guangyu Cao, Xi Weng, Mingwei Xu, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105664">10.1016/j.jpubeco.2026.105664</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="rate of return regulation revisited 回报率监管再审视 karl dunkle werner, stephen jarvis journal of public economics 10.1016/j.jpubeco.2026.105654" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="rate of return regulation revisited 回报率监管再审视 karl dunkle werner, stephen jarvis journal of public economics 10.1016/j.jpubeco.2026.105654" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105654">Rate of return regulation revisited</a></h3>
     <p class="title-zh">回报率监管再审视</p>
     <p class="authors">Karl Dunkle Werner, Stephen Jarvis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105654">10.1016/j.jpubeco.2026.105654</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105654">10.1016/j.jpubeco.2026.105654</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="supercompliers 超级合规者 matthew l. comey, amanda r. eng, pauline leung, zhuan pei journal of public economics 10.1016/j.jpubeco.2026.105660" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="supercompliers 超级合规者 matthew l. comey, amanda r. eng, pauline leung, zhuan pei journal of public economics 10.1016/j.jpubeco.2026.105660" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105660">Supercompliers</a></h3>
     <p class="title-zh">超级合规者</p>
     <p class="authors">Matthew L. Comey, Amanda R. Eng, Pauline Leung, Zhuan Pei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105660">10.1016/j.jpubeco.2026.105660</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105660">10.1016/j.jpubeco.2026.105660</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -422,7 +420,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">撼动巨头：税务会计、利润转移与挑战现状的缓慢艺术</p>
     <p class="authors">Leslie Robinson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>Crossref在线日期 2026-06-12</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09980-6">10.1007/s10797-026-09980-6</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -434,7 +432,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">家庭团结视角下的公共养老金与长期护理保险</p>
     <p class="authors">Yukihiro Nishimura, Pierre Pestieau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>Crossref在线日期 2026-06-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09978-0">10.1007/s10797-026-09978-0</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -446,31 +444,31 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">贝宁土地所有者激励与威慑措施对税收遵从的影响：一项随机对照试验研究</p>
     <p class="authors">Damas Hounsounon, Jonas Fassinou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09969-1">10.1007/s10797-026-09969-1</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="willing but unable to pay? gender, preferences, resources, and tax compliance 愿意但无力支付？性别、偏好、资源与税收遵从 andrea lopez-luzuriaga, carlos scartascini international tax and public finance 10.1007/s10797-026-09975-3" data-journal="international-tax-and-public-finance" data-fields="development finance public econometrics" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="willing but unable to pay? gender, preferences, resources, and tax compliance 愿意但无力支付？性别、偏好、资源与税收遵从 andrea lopez-luzuriaga, carlos scartascini international tax and public finance 10.1007/s10797-026-09975-3" data-journal="international-tax-and-public-finance" data-fields="development finance public econometrics" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09975-3">Willing but unable to pay? Gender, preferences, resources, and tax compliance</a></h3>
     <p class="title-zh">愿意但无力支付？性别、偏好、资源与税收遵从</p>
     <p class="authors">Andrea Lopez-Luzuriaga, Carlos Scartascini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>Crossref发布日期 2026-05-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>发布日期 2026-05-29</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09975-3">10.1007/s10797-026-09975-3</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="can energy transition strengthen tax revenue mobilization in developing countries? empirical evidence and policy implications 能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示 atangana ondoa henri, ngobo philibert junior international tax and public finance 10.1007/s10797-026-09973-5" data-journal="international-tax-and-public-finance" data-fields="china environment finance public" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="can energy transition strengthen tax revenue mobilization in developing countries? empirical evidence and policy implications 能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示 atangana ondoa henri, ngobo philibert junior international tax and public finance 10.1007/s10797-026-09973-5" data-journal="international-tax-and-public-finance" data-fields="china environment finance public" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09973-5">Can energy transition strengthen tax revenue mobilization in developing countries? Empirical evidence and policy implications</a></h3>
     <p class="title-zh">能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示</p>
     <p class="authors">Atangana Ondoa Henri, Ngobo Philibert Junior</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>Crossref发布日期 2026-05-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>发布日期 2026-05-21</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09973-5">10.1007/s10797-026-09973-5</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -482,7 +480,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">生产网络中的下游中心性与行业游说</p>
     <p class="authors">Kwok Ping Tsang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01428-z">10.1007/s11127-026-01428-z</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -494,7 +492,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">当资金停止：对拨款资格变化的财政与政治反应</p>
     <p class="authors">Touria Jaaidane, Sophie Larribeau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01410-9">10.1007/s11127-026-01410-9</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -506,7 +504,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">为何布卢明顿不在弗吉尼亚：奥斯特罗姆与布坎南的社会本体论、方法论及治理理论之对比</p>
     <p class="authors">Massimo Cervesato</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-09</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01419-0">10.1007/s11127-026-01419-0</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -518,7 +516,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">墙上的松动砖块：非民主国家的地下媒体与政治反对</p>
     <p class="authors">Olga Tcaci</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01401-w">10.1007/s11127-026-01401-w</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -530,7 +528,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">民族偏见、承诺与公共品供给</p>
     <p class="authors">Sukanta Bhattacharya, T C Shinali</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01417-2">10.1007/s11127-026-01417-2</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -542,7 +540,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">成绩具有绝对意义吗？多数判断实验</p>
     <p class="authors">Théo Delemazure, Roberto Brunetti, Antoinette Baujard, Sylvain Bouveret</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Social Choice and Welfare</span><span>Crossref在线日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Social Choice and Welfare</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00355-026-01665-7">10.1007/s00355-026-01665-7</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -554,71 +552,118 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">竞赛中团队的形成：团队间与团队内不平等的权衡</p>
     <p class="authors">Hideo Konishi, Chen-Yu Pan, Dimitar Simeonov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Social Choice and Welfare</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Social Choice and Welfare</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00355-026-01663-9">10.1007/s00355-026-01663-9</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="fiscal externalities of transaction taxes: evidence from the los angeles mansion tax 交易税的财政外部性：来自洛杉矶豪宅税的证据 daniel green, vikram jambulapati, jack liebersohn, tejaswi velayudhan journal of public economics 10.1016/j.jpubeco.2026.105678" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="fiscal externalities of transaction taxes: evidence from the los angeles mansion tax 交易税的财政外部性：来自洛杉矶豪宅税的证据 daniel green, vikram jambulapati, jack liebersohn, tejaswi velayudhan journal of public economics 10.1016/j.jpubeco.2026.105678" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105678">Fiscal externalities of transaction taxes: Evidence from the Los Angeles mansion tax</a></h3>
     <p class="title-zh">交易税的财政外部性：来自洛杉矶豪宅税的证据</p>
     <p class="authors">Daniel Green, Vikram Jambulapati, Jack Liebersohn, Tejaswi Velayudhan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105678">10.1016/j.jpubeco.2026.105678</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105678">10.1016/j.jpubeco.2026.105678</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="do pensions enhance effort and selective retention?: evidence from public schools 养老金能否提升工作努力与选择性留任？——来自公立学校的证据 michael bates, andrew c. johnston journal of public economics 10.1016/j.jpubeco.2026.105684" data-journal="journal-of-public-economics" data-fields="public education" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="do pensions enhance effort and selective retention?: evidence from public schools 养老金能否提升工作努力与选择性留任？——来自公立学校的证据 michael bates, andrew c. johnston journal of public economics 10.1016/j.jpubeco.2026.105684" data-journal="journal-of-public-economics" data-fields="china public education" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105684">Do pensions enhance effort and selective retention?: Evidence from public schools</a></h3>
     <p class="title-zh">养老金能否提升工作努力与选择性留任？——来自公立学校的证据</p>
     <p class="authors">Michael Bates, Andrew C. Johnston</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105684">10.1016/j.jpubeco.2026.105684</a><span class="pill">公共与政治经济学</span><span class="pill">教育</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105684">10.1016/j.jpubeco.2026.105684</a><span class="pill">公共与政治经济学</span><span class="pill">教育</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="occupational hazard? an analysis of birth outcomes among physician mothers 职业危害？医生母亲生育结果分析 anupam b. jena, david slusky, lilly springer journal of public economics 10.1016/j.jpubeco.2026.105680" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="occupational hazard? an analysis of birth outcomes among physician mothers 职业危害？医生母亲生育结果分析 anupam b. jena, david slusky, lilly springer journal of public economics 10.1016/j.jpubeco.2026.105680" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105680">Occupational Hazard? An analysis of birth outcomes among physician mothers</a></h3>
     <p class="title-zh">职业危害？医生母亲生育结果分析</p>
     <p class="authors">Anupam B. Jena, David Slusky, Lilly Springer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105680">10.1016/j.jpubeco.2026.105680</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105680">10.1016/j.jpubeco.2026.105680</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="noncredit workforce training, industry credentials, and labor market outcomes 非信贷劳动力培训、行业证书与劳动力市场结果 di xu, kelli a. bird, michael cooper, benjamin l. castleman journal of public economics 10.1016/j.jpubeco.2026.105679" data-journal="journal-of-public-economics" data-fields="finance labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="noncredit workforce training, industry credentials, and labor market outcomes 非信贷劳动力培训、行业证书与劳动力市场结果 di xu, kelli a. bird, michael cooper, benjamin l. castleman journal of public economics 10.1016/j.jpubeco.2026.105679" data-journal="journal-of-public-economics" data-fields="china finance labor public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105679">Noncredit workforce training, industry credentials, and labor market outcomes</a></h3>
     <p class="title-zh">非信贷劳动力培训、行业证书与劳动力市场结果</p>
     <p class="authors">Di Xu, Kelli A. Bird, Michael Cooper, Benjamin L. Castleman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105679">10.1016/j.jpubeco.2026.105679</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105679">10.1016/j.jpubeco.2026.105679</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="combining part-time work and social benefits: empirical evidence from finland 兼职工作与社会福利的结合：来自芬兰的实证证据 salla kalin, tomi kyyrä, tuomas matikka journal of public economics 10.1016/j.jpubeco.2026.105685" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="combining part-time work and social benefits: empirical evidence from finland 兼职工作与社会福利的结合：来自芬兰的实证证据 salla kalin, tomi kyyrä, tuomas matikka journal of public economics 10.1016/j.jpubeco.2026.105685" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105685">Combining part-time work and social benefits: Empirical evidence from Finland</a></h3>
     <p class="title-zh">兼职工作与社会福利的结合：来自芬兰的实证证据</p>
     <p class="authors">Salla Kalin, Tomi Kyyrä, Tuomas Matikka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105685">10.1016/j.jpubeco.2026.105685</a><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105685">10.1016/j.jpubeco.2026.105685</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
-</article></main>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+</main>
     </div>
   </div>
 </body>

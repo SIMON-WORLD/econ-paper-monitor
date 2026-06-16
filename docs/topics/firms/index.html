@@ -5,28 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>企业与产业</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
-a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
-.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
-.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
-.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
-.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:center;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 64px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:#fff1f0;border-color:#ffccc7;color:#cf222e;font-weight:700}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
-.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
-.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
@@ -36,13 +25,13 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
     <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">222</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">157</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">115</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">98</span></a><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">92</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">75</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">58</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">417</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">221</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">155</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">119</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">102</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">94</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">70</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">56</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">49</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -55,579 +44,48 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>企业与产业</h2><p>基于标题、摘要和期刊信息的文章主题标签，后续可升级为 AI 主题判断。</p></div><p>101 篇</p></section><article class="event" data-search="strategy method effects in centipede games: an optimal design approach 蜈蚣博弈中的策略法效应：一种最优设计方法 shiang-hung hu, po-hsuan lin, thomas r. palfrey, joseph tao-yi wang, yu-hsiang wang journal of economic behavior and organization 10.1016/j.jebo.2026.107599" data-journal="journal-of-economic-behavior-and-organization" data-fields="theory behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107599">Strategy method effects in centipede games: An optimal design approach</a></h3>
-    <p class="title-zh">蜈蚣博弈中的策略法效应：一种最优设计方法</p>
-    <p class="authors">Shiang-Hung Hu, Po-Hsuan Lin, Thomas R. Palfrey, Joseph Tao-yi Wang, Yu-Hsiang Wang</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107599">10.1016/j.jebo.2026.107599</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="grabbing the forbidden fruit: restriction-sensitive choice 摘取禁果：限制敏感型选择 niels boissonnet, alexis ghersengorin journal of economic behavior and organization 10.1016/j.jebo.2026.107653" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107653">Grabbing the forbidden fruit: Restriction-sensitive choice</a></h3>
-    <p class="title-zh">摘取禁果：限制敏感型选择</p>
-    <p class="authors">Niels Boissonnet, Alexis Ghersengorin</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107653">10.1016/j.jebo.2026.107653</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="democracy and pro-market sentiments 民主与亲市场情绪 veeshan rayamajhee journal of economic behavior and organization 10.1016/j.jebo.2026.107604" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107604">Democracy and pro-market sentiments</a></h3>
-    <p class="title-zh">民主与亲市场情绪</p>
-    <p class="authors">Veeshan Rayamajhee</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107604">10.1016/j.jebo.2026.107604</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="app security spillovers in the digital era: immorality or ignorance? 数字时代的应用安全溢出：不道德还是无知？ yuyu chen, jiayi hou, ziteng lei journal of economic behavior and organization 10.1016/j.jebo.2026.107628" data-journal="journal-of-economic-behavior-and-organization" data-fields="china behavior firms" data-china="true" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107628">App security spillovers in the digital era: Immorality or ignorance?</a></h3>
-    <p class="title-zh">数字时代的应用安全溢出：不道德还是无知？</p>
-    <p class="authors">Yuyu Chen, Jiayi Hou, Ziteng Lei</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107628">10.1016/j.jebo.2026.107628</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="what doesn’t kill you makes you shorter: the effect of prenatal air pollution on height in adulthood 没杀死你的会让你变矮：产前空气污染对成年身高的影响 liping chen, yuanyuan chen, jiada lin journal of economic behavior and organization 10.1016/j.jebo.2026.107633" data-journal="journal-of-economic-behavior-and-organization" data-fields="china environment behavior firms" data-china="true" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107633">What doesn’t kill you makes you shorter: The effect of prenatal air pollution on height in adulthood</a></h3>
-    <p class="title-zh">没杀死你的会让你变矮：产前空气污染对成年身高的影响</p>
-    <p class="authors">Liping Chen, Yuanyuan Chen, Jiada Lin</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107633">10.1016/j.jebo.2026.107633</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="nurturing the future: how positive parenting is related to children’s skills and well-being 培育未来：积极教养如何影响儿童技能与福祉 laura breitkopf, shyamal chowdhury, shambhavi priyam, hannah schildberg-hörisch, matthias sutter journal of economic behavior and organization 10.1016/j.jebo.2026.107630" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107630">Nurturing the future: How positive parenting is related to children’s skills and well-being</a></h3>
-    <p class="title-zh">培育未来：积极教养如何影响儿童技能与福祉</p>
-    <p class="authors">Laura Breitkopf, Shyamal Chowdhury, Shambhavi Priyam, Hannah Schildberg-Hörisch, Matthias Sutter</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107630">10.1016/j.jebo.2026.107630</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="on the stability of social risk preferences for health and wealth 关于健康与财富社会风险偏好的稳定性 arthur e. attema, olivier l’haridon, gijs van de kuilen journal of economic behavior and organization 10.1016/j.jebo.2026.107624" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior health firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107624">On the stability of social risk preferences for health and wealth</a></h3>
-    <p class="title-zh">关于健康与财富社会风险偏好的稳定性</p>
-    <p class="authors">Arthur E. Attema, Olivier L’Haridon, Gijs van de Kuilen</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107624">10.1016/j.jebo.2026.107624</a><span class="pill">行为与组织</span><span class="pill">健康</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="wealth, cost, and misperception: empirical estimation of three interaction channels in a financial–macroeconomic agent-based model 财富、成本与认知偏差：金融-宏观经济主体模型中三种交互渠道的实证估计 jiri kukacka, eric zila journal of economic behavior and organization 10.1016/j.jebo.2026.107658" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107658">Wealth, cost, and misperception: Empirical estimation of three interaction channels in a financial–macroeconomic agent-based model</a></h3>
-    <p class="title-zh">财富、成本与认知偏差：金融-宏观经济主体模型中三种交互渠道的实证估计</p>
-    <p class="authors">Jiri Kukacka, Eric Zila</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107658">10.1016/j.jebo.2026.107658</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="making organization’s cost salient: a natural field experiment 凸显组织成本：一项自然田野实验 fuhai hong, yohanes e. riyanto, jubo yan, yuanyuan huo journal of economic behavior and organization 10.1016/j.jebo.2026.107634" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107634">Making organization’s cost salient: A natural field experiment</a></h3>
-    <p class="title-zh">凸显组织成本：一项自然田野实验</p>
-    <p class="authors">Fuhai Hong, Yohanes E. Riyanto, Jubo Yan, Yuanyuan Huo</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107634">10.1016/j.jebo.2026.107634</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="when quality management helps agri-food firms to export 质量管理如何帮助农产品企业出口 charlotte emlinger, karine latouche journal of economic behavior and organization 10.1016/j.jebo.2026.107652" data-journal="journal-of-economic-behavior-and-organization" data-fields="agriculture trade behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107652">When quality management helps agri-food firms to export</a></h3>
-    <p class="title-zh">质量管理如何帮助农产品企业出口</p>
-    <p class="authors">Charlotte Emlinger, Karine Latouche</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107652">10.1016/j.jebo.2026.107652</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="a structural neural autopilot analysis of social media use around the pandemic lockdown 疫情封锁期间社交媒体使用的结构性神经自动分析 yi xin, lawrence j. jin, jessica fong, colin camerer journal of economic behavior and organization 10.1016/j.jebo.2026.107589" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107589">A structural neural autopilot analysis of social media use around the pandemic lockdown</a></h3>
-    <p class="title-zh">疫情封锁期间社交媒体使用的结构性神经自动分析</p>
-    <p class="authors">Yi Xin, Lawrence J. Jin, Jessica Fong, Colin Camerer</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107589">10.1016/j.jebo.2026.107589</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="does social media exacerbate political polarization? experimental evidence from varying access to twitter/x during a presidential debate 社交媒体是否加剧了政治极化？——来自总统辩论期间不同twitter/x访问权限的实验证据 rafael di tella, ramiro h. gálvez, ernesto schargrodsky journal of economic behavior and organization 10.1016/j.jebo.2026.107590" data-journal="journal-of-economic-behavior-and-organization" data-fields="public behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107590">Does social media exacerbate political polarization? Experimental evidence from varying access to Twitter/X during a presidential debate</a></h3>
-    <p class="title-zh">社交媒体是否加剧了政治极化？——来自总统辩论期间不同Twitter/X访问权限的实验证据</p>
-    <p class="authors">Rafael Di Tella, Ramiro H. Gálvez, Ernesto Schargrodsky</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107590">10.1016/j.jebo.2026.107590</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="ambiguity in performance pay: a real effort experiment 绩效薪酬中的模糊性：一项真实努力实验 david j. cooper, david b. johnson journal of economic behavior and organization 10.1016/j.jebo.2026.107659" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107659">Ambiguity in performance pay: A real effort experiment</a></h3>
-    <p class="title-zh">绩效薪酬中的模糊性：一项真实努力实验</p>
-    <p class="authors">David J. Cooper, David B. Johnson</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107659">10.1016/j.jebo.2026.107659</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="effects of debt exposure on self-employment: evidence from us local markets in the great recession 债务暴露对自雇就业的影响：来自美国大衰退时期地方市场的证据 bulent unel journal of economic behavior and organization 10.1016/j.jebo.2026.107639" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107639">Effects of debt exposure on self-employment: Evidence from US local markets in the Great Recession</a></h3>
-    <p class="title-zh">债务暴露对自雇就业的影响：来自美国大衰退时期地方市场的证据</p>
-    <p class="authors">Bulent Unel</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107639">10.1016/j.jebo.2026.107639</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="sanctions without sanctimony: why do states impose sanctions? 无道义的制裁：国家为何实施制裁？ daniel j. d’amico, cameron tilley, joshua d. ammons, eric h. wilhelm journal of economic behavior and organization 10.1016/j.jebo.2026.107605" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107605">Sanctions without sanctimony: Why do states impose sanctions?</a></h3>
-    <p class="title-zh">无道义的制裁：国家为何实施制裁？</p>
-    <p class="authors">Daniel J. D’Amico, Cameron Tilley, Joshua D. Ammons, Eric H. Wilhelm</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107605">10.1016/j.jebo.2026.107605</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="add-on selling with context effects 基于情境效应的附加销售 philipp brunner, christian zihlmann journal of economic behavior and organization 10.1016/j.jebo.2026.107627" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107627">Add-on selling with context effects</a></h3>
-    <p class="title-zh">基于情境效应的附加销售</p>
-    <p class="authors">Philipp Brunner, Christian Zihlmann</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107627">10.1016/j.jebo.2026.107627</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="virtual observability in sequential play 序贯博弈中的虚拟可观测性 c. monica capra, charles a. holt, po-hsuan lin journal of economic behavior and organization 10.1016/j.jebo.2026.107618" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107618">Virtual observability in sequential play</a></h3>
-    <p class="title-zh">序贯博弈中的虚拟可观测性</p>
-    <p class="authors">C. Monica Capra, Charles A. Holt, Po-Hsuan Lin</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107618">10.1016/j.jebo.2026.107618</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="delegation of job design and imperfect performance measures 工作设计授权与不完美绩效衡量 anna rohlfing-bastian, anja schöttner journal of economic behavior and organization 10.1016/j.jebo.2026.107644" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107644">Delegation of job design and imperfect performance measures</a></h3>
-    <p class="title-zh">工作设计授权与不完美绩效衡量</p>
-    <p class="authors">Anna Rohlfing-Bastian, Anja Schöttner</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107644">10.1016/j.jebo.2026.107644</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="beauty premia in wage offers: evidence from vietnamese online job postings 工资报价中的美貌溢价：来自越南在线招聘广告的证据 carlo perroni, kimberley scharf, oleksandr talavera, linh vi journal of economic behavior and organization 10.1016/j.jebo.2026.107643" data-journal="journal-of-economic-behavior-and-organization" data-fields="labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107643">Beauty premia in wage offers: Evidence from Vietnamese online job postings</a></h3>
-    <p class="title-zh">工资报价中的美貌溢价：来自越南在线招聘广告的证据</p>
-    <p class="authors">Carlo Perroni, Kimberley Scharf, Oleksandr Talavera, Linh Vi</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107643">10.1016/j.jebo.2026.107643</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="do managerial incentives facilitate anti-competitive behavior? evidence from collusion 管理层激励是否助长了反竞争行为？来自合谋的证据 marek giebel, anja rösner journal of economic behavior and organization 10.1016/j.jebo.2026.107625" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107625">Do managerial incentives facilitate anti-competitive behavior? Evidence from collusion</a></h3>
-    <p class="title-zh">管理层激励是否助长了反竞争行为？来自合谋的证据</p>
-    <p class="authors">Marek Giebel, Anja Rösner</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107625">10.1016/j.jebo.2026.107625</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="the anti-corruption campaign and the intergenerational transmission of bureaucratic employment: evidence from china 反腐败运动与官僚就业的代际传递：来自中国的证据 shuai chen, erqi ge journal of economic behavior and organization 10.1016/j.jebo.2026.107638" data-journal="journal-of-economic-behavior-and-organization" data-fields="china labor behavior firms" data-china="true" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107638">The anti-corruption campaign and the intergenerational transmission of bureaucratic employment: Evidence from China</a></h3>
-    <p class="title-zh">反腐败运动与官僚就业的代际传递：来自中国的证据</p>
-    <p class="authors">Shuai Chen, Erqi Ge</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107638">10.1016/j.jebo.2026.107638</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="training time, robots and technological unemployment 训练时间、机器人及技术性失业 fenicia cossu, alessio moro, michelle petersen rendall journal of economic behavior and organization 10.1016/j.jebo.2026.107631" data-journal="journal-of-economic-behavior-and-organization" data-fields="labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107631">Training time, robots and technological unemployment</a></h3>
-    <p class="title-zh">训练时间、机器人及技术性失业</p>
-    <p class="authors">Fenicia Cossu, Alessio Moro, Michelle Petersen Rendall</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107631">10.1016/j.jebo.2026.107631</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="can we make trading less hazardous to investors’ wealth? evidence from a choice between flat rates or commissions for financial services* 我们能否让交易对投资者财富的危害更小？来自金融服务固定费率与佣金选择的证据 steffen meyer, charline uhr journal of economic behavior and organization 10.1016/j.jebo.2026.107626" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+      <main class="wrap"><section class="section-head"><div><h2>企业与产业</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>49 篇</p></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="american-journal-of-agricultural-economics">American Journal of Agricultural Economics</option><option value="applied-economics">Applied Economics</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option><option value="canadian-journal-of-agricultural-economics">Canadian Journal of Agricultural Economics</option><option value="economic-inquiry">Economic Inquiry</option><option value="environmental-and-resource-economics">Environmental and Resource Economics</option><option value="european-economic-review">European Economic Review</option><option value="explorations-in-economic-history">Explorations in Economic History</option><option value="international-journal-of-industrial-organization">International Journal of Industrial Organization</option><option value="journal-of-comparative-economics">Journal of Comparative Economics</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-economic-behavior-and-organization">Journal of Economic Behavior and Organization</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option><option value="journal-of-finance">Journal of Finance</option><option value="journal-of-financial-economics">Journal of Financial Economics</option><option value="journal-of-industrial-economics">Journal of Industrial Economics</option><option value="journal-of-international-economics">Journal of International Economics</option><option value="journal-of-urban-economics">Journal of Urban Economics</option><option value="public-choice">Public Choice</option><option value="quarterly-journal-of-economics">Quarterly Journal of Economics</option><option value="review-of-economic-dynamics">Review of Economic Dynamics</option><option value="review-of-economic-studies">Review of Economic Studies</option><option value="review-of-financial-studies">Review of Financial Studies</option><option value="world-development">World Development</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="B">B 出版社/RSS</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="can we make trading less hazardous to investors’ wealth? evidence from a choice between flat rates or commissions for financial services* 我们能否让交易对投资者财富的危害更小？来自金融服务固定费率与佣金选择的证据 steffen meyer, charline uhr journal of economic behavior and organization 10.1016/j.jebo.2026.107626" data-journal="journal-of-economic-behavior-and-organization" data-fields="china finance behavior firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107626">Can we make trading less hazardous to investors’ wealth? Evidence from a choice between flat rates or commissions for financial services*</a></h3>
     <p class="title-zh">我们能否让交易对投资者财富的危害更小？来自金融服务固定费率与佣金选择的证据</p>
     <p class="authors">Steffen Meyer, Charline Uhr</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107626">10.1016/j.jebo.2026.107626</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107626">10.1016/j.jebo.2026.107626</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="an experimental analysis on cross-asset arbitrage opportunity and the law of one price 跨资产套利机会与一价定律的实验分析 jieyi duan, nobuyuki hanaki journal of economic behavior and organization 10.1016/j.jebo.2026.107640" data-journal="journal-of-economic-behavior-and-organization" data-fields="agriculture finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107640">An experimental analysis on cross-asset arbitrage opportunity and the law of one price</a></h3>
-    <p class="title-zh">跨资产套利机会与一价定律的实验分析</p>
-    <p class="authors">Jieyi Duan, Nobuyuki Hanaki</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107640">10.1016/j.jebo.2026.107640</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="effect of social information on competition choice 社会信息对竞争选择的影响 ritwik banerjee, lata gangadharan, anand kumar, srinivasan murali journal of economic behavior and organization 10.1016/j.jebo.2026.107591" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107591">Effect of social information on competition choice</a></h3>
-    <p class="title-zh">社会信息对竞争选择的影响</p>
-    <p class="authors">Ritwik Banerjee, Lata Gangadharan, Anand Kumar, Srinivasan Murali</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107591">10.1016/j.jebo.2026.107591</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="cyclical behavior in large location games 大型区位博弈中的周期性行为 gary charness, daniel friedman, weinan gong, lones smith journal of economic behavior and organization 10.1016/j.jebo.2026.107609" data-journal="journal-of-economic-behavior-and-organization" data-fields="theory behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107609">Cyclical behavior in large location games</a></h3>
-    <p class="title-zh">大型区位博弈中的周期性行为</p>
-    <p class="authors">Gary Charness, Daniel Friedman, Weinan Gong, Lones Smith</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107609">10.1016/j.jebo.2026.107609</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="play to your strengths: incumbency effect and issue emphasis in brazilian local elections 发挥优势：巴西地方选举中的在位效应与议题侧重 leila pereira journal of economic behavior and organization 10.1016/j.jebo.2026.107619" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107619">Play to your strengths: Incumbency effect and issue emphasis in Brazilian local elections</a></h3>
-    <p class="title-zh">发挥优势：巴西地方选举中的在位效应与议题侧重</p>
-    <p class="authors">Leila Pereira</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107619">10.1016/j.jebo.2026.107619</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="fertility and welfare under demeny voting 德梅尼投票下的生育率与福利 daryna grechyna, rhema vaithianathan journal of economic behavior and organization 10.1016/j.jebo.2026.107617" data-journal="journal-of-economic-behavior-and-organization" data-fields="public behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107617">Fertility and welfare under Demeny voting</a></h3>
-    <p class="title-zh">德梅尼投票下的生育率与福利</p>
-    <p class="authors">Daryna Grechyna, Rhema Vaithianathan</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107617">10.1016/j.jebo.2026.107617</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="origin country information and immigrant behavior: evidence from the covid-19 pandemic in the u.s. 原籍国信息与移民行为：来自美国covid-19大流行的证据 stephanie kang journal of economic behavior and organization 10.1016/j.jebo.2026.107636" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107636">Origin country information and immigrant behavior: Evidence from the COVID-19 pandemic in the U.S.</a></h3>
-    <p class="title-zh">原籍国信息与移民行为：来自美国COVID-19大流行的证据</p>
-    <p class="authors">Stephanie Kang</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107636">10.1016/j.jebo.2026.107636</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="logrolling and the power of single-mindedness 单议题偏好与互投赞成票的力量 arseniy samsonov, albert solé ollé, dimitrios xefteris journal of economic behavior and organization 10.1016/j.jebo.2026.107642" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107642">Logrolling and the power of single-mindedness</a></h3>
-    <p class="title-zh">单议题偏好与互投赞成票的力量</p>
-    <p class="authors">Arseniy Samsonov, Albert Solé Ollé, Dimitrios Xefteris</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107642">10.1016/j.jebo.2026.107642</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="the stability of self-control in unstable times 不稳定时期自我控制的稳定性 deborah a. cobb-clark, anthony lepinteur, giorgia menta journal of economic behavior and organization 10.1016/j.jebo.2026.107637" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107637">The stability of self-control in unstable times</a></h3>
-    <p class="title-zh">不稳定时期自我控制的稳定性</p>
-    <p class="authors">Deborah A. Cobb-Clark, Anthony Lepinteur, Giorgia Menta</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107637">10.1016/j.jebo.2026.107637</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="does having daughters affect political preferences? using meta-analytic tools on many surveys 拥有女儿是否影响政治偏好？基于多项调查的元分析 yifan yang, magnus johannesson, anna dreber, frank fossen, levent neyse 等 journal of economic behavior and organization 10.1016/j.jebo.2026.107641" data-journal="journal-of-economic-behavior-and-organization" data-fields="public behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107641">Does having daughters affect political preferences? Using meta-analytic tools on many surveys</a></h3>
-    <p class="title-zh">拥有女儿是否影响政治偏好？基于多项调查的元分析</p>
-    <p class="authors">Yifan Yang, Magnus Johannesson, Anna Dreber, Frank Fossen, Levent Neyse 等</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107641">10.1016/j.jebo.2026.107641</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="experimental methods: revisiting the commandments of experimental economics 实验方法：重访实验经济学的基本准则 uri gneezy journal of economic behavior and organization 10.1016/j.jebo.2026.107558" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107558">Experimental methods: Revisiting the commandments of experimental economics</a></h3>
-    <p class="title-zh">实验方法：重访实验经济学的基本准则</p>
-    <p class="authors">Uri Gneezy</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107558">10.1016/j.jebo.2026.107558</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="fair inequality? lab evidence from kenya 公平不平等？来自肯尼亚的实验证据 kjetil bjorvatn, nicola d. coniglio, arne nasgowitz journal of economic behavior and organization 10.1016/j.jebo.2026.107579" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms inequality" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107579">Fair inequality? Lab evidence from Kenya</a></h3>
-    <p class="title-zh">公平不平等？来自肯尼亚的实验证据</p>
-    <p class="authors">Kjetil Bjorvatn, Nicola D. Coniglio, Arne Nasgowitz</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107579">10.1016/j.jebo.2026.107579</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span><span class="pill">不平等</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="inflation targeting and income inequality 通胀目标制与收入不平等 hippolyte balima, alexandru minea, cezara vinturis journal of economic behavior and organization 10.1016/j.jebo.2025.107348" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro behavior firms inequality" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2025.107348">Inflation targeting and income inequality</a></h3>
-    <p class="title-zh">通胀目标制与收入不平等</p>
-    <p class="authors">Hippolyte Balima, Alexandru Minea, Cezara Vinturis</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2025.107348">10.1016/j.jebo.2025.107348</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="competition versus coordination: the impact of flattening government on firm creation and aggregate productivity 竞争与协调：政府扁平化对企业创立与全要素生产率的影响 lingran yuan, qizheng zhang, binlei gong journal of economic behavior and organization 10.1016/j.jebo.2026.107606" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro public behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107606">Competition versus coordination: The impact of flattening government on firm creation and aggregate productivity</a></h3>
-    <p class="title-zh">竞争与协调：政府扁平化对企业创立与全要素生产率的影响</p>
-    <p class="authors">Lingran Yuan, Qizheng Zhang, Binlei Gong</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107606">10.1016/j.jebo.2026.107606</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="the impact of growth on the transmission of patience 增长对耐心传导的影响 domenico delli gatti, jakob grazzini, domenico massaro, fabrizio panebianco journal of economic behavior and organization 10.1016/j.jebo.2026.107603" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107603">The impact of growth on the transmission of patience</a></h3>
-    <p class="title-zh">增长对耐心传导的影响</p>
-    <p class="authors">Domenico Delli Gatti, Jakob Grazzini, Domenico Massaro, Fabrizio Panebianco</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107603">10.1016/j.jebo.2026.107603</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="macroeconomic expectations: formation, measurement, and consequences 宏观经济预期：形成、测度与后果 zeno enders, stefan t. trautmann, dmitri v. vinogradov journal of economic behavior and organization 10.1016/j.jebo.2026.107620" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107620">Macroeconomic expectations: Formation, measurement, and consequences</a></h3>
-    <p class="title-zh">宏观经济预期：形成、测度与后果</p>
-    <p class="authors">Zeno Enders, Stefan T. Trautmann, Dmitri V. Vinogradov</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107620">10.1016/j.jebo.2026.107620</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="pluralistic ignorance and climate policies: information provision experiment 多元无知与气候政策：信息提供实验 laura galdikiene, jurate jaraite, agne kajackaite journal of economic behavior and organization 10.1016/j.jebo.2026.107601" data-journal="journal-of-economic-behavior-and-organization" data-fields="environment behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107601">Pluralistic ignorance and climate policies: Information provision experiment</a></h3>
-    <p class="title-zh">多元无知与气候政策：信息提供实验</p>
-    <p class="authors">Laura Galdikiene, Jurate Jaraite, Agne Kajackaite</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107601">10.1016/j.jebo.2026.107601</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="self-employment income tax evasion and inequality 自雇收入逃税与不平等 martina bazzoli, paolo di caro, francesco figari, carlo v. fiorio, marco manzo journal of economic behavior and organization 10.1016/j.jebo.2026.107598" data-journal="journal-of-economic-behavior-and-organization" data-fields="labor public behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107598">Self-employment income tax evasion and inequality</a></h3>
-    <p class="title-zh">自雇收入逃税与不平等</p>
-    <p class="authors">Martina Bazzoli, Paolo Di Caro, Francesco Figari, Carlo V. Fiorio, Marco Manzo</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107598">10.1016/j.jebo.2026.107598</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="diagnostic uncertainty and insurance coverage in credence goods markets: an experiment 信任品市场中的诊断不确定性与保险覆盖：一项实验研究 loukas balafoutas, helena fornwagner, rudolf kerschbamer, matthias sutter, marina tverdostup journal of economic behavior and organization 10.1016/j.jebo.2026.107608" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107608">Diagnostic uncertainty and insurance coverage in credence goods markets: An experiment</a></h3>
-    <p class="title-zh">信任品市场中的诊断不确定性与保险覆盖：一项实验研究</p>
-    <p class="authors">Loukas Balafoutas, Helena Fornwagner, Rudolf Kerschbamer, Matthias Sutter, Marina Tverdostup</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107608">10.1016/j.jebo.2026.107608</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="maternity leave and labour market outcomes 产假与劳动力市场结果 purna banerjee, shreya biswas, debojyoti mazumder journal of economic behavior and organization 10.1016/j.jebo.2026.107602" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107602">Maternity leave and labour market outcomes</a></h3>
-    <p class="title-zh">产假与劳动力市场结果</p>
-    <p class="authors">Purna Banerjee, Shreya Biswas, Debojyoti Mazumder</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107602">10.1016/j.jebo.2026.107602</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="labor market penalty for single mothers 单亲母亲的劳动力市场惩罚 somdeep chatterjee, ralitza dimova, shubham ojha journal of economic behavior and organization 10.1016/j.jebo.2026.107600" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107600">Labor market penalty for single mothers</a></h3>
-    <p class="title-zh">单亲母亲的劳动力市场惩罚</p>
-    <p class="authors">Somdeep Chatterjee, Ralitza Dimova, Shubham Ojha</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107600">10.1016/j.jebo.2026.107600</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="targeting attitudes to combat sexual harassment: a randomized intervention in the norwegian military 针对态度以打击性骚扰：挪威军队中的一项随机干预实验 olle folke, torbjørn hanson, åshild a. johnsen, andreas kotsadam, johanna rickne journal of economic behavior and organization 10.1016/j.jebo.2026.107596" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107596">Targeting attitudes to combat sexual harassment: A randomized intervention in the Norwegian military</a></h3>
-    <p class="title-zh">针对态度以打击性骚扰：挪威军队中的一项随机干预实验</p>
-    <p class="authors">Olle Folke, Torbjørn Hanson, Åshild A. Johnsen, Andreas Kotsadam, Johanna Rickne</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107596">10.1016/j.jebo.2026.107596</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="editorial board 编委会  journal of economic behavior and organization 10.1016/s0167-2681(26)00235-0" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/s0167-2681(26)00235-0">Editorial Board</a></h3>
-    <p class="title-zh">编委会</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0167-2681(26)00235-0">10.1016/s0167-2681(26)00235-0</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="the virtues of lab experiments 实验室实验的优点 gary charness, james c. cox, catherine c. eckel, charles a. holt, brian jabarian journal of economic behavior and organization 10.1016/j.jebo.2026.107595" data-journal="journal-of-economic-behavior-and-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jebo.2026.107595">The virtues of lab experiments</a></h3>
-    <p class="title-zh">实验室实验的优点</p>
-    <p class="authors">Gary Charness, James C. Cox, Catherine C. Eckel, Charles A. Holt, Brian Jabarian</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107595">10.1016/j.jebo.2026.107595</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="the debt‐equity spread 债务-权益利差 hui chen, zhiyao chen, jun li journal of finance 10.1111/jofi.70060" data-journal="journal-of-finance" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the debt‐equity spread 债务-权益利差 hui chen, zhiyao chen, jun li journal of finance 10.1111/jofi.70060" data-journal="journal-of-finance" data-fields="china finance firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70060">The Debt‐Equity Spread</a></h3>
     <p class="title-zh">债务-权益利差</p>
     <p class="authors">HUI CHEN, ZHIYAO CHEN, JUN LI</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>Crossref在线日期 2026-06-09</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70060">10.1111/jofi.70060</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70060">10.1111/jofi.70060</a><span class="pill">金融</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="private equity and pay gaps inside the firm 私募股权与企业内部薪酬差距 lily fang, jim goldman, alexandra roulet journal of finance 10.1111/jofi.70043" data-journal="journal-of-finance" data-fields="finance labor firms inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="private equity and pay gaps inside the firm 私募股权与企业内部薪酬差距 lily fang, jim goldman, alexandra roulet journal of finance 10.1111/jofi.70043" data-journal="journal-of-finance" data-fields="china finance labor firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70043">Private Equity and Pay Gaps Inside the Firm</a></h3>
     <p class="title-zh">私募股权与企业内部薪酬差距</p>
     <p class="authors">LILY FANG, JIM GOLDMAN, ALEXANDRA ROULET</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>Crossref在线日期 2026-06-08</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70043">10.1111/jofi.70043</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70043">10.1111/jofi.70043</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -638,20 +96,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">人工智能技术如何影响跨国企业海外投资效率</p>
     <p class="authors">Xiaoyang Zhao, Yongjian Huang, Yi Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15</span><span>B 出版社/RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688896">10.1080/00036846.2026.2688896</a><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="worker heterogeneity and the effect of noncompetes on firm performance 工人异质性与竞业限制对企业绩效的影响 zhaozhao he, modupe babajide wintoki journal of economics &amp; management strategy 10.1111/jems.70040" data-journal="journal-of-economics-and-management-strategy" data-fields="macro labor theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
+<article class="event" data-search="contracts and ownership structures in the bioeconomy: a review of their design and role in innovation 生物经济中的合同与所有权结构：其设计与创新作用的综述 lukas bonar nainggolan, julia höhler, alfons oude lansink australian journal of agricultural and resource economics 10.1111/1467-8489.70124" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture labor theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">18:10</div><div class="date-note">2026-06-15</div></div>
   <div>
-    <h3><a href="https://doi.org/10.1111/jems.70040">Worker Heterogeneity and the Effect of Noncompetes on Firm Performance</a></h3>
-    <p class="title-zh">工人异质性与竞业限制对企业绩效的影响</p>
-    <p class="authors">Zhaozhao He, Modupe Babajide Wintoki</p>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70124">Contracts and Ownership Structures in the Bioeconomy: A Review of Their Design and Role in Innovation</a></h3>
+    <p class="title-zh">生物经济中的合同与所有权结构：其设计与创新作用的综述</p>
+    <p class="authors">Lukas Bonar Nainggolan, Julia Höhler, Alfons Oude Lansink</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>Crossref在线日期 2026-06-08</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70040">10.1111/jems.70040</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-15</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70124">10.1111/1467-8489.70124</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
@@ -662,103 +120,91 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">知识产权与垂直相关产业中的创新</p>
     <p class="authors">Michael A. Klein</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>Crossref在线日期 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>发布日期 2026-06-14</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecin.70073">10.1111/ecin.70073</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the long-term impact of industrialization campaigns on human capital accumulation: evidence from the “construction of third front” in china 工业化运动对人力资本积累的长期影响：来自中国“三线建设”的证据 guanghua fang, yinhe liang, fan qin journal of comparative economics 10.1016/j.jce.2026.01.001" data-journal="journal-of-comparative-economics" data-fields="china firms" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the long-term impact of industrialization campaigns on human capital accumulation: evidence from the “construction of third front” in china 工业化运动对人力资本积累的长期影响：来自中国“三线建设”的证据 guanghua fang, yinhe liang, fan qin journal of comparative economics 10.1016/j.jce.2026.01.001" data-journal="journal-of-comparative-economics" data-fields="china firms" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.01.001">The long-term impact of industrialization campaigns on human capital accumulation: Evidence from the “Construction of Third Front” in China</a></h3>
     <p class="title-zh">工业化运动对人力资本积累的长期影响：来自中国“三线建设”的证据</p>
     <p class="authors">Guanghua Fang, Yinhe Liang, Fan Qin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.01.001">10.1016/j.jce.2026.01.001</a><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="upstreamness, foreign environmental regulation and co2 emissions in indian manufacturing firms 上游度、外国环境规制与印度制造业企业的二氧化碳排放 finn ole semrau journal of environmental economics and management 10.1016/j.jeem.2026.103324" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="upstreamness, foreign environmental regulation and co2 emissions in indian manufacturing firms 上游度、外国环境规制与印度制造业企业的二氧化碳排放 finn ole semrau journal of environmental economics and management 10.1016/j.jeem.2026.103324" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment public firms" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103324">Upstreamness, foreign environmental regulation and CO2 emissions in Indian manufacturing firms</a></h3>
     <p class="title-zh">上游度、外国环境规制与印度制造业企业的二氧化碳排放</p>
     <p class="authors">Finn Ole Semrau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103324">10.1016/j.jeem.2026.103324</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103324">10.1016/j.jeem.2026.103324</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the socioeconomic impacts of industrial parks in ethiopia 埃塞俄比亚工业园区社会经济影响研究 guangbo huang, min wang, huayu xu journal of urban economics 10.1016/j.jue.2026.103867" data-journal="journal-of-urban-economics" data-fields="urban firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the socioeconomic impacts of industrial parks in ethiopia 埃塞俄比亚工业园区社会经济影响研究 guangbo huang, min wang, huayu xu journal of urban economics 10.1016/j.jue.2026.103867" data-journal="journal-of-urban-economics" data-fields="china urban firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jue.2026.103867">The socioeconomic impacts of industrial parks in Ethiopia</a></h3>
     <p class="title-zh">埃塞俄比亚工业园区社会经济影响研究</p>
     <p class="authors">Guangbo Huang, Min Wang, Huayu Xu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103867">10.1016/j.jue.2026.103867</a><span class="pill">城市与区域</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103867">10.1016/j.jue.2026.103867</a><span class="pill">城市与区域</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="climate shocks and environmental disclosure by firms: evidence from china 气候冲击与企业环境信息披露：来自中国的证据 yuzhou guo, qingyuan li applied economics 10.1080/00036846.2026.2688438" data-journal="applied-economics" data-fields="china environment firms" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="climate shocks and environmental disclosure by firms: evidence from china 气候冲击与企业环境信息披露：来自中国的证据 yuzhou guo, qingyuan li applied economics 10.1080/00036846.2026.2688438" data-journal="applied-economics" data-fields="china environment firms" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2688438">Climate shocks and environmental disclosure by firms: evidence from China</a></h3>
     <p class="title-zh">气候冲击与企业环境信息披露：来自中国的证据</p>
     <p class="authors">Yuzhou Guo, Qingyuan Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref发布日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-11</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688438">10.1080/00036846.2026.2688438</a><span class="pill">环境与气候</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a study on asset-light operation and enterprise innovation performance——empirical evidence from listed chinese enterprises 轻资产运营与企业创新绩效研究——来自中国上市企业的经验证据 xiang hui, bingxiang li applied economics 10.1080/00036846.2026.2687735" data-journal="applied-economics" data-fields="china finance firms" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="a study on asset-light operation and enterprise innovation performance——empirical evidence from listed chinese enterprises 轻资产运营与企业创新绩效研究——来自中国上市企业的经验证据 xiang hui, bingxiang li applied economics 10.1080/00036846.2026.2687735" data-journal="applied-economics" data-fields="china finance firms" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687735">A study on asset-light operation and enterprise innovation performance——empirical evidence from listed Chinese enterprises</a></h3>
     <p class="title-zh">轻资产运营与企业创新绩效研究——来自中国上市企业的经验证据</p>
     <p class="authors">Xiang Hui, Bingxiang Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref发布日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-11</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687735">10.1080/00036846.2026.2687735</a><span class="pill">金融</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="heterogeneous firms and the investment transmission mechanism of monetary policy 异质性企业与货币政策的投资传导机制 hanwen zhang, xiaoke sun applied economics 10.1080/00036846.2026.2686349" data-journal="applied-economics" data-fields="macro public theory firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="heterogeneous firms and the investment transmission mechanism of monetary policy 异质性企业与货币政策的投资传导机制 hanwen zhang, xiaoke sun applied economics 10.1080/00036846.2026.2686349" data-journal="applied-economics" data-fields="macro public theory firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2686349">Heterogeneous firms and the investment transmission mechanism of monetary policy</a></h3>
     <p class="title-zh">异质性企业与货币政策的投资传导机制</p>
     <p class="authors">Hanwen Zhang, Xiaoke Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref发布日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-10</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2686349">10.1080/00036846.2026.2686349</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="integrating freelance talent in organizations: insights from managers 组织整合自由职业者人才：来自管理者的洞见 raluca mariana grosu, andreea simona saseanu, simona ioana ghita, doru alexandru plesea applied economics 10.1080/00036846.2026.2685228" data-journal="applied-economics" data-fields="firms" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1080/00036846.2026.2685228">Integrating freelance talent in organizations: insights from managers</a></h3>
-    <p class="title-zh">组织整合自由职业者人才：来自管理者的洞见</p>
-    <p class="authors">Raluca Mariana Grosu, Andreea Simona Saseanu, Simona Ioana Ghita, Doru Alexandru Plesea</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref发布日期 2026-06-09</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2685228">10.1080/00036846.2026.2685228</a><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="specialization or diversification? the role of financial statement comparability in shaping firm innovation strategy 专业化还是多元化？财务报表可比性在企业创新战略形成中的作用 junyi tian, zhuo zhang applied economics 10.1080/00036846.2026.2682549" data-journal="applied-economics" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="specialization or diversification? the role of financial statement comparability in shaping firm innovation strategy 专业化还是多元化？财务报表可比性在企业创新战略形成中的作用 junyi tian, zhuo zhang applied economics 10.1080/00036846.2026.2682549" data-journal="applied-economics" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2682549">Specialization or diversification? The role of financial statement comparability in shaping firm innovation strategy</a></h3>
     <p class="title-zh">专业化还是多元化？财务报表可比性在企业创新战略形成中的作用</p>
     <p class="authors">Junyi Tian, Zhuo Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref发布日期 2026-06-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-08</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2682549">10.1080/00036846.2026.2682549</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -770,32 +216,32 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">银行增加对女性和女性领导企业贷款的商业理由是否存在？跨国财务绩效证据</p>
     <p class="authors">Christoph Sommer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107457">10.1016/j.worlddev.2026.107457</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="on the right track? railroads, industrial development, and distributional effects in historical china 正轨之上？历史中国的铁路、工业发展与分配效应 shiyu bo, ting chen, cong liu, yan zhou journal of development economics 10.1016/j.jdeveco.2026.103827" data-journal="journal-of-development-economics" data-fields="china development firms inequality" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="on the right track? railroads, industrial development, and distributional effects in historical china 正轨之上？历史中国的铁路、工业发展与分配效应 shiyu bo, ting chen, cong liu, yan zhou journal of development economics 10.1016/j.jdeveco.2026.103827" data-journal="journal-of-development-economics" data-fields="china development firms inequality" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103827">On the right track? Railroads, industrial development, and distributional effects in historical China</a></h3>
     <p class="title-zh">正轨之上？历史中国的铁路、工业发展与分配效应</p>
     <p class="authors">Shiyu Bo, Ting Chen, Cong Liu, Yan Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103827">10.1016/j.jdeveco.2026.103827</a><span class="pill">发展经济学</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="burn now or never? climate policy exposure and investment of fossil fuel firms 现在燃烧还是永不燃烧？气候政策暴露与化石燃料企业投资 jakob feveile adolfsen, malte heissel, ana-simona manu, francesca vinci journal of international economics 10.1016/j.jinteco.2026.104267" data-journal="journal-of-international-economics" data-fields="environment public firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="burn now or never? climate policy exposure and investment of fossil fuel firms 现在燃烧还是永不燃烧？气候政策暴露与化石燃料企业投资 jakob feveile adolfsen, malte heissel, ana-simona manu, francesca vinci journal of international economics 10.1016/j.jinteco.2026.104267" data-journal="journal-of-international-economics" data-fields="china environment public firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104267">Burn now or never? Climate policy exposure and investment of fossil fuel firms</a></h3>
     <p class="title-zh">现在燃烧还是永不燃烧？气候政策暴露与化石燃料企业投资</p>
     <p class="authors">Jakob Feveile Adolfsen, Malte Heissel, Ana-Simona Manu, Francesca Vinci</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104267">10.1016/j.jinteco.2026.104267</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104267">10.1016/j.jinteco.2026.104267</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -806,7 +252,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">水磨与工业化时期普鲁士的人力资本积累</p>
     <p class="authors">Malte Hinrichs</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101767">10.1016/j.eeh.2026.101767</a><span class="pill">企业与产业</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -818,7 +264,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">政治关联、合同不完全性与企业外包</p>
     <p class="authors">Yi Zhang, Hein Roelfsema</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01421-6">10.1007/s11127-026-01421-6</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -830,116 +276,116 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">日本帝国、文官统治与民主逆转</p>
     <p class="authors">Jedediah Pida-Reese</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01414-5">10.1007/s11127-026-01414-5</a><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="data portability and the collection of personal data 数据可携性与个人数据收集 youping li, jianhu zhang international journal of industrial organization 10.1016/j.ijindorg.2026.103289" data-journal="international-journal-of-industrial-organization" data-fields="firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="data portability and the collection of personal data 数据可携性与个人数据收集 youping li, jianhu zhang international journal of industrial organization 10.1016/j.ijindorg.2026.103289" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103289">Data portability and the collection of personal data</a></h3>
     <p class="title-zh">数据可携性与个人数据收集</p>
     <p class="authors">Youping Li, Jianhu Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103289">10.1016/j.ijindorg.2026.103289</a><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103289">10.1016/j.ijindorg.2026.103289</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="causal evidence of antitrust damages in the car manufacturers’ cartel in spain 西班牙汽车制造商卡特尔反垄断损害赔偿的因果证据 juan luis jiménez, carmen garcía-galindo, josé manuel ordóñez-de-haro international journal of industrial organization 10.1016/j.ijindorg.2026.103285" data-journal="international-journal-of-industrial-organization" data-fields="econometrics firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="causal evidence of antitrust damages in the car manufacturers’ cartel in spain 西班牙汽车制造商卡特尔反垄断损害赔偿的因果证据 juan luis jiménez, carmen garcía-galindo, josé manuel ordóñez-de-haro international journal of industrial organization 10.1016/j.ijindorg.2026.103285" data-journal="international-journal-of-industrial-organization" data-fields="econometrics behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103285">Causal evidence of antitrust damages in the car manufacturers’ cartel in Spain</a></h3>
     <p class="title-zh">西班牙汽车制造商卡特尔反垄断损害赔偿的因果证据</p>
     <p class="authors">Juan Luis Jiménez, Carmen García-Galindo, José Manuel Ordóñez-de-Haro</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103285">10.1016/j.ijindorg.2026.103285</a><span class="pill">计量方法</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103285">10.1016/j.ijindorg.2026.103285</a><span class="pill">计量方法</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="editorial board 编辑委员会  international journal of industrial organization 10.1016/s0167-7187(26)00048-2" data-journal="international-journal-of-industrial-organization" data-fields="firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="editorial board 编辑委员会  international journal of industrial organization 10.1016/s0167-7187(26)00048-2" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0167-7187(26)00048-2">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0167-7187(26)00048-2">10.1016/s0167-7187(26)00048-2</a><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0167-7187(26)00048-2">10.1016/s0167-7187(26)00048-2</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="legalization and innovation in the cannabis market 大麻市场的合法化与创新 lucy xiaolu wang, nathan w. chan international journal of industrial organization 10.1016/j.ijindorg.2026.103272" data-journal="international-journal-of-industrial-organization" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="legalization and innovation in the cannabis market 大麻市场的合法化与创新 lucy xiaolu wang, nathan w. chan international journal of industrial organization 10.1016/j.ijindorg.2026.103272" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103272">Legalization and innovation in the cannabis market</a></h3>
     <p class="title-zh">大麻市场的合法化与创新</p>
     <p class="authors">Lucy Xiaolu Wang, Nathan W. Chan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103272">10.1016/j.ijindorg.2026.103272</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103272">10.1016/j.ijindorg.2026.103272</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the value of personalized recommendations: evidence from netflix 个性化推荐的价值：来自netflix的证据 kevin zielnicki, guy aridor, aurélien bibaut, allen tran, winston chou 等 international journal of industrial organization 10.1016/j.ijindorg.2026.103304" data-journal="international-journal-of-industrial-organization" data-fields="firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the value of personalized recommendations: evidence from netflix 个性化推荐的价值：来自netflix的证据 kevin zielnicki, guy aridor, aurélien bibaut, allen tran, winston chou 等 international journal of industrial organization 10.1016/j.ijindorg.2026.103304" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103304">The value of personalized recommendations: Evidence from Netflix</a></h3>
     <p class="title-zh">个性化推荐的价值：来自Netflix的证据</p>
     <p class="authors">Kevin Zielnicki, Guy Aridor, Aurélien Bibaut, Allen Tran, Winston Chou 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103304">10.1016/j.ijindorg.2026.103304</a><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103304">10.1016/j.ijindorg.2026.103304</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="you’d be hard to replace: provider competition in narrow network insurance markets 你很难被替代：窄网络保险市场中的供应商竞争 samuel a. kleiner, thomas g. koch, christopher v. lau international journal of industrial organization 10.1016/j.ijindorg.2026.103271" data-journal="international-journal-of-industrial-organization" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="you’d be hard to replace: provider competition in narrow network insurance markets 你很难被替代：窄网络保险市场中的供应商竞争 samuel a. kleiner, thomas g. koch, christopher v. lau international journal of industrial organization 10.1016/j.ijindorg.2026.103271" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103271">You’d be hard to replace: Provider competition in narrow network insurance markets</a></h3>
     <p class="title-zh">你很难被替代：窄网络保险市场中的供应商竞争</p>
     <p class="authors">Samuel A. Kleiner, Thomas G. Koch, Christopher V. Lau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103271">10.1016/j.ijindorg.2026.103271</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103271">10.1016/j.ijindorg.2026.103271</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the ijio special issue on market power and the economy: an introduction 市场力量与经济：ijio特刊导论 alon eizenberg international journal of industrial organization 10.1016/j.ijindorg.2026.103286" data-journal="international-journal-of-industrial-organization" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the ijio special issue on market power and the economy: an introduction 市场力量与经济：ijio特刊导论 alon eizenberg international journal of industrial organization 10.1016/j.ijindorg.2026.103286" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103286">The IJIO special issue on market power and the economy: An introduction</a></h3>
     <p class="title-zh">市场力量与经济：IJIO特刊导论</p>
     <p class="authors">Alon Eizenberg</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103286">10.1016/j.ijindorg.2026.103286</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103286">10.1016/j.ijindorg.2026.103286</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="credit card interchange fees revisited: the role of credit and consumer behavior 信用卡交换费再审视：信贷与消费者行为的作用 josé ignacio heresi international journal of industrial organization 10.1016/j.ijindorg.2026.103290" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="credit card interchange fees revisited: the role of credit and consumer behavior 信用卡交换费再审视：信贷与消费者行为的作用 josé ignacio heresi international journal of industrial organization 10.1016/j.ijindorg.2026.103290" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103290">Credit card interchange fees revisited: The role of credit and consumer behavior</a></h3>
     <p class="title-zh">信用卡交换费再审视：信贷与消费者行为的作用</p>
     <p class="authors">José Ignacio Heresi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103290">10.1016/j.ijindorg.2026.103290</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="algorithmic collusion under sequential pricing and stochastic costs 序贯定价与随机成本下的算法合谋 gonzalo ballestero international journal of industrial organization 10.1016/j.ijindorg.2026.103281" data-journal="international-journal-of-industrial-organization" data-fields="firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="algorithmic collusion under sequential pricing and stochastic costs 序贯定价与随机成本下的算法合谋 gonzalo ballestero international journal of industrial organization 10.1016/j.ijindorg.2026.103281" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103281">Algorithmic collusion under sequential pricing and stochastic costs</a></h3>
     <p class="title-zh">序贯定价与随机成本下的算法合谋</p>
     <p class="authors">Gonzalo Ballestero</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103281">10.1016/j.ijindorg.2026.103281</a><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103281">10.1016/j.ijindorg.2026.103281</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
@@ -950,7 +396,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">服务进口、劳动力结构与企业绩效：来自芬兰微观数据的证据</p>
     <p class="authors">Andrea Ariu, Katariina Nilsson Hakkala, J. Bradford Jensen, Saara Tamminen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105381">10.1016/j.euroecorev.2026.105381</a><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -962,7 +408,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">困境中的投入：地缘经济分裂与企业的采购来源</p>
     <p class="authors">Ludovic Panon, Laura Lebastard, Michele Mancini, Alessandro Borin, Peonare Caka Tofani 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105355">10.1016/j.euroecorev.2026.105355</a><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -974,32 +420,44 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">经理薪酬不平等与市场势力</p>
     <p class="authors">Renjie Bao, Jan De Loecker, Jan Eeckhout</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag035">10.1093/restud/rdag035</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="interplay of crop diversity and agricultural area in agroecosystem services: analytical and empirical study on local water quality 作物多样性与农业面积在农业生态系统服务中的相互作用：基于地方水质的分析与实证研究 yunsun park, seong d. yun, matthew g. interis, t. edward yu canadian journal of agricultural economics 10.1111/cjag.70018" data-journal="canadian-journal-of-agricultural-economics" data-fields="agriculture public firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="climate and feeding strategies: an analysis of productivity growth in new zealand dairy 气候与饲养策略：新西兰乳业生产率增长分析 mario fernandez, mark neal, gavan dwyer australian journal of agricultural and resource economics 10.1111/1467-8489.70127" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment macro firms" data-china="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70127">Climate and Feeding Strategies: An Analysis of Productivity Growth in New Zealand Dairy</a></h3>
+    <p class="title-zh">气候与饲养策略：新西兰乳业生产率增长分析</p>
+    <p class="authors">Mario Fernandez, Mark Neal, Gavan Dwyer</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70127">10.1111/1467-8489.70127</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="interplay of crop diversity and agricultural area in agroecosystem services: analytical and empirical study on local water quality 作物多样性与农业面积在农业生态系统服务中的相互作用：基于地方水质的分析与实证研究 yunsun park, seong d. yun, matthew g. interis, t. edward yu canadian journal of agricultural economics 10.1111/cjag.70018" data-journal="canadian-journal-of-agricultural-economics" data-fields="agriculture public firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/cjag.70018">Interplay of crop diversity and agricultural area in agroecosystem services: Analytical and empirical study on local water quality</a></h3>
     <p class="title-zh">作物多样性与农业面积在农业生态系统服务中的相互作用：基于地方水质的分析与实证研究</p>
     <p class="authors">Yunsun Park, Seong D. Yun, Matthew G. Interis, T. Edward Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Agricultural Economics</span><span>Crossref发布日期 2026-05-25</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Agricultural Economics</span><span>发布日期 2026-05-25</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/cjag.70018">10.1111/cjag.70018</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="do producer organizations promote climate-smart agriculture? assessing direct and spillover effects in nigeria 生产者组织是否促进了气候智慧型农业？评估尼日利亚的直接效应与溢出效应 abebayehu girma geffersa, martin paul jr. tabe-ojong food policy 10.1016/j.foodpol.2026.103117" data-journal="food-policy" data-fields="agriculture environment public firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the green peace dividend: the effects of militarisation on emissions and the green transition 绿色和平红利：军事化对排放与绿色转型的影响 balázs markó environmental and resource economics 10.1007/s10640-026-01089-y" data-journal="environmental-and-resource-economics" data-fields="environment macro firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
-    <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103117">Do Producer organizations Promote Climate-Smart Agriculture? assessing direct and spillover effects in Nigeria</a></h3>
-    <p class="title-zh">生产者组织是否促进了气候智慧型农业？评估尼日利亚的直接效应与溢出效应</p>
-    <p class="authors">Abebayehu Girma Geffersa, Martin Paul Jr. Tabe-Ojong</p>
+    <h3><a href="https://doi.org/10.1007/s10640-026-01089-y">The Green Peace Dividend: The Effects of Militarisation on Emissions and the Green Transition</a></h3>
+    <p class="title-zh">绿色和平红利：军事化对排放与绿色转型的影响</p>
+    <p class="authors">Balázs Markó</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103117">10.1016/j.foodpol.2026.103117</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>发布日期 2026-05-28</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01089-y">10.1007/s10640-026-01089-y</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
@@ -1010,68 +468,44 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">风险投资支持的初创企业在美国农业创新中的作用</p>
     <p class="authors">Gregory D. Graff, Charles A. W. de Grazia, Nicholas E. Rada</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>Crossref在线日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70083">10.1002/ajae.70083</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="work orientations and turnover 工作导向与离职倾向 milena nikolova, juliette de wit journal of population economics 10.1007/s00148-026-01176-w" data-journal="journal-of-population-economics" data-fields="labor trade behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1007/s00148-026-01176-w">Work orientations and turnover</a></h3>
-    <p class="title-zh">工作导向与离职倾向</p>
-    <p class="authors">Milena Nikolova, Juliette de Wit</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>Crossref在线日期 2026-06-06</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01176-w">10.1007/s00148-026-01176-w</a><span class="pill">劳动</span><span class="pill">国际贸易</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="international reserves and firm investment: identification through bank credit reallocation 国际储备与企业投资：基于银行信贷再配置的识别 woo jin choi, ju hyun pyun, youngjin yun journal of economic dynamics and control 10.1016/j.jedc.2026.105360" data-journal="journal-of-economic-dynamics-and-control" data-fields="finance econometrics firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="international reserves and firm investment: identification through bank credit reallocation 国际储备与企业投资：基于银行信贷再配置的识别 woo jin choi, ju hyun pyun, youngjin yun journal of economic dynamics and control 10.1016/j.jedc.2026.105360" data-journal="journal-of-economic-dynamics-and-control" data-fields="china finance econometrics firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jedc.2026.105360">International reserves and firm investment: Identification through bank credit reallocation</a></h3>
     <p class="title-zh">国际储备与企业投资：基于银行信贷再配置的识别</p>
     <p class="authors">Woo Jin Choi, Ju Hyun Pyun, Youngjin Yun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105360">10.1016/j.jedc.2026.105360</a><span class="pill">金融</span><span class="pill">计量方法</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105360">10.1016/j.jedc.2026.105360</a><span class="pill">金融</span><span class="pill">计量方法</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="central bank digital currency with collateral‐constrained banks 抵押约束银行下的央行数字货币 hanfeng chen, maria elena filippin journal of money, credit and banking 10.1111/jmcb.70063" data-journal="journal-of-money-credit-and-banking" data-fields="development finance theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="medical innovation and health disparities 医学创新与健康差距 barton h. hamilton, andrés hincapié, emma c. kalish, nicholas w. papageorge review of economic dynamics 10.1016/j.red.2026.101346" data-journal="review-of-economic-dynamics" data-fields="health firms" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
-    <h3><a href="https://doi.org/10.1111/jmcb.70063">Central Bank Digital Currency with Collateral‐Constrained Banks</a></h3>
-    <p class="title-zh">抵押约束银行下的央行数字货币</p>
-    <p class="authors">HANFENG CHEN, MARIA ELENA FILIPPIN</p>
+    <h3><a href="https://doi.org/10.1016/j.red.2026.101346">Medical innovation and health disparities</a></h3>
+    <p class="title-zh">医学创新与健康差距</p>
+    <p class="authors">Barton H. Hamilton, Andrés Hincapié, Emma C. Kalish, Nicholas W. Papageorge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-04</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70063">10.1111/jmcb.70063</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101346">10.1016/j.red.2026.101346</a><span class="pill">健康</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="industrial spillovers from agricultural processing: evidence from the beet sugar industry 农业加工产业的工业溢出效应：来自甜菜制糖业的证据 youn baek journal of urban economics 10.1016/j.jue.2026.103883" data-journal="journal-of-urban-economics" data-fields="agriculture urban firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="industrial spillovers from agricultural processing: evidence from the beet sugar industry 农业加工产业的工业溢出效应：来自甜菜制糖业的证据 youn baek journal of urban economics 10.1016/j.jue.2026.103883" data-journal="journal-of-urban-economics" data-fields="china agriculture urban firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jue.2026.103883">Industrial spillovers from agricultural processing: Evidence from the beet sugar industry</a></h3>
     <p class="title-zh">农业加工产业的工业溢出效应：来自甜菜制糖业的证据</p>
     <p class="authors">Youn Baek</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103883">10.1016/j.jue.2026.103883</a><span class="pill">农业与食品</span><span class="pill">城市与区域</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="government demand and firm growth 政府需求与企业成长 bernard hoekman, marco sanfilippo, filippo santi, rohit ticku journal of development economics 10.1016/j.jdeveco.2026.103832" data-journal="journal-of-development-economics" data-fields="development macro public firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103832">Government demand and firm growth</a></h3>
-    <p class="title-zh">政府需求与企业成长</p>
-    <p class="authors">Bernard Hoekman, Marco Sanfilippo, Filippo Santi, Rohit Ticku</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103832">10.1016/j.jdeveco.2026.103832</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103883">10.1016/j.jue.2026.103883</a><span class="pill">农业与食品</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1082,191 +516,178 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">主题集中度与共同基金业绩</p>
     <p class="authors">John (Jianqiu) Bai, Yuehua Tang, Chi Wan, Zafer Yuksel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag021">10.1093/rfs/hhag021</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="firm-to-firm financial linkages and dollar risk transmission 企业间金融联系与美元风险传导 bryan hardy, felipe saffie, ina simonovska journal of financial economics 10.1016/j.jfineco.2026.104311" data-journal="journal-of-financial-economics" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="firm-to-firm financial linkages and dollar risk transmission 企业间金融联系与美元风险传导 bryan hardy, felipe saffie, ina simonovska journal of financial economics 10.1016/j.jfineco.2026.104311" data-journal="journal-of-financial-economics" data-fields="china finance firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104311">Firm-to-firm financial linkages and dollar risk transmission</a></h3>
     <p class="title-zh">企业间金融联系与美元风险传导</p>
     <p class="authors">Bryan Hardy, Felipe Saffie, Ina Simonovska</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104311">10.1016/j.jfineco.2026.104311</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104311">10.1016/j.jfineco.2026.104311</a><span class="pill">金融</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="reducing trade with russia: sanctions vs. firms’ voluntary suspension of activities 减少与俄罗斯的贸易：制裁与企业自愿暂停活动 juan de lucio, raúl mínguez, asier minondo, francisco requena journal of international economics 10.1016/j.jinteco.2026.104284" data-journal="journal-of-international-economics" data-fields="trade firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="reducing trade with russia: sanctions vs. firms’ voluntary suspension of activities 减少与俄罗斯的贸易：制裁与企业自愿暂停活动 juan de lucio, raúl mínguez, asier minondo, francisco requena journal of international economics 10.1016/j.jinteco.2026.104284" data-journal="journal-of-international-economics" data-fields="china trade firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104284">Reducing trade with Russia: Sanctions vs. firms’ voluntary suspension of activities</a></h3>
     <p class="title-zh">减少与俄罗斯的贸易：制裁与企业自愿暂停活动</p>
     <p class="authors">Juan de Lucio, Raúl Mínguez, Asier Minondo, Francisco Requena</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104284">10.1016/j.jinteco.2026.104284</a><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104284">10.1016/j.jinteco.2026.104284</a><span class="pill">国际贸易</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="how judges’ social identity impacts reversal decisions: evidence from the transitory promotion of judges 法官社会身份对改判决策的影响：基于法官临时晋升的证据 patrick c wu, chang-ching lin, yun-chien chang journal of law, economics &amp; organization 10.1093/jleo/ewag022" data-journal="journal-of-law-economics-and-organization" data-fields="china theory behavior firms" data-china="true" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1093/jleo/ewag022">How judges’ social identity impacts reversal decisions: evidence from the transitory promotion of judges</a></h3>
-    <p class="title-zh">法官社会身份对改判决策的影响：基于法官临时晋升的证据</p>
-    <p class="authors">Patrick C Wu, Chang-Ching Lin, Yun-chien Chang</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>Crossref发布日期 2026-05-26</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag022">10.1093/jleo/ewag022</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="norm-based enforcement of promises 基于规范的承诺执行 nathan atkinson, rebecca stone, alexander stremitzer journal of law, economics &amp; organization 10.1093/jleo/ewag019" data-journal="journal-of-law-economics-and-organization" data-fields="theory behavior firms" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1093/jleo/ewag019">Norm-based enforcement of promises</a></h3>
-    <p class="title-zh">基于规范的承诺执行</p>
-    <p class="authors">Nathan Atkinson, Rebecca Stone, Alexander Stremitzer</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>Crossref发布日期 2026-05-18</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag019">10.1093/jleo/ewag019</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="lurking patent claims and strategic royalty contracts 潜伏性专利权利要求与战略性许可合同 jay pil choi journal of industrial economics 10.1111/joie.70031" data-journal="journal-of-industrial-economics" data-fields="theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="lurking patent claims and strategic royalty contracts 潜伏性专利权利要求与战略性许可合同 jay pil choi journal of industrial economics 10.1111/joie.70031" data-journal="journal-of-industrial-economics" data-fields="china theory firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/joie.70031">Lurking Patent Claims and Strategic Royalty Contracts</a></h3>
     <p class="title-zh">潜伏性专利权利要求与战略性许可合同</p>
     <p class="authors">Jay Pil Choi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>Crossref在线日期 2026-06-12</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70031">10.1111/joie.70031</a><span class="pill">理论与博弈</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70031">10.1111/joie.70031</a><span class="pill">理论与博弈</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a unified approach to estimating production functions: proxy variables and dynamic panel data 生产函数估计的统一方法：代理变量与动态面板数据 jose miguel abito, konstantinos metaxoglou journal of industrial economics 10.1111/joie.70033" data-journal="journal-of-industrial-economics" data-fields="macro econometrics theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1111/joie.70033">A Unified Approach to Estimating Production Functions: Proxy Variables and Dynamic Panel Data</a></h3>
-    <p class="title-zh">生产函数估计的统一方法：代理变量与动态面板数据</p>
-    <p class="authors">Jose Miguel Abito, Konstantinos Metaxoglou</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>Crossref在线日期 2026-06-10</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70033">10.1111/joie.70033</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="issue information 期刊信息  journal of industrial economics 10.1111/joie.70032" data-journal="journal-of-industrial-economics" data-fields="firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="issue information 期刊信息  journal of industrial economics 10.1111/joie.70032" data-journal="journal-of-industrial-economics" data-fields="china firms" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/joie.70032">Issue Information</a></h3>
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>Crossref发布日期 2026-06-03</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70032">10.1111/joie.70032</a><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>发布日期 2026-06-03</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70032">10.1111/joie.70032</a><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="make or buy decisions and data sharing 自制或外购决策与数据共享 antoine dubus, patrick legros journal of industrial economics 10.1111/joie.70030" data-journal="journal-of-industrial-economics" data-fields="public behavior firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="make or buy decisions and data sharing 自制或外购决策与数据共享 antoine dubus, patrick legros journal of industrial economics 10.1111/joie.70030" data-journal="journal-of-industrial-economics" data-fields="china public behavior firms" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/joie.70030">Make or Buy Decisions and Data Sharing</a></h3>
     <p class="title-zh">自制或外购决策与数据共享</p>
     <p class="authors">Antoine Dubus, Patrick Legros</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>Crossref发布日期 2026-05-22</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70030">10.1111/joie.70030</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>发布日期 2026-05-22</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70030">10.1111/joie.70030</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="designing emissions trading schemes for a price-regulated and concentrated industry: insights from china’s power sector 面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示 dong-hyuk kim, hui qiao, ying zheng international journal of industrial organization 10.1016/j.ijindorg.2026.103301" data-journal="international-journal-of-industrial-organization" data-fields="china agriculture environment firms" data-china="true" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103301">Designing emissions trading schemes for a price-regulated and concentrated industry: Insights from China’s power sector</a></h3>
-    <p class="title-zh">面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示</p>
-    <p class="authors">Dong-Hyuk Kim, Hui Qiao, Ying Zheng</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103301">10.1016/j.ijindorg.2026.103301</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="price discrimination under minimum advertised price restriction 最低广告价格限制下的价格歧视 danial asmat, jake kramer, chenyu yang international journal of industrial organization 10.1016/j.ijindorg.2026.103292" data-journal="international-journal-of-industrial-organization" data-fields="agriculture firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="price discrimination under minimum advertised price restriction 最低广告价格限制下的价格歧视 danial asmat, jake kramer, chenyu yang international journal of industrial organization 10.1016/j.ijindorg.2026.103292" data-journal="international-journal-of-industrial-organization" data-fields="agriculture behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103292">Price discrimination under minimum advertised price restriction</a></h3>
     <p class="title-zh">最低广告价格限制下的价格歧视</p>
     <p class="authors">Danial Asmat, Jake Kramer, Chenyu Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103292">10.1016/j.ijindorg.2026.103292</a><span class="pill">农业与食品</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103292">10.1016/j.ijindorg.2026.103292</a><span class="pill">农业与食品</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="focal pricing constraints and pass-through of input cost changes 焦点定价约束与投入成本变化的传导 francesca arduini international journal of industrial organization 10.1016/j.ijindorg.2026.103288" data-journal="international-journal-of-industrial-organization" data-fields="firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="focal pricing constraints and pass-through of input cost changes 焦点定价约束与投入成本变化的传导 francesca arduini international journal of industrial organization 10.1016/j.ijindorg.2026.103288" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103288">Focal pricing constraints and pass-through of input cost changes</a></h3>
     <p class="title-zh">焦点定价约束与投入成本变化的传导</p>
     <p class="authors">Francesca Arduini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103288">10.1016/j.ijindorg.2026.103288</a><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103288">10.1016/j.ijindorg.2026.103288</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="financial structure and mergers 金融结构与并购 charles taragin, benjamin wallace, eddie watkins international journal of industrial organization 10.1016/j.ijindorg.2026.103302" data-journal="international-journal-of-industrial-organization" data-fields="finance firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="financial structure and mergers 金融结构与并购 charles taragin, benjamin wallace, eddie watkins international journal of industrial organization 10.1016/j.ijindorg.2026.103302" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103302">Financial structure and mergers</a></h3>
     <p class="title-zh">金融结构与并购</p>
     <p class="authors">Charles Taragin, Benjamin Wallace, Eddie Watkins</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103302">10.1016/j.ijindorg.2026.103302</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103302">10.1016/j.ijindorg.2026.103302</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="interaction of spectrum auctions and mobile market competition: review of theory and evidence from european 4g auctions 频谱拍卖与移动市场竞争的互动：理论与欧洲4g拍卖证据综述 daniel ershov, david salant international journal of industrial organization 10.1016/j.ijindorg.2026.103287" data-journal="international-journal-of-industrial-organization" data-fields="finance theory firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="interaction of spectrum auctions and mobile market competition: review of theory and evidence from european 4g auctions 频谱拍卖与移动市场竞争的互动：理论与欧洲4g拍卖证据综述 daniel ershov, david salant international journal of industrial organization 10.1016/j.ijindorg.2026.103287" data-journal="international-journal-of-industrial-organization" data-fields="finance theory behavior firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103287">Interaction of spectrum auctions and mobile market competition: Review of theory and evidence from European 4G auctions</a></h3>
     <p class="title-zh">频谱拍卖与移动市场竞争的互动：理论与欧洲4G拍卖证据综述</p>
     <p class="authors">Daniel Ershov, David Salant</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103287">10.1016/j.ijindorg.2026.103287</a><span class="pill">金融</span><span class="pill">理论与博弈</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103287">10.1016/j.ijindorg.2026.103287</a><span class="pill">金融</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a behavioral explanation for the puzzling persistence of the aggregate real exchange rate 实际汇率持续之谜的行为解释 mario j crucini, mototsugu shintani, takayuki tsuruga journal of the european economic association 10.1093/jeea/jvag027" data-journal="journal-of-the-european-economic-association" data-fields="agriculture macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1093/jeea/jvag027">A Behavioral Explanation for the Puzzling Persistence of the Aggregate Real Exchange Rate</a></h3>
-    <p class="title-zh">实际汇率持续之谜的行为解释</p>
-    <p class="authors">Mario J Crucini, Mototsugu Shintani, Takayuki Tsuruga</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>Crossref在线日期 2026-06-10</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag027">10.1093/jeea/jvag027</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="business, liquidity, and information cycles 商业、流动性与信息周期 gorkem bostanci, guillermo ordoñez quarterly journal of economics 10.1093/qje/qjag029" data-journal="quarterly-journal-of-economics" data-fields="agriculture finance theory firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="business, liquidity, and information cycles 商业、流动性与信息周期 gorkem bostanci, guillermo ordoñez quarterly journal of economics 10.1093/qje/qjag029" data-journal="quarterly-journal-of-economics" data-fields="agriculture finance theory firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/qje/qjag029">Business, Liquidity, and Information Cycles</a></h3>
     <p class="title-zh">商业、流动性与信息周期</p>
     <p class="authors">Gorkem Bostanci, Guillermo Ordoñez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Quarterly Journal of Economics</span><span>Crossref发布日期 2026-05-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Quarterly Journal of Economics</span><span>发布日期 2026-05-29</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/qje/qjag029">10.1093/qje/qjag029</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
-</article></main>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+</main>
     </div>
   </div>
 </body>

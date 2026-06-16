@@ -19,15 +19,19 @@ CN_JOURNALS = {
     "journal-679eaa2a0c",
     "journal-ba9f46c919",
 }
+
 CN_JOURNAL_NAMES = {"管理世界", "数量经济技术经济研究", "中国工业经济", "中国农村经济", "世界经济", "经济研究"}
+
 ARTICLE_URL_PATTERNS = (
     "reader/view_abstract.aspx?file_no=",
     "view_abstract.aspx?file_no=",
     "sjjj.magtech.com.cn/CN/Y",
     "ciejournal.ajcass.com/Magazine/Show?id=",
+    "paperDigest.aspx?paperID=",
     "ajcass.com/#/detail",
     "ajcass.com/#/enDetail",
 )
+
 NOISE_TEXT = (
     "平台",
     "数据库",
@@ -40,15 +44,18 @@ NOISE_TEXT = (
     "采编",
     "影响因子",
     "获评",
-    "期刊征文",
     "复现包",
     "补充材料",
+    "期刊征文",
     "公告",
     "通知",
     "欢迎订阅",
     "征订",
-    "——评《",
+    "目录",
+    "编委",
+    "启事",
 )
+
 NOISE_URL = (
     "CommonBlock/SiteContentList",
     "mp.weixin.qq.com",
@@ -72,8 +79,6 @@ def is_noise_record(record: dict[str, Any]) -> bool:
         return True
     if any(noise.lower() in url.lower() for noise in NOISE_URL):
         return True
-    if record.get("journal_id") == "journal-edcb877d78" and not record.get("source_issue"):
-        return True
     if "#" in url and "ajcass.com/#/" not in url:
         return True
     if is_article_url(url):
@@ -86,11 +91,12 @@ def is_noise_record(record: dict[str, Any]) -> bool:
 def issue_key(source_issue: str | None) -> tuple[int, int] | None:
     text = str(source_issue or "")
     patterns = [
-        r"(20\d{2})\s*年\s*,?\s*第\s*(\d{1,2})\s*期",
+        r"(20\d{2})\s*年\s*,?\s*第?\s*(\d{1,2})\s*期",
         r"(20\d{2})\s*年\s*(\d{1,2})\s*期",
         r"(20\d{2})\s*,\s*\d+\s*\(\s*(\d{1,2})\s*\)",
         r"(20\d{2})\s*,\s*\(\s*(\d{1,2})\s*\)",
         r"(20\d{2})\s*年第\s*(\d{1,2})\s*期",
+        r"(20\d{2})年(\d{1,2})期",
     ]
     for pattern in patterns:
         match = re.search(pattern, text)
@@ -166,12 +172,7 @@ def main() -> None:
     for path in args.daily_dir.glob("*.json"):
         daily_removed += clean_daily(path)
     seen_removed = clean_seen(args.seen)
-    record_source(
-        "clean-cn-noise",
-        ok=True,
-        count=daily_removed + seen_removed,
-        message=f"daily_removed={daily_removed} seen_removed={seen_removed}",
-    )
+    record_source("clean-cn-noise", ok=True, count=daily_removed + seen_removed, message=f"daily_removed={daily_removed} seen_removed={seen_removed}")
     print(f"removed daily={daily_removed} seen={seen_removed}")
 
 

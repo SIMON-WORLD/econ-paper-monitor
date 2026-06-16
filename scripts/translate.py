@@ -1,12 +1,13 @@
-"""Translate missing paper titles in daily archives.
+"""Translate missing English paper titles.
 
 The script uses an OpenAI-compatible chat completions endpoint when configured.
-If no API key is present, it exits successfully without modifying data.
+Translations are cached by DOI/id/title to avoid repeated API cost.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import urllib.error
@@ -14,8 +15,11 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, ROOT, read_json, write_json
+from common import DATA_DIR, ROOT, read_json, stable_id, write_json
 from status import record_source
+
+
+CACHE_PATH = DATA_DIR / "translation_cache.json"
 
 
 def has_chinese(value: str | None) -> bool:
@@ -31,9 +35,7 @@ def load_local_env() -> None:
             if not line or line.startswith("#") or "=" not in line:
                 continue
             key, value = line.split("=", 1)
-            key = key.strip()
-            value = value.strip().strip('"').strip("'")
-            os.environ.setdefault(key, value)
+            os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
 
 
 def api_settings() -> tuple[str | None, str, str]:
@@ -55,6 +57,14 @@ def api_settings() -> tuple[str | None, str, str]:
     return key, base_url.rstrip("/"), model
 
 
+def cache_key(record: dict[str, Any]) -> str:
+    key = str(record.get("doi") or record.get("id") or stable_id(record)).casefold()
+    if key:
+        return key
+    title = str(record.get("title") or "")
+    return hashlib.sha1(title.encode("utf-8")).hexdigest()
+
+
 def translate_title(title: str, key: str, base_url: str, model: str, timeout: int) -> str:
     payload = {
         "model": model,
@@ -70,10 +80,7 @@ def translate_title(title: str, key: str, base_url: str, model: str, timeout: in
     request = urllib.request.Request(
         f"{base_url}/chat/completions",
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {key}",
-            "Content-Type": "application/json",
-        },
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
         method="POST",
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
@@ -89,30 +96,47 @@ def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
     return sorted(daily_dir.glob("*.json"), reverse=True)
 
 
-def translate_daily_file(path: Path, args: argparse.Namespace, key: str, base_url: str, model: str) -> tuple[int, int]:
+def translate_daily_file(
+    path: Path,
+    args: argparse.Namespace,
+    key: str,
+    base_url: str,
+    model: str,
+    cache_records: dict[str, Any],
+) -> tuple[int, int, int]:
     records = read_json(path, [])
-    records_to_translate = sorted(
-        records,
-        key=lambda record: str(record.get("detected_at") or ""),
-        reverse=True,
-    )
-    changed = 0
-    attempted = 0
+    records_to_translate = sorted(records, key=lambda record: str(record.get("detected_at") or ""), reverse=True)
+    changed = attempted = cached = 0
     for record in records_to_translate:
         if args.limit and attempted >= args.limit:
             break
         title = str(record.get("title") or "").strip()
-        if not title or record.get("title_zh"):
+        if not title:
             continue
         if has_chinese(title):
-            record["title_zh"] = title
-            record["translation_status"] = "native_chinese"
-            changed += 1
+            if record.get("title_zh") != title or record.get("translation_status") != "native_chinese":
+                record["title_zh"] = title
+                record["translation_status"] = "native_chinese"
+                changed += 1
             continue
+        if record.get("title_zh"):
+            continue
+
+        key_id = cache_key(record)
+        cached_value = cache_records.get(key_id)
+        if isinstance(cached_value, dict) and cached_value.get("title_zh"):
+            record["title_zh"] = cached_value["title_zh"]
+            record["translation_status"] = "title_translated_cached"
+            changed += 1
+            cached += 1
+            continue
+
         attempted += 1
         try:
-            record["title_zh"] = translate_title(title, key, base_url, model, args.timeout)
+            title_zh = translate_title(title, key, base_url, model, args.timeout)
+            record["title_zh"] = title_zh
             record["translation_status"] = "title_translated"
+            cache_records[key_id] = {"title": title, "title_zh": title_zh, "model": model}
             changed += 1
         except (KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
             record["translation_status"] = f"title_failed: {exc}"
@@ -120,14 +144,14 @@ def translate_daily_file(path: Path, args: argparse.Namespace, key: str, base_ur
                 raise
     if changed and not args.dry_run:
         write_json(path, records)
-    return attempted, changed
+    return attempted, changed, cached
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--date", default=None)
-    parser.add_argument("--limit", type=int, default=40)
+    parser.add_argument("--limit", type=int, default=400)
     parser.add_argument("--timeout", type=int, default=45)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--stop-on-error", action="store_true")
@@ -139,14 +163,18 @@ def main() -> None:
         record_source("translation", ok=False, count=0, message="missing api key")
         return
 
-    total_attempted = 0
-    total_changed = 0
+    cache = read_json(CACHE_PATH, {"records": {}})
+    cache_records = cache.setdefault("records", {})
+    total_attempted = total_changed = total_cached = 0
     for path in daily_paths(args.daily_dir, args.date):
-        attempted, changed = translate_daily_file(path, args, key, base_url, model)
+        attempted, changed, cached = translate_daily_file(path, args, key, base_url, model, cache_records)
         total_attempted += attempted
         total_changed += changed
-    record_source("translation", ok=True, count=total_changed, message=f"attempted={total_attempted}")
-    print(f"translation attempted={total_attempted} changed={total_changed}")
+        total_cached += cached
+    if not args.dry_run:
+        write_json(CACHE_PATH, cache)
+    record_source("translation", ok=True, count=total_changed, message=f"attempted={total_attempted} cached={total_cached}")
+    print(f"translation attempted={total_attempted} changed={total_changed} cached={total_cached}")
 
 
 if __name__ == "__main__":

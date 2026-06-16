@@ -22,6 +22,7 @@ from common import DATA_DIR, ROOT, read_json, stable_id, write_text
 
 
 OVERRIDES_PATH = DATA_DIR / "manual_overrides.yml"
+SITE_URL = "https://simon-world.github.io/econ-paper-monitor/"
 
 
 def h(value: Any) -> str:
@@ -45,23 +46,39 @@ def record_key(record: dict[str, Any]) -> str:
     return str(record.get("doi") or record.get("id") or stable_id(record))
 
 
+def record_url(record: dict[str, Any]) -> str:
+    return str(record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else "#"))
+
+
 def load_records() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for path in sorted((DATA_DIR / "daily").glob("*.json"), reverse=True):
         payload = read_json(path, [])
-        if isinstance(payload, list):
-            for record in payload:
-                record["_daily_date"] = path.stem
-                records.append(record)
+        if not isinstance(payload, list):
+            continue
+        for record in payload:
+            record["_daily_date"] = path.stem
+            records.append(record)
     return sorted(records, key=lambda item: item.get("detected_at") or item.get("_daily_date") or "", reverse=True)
 
 
-def candidates() -> list[dict[str, Any]]:
-    return [
-        record
-        for record in load_records()
-        if record.get("china_relevance_status") == "candidate" and record.get("china_related") is not False
-    ][:80]
+def record_state(record: dict[str, Any]) -> str:
+    if record.get("china_related") is True:
+        return "confirmed"
+    if record.get("china_related") is False:
+        return "rejected"
+    if record.get("china_relevance_status") == "candidate":
+        return "pending"
+    return "other"
+
+
+def filtered_records(tab: str) -> list[dict[str, Any]]:
+    records = load_records()
+    if tab == "confirmed":
+        return [record for record in records if record_state(record) == "confirmed"][:120]
+    if tab == "rejected":
+        return [record for record in records if record_state(record) == "rejected"][:120]
+    return [record for record in records if record_state(record) == "pending"][:120]
 
 
 def write_overrides(overrides: dict[str, dict[str, Any]]) -> None:
@@ -92,21 +109,21 @@ def upsert_review(key: str, action: str) -> str:
     records = {record_key(record): record for record in load_records()}
     record = records.get(key)
     if not record:
-        return "没有找到这条记录，可能已被更新。"
+        return "没有找到这条记录，可能已经被更新。"
     overrides = load_overrides(OVERRIDES_PATH)
     entry = dict(overrides.get(key, {}))
-    entry["china_related"] = action == "confirm"
-    entry["china_reason"] = (
-        "本地后台人工确认：中国相关"
-        if action == "confirm"
-        else "本地后台人工确认：排除中国相关"
-    )
+    if action == "clear":
+        entry.pop("china_related", None)
+        entry["china_reason"] = "本地后台人工确认：恢复自动判定"
+    else:
+        entry["china_related"] = action == "confirm"
+        entry["china_reason"] = "本地后台人工确认：中国相关" if action == "confirm" else "本地后台人工确认：排除中国相关"
     if record.get("title_zh"):
         entry.setdefault("title_zh", record.get("title_zh"))
     overrides[key] = entry
     write_overrides(overrides)
     run_refresh()
-    return "已保存并重新生成页面。"
+    return "已保存，并重新生成本地/线上静态页面文件。"
 
 
 def run_refresh() -> None:
@@ -114,67 +131,84 @@ def run_refresh() -> None:
         [sys.executable, "scripts/apply_overrides.py"],
         [sys.executable, "scripts/enrich_china_relevance.py"],
         [sys.executable, "scripts/render_site.py"],
-        [sys.executable, "scripts/build_feed.py", "--site-url", "https://simon-world.github.io/econ-paper-monitor/"],
+        [sys.executable, "scripts/build_feed.py", "--site-url", SITE_URL],
         [sys.executable, "scripts/render_local_status.py"],
     ]
     for command in commands:
         subprocess.run(command, cwd=ROOT, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def render_candidate(record: dict[str, Any]) -> str:
+def render_record(record: dict[str, Any], tab: str) -> str:
     key = record_key(record)
-    title = h(record.get("title"))
+    title = h(record.get("title") or "Untitled")
     title_zh = f"<div class='zh'>{h(record.get('title_zh'))}</div>" if record.get("title_zh") else ""
+    abstract = record.get("abstract") or record.get("abstract_zh")
+    abstract_html = f"<details><summary>摘要/线索</summary><p>{h(abstract)}</p></details>" if abstract else ""
     authors = h(", ".join(record.get("authors") or []))
-    reason = h(record.get("china_relevance_reason"))
+    reason = h(record.get("china_relevance_reason") or record.get("china_reason") or "")
     journal = h(record.get("journal"))
     date = h(record.get("_daily_date"))
-    url = h(record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else "#"))
+    doi = h(record.get("doi") or "暂无 DOI")
+    url = h(record_url(record))
+    state = record_state(record)
+    state_label = {"pending": "待审核", "confirmed": "已确认", "rejected": "已排除", "other": "自动判定"}.get(state, state)
     return f"""
 <article class="item">
-  <div class="meta">{date} · {journal}</div>
+  <div class="meta">{date} · {journal} · {state_label}</div>
   <h3><a href="{url}" target="_blank" rel="noreferrer">{title}</a></h3>
   {title_zh}
   <p class="authors">{authors}</p>
   <p class="reason">{reason}</p>
-  <form method="post" action="/review">
+  {abstract_html}
+  <div class="doi">DOI/链接：<a href="{url}" target="_blank" rel="noreferrer">{doi}</a></div>
+  <form method="post" action="/review?tab={h(tab)}">
     <input type="hidden" name="key" value="{h(key)}">
     <button name="action" value="confirm" class="yes">确认中国相关</button>
     <button name="action" value="reject" class="no">排除</button>
+    <button name="action" value="clear">恢复自动判定</button>
   </form>
 </article>
 """
 
 
-def render_page(message: str = "") -> str:
-    items = candidates()
-    cards = "\n".join(render_candidate(record) for record in items)
+def render_page(tab: str = "pending", message: str = "") -> str:
+    counts = {name: len(filtered_records(name)) for name in ("pending", "confirmed", "rejected")}
+    items = filtered_records(tab)
+    cards = "\n".join(render_record(record, tab) for record in items)
     if not cards:
-        cards = "<div class='empty'>当前没有需要人工确认的候选项。</div>"
+        cards = "<div class='empty'>当前没有符合这个视图的记录。</div>"
     msg = f"<div class='msg'>{h(message)}</div>" if message else ""
+    nav = "".join(
+        f'<a class="{ "active" if tab == key else "" }" href="/?tab={key}">{label}<span>{counts[key]}</span></a>'
+        for key, label in [("pending", "待审核"), ("confirmed", "已确认"), ("rejected", "已排除")]
+    )
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Econ Papers Daily 本地审核</title>
   <style>
     body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:32px;color:#1f2328;background:#fff;line-height:1.55}}
     a{{color:#0969da;text-decoration:none}}a:hover{{text-decoration:underline}}
     .top{{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid #d0d7de;padding-bottom:16px;margin-bottom:18px}}
     h1{{margin:0;font-size:28px}}.sub{{color:#656d76;margin:4px 0 0}}.msg{{background:#dafbe1;border:1px solid #4ac26b;border-radius:8px;padding:10px 12px;margin:16px 0}}
-    .item{{border-bottom:1px solid #d0d7de;padding:18px 0;max-width:980px}}.meta,.authors,.reason,.zh{{color:#656d76}}.zh{{margin-top:4px;color:#1f2328}}
-    h3{{font-size:18px;margin:6px 0}}button{{border:1px solid #d0d7de;border-radius:6px;padding:8px 12px;margin-right:8px;cursor:pointer;background:#fff}}
+    .tabs{{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}}.tabs a{{border:1px solid #d0d7de;border-radius:8px;padding:8px 12px;color:#1f2328}}.tabs a.active{{background:#0969da;border-color:#0969da;color:#fff}}.tabs span{{margin-left:8px;color:inherit;opacity:.75}}
+    .item{{border-bottom:1px solid #d0d7de;padding:18px 0;max-width:1040px}}.meta,.authors,.reason,.zh,.doi{{color:#656d76}}.zh{{margin-top:4px;color:#1f2328}}.reason{{font-weight:600}}
+    h3{{font-size:18px;margin:6px 0}}button{{border:1px solid #d0d7de;border-radius:6px;padding:8px 12px;margin:8px 8px 0 0;cursor:pointer;background:#fff}}
     .yes{{background:#1f883d;color:#fff;border-color:#1f883d}}.no{{background:#fff;color:#cf222e;border-color:#ffccc7}}.empty{{padding:24px;border:1px dashed #d0d7de;border-radius:8px;color:#656d76}}
+    details{{margin:10px 0;color:#656d76}}summary{{cursor:pointer;color:#0969da}}
   </style>
 </head>
 <body>
   <section class="top">
     <div>
       <h1>Econ Papers Daily 本地审核</h1>
-      <p class="sub">点击按钮会自动写入 data/manual_overrides.yml，并重新生成本地/线上静态页面文件。</p>
+      <p class="sub">所有按钮都会自动写入 <code>data/manual_overrides.yml</code>，并重新生成本地/线上静态页面文件。</p>
     </div>
-    <a href="/refresh">刷新候选列表</a>
+    <a href="/refresh?tab={h(tab)}">刷新并重新生成</a>
   </section>
+  <nav class="tabs">{nav}</nav>
   {msg}
   {cards}
 </body>
@@ -183,23 +217,30 @@ def render_page(message: str = "") -> str:
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
-        if self.path.startswith("/refresh"):
+        parsed = urllib.parse.urlparse(self.path)
+        query = urllib.parse.parse_qs(parsed.query)
+        tab = query.get("tab", ["pending"])[0]
+        if parsed.path.startswith("/refresh"):
             run_refresh()
-            self.respond(render_page("已刷新候选列表。"))
+            self.respond(render_page(tab, "已刷新并重新生成。"))
             return
-        self.respond(render_page())
+        self.respond(render_page(tab))
 
     def do_POST(self) -> None:
-        if self.path != "/review":
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path != "/review":
             self.send_error(404)
             return
+        query = urllib.parse.parse_qs(parsed.query)
+        tab = query.get("tab", ["pending"])[0]
         length = int(self.headers.get("Content-Length", "0"))
         body = self.rfile.read(length).decode("utf-8")
         data = urllib.parse.parse_qs(body)
         key = data.get("key", [""])[0]
         action = data.get("action", [""])[0]
-        message = upsert_review(key, action) if key and action in {"confirm", "reject"} else "请求无效。"
-        self.respond(render_page(message))
+        message = upsert_review(key, action) if key and action in {"confirm", "reject", "clear"} else "请求无效。"
+        next_tab = tab if action == "clear" else ("confirmed" if action == "confirm" else "rejected")
+        self.respond(render_page(next_tab, message))
 
     def respond(self, body: str) -> None:
         payload = body.encode("utf-8")

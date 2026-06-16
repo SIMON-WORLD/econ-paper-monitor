@@ -1,7 +1,7 @@
 """Use a low-cost LLM pass to resolve China-relevance candidates.
 
-Only candidate records are sent, results are cached by DOI/id, and uncertain
-answers remain candidates for the local admin page.
+Only candidate records are sent. Results are cached by DOI/id, so the same
+paper is not charged repeatedly.
 """
 
 from __future__ import annotations
@@ -32,17 +32,32 @@ def candidate_payload(record: dict[str, Any]) -> str:
         "journal": record.get("journal"),
         "authors": record.get("authors"),
         "abstract": record.get("abstract"),
+        "abstract_zh": record.get("abstract_zh"),
         "candidate_reason": record.get("china_relevance_reason"),
     }
     return json.dumps(payload, ensure_ascii=False)
 
 
+def parse_json_response(text: str) -> dict[str, Any]:
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.strip("`")
+        text = text.removeprefix("json").strip()
+    start = text.find("{")
+    end = text.rfind("}")
+    if start >= 0 and end > start:
+        text = text[start : end + 1]
+    return json.loads(text)
+
+
 def ask_model(record: dict[str, Any], key: str, base_url: str, model: str, timeout: int) -> dict[str, Any]:
     prompt = (
-        "判断一篇经济学论文是否与中国研究直接相关。只输出 JSON，字段为 "
-        '{"verdict":"yes/no/uncertain","confidence":0-1,"reason":"简短中文理由"}。'
-        "标准：如果研究对象、数据、制度背景、政策背景或核心应用是中国/中国企业/中国人群/中国地区，verdict=yes；"
-        "如果只是作者可能是华人但研究主题不明，verdict=uncertain；如果明确不是中国，verdict=no。\n\n"
+        "请判断这篇经济学论文是否与中国研究直接相关。只输出 JSON："
+        '{"verdict":"yes/no/uncertain","confidence":0-1,"reason":"简短中文理由"}。\n'
+        "判定标准：如果研究对象、数据、制度背景、政策背景或核心应用是中国、中国企业、"
+        "中国人群、中国地区、香港或台湾，verdict=yes。"
+        "如果只是作者姓名像中文但研究主题不明确，verdict=uncertain。"
+        "如果明确不是中国研究，verdict=no。\n\n"
         + candidate_payload(record)
     )
     request = urllib.request.Request(
@@ -51,7 +66,7 @@ def ask_model(record: dict[str, Any], key: str, base_url: str, model: str, timeo
             {
                 "model": model,
                 "messages": [
-                    {"role": "system", "content": "你是严谨的经济学文献分类助手。"},
+                    {"role": "system", "content": "你是严谨的经济学文献分类助手，只输出有效 JSON。"},
                     {"role": "user", "content": prompt},
                 ],
                 "temperature": 0,
@@ -63,11 +78,7 @@ def ask_model(record: dict[str, Any], key: str, base_url: str, model: str, timeo
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
         data = json.loads(response.read().decode("utf-8"))
-    text = data["choices"][0]["message"]["content"].strip()
-    if text.startswith("```"):
-        text = text.strip("`")
-        text = text.removeprefix("json").strip()
-    return json.loads(text)
+    return parse_json_response(data["choices"][0]["message"]["content"])
 
 
 def apply_decision(record: dict[str, Any], decision: dict[str, Any]) -> bool:
@@ -77,7 +88,6 @@ def apply_decision(record: dict[str, Any], decision: dict[str, Any]) -> bool:
     except (TypeError, ValueError):
         confidence = 0
     reason = str(decision.get("reason") or "AI 判定")
-    updates: dict[str, Any]
     if verdict == "yes" and confidence >= 0.75:
         updates = {
             "china_related": True,
@@ -88,6 +98,7 @@ def apply_decision(record: dict[str, Any], decision: dict[str, Any]) -> bool:
     elif verdict == "no" and confidence >= 0.85:
         updates = {
             "china_related": False,
+            "china_related_source": "ai",
             "china_relevance_status": "none",
             "china_relevance_reason": reason,
         }
@@ -122,7 +133,7 @@ def main() -> None:
     records = read_json(path, [])
     cache = read_json(CACHE_PATH, {"records": {}})
     cache_records = cache.setdefault("records", {})
-    attempted = changed = confirmed = 0
+    attempted = changed = confirmed = auto_no = 0
     for record in records:
         if attempted >= args.limit:
             break
@@ -139,6 +150,8 @@ def main() -> None:
                 changed += 1
             if record.get("china_related") is True:
                 confirmed += 1
+            if record.get("china_related") is False:
+                auto_no += 1
         except (json.JSONDecodeError, KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
             cache_records[key_id] = {"verdict": "uncertain", "confidence": 0, "reason": f"AI 判定失败：{exc}"}
             continue
@@ -146,8 +159,8 @@ def main() -> None:
     write_json(CACHE_PATH, cache)
     if changed:
         write_json(path, records)
-    record_source("ai-china-relevance", ok=True, count=confirmed, message=f"attempted={attempted} changed={changed}")
-    print(f"ai china relevance attempted={attempted} changed={changed} confirmed={confirmed}")
+    record_source("ai-china-relevance", ok=True, count=confirmed, message=f"attempted={attempted} changed={changed} auto_no={auto_no}")
+    print(f"ai china relevance attempted={attempted} changed={changed} confirmed={confirmed} auto_no={auto_no}")
 
 
 if __name__ == "__main__":

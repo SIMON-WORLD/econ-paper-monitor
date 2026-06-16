@@ -6,11 +6,13 @@ Output is written to local_admin/status.html, which is ignored by git.
 from __future__ import annotations
 
 from collections import Counter
-from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, ROOT, html_escape, read_json, write_text
 from status import load_status
+
+
+ADMIN_URL = "http://127.0.0.1:8765/"
 
 
 def load_records() -> list[dict[str, Any]]:
@@ -26,7 +28,7 @@ def load_records() -> list[dict[str, Any]]:
 
 def daily_counts() -> list[tuple[str, int]]:
     rows = []
-    for path in sorted((DATA_DIR / "daily").glob("*.json"), reverse=True)[:10]:
+    for path in sorted((DATA_DIR / "daily").glob("*.json"), reverse=True)[:14]:
         payload = read_json(path, [])
         rows.append((path.stem, len(payload) if isinstance(payload, list) else 0))
     return rows
@@ -44,7 +46,7 @@ def title_cell(record: dict[str, Any]) -> str:
     title = html_escape(record.get("title") or "Untitled")
     title_zh = record.get("title_zh")
     zh = f"<div class='muted'>{html_escape(title_zh)}</div>" if title_zh else ""
-    return f"<a href='{html_escape(record_link(record))}'>{title}</a>{zh}"
+    return f"<a href='{html_escape(record_link(record))}' target='_blank' rel='noreferrer'>{title}</a>{zh}"
 
 
 def table(rows: list[str], headers: list[str]) -> str:
@@ -58,57 +60,32 @@ def latest_records(records: list[dict[str, Any]], predicate, limit: int = 20) ->
     return sorted(selected, key=lambda item: item.get("detected_at") or item.get("_daily_date") or "", reverse=True)[:limit]
 
 
-def override_key(record: dict[str, Any]) -> str:
-    return str(record.get("doi") or record.get("id") or record.get("url") or "").strip()
-
-
-def yaml_quote(value: Any) -> str:
-    text = str(value or "")
-    return '"' + text.replace("\\", "\\\\").replace('"', '\\"') + '"'
-
-
-def override_suggestions(records: list[dict[str, Any]]) -> str:
-    if not records:
-        return "# 当前没有需要人工确认的中国相关候选。"
-    lines = [
-        "# 复制到 data/manual_overrides.yml 的 records: 下面。",
-        "# 把 china_related 改成 true 或 false；确认后保留 china_reason。",
-    ]
-    for record in records:
-        key = override_key(record)
-        if not key:
-            continue
-        lines.extend(
-            [
-                f"  {yaml_quote(key)}:",
-                "    china_related: true  # TODO: 确认后保留 true，或改成 false",
-                f"    china_reason: {yaml_quote(record.get('china_relevance_reason') or '人工确认')}",
-                f"    title_zh: {yaml_quote(record.get('title_zh') or '')}",
-            ]
-        )
-    return "\n".join(lines)
-
-
 def health_items(status: dict[str, Any]) -> list[str]:
     items = []
     sources = status.get("sources", {})
     cn_message = str(sources.get("cn-journals", {}).get("message") or "")
     if "stale-latest" in cn_message:
-        items.append("部分中文期刊官网/API 当前最新期仍早于当前年份，系统已排除旧期，不进入今日论文流。")
+        items.append("部分中文期刊官网/API 暴露的最新期仍早于当前年份，系统已排除旧期，不进入今日论文流。")
     translation = sources.get("translation", {})
     if translation and not translation.get("ok"):
         items.append("标题翻译未成功：请检查本地 .env 或 GitHub Secrets 中的 DEEPSEEK_API_KEY。")
     failures = [key for key, item in sources.items() if not item.get("ok")]
     if failures:
         items.append("存在失败来源：" + ", ".join(failures))
-    return items
+    return items or ["暂无需要立即处理的来源异常。"]
 
 
 def main() -> None:
     records = load_records()
     status = load_status()
     translated = sum(1 for record in records if record.get("title_zh"))
+    english_titles = sum(
+        1
+        for record in records
+        if record.get("title") and not any("\u4e00" <= ch <= "\u9fff" for ch in str(record.get("title") or ""))
+    )
     china_confirmed = sum(1 for record in records if record.get("china_related") is True)
+    china_rejected = sum(1 for record in records if record.get("china_related") is False)
     china_candidates = latest_records(records, lambda record: record.get("china_relevance_status") == "candidate")
     untranslated = latest_records(
         records,
@@ -121,7 +98,6 @@ def main() -> None:
     registry_items = registry.get("journals", {})
     registry_rss = sum(1 for item in registry_items.values() if item.get("rss"))
     registry_status = Counter(item.get("status") or "unknown" for item in registry_items.values())
-    registry_platform = Counter(item.get("platform") or "unknown" for item in registry_items.values())
     latest_run = (status.get("runs") or [{}])[0]
     health = health_items(status)
 
@@ -137,7 +113,6 @@ def main() -> None:
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td><td>{html_escape(record.get('journal'))}</td><td>{html_escape(record.get('china_relevance_reason'))}</td></tr>"
         for record in china_candidates
     ]
-    suggestion_block = html_escape(override_suggestions(china_candidates))
     untranslated_rows = [
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td><td>{html_escape(record.get('journal'))}</td><td>{html_escape(record.get('translation_status'))}</td></tr>"
         for record in untranslated
@@ -150,9 +125,8 @@ def main() -> None:
     counts_html = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(by_source.items()))
     confidence_html = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(by_confidence.items()))
     registry_status_html = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(registry_status.items()))
-    registry_platform_html = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(registry_platform.items()))
     daily_rows = "".join(f"<tr><td>{html_escape(day)}</td><td>{count}</td></tr>" for day, count in daily_counts())
-    health_rows = "".join(f"<li>{html_escape(item)}</li>" for item in health) or "<li>暂无需要处理的来源异常。</li>"
+    health_rows = "".join(f"<li>{html_escape(item)}</li>" for item in health)
 
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -164,33 +138,34 @@ def main() -> None:
     table{{border-collapse:collapse;width:100%;margin-top:12px;font-size:14px}}td,th{{border:1px solid #d0d7de;padding:8px;text-align:left;vertical-align:top}}
     th{{background:#f6f8fa}}.grid{{display:grid;grid-template-columns:repeat(5,minmax(140px,1fr));gap:12px}}.card{{border:1px solid #d0d7de;padding:14px;border-radius:8px}}
     strong{{font-size:24px;display:block}}.muted{{color:#656d76;font-size:13px}}h2{{margin-top:30px}}a{{color:#0969da;text-decoration:none}}
-    pre{{white-space:pre-wrap;background:#f6f8fa;border:1px solid #d0d7de;border-radius:8px;padding:14px;font-size:13px;line-height:1.45}}
-    code{{background:#f6f8fa;border:1px solid #d0d7de;border-radius:4px;padding:1px 4px}}
+    .actions{{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 24px}}.btn{{border:1px solid #0969da;background:#0969da;color:#fff;border-radius:8px;padding:9px 12px}}.btn.secondary{{background:#fff;color:#0969da}}
   </style>
 </head>
 <body>
   <h1>Econ Papers Daily 本地后台</h1>
+  <div class="actions">
+    <a class="btn" href="{ADMIN_URL}">打开审核后台</a>
+    <a class="btn secondary" href="{ADMIN_URL}?tab=confirmed">已确认中国相关</a>
+    <a class="btn secondary" href="{ADMIN_URL}?tab=rejected">已排除</a>
+  </div>
   <div class="grid">
     <div class="card"><strong>{len(records)}</strong><span>总记录</span></div>
-    <div class="card"><strong>{translated}</strong><span>已翻译标题</span></div>
-    <div class="card"><strong>{pct(translated, len(records))}</strong><span>标题翻译覆盖率</span></div>
+    <div class="card"><strong>{translated}</strong><span>已有中文标题</span></div>
+    <div class="card"><strong>{pct(translated, max(english_titles, 1))}</strong><span>英文标题翻译覆盖率</span></div>
     <div class="card"><strong>{china_confirmed}</strong><span>已确认中国相关</span></div>
-    <div class="card"><strong>{html_escape(latest_run.get('new', '暂无'))}</strong><span>最近新增</span></div>
-    <div class="card"><strong>{registry_rss}</strong><span>RSS Registry</span></div>
-    <div class="card"><strong>{len(china_candidates)}</strong><span>中国相关待确认</span></div>
-    <div class="card"><strong>{len(untranslated)}</strong><span>未翻译标题样本</span></div>
+    <div class="card"><strong>{china_rejected}</strong><span>已排除中国相关</span></div>
+    <div class="card"><strong>{len(china_candidates)}</strong><span>中国相关待审核</span></div>
+    <div class="card"><strong>{len(untranslated)}</strong><span>未翻译英文标题样本</span></div>
     <div class="card"><strong>{len(low_confidence)}</strong><span>低可信日期样本</span></div>
+    <div class="card"><strong>{registry_rss}</strong><span>RSS Registry</span></div>
+    <div class="card"><strong>{html_escape(latest_run.get('new', '暂无'))}</strong><span>最近新增</span></div>
   </div>
 
   <h2>健康提醒</h2>
   <ul>{health_rows}</ul>
 
-  <h2>中国相关待人工确认</h2>
+  <h2>中国相关待审核</h2>
   {table(candidate_rows, ["日期", "论文", "期刊", "判定原因"])}
-
-  <h2>manual_overrides.yml 建议块</h2>
-  <p class="muted">将下面内容复制到 <code>data/manual_overrides.yml</code> 的 <code>records:</code> 下方；只需要把 <code>china_related</code> 改成 true 或 false。</p>
-  <pre>{suggestion_block}</pre>
 
   <h2>未翻译英文标题样本</h2>
   {table(untranslated_rows, ["日期", "论文", "期刊", "翻译状态"])}
@@ -205,11 +180,7 @@ def main() -> None:
   <ul>{confidence_html}</ul>
 
   <h2>Source Registry</h2>
-  <p>用于判断每本期刊当前依赖官网、RSS、Crossref 还是特殊中文适配器。</p>
-  <h3>配置状态</h3>
   <ul>{registry_status_html}</ul>
-  <h3>平台分布</h3>
-  <ul>{registry_platform_html}</ul>
 
   <h2>最近每日记录数</h2>
   <table><thead><tr><th>日期</th><th>记录数</th></tr></thead><tbody>{daily_rows}</tbody></table>

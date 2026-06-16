@@ -5,28 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>发展经济学</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
-a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
-.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
-.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
-.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
-.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:center;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 64px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:#fff1f0;border-color:#ffccc7;color:#cf222e;font-weight:700}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
-.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
-.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
@@ -36,13 +25,13 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
     <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">222</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">157</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">115</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">98</span></a><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">92</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">75</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">58</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">417</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">221</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">155</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">119</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">102</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">94</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">70</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">56</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">49</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -55,14 +44,23 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>发展经济学</h2><p>基于标题、摘要和期刊信息的文章主题标签，后续可升级为 AI 主题判断。</p></div><p>111 篇</p></section><article class="event" data-search="coups d’état and the informal economy 政变与非正规经济 ablam estel apeti, dorgyles c.m. kouakou, assi okara, kolotioloma i.h. yéo world development 10.1016/j.worlddev.2026.107477" data-journal="world-development" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
+      <main class="wrap"><section class="section-head"><div><h2>发展经济学</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>101 篇</p></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="agricultural-economics">Agricultural Economics</option><option value="american-economic-review">American Economic Review</option><option value="american-economic-review-insights">American Economic Review: Insights</option><option value="american-journal-of-agricultural-economics">American Journal of Agricultural Economics</option><option value="applied-economic-perspectives-and-policy">Applied Economic Perspectives and Policy</option><option value="applied-economics">Applied Economics</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option><option value="economic-development-and-cultural-change">Economic Development and Cultural Change</option><option value="economic-history-review">Economic History Review</option><option value="economic-inquiry">Economic Inquiry</option><option value="economic-journal">Economic Journal</option><option value="economica">Economica</option><option value="economics-letters">Economics Letters</option><option value="environmental-and-resource-economics">Environmental and Resource Economics</option><option value="european-economic-review">European Economic Review</option><option value="international-tax-and-public-finance">International Tax and Public Finance</option><option value="journal-of-agricultural-economics">Journal of Agricultural Economics</option><option value="journal-of-comparative-economics">Journal of Comparative Economics</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-economics-and-management-strategy">Journal of Economics &amp; Management Strategy</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option><option value="journal-of-financial-economics">Journal of Financial Economics</option><option value="journal-of-international-economics">Journal of International Economics</option><option value="journal-of-law-and-economics">Journal of Law &amp; Economics</option><option value="journal-of-law-economics-and-organization">Journal of Law, Economics &amp; Organization</option><option value="journal-of-money-credit-and-banking">Journal of Money, Credit and Banking</option><option value="journal-of-population-economics">Journal of Population Economics</option><option value="journal-of-urban-economics">Journal of Urban Economics</option><option value="journal-of-the-european-economic-association">Journal of the European Economic Association</option><option value="land-use-policy">Land Use Policy</option><option value="public-choice">Public Choice</option><option value="review-of-economic-dynamics">Review of Economic Dynamics</option><option value="review-of-economic-studies">Review of Economic Studies</option><option value="review-of-financial-studies">Review of Financial Studies</option><option value="scandinavian-journal-of-economics">Scandinavian Journal of Economics</option><option value="world-development">World Development</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="coups d’état and the informal economy 政变与非正规经济 ablam estel apeti, dorgyles c.m. kouakou, assi okara, kolotioloma i.h. yéo world development 10.1016/j.worlddev.2026.107477" data-journal="world-development" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">19:37</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107477">Coups d’état and the informal economy</a></h3>
     <p class="title-zh">政变与非正规经济</p>
     <p class="authors">Ablam Estel Apeti, Dorgyles C.M. Kouakou, Assi Okara, Kolotioloma I.H. Yéo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-11-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107477">10.1016/j.worlddev.2026.107477</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -74,55 +72,55 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">新产品对伦理信念的影响</p>
     <p class="authors">Zach Freitas-Groff, Bobbie Macdonald, Eva Vivalt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105388">10.1016/j.euroecorev.2026.105388</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="strategic submissions: an analysis of supplemental drug approvals 策略性提交：补充药物批准的分析 pierre dubois, elissa philip gentry, tuba tunçel journal of economics &amp; management strategy 10.1111/jems.70038" data-journal="journal-of-economics-and-management-strategy" data-fields="development finance public trade" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="strategic submissions: an analysis of supplemental drug approvals 策略性提交：补充药物批准的分析 pierre dubois, elissa philip gentry, tuba tunçel journal of economics &amp; management strategy 10.1111/jems.70038" data-journal="journal-of-economics-and-management-strategy" data-fields="china development finance public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jems.70038">Strategic Submissions: An Analysis of Supplemental Drug Approvals</a></h3>
     <p class="title-zh">策略性提交：补充药物批准的分析</p>
     <p class="authors">Pierre Dubois, Elissa Philip Gentry, Tuba Tunçel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>Crossref在线日期 2026-06-14</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70038">10.1111/jems.70038</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>发布日期 2026-06-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70038">10.1111/jems.70038</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="breaking bad news 传递坏消息 moritz meyer-ter-vehn, simon board american economic review: insights 10.1257/aeri.20250043" data-journal="american-economic-review-insights" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="breaking bad news 传递坏消息 moritz meyer-ter-vehn, simon board american economic review: insights 10.1257/aeri.20250043" data-journal="american-economic-review-insights" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aeri.20250043">Breaking Bad News</a></h3>
     <p class="title-zh">传递坏消息</p>
     <p class="authors">Moritz Meyer-ter-Vehn, Simon Board</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20250043">10.1257/aeri.20250043</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="front matter 前言  american economic review: insights 10.1257/aeri.8.2.i" data-journal="american-economic-review-insights" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="front matter 前言  american economic review: insights 10.1257/aeri.8.2.i" data-journal="american-economic-review-insights" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aeri.8.2.i">Front Matter</a></h3>
     <p class="title-zh">前言</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.8.2.i">10.1257/aeri.8.2.i</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="survivors’ mental health and the protective role of income stability 幸存者心理健康与收入稳定性的保护作用 itzik fadlon, astrid sophie fugleholm, torben heien nielsen american economic review: insights 10.1257/aeri.20250006" data-journal="american-economic-review-insights" data-fields="development health" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="survivors’ mental health and the protective role of income stability 幸存者心理健康与收入稳定性的保护作用 itzik fadlon, astrid sophie fugleholm, torben heien nielsen american economic review: insights 10.1257/aeri.20250006" data-journal="american-economic-review-insights" data-fields="development health" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aeri.20250006">Survivors’ Mental Health and the Protective Role of Income Stability</a></h3>
     <p class="title-zh">幸存者心理健康与收入稳定性的保护作用</p>
     <p class="authors">Itzik Fadlon, Astrid Sophie Fugleholm, Torben Heien Nielsen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20250006">10.1257/aeri.20250006</a><span class="pill">发展经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -134,20 +132,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">证券化实验拍卖</p>
     <p class="authors">Zachary Breig, Allan Hernández-Chanto, Declan Hunt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>Crossref在线日期 2026-06-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag074">10.1093/ej/ueag074</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="large-scale land acquisitions in ethiopia: impacts on agricultural productivity and deforestation 埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响 workineh asmare kassie, yeshwas admasu, dagim belay, solomon zena walelign, jipeng zhang journal of development economics 10.1016/j.jdeveco.2026.103836" data-journal="journal-of-development-economics" data-fields="agriculture environment development macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="large-scale land acquisitions in ethiopia: impacts on agricultural productivity and deforestation 埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响 workineh asmare kassie, yeshwas admasu, dagim belay, solomon zena walelign, jipeng zhang journal of development economics 10.1016/j.jdeveco.2026.103836" data-journal="journal-of-development-economics" data-fields="china agriculture environment development" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">18:09</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103836">Large-scale land acquisitions in Ethiopia: Impacts on agricultural productivity and deforestation</a></h3>
     <p class="title-zh">埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响</p>
     <p class="authors">Workineh Asmare Kassie, Yeshwas Admasu, Dagim Belay, Solomon Zena Walelign, Jipeng Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103836">10.1016/j.jdeveco.2026.103836</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103836">10.1016/j.jdeveco.2026.103836</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -158,104 +156,44 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">工业用地结构调整与经济韧性：来自中国贫困县的证据</p>
     <p class="authors">Jingtong Liu, Dingyang Zhou, Guanghui Jiang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108121">10.1016/j.landusepol.2026.108121</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="network analysis of “top-five” economics journals 五大”经济学期刊的网络分析 gregori galofré-vilà journal of comparative economics 10.1016/j.jce.2026.02.007" data-journal="journal-of-comparative-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jce.2026.02.007">Network analysis of “top-five” economics journals</a></h3>
-    <p class="title-zh">五大”经济学期刊的网络分析</p>
-    <p class="authors">Gregori Galofré-Vilà</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.02.007">10.1016/j.jce.2026.02.007</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="editorial board 编辑委员会  journal of comparative economics 10.1016/s0147-5967(26)00055-7" data-journal="journal-of-comparative-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/s0147-5967(26)00055-7">Editorial Board</a></h3>
-    <p class="title-zh">编辑委员会</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0147-5967(26)00055-7">10.1016/s0147-5967(26)00055-7</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="settlers and norms 定居者与规范 joanne haddad journal of comparative economics 10.1016/j.jce.2026.02.005" data-journal="journal-of-comparative-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jce.2026.02.005">Settlers and norms</a></h3>
-    <p class="title-zh">定居者与规范</p>
-    <p class="authors">Joanne Haddad</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.02.005">10.1016/j.jce.2026.02.005</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="introduction to the special issue on “institutions in flux: the dynamics of formal and informal rules” 特刊导言：“流动中的制度：正式与非正式规则的动态 niclas berggren journal of comparative economics 10.1016/j.jce.2026.05.006" data-journal="journal-of-comparative-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="introduction to the special issue on “institutions in flux: the dynamics of formal and informal rules” 特刊导言：“流动中的制度：正式与非正式规则的动态 niclas berggren journal of comparative economics 10.1016/j.jce.2026.05.006" data-journal="journal-of-comparative-economics" data-fields="china development" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.05.006">Introduction to the special issue on “Institutions in flux: The dynamics of formal and informal rules”</a></h3>
     <p class="title-zh">特刊导言：“流动中的制度：正式与非正式规则的动态</p>
     <p class="authors">Niclas Berggren</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.05.006">10.1016/j.jce.2026.05.006</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.05.006">10.1016/j.jce.2026.05.006</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="environmental implications of brazil’s tax reform on household consumption 巴西税制改革对家庭消费的环境影响 samuel bícego, paula carvalho pereda journal of environmental economics and management 10.1016/j.jeem.2026.103376" data-journal="journal-of-environmental-economics-and-management" data-fields="environment development public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="environmental implications of brazil’s tax reform on household consumption 巴西税制改革对家庭消费的环境影响 samuel bícego, paula carvalho pereda journal of environmental economics and management 10.1016/j.jeem.2026.103376" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment development public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103376">Environmental implications of Brazil’s tax reform on household consumption</a></h3>
     <p class="title-zh">巴西税制改革对家庭消费的环境影响</p>
     <p class="authors">Samuel Bícego, Paula Carvalho Pereda</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103376">10.1016/j.jeem.2026.103376</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103376">10.1016/j.jeem.2026.103376</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="household debt, the labor share, and earnings inequality 家庭债务、劳动收入份额与收入不平等 mark robinson, pedro silos, diego vilán journal of economic dynamics and control 10.1016/j.jedc.2026.105352" data-journal="journal-of-economic-dynamics-and-control" data-fields="development labor inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="household debt, the labor share, and earnings inequality 家庭债务、劳动收入份额与收入不平等 mark robinson, pedro silos, diego vilán journal of economic dynamics and control 10.1016/j.jedc.2026.105352" data-journal="journal-of-economic-dynamics-and-control" data-fields="china development labor inequality" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jedc.2026.105352">Household debt, the labor share, and earnings inequality</a></h3>
     <p class="title-zh">家庭债务、劳动收入份额与收入不平等</p>
     <p class="authors">Mark Robinson, Pedro Silos, Diego Vilán</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105352">10.1016/j.jedc.2026.105352</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="editorial board 编委会  journal of economic dynamics and control 10.1016/s0165-1889(26)00109-0" data-journal="journal-of-economic-dynamics-and-control" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/s0165-1889(26)00109-0">Editorial Board</a></h3>
-    <p class="title-zh">编委会</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0165-1889(26)00109-0">10.1016/s0165-1889(26)00109-0</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dynamic order dispersion and volatility persistence in a simple limit order book model 简单限价订单簿模型中的动态订单分散与波动持续性 andrew hawley, blake lebaron, mark paddrik, nathan palmer journal of economic dynamics and control 10.1016/j.jedc.2026.105334" data-journal="journal-of-economic-dynamics-and-control" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jedc.2026.105334">Dynamic order dispersion and volatility persistence in a simple limit order book model</a></h3>
-    <p class="title-zh">简单限价订单簿模型中的动态订单分散与波动持续性</p>
-    <p class="authors">Andrew Hawley, Blake LeBaron, Mark Paddrik, Nathan Palmer</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105334">10.1016/j.jedc.2026.105334</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105352">10.1016/j.jedc.2026.105352</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -266,7 +204,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">中央转移支付的空间配置效应：来自中国的证据</p>
     <p class="authors">Wenbin Huang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-11-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107490">10.1016/j.worlddev.2026.107490</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -278,7 +216,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">从夫居与年轻女性地位：来自斯里兰卡的证据</p>
     <p class="authors">Deborah S. DeGraff, Kone A.P. Siddhisena</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107459">10.1016/j.worlddev.2026.107459</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -290,7 +228,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">非正式制度与全球贸易：难以捉摸的真实效应</p>
     <p class="authors">Eiji Fujii</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107458">10.1016/j.worlddev.2026.107458</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -302,7 +240,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">外部援助项目对财政转移支付的意外后果：印度次国家级研究</p>
     <p class="authors">Vadlamannati Krishna Chaitanya, Iacono Roberto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107454">10.1016/j.worlddev.2026.107454</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -314,7 +252,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">巴西安抚警察部队再审视：一项失败的民主警务计划及其对制度改革的启示</p>
     <p class="authors">Julia Maia Goldani, Mariana Mota Prado</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107462">10.1016/j.worlddev.2026.107462</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -326,7 +264,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">银行增加对女性和女性领导企业贷款的商业理由是否存在？跨国财务绩效证据</p>
     <p class="authors">Christoph Sommer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107457">10.1016/j.worlddev.2026.107457</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -338,7 +276,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0305-750x(26)00173-7">10.1016/s0305-750x(26)00173-7</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -350,7 +288,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">小额信贷机构的公司治理：理论视角、方法论与实证证据的系统综述</p>
     <p class="authors">Giovanni Cardillo, Alessandra Cavallo, Giuseppe Torluccio</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107455">10.1016/j.worlddev.2026.107455</a><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -362,7 +300,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">提格雷战争对埃塞俄比亚儿童教育与劳动的影响</p>
     <p class="authors">Yemareshet Hailu Demeke, Dainn Wie</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107449">10.1016/j.worlddev.2026.107449</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -374,7 +312,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">中美洲移民的两面性：危地马拉的总体与分配影响</p>
     <p class="authors">Luis Escalante, Emerta Aragie, Manuel A. Hernandez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107450">10.1016/j.worlddev.2026.107450</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -386,7 +324,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">全球南方小规模农村社会的长期面板研究：其价值、稀缺原因及推进建议</p>
     <p class="authors">Jonathan Bauchet, Ricardo Godoy, William R. Leonard, Victoria Reyes-García, Asher Y. Rosinger 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107452">10.1016/j.worlddev.2026.107452</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -398,7 +336,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">贸易一体化对西非国家经济周期同步性的影响：对非洲大陆自由贸易区的启示</p>
     <p class="authors">Ahmed Racine Yago, Samba Diop, Cheikh Tidiane Ndiaye, Simplice A. Asongu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107461">10.1016/j.worlddev.2026.107461</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -410,7 +348,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">动员的诅咒？石油财富如何影响抵抗事件的构成</p>
     <p class="authors">Thea Johansen, Charles Butcher</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107456">10.1016/j.worlddev.2026.107456</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -422,7 +360,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">欧盟气候援助与贸易利益：战略还是关系深化的副产品？</p>
     <p class="authors">Alexandra Bögner, Gabriele Spilker</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107469">10.1016/j.worlddev.2026.107469</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -434,7 +372,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">钻石并非永恒：人造替代品、不可逆替代与新资源诅咒</p>
     <p class="authors">Dwayne Woods</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107464">10.1016/j.worlddev.2026.107464</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -446,7 +384,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">住房财富、家庭关系与心理健康：来自中国的证据</p>
     <p class="authors">Fenghang Li, Shenglong Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103837">10.1016/j.jdeveco.2026.103837</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -458,176 +396,176 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">从租金到成果：中国反腐改革与对非援助的有效性</p>
     <p class="authors">Yiran Du, Kai Feng, Gang Xu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103841">10.1016/j.jdeveco.2026.103841</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the benefits of public transit to households: evidence from india 公共交通对家庭的好处：来自印度的证据 palak suri, maureen cropper journal of development economics 10.1016/j.jdeveco.2026.103839" data-journal="journal-of-development-economics" data-fields="development public" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the benefits of public transit to households: evidence from india 公共交通对家庭的好处：来自印度的证据 palak suri, maureen cropper journal of development economics 10.1016/j.jdeveco.2026.103839" data-journal="journal-of-development-economics" data-fields="china development public" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103839">The benefits of public transit to households: Evidence from India</a></h3>
     <p class="title-zh">公共交通对家庭的好处：来自印度的证据</p>
     <p class="authors">Palak Suri, Maureen Cropper</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103839">10.1016/j.jdeveco.2026.103839</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103839">10.1016/j.jdeveco.2026.103839</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="on the right track? railroads, industrial development, and distributional effects in historical china 正轨之上？历史中国的铁路、工业发展与分配效应 shiyu bo, ting chen, cong liu, yan zhou journal of development economics 10.1016/j.jdeveco.2026.103827" data-journal="journal-of-development-economics" data-fields="china development firms inequality" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="on the right track? railroads, industrial development, and distributional effects in historical china 正轨之上？历史中国的铁路、工业发展与分配效应 shiyu bo, ting chen, cong liu, yan zhou journal of development economics 10.1016/j.jdeveco.2026.103827" data-journal="journal-of-development-economics" data-fields="china development firms inequality" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103827">On the right track? Railroads, industrial development, and distributional effects in historical China</a></h3>
     <p class="title-zh">正轨之上？历史中国的铁路、工业发展与分配效应</p>
     <p class="authors">Shiyu Bo, Ting Chen, Cong Liu, Yan Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103827">10.1016/j.jdeveco.2026.103827</a><span class="pill">发展经济学</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the emergence of the poverty-mental health gradient: evidence from the great pakistan earthquake of 2005 贫困-心理健康梯度的出现：来自2005年巴基斯坦大地震的证据 tahir andrabi, benjamin daniels, jishnu das journal of development economics 10.1016/j.jdeveco.2026.103795" data-journal="journal-of-development-economics" data-fields="development health" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the emergence of the poverty-mental health gradient: evidence from the great pakistan earthquake of 2005 贫困-心理健康梯度的出现：来自2005年巴基斯坦大地震的证据 tahir andrabi, benjamin daniels, jishnu das journal of development economics 10.1016/j.jdeveco.2026.103795" data-journal="journal-of-development-economics" data-fields="china development health" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103795">The emergence of the poverty-mental health gradient: Evidence from the great Pakistan earthquake of 2005</a></h3>
     <p class="title-zh">贫困-心理健康梯度的出现：来自2005年巴基斯坦大地震的证据</p>
     <p class="authors">Tahir Andrabi, Benjamin Daniels, Jishnu Das</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103795">10.1016/j.jdeveco.2026.103795</a><span class="pill">发展经济学</span><span class="pill">健康</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103795">10.1016/j.jdeveco.2026.103795</a><span class="pill">发展经济学</span><span class="pill">健康</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="demonetization and under-reporting of economic activity: evidence from real estate 废除货币化与经济活动的低报：来自房地产市场的证据 santosh anagol, vimal balasubramaniam, tarun ramadorai, antoine uettwiller journal of development economics 10.1016/j.jdeveco.2026.103783" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="demonetization and under-reporting of economic activity: evidence from real estate 废除货币化与经济活动的低报：来自房地产市场的证据 santosh anagol, vimal balasubramaniam, tarun ramadorai, antoine uettwiller journal of development economics 10.1016/j.jdeveco.2026.103783" data-journal="journal-of-development-economics" data-fields="china development" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103783">Demonetization and under-reporting of economic activity: Evidence from real estate</a></h3>
     <p class="title-zh">废除货币化与经济活动的低报：来自房地产市场的证据</p>
     <p class="authors">Santosh Anagol, Vimal Balasubramaniam, Tarun Ramadorai, Antoine Uettwiller</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103783">10.1016/j.jdeveco.2026.103783</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103783">10.1016/j.jdeveco.2026.103783</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the art of not being chocked: environmental awareness, residents&#x27; responses and land transactions in china 不被窒息的艺术：环境意识、居民响应与中国土地交易 wei zou, pinghan liang journal of development economics 10.1016/j.jdeveco.2026.103757" data-journal="journal-of-development-economics" data-fields="china environment development" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the art of not being chocked: environmental awareness, residents&#x27; responses and land transactions in china 不被窒息的艺术：环境意识、居民响应与中国土地交易 wei zou, pinghan liang journal of development economics 10.1016/j.jdeveco.2026.103757" data-journal="journal-of-development-economics" data-fields="china environment development" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103757">The art of not being chocked: Environmental awareness, residents&#x27; responses and land transactions in China</a></h3>
     <p class="title-zh">不被窒息的艺术：环境意识、居民响应与中国土地交易</p>
     <p class="authors">Wei Zou, Pinghan Liang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103757">10.1016/j.jdeveco.2026.103757</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="climate policies, labor markets, and macroeconomic outcomes in emerging economies 新兴经济体的气候政策、劳动力市场与宏观经济结果 alan finkelstein shapiro, victoria nuguer journal of development economics 10.1016/j.jdeveco.2026.103782" data-journal="journal-of-development-economics" data-fields="environment development finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="climate policies, labor markets, and macroeconomic outcomes in emerging economies 新兴经济体的气候政策、劳动力市场与宏观经济结果 alan finkelstein shapiro, victoria nuguer journal of development economics 10.1016/j.jdeveco.2026.103782" data-journal="journal-of-development-economics" data-fields="china environment development finance" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103782">Climate policies, labor markets, and macroeconomic outcomes in emerging economies</a></h3>
     <p class="title-zh">新兴经济体的气候政策、劳动力市场与宏观经济结果</p>
     <p class="authors">Alan Finkelstein Shapiro, Victoria Nuguer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103782">10.1016/j.jdeveco.2026.103782</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103782">10.1016/j.jdeveco.2026.103782</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="did the cold war produce development clusters in africa? 冷战是否在非洲催生了发展集群？ paul castañeda dower, gunes gokmen, michel le breton, shlomo weber journal of development economics 10.1016/j.jdeveco.2026.103776" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="did the cold war produce development clusters in africa? 冷战是否在非洲催生了发展集群？ paul castañeda dower, gunes gokmen, michel le breton, shlomo weber journal of development economics 10.1016/j.jdeveco.2026.103776" data-journal="journal-of-development-economics" data-fields="china development" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103776">Did the Cold War produce development clusters in Africa?</a></h3>
     <p class="title-zh">冷战是否在非洲催生了发展集群？</p>
     <p class="authors">Paul Castañeda Dower, Gunes Gokmen, Michel Le Breton, Shlomo Weber</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103776">10.1016/j.jdeveco.2026.103776</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103776">10.1016/j.jdeveco.2026.103776</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="it will rain: the effect of information on flood preparedness in urban mozambique 降雨将至：信息对莫桑比克城市洪水防备的影响 stefan leeffers journal of development economics 10.1016/j.jdeveco.2026.103787" data-journal="journal-of-development-economics" data-fields="development urban" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="it will rain: the effect of information on flood preparedness in urban mozambique 降雨将至：信息对莫桑比克城市洪水防备的影响 stefan leeffers journal of development economics 10.1016/j.jdeveco.2026.103787" data-journal="journal-of-development-economics" data-fields="china development urban" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103787">It will rain: The effect of information on flood preparedness in urban Mozambique</a></h3>
     <p class="title-zh">降雨将至：信息对莫桑比克城市洪水防备的影响</p>
     <p class="authors">Stefan Leeffers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103787">10.1016/j.jdeveco.2026.103787</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103787">10.1016/j.jdeveco.2026.103787</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="c&#x27;est la vie!: mixed impacts of an edutainment television series in west africa 这就是生活！：西非一部寓教于乐电视系列剧的混合影响 malick dione, jessica heckert, melissa hidrobo, agnes le port, amber peterman 等 journal of development economics 10.1016/j.jdeveco.2026.103748" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="c&#x27;est la vie!: mixed impacts of an edutainment television series in west africa 这就是生活！：西非一部寓教于乐电视系列剧的混合影响 malick dione, jessica heckert, melissa hidrobo, agnes le port, amber peterman 等 journal of development economics 10.1016/j.jdeveco.2026.103748" data-journal="journal-of-development-economics" data-fields="china development" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103748">C&#x27;est la vie!: Mixed impacts of an edutainment television series in West Africa</a></h3>
     <p class="title-zh">这就是生活！：西非一部寓教于乐电视系列剧的混合影响</p>
     <p class="authors">Malick Dione, Jessica Heckert, Melissa Hidrobo, Agnes Le Port, Amber Peterman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103748">10.1016/j.jdeveco.2026.103748</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103748">10.1016/j.jdeveco.2026.103748</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="number one girl: female top scorers and peer academic performance in junior high schools 第一名女孩：初中女学霸与同伴学业表现 xuezheng qin, yingfei wang, haochen zhang journal of development economics 10.1016/j.jdeveco.2026.103801" data-journal="journal-of-development-economics" data-fields="development education" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="number one girl: female top scorers and peer academic performance in junior high schools 第一名女孩：初中女学霸与同伴学业表现 xuezheng qin, yingfei wang, haochen zhang journal of development economics 10.1016/j.jdeveco.2026.103801" data-journal="journal-of-development-economics" data-fields="china development education" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103801">Number one girl: Female top scorers and peer academic performance in junior high schools</a></h3>
     <p class="title-zh">第一名女孩：初中女学霸与同伴学业表现</p>
     <p class="authors">Xuezheng Qin, Yingfei Wang, Haochen Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103801">10.1016/j.jdeveco.2026.103801</a><span class="pill">发展经济学</span><span class="pill">教育</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103801">10.1016/j.jdeveco.2026.103801</a><span class="pill">发展经济学</span><span class="pill">教育</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="weather or climate? a new perspective on temperature shocks 天气还是气候？温度冲击的新视角 nooman rebei journal of development economics 10.1016/j.jdeveco.2026.103814" data-journal="journal-of-development-economics" data-fields="environment development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="weather or climate? a new perspective on temperature shocks 天气还是气候？温度冲击的新视角 nooman rebei journal of development economics 10.1016/j.jdeveco.2026.103814" data-journal="journal-of-development-economics" data-fields="china environment development" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103814">Weather or climate? A new perspective on temperature shocks</a></h3>
     <p class="title-zh">天气还是气候？温度冲击的新视角</p>
     <p class="authors">Nooman Rebei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103814">10.1016/j.jdeveco.2026.103814</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103814">10.1016/j.jdeveco.2026.103814</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="foreign interventions and community cohesion in times of conflict 冲突时期的外部干预与社区凝聚力 sarah langlotz journal of development economics 10.1016/j.jdeveco.2026.103751" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="foreign interventions and community cohesion in times of conflict 冲突时期的外部干预与社区凝聚力 sarah langlotz journal of development economics 10.1016/j.jdeveco.2026.103751" data-journal="journal-of-development-economics" data-fields="china development" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103751">Foreign interventions and community cohesion in times of conflict</a></h3>
     <p class="title-zh">冲突时期的外部干预与社区凝聚力</p>
     <p class="authors">Sarah Langlotz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103751">10.1016/j.jdeveco.2026.103751</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103751">10.1016/j.jdeveco.2026.103751</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="resource booms, revenue sharing, and growth 资源繁荣、收入分享与经济增长 margaret e. brehm, paul a. brehm, alecia cassidy, traviss cassidy journal of development economics 10.1016/j.jdeveco.2026.103811" data-journal="journal-of-development-economics" data-fields="development macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="resource booms, revenue sharing, and growth 资源繁荣、收入分享与经济增长 margaret e. brehm, paul a. brehm, alecia cassidy, traviss cassidy journal of development economics 10.1016/j.jdeveco.2026.103811" data-journal="journal-of-development-economics" data-fields="china development macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103811">Resource booms, revenue sharing, and growth</a></h3>
     <p class="title-zh">资源繁荣、收入分享与经济增长</p>
     <p class="authors">Margaret E. Brehm, Paul A. Brehm, Alecia Cassidy, Traviss Cassidy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103811">10.1016/j.jdeveco.2026.103811</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103811">10.1016/j.jdeveco.2026.103811</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="government litigation risk and the decline in low-income mortgage lending 政府诉讼风险与低收入群体抵押贷款发放的减少 w. scott frame, kristopher gerardi, erik j. mayer, billy y. xu, lawrence chengzhi zhao journal of financial economics 10.1016/j.jfineco.2026.104279" data-journal="journal-of-financial-economics" data-fields="development finance public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="government litigation risk and the decline in low-income mortgage lending 政府诉讼风险与低收入群体抵押贷款发放的减少 w. scott frame, kristopher gerardi, erik j. mayer, billy y. xu, lawrence chengzhi zhao journal of financial economics 10.1016/j.jfineco.2026.104279" data-journal="journal-of-financial-economics" data-fields="china development finance public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104279">Government litigation risk and the decline in low-income mortgage lending</a></h3>
     <p class="title-zh">政府诉讼风险与低收入群体抵押贷款发放的减少</p>
     <p class="authors">W. Scott Frame, Kristopher Gerardi, Erik J. Mayer, Billy Y. Xu, Lawrence Chengzhi Zhao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104279">10.1016/j.jfineco.2026.104279</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104279">10.1016/j.jfineco.2026.104279</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -638,7 +576,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">政治权力与财富分配：反腐败改革如何重塑不平等</p>
     <p class="authors">Denis Ivanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01408-3">10.1007/s11127-026-01408-3</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -650,7 +588,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">亚当·斯密与封建欧洲城镇的角色</p>
     <p class="authors">Mark Koyama</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01407-4">10.1007/s11127-026-01407-4</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -662,7 +600,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">修正PISA排名中的样本选择偏差</p>
     <p class="authors">Onil Boussim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113063">10.1016/j.econlet.2026.113063</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -674,7 +612,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">模糊性下的净值陷阱</p>
     <p class="authors">Bangru Shi, Yaoyao Wu, Siqi Zhao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113092">10.1016/j.econlet.2026.113092</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -686,7 +624,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">灾后援助与制造业发展：基于中国自然实验的再审视</p>
     <p class="authors">Sherzod B. Akhundjanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113074">10.1016/j.econlet.2026.113074</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -698,7 +636,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">汽油零售中的非对称成本传导：零售商规模对传导的影响</p>
     <p class="authors">Ritvana Rrukaj, Frode Steen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113066">10.1016/j.econlet.2026.113066</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -710,7 +648,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">两个内生状态变量连续时间优化的迎风格式</p>
     <p class="authors">Zelin Deng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113077">10.1016/j.econlet.2026.113077</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -722,7 +660,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">汉密尔顿滤波中结构断点的处理</p>
     <p class="authors">Luiggi Donayre, Eiji Goto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113075">10.1016/j.econlet.2026.113075</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -734,7 +672,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">策略证明性、投资效率与边际收益：一个等价性</p>
     <p class="authors">John William Hatfield, Fuhito Kojima, Scott Duke Kominers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2025.105256">10.1016/j.euroecorev.2025.105256</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -746,7 +684,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">未选择的路：社会情感学习与学术严谨性</p>
     <p class="authors">Eric P. Bettinger, Mari Rege, Ingeborg F. Solli, Maximiliaan W.P.T. Thijssen, David S. Yeager</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105361">10.1016/j.euroecorev.2026.105361</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -758,7 +696,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">不确定性与利率期限结构</p>
     <p class="authors">Jamie L. Cross, Aubrey Poon, Dan Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105352">10.1016/j.euroecorev.2026.105352</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -770,7 +708,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0014-2921(26)00141-8">10.1016/s0014-2921(26)00141-8</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -782,19 +720,19 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">收入不平等与就业创造</p>
     <p class="authors">Sebastian Doerr, Thomas Drechsel, Donggyu Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag053">10.1093/restud/rdag053</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="report of independent auditor 独立审计师报告  american economic review 10.1257/aer.116.6.2282" data-journal="american-economic-review" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="report of independent auditor 独立审计师报告  american economic review 10.1257/aer.116.6.2282" data-journal="american-economic-review" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.116.6.2282">Report of Independent Auditor</a></h3>
     <p class="title-zh">独立审计师报告</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.116.6.2282">10.1257/aer.116.6.2282</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -806,7 +744,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">极端天气事件与消费者食品反应</p>
     <p class="authors">Ahmad Zia Wahdat, Joseph Balagtas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>Crossref在线日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70095">10.1002/aepp.70095</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -818,7 +756,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">芬兰家庭食物垃圾减量的可行性：基于五种消费者画像的见解</p>
     <p class="authors">Aino Friman, Dušan Drabik</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>Crossref在线日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70126">10.1111/1467-8489.70126</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -830,19 +768,19 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">津巴布韦城市家庭的城市农业采纳、饮食多样性与农村支持</p>
     <p class="authors">Lloyd Chigusiwa, Asankha Pallegedara, Terrence Kairiza</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>Crossref在线日期 2026-06-09</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70120">10.1111/1467-8489.70120</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="realtor forecasting accuracy on homebuyer preferences for energy efficiency 房地产经纪人关于购房者能效偏好预测的准确性 erik gråd, anna kristina edenbrandt, alexander eriksson, emilia mattsson, jens rommel environmental and resource economics 10.1007/s10640-026-01088-z" data-journal="environmental-and-resource-economics" data-fields="environment development finance trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="realtor forecasting accuracy on homebuyer preferences for energy efficiency 房地产经纪人关于购房者能效偏好预测的准确性 erik gråd, anna kristina edenbrandt, alexander eriksson, emilia mattsson, jens rommel environmental and resource economics 10.1007/s10640-026-01088-z" data-journal="environmental-and-resource-economics" data-fields="environment development finance trade" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10640-026-01088-z">Realtor Forecasting Accuracy on Homebuyer Preferences for Energy Efficiency</a></h3>
     <p class="title-zh">房地产经纪人关于购房者能效偏好预测的准确性</p>
     <p class="authors">Erik Gråd, Anna Kristina Edenbrandt, Alexander Eriksson, Emilia Mattsson, Jens Rommel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>Crossref发布日期 2026-05-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>发布日期 2026-05-26</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01088-z">10.1007/s10640-026-01088-z</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -854,7 +792,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">游戏化作为提升风险诱导理解的方法：来自小农户的实验证据</p>
     <p class="authors">Selina Bruns, Daniel Hermann, Oliver Musshoff</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>Crossref在线日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70124">10.1111/agec.70124</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -866,20 +804,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">土地整理、产权登记与土地租赁市场：来自越南农村的证据</p>
     <p class="authors">Kim Lan Nguyen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70126">10.1111/agec.70126</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the economic and ecological impact of soy in brazil: a synthetic control method approach 巴西大豆的经济与生态影响：基于合成控制法的分析 stefano ghinoi, simone piras, luca tasciotti, valdemar joão wesz junior journal of agricultural economics 10.1111/1477-9552.70061" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment development finance" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the economic and ecological impact of soy in brazil: a synthetic control method approach 巴西大豆的经济与生态影响：基于合成控制法的分析 stefano ghinoi, simone piras, luca tasciotti, valdemar joão wesz junior journal of agricultural economics 10.1111/1477-9552.70061" data-journal="journal-of-agricultural-economics" data-fields="china agriculture environment development" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70061">The Economic and Ecological Impact of Soy in Brazil: A Synthetic Control Method Approach</a></h3>
     <p class="title-zh">巴西大豆的经济与生态影响：基于合成控制法的分析</p>
     <p class="authors">Stefano Ghinoi, Simone Piras, Luca Tasciotti, Valdemar João Wesz Junior</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>Crossref在线日期 2026-06-11</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70061">10.1111/1477-9552.70061</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70061">10.1111/1477-9552.70061</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -894,92 +832,32 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">自然灾害与农业代际职业选择：来自美国沙尘暴的证据</p>
     <p class="authors">Jhih‐Yun Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>Crossref在线日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70081">10.1002/ajae.70081</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="road to division: ethnic favoritism and road infrastructure in ethiopia 分裂之路：埃塞俄比亚的族群偏袒与道路基础设施 elena perra journal of comparative economics 10.1016/j.jce.2025.12.002" data-journal="journal-of-comparative-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jce.2025.12.002">Road to division: Ethnic favoritism and road infrastructure in Ethiopia</a></h3>
-    <p class="title-zh">分裂之路：埃塞俄比亚的族群偏袒与道路基础设施</p>
-    <p class="authors">Elena Perra</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2025.12.002">10.1016/j.jce.2025.12.002</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="the interplay of halal operations management and supply chain integration on logistics performance in west java&#x27;s smes 西爪哇中小企业中清真运营管理与供应链整合对物流绩效的交互作用 tribowo rachmat fauzan, ajeung syilva syara noor silmi sudrajat journal of law &amp; economics 10.56347/jle.v5i1.421" data-journal="journal-of-law-and-economics" data-fields="agriculture development trade econometrics" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the interplay of halal operations management and supply chain integration on logistics performance in west java&#x27;s smes 西爪哇中小企业中清真运营管理与供应链整合对物流绩效的交互作用 tribowo rachmat fauzan, ajeung syilva syara noor silmi sudrajat journal of law &amp; economics 10.56347/jle.v5i1.421" data-journal="journal-of-law-and-economics" data-fields="china agriculture development trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.56347/jle.v5i1.421">The Interplay of Halal Operations Management and Supply Chain Integration on Logistics Performance in West Java&#x27;s SMEs</a></h3>
     <p class="title-zh">西爪哇中小企业中清真运营管理与供应链整合对物流绩效的交互作用</p>
     <p class="authors">Tribowo Rachmat Fauzan, Ajeung Syilva Syara Noor Silmi Sudrajat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law &amp; Economics</span><span>Crossref发布日期 2026-05-30</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.56347/jle.v5i1.421">10.56347/jle.v5i1.421</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law &amp; Economics</span><span>发布日期 2026-05-30</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.56347/jle.v5i1.421">10.56347/jle.v5i1.421</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the foster-greer-thorbecke approach applied to the measurement of population aging 福斯特-格里尔-索尔贝克方法在人口老龄化测量中的应用 teegawende h. zeida, tomson ogwang, germano mwabu journal of population economics 10.1007/s00148-026-01183-x" data-journal="journal-of-population-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1007/s00148-026-01183-x">The Foster-Greer-Thorbecke approach applied to the measurement of population aging</a></h3>
-    <p class="title-zh">福斯特-格里尔-索尔贝克方法在人口老龄化测量中的应用</p>
-    <p class="authors">Teegawende H. Zeida, Tomson Ogwang, Germano Mwabu</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>Crossref在线日期 2026-06-13</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01183-x">10.1007/s00148-026-01183-x</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="childhood shocks and fertility: evidence from parental job loss 童年冲击与生育率：来自父母失业的证据 krista riukula journal of population economics 10.1007/s00148-026-01178-8" data-journal="journal-of-population-economics" data-fields="development labor theory behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="childhood shocks and fertility: evidence from parental job loss 童年冲击与生育率：来自父母失业的证据 krista riukula journal of population economics 10.1007/s00148-026-01178-8" data-journal="journal-of-population-economics" data-fields="china development labor theory" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00148-026-01178-8">Childhood shocks and fertility: evidence from parental job loss</a></h3>
     <p class="title-zh">童年冲击与生育率：来自父母失业的证据</p>
     <p class="authors">Krista Riukula</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>Crossref发布日期 2026-05-28</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01178-8">10.1007/s00148-026-01178-8</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="preference revelation when investment is time-dependent 投资时间依赖时的偏好揭示 weidong tian journal of economic dynamics and control 10.1016/j.jedc.2026.105369" data-journal="journal-of-economic-dynamics-and-control" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jedc.2026.105369">Preference revelation when investment is time-dependent</a></h3>
-    <p class="title-zh">投资时间依赖时的偏好揭示</p>
-    <p class="authors">Weidong Tian</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105369">10.1016/j.jedc.2026.105369</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="gradient-based reinforcement learning for dynamic quantile models 基于梯度的动态分位数模型强化学习 lukáš janásek journal of economic dynamics and control 10.1016/j.jedc.2026.105355" data-journal="journal-of-economic-dynamics-and-control" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jedc.2026.105355">Gradient-based reinforcement learning for dynamic quantile models</a></h3>
-    <p class="title-zh">基于梯度的动态分位数模型强化学习</p>
-    <p class="authors">Lukáš Janásek</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105355">10.1016/j.jedc.2026.105355</a><span class="pill">发展经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="can an ai agent hit a moving target? ai智能体能否击中移动目标？ aruhan rui shi journal of economic dynamics and control 10.1016/j.jedc.2026.105349" data-journal="journal-of-economic-dynamics-and-control" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jedc.2026.105349">Can an AI agent hit a moving target?</a></h3>
-    <p class="title-zh">AI智能体能否击中移动目标？</p>
-    <p class="authors">Aruhan Rui Shi</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105349">10.1016/j.jedc.2026.105349</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>发布日期 2026-05-28</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01178-8">10.1007/s00148-026-01178-8</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -990,7 +868,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">带在职搜寻的模型中含再谈判的讨价还价</p>
     <p class="authors">Axel Gottfries</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101343">10.1016/j.red.2026.101343</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1002,32 +880,32 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">风险厌恶与时变风险的不相关定理</p>
     <p class="authors">Andrew Y. Chen, Francisco Palomino</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101347">10.1016/j.red.2026.101347</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="central bank digital currency with collateral‐constrained banks 抵押约束银行下的央行数字货币 hanfeng chen, maria elena filippin journal of money, credit and banking 10.1111/jmcb.70063" data-journal="journal-of-money-credit-and-banking" data-fields="development finance theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="central bank digital currency with collateral‐constrained banks 抵押约束银行下的央行数字货币 hanfeng chen, maria elena filippin journal of money, credit and banking 10.1111/jmcb.70063" data-journal="journal-of-money-credit-and-banking" data-fields="china development finance theory" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70063">Central Bank Digital Currency with Collateral‐Constrained Banks</a></h3>
     <p class="title-zh">抵押约束银行下的央行数字货币</p>
     <p class="authors">HANFENG CHEN, MARIA ELENA FILIPPIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-04</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70063">10.1111/jmcb.70063</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70063">10.1111/jmcb.70063</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="development approval times and new housing supply: evidence from los angeles 开发审批时间与新房供给：来自洛杉矶的证据 stuart gabriel, edward kung journal of urban economics 10.1016/j.jue.2026.103872" data-journal="journal-of-urban-economics" data-fields="development urban" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="development approval times and new housing supply: evidence from los angeles 开发审批时间与新房供给：来自洛杉矶的证据 stuart gabriel, edward kung journal of urban economics 10.1016/j.jue.2026.103872" data-journal="journal-of-urban-economics" data-fields="china development urban" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jue.2026.103872">Development approval times and new housing supply: Evidence from Los Angeles</a></h3>
     <p class="title-zh">开发审批时间与新房供给：来自洛杉矶的证据</p>
     <p class="authors">Stuart Gabriel, Edward Kung</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103872">10.1016/j.jue.2026.103872</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103872">10.1016/j.jue.2026.103872</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1038,7 +916,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">金融科技采纳能否缓解能源贫困？基于中国家庭数据的证据</p>
     <p class="authors">Xiqian Wang, Yiming Chen, Zongyue He</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref在线日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2685879">10.1080/00036846.2026.2685879</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1050,7 +928,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">无人之地？强迫迁移对哥伦比亚森林覆盖变化的影响</p>
     <p class="authors">Emilio Leguízamo, Ana María Montoya</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-11-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107441">10.1016/j.worlddev.2026.107441</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1062,7 +940,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">距离、前景与向城镇迁移</p>
     <p class="authors">Joachim De Weerdt, Luc Christiaensen, Ravi Kanbur</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-11-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107419">10.1016/j.worlddev.2026.107419</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1074,7 +952,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">降雨来袭：厄瓜多尔的降水冲击与经济产出</p>
     <p class="authors">Gustavo Canavire-Bacarreza, Alejandro Puerta-Cuartas, Andrey Ramos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107468">10.1016/j.worlddev.2026.107468</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1086,7 +964,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">环境微笑曲线：污染避难所假说的投入产出证据</p>
     <p class="authors">Giovanni Dosi, Federico Riccio, Maria Enrica Virgillito</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107411">10.1016/j.worlddev.2026.107411</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1098,7 +976,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">收获后的热浪：泰国农民对秸秆焚烧的选择与认知</p>
     <p class="authors">Witsanu Attavanich, Adrian A. Lopes, Sailesh Tiwari, Ajalavat Viriyavipart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107466">10.1016/j.worlddev.2026.107466</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1110,7 +988,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">中国双重劳动力市场中的大企业工资溢价</p>
     <p class="authors">Hong Cheng, Hongbin Li, Hui Wang, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>Crossref在线日期 2026-06-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742631">10.1086/742631</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1122,7 +1000,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">贫民窟住房的外部性</p>
     <p class="authors">Raimundo Undurraga</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>Crossref在线日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742606">10.1086/742606</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1134,92 +1012,92 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">减少中低收入国家非处方抗生素销售：一项随机对照试验</p>
     <p class="authors">Prajwol Nepal, Yubraj Acharya</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>Crossref在线日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742594">10.1086/742594</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="information and social norms: experimental evidence on the labor market aspirations of saudi women 信息与社会规范：沙特女性劳动力市场抱负的实验证据 monira essa aloud, sara al-rashood, ina ganguli, basit zafar economic development and cultural change 10.1086/742354" data-journal="economic-development-and-cultural-change" data-fields="development finance labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="information and social norms: experimental evidence on the labor market aspirations of saudi women 信息与社会规范：沙特女性劳动力市场抱负的实验证据 monira essa aloud, sara al-rashood, ina ganguli, basit zafar economic development and cultural change 10.1086/742354" data-journal="economic-development-and-cultural-change" data-fields="development finance labor" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742354">Information and Social Norms: Experimental Evidence on the Labor Market Aspirations of Saudi Women</a></h3>
     <p class="title-zh">信息与社会规范：沙特女性劳动力市场抱负的实验证据</p>
     <p class="authors">Monira Essa Aloud, Sara Al-Rashood, Ina Ganguli, Basit Zafar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>Crossref发布日期 2026-05-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>发布日期 2026-05-20</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742354">10.1086/742354</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="intermediary services and rural land market competition: evidence of regional heterogeneity in china 中介服务与农村土地市场竞争：中国区域异质性的证据 xu he, hongmei yi, scott rozelle, takeshi sakurai economic development and cultural change 10.1086/742299" data-journal="economic-development-and-cultural-change" data-fields="china agriculture development finance" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="intermediary services and rural land market competition: evidence of regional heterogeneity in china 中介服务与农村土地市场竞争：中国区域异质性的证据 xu he, hongmei yi, scott rozelle, takeshi sakurai economic development and cultural change 10.1086/742299" data-journal="economic-development-and-cultural-change" data-fields="china agriculture development finance" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742299">Intermediary Services and Rural Land Market Competition: Evidence of Regional Heterogeneity in China</a></h3>
     <p class="title-zh">中介服务与农村土地市场竞争：中国区域异质性的证据</p>
     <p class="authors">Xu He, Hongmei Yi, Scott Rozelle, Takeshi Sakurai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>Crossref发布日期 2026-05-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>发布日期 2026-05-15</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742299">10.1086/742299</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="government demand and firm growth 政府需求与企业成长 bernard hoekman, marco sanfilippo, filippo santi, rohit ticku journal of development economics 10.1016/j.jdeveco.2026.103832" data-journal="journal-of-development-economics" data-fields="development macro public firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="government demand and firm growth 政府需求与企业成长 bernard hoekman, marco sanfilippo, filippo santi, rohit ticku journal of development economics 10.1016/j.jdeveco.2026.103832" data-journal="journal-of-development-economics" data-fields="china development macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103832">Government demand and firm growth</a></h3>
     <p class="title-zh">政府需求与企业成长</p>
     <p class="authors">Bernard Hoekman, Marco Sanfilippo, Filippo Santi, Rohit Ticku</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103832">10.1016/j.jdeveco.2026.103832</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103832">10.1016/j.jdeveco.2026.103832</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="right-sizing incentives 合理调整激励措施 edward n. okeke, isa s. abubakar journal of development economics 10.1016/j.jdeveco.2026.103834" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="right-sizing incentives 合理调整激励措施 edward n. okeke, isa s. abubakar journal of development economics 10.1016/j.jdeveco.2026.103834" data-journal="journal-of-development-economics" data-fields="china development" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103834">Right-sizing incentives</a></h3>
     <p class="title-zh">合理调整激励措施</p>
     <p class="authors">Edward N. Okeke, Isa S. Abubakar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103834">10.1016/j.jdeveco.2026.103834</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103834">10.1016/j.jdeveco.2026.103834</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="texting parents about early child development: behavioral changes and unintended social effects 关于早期儿童发展的短信提醒：行为变化与非预期社会效应 oscar barrera rodríguez, karen macours, patrick premand, renos vakis journal of development economics 10.1016/j.jdeveco.2026.103833" data-journal="journal-of-development-economics" data-fields="development behavior" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="texting parents about early child development: behavioral changes and unintended social effects 关于早期儿童发展的短信提醒：行为变化与非预期社会效应 oscar barrera rodríguez, karen macours, patrick premand, renos vakis journal of development economics 10.1016/j.jdeveco.2026.103833" data-journal="journal-of-development-economics" data-fields="china development behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103833">Texting parents about early child development: Behavioral changes and unintended social effects</a></h3>
     <p class="title-zh">关于早期儿童发展的短信提醒：行为变化与非预期社会效应</p>
     <p class="authors">Oscar Barrera Rodríguez, Karen Macours, Patrick Premand, Renos Vakis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103833">10.1016/j.jdeveco.2026.103833</a><span class="pill">发展经济学</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103833">10.1016/j.jdeveco.2026.103833</a><span class="pill">发展经济学</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="non-normal empirical bayes prediction of local welfare 局部福利的非正态经验贝叶斯预测 chris elbers, roy van der weide journal of development economics 10.1016/j.jdeveco.2026.103835" data-journal="journal-of-development-economics" data-fields="development public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="non-normal empirical bayes prediction of local welfare 局部福利的非正态经验贝叶斯预测 chris elbers, roy van der weide journal of development economics 10.1016/j.jdeveco.2026.103835" data-journal="journal-of-development-economics" data-fields="china development public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103835">Non-normal Empirical Bayes prediction of local welfare</a></h3>
     <p class="title-zh">局部福利的非正态经验贝叶斯预测</p>
     <p class="authors">Chris Elbers, Roy van der Weide</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103835">10.1016/j.jdeveco.2026.103835</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103835">10.1016/j.jdeveco.2026.103835</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="local and spillover effects of trade on structural transformation: evidence from brazil 贸易对结构转型的地方与溢出效应：来自巴西的证据 mateo hoyos, josé alejandro coronado, guilherme klein martins journal of development economics 10.1016/j.jdeveco.2026.103840" data-journal="journal-of-development-economics" data-fields="development trade" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="local and spillover effects of trade on structural transformation: evidence from brazil 贸易对结构转型的地方与溢出效应：来自巴西的证据 mateo hoyos, josé alejandro coronado, guilherme klein martins journal of development economics 10.1016/j.jdeveco.2026.103840" data-journal="journal-of-development-economics" data-fields="china development trade" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103840">Local and spillover effects of trade on structural transformation: Evidence from Brazil</a></h3>
     <p class="title-zh">贸易对结构转型的地方与溢出效应：来自巴西的证据</p>
     <p class="authors">Mateo Hoyos, José Alejandro Coronado, Guilherme Klein Martins</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103840">10.1016/j.jdeveco.2026.103840</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103840">10.1016/j.jdeveco.2026.103840</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1230,20 +1108,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">局部均衡思维、外推与泡沫</p>
     <p class="authors">Francesca Bastianello, Paul Fontanier</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag053">10.1093/rfs/hhag053</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="familiar strangers: the role of diaspora networks in foreign investment and long-run development 熟悉的陌生人：侨民网络在外资与长期发展中的作用 fanghao chen, ruichi xiong, xiaobo zhang journal of international economics 10.1016/j.jinteco.2026.104293" data-journal="journal-of-international-economics" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="familiar strangers: the role of diaspora networks in foreign investment and long-run development 熟悉的陌生人：侨民网络在外资与长期发展中的作用 fanghao chen, ruichi xiong, xiaobo zhang journal of international economics 10.1016/j.jinteco.2026.104293" data-journal="journal-of-international-economics" data-fields="china development" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104293">Familiar strangers: The role of diaspora networks in foreign investment and long-run development</a></h3>
     <p class="title-zh">熟悉的陌生人：侨民网络在外资与长期发展中的作用</p>
     <p class="authors">Fanghao Chen, Ruichi Xiong, Xiaobo Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104293">10.1016/j.jinteco.2026.104293</a><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104293">10.1016/j.jinteco.2026.104293</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1254,43 +1132,43 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">胡椒的利润：印度洋贸易与喀拉拉邦经济（800–1600年）</p>
     <p class="authors">Chris Wickham</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>Crossref在线日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70125">10.1111/ehr.70125</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="willing but unable to pay? gender, preferences, resources, and tax compliance 愿意但无力支付？性别、偏好、资源与税收遵从 andrea lopez-luzuriaga, carlos scartascini international tax and public finance 10.1007/s10797-026-09975-3" data-journal="international-tax-and-public-finance" data-fields="development finance public econometrics" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="willing but unable to pay? gender, preferences, resources, and tax compliance 愿意但无力支付？性别、偏好、资源与税收遵从 andrea lopez-luzuriaga, carlos scartascini international tax and public finance 10.1007/s10797-026-09975-3" data-journal="international-tax-and-public-finance" data-fields="development finance public econometrics" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09975-3">Willing but unable to pay? Gender, preferences, resources, and tax compliance</a></h3>
     <p class="title-zh">愿意但无力支付？性别、偏好、资源与税收遵从</p>
     <p class="authors">Andrea Lopez-Luzuriaga, Carlos Scartascini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>Crossref发布日期 2026-05-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>发布日期 2026-05-29</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09975-3">10.1007/s10797-026-09975-3</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the effects of fiscal rules on building permits and economic activity: quasi-experimental evidence 财政规则对建筑许可和经济活动的影响：准实验证据 marco fregoni, marco leonardi, sauro mocetti journal of law, economics &amp; organization 10.1093/jleo/ewag015" data-journal="journal-of-law-economics-and-organization" data-fields="development finance macro labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the effects of fiscal rules on building permits and economic activity: quasi-experimental evidence 财政规则对建筑许可和经济活动的影响：准实验证据 marco fregoni, marco leonardi, sauro mocetti journal of law, economics &amp; organization 10.1093/jleo/ewag015" data-journal="journal-of-law-economics-and-organization" data-fields="china development finance macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jleo/ewag015">The effects of fiscal rules on building permits and economic activity: quasi-experimental evidence</a></h3>
     <p class="title-zh">财政规则对建筑许可和经济活动的影响：准实验证据</p>
     <p class="authors">Marco Fregoni, Marco Leonardi, Sauro Mocetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>Crossref发布日期 2026-05-21</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag015">10.1093/jleo/ewag015</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>发布日期 2026-05-21</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag015">10.1093/jleo/ewag015</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="following the money: an econometric investigation into health valuations 追踪资金流向：健康价值评估的计量经济学研究 tinna laufey ásgeirsdóttir, viktor andri kárason scandinavian journal of economics 10.1111/sjoe.70026" data-journal="scandinavian-journal-of-economics" data-fields="development macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="following the money: an econometric investigation into health valuations 追踪资金流向：健康价值评估的计量经济学研究 tinna laufey ásgeirsdóttir, viktor andri kárason scandinavian journal of economics 10.1111/sjoe.70026" data-journal="scandinavian-journal-of-economics" data-fields="development macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/sjoe.70026">Following the money: an econometric investigation into health valuations</a></h3>
     <p class="title-zh">追踪资金流向：健康价值评估的计量经济学研究</p>
     <p class="authors">Tinna Laufey Ásgeirsdóttir, Viktor Andri Kárason</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>Crossref发布日期 2026-05-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>发布日期 2026-05-21</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70026">10.1111/sjoe.70026</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -1302,19 +1180,19 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">创意阶层动态、技术演进与增长</p>
     <p class="authors">Torben Klarl</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>Crossref在线日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecca.70060">10.1111/ecca.70060</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="issue information 期刊信息  economica 10.1111/ecca.70056" data-journal="economica" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="issue information 期刊信息  economica 10.1111/ecca.70056" data-journal="economica" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ecca.70056">Issue Information</a></h3>
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecca.70056">10.1111/ecca.70056</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1326,7 +1204,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">新兴市场税收收入提升：拉弗曲线分析</p>
     <p class="authors">Sargam Gupta, Snigdha Kalra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>Crossref在线日期 2026-06-13</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>发布日期 2026-06-13</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecin.70069">10.1111/ecin.70069</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1338,7 +1216,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">娱乐大麻合法化对毒品违法的影响：来自美国高校的证据</p>
     <p class="authors">Angela Dills, Manu Raghav</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113081">10.1016/j.econlet.2026.113081</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1350,20 +1228,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">将Engelberg等人(2009)的方法扩展到不等区间宽度的调查</p>
     <p class="authors">Christoph K. Becker, Peter Duersch, Thomas Eife, Alexander Glas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113067">10.1016/j.econlet.2026.113067</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="how do monetary policy and inflation announcements affect firm expectations in high inflation? 货币政策和通胀公告如何影响高通胀环境中的企业预期？ okan akarsu, emrehan aktuğ journal of the european economic association 10.1093/jeea/jvag036" data-journal="journal-of-the-european-economic-association" data-fields="agriculture environment development finance" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="how do monetary policy and inflation announcements affect firm expectations in high inflation? 货币政策和通胀公告如何影响高通胀环境中的企业预期？ okan akarsu, emrehan aktuğ journal of the european economic association 10.1093/jeea/jvag036" data-journal="journal-of-the-european-economic-association" data-fields="china agriculture environment development" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jeea/jvag036">How Do Monetary Policy and Inflation Announcements Affect Firm Expectations in High Inflation?</a></h3>
     <p class="title-zh">货币政策和通胀公告如何影响高通胀环境中的企业预期？</p>
     <p class="authors">Okan Akarsu, Emrehan Aktuğ</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>Crossref在线日期 2026-06-12</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag036">10.1093/jeea/jvag036</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag036">10.1093/jeea/jvag036</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1374,23 +1252,70 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">临时性增值税减免作为非常规财政政策</p>
     <p class="authors">Rüdiger Bachmann, Benjamin Born, Olga Goldfayn-Frank, Georgi Kocharkov, Ralph Luetticke 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag055">10.1093/restud/rdag055</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="front matter 前文  american economic review 10.1257/aer.116.6.i" data-journal="american-economic-review" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="front matter 前文  american economic review 10.1257/aer.116.6.i" data-journal="american-economic-review" data-fields="development" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.116.6.i">Front Matter</a></h3>
     <p class="title-zh">前文</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.116.6.i">10.1257/aer.116.6.i</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
-</article></main>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+</main>
     </div>
   </div>
 </body>

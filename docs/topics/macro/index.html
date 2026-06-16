@@ -5,28 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>宏观与货币</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
-a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
-.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
-.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
-.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
-.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:center;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 64px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:#fff1f0;border-color:#ffccc7;color:#cf222e;font-weight:700}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
-.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
-.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
@@ -36,13 +25,13 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
     <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">222</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">157</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">115</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">98</span></a><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">92</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">75</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">58</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">417</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">221</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">155</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">119</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">102</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">94</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">70</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">56</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">49</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -55,63 +44,72 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>宏观与货币</h2><p>基于标题、摘要和期刊信息的文章主题标签，后续可升级为 AI 主题判断。</p></div><p>98 篇</p></section><article class="event" data-search="wealth, cost, and misperception: empirical estimation of three interaction channels in a financial–macroeconomic agent-based model 财富、成本与认知偏差：金融-宏观经济主体模型中三种交互渠道的实证估计 jiri kukacka, eric zila journal of economic behavior and organization 10.1016/j.jebo.2026.107658" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+      <main class="wrap"><section class="section-head"><div><h2>宏观与货币</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>94 篇</p></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="agricultural-economics">Agricultural Economics</option><option value="american-economic-review">American Economic Review</option><option value="applied-economic-perspectives-and-policy">Applied Economic Perspectives and Policy</option><option value="applied-economics">Applied Economics</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option><option value="economic-history-review">Economic History Review</option><option value="economic-inquiry">Economic Inquiry</option><option value="economic-journal">Economic Journal</option><option value="economica">Economica</option><option value="economics-letters">Economics Letters</option><option value="environmental-and-resource-economics">Environmental and Resource Economics</option><option value="european-economic-review">European Economic Review</option><option value="european-review-of-agricultural-economics">European Review of Agricultural Economics</option><option value="experimental-economics">Experimental Economics</option><option value="explorations-in-economic-history">Explorations in Economic History</option><option value="food-policy">Food Policy</option><option value="international-economic-review">International Economic Review</option><option value="international-journal-of-game-theory">International Journal of Game Theory</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-economic-behavior-and-organization">Journal of Economic Behavior and Organization</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-economics-and-management-strategy">Journal of Economics &amp; Management Strategy</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option><option value="journal-of-financial-economics">Journal of Financial Economics</option><option value="journal-of-industrial-economics">Journal of Industrial Economics</option><option value="journal-of-international-economics">Journal of International Economics</option><option value="journal-of-law-economics-and-organization">Journal of Law, Economics &amp; Organization</option><option value="journal-of-mathematical-economics">Journal of Mathematical Economics</option><option value="journal-of-monetary-economics">Journal of Monetary Economics</option><option value="journal-of-money-credit-and-banking">Journal of Money, Credit and Banking</option><option value="journal-of-political-economy">Journal of Political Economy</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="journal-of-urban-economics">Journal of Urban Economics</option><option value="journal-of-the-european-economic-association">Journal of the European Economic Association</option><option value="public-choice">Public Choice</option><option value="review-of-economic-studies">Review of Economic Studies</option><option value="review-of-financial-studies">Review of Financial Studies</option><option value="scandinavian-journal-of-economics">Scandinavian Journal of Economics</option><option value="world-development">World Development</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="B">B 出版社/RSS</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="wealth, cost, and misperception: empirical estimation of three interaction channels in a financial–macroeconomic agent-based model 财富、成本与认知偏差：金融-宏观经济主体模型中三种交互渠道的实证估计 jiri kukacka, eric zila journal of economic behavior and organization 10.1016/j.jebo.2026.107658" data-journal="journal-of-economic-behavior-and-organization" data-fields="china finance macro behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107658">Wealth, cost, and misperception: Empirical estimation of three interaction channels in a financial–macroeconomic agent-based model</a></h3>
     <p class="title-zh">财富、成本与认知偏差：金融-宏观经济主体模型中三种交互渠道的实证估计</p>
     <p class="authors">Jiri Kukacka, Eric Zila</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107658">10.1016/j.jebo.2026.107658</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107658">10.1016/j.jebo.2026.107658</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="inflation targeting and income inequality 通胀目标制与收入不平等 hippolyte balima, alexandru minea, cezara vinturis journal of economic behavior and organization 10.1016/j.jebo.2025.107348" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro behavior firms inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="inflation targeting and income inequality 通胀目标制与收入不平等 hippolyte balima, alexandru minea, cezara vinturis journal of economic behavior and organization 10.1016/j.jebo.2025.107348" data-journal="journal-of-economic-behavior-and-organization" data-fields="china macro behavior inequality" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2025.107348">Inflation targeting and income inequality</a></h3>
     <p class="title-zh">通胀目标制与收入不平等</p>
     <p class="authors">Hippolyte Balima, Alexandru Minea, Cezara Vinturis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2025.107348">10.1016/j.jebo.2025.107348</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2025.107348">10.1016/j.jebo.2025.107348</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="competition versus coordination: the impact of flattening government on firm creation and aggregate productivity 竞争与协调：政府扁平化对企业创立与全要素生产率的影响 lingran yuan, qizheng zhang, binlei gong journal of economic behavior and organization 10.1016/j.jebo.2026.107606" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro public behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="competition versus coordination: the impact of flattening government on firm creation and aggregate productivity 竞争与协调：政府扁平化对企业创立与全要素生产率的影响 lingran yuan, qizheng zhang, binlei gong journal of economic behavior and organization 10.1016/j.jebo.2026.107606" data-journal="journal-of-economic-behavior-and-organization" data-fields="china macro public behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107606">Competition versus coordination: The impact of flattening government on firm creation and aggregate productivity</a></h3>
     <p class="title-zh">竞争与协调：政府扁平化对企业创立与全要素生产率的影响</p>
     <p class="authors">Lingran Yuan, Qizheng Zhang, Binlei Gong</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107606">10.1016/j.jebo.2026.107606</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107606">10.1016/j.jebo.2026.107606</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the impact of growth on the transmission of patience 增长对耐心传导的影响 domenico delli gatti, jakob grazzini, domenico massaro, fabrizio panebianco journal of economic behavior and organization 10.1016/j.jebo.2026.107603" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the impact of growth on the transmission of patience 增长对耐心传导的影响 domenico delli gatti, jakob grazzini, domenico massaro, fabrizio panebianco journal of economic behavior and organization 10.1016/j.jebo.2026.107603" data-journal="journal-of-economic-behavior-and-organization" data-fields="china macro behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107603">The impact of growth on the transmission of patience</a></h3>
     <p class="title-zh">增长对耐心传导的影响</p>
     <p class="authors">Domenico Delli Gatti, Jakob Grazzini, Domenico Massaro, Fabrizio Panebianco</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107603">10.1016/j.jebo.2026.107603</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107603">10.1016/j.jebo.2026.107603</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="macroeconomic expectations: formation, measurement, and consequences 宏观经济预期：形成、测度与后果 zeno enders, stefan t. trautmann, dmitri v. vinogradov journal of economic behavior and organization 10.1016/j.jebo.2026.107620" data-journal="journal-of-economic-behavior-and-organization" data-fields="macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="macroeconomic expectations: formation, measurement, and consequences 宏观经济预期：形成、测度与后果 zeno enders, stefan t. trautmann, dmitri v. vinogradov journal of economic behavior and organization 10.1016/j.jebo.2026.107620" data-journal="journal-of-economic-behavior-and-organization" data-fields="china macro behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107620">Macroeconomic expectations: Formation, measurement, and consequences</a></h3>
     <p class="title-zh">宏观经济预期：形成、测度与后果</p>
     <p class="authors">Zeno Enders, Stefan T. Trautmann, Dmitri V. Vinogradov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107620">10.1016/j.jebo.2026.107620</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107620">10.1016/j.jebo.2026.107620</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -122,7 +120,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">低空经济城市试点政策对企业全要素生产率的影响：来自中国的证据</p>
     <p class="authors">Lin Wang, Fengqin Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15</span><span>B 出版社/RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688895">10.1080/00036846.2026.2688895</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -134,44 +132,32 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">商业周期、研发与滞后效应：寻找非对称性</p>
     <p class="authors">Filippo Massari, Hedieh Shadmani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref在线日期 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-15</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687733">10.1080/00036846.2026.2687733</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="worker heterogeneity and the effect of noncompetes on firm performance 工人异质性与竞业限制对企业绩效的影响 zhaozhao he, modupe babajide wintoki journal of economics &amp; management strategy 10.1111/jems.70040" data-journal="journal-of-economics-and-management-strategy" data-fields="macro labor theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="worker heterogeneity and the effect of noncompetes on firm performance 工人异质性与竞业限制对企业绩效的影响 zhaozhao he, modupe babajide wintoki journal of economics &amp; management strategy 10.1111/jems.70040" data-journal="journal-of-economics-and-management-strategy" data-fields="china macro labor theory" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jems.70040">Worker Heterogeneity and the Effect of Noncompetes on Firm Performance</a></h3>
     <p class="title-zh">工人异质性与竞业限制对企业绩效的影响</p>
     <p class="authors">Zhaozhao He, Modupe Babajide Wintoki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>Crossref在线日期 2026-06-08</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70040">10.1111/jems.70040</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70040">10.1111/jems.70040</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="monetary and fiscal policy: some new monetarist arithmetic 货币与财政政策：新货币主义算术 chao gu, randall wright, yu zhu economic journal 10.1093/ej/ueag075" data-journal="economic-journal" data-fields="macro public" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="monetary and fiscal policy: some new monetarist arithmetic 货币与财政政策：新货币主义算术 chao gu, randall wright, yu zhu economic journal 10.1093/ej/ueag075" data-journal="economic-journal" data-fields="macro public" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag075">Monetary and Fiscal Policy: Some New Monetarist Arithmetic</a></h3>
     <p class="title-zh">货币与财政政策：新货币主义算术</p>
     <p class="authors">Chao Gu, Randall Wright, Yu Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag075">10.1093/ej/ueag075</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="large-scale land acquisitions in ethiopia: impacts on agricultural productivity and deforestation 埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响 workineh asmare kassie, yeshwas admasu, dagim belay, solomon zena walelign, jipeng zhang journal of development economics 10.1016/j.jdeveco.2026.103836" data-journal="journal-of-development-economics" data-fields="agriculture environment development macro" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">18:09</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103836">Large-scale land acquisitions in Ethiopia: Impacts on agricultural productivity and deforestation</a></h3>
-    <p class="title-zh">埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响</p>
-    <p class="authors">Workineh Asmare Kassie, Yeshwas Admasu, Dagim Belay, Solomon Zena Walelign, Jipeng Zhang</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103836">10.1016/j.jdeveco.2026.103836</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -182,7 +168,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">知识产权与垂直相关产业中的创新</p>
     <p class="authors">Michael A. Klein</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>Crossref在线日期 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>发布日期 2026-06-14</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecin.70073">10.1111/ecin.70073</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -194,7 +180,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">收紧所有权制度下的农地流动性：韩国的城乡异质性</p>
     <p class="authors">Jiseon Choi, Gwangseok Chae</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70123">10.1111/agec.70123</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -206,176 +192,176 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">美国禽业整合对员工生产率与劳动力成本的影响</p>
     <p class="authors">Tina L. Saitone, K. Aleks Schaefer, Daniel P. Scheitrum, Shawn Arita, Vince Breneman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103080">10.1016/j.foodpol.2026.103080</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="bitcoin growth amid climate change: policy and investment implications 气候变化背景下的比特币增长：政策与投资启示 mohammadhossein lashkaripour, seyedmehdi hosseini, rizwan ahmed journal of environmental economics and management 10.1016/j.jeem.2026.103351" data-journal="journal-of-environmental-economics-and-management" data-fields="environment macro public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="bitcoin growth amid climate change: policy and investment implications 气候变化背景下的比特币增长：政策与投资启示 mohammadhossein lashkaripour, seyedmehdi hosseini, rizwan ahmed journal of environmental economics and management 10.1016/j.jeem.2026.103351" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103351">Bitcoin growth amid climate change: Policy and investment implications</a></h3>
     <p class="title-zh">气候变化背景下的比特币增长：政策与投资启示</p>
     <p class="authors">Mohammadhossein Lashkaripour, Seyedmehdi Hosseini, Rizwan Ahmed</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103351">10.1016/j.jeem.2026.103351</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103351">10.1016/j.jeem.2026.103351</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="when pandemics meet climate risk: an agent-based model of non-linear macroeconomic dynamics under compound stress 当流行病遇上气候风险：复合压力下非线性宏观经济动态的基于主体模型 paola d’orazio, anh-duy pham, son hong nguyen journal of economic dynamics and control 10.1016/j.jedc.2026.105356" data-journal="journal-of-economic-dynamics-and-control" data-fields="environment macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="when pandemics meet climate risk: an agent-based model of non-linear macroeconomic dynamics under compound stress 当流行病遇上气候风险：复合压力下非线性宏观经济动态的基于主体模型 paola d’orazio, anh-duy pham, son hong nguyen journal of economic dynamics and control 10.1016/j.jedc.2026.105356" data-journal="journal-of-economic-dynamics-and-control" data-fields="china environment macro" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jedc.2026.105356">When pandemics meet climate risk: An agent-based model of non-linear macroeconomic dynamics under compound stress</a></h3>
     <p class="title-zh">当流行病遇上气候风险：复合压力下非线性宏观经济动态的基于主体模型</p>
     <p class="authors">Paola D’Orazio, Anh-Duy Pham, Son Hong Nguyen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105356">10.1016/j.jedc.2026.105356</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105356">10.1016/j.jedc.2026.105356</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="bayesian estimation of a large-scale macroeconomic policy agent-based model 大规模宏观经济政策基于主体模型的贝叶斯估计 sylvain barde journal of economic dynamics and control 10.1016/j.jedc.2026.105354" data-journal="journal-of-economic-dynamics-and-control" data-fields="macro public econometrics" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="bayesian estimation of a large-scale macroeconomic policy agent-based model 大规模宏观经济政策基于主体模型的贝叶斯估计 sylvain barde journal of economic dynamics and control 10.1016/j.jedc.2026.105354" data-journal="journal-of-economic-dynamics-and-control" data-fields="china macro public econometrics" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jedc.2026.105354">Bayesian estimation of a large-scale macroeconomic policy agent-based model</a></h3>
     <p class="title-zh">大规模宏观经济政策基于主体模型的贝叶斯估计</p>
     <p class="authors">Sylvain Barde</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105354">10.1016/j.jedc.2026.105354</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105354">10.1016/j.jedc.2026.105354</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="debasements and small coins: an untold story of commodity money 铸币贬损与小额硬币：商品货币的一段未述往事 gu jin, tao zhu journal of money, credit and banking 10.1111/jmcb.70062" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro history" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="debasements and small coins: an untold story of commodity money 铸币贬损与小额硬币：商品货币的一段未述往事 gu jin, tao zhu journal of money, credit and banking 10.1111/jmcb.70062" data-journal="journal-of-money-credit-and-banking" data-fields="china finance macro history" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70062">Debasements and Small Coins: An Untold Story of Commodity Money</a></h3>
     <p class="title-zh">铸币贬损与小额硬币：商品货币的一段未述往事</p>
     <p class="authors">GU JIN, TAO ZHU</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-04</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70062">10.1111/jmcb.70062</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70062">10.1111/jmcb.70062</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="optimal payment arrangement in a cash‐less monetary economy 无现金货币经济中的最优支付安排 nicola amendola, luis araujo, leo ferraris journal of money, credit and banking 10.1111/jmcb.70058" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="optimal payment arrangement in a cash‐less monetary economy 无现金货币经济中的最优支付安排 nicola amendola, luis araujo, leo ferraris journal of money, credit and banking 10.1111/jmcb.70058" data-journal="journal-of-money-credit-and-banking" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70058">Optimal Payment Arrangement in a Cash‐Less Monetary Economy</a></h3>
     <p class="title-zh">无现金货币经济中的最优支付安排</p>
     <p class="authors">NICOLA AMENDOLA, LUIS ARAUJO, LEO FERRARIS</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-03</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70058">10.1111/jmcb.70058</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70058">10.1111/jmcb.70058</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="monetary policy, employment shortfalls, and the natural rate hypothesis 货币政策、就业缺口与自然率假说 michael t. kiley journal of money, credit and banking 10.1111/jmcb.70067" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="monetary policy, employment shortfalls, and the natural rate hypothesis 货币政策、就业缺口与自然率假说 michael t. kiley journal of money, credit and banking 10.1111/jmcb.70067" data-journal="journal-of-money-credit-and-banking" data-fields="china finance macro labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70067">Monetary Policy, Employment Shortfalls, and the Natural Rate Hypothesis</a></h3>
     <p class="title-zh">货币政策、就业缺口与自然率假说</p>
     <p class="authors">MICHAEL T. KILEY</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-02</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70067">10.1111/jmcb.70067</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70067">10.1111/jmcb.70067</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="unstable prosperity: how globalization made the world economy more volatile 不稳定的繁荣：全球化如何加剧世界经济波动 enrique g. mendoza, vincenzo quadrini journal of monetary economics 10.1016/j.jmoneco.2026.103945" data-journal="journal-of-monetary-economics" data-fields="macro trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="unstable prosperity: how globalization made the world economy more volatile 不稳定的繁荣：全球化如何加剧世界经济波动 enrique g. mendoza, vincenzo quadrini journal of monetary economics 10.1016/j.jmoneco.2026.103945" data-journal="journal-of-monetary-economics" data-fields="china macro trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103945">Unstable prosperity: How globalization made the world economy more volatile</a></h3>
     <p class="title-zh">不稳定的繁荣：全球化如何加剧世界经济波动</p>
     <p class="authors">Enrique G. Mendoza, Vincenzo Quadrini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103945">10.1016/j.jmoneco.2026.103945</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103945">10.1016/j.jmoneco.2026.103945</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="editorial board 编委会  journal of monetary economics 10.1016/s0304-3932(26)00066-8" data-journal="journal-of-monetary-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="editorial board 编委会  journal of monetary economics 10.1016/s0304-3932(26)00066-8" data-journal="journal-of-monetary-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0304-3932(26)00066-8">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-3932(26)00066-8">10.1016/s0304-3932(26)00066-8</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-3932(26)00066-8">10.1016/s0304-3932(26)00066-8</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="racial disparities in crime and wealth 犯罪与财富中的种族差异 ayşe i̇mrohoroğlu, çağrı s. kumru, jiu lian journal of monetary economics 10.1016/j.jmoneco.2026.103942" data-journal="journal-of-monetary-economics" data-fields="macro inequality" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="racial disparities in crime and wealth 犯罪与财富中的种族差异 ayşe i̇mrohoroğlu, çağrı s. kumru, jiu lian journal of monetary economics 10.1016/j.jmoneco.2026.103942" data-journal="journal-of-monetary-economics" data-fields="china macro inequality" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103942">Racial disparities in crime and wealth</a></h3>
     <p class="title-zh">犯罪与财富中的种族差异</p>
     <p class="authors">Ayşe İmrohoroğlu, Çağrı S. Kumru, Jiu Lian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103942">10.1016/j.jmoneco.2026.103942</a><span class="pill">宏观与货币</span><span class="pill">不平等</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103942">10.1016/j.jmoneco.2026.103942</a><span class="pill">宏观与货币</span><span class="pill">不平等</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="monetary policy trade-offs amid global supply chain disruptions 全球供应链中断中的货币政策权衡 luis g. hernández-román journal of monetary economics 10.1016/j.jmoneco.2026.103934" data-journal="journal-of-monetary-economics" data-fields="macro public trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="monetary policy trade-offs amid global supply chain disruptions 全球供应链中断中的货币政策权衡 luis g. hernández-román journal of monetary economics 10.1016/j.jmoneco.2026.103934" data-journal="journal-of-monetary-economics" data-fields="china macro public trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103934">Monetary policy trade-offs amid global supply chain disruptions</a></h3>
     <p class="title-zh">全球供应链中断中的货币政策权衡</p>
     <p class="authors">Luis G. Hernández-Román</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103934">10.1016/j.jmoneco.2026.103934</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103934">10.1016/j.jmoneco.2026.103934</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="bank concentration, product market competition and productivity growth 银行集中度、产品市场竞争与生产率增长 lei ye journal of monetary economics 10.1016/j.jmoneco.2026.103946" data-journal="journal-of-monetary-economics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="bank concentration, product market competition and productivity growth 银行集中度、产品市场竞争与生产率增长 lei ye journal of monetary economics 10.1016/j.jmoneco.2026.103946" data-journal="journal-of-monetary-economics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103946">Bank concentration, product market competition and productivity growth</a></h3>
     <p class="title-zh">银行集中度、产品市场竞争与生产率增长</p>
     <p class="authors">Lei Ye</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103946">10.1016/j.jmoneco.2026.103946</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103946">10.1016/j.jmoneco.2026.103946</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="customer accumulation, returns to scale, and secular trends 客户积累、规模报酬与长期趋势 andrea chiavari journal of monetary economics 10.1016/j.jmoneco.2026.103935" data-journal="journal-of-monetary-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="customer accumulation, returns to scale, and secular trends 客户积累、规模报酬与长期趋势 andrea chiavari journal of monetary economics 10.1016/j.jmoneco.2026.103935" data-journal="journal-of-monetary-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103935">Customer accumulation, returns to scale, and secular trends</a></h3>
     <p class="title-zh">客户积累、规模报酬与长期趋势</p>
     <p class="authors">Andrea Chiavari</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103935">10.1016/j.jmoneco.2026.103935</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103935">10.1016/j.jmoneco.2026.103935</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="discussion of: “automated credit limit increases and consumer welfare” 讨论：“自动信用额度提升与消费者福利 joel p. flynn journal of monetary economics 10.1016/j.jmoneco.2026.103943" data-journal="journal-of-monetary-economics" data-fields="finance macro public behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="discussion of: “automated credit limit increases and consumer welfare” 讨论：“自动信用额度提升与消费者福利 joel p. flynn journal of monetary economics 10.1016/j.jmoneco.2026.103943" data-journal="journal-of-monetary-economics" data-fields="china finance macro public" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103943">Discussion of: “Automated credit limit increases and consumer welfare”</a></h3>
     <p class="title-zh">讨论：“自动信用额度提升与消费者福利</p>
     <p class="authors">Joel P. Flynn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103943">10.1016/j.jmoneco.2026.103943</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103943">10.1016/j.jmoneco.2026.103943</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="flattening governments, flattening growth: equalization–efficiency trade-off in jurisdictional reform 扁平化政府与扁平化增长：辖区改革中的均等化-效率权衡 shawn xiaoguang chen, pei li, saijie sun journal of urban economics 10.1016/j.jue.2026.103885" data-journal="journal-of-urban-economics" data-fields="macro public trade urban" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="flattening governments, flattening growth: equalization–efficiency trade-off in jurisdictional reform 扁平化政府与扁平化增长：辖区改革中的均等化-效率权衡 shawn xiaoguang chen, pei li, saijie sun journal of urban economics 10.1016/j.jue.2026.103885" data-journal="journal-of-urban-economics" data-fields="china macro public trade" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jue.2026.103885">Flattening governments, flattening growth: Equalization–efficiency trade-off in jurisdictional reform</a></h3>
     <p class="title-zh">扁平化政府与扁平化增长：辖区改革中的均等化-效率权衡</p>
     <p class="authors">Shawn Xiaoguang Chen, Pei Li, Saijie Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103885">10.1016/j.jue.2026.103885</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103885">10.1016/j.jue.2026.103885</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -386,31 +372,31 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">公共数据开放如何提升城市全要素生产率？——基于政府治理与交易成本的视角</p>
     <p class="authors">Fengxia Hao, Junhao Qiu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref在线日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687754">10.1080/00036846.2026.2687754</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="achieving win–win outcomes in productivity and pollution abatement through environmental tax reform: evidence from china 通过环境税改革实现生产率与污染减排的双赢：来自中国的证据 jingru chen, chuanyu zhou applied economics 10.1080/00036846.2026.2679654" data-journal="applied-economics" data-fields="china environment macro public" data-china="true" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="achieving win–win outcomes in productivity and pollution abatement through environmental tax reform: evidence from china 通过环境税改革实现生产率与污染减排的双赢：来自中国的证据 jingru chen, chuanyu zhou applied economics 10.1080/00036846.2026.2679654" data-journal="applied-economics" data-fields="china environment macro public" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2679654">Achieving win–win outcomes in productivity and pollution abatement through environmental tax reform: evidence from China</a></h3>
     <p class="title-zh">通过环境税改革实现生产率与污染减排的双赢：来自中国的证据</p>
     <p class="authors">Jingru Chen, Chuanyu Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref发布日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-10</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2679654">10.1080/00036846.2026.2679654</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="heterogeneous firms and the investment transmission mechanism of monetary policy 异质性企业与货币政策的投资传导机制 hanwen zhang, xiaoke sun applied economics 10.1080/00036846.2026.2686349" data-journal="applied-economics" data-fields="macro public theory firms" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="heterogeneous firms and the investment transmission mechanism of monetary policy 异质性企业与货币政策的投资传导机制 hanwen zhang, xiaoke sun applied economics 10.1080/00036846.2026.2686349" data-journal="applied-economics" data-fields="macro public theory firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2686349">Heterogeneous firms and the investment transmission mechanism of monetary policy</a></h3>
     <p class="title-zh">异质性企业与货币政策的投资传导机制</p>
     <p class="authors">Hanwen Zhang, Xiaoke Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref发布日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-10</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2686349">10.1080/00036846.2026.2686349</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -422,92 +408,80 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">贸易一体化对西非国家经济周期同步性的影响：对非洲大陆自由贸易区的启示</p>
     <p class="authors">Ahmed Racine Yago, Samba Diop, Cheikh Tidiane Ndiaye, Simplice A. Asongu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107461">10.1016/j.worlddev.2026.107461</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="climate policies, labor markets, and macroeconomic outcomes in emerging economies 新兴经济体的气候政策、劳动力市场与宏观经济结果 alan finkelstein shapiro, victoria nuguer journal of development economics 10.1016/j.jdeveco.2026.103782" data-journal="journal-of-development-economics" data-fields="environment development finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103782">Climate policies, labor markets, and macroeconomic outcomes in emerging economies</a></h3>
-    <p class="title-zh">新兴经济体的气候政策、劳动力市场与宏观经济结果</p>
-    <p class="authors">Alan Finkelstein Shapiro, Victoria Nuguer</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103782">10.1016/j.jdeveco.2026.103782</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="resource booms, revenue sharing, and growth 资源繁荣、收入分享与经济增长 margaret e. brehm, paul a. brehm, alecia cassidy, traviss cassidy journal of development economics 10.1016/j.jdeveco.2026.103811" data-journal="journal-of-development-economics" data-fields="development macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="resource booms, revenue sharing, and growth 资源繁荣、收入分享与经济增长 margaret e. brehm, paul a. brehm, alecia cassidy, traviss cassidy journal of development economics 10.1016/j.jdeveco.2026.103811" data-journal="journal-of-development-economics" data-fields="china development macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103811">Resource booms, revenue sharing, and growth</a></h3>
     <p class="title-zh">资源繁荣、收入分享与经济增长</p>
     <p class="authors">Margaret E. Brehm, Paul A. Brehm, Alecia Cassidy, Traviss Cassidy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103811">10.1016/j.jdeveco.2026.103811</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103811">10.1016/j.jdeveco.2026.103811</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="government debt management and inflation with real and nominal bonds 实际与名义债券下的政府债务管理与通胀 lukas schmid, vytautas valaitis, alessandro t. villa journal of financial economics 10.1016/j.jfineco.2026.104293" data-journal="journal-of-financial-economics" data-fields="finance macro public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="government debt management and inflation with real and nominal bonds 实际与名义债券下的政府债务管理与通胀 lukas schmid, vytautas valaitis, alessandro t. villa journal of financial economics 10.1016/j.jfineco.2026.104293" data-journal="journal-of-financial-economics" data-fields="china finance macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104293">Government debt management and inflation with real and nominal bonds</a></h3>
     <p class="title-zh">实际与名义债券下的政府债务管理与通胀</p>
     <p class="authors">Lukas Schmid, Vytautas Valaitis, Alessandro T. Villa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104293">10.1016/j.jfineco.2026.104293</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104293">10.1016/j.jfineco.2026.104293</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="fiscal policy and inflation in the euro area 欧元区财政政策与通货膨胀 guido ascari, dennis bonam, lorenzo mori, andra smadu journal of international economics 10.1016/j.jinteco.2026.104281" data-journal="journal-of-international-economics" data-fields="macro public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="fiscal policy and inflation in the euro area 欧元区财政政策与通货膨胀 guido ascari, dennis bonam, lorenzo mori, andra smadu journal of international economics 10.1016/j.jinteco.2026.104281" data-journal="journal-of-international-economics" data-fields="china macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104281">Fiscal policy and inflation in the Euro Area</a></h3>
     <p class="title-zh">欧元区财政政策与通货膨胀</p>
     <p class="authors">Guido Ascari, Dennis Bonam, Lorenzo Mori, Andra Smadu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104281">10.1016/j.jinteco.2026.104281</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104281">10.1016/j.jinteco.2026.104281</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="air access to foreign markets and export-biased growth: evidence from business entries 航空通达性与出口偏向型增长：基于企业进入的证据 yangming bao, jie li journal of international economics 10.1016/j.jinteco.2026.104270" data-journal="journal-of-international-economics" data-fields="finance macro trade" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="air access to foreign markets and export-biased growth: evidence from business entries 航空通达性与出口偏向型增长：基于企业进入的证据 yangming bao, jie li journal of international economics 10.1016/j.jinteco.2026.104270" data-journal="journal-of-international-economics" data-fields="china finance macro trade" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104270">Air access to foreign markets and export-biased growth: Evidence from business entries</a></h3>
     <p class="title-zh">航空通达性与出口偏向型增长：基于企业进入的证据</p>
     <p class="authors">Yangming Bao, Jie Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104270">10.1016/j.jinteco.2026.104270</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104270">10.1016/j.jinteco.2026.104270</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="u.s. monetary spillovers to emerging markets: both policy drivers and vulnerabilities matter 美国货币政策对新兴市场的溢出效应：政策驱动因素与脆弱性均至关重要 shaghil ahmed, özge akıncı, albert queralto journal of international economics 10.1016/j.jinteco.2026.104288" data-journal="journal-of-international-economics" data-fields="finance macro public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="u.s. monetary spillovers to emerging markets: both policy drivers and vulnerabilities matter 美国货币政策对新兴市场的溢出效应：政策驱动因素与脆弱性均至关重要 shaghil ahmed, özge akıncı, albert queralto journal of international economics 10.1016/j.jinteco.2026.104288" data-journal="journal-of-international-economics" data-fields="china finance macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104288">U.S. monetary spillovers to emerging markets: Both policy drivers and vulnerabilities matter</a></h3>
     <p class="title-zh">美国货币政策对新兴市场的溢出效应：政策驱动因素与脆弱性均至关重要</p>
     <p class="authors">Shaghil Ahmed, Özge Akıncı, Albert Queralto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104288">10.1016/j.jinteco.2026.104288</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104288">10.1016/j.jinteco.2026.104288</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="introduction: nber international seminar on macroeconomics nber国际宏观经济学研讨会导论 jeffrey frankel, hélène rey journal of international economics 10.1016/j.jinteco.2026.104295" data-journal="journal-of-international-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="introduction: nber international seminar on macroeconomics nber国际宏观经济学研讨会导论 jeffrey frankel, hélène rey journal of international economics 10.1016/j.jinteco.2026.104295" data-journal="journal-of-international-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104295">Introduction: NBER International Seminar on Macroeconomics</a></h3>
     <p class="title-zh">NBER国际宏观经济学研讨会导论</p>
     <p class="authors">Jeffrey Frankel, Hélène Rey</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104295">10.1016/j.jinteco.2026.104295</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104295">10.1016/j.jinteco.2026.104295</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -518,7 +492,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">长江三角洲的农业增长：1393–1953</p>
     <p class="authors">Runzhuo Zhai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101763">10.1016/j.eeh.2026.101763</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -530,7 +504,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">战争的成本：重新计算太平洋战争时期秘鲁的通货膨胀</p>
     <p class="authors">Gabriel Chimoy, Romina Garibay, Ricardo Quineche</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101769">10.1016/j.eeh.2026.101769</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -542,7 +516,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣</p>
     <p class="authors">Vincent Geloso, Jamie Bologna Pavlik, Yang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01404-7">10.1007/s11127-026-01404-7</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -554,7 +528,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">政治权力与财富分配：反腐败改革如何重塑不平等</p>
     <p class="authors">Denis Ivanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01408-3">10.1007/s11127-026-01408-3</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -566,20 +540,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">亚当·斯密与封建欧洲城镇的角色</p>
     <p class="authors">Mark Koyama</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01407-4">10.1007/s11127-026-01407-4</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="from housing gains to pension losses: micro-macro integration to reveal wealth inequality dynamics in chile 从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态 bastián castro nofal, ignacio flores, pablo gutiérrez cubillos journal of public economics 10.1016/j.jpubeco.2026.105665" data-journal="journal-of-public-economics" data-fields="macro public urban inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="from housing gains to pension losses: micro-macro integration to reveal wealth inequality dynamics in chile 从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态 bastián castro nofal, ignacio flores, pablo gutiérrez cubillos journal of public economics 10.1016/j.jpubeco.2026.105665" data-journal="journal-of-public-economics" data-fields="china macro public urban" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105665">From housing gains to pension losses: Micro-macro integration to reveal wealth inequality dynamics in Chile</a></h3>
     <p class="title-zh">从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态</p>
     <p class="authors">Bastián Castro Nofal, Ignacio Flores, Pablo Gutiérrez Cubillos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105665">10.1016/j.jpubeco.2026.105665</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105665">10.1016/j.jpubeco.2026.105665</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -590,7 +564,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">气候挑战是否证明了去增长的合理性？</p>
     <p class="authors">André Grimaud, Gilles Lafforgue, Luc Rouge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113070">10.1016/j.econlet.2026.113070</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -602,7 +576,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">论金钱激励与说谎行为的稳健性</p>
     <p class="authors">Michalis Drouvelis, Zeyu Qiu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105379">10.1016/j.euroecorev.2026.105379</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -614,32 +588,32 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">解构趋势通胀：来自粘性与弹性价格因子相关不可观测成分模型的证据</p>
     <p class="authors">Mengheng Li, Ivan Mendieta-Muñoz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105377">10.1016/j.euroecorev.2026.105377</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="commodity price uncertainty comovement: does it matter for global economic growth? 大宗商品价格不确定性的联动性：对全球经济增长重要吗？ laurent ferrara, aikaterini karadimitropoulou, athanasios triantafyllou european economic review 10.1016/j.euroecorev.2026.105339" data-journal="european-economic-review" data-fields="agriculture macro trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="commodity price uncertainty comovement: does it matter for global economic growth? 大宗商品价格不确定性的联动性：对全球经济增长重要吗？ laurent ferrara, aikaterini karadimitropoulou, athanasios triantafyllou european economic review 10.1016/j.euroecorev.2026.105339" data-journal="european-economic-review" data-fields="agriculture macro trade" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105339">Commodity price uncertainty comovement: Does it matter for global economic growth?</a></h3>
     <p class="title-zh">大宗商品价格不确定性的联动性：对全球经济增长重要吗？</p>
     <p class="authors">Laurent Ferrara, Aikaterini Karadimitropoulou, Athanasios Triantafyllou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-07-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-07-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105339">10.1016/j.euroecorev.2026.105339</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="illiquid lemon markets and the macroeconomy 非流动性柠檬市场与宏观经济 aime bierdel, andres drenik, juan herreno, pablo ottonello journal of political economy 10.1086/742435" data-journal="journal-of-political-economy" data-fields="finance macro public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="illiquid lemon markets and the macroeconomy 非流动性柠檬市场与宏观经济 aime bierdel, andres drenik, juan herreno, pablo ottonello journal of political economy 10.1086/742435" data-journal="journal-of-political-economy" data-fields="china finance macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742435">Illiquid Lemon Markets and the Macroeconomy</a></h3>
     <p class="title-zh">非流动性柠檬市场与宏观经济</p>
     <p class="authors">Aime Bierdel, Andres Drenik, Juan Herreno, Pablo Ottonello</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>Crossref在线日期 2026-06-02</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742435">10.1086/742435</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742435">10.1086/742435</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -650,7 +624,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">经理薪酬不平等与市场势力</p>
     <p class="authors">Renjie Bao, Jan De Loecker, Jan Eeckhout</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag035">10.1093/restud/rdag035</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -662,31 +636,31 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">收入不平等与就业创造</p>
     <p class="authors">Sebastian Doerr, Thomas Drechsel, Donggyu Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag053">10.1093/restud/rdag053</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="quality adjustment at scale: hedonic versus exact demand-based price indices 大规模质量调整：享乐指数与精确需求价格指数的比较 gabriel ehrlich, john haltiwanger, ron jarmin, david johnson, ed olivares 等 american economic review 10.1257/aer.20230766" data-journal="american-economic-review" data-fields="agriculture macro econometrics theory" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="quality adjustment at scale: hedonic versus exact demand-based price indices 大规模质量调整：享乐指数与精确需求价格指数的比较 gabriel ehrlich, john haltiwanger, ron jarmin, david johnson, ed olivares 等 american economic review 10.1257/aer.20230766" data-journal="american-economic-review" data-fields="agriculture macro econometrics theory" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.20230766">Quality Adjustment at Scale: Hedonic versus Exact Demand-Based Price Indices</a></h3>
     <p class="title-zh">大规模质量调整：享乐指数与精确需求价格指数的比较</p>
     <p class="authors">Gabriel Ehrlich, John Haltiwanger, Ron Jarmin, David Johnson, Ed Olivares 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230766">10.1257/aer.20230766</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="identifying preference for early resolution from asset prices 从资产价格中识别对早期解决的偏好 hengjie ai, ravi bansal, hongye guo, amir yaron american economic review 10.1257/aer.20221351" data-journal="american-economic-review" data-fields="agriculture finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="identifying preference for early resolution from asset prices 从资产价格中识别对早期解决的偏好 hengjie ai, ravi bansal, hongye guo, amir yaron american economic review 10.1257/aer.20221351" data-journal="american-economic-review" data-fields="agriculture finance macro" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.20221351">Identifying Preference for Early Resolution from Asset Prices</a></h3>
     <p class="title-zh">从资产价格中识别对早期解决的偏好</p>
     <p class="authors">Hengjie Ai, Ravi Bansal, Hongye Guo, Amir Yaron</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20221351">10.1257/aer.20221351</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -698,44 +672,44 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">农业服务外包与小农户水稻种植中的风险降低：来自中国的证据及全球启示</p>
     <p class="authors">Jian Zhang, Ashok K. Mishra, Gaoli Zhu, Awais Jabbar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>Crossref在线日期 2026-06-12</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70096">10.1002/aepp.70096</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="climate and feeding strategies: an analysis of productivity growth in new zealand dairy 气候与饲养策略：新西兰乳业生产率增长分析 mario fernandez, mark neal, gavan dwyer australian journal of agricultural and resource economics 10.1111/1467-8489.70127" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="climate and feeding strategies: an analysis of productivity growth in new zealand dairy 气候与饲养策略：新西兰乳业生产率增长分析 mario fernandez, mark neal, gavan dwyer australian journal of agricultural and resource economics 10.1111/1467-8489.70127" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment macro firms" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70127">Climate and Feeding Strategies: An Analysis of Productivity Growth in New Zealand Dairy</a></h3>
     <p class="title-zh">气候与饲养策略：新西兰乳业生产率增长分析</p>
     <p class="authors">Mario Fernandez, Mark Neal, Gavan Dwyer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>Crossref在线日期 2026-06-12</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70127">10.1111/1467-8489.70127</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="introducing and terminating monetary incentives in non-regenerating forests: insights from a framed field experiment 非再生森林中货币激励的引入与终止：来自框架田野实验的启示 nils christian hoenow, gunther bensch, michael kirk environmental and resource economics 10.1007/s10640-026-01095-0" data-journal="environmental-and-resource-economics" data-fields="agriculture environment finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="introducing and terminating monetary incentives in non-regenerating forests: insights from a framed field experiment 非再生森林中货币激励的引入与终止：来自框架田野实验的启示 nils christian hoenow, gunther bensch, michael kirk environmental and resource economics 10.1007/s10640-026-01095-0" data-journal="environmental-and-resource-economics" data-fields="agriculture environment finance macro" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10640-026-01095-0">Introducing and Terminating Monetary Incentives in Non-Regenerating Forests: Insights from a Framed Field Experiment</a></h3>
     <p class="title-zh">非再生森林中货币激励的引入与终止：来自框架田野实验的启示</p>
     <p class="authors">Nils Christian Hoenow, Gunther Bensch, Michael Kirk</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>Crossref发布日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>发布日期 2026-06-10</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01095-0">10.1007/s10640-026-01095-0</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the green peace dividend: the effects of militarisation on emissions and the green transition 绿色和平红利：军事化对排放与绿色转型的影响 balázs markó environmental and resource economics 10.1007/s10640-026-01089-y" data-journal="environmental-and-resource-economics" data-fields="environment macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the green peace dividend: the effects of militarisation on emissions and the green transition 绿色和平红利：军事化对排放与绿色转型的影响 balázs markó environmental and resource economics 10.1007/s10640-026-01089-y" data-journal="environmental-and-resource-economics" data-fields="environment macro firms" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10640-026-01089-y">The Green Peace Dividend: The Effects of Militarisation on Emissions and the Green Transition</a></h3>
     <p class="title-zh">绿色和平红利：军事化对排放与绿色转型的影响</p>
     <p class="authors">Balázs Markó</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>Crossref发布日期 2026-05-28</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01089-y">10.1007/s10640-026-01089-y</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>发布日期 2026-05-28</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01089-y">10.1007/s10640-026-01089-y</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
@@ -746,7 +720,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">专业知识与“诀窍”对企业生产率的作用：来自马业部门的证据</p>
     <p class="authors">Pia Nilsson, Hans Andersson, Tobias Heldt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Review of Agricultural Economics</span><span>Crossref在线日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Review of Agricultural Economics</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/erae/jbag011">10.1093/erae/jbag011</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -758,7 +732,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">土地整理、产权登记与土地租赁市场：来自越南农村的证据</p>
     <p class="authors">Kim Lan Nguyen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70126">10.1111/agec.70126</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -770,7 +744,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">食品价格通胀预测：基于宏观经济自回归随机森林方法的洞见</p>
     <p class="authors">William McWilliams, Shamar L. Stewart, Olga Isengildina Massa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103115">10.1016/j.foodpol.2026.103115</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -782,7 +756,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">管理型城市化与农业生产力：来自中国新型城镇化试点项目的证据</p>
     <p class="authors">Tianxiang Li, Yuanyi Liao, Tomas Baležentis, Zhiyang Shen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103129">10.1016/j.foodpol.2026.103129</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -794,164 +768,140 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">信息偏好、参照点与享乐编辑：实验证据</p>
     <p class="authors">Noemi Peter, Mark van Oldeniel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10052">10.1017/eec.2026.10052</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="virtual currencies in online gaming increase the willingness to pay for loot boxes: an experimental analysis 网络游戏中的虚拟货币提升对开箱付费意愿：一项实验分析 niccolò toccafondi, roberto di paolo, sibilla di guida experimental economics 10.1017/eec.2026.10049" data-journal="experimental-economics" data-fields="environment macro public theory" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="virtual currencies in online gaming increase the willingness to pay for loot boxes: an experimental analysis 网络游戏中的虚拟货币提升对开箱付费意愿：一项实验分析 niccolò toccafondi, roberto di paolo, sibilla di guida experimental economics 10.1017/eec.2026.10049" data-journal="experimental-economics" data-fields="environment macro public theory" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1017/eec.2026.10049">Virtual currencies in online gaming increase the willingness to pay for loot boxes: an experimental analysis</a></h3>
     <p class="title-zh">网络游戏中的虚拟货币提升对开箱付费意愿：一项实验分析</p>
     <p class="authors">Niccolò Toccafondi, Roberto Di Paolo, Sibilla Di Guida</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>Crossref发布日期 2026-05-18</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>发布日期 2026-05-18</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10049">10.1017/eec.2026.10049</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="long‐term debt and short‐term rates: fixed‐rate mortgages and monetary transmission 长期债务与短期利率：固定利率抵押贷款与货币政策传导 alessia de stefani, rui c. mano journal of money, credit and banking 10.1111/jmcb.70069" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro public theory" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="long‐term debt and short‐term rates: fixed‐rate mortgages and monetary transmission 长期债务与短期利率：固定利率抵押贷款与货币政策传导 alessia de stefani, rui c. mano journal of money, credit and banking 10.1111/jmcb.70069" data-journal="journal-of-money-credit-and-banking" data-fields="china finance macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70069">Long‐Term Debt and Short‐Term Rates: Fixed‐Rate Mortgages and Monetary Transmission</a></h3>
     <p class="title-zh">长期债务与短期利率：固定利率抵押贷款与货币政策传导</p>
     <p class="authors">ALESSIA DE STEFANI, RUI C. MANO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-12</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70069">10.1111/jmcb.70069</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70069">10.1111/jmcb.70069</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a heterogeneous agent model of energy consumption and energy conservation 能源消费与节能的异质性主体模型 volha audzei, ivan sutóris journal of money, credit and banking 10.1111/jmcb.70070" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture environment finance macro" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1111/jmcb.70070">A Heterogeneous Agent Model of Energy Consumption and Energy Conservation</a></h3>
-    <p class="title-zh">能源消费与节能的异质性主体模型</p>
-    <p class="authors">VOLHA AUDZEI, IVAN SUTÓRIS</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-10</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70070">10.1111/jmcb.70070</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="climate policies, macroprudential regulation, and the welfare cost of business cycles 气候政策、宏观审慎监管与商业周期的福利成本 barbara annicchiarico, marco carli, francesca diluiso journal of money, credit and banking 10.1111/jmcb.70064" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture environment finance macro" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1111/jmcb.70064">Climate Policies, Macroprudential Regulation, and the Welfare Cost of Business Cycles</a></h3>
-    <p class="title-zh">气候政策、宏观审慎监管与商业周期的福利成本</p>
-    <p class="authors">BARBARA ANNICCHIARICO, MARCO CARLI, FRANCESCA DILUISO</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-04</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70064">10.1111/jmcb.70064</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="another look at the (ir)relevance of long‐run risks for equity risk premia 长期风险对股权风险溢价的（不）相关性再审视 paulo maio journal of money, credit and banking 10.1111/jmcb.70065" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture finance macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="another look at the (ir)relevance of long‐run risks for equity risk premia 长期风险对股权风险溢价的（不）相关性再审视 paulo maio journal of money, credit and banking 10.1111/jmcb.70065" data-journal="journal-of-money-credit-and-banking" data-fields="china agriculture finance macro" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70065">Another Look at the (Ir)Relevance of Long‐Run Risks for Equity Risk Premia</a></h3>
     <p class="title-zh">长期风险对股权风险溢价的（不）相关性再审视</p>
     <p class="authors">PAULO MAIO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-04</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70065">10.1111/jmcb.70065</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70065">10.1111/jmcb.70065</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="wasserstein worst-case scenarios and asset pricing wasserstein最坏情形与资产定价 zhonghui zhang, fushu luan, chihwa kao journal of monetary economics 10.1016/j.jmoneco.2026.103955" data-journal="journal-of-monetary-economics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="wasserstein worst-case scenarios and asset pricing wasserstein最坏情形与资产定价 zhonghui zhang, fushu luan, chihwa kao journal of monetary economics 10.1016/j.jmoneco.2026.103955" data-journal="journal-of-monetary-economics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103955">Wasserstein worst-case scenarios and asset pricing</a></h3>
     <p class="title-zh">Wasserstein最坏情形与资产定价</p>
     <p class="authors">Zhonghui Zhang, Fushu Luan, Chihwa Kao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103955">10.1016/j.jmoneco.2026.103955</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103955">10.1016/j.jmoneco.2026.103955</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="comment on: is it ai or data that drives market power? 评论：驱动市场力量的是人工智能还是数据？ miao ben zhang journal of monetary economics 10.1016/j.jmoneco.2026.103926" data-journal="journal-of-monetary-economics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="comment on: is it ai or data that drives market power? 评论：驱动市场力量的是人工智能还是数据？ miao ben zhang journal of monetary economics 10.1016/j.jmoneco.2026.103926" data-journal="journal-of-monetary-economics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103926">Comment on: Is it AI or data that drives market power?</a></h3>
     <p class="title-zh">评论：驱动市场力量的是人工智能还是数据？</p>
     <p class="authors">Miao Ben Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103926">10.1016/j.jmoneco.2026.103926</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103926">10.1016/j.jmoneco.2026.103926</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="staffing agencies and in-house bargaining 人事代理机构与内部谈判 agneta berge, ann-sofie kolm, per krusell journal of monetary economics 10.1016/j.jmoneco.2026.103944" data-journal="journal-of-monetary-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="staffing agencies and in-house bargaining 人事代理机构与内部谈判 agneta berge, ann-sofie kolm, per krusell journal of monetary economics 10.1016/j.jmoneco.2026.103944" data-journal="journal-of-monetary-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103944">Staffing agencies and in-house bargaining</a></h3>
     <p class="title-zh">人事代理机构与内部谈判</p>
     <p class="authors">Agneta Berge, Ann-Sofie Kolm, Per Krusell</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103944">10.1016/j.jmoneco.2026.103944</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103944">10.1016/j.jmoneco.2026.103944</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="comment on “the impact of ai on global knowledge work” by enrique ide and eduard talamàs 评述：enrique ide与eduard talamàs的《人工智能对全球知识工作的影响》 daniel rock journal of monetary economics 10.1016/j.jmoneco.2026.103947" data-journal="journal-of-monetary-economics" data-fields="macro trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="comment on “the impact of ai on global knowledge work” by enrique ide and eduard talamàs 评述：enrique ide与eduard talamàs的《人工智能对全球知识工作的影响》 daniel rock journal of monetary economics 10.1016/j.jmoneco.2026.103947" data-journal="journal-of-monetary-economics" data-fields="china macro trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103947">Comment on “The impact of AI on global knowledge work” by Enrique Ide and Eduard Talamàs</a></h3>
     <p class="title-zh">评述：Enrique Ide与Eduard Talamàs的《人工智能对全球知识工作的影响》</p>
     <p class="authors">Daniel Rock</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103947">10.1016/j.jmoneco.2026.103947</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103947">10.1016/j.jmoneco.2026.103947</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="disincentive effects of unemployment insurance benefits 失业保险金的抑制效应 andreas hornstein, marios karabarbounis, andré kurmann, etienne lalé, lien ta journal of monetary economics 10.1016/j.jmoneco.2026.103958" data-journal="journal-of-monetary-economics" data-fields="macro labor" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="disincentive effects of unemployment insurance benefits 失业保险金的抑制效应 andreas hornstein, marios karabarbounis, andré kurmann, etienne lalé, lien ta journal of monetary economics 10.1016/j.jmoneco.2026.103958" data-journal="journal-of-monetary-economics" data-fields="china macro labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103958">Disincentive effects of unemployment insurance benefits</a></h3>
     <p class="title-zh">失业保险金的抑制效应</p>
     <p class="authors">Andreas Hornstein, Marios Karabarbounis, André Kurmann, Etienne Lalé, Lien Ta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103958">10.1016/j.jmoneco.2026.103958</a><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103958">10.1016/j.jmoneco.2026.103958</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="opportunistic upskilling in european labour markets—evidence from a wide replication 欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据 anil yadav, john mchale, jefferson r. b. galetti journal of applied econometrics 10.1002/jae.70072" data-journal="journal-of-applied-econometrics" data-fields="finance macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="opportunistic upskilling in european labour markets—evidence from a wide replication 欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据 anil yadav, john mchale, jefferson r. b. galetti journal of applied econometrics 10.1002/jae.70072" data-journal="journal-of-applied-econometrics" data-fields="china finance macro labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70072">Opportunistic Upskilling in European Labour Markets—Evidence From a Wide Replication</a></h3>
     <p class="title-zh">欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据</p>
     <p class="authors">Anil Yadav, John McHale, Jefferson R. B. Galetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>Crossref在线日期 2026-06-09</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70072">10.1002/jae.70072</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70072">10.1002/jae.70072</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="multivariate trend inflation in the united states and the euro area 美国和欧元区的多元趋势通胀 max‐sebastian dovì journal of applied econometrics 10.1002/jae.70064" data-journal="journal-of-applied-econometrics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="multivariate trend inflation in the united states and the euro area 美国和欧元区的多元趋势通胀 max‐sebastian dovì journal of applied econometrics 10.1002/jae.70064" data-journal="journal-of-applied-econometrics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70064">Multivariate Trend Inflation in the United States and the Euro Area</a></h3>
     <p class="title-zh">美国和欧元区的多元趋势通胀</p>
     <p class="authors">Max‐Sebastian Dovì</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70064">10.1002/jae.70064</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70064">10.1002/jae.70064</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="government demand and firm growth 政府需求与企业成长 bernard hoekman, marco sanfilippo, filippo santi, rohit ticku journal of development economics 10.1016/j.jdeveco.2026.103832" data-journal="journal-of-development-economics" data-fields="development macro public firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="government demand and firm growth 政府需求与企业成长 bernard hoekman, marco sanfilippo, filippo santi, rohit ticku journal of development economics 10.1016/j.jdeveco.2026.103832" data-journal="journal-of-development-economics" data-fields="china development macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103832">Government demand and firm growth</a></h3>
     <p class="title-zh">政府需求与企业成长</p>
     <p class="authors">Bernard Hoekman, Marco Sanfilippo, Filippo Santi, Rohit Ticku</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>Crossref发布日期 2026-09-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103832">10.1016/j.jdeveco.2026.103832</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103832">10.1016/j.jdeveco.2026.103832</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -962,127 +912,127 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">社会政治种族/民族敌意的真实效应：AAPI仇恨事件期间的共同基金经理表现</p>
     <p class="authors">Vikas Agarwal, Wei Jiang, Yuchen Luo, Hong Zou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag052">10.1093/rfs/hhag052</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="monetary policy transmission through the exchange rate factor structure 汇率因子结构下的货币政策传导 erik loualiche, alexandre r. pecora, fabricius somogyi, colin ward journal of financial economics 10.1016/j.jfineco.2026.104305" data-journal="journal-of-financial-economics" data-fields="finance macro public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="monetary policy transmission through the exchange rate factor structure 汇率因子结构下的货币政策传导 erik loualiche, alexandre r. pecora, fabricius somogyi, colin ward journal of financial economics 10.1016/j.jfineco.2026.104305" data-journal="journal-of-financial-economics" data-fields="china finance macro public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104305">Monetary policy transmission through the exchange rate factor structure</a></h3>
     <p class="title-zh">汇率因子结构下的货币政策传导</p>
     <p class="authors">Erik Loualiche, Alexandre R. Pecora, Fabricius Somogyi, Colin Ward</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104305">10.1016/j.jfineco.2026.104305</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104305">10.1016/j.jfineco.2026.104305</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="financial frictions, fx reserves, and exchange rate management with local-currency debt 金融摩擦、外汇储备与本地货币债务下的汇率管理 sauhard srivastava journal of international economics 10.1016/j.jinteco.2026.104282" data-journal="journal-of-international-economics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="financial frictions, fx reserves, and exchange rate management with local-currency debt 金融摩擦、外汇储备与本地货币债务下的汇率管理 sauhard srivastava journal of international economics 10.1016/j.jinteco.2026.104282" data-journal="journal-of-international-economics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104282">Financial frictions, FX reserves, and exchange rate management with local-currency debt</a></h3>
     <p class="title-zh">金融摩擦、外汇储备与本地货币债务下的汇率管理</p>
     <p class="authors">Sauhard Srivastava</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104282">10.1016/j.jinteco.2026.104282</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104282">10.1016/j.jinteco.2026.104282</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the golden age of al‐andalus? living standards in muslim iberia (950–1200) 安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年） antónio henriques economic history review 10.1111/ehr.70128" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the golden age of al‐andalus? living standards in muslim iberia (950–1200) 安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年） antónio henriques economic history review 10.1111/ehr.70128" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70128">The Golden Age of Al‐Andalus? Living standards in Muslim Iberia (950–1200)</a></h3>
     <p class="title-zh">安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年）</p>
     <p class="authors">António Henriques</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>Crossref发布日期 2026-05-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70128">10.1111/ehr.70128</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the bread of toledo: prices and political economy, 1535–1800 托莱多的面包：价格与政治经济学，1535–1800 mauricio drelichman, david gonzález agudo economic history review 10.1111/ehr.70130" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the bread of toledo: prices and political economy, 1535–1800 托莱多的面包：价格与政治经济学，1535–1800 mauricio drelichman, david gonzález agudo economic history review 10.1111/ehr.70130" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70130">The bread of Toledo: Prices and political economy, 1535–1800</a></h3>
     <p class="title-zh">托莱多的面包：价格与政治经济学，1535–1800</p>
     <p class="authors">Mauricio Drelichman, David González Agudo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>Crossref发布日期 2026-05-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70130">10.1111/ehr.70130</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the depth and breadth of capitalism at the cape 开普地区资本主义的深度与广度 edward kerby, lloyd melusi maphosa economic history review 10.1111/ehr.70123" data-journal="economic-history-review" data-fields="finance macro urban behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the depth and breadth of capitalism at the cape 开普地区资本主义的深度与广度 edward kerby, lloyd melusi maphosa economic history review 10.1111/ehr.70123" data-journal="economic-history-review" data-fields="finance macro urban behavior" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70123">The depth and breadth of capitalism at the Cape</a></h3>
     <p class="title-zh">开普地区资本主义的深度与广度</p>
     <p class="authors">Edward Kerby, Lloyd Melusi Maphosa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>Crossref发布日期 2026-05-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-24</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70123">10.1111/ehr.70123</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the effects of fiscal rules on building permits and economic activity: quasi-experimental evidence 财政规则对建筑许可和经济活动的影响：准实验证据 marco fregoni, marco leonardi, sauro mocetti journal of law, economics &amp; organization 10.1093/jleo/ewag015" data-journal="journal-of-law-economics-and-organization" data-fields="development finance macro labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the effects of fiscal rules on building permits and economic activity: quasi-experimental evidence 财政规则对建筑许可和经济活动的影响：准实验证据 marco fregoni, marco leonardi, sauro mocetti journal of law, economics &amp; organization 10.1093/jleo/ewag015" data-journal="journal-of-law-economics-and-organization" data-fields="china development finance macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jleo/ewag015">The effects of fiscal rules on building permits and economic activity: quasi-experimental evidence</a></h3>
     <p class="title-zh">财政规则对建筑许可和经济活动的影响：准实验证据</p>
     <p class="authors">Marco Fregoni, Marco Leonardi, Sauro Mocetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>Crossref发布日期 2026-05-21</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag015">10.1093/jleo/ewag015</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>发布日期 2026-05-21</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag015">10.1093/jleo/ewag015</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a unified approach to estimating production functions: proxy variables and dynamic panel data 生产函数估计的统一方法：代理变量与动态面板数据 jose miguel abito, konstantinos metaxoglou journal of industrial economics 10.1111/joie.70033" data-journal="journal-of-industrial-economics" data-fields="macro econometrics theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="a unified approach to estimating production functions: proxy variables and dynamic panel data 生产函数估计的统一方法：代理变量与动态面板数据 jose miguel abito, konstantinos metaxoglou journal of industrial economics 10.1111/joie.70033" data-journal="journal-of-industrial-economics" data-fields="china macro econometrics theory" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/joie.70033">A Unified Approach to Estimating Production Functions: Proxy Variables and Dynamic Panel Data</a></h3>
     <p class="title-zh">生产函数估计的统一方法：代理变量与动态面板数据</p>
     <p class="authors">Jose Miguel Abito, Konstantinos Metaxoglou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>Crossref在线日期 2026-06-10</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70033">10.1111/joie.70033</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70033">10.1111/joie.70033</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="existence and calculation of optimal monetary equilibria on overlapping generations economies 重叠世代经济中最优货币均衡的存在性与计算 leandro lyra braga dognini journal of mathematical economics 10.1016/j.jmateco.2026.103255" data-journal="journal-of-mathematical-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="existence and calculation of optimal monetary equilibria on overlapping generations economies 重叠世代经济中最优货币均衡的存在性与计算 leandro lyra braga dognini journal of mathematical economics 10.1016/j.jmateco.2026.103255" data-journal="journal-of-mathematical-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103255">Existence and calculation of optimal monetary equilibria on overlapping generations economies</a></h3>
     <p class="title-zh">重叠世代经济中最优货币均衡的存在性与计算</p>
     <p class="authors">Leandro Lyra Braga Dognini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103255">10.1016/j.jmateco.2026.103255</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103255">10.1016/j.jmateco.2026.103255</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="paying £1(£5) or nothing in dictator games: unexpected differences 独裁者游戏中支付1英镑（5英镑）与零支付的意外差异 pablo brañas-garza, antonio m. espín, diego jorrat international journal of game theory 10.1007/s00182-026-00995-1" data-journal="international-journal-of-game-theory" data-fields="macro trade theory behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="paying £1(£5) or nothing in dictator games: unexpected differences 独裁者游戏中支付1英镑（5英镑）与零支付的意外差异 pablo brañas-garza, antonio m. espín, diego jorrat international journal of game theory 10.1007/s00182-026-00995-1" data-journal="international-journal-of-game-theory" data-fields="macro trade theory behavior" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-00995-1">Paying £1(£5) or nothing in dictator games: unexpected differences</a></h3>
     <p class="title-zh">独裁者游戏中支付1英镑（5英镑）与零支付的意外差异</p>
     <p class="authors">Pablo Brañas-Garza, Antonio M. Espín, Diego Jorrat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>Crossref发布日期 2026-05-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-22</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00995-1">10.1007/s00182-026-00995-1</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="following the money: an econometric investigation into health valuations 追踪资金流向：健康价值评估的计量经济学研究 tinna laufey ásgeirsdóttir, viktor andri kárason scandinavian journal of economics 10.1111/sjoe.70026" data-journal="scandinavian-journal-of-economics" data-fields="development macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="following the money: an econometric investigation into health valuations 追踪资金流向：健康价值评估的计量经济学研究 tinna laufey ásgeirsdóttir, viktor andri kárason scandinavian journal of economics 10.1111/sjoe.70026" data-journal="scandinavian-journal-of-economics" data-fields="development macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/sjoe.70026">Following the money: an econometric investigation into health valuations</a></h3>
     <p class="title-zh">追踪资金流向：健康价值评估的计量经济学研究</p>
     <p class="authors">Tinna Laufey Ásgeirsdóttir, Viktor Andri Kárason</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>Crossref发布日期 2026-05-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>发布日期 2026-05-21</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70026">10.1111/sjoe.70026</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -1094,7 +1044,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">创意阶层动态、技术演进与增长</p>
     <p class="authors">Torben Klarl</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>Crossref在线日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecca.70060">10.1111/ecca.70060</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1106,7 +1056,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">新兴市场税收收入提升：拉弗曲线分析</p>
     <p class="authors">Sargam Gupta, Snigdha Kalra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>Crossref在线日期 2026-06-13</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>发布日期 2026-06-13</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecin.70069">10.1111/ecin.70069</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1118,7 +1068,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">量化宽松情绪的定性评估</p>
     <p class="authors">Niamh Wylie, Martha O’Hagan‐Luff</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>Crossref在线日期 2026-06-06</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>发布日期 2026-06-06</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecin.70068">10.1111/ecin.70068</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1130,7 +1080,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">人口下降、资本深化与生产率：跨国证据</p>
     <p class="authors">João Tovar Jalles</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113071">10.1016/j.econlet.2026.113071</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1142,19 +1092,19 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">理性预期下的傻瓜泡沫</p>
     <p class="authors">Luis Araujo, Antonio Doblas‐Madrid</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>Crossref在线日期 2026-06-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/iere.70082">10.1111/iere.70082</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a demand theory of the price level 价格水平的需求理论 marcus hagedorn international economic review 10.1111/iere.70064" data-journal="international-economic-review" data-fields="agriculture finance macro public" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="a demand theory of the price level 价格水平的需求理论 marcus hagedorn international economic review 10.1111/iere.70064" data-journal="international-economic-review" data-fields="agriculture finance macro public" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/iere.70064">A Demand Theory of the Price Level</a></h3>
     <p class="title-zh">价格水平的需求理论</p>
     <p class="authors">Marcus Hagedorn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>Crossref发布日期 2026-05-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>发布日期 2026-05-23</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/iere.70064">10.1111/iere.70064</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1166,7 +1116,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">符合预期：全球金融危机后前瞻性指引的有效性与通胀动态</p>
     <p class="authors">Stephen J. Cole, Enrique Martínez García, Eric Sims</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105385">10.1016/j.euroecorev.2026.105385</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1178,20 +1128,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">货币经济中市场势力的动态变化</p>
     <p class="authors">Jyotsana Kala, Lucie Lebeau, Lu Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105380">10.1016/j.euroecorev.2026.105380</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a behavioral explanation for the puzzling persistence of the aggregate real exchange rate 实际汇率持续之谜的行为解释 mario j crucini, mototsugu shintani, takayuki tsuruga journal of the european economic association 10.1093/jeea/jvag027" data-journal="journal-of-the-european-economic-association" data-fields="agriculture macro behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="a behavioral explanation for the puzzling persistence of the aggregate real exchange rate 实际汇率持续之谜的行为解释 mario j crucini, mototsugu shintani, takayuki tsuruga journal of the european economic association 10.1093/jeea/jvag027" data-journal="journal-of-the-european-economic-association" data-fields="china agriculture macro behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jeea/jvag027">A Behavioral Explanation for the Puzzling Persistence of the Aggregate Real Exchange Rate</a></h3>
     <p class="title-zh">实际汇率持续之谜的行为解释</p>
     <p class="authors">Mario J Crucini, Mototsugu Shintani, Takayuki Tsuruga</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>Crossref在线日期 2026-06-10</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag027">10.1093/jeea/jvag027</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag027">10.1093/jeea/jvag027</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -1202,7 +1152,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">远程办公的空间影响</p>
     <p class="authors">Matthew J Delventhal, Andrii Parkhomenko</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag057">10.1093/restud/rdag057</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1214,7 +1164,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">流动性陷阱、审慎政策与国际溢出效应</p>
     <p class="authors">Javier Bianchi, Louphou Coulibaly</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-09</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag054">10.1093/restud/rdag054</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1226,11 +1176,58 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">空间经济中的总福利解构</p>
     <p class="authors">Eric Donald, Masao Fukui, Yuhei Miyauchi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag021">10.1093/restud/rdag021</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
-</article></main>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+</main>
     </div>
   </div>
 </body>

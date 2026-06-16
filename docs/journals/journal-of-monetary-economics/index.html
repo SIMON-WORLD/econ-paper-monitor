@@ -5,28 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Journal of Monetary Economics</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
-a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
-.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
-.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
-.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
-.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:center;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 64px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:#fff1f0;border-color:#ffccc7;color:#cf222e;font-weight:700}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
-.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
-.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
@@ -36,13 +25,13 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
     <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">222</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">157</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">115</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">98</span></a><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">92</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">75</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">58</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">417</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">221</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">155</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">119</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">102</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">94</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">70</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">56</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">49</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -55,150 +44,206 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>Journal of Monetary Economics</h2><p>该期刊历史发现记录。</p></div></section><article class="event" data-search="unstable prosperity: how globalization made the world economy more volatile 不稳定的繁荣：全球化如何加剧世界经济波动 enrique g. mendoza, vincenzo quadrini journal of monetary economics 10.1016/j.jmoneco.2026.103945" data-journal="journal-of-monetary-economics" data-fields="macro trade" data-china="false" data-date-type="published_online" data-confidence="B">
+      <main class="wrap"><section class="section-head"><div><h2>Journal of Monetary Economics</h2><p>该期刊历史发现记录。</p></div></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="journal-of-monetary-economics">Journal of Monetary Economics</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="public">公共与政治经济学</option><option value="labor">劳动</option><option value="trade">国际贸易</option><option value="macro">宏观与货币</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="unstable prosperity: how globalization made the world economy more volatile 不稳定的繁荣：全球化如何加剧世界经济波动 enrique g. mendoza, vincenzo quadrini journal of monetary economics 10.1016/j.jmoneco.2026.103945" data-journal="journal-of-monetary-economics" data-fields="china macro trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103945">Unstable prosperity: How globalization made the world economy more volatile</a></h3>
     <p class="title-zh">不稳定的繁荣：全球化如何加剧世界经济波动</p>
     <p class="authors">Enrique G. Mendoza, Vincenzo Quadrini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103945">10.1016/j.jmoneco.2026.103945</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103945">10.1016/j.jmoneco.2026.103945</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="editorial board 编委会  journal of monetary economics 10.1016/s0304-3932(26)00066-8" data-journal="journal-of-monetary-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="editorial board 编委会  journal of monetary economics 10.1016/s0304-3932(26)00066-8" data-journal="journal-of-monetary-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0304-3932(26)00066-8">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-3932(26)00066-8">10.1016/s0304-3932(26)00066-8</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-3932(26)00066-8">10.1016/s0304-3932(26)00066-8</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="racial disparities in crime and wealth 犯罪与财富中的种族差异 ayşe i̇mrohoroğlu, çağrı s. kumru, jiu lian journal of monetary economics 10.1016/j.jmoneco.2026.103942" data-journal="journal-of-monetary-economics" data-fields="macro inequality" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="racial disparities in crime and wealth 犯罪与财富中的种族差异 ayşe i̇mrohoroğlu, çağrı s. kumru, jiu lian journal of monetary economics 10.1016/j.jmoneco.2026.103942" data-journal="journal-of-monetary-economics" data-fields="china macro inequality" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103942">Racial disparities in crime and wealth</a></h3>
     <p class="title-zh">犯罪与财富中的种族差异</p>
     <p class="authors">Ayşe İmrohoroğlu, Çağrı S. Kumru, Jiu Lian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103942">10.1016/j.jmoneco.2026.103942</a><span class="pill">宏观与货币</span><span class="pill">不平等</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103942">10.1016/j.jmoneco.2026.103942</a><span class="pill">宏观与货币</span><span class="pill">不平等</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="monetary policy trade-offs amid global supply chain disruptions 全球供应链中断中的货币政策权衡 luis g. hernández-román journal of monetary economics 10.1016/j.jmoneco.2026.103934" data-journal="journal-of-monetary-economics" data-fields="macro public trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="monetary policy trade-offs amid global supply chain disruptions 全球供应链中断中的货币政策权衡 luis g. hernández-román journal of monetary economics 10.1016/j.jmoneco.2026.103934" data-journal="journal-of-monetary-economics" data-fields="china macro public trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103934">Monetary policy trade-offs amid global supply chain disruptions</a></h3>
     <p class="title-zh">全球供应链中断中的货币政策权衡</p>
     <p class="authors">Luis G. Hernández-Román</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103934">10.1016/j.jmoneco.2026.103934</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103934">10.1016/j.jmoneco.2026.103934</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="bank concentration, product market competition and productivity growth 银行集中度、产品市场竞争与生产率增长 lei ye journal of monetary economics 10.1016/j.jmoneco.2026.103946" data-journal="journal-of-monetary-economics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="bank concentration, product market competition and productivity growth 银行集中度、产品市场竞争与生产率增长 lei ye journal of monetary economics 10.1016/j.jmoneco.2026.103946" data-journal="journal-of-monetary-economics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103946">Bank concentration, product market competition and productivity growth</a></h3>
     <p class="title-zh">银行集中度、产品市场竞争与生产率增长</p>
     <p class="authors">Lei Ye</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103946">10.1016/j.jmoneco.2026.103946</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103946">10.1016/j.jmoneco.2026.103946</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="customer accumulation, returns to scale, and secular trends 客户积累、规模报酬与长期趋势 andrea chiavari journal of monetary economics 10.1016/j.jmoneco.2026.103935" data-journal="journal-of-monetary-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="customer accumulation, returns to scale, and secular trends 客户积累、规模报酬与长期趋势 andrea chiavari journal of monetary economics 10.1016/j.jmoneco.2026.103935" data-journal="journal-of-monetary-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103935">Customer accumulation, returns to scale, and secular trends</a></h3>
     <p class="title-zh">客户积累、规模报酬与长期趋势</p>
     <p class="authors">Andrea Chiavari</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103935">10.1016/j.jmoneco.2026.103935</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103935">10.1016/j.jmoneco.2026.103935</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="discussion of: “automated credit limit increases and consumer welfare” 讨论：“自动信用额度提升与消费者福利 joel p. flynn journal of monetary economics 10.1016/j.jmoneco.2026.103943" data-journal="journal-of-monetary-economics" data-fields="finance macro public behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="discussion of: “automated credit limit increases and consumer welfare” 讨论：“自动信用额度提升与消费者福利 joel p. flynn journal of monetary economics 10.1016/j.jmoneco.2026.103943" data-journal="journal-of-monetary-economics" data-fields="china finance macro public" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103943">Discussion of: “Automated credit limit increases and consumer welfare”</a></h3>
     <p class="title-zh">讨论：“自动信用额度提升与消费者福利</p>
     <p class="authors">Joel P. Flynn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103943">10.1016/j.jmoneco.2026.103943</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103943">10.1016/j.jmoneco.2026.103943</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="wasserstein worst-case scenarios and asset pricing wasserstein最坏情形与资产定价 zhonghui zhang, fushu luan, chihwa kao journal of monetary economics 10.1016/j.jmoneco.2026.103955" data-journal="journal-of-monetary-economics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="wasserstein worst-case scenarios and asset pricing wasserstein最坏情形与资产定价 zhonghui zhang, fushu luan, chihwa kao journal of monetary economics 10.1016/j.jmoneco.2026.103955" data-journal="journal-of-monetary-economics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103955">Wasserstein worst-case scenarios and asset pricing</a></h3>
     <p class="title-zh">Wasserstein最坏情形与资产定价</p>
     <p class="authors">Zhonghui Zhang, Fushu Luan, Chihwa Kao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103955">10.1016/j.jmoneco.2026.103955</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103955">10.1016/j.jmoneco.2026.103955</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="comment on: is it ai or data that drives market power? 评论：驱动市场力量的是人工智能还是数据？ miao ben zhang journal of monetary economics 10.1016/j.jmoneco.2026.103926" data-journal="journal-of-monetary-economics" data-fields="finance macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="comment on: is it ai or data that drives market power? 评论：驱动市场力量的是人工智能还是数据？ miao ben zhang journal of monetary economics 10.1016/j.jmoneco.2026.103926" data-journal="journal-of-monetary-economics" data-fields="china finance macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103926">Comment on: Is it AI or data that drives market power?</a></h3>
     <p class="title-zh">评论：驱动市场力量的是人工智能还是数据？</p>
     <p class="authors">Miao Ben Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103926">10.1016/j.jmoneco.2026.103926</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103926">10.1016/j.jmoneco.2026.103926</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="staffing agencies and in-house bargaining 人事代理机构与内部谈判 agneta berge, ann-sofie kolm, per krusell journal of monetary economics 10.1016/j.jmoneco.2026.103944" data-journal="journal-of-monetary-economics" data-fields="macro" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="staffing agencies and in-house bargaining 人事代理机构与内部谈判 agneta berge, ann-sofie kolm, per krusell journal of monetary economics 10.1016/j.jmoneco.2026.103944" data-journal="journal-of-monetary-economics" data-fields="china macro" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103944">Staffing agencies and in-house bargaining</a></h3>
     <p class="title-zh">人事代理机构与内部谈判</p>
     <p class="authors">Agneta Berge, Ann-Sofie Kolm, Per Krusell</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103944">10.1016/j.jmoneco.2026.103944</a><span class="pill">宏观与货币</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103944">10.1016/j.jmoneco.2026.103944</a><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="comment on “the impact of ai on global knowledge work” by enrique ide and eduard talamàs 评述：enrique ide与eduard talamàs的《人工智能对全球知识工作的影响》 daniel rock journal of monetary economics 10.1016/j.jmoneco.2026.103947" data-journal="journal-of-monetary-economics" data-fields="macro trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="comment on “the impact of ai on global knowledge work” by enrique ide and eduard talamàs 评述：enrique ide与eduard talamàs的《人工智能对全球知识工作的影响》 daniel rock journal of monetary economics 10.1016/j.jmoneco.2026.103947" data-journal="journal-of-monetary-economics" data-fields="china macro trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103947">Comment on “The impact of AI on global knowledge work” by Enrique Ide and Eduard Talamàs</a></h3>
     <p class="title-zh">评述：Enrique Ide与Eduard Talamàs的《人工智能对全球知识工作的影响》</p>
     <p class="authors">Daniel Rock</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103947">10.1016/j.jmoneco.2026.103947</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103947">10.1016/j.jmoneco.2026.103947</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="disincentive effects of unemployment insurance benefits 失业保险金的抑制效应 andreas hornstein, marios karabarbounis, andré kurmann, etienne lalé, lien ta journal of monetary economics 10.1016/j.jmoneco.2026.103958" data-journal="journal-of-monetary-economics" data-fields="macro labor" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="disincentive effects of unemployment insurance benefits 失业保险金的抑制效应 andreas hornstein, marios karabarbounis, andré kurmann, etienne lalé, lien ta journal of monetary economics 10.1016/j.jmoneco.2026.103958" data-journal="journal-of-monetary-economics" data-fields="china macro labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103958">Disincentive effects of unemployment insurance benefits</a></h3>
     <p class="title-zh">失业保险金的抑制效应</p>
     <p class="authors">Andreas Hornstein, Marios Karabarbounis, André Kurmann, Etienne Lalé, Lien Ta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103958">10.1016/j.jmoneco.2026.103958</a><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103958">10.1016/j.jmoneco.2026.103958</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
-</article></main>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+</main>
     </div>
   </div>
 </body>

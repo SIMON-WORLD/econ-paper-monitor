@@ -5,28 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>劳动</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#ffffff;--blue:#0969da;--blue-soft:#ddf4ff;--accent:#8250df;--warn:#9a6700}
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
-a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}
-.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{font-size:22px;font-weight:800;letter-spacing:0;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
-.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-link span{color:var(--muted)}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}
-.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}
-.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;letter-spacing:.02em;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px;letter-spacing:.01em}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}
-.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.62);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px;align-items:start}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--blue-soft);border-color:#54aeff;color:var(--blue);font-weight:600}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.title-zh.pending{color:var(--muted)}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:center;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 64px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:#fff1f0;border-color:#ffccc7;color:#cf222e;font-weight:700}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.journal-table .muted{color:var(--muted)}
-.empty{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);background:var(--soft)}
-.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
@@ -36,13 +25,13 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日速递</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
     <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">222</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">157</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">115</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">111</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">98</span></a><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">92</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">75</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">58</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">84</span></a></div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">417</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">221</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">155</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">122</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">119</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">102</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">101</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">100</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">94</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">70</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">56</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">49</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../journals/journal-of-economic-behavior-and-organization/"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">46</span></a><a class="side-link" href="../../journals/applied-economics/"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">29</span></a><a class="side-link" href="../../journals/journal-of-political-economy/"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">25</span></a><a class="side-link" href="../../journals/world-development/"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-public-economics/"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/european-economic-review/"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/land-use-policy/"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/journal-of-development-economics/"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../journals/food-policy/"><span class="side-main"><strong>Food Policy</strong><em>食物政策</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/journal-of-comparative-economics/"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">20</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -55,170 +44,179 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>劳动</h2><p>基于标题、摘要和期刊信息的文章主题标签，后续可升级为 AI 主题判断。</p></div><p>58 篇</p></section><article class="event" data-search="effects of debt exposure on self-employment: evidence from us local markets in the great recession 债务暴露对自雇就业的影响：来自美国大衰退时期地方市场的证据 bulent unel journal of economic behavior and organization 10.1016/j.jebo.2026.107639" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+      <main class="wrap"><section class="section-head"><div><h2>劳动</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>56 篇</p></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="american-economic-review">American Economic Review</option><option value="american-economic-review-insights">American Economic Review: Insights</option><option value="american-journal-of-agricultural-economics">American Journal of Agricultural Economics</option><option value="applied-economics">Applied Economics</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option><option value="economic-development-and-cultural-change">Economic Development and Cultural Change</option><option value="economic-history-review">Economic History Review</option><option value="economic-journal">Economic Journal</option><option value="european-economic-review">European Economic Review</option><option value="experimental-economics">Experimental Economics</option><option value="food-policy">Food Policy</option><option value="international-economic-review">International Economic Review</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-comparative-economics">Journal of Comparative Economics</option><option value="journal-of-economic-behavior-and-organization">Journal of Economic Behavior and Organization</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-economics-and-management-strategy">Journal of Economics &amp; Management Strategy</option><option value="journal-of-finance">Journal of Finance</option><option value="journal-of-international-economics">Journal of International Economics</option><option value="journal-of-monetary-economics">Journal of Monetary Economics</option><option value="journal-of-money-credit-and-banking">Journal of Money, Credit and Banking</option><option value="journal-of-political-economy">Journal of Political Economy</option><option value="journal-of-population-economics">Journal of Population Economics</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="journal-of-urban-economics">Journal of Urban Economics</option><option value="journal-of-the-european-economic-association">Journal of the European Economic Association</option><option value="public-choice">Public Choice</option><option value="review-of-economic-studies">Review of Economic Studies</option><option value="scandinavian-journal-of-economics">Scandinavian Journal of Economics</option><option value="world-development">World Development</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="effects of debt exposure on self-employment: evidence from us local markets in the great recession 债务暴露对自雇就业的影响：来自美国大衰退时期地方市场的证据 bulent unel journal of economic behavior and organization 10.1016/j.jebo.2026.107639" data-journal="journal-of-economic-behavior-and-organization" data-fields="china finance labor behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107639">Effects of debt exposure on self-employment: Evidence from US local markets in the Great Recession</a></h3>
     <p class="title-zh">债务暴露对自雇就业的影响：来自美国大衰退时期地方市场的证据</p>
     <p class="authors">Bulent Unel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107639">10.1016/j.jebo.2026.107639</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107639">10.1016/j.jebo.2026.107639</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="beauty premia in wage offers: evidence from vietnamese online job postings 工资报价中的美貌溢价：来自越南在线招聘广告的证据 carlo perroni, kimberley scharf, oleksandr talavera, linh vi journal of economic behavior and organization 10.1016/j.jebo.2026.107643" data-journal="journal-of-economic-behavior-and-organization" data-fields="labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="beauty premia in wage offers: evidence from vietnamese online job postings 工资报价中的美貌溢价：来自越南在线招聘广告的证据 carlo perroni, kimberley scharf, oleksandr talavera, linh vi journal of economic behavior and organization 10.1016/j.jebo.2026.107643" data-journal="journal-of-economic-behavior-and-organization" data-fields="china labor behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107643">Beauty premia in wage offers: Evidence from Vietnamese online job postings</a></h3>
     <p class="title-zh">工资报价中的美貌溢价：来自越南在线招聘广告的证据</p>
     <p class="authors">Carlo Perroni, Kimberley Scharf, Oleksandr Talavera, Linh Vi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107643">10.1016/j.jebo.2026.107643</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107643">10.1016/j.jebo.2026.107643</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the anti-corruption campaign and the intergenerational transmission of bureaucratic employment: evidence from china 反腐败运动与官僚就业的代际传递：来自中国的证据 shuai chen, erqi ge journal of economic behavior and organization 10.1016/j.jebo.2026.107638" data-journal="journal-of-economic-behavior-and-organization" data-fields="china labor behavior firms" data-china="true" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the anti-corruption campaign and the intergenerational transmission of bureaucratic employment: evidence from china 反腐败运动与官僚就业的代际传递：来自中国的证据 shuai chen, erqi ge journal of economic behavior and organization 10.1016/j.jebo.2026.107638" data-journal="journal-of-economic-behavior-and-organization" data-fields="china labor behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107638">The anti-corruption campaign and the intergenerational transmission of bureaucratic employment: Evidence from China</a></h3>
     <p class="title-zh">反腐败运动与官僚就业的代际传递：来自中国的证据</p>
     <p class="authors">Shuai Chen, Erqi Ge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107638">10.1016/j.jebo.2026.107638</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="training time, robots and technological unemployment 训练时间、机器人及技术性失业 fenicia cossu, alessio moro, michelle petersen rendall journal of economic behavior and organization 10.1016/j.jebo.2026.107631" data-journal="journal-of-economic-behavior-and-organization" data-fields="labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="training time, robots and technological unemployment 训练时间、机器人及技术性失业 fenicia cossu, alessio moro, michelle petersen rendall journal of economic behavior and organization 10.1016/j.jebo.2026.107631" data-journal="journal-of-economic-behavior-and-organization" data-fields="china labor behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107631">Training time, robots and technological unemployment</a></h3>
     <p class="title-zh">训练时间、机器人及技术性失业</p>
     <p class="authors">Fenicia Cossu, Alessio Moro, Michelle Petersen Rendall</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107631">10.1016/j.jebo.2026.107631</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107631">10.1016/j.jebo.2026.107631</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="self-employment income tax evasion and inequality 自雇收入逃税与不平等 martina bazzoli, paolo di caro, francesco figari, carlo v. fiorio, marco manzo journal of economic behavior and organization 10.1016/j.jebo.2026.107598" data-journal="journal-of-economic-behavior-and-organization" data-fields="labor public behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="self-employment income tax evasion and inequality 自雇收入逃税与不平等 martina bazzoli, paolo di caro, francesco figari, carlo v. fiorio, marco manzo journal of economic behavior and organization 10.1016/j.jebo.2026.107598" data-journal="journal-of-economic-behavior-and-organization" data-fields="china labor public behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107598">Self-employment income tax evasion and inequality</a></h3>
     <p class="title-zh">自雇收入逃税与不平等</p>
     <p class="authors">Martina Bazzoli, Paolo Di Caro, Francesco Figari, Carlo V. Fiorio, Marco Manzo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107598">10.1016/j.jebo.2026.107598</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107598">10.1016/j.jebo.2026.107598</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="maternity leave and labour market outcomes 产假与劳动力市场结果 purna banerjee, shreya biswas, debojyoti mazumder journal of economic behavior and organization 10.1016/j.jebo.2026.107602" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="maternity leave and labour market outcomes 产假与劳动力市场结果 purna banerjee, shreya biswas, debojyoti mazumder journal of economic behavior and organization 10.1016/j.jebo.2026.107602" data-journal="journal-of-economic-behavior-and-organization" data-fields="china finance labor behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107602">Maternity leave and labour market outcomes</a></h3>
     <p class="title-zh">产假与劳动力市场结果</p>
     <p class="authors">Purna Banerjee, Shreya Biswas, Debojyoti Mazumder</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107602">10.1016/j.jebo.2026.107602</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107602">10.1016/j.jebo.2026.107602</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="labor market penalty for single mothers 单亲母亲的劳动力市场惩罚 somdeep chatterjee, ralitza dimova, shubham ojha journal of economic behavior and organization 10.1016/j.jebo.2026.107600" data-journal="journal-of-economic-behavior-and-organization" data-fields="finance labor behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="labor market penalty for single mothers 单亲母亲的劳动力市场惩罚 somdeep chatterjee, ralitza dimova, shubham ojha journal of economic behavior and organization 10.1016/j.jebo.2026.107600" data-journal="journal-of-economic-behavior-and-organization" data-fields="china finance labor behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107600">Labor market penalty for single mothers</a></h3>
     <p class="title-zh">单亲母亲的劳动力市场惩罚</p>
     <p class="authors">Somdeep Chatterjee, Ralitza Dimova, Shubham Ojha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107600">10.1016/j.jebo.2026.107600</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107600">10.1016/j.jebo.2026.107600</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="private equity and pay gaps inside the firm 私募股权与企业内部薪酬差距 lily fang, jim goldman, alexandra roulet journal of finance 10.1111/jofi.70043" data-journal="journal-of-finance" data-fields="finance labor firms inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="private equity and pay gaps inside the firm 私募股权与企业内部薪酬差距 lily fang, jim goldman, alexandra roulet journal of finance 10.1111/jofi.70043" data-journal="journal-of-finance" data-fields="china finance labor firms" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70043">Private Equity and Pay Gaps Inside the Firm</a></h3>
     <p class="title-zh">私募股权与企业内部薪酬差距</p>
     <p class="authors">LILY FANG, JIM GOLDMAN, ALEXANDRA ROULET</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>Crossref在线日期 2026-06-08</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70043">10.1111/jofi.70043</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70043">10.1111/jofi.70043</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the impact of unions on nonunion wage setting: threats and bargaining 工会对非工会工资设定的影响：威胁与谈判 david a. green, ben m. sand, iain g. snoddy, jeanne tschopp journal of political economy 10.1086/742712" data-journal="journal-of-political-economy" data-fields="labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the impact of unions on nonunion wage setting: threats and bargaining 工会对非工会工资设定的影响：威胁与谈判 david a. green, ben m. sand, iain g. snoddy, jeanne tschopp journal of political economy 10.1086/742712" data-journal="journal-of-political-economy" data-fields="china labor public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742712">The Impact of Unions on Nonunion Wage Setting: Threats and Bargaining</a></h3>
     <p class="title-zh">工会对非工会工资设定的影响：威胁与谈判</p>
     <p class="authors">David A. Green, Ben M. Sand, Iain G. Snoddy, Jeanne Tschopp</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>Crossref在线日期 2026-06-15</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742712">10.1086/742712</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>发布日期 2026-06-15</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742712">10.1086/742712</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="worker heterogeneity and the effect of noncompetes on firm performance 工人异质性与竞业限制对企业绩效的影响 zhaozhao he, modupe babajide wintoki journal of economics &amp; management strategy 10.1111/jems.70040" data-journal="journal-of-economics-and-management-strategy" data-fields="macro labor theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="worker heterogeneity and the effect of noncompetes on firm performance 工人异质性与竞业限制对企业绩效的影响 zhaozhao he, modupe babajide wintoki journal of economics &amp; management strategy 10.1111/jems.70040" data-journal="journal-of-economics-and-management-strategy" data-fields="china macro labor theory" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jems.70040">Worker Heterogeneity and the Effect of Noncompetes on Firm Performance</a></h3>
     <p class="title-zh">工人异质性与竞业限制对企业绩效的影响</p>
     <p class="authors">Zhaozhao He, Modupe Babajide Wintoki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>Crossref在线日期 2026-06-08</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70040">10.1111/jems.70040</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70040">10.1111/jems.70040</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the impact of unions on the wage distribution: evidence from higher education 工会对工资分布的影响：来自高等教育的证据 michael baker, yosh halberstam, kory kroft, alexandre mas, derek messacar american economic review: insights 10.1257/aeri.20240722" data-journal="american-economic-review-insights" data-fields="finance labor theory education" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the impact of unions on the wage distribution: evidence from higher education 工会对工资分布的影响：来自高等教育的证据 michael baker, yosh halberstam, kory kroft, alexandre mas, derek messacar american economic review: insights 10.1257/aeri.20240722" data-journal="american-economic-review-insights" data-fields="finance labor theory education" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aeri.20240722">The Impact of Unions on the Wage Distribution: Evidence from Higher Education</a></h3>
     <p class="title-zh">工会对工资分布的影响：来自高等教育的证据</p>
     <p class="authors">Michael Baker, Yosh Halberstam, Kory Kroft, Alexandre Mas, Derek Messacar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20240722">10.1257/aeri.20240722</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="work from home and disability employment 居家办公与残疾人就业 nicholas bloom, gordon b. dahl, dan-olof rooth american economic review: insights 10.1257/aeri.20240538" data-journal="american-economic-review-insights" data-fields="finance labor econometrics" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="work from home and disability employment 居家办公与残疾人就业 nicholas bloom, gordon b. dahl, dan-olof rooth american economic review: insights 10.1257/aeri.20240538" data-journal="american-economic-review-insights" data-fields="finance labor econometrics" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aeri.20240538">Work from Home and Disability Employment</a></h3>
     <p class="title-zh">居家办公与残疾人就业</p>
     <p class="authors">Nicholas Bloom, Gordon B. Dahl, Dan-Olof Rooth</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20240538">10.1257/aeri.20240538</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="breaking echo chambers: an experimental study on the willingness to listen to opposite views 打破回音室：倾听对立观点意愿的实验研究 michèle belot, guglielmo briscese economic journal 10.1093/ej/ueag072" data-journal="economic-journal" data-fields="labor theory behavior" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="breaking echo chambers: an experimental study on the willingness to listen to opposite views 打破回音室：倾听对立观点意愿的实验研究 michèle belot, guglielmo briscese economic journal 10.1093/ej/ueag072" data-journal="economic-journal" data-fields="labor theory" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag072">Breaking Echo Chambers: An Experimental Study on the Willingness to Listen to Opposite Views</a></h3>
     <p class="title-zh">打破回音室：倾听对立观点意愿的实验研究</p>
     <p class="authors">Michèle Belot, Guglielmo Briscese</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>Crossref在线日期 2026-06-08</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag072">10.1093/ej/ueag072</a><span class="pill">劳动</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag072">10.1093/ej/ueag072</a><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="contracts and ownership structures in the bioeconomy: a review of their design and role in innovation 生物经济中的合同与所有权结构：其设计与创新作用的综述 lukas bonar nainggolan, julia höhler, alfons oude lansink australian journal of agricultural and resource economics 10.1111/1467-8489.70124" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture labor theory inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="contracts and ownership structures in the bioeconomy: a review of their design and role in innovation 生物经济中的合同与所有权结构：其设计与创新作用的综述 lukas bonar nainggolan, julia höhler, alfons oude lansink australian journal of agricultural and resource economics 10.1111/1467-8489.70124" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture labor theory firms" data-china="false" data-date-type="published_online" data-confidence="C">
   <div><div class="time">18:10</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70124">Contracts and Ownership Structures in the Bioeconomy: A Review of Their Design and Role in Innovation</a></h3>
     <p class="title-zh">生物经济中的合同与所有权结构：其设计与创新作用的综述</p>
     <p class="authors">Lukas Bonar Nainggolan, Julia Höhler, Alfons Oude Lansink</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>Crossref在线日期 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-15</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70124">10.1111/1467-8489.70124</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -230,7 +228,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">人工智能能否替代人类劳动？来自65个国家的全球证据</p>
     <p class="authors">Quoc Hoi Le, Cong Minh Huynh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>Crossref在线日期 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>发布日期 2026-06-14</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688439">10.1080/00036846.2026.2688439</a><span class="pill">劳动</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -242,7 +240,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">美国禽业整合对员工生产率与劳动力成本的影响</p>
     <p class="authors">Tina L. Saitone, K. Aleks Schaefer, Daniel P. Scheitrum, Shawn Arita, Vince Breneman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103080">10.1016/j.foodpol.2026.103080</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -254,7 +252,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">美国农场工人福利计划参与情况</p>
     <p class="authors">Alexandra E. Hill, Sarah C. Whitnall, Elizabeth C.A. Saunders, Timothy K.M. Beatty</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103111">10.1016/j.foodpol.2026.103111</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -266,92 +264,92 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">更健康的饮食：一项关于收入和就业影响的全球区域经济建模研究</p>
     <p class="authors">Adam M. Komarek, Dirk Willenbockel, Shahnila Dunston, Nicola Cenacchi, H. Charles J. Godfray 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103118">10.1016/j.foodpol.2026.103118</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="seasonality of employment and food security in rural sub-saharan africa 撒哈拉以南非洲农村地区就业的季节性与粮食安全 jonas guthoff, martin parlasca, matin qaim food policy 10.1016/j.foodpol.2026.103089" data-journal="food-policy" data-fields="agriculture labor public" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="seasonality of employment and food security in rural sub-saharan africa 撒哈拉以南非洲农村地区就业的季节性与粮食安全 jonas guthoff, martin parlasca, matin qaim food policy 10.1016/j.foodpol.2026.103089" data-journal="food-policy" data-fields="agriculture labor public" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103089">Seasonality of employment and food security in rural sub-Saharan Africa</a></h3>
     <p class="title-zh">撒哈拉以南非洲农村地区就业的季节性与粮食安全</p>
     <p class="authors">Jonas Guthoff, Martin Parlasca, Matin Qaim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103089">10.1016/j.foodpol.2026.103089</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="settling prosperity: historical immigration and its long-term institutional legacies 定居繁荣：历史移民及其长期制度遗产 amanda guimbeau journal of comparative economics 10.1016/j.jce.2026.02.008" data-journal="journal-of-comparative-economics" data-fields="labor history" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="settling prosperity: historical immigration and its long-term institutional legacies 定居繁荣：历史移民及其长期制度遗产 amanda guimbeau journal of comparative economics 10.1016/j.jce.2026.02.008" data-journal="journal-of-comparative-economics" data-fields="china labor history" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.02.008">Settling prosperity: Historical immigration and its long-term institutional legacies</a></h3>
     <p class="title-zh">定居繁荣：历史移民及其长期制度遗产</p>
     <p class="authors">Amanda Guimbeau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.02.008">10.1016/j.jce.2026.02.008</a><span class="pill">劳动</span><span class="pill">经济史</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.02.008">10.1016/j.jce.2026.02.008</a><span class="pill">劳动</span><span class="pill">经济史</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the effects of political uncertainty on the demand for high-skill workers 政治不确定性对高技能工人需求的影响 andrew yizhou liu journal of comparative economics 10.1016/j.jce.2026.05.005" data-journal="journal-of-comparative-economics" data-fields="labor public" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the effects of political uncertainty on the demand for high-skill workers 政治不确定性对高技能工人需求的影响 andrew yizhou liu journal of comparative economics 10.1016/j.jce.2026.05.005" data-journal="journal-of-comparative-economics" data-fields="china labor public" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.05.005">The effects of political uncertainty on the demand for high-skill workers</a></h3>
     <p class="title-zh">政治不确定性对高技能工人需求的影响</p>
     <p class="authors">Andrew Yizhou Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.05.005">10.1016/j.jce.2026.05.005</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.05.005">10.1016/j.jce.2026.05.005</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="technological progress and the global decline in the manufacturing labour share 技术进步与全球制造业劳动份额的下降 jakob b. madsen, kesavarajah k. mayandy journal of comparative economics 10.1016/j.jce.2026.01.010" data-journal="journal-of-comparative-economics" data-fields="labor trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="technological progress and the global decline in the manufacturing labour share 技术进步与全球制造业劳动份额的下降 jakob b. madsen, kesavarajah k. mayandy journal of comparative economics 10.1016/j.jce.2026.01.010" data-journal="journal-of-comparative-economics" data-fields="china labor trade" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.01.010">Technological progress and the global decline in the manufacturing labour share</a></h3>
     <p class="title-zh">技术进步与全球制造业劳动份额的下降</p>
     <p class="authors">Jakob B. Madsen, Kesavarajah K. Mayandy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.01.010">10.1016/j.jce.2026.01.010</a><span class="pill">劳动</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.01.010">10.1016/j.jce.2026.01.010</a><span class="pill">劳动</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="household debt, the labor share, and earnings inequality 家庭债务、劳动收入份额与收入不平等 mark robinson, pedro silos, diego vilán journal of economic dynamics and control 10.1016/j.jedc.2026.105352" data-journal="journal-of-economic-dynamics-and-control" data-fields="development labor inequality" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="household debt, the labor share, and earnings inequality 家庭债务、劳动收入份额与收入不平等 mark robinson, pedro silos, diego vilán journal of economic dynamics and control 10.1016/j.jedc.2026.105352" data-journal="journal-of-economic-dynamics-and-control" data-fields="china development labor inequality" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jedc.2026.105352">Household debt, the labor share, and earnings inequality</a></h3>
     <p class="title-zh">家庭债务、劳动收入份额与收入不平等</p>
     <p class="authors">Mark Robinson, Pedro Silos, Diego Vilán</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105352">10.1016/j.jedc.2026.105352</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105352">10.1016/j.jedc.2026.105352</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="a heterogeneous agent new keynesian model of search frictions and public sector employment 搜索摩擦与公共部门就业的异质性主体新凯恩斯模型 pavlos balamatsias journal of economic dynamics and control 10.1016/j.jedc.2026.105357" data-journal="journal-of-economic-dynamics-and-control" data-fields="labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="a heterogeneous agent new keynesian model of search frictions and public sector employment 搜索摩擦与公共部门就业的异质性主体新凯恩斯模型 pavlos balamatsias journal of economic dynamics and control 10.1016/j.jedc.2026.105357" data-journal="journal-of-economic-dynamics-and-control" data-fields="china labor public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jedc.2026.105357">A heterogeneous agent new Keynesian model of search frictions and public sector employment</a></h3>
     <p class="title-zh">搜索摩擦与公共部门就业的异质性主体新凯恩斯模型</p>
     <p class="authors">Pavlos Balamatsias</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105357">10.1016/j.jedc.2026.105357</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105357">10.1016/j.jedc.2026.105357</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="monetary policy, employment shortfalls, and the natural rate hypothesis 货币政策、就业缺口与自然率假说 michael t. kiley journal of money, credit and banking 10.1111/jmcb.70067" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="monetary policy, employment shortfalls, and the natural rate hypothesis 货币政策、就业缺口与自然率假说 michael t. kiley journal of money, credit and banking 10.1111/jmcb.70067" data-journal="journal-of-money-credit-and-banking" data-fields="china finance macro labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70067">Monetary Policy, Employment Shortfalls, and the Natural Rate Hypothesis</a></h3>
     <p class="title-zh">货币政策、就业缺口与自然率假说</p>
     <p class="authors">MICHAEL T. KILEY</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>Crossref在线日期 2026-06-02</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70067">10.1111/jmcb.70067</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70067">10.1111/jmcb.70067</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -362,7 +360,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">提格雷战争对埃塞俄比亚儿童教育与劳动的影响</p>
     <p class="authors">Yemareshet Hailu Demeke, Dainn Wie</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107449">10.1016/j.worlddev.2026.107449</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -374,20 +372,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">中美洲移民的两面性：危地马拉的总体与分配影响</p>
     <p class="authors">Luis Escalante, Emerta Aragie, Manuel A. Hernandez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-10-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-10-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107450">10.1016/j.worlddev.2026.107450</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="when neighbors stop knocking: the impact of canada’s 2025 tourism decline on u.s. local labor markets 当邻居不再敲门：加拿大2025年旅游业下滑对美国地方劳动力市场的影响 andré kurmann, etienne lalé, julien martin journal of international economics 10.1016/j.jinteco.2026.104269" data-journal="journal-of-international-economics" data-fields="finance labor" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="when neighbors stop knocking: the impact of canada’s 2025 tourism decline on u.s. local labor markets 当邻居不再敲门：加拿大2025年旅游业下滑对美国地方劳动力市场的影响 andré kurmann, etienne lalé, julien martin journal of international economics 10.1016/j.jinteco.2026.104269" data-journal="journal-of-international-economics" data-fields="china finance labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104269">When neighbors stop knocking: The impact of Canada’s 2025 tourism decline on U.S. local labor markets</a></h3>
     <p class="title-zh">当邻居不再敲门：加拿大2025年旅游业下滑对美国地方劳动力市场的影响</p>
     <p class="authors">André Kurmann, Etienne Lalé, Julien Martin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104269">10.1016/j.jinteco.2026.104269</a><span class="pill">金融</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104269">10.1016/j.jinteco.2026.104269</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -398,7 +396,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣</p>
     <p class="authors">Vincent Geloso, Jamie Bologna Pavlik, Yang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01404-7">10.1007/s11127-026-01404-7</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -410,20 +408,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">政治组织中文化多样性的经济后果</p>
     <p class="authors">Jiale Yan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01406-5">10.1007/s11127-026-01406-5</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the employment effects of disability benefit reassessment 残疾津贴重新评估的就业效应 anikó bíró, cecília hornok, judit krekó, dániel prinz, ágota scharle journal of public economics 10.1016/j.jpubeco.2026.105652" data-journal="journal-of-public-economics" data-fields="labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="the employment effects of disability benefit reassessment 残疾津贴重新评估的就业效应 anikó bíró, cecília hornok, judit krekó, dániel prinz, ágota scharle journal of public economics 10.1016/j.jpubeco.2026.105652" data-journal="journal-of-public-economics" data-fields="china labor public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105652">The employment effects of disability benefit reassessment</a></h3>
     <p class="title-zh">残疾津贴重新评估的就业效应</p>
     <p class="authors">Anikó Bíró, Cecília Hornok, Judit Krekó, Dániel Prinz, Ágota Scharle</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105652">10.1016/j.jpubeco.2026.105652</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105652">10.1016/j.jpubeco.2026.105652</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -434,7 +432,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">财富分布重要时的失业保险问题</p>
     <p class="authors">Facundo Piguillem, Hernán Ruffo, Nicholas Trachter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>Crossref发布日期 2026-08-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105386">10.1016/j.euroecorev.2026.105386</a><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -446,7 +444,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">收入不平等与就业创造</p>
     <p class="authors">Sebastian Doerr, Thomas Drechsel, Donggyu Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag053">10.1093/restud/rdag053</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -458,7 +456,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">芬兰家庭食物垃圾减量的可行性：基于五种消费者画像的见解</p>
     <p class="authors">Aino Friman, Dušan Drabik</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>Crossref在线日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70126">10.1111/1467-8489.70126</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -470,20 +468,8 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">津巴布韦城市家庭的城市农业采纳、饮食多样性与农村支持</p>
     <p class="authors">Lloyd Chigusiwa, Asankha Pallegedara, Terrence Kairiza</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>Crossref在线日期 2026-06-09</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70120">10.1111/1467-8489.70120</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="an economic and environmental analysis of virtual fencing for precision grazing 精准放牧虚拟围栏的经济与环境分析 elias maritan, karl behrendt, sarah morgan, steven mark rutter, james lowenberg‐deboer journal of agricultural economics 10.1111/1477-9552.70062" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment finance labor" data-china="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1111/1477-9552.70062">An Economic and Environmental Analysis of Virtual Fencing for Precision Grazing</a></h3>
-    <p class="title-zh">精准放牧虚拟围栏的经济与环境分析</p>
-    <p class="authors">Elias Maritan, Karl Behrendt, Sarah Morgan, Steven Mark Rutter, James Lowenberg‐DeBoer</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>Crossref在线日期 2026-06-10</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70062">10.1111/1477-9552.70062</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
@@ -498,7 +484,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">自然灾害与农业代际职业选择：来自美国沙尘暴的证据</p>
     <p class="authors">Jhih‐Yun Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>Crossref在线日期 2026-06-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70081">10.1002/ajae.70081</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -510,20 +496,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">土地休耕政策对农业劳动力和土地保有权的影响：来自美国历史性保护储备计划的证据</p>
     <p class="authors">Aparna Howlader, Liqing Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>Crossref在线日期 2026-06-02</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70082">10.1002/ajae.70082</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="internal migration and labor share: theory and evidence 内部迁移与劳动份额：理论与证据 yang yang, qi yu, junsen zhang, kang zhou journal of comparative economics 10.1016/j.jce.2026.01.005" data-journal="journal-of-comparative-economics" data-fields="labor theory" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="internal migration and labor share: theory and evidence 内部迁移与劳动份额：理论与证据 yang yang, qi yu, junsen zhang, kang zhou journal of comparative economics 10.1016/j.jce.2026.01.005" data-journal="journal-of-comparative-economics" data-fields="china labor theory" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.01.005">Internal migration and labor share: Theory and evidence</a></h3>
     <p class="title-zh">内部迁移与劳动份额：理论与证据</p>
     <p class="authors">Yang Yang, Qi Yu, Junsen Zhang, Kang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>Crossref发布日期 2026-06-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.01.005">10.1016/j.jce.2026.01.005</a><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.01.005">10.1016/j.jce.2026.01.005</a><span class="pill">劳动</span><span class="pill">理论与博弈</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -534,68 +520,68 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">公共信息与分裂多数下的协调</p>
     <p class="authors">Caleb A. Cox, Angela de Oliveira, Brock Stoddard</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>Crossref在线日期 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10051">10.1017/eec.2026.10051</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="work orientations and turnover 工作导向与离职倾向 milena nikolova, juliette de wit journal of population economics 10.1007/s00148-026-01176-w" data-journal="journal-of-population-economics" data-fields="labor trade behavior firms" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="work orientations and turnover 工作导向与离职倾向 milena nikolova, juliette de wit journal of population economics 10.1007/s00148-026-01176-w" data-journal="journal-of-population-economics" data-fields="china labor trade behavior" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00148-026-01176-w">Work orientations and turnover</a></h3>
     <p class="title-zh">工作导向与离职倾向</p>
     <p class="authors">Milena Nikolova, Juliette de Wit</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>Crossref在线日期 2026-06-06</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01176-w">10.1007/s00148-026-01176-w</a><span class="pill">劳动</span><span class="pill">国际贸易</span><span class="pill">行为与组织</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>发布日期 2026-06-06</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01176-w">10.1007/s00148-026-01176-w</a><span class="pill">劳动</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="childhood shocks and fertility: evidence from parental job loss 童年冲击与生育率：来自父母失业的证据 krista riukula journal of population economics 10.1007/s00148-026-01178-8" data-journal="journal-of-population-economics" data-fields="development labor theory behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="childhood shocks and fertility: evidence from parental job loss 童年冲击与生育率：来自父母失业的证据 krista riukula journal of population economics 10.1007/s00148-026-01178-8" data-journal="journal-of-population-economics" data-fields="china development labor theory" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00148-026-01178-8">Childhood shocks and fertility: evidence from parental job loss</a></h3>
     <p class="title-zh">童年冲击与生育率：来自父母失业的证据</p>
     <p class="authors">Krista Riukula</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>Crossref发布日期 2026-05-28</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01178-8">10.1007/s00148-026-01178-8</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>发布日期 2026-05-28</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01178-8">10.1007/s00148-026-01178-8</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="disincentive effects of unemployment insurance benefits 失业保险金的抑制效应 andreas hornstein, marios karabarbounis, andré kurmann, etienne lalé, lien ta journal of monetary economics 10.1016/j.jmoneco.2026.103958" data-journal="journal-of-monetary-economics" data-fields="macro labor" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="disincentive effects of unemployment insurance benefits 失业保险金的抑制效应 andreas hornstein, marios karabarbounis, andré kurmann, etienne lalé, lien ta journal of monetary economics 10.1016/j.jmoneco.2026.103958" data-journal="journal-of-monetary-economics" data-fields="china macro labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmoneco.2026.103958">Disincentive effects of unemployment insurance benefits</a></h3>
     <p class="title-zh">失业保险金的抑制效应</p>
     <p class="authors">Andreas Hornstein, Marios Karabarbounis, André Kurmann, Etienne Lalé, Lien Ta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>Crossref发布日期 2026-07-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103958">10.1016/j.jmoneco.2026.103958</a><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103958">10.1016/j.jmoneco.2026.103958</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="jue insight: city size, monopsony, and the employment effects of minimum wages jue洞察：城市规模、买方垄断与最低工资的就业效应 priyaranjan jha, jyotsana kala, david neumark, antonio rodriguez-lopez journal of urban economics 10.1016/j.jue.2026.103868" data-journal="journal-of-urban-economics" data-fields="labor urban" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="jue insight: city size, monopsony, and the employment effects of minimum wages jue洞察：城市规模、买方垄断与最低工资的就业效应 priyaranjan jha, jyotsana kala, david neumark, antonio rodriguez-lopez journal of urban economics 10.1016/j.jue.2026.103868" data-journal="journal-of-urban-economics" data-fields="china labor urban" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jue.2026.103868">JUE insight: City size, monopsony, and the employment effects of minimum wages</a></h3>
     <p class="title-zh">JUE洞察：城市规模、买方垄断与最低工资的就业效应</p>
     <p class="authors">Priyaranjan Jha, Jyotsana Kala, David Neumark, Antonio Rodriguez-Lopez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103868">10.1016/j.jue.2026.103868</a><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103868">10.1016/j.jue.2026.103868</a><span class="pill">劳动</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="opportunistic upskilling in european labour markets—evidence from a wide replication 欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据 anil yadav, john mchale, jefferson r. b. galetti journal of applied econometrics 10.1002/jae.70072" data-journal="journal-of-applied-econometrics" data-fields="finance macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="opportunistic upskilling in european labour markets—evidence from a wide replication 欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据 anil yadav, john mchale, jefferson r. b. galetti journal of applied econometrics 10.1002/jae.70072" data-journal="journal-of-applied-econometrics" data-fields="china finance macro labor" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70072">Opportunistic Upskilling in European Labour Markets—Evidence From a Wide Replication</a></h3>
     <p class="title-zh">欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据</p>
     <p class="authors">Anil Yadav, John McHale, Jefferson R. B. Galetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>Crossref在线日期 2026-06-09</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70072">10.1002/jae.70072</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70072">10.1002/jae.70072</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -606,7 +592,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">距离、前景与向城镇迁移</p>
     <p class="authors">Joachim De Weerdt, Luc Christiaensen, Ravi Kanbur</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>Crossref发布日期 2026-11-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>发布日期 2026-11-01</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107419">10.1016/j.worlddev.2026.107419</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -618,79 +604,67 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">中国双重劳动力市场中的大企业工资溢价</p>
     <p class="authors">Hong Cheng, Hongbin Li, Hui Wang, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>Crossref在线日期 2026-06-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742631">10.1086/742631</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="information and social norms: experimental evidence on the labor market aspirations of saudi women 信息与社会规范：沙特女性劳动力市场抱负的实验证据 monira essa aloud, sara al-rashood, ina ganguli, basit zafar economic development and cultural change 10.1086/742354" data-journal="economic-development-and-cultural-change" data-fields="development finance labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="information and social norms: experimental evidence on the labor market aspirations of saudi women 信息与社会规范：沙特女性劳动力市场抱负的实验证据 monira essa aloud, sara al-rashood, ina ganguli, basit zafar economic development and cultural change 10.1086/742354" data-journal="economic-development-and-cultural-change" data-fields="development finance labor" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742354">Information and Social Norms: Experimental Evidence on the Labor Market Aspirations of Saudi Women</a></h3>
     <p class="title-zh">信息与社会规范：沙特女性劳动力市场抱负的实验证据</p>
     <p class="authors">Monira Essa Aloud, Sara Al-Rashood, Ina Ganguli, Basit Zafar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>Crossref发布日期 2026-05-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>发布日期 2026-05-20</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742354">10.1086/742354</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the golden age of al‐andalus? living standards in muslim iberia (950–1200) 安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年） antónio henriques economic history review 10.1111/ehr.70128" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the golden age of al‐andalus? living standards in muslim iberia (950–1200) 安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年） antónio henriques economic history review 10.1111/ehr.70128" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70128">The Golden Age of Al‐Andalus? Living standards in Muslim Iberia (950–1200)</a></h3>
     <p class="title-zh">安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年）</p>
     <p class="authors">António Henriques</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>Crossref发布日期 2026-05-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70128">10.1111/ehr.70128</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the bread of toledo: prices and political economy, 1535–1800 托莱多的面包：价格与政治经济学，1535–1800 mauricio drelichman, david gonzález agudo economic history review 10.1111/ehr.70130" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="the bread of toledo: prices and political economy, 1535–1800 托莱多的面包：价格与政治经济学，1535–1800 mauricio drelichman, david gonzález agudo economic history review 10.1111/ehr.70130" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70130">The bread of Toledo: Prices and political economy, 1535–1800</a></h3>
     <p class="title-zh">托莱多的面包：价格与政治经济学，1535–1800</p>
     <p class="authors">Mauricio Drelichman, David González Agudo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>Crossref发布日期 2026-05-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70130">10.1111/ehr.70130</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="noncredit workforce training, industry credentials, and labor market outcomes 非信贷劳动力培训、行业证书与劳动力市场结果 di xu, kelli a. bird, michael cooper, benjamin l. castleman journal of public economics 10.1016/j.jpubeco.2026.105679" data-journal="journal-of-public-economics" data-fields="finance labor public" data-china="false" data-date-type="published_online" data-confidence="C">
+<article class="event" data-search="noncredit workforce training, industry credentials, and labor market outcomes 非信贷劳动力培训、行业证书与劳动力市场结果 di xu, kelli a. bird, michael cooper, benjamin l. castleman journal of public economics 10.1016/j.jpubeco.2026.105679" data-journal="journal-of-public-economics" data-fields="china finance labor public" data-china="true" data-date-type="published_online" data-confidence="C">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105679">Noncredit workforce training, industry credentials, and labor market outcomes</a></h3>
     <p class="title-zh">非信贷劳动力培训、行业证书与劳动力市场结果</p>
     <p class="authors">Di Xu, Kelli A. Bird, Michael Cooper, Benjamin L. Castleman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>Crossref发布日期 2026-08-01</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105679">10.1016/j.jpubeco.2026.105679</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105679">10.1016/j.jpubeco.2026.105679</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="the effects of fiscal rules on building permits and economic activity: quasi-experimental evidence 财政规则对建筑许可和经济活动的影响：准实验证据 marco fregoni, marco leonardi, sauro mocetti journal of law, economics &amp; organization 10.1093/jleo/ewag015" data-journal="journal-of-law-economics-and-organization" data-fields="development finance macro labor" data-china="false" data-date-type="published_online" data-confidence="B">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
-  <div>
-    <h3><a href="https://doi.org/10.1093/jleo/ewag015">The effects of fiscal rules on building permits and economic activity: quasi-experimental evidence</a></h3>
-    <p class="title-zh">财政规则对建筑许可和经济活动的影响：准实验证据</p>
-    <p class="authors">Marco Fregoni, Marco Leonardi, Sauro Mocetti</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>Crossref发布日期 2026-05-21</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag015">10.1093/jleo/ewag015</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="following the money: an econometric investigation into health valuations 追踪资金流向：健康价值评估的计量经济学研究 tinna laufey ásgeirsdóttir, viktor andri kárason scandinavian journal of economics 10.1111/sjoe.70026" data-journal="scandinavian-journal-of-economics" data-fields="development macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="following the money: an econometric investigation into health valuations 追踪资金流向：健康价值评估的计量经济学研究 tinna laufey ásgeirsdóttir, viktor andri kárason scandinavian journal of economics 10.1111/sjoe.70026" data-journal="scandinavian-journal-of-economics" data-fields="development macro labor econometrics" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/sjoe.70026">Following the money: an econometric investigation into health valuations</a></h3>
     <p class="title-zh">追踪资金流向：健康价值评估的计量经济学研究</p>
     <p class="authors">Tinna Laufey Ásgeirsdóttir, Viktor Andri Kárason</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>Crossref发布日期 2026-05-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>发布日期 2026-05-21</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70026">10.1111/sjoe.70026</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -702,20 +676,20 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">大学贷款与人力资本投资</p>
     <p class="authors">Chao Fu, Hsuan‐Chih (Luke) Lin, Atsuko Tanaka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>Crossref在线日期 2026-06-07</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>发布日期 2026-06-07</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/iere.70080">10.1111/iere.70080</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="climate change and migration: the case of africa, 气候变化与移民：非洲案例研究 bruno conte journal of the european economic association 10.1093/jeea/jvag035" data-journal="journal-of-the-european-economic-association" data-fields="environment labor public trade" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="climate change and migration: the case of africa, 气候变化与移民：非洲案例研究 bruno conte journal of the european economic association 10.1093/jeea/jvag035" data-journal="journal-of-the-european-economic-association" data-fields="china environment labor public" data-china="true" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jeea/jvag035">Climate Change and Migration: The Case of Africa,</a></h3>
     <p class="title-zh">气候变化与移民：非洲案例研究</p>
     <p class="authors">Bruno Conte</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>Crossref发布日期 2026-05-29</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag035">10.1093/jeea/jvag035</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>发布日期 2026-05-29</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag035">10.1093/jeea/jvag035</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -726,35 +700,82 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
     <p class="title-zh">远程办公的空间影响</p>
     <p class="authors">Matthew J Delventhal, Andrii Parkhomenko</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>Crossref在线日期 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>发布日期 2026-06-11</span><span>C Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag057">10.1093/restud/rdag057</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="quota versus quality? long-term gains from an unusual gender quota 配额还是质量？一项特殊性别配额的长期收益 ursina schaede, ville mankki american economic review 10.1257/aer.20230376" data-journal="american-economic-review" data-fields="labor trade education inequality" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="quota versus quality? long-term gains from an unusual gender quota 配额还是质量？一项特殊性别配额的长期收益 ursina schaede, ville mankki american economic review 10.1257/aer.20230376" data-journal="american-economic-review" data-fields="labor trade education inequality" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.20230376">Quota versus Quality? Long-Term Gains from an Unusual Gender Quota</a></h3>
     <p class="title-zh">配额还是质量？一项特殊性别配额的长期收益</p>
     <p class="authors">Ursina Schaede, Ville Mankki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230376">10.1257/aer.20230376</a><span class="pill">劳动</span><span class="pill">国际贸易</span><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
-<article class="event" data-search="mergers, foreign competition, and jobs: evidence from the us appliance industry 并购、外国竞争与就业：来自美国家电行业的证据 felix montag american economic review 10.1257/aer.20230017" data-journal="american-economic-review" data-fields="labor public trade behavior" data-china="false" data-date-type="published_online" data-confidence="B">
+<article class="event" data-search="mergers, foreign competition, and jobs: evidence from the us appliance industry 并购、外国竞争与就业：来自美国家电行业的证据 felix montag american economic review 10.1257/aer.20230017" data-journal="american-economic-review" data-fields="labor public trade behavior" data-china="false" data-date-type="published_online" data-confidence="F">
   <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.20230017">Mergers, Foreign Competition, and Jobs: Evidence from the US Appliance Industry</a></h3>
     <p class="title-zh">并购、外国竞争与就业：来自美国家电行业的证据</p>
     <p class="authors">Felix Montag</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>Crossref发布日期 2026-06-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230017">10.1257/aer.20230017</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
-</article></main>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  applyFilters();
+})();
+</script>
+</main>
     </div>
   </div>
 </body>
