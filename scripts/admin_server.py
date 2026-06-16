@@ -33,6 +33,14 @@ def q(value: Any) -> str:
     return '"' + text.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
+def yaml_value(value: Any) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, str) and value.strip().casefold() in {"true", "false"}:
+        return value.strip().casefold()
+    return q(value)
+
+
 def record_key(record: dict[str, Any]) -> str:
     return str(record.get("doi") or record.get("id") or stable_id(record))
 
@@ -49,7 +57,11 @@ def load_records() -> list[dict[str, Any]]:
 
 
 def candidates() -> list[dict[str, Any]]:
-    return [record for record in load_records() if record.get("china_relevance_status") == "candidate"][:80]
+    return [
+        record
+        for record in load_records()
+        if record.get("china_relevance_status") == "candidate" and record.get("china_related") is not False
+    ][:80]
 
 
 def write_overrides(overrides: dict[str, dict[str, Any]]) -> None:
@@ -72,12 +84,7 @@ def write_overrides(overrides: dict[str, dict[str, Any]]) -> None:
         ]:
             if field not in entry or entry[field] in {None, ""}:
                 continue
-            value = entry[field]
-            if isinstance(value, bool):
-                rendered = "true" if value else "false"
-            else:
-                rendered = q(value)
-            lines.append(f"    {field}: {rendered}")
+            lines.append(f"    {field}: {yaml_value(entry[field])}")
     write_text(OVERRIDES_PATH, "\n".join(lines) + "\n")
 
 

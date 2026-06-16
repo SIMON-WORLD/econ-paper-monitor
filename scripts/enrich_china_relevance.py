@@ -142,6 +142,8 @@ def chinese_author_count(record: dict[str, Any]) -> int:
 def classify(record: dict[str, Any]) -> tuple[str, str]:
     if record.get("china_related") is True:
         return "confirmed", str(record.get("china_reason") or "manual override")
+    if record.get("china_related") is False:
+        return "none", str(record.get("china_reason") or "manual exclusion")
     if "chinese" in (record.get("fields") or []):
         return "confirmed", "中文期刊默认与中国相关"
     text = haystack(record)
@@ -189,7 +191,9 @@ def main() -> None:
                     "china_relevance_reason": reason,
                 }
             else:
-                updates = {"china_relevance_status": record.get("china_relevance_status") or "none"}
+                updates = {"china_relevance_status": "none"}
+                if reason:
+                    updates["china_relevance_reason"] = reason
             for key, value in updates.items():
                 if record.get(key) != value:
                     record[key] = value
