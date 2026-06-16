@@ -15,7 +15,24 @@ def main() -> None:
     parser.add_argument("--date", default=None)
     args = parser.parse_args()
     paths = [DATA_DIR / "daily" / f"{args.date}.json"] if args.date else sorted((DATA_DIR / "daily").glob("*.json"), reverse=True)
-    keys = ["title", "title_zh", "authors", "abstract", "journal", "doi", "fields", "date_confidence", "translation_status"]
+    keys = [
+        "title",
+        "title_zh",
+        "authors",
+        "abstract",
+        "journal",
+        "doi",
+        "fields",
+        "accepted_date",
+        "available_online",
+        "published_online",
+        "issue_date",
+        "date_source",
+        "date_confidence",
+        "translation_status",
+        "china_related",
+        "china_relevance_status",
+    ]
     for path in paths:
         for record in read_json(path, []):
             blob = json.dumps(record, ensure_ascii=False)

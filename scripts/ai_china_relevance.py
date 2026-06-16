@@ -1,0 +1,154 @@
+"""Use a low-cost LLM pass to resolve China-relevance candidates.
+
+Only candidate records are sent, results are cached by DOI/id, and uncertain
+answers remain candidates for the local admin page.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import urllib.error
+import urllib.request
+from pathlib import Path
+from typing import Any
+
+from common import DATA_DIR, read_json, stable_id, today_str, write_json
+from status import record_source
+from translate import api_settings
+
+
+CACHE_PATH = DATA_DIR / "china_relevance_cache.json"
+
+
+def record_key(record: dict[str, Any]) -> str:
+    return str(record.get("doi") or record.get("id") or stable_id(record)).casefold()
+
+
+def candidate_payload(record: dict[str, Any]) -> str:
+    payload = {
+        "title": record.get("title"),
+        "title_zh": record.get("title_zh"),
+        "journal": record.get("journal"),
+        "authors": record.get("authors"),
+        "abstract": record.get("abstract"),
+        "candidate_reason": record.get("china_relevance_reason"),
+    }
+    return json.dumps(payload, ensure_ascii=False)
+
+
+def ask_model(record: dict[str, Any], key: str, base_url: str, model: str, timeout: int) -> dict[str, Any]:
+    prompt = (
+        "判断一篇经济学论文是否与中国研究直接相关。只输出 JSON，字段为 "
+        '{"verdict":"yes/no/uncertain","confidence":0-1,"reason":"简短中文理由"}。'
+        "标准：如果研究对象、数据、制度背景、政策背景或核心应用是中国/中国企业/中国人群/中国地区，verdict=yes；"
+        "如果只是作者可能是华人但研究主题不明，verdict=uncertain；如果明确不是中国，verdict=no。\n\n"
+        + candidate_payload(record)
+    )
+    request = urllib.request.Request(
+        f"{base_url}/chat/completions",
+        data=json.dumps(
+            {
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": "你是严谨的经济学文献分类助手。"},
+                    {"role": "user", "content": prompt},
+                ],
+                "temperature": 0,
+            },
+            ensure_ascii=False,
+        ).encode("utf-8"),
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        data = json.loads(response.read().decode("utf-8"))
+    text = data["choices"][0]["message"]["content"].strip()
+    if text.startswith("```"):
+        text = text.strip("`")
+        text = text.removeprefix("json").strip()
+    return json.loads(text)
+
+
+def apply_decision(record: dict[str, Any], decision: dict[str, Any]) -> bool:
+    verdict = str(decision.get("verdict") or "uncertain").casefold()
+    try:
+        confidence = float(decision.get("confidence") or 0)
+    except (TypeError, ValueError):
+        confidence = 0
+    reason = str(decision.get("reason") or "AI 判定")
+    updates: dict[str, Any]
+    if verdict == "yes" and confidence >= 0.75:
+        updates = {
+            "china_related": True,
+            "china_related_source": "ai",
+            "china_relevance_status": "confirmed",
+            "china_relevance_reason": reason,
+        }
+    elif verdict == "no" and confidence >= 0.85:
+        updates = {
+            "china_related": False,
+            "china_relevance_status": "none",
+            "china_relevance_reason": reason,
+        }
+    else:
+        updates = {
+            "china_relevance_status": "candidate",
+            "china_relevance_reason": reason,
+        }
+    changed = False
+    for field, value in updates.items():
+        if record.get(field) != value:
+            record[field] = value
+            changed = True
+    return changed
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
+    parser.add_argument("--date", default=today_str())
+    parser.add_argument("--limit", type=int, default=30)
+    parser.add_argument("--timeout", type=int, default=45)
+    args = parser.parse_args()
+
+    key, base_url, model = api_settings()
+    if not key:
+        record_source("ai-china-relevance", ok=True, count=0, message="skipped: missing api key")
+        print("ai china relevance skipped: missing api key")
+        return
+
+    path = args.daily_dir / f"{args.date}.json"
+    records = read_json(path, [])
+    cache = read_json(CACHE_PATH, {"records": {}})
+    cache_records = cache.setdefault("records", {})
+    attempted = changed = confirmed = 0
+    for record in records:
+        if attempted >= args.limit:
+            break
+        if record.get("china_relevance_status") != "candidate":
+            continue
+        key_id = record_key(record)
+        try:
+            decision = cache_records.get(key_id)
+            if not decision:
+                decision = ask_model(record, key, base_url, model, args.timeout)
+                cache_records[key_id] = decision
+                attempted += 1
+            if apply_decision(record, decision):
+                changed += 1
+            if record.get("china_related") is True:
+                confirmed += 1
+        except (json.JSONDecodeError, KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
+            cache_records[key_id] = {"verdict": "uncertain", "confidence": 0, "reason": f"AI 判定失败：{exc}"}
+            continue
+
+    write_json(CACHE_PATH, cache)
+    if changed:
+        write_json(path, records)
+    record_source("ai-china-relevance", ok=True, count=confirmed, message=f"attempted={attempted} changed={changed}")
+    print(f"ai china relevance attempted={attempted} changed={changed} confirmed={confirmed}")
+
+
+if __name__ == "__main__":
+    main()

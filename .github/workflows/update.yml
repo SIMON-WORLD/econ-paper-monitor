@@ -83,11 +83,18 @@ jobs:
         run: python scripts/clean_cn_noise.py
       - name: Apply manual overrides
         run: python scripts/apply_overrides.py
-      - name: Enrich China relevance
-        run: python scripts/enrich_china_relevance.py
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0'
         run: python scripts/enrich_metadata.py --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
+      - name: Enrich China relevance
+        run: python scripts/enrich_china_relevance.py
+      - name: Resolve China relevance candidates with AI
+        run: python scripts/ai_china_relevance.py --limit 30
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
       - name: Translate paper titles
         run: python scripts/translate.py --limit 400
         env:

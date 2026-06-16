@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import re
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -42,6 +43,12 @@ MONTHS = {
     "dec": 12,
     "december": 12,
 }
+
+DATE_CAPTURE = (
+    r"[A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2}"
+    r"|\d{1,2}\s+[A-Za-z]{3,9}\s+20\d{2}"
+    r"|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?"
+)
 
 
 def clean_text(value: str) -> str:
@@ -96,15 +103,18 @@ def extract_page_metadata(html: str) -> dict[str, str]:
             break
 
     patterns = [
-        ("accepted_date", r"(?:Accepted|录用日期|接受日期)\s*[:：]?\s*([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2}|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)"),
-        ("available_online", r"(?:Available online|Online available|上线日期|网络首发)\s*[:：]?\s*([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2}|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)"),
-        ("published_online", r"(?:First published|Published online|发布日期|出版日期)\s*[:：]?\s*([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2}|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)"),
+        ("accepted_date", rf"(?:Accepted|录用日期|接受日期)\s*[:：]?\s*({DATE_CAPTURE})"),
+        ("available_online", rf"(?:Available online|Online available|上线日期|网络首发)\s*[:：]?\s*({DATE_CAPTURE})"),
+        ("published_online", rf"(?:First published|Published online|发布日期|出版日期)\s*[:：]?\s*({DATE_CAPTURE})"),
     ]
     for field, pattern in patterns:
         match = re.search(pattern, text, flags=re.I)
         parsed = parse_date(match.group(1)) if match else None
         if parsed:
             result[field] = parsed
+            if field in {"available_online", "published_online"}:
+                result["available_online"] = parsed
+                result["published_online"] = parsed
             result["date_source"] = f"publisher_{field}"
             result["date_confidence"] = "A"
     for key in ("citation_abstract", "dc.description", "description", "og:description"):
@@ -123,20 +133,76 @@ def should_enrich(record: dict[str, Any]) -> bool:
     return bool(url and str(url).startswith(("http://", "https://")))
 
 
+def candidate_urls(record: dict[str, Any]) -> list[str]:
+    urls = []
+    if record.get("url"):
+        urls.append(str(record["url"]))
+    doi = record.get("doi")
+    if doi:
+        doi = str(doi).strip()
+        urls.append(f"https://doi.org/{doi}")
+        if doi.startswith("10.1080/"):
+            urls.append(f"https://www.tandfonline.com/doi/full/{doi}")
+        if doi.startswith("10.1016/"):
+            urls.append(f"https://www.sciencedirect.com/science/article/pii/{doi.rsplit('.', 1)[-1]}")
+        if doi.startswith("10.1093/"):
+            urls.append(f"https://academic.oup.com/search-results?page=1&q={doi}")
+        if doi.startswith("10.1111/") or doi.startswith("10.1002/"):
+            urls.append(f"https://onlinelibrary.wiley.com/doi/full/{doi}")
+    return list(dict.fromkeys(urls))
+
+
 def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
-    url = record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else None)
-    if not url:
+    urls = candidate_urls(record)
+    if not urls:
         return False, "missing-url"
-    html = fetch_text(str(url), timeout=timeout)
-    metadata = extract_page_metadata(html)
-    if not metadata:
-        return False, "no-metadata"
+    metadata: dict[str, str] = {}
+    last_status = "no-metadata"
+    for url in urls:
+        try:
+            html = fetch_text(str(url), timeout=timeout)
+            metadata = extract_page_metadata(html)
+            if metadata:
+                break
+        except Exception as exc:  # noqa: BLE001
+            last_status = type(exc).__name__
+            continue
     changed = False
+    if not metadata:
+        changed = correct_tandf_date(record)
+        return changed, "tandf-date-corrected" if changed else last_status
     for field, value in metadata.items():
         if value and record.get(field) != value:
             record[field] = value
             changed = True
+    changed = correct_tandf_date(record) or changed
     return changed, "updated" if changed else "unchanged"
+
+
+def correct_tandf_date(record: dict[str, Any]) -> bool:
+    doi = str(record.get("doi") or "")
+    if not doi.startswith("10.1080/"):
+        return False
+    issue_date = record.get("issue_date")
+    current = record.get("available_online") or record.get("published_online")
+    if not issue_date or not current:
+        return False
+    try:
+        issue = date.fromisoformat(str(issue_date))
+        online = date.fromisoformat(str(current))
+    except ValueError:
+        return False
+    if not (date(2020, 1, 1) <= issue <= online and (online - issue).days <= 14):
+        return False
+    changed = False
+    for field in ("available_online", "published_online"):
+        if record.get(field) != issue.isoformat():
+            record[field] = issue.isoformat()
+            changed = True
+    if changed:
+        record["date_source"] = "tandf_issue_date_fallback"
+        record["date_confidence"] = "B"
+    return changed
 
 
 def main() -> None:
