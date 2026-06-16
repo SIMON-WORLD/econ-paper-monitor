@@ -81,7 +81,7 @@ def parse_meta(html: str) -> dict[str, str]:
     return meta
 
 
-def extract_dates(html: str) -> dict[str, str]:
+def extract_page_metadata(html: str) -> dict[str, str]:
     meta = parse_meta(html)
     text = clean_text(html)
     result: dict[str, str] = {}
@@ -107,6 +107,12 @@ def extract_dates(html: str) -> dict[str, str]:
             result[field] = parsed
             result["date_source"] = f"publisher_{field}"
             result["date_confidence"] = "A"
+    for key in ("citation_abstract", "dc.description", "description", "og:description"):
+        abstract = meta.get(key)
+        if abstract and len(clean_text(abstract)) > 80:
+            result.setdefault("abstract", clean_text(abstract))
+            result.setdefault("abstract_source", f"publisher_meta:{key}")
+            break
     return result
 
 
@@ -122,11 +128,11 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     if not url:
         return False, "missing-url"
     html = fetch_text(str(url), timeout=timeout)
-    dates = extract_dates(html)
-    if not dates:
-        return False, "no-dates"
+    metadata = extract_page_metadata(html)
+    if not metadata:
+        return False, "no-metadata"
     changed = False
-    for field, value in dates.items():
+    for field, value in metadata.items():
         if value and record.get(field) != value:
             record[field] = value
             changed = True
@@ -154,7 +160,7 @@ def main() -> None:
         try:
             did_change, status = enrich_record(record, args.timeout)
             changed += int(did_change)
-            if status != "no-dates":
+            if status not in {"no-dates", "no-metadata"}:
                 messages.append(f"{record.get('journal')}: {status}")
         except Exception as exc:  # noqa: BLE001
             messages.append(f"{record.get('journal')}: {type(exc).__name__}")

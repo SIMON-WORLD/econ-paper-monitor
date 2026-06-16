@@ -14,7 +14,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, read_json, write_json
+from common import DATA_DIR, ROOT, read_json, write_json
 from status import record_source
 
 
@@ -22,7 +22,22 @@ def has_chinese(value: str | None) -> bool:
     return any("\u4e00" <= ch <= "\u9fff" for ch in value or "")
 
 
+def load_local_env() -> None:
+    for env_path in (ROOT / ".env", ROOT / ".env.local"):
+        if not env_path.exists():
+            continue
+        for raw_line in env_path.read_text(encoding="utf-8-sig").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            os.environ.setdefault(key, value)
+
+
 def api_settings() -> tuple[str | None, str, str]:
+    load_local_env()
     deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
     key = deepseek_key or os.environ.get("OPENAI_API_KEY") or os.environ.get("TRANSLATION_API_KEY")
     base_url = (
