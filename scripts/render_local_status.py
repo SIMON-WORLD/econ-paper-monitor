@@ -22,6 +22,14 @@ def load_records() -> list[dict[str, Any]]:
     return records
 
 
+def daily_counts() -> list[tuple[str, int]]:
+    rows = []
+    for path in sorted((DATA_DIR / "daily").glob("*.json"), reverse=True)[:10]:
+        payload = read_json(path, [])
+        rows.append((path.stem, len(payload) if isinstance(payload, list) else 0))
+    return rows
+
+
 def pct(done: int, total: int) -> str:
     return "0%" if total == 0 else f"{done / total:.1%}"
 
@@ -45,6 +53,9 @@ def main() -> None:
     status = load_status()
     translated = sum(1 for record in records if record.get("title_zh"))
     by_source = Counter(record.get("source") or "unknown" for record in records)
+    by_confidence = Counter(record.get("date_confidence") or "unknown" for record in records)
+    registry = read_json(DATA_DIR / "source_registry.json", {"journals": {}})
+    registry_rss = sum(1 for item in registry.get("journals", {}).values() if item.get("rss"))
     health = health_items(status)
     rows = []
     for source_id, item in sorted(status.get("sources", {}).items()):
@@ -55,6 +66,11 @@ def main() -> None:
         )
     source_rows = "".join(rows) or "<tr><td colspan='5'>暂无状态记录</td></tr>"
     source_counts = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(by_source.items()))
+    confidence_counts = "".join(
+        f"<li>{html_escape(key)}: {value}</li>"
+        for key, value in sorted(by_confidence.items())
+    )
+    daily_rows = "".join(f"<tr><td>{html_escape(day)}</td><td>{count}</td></tr>" for day, count in daily_counts())
     health_rows = "".join(f"<li>{html_escape(item)}</li>" for item in health) or "<li>暂无需要处理的来源异常。</li>"
     latest_run = (status.get("runs") or [{}])[0]
     html = f"""<!doctype html>
@@ -76,9 +92,14 @@ def main() -> None:
     <div class="card"><strong>{translated}</strong><span>已翻译标题</span></div>
     <div class="card"><strong>{pct(translated, len(records))}</strong><span>标题翻译覆盖率</span></div>
     <div class="card"><strong>{html_escape(latest_run.get('new', '暂无'))}</strong><span>最近新增</span></div>
+    <div class="card"><strong>{registry_rss}</strong><span>RSS Registry</span></div>
   </div>
   <h2>来源数量</h2>
   <ul>{source_counts}</ul>
+  <h2>日期可信度</h2>
+  <ul>{confidence_counts}</ul>
+  <h2>最近每日记录数</h2>
+  <table><thead><tr><th>日期</th><th>记录数</th></tr></thead><tbody>{daily_rows}</tbody></table>
   <h2>健康提醒</h2>
   <ul>{health_rows}</ul>
   <h2>运行状态</h2>

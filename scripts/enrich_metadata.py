@@ -1,13 +1,170 @@
-"""Enrich paper records with DOI, authors, abstracts, dates, and links.
+"""Enrich daily records from publisher article pages.
 
-Placeholder for the MVP enrichment step.
+This step is intentionally best-effort. It should improve metadata when
+publisher pages are accessible, but never block the monitor when a site uses
+Cloudflare, CAPTCHA, or institutional access controls.
 """
+
+from __future__ import annotations
+
+import argparse
+import re
+from pathlib import Path
+from typing import Any
+
+from common import DATA_DIR, fetch_text, read_json, today_str, write_json
+from status import record_source
+
+
+MONTHS = {
+    "jan": 1,
+    "january": 1,
+    "feb": 2,
+    "february": 2,
+    "mar": 3,
+    "march": 3,
+    "apr": 4,
+    "april": 4,
+    "may": 5,
+    "jun": 6,
+    "june": 6,
+    "jul": 7,
+    "july": 7,
+    "aug": 8,
+    "august": 8,
+    "sep": 9,
+    "sept": 9,
+    "september": 9,
+    "oct": 10,
+    "october": 10,
+    "nov": 11,
+    "november": 11,
+    "dec": 12,
+    "december": 12,
+}
+
+
+def clean_text(value: str) -> str:
+    value = re.sub(r"<script[\s\S]*?</script>", " ", value, flags=re.I)
+    value = re.sub(r"<style[\s\S]*?</style>", " ", value, flags=re.I)
+    value = re.sub(r"<[^>]+>", " ", value)
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def parse_date(value: str | None) -> str | None:
+    if not value:
+        return None
+    text = value.strip()
+    match = re.search(r"(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})日?", text)
+    if match:
+        return f"{int(match.group(1)):04d}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+    match = re.search(r"([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(20\d{2})", text)
+    if match:
+        month = MONTHS.get(match.group(1).casefold())
+        if month:
+            return f"{int(match.group(3)):04d}-{month:02d}-{int(match.group(2)):02d}"
+    match = re.search(r"(\d{1,2})\s+([A-Za-z]{3,9})\s+(20\d{2})", text)
+    if match:
+        month = MONTHS.get(match.group(2).casefold())
+        if month:
+            return f"{int(match.group(3)):04d}-{month:02d}-{int(match.group(1)):02d}"
+    return None
+
+
+def parse_meta(html: str) -> dict[str, str]:
+    meta: dict[str, str] = {}
+    for tag in re.findall(r"<meta\b[^>]*>", html, flags=re.I):
+        key_match = re.search(r"(?:name|property)=['\"]([^'\"]+)['\"]", tag, flags=re.I)
+        content_match = re.search(r"content=['\"]([^'\"]*)['\"]", tag, flags=re.I)
+        if key_match and content_match:
+            meta[key_match.group(1).casefold()] = content_match.group(1).strip()
+    return meta
+
+
+def extract_dates(html: str) -> dict[str, str]:
+    meta = parse_meta(html)
+    text = clean_text(html)
+    result: dict[str, str] = {}
+
+    for key in ("citation_online_date", "article:published_time", "dc.date", "citation_publication_date"):
+        parsed = parse_date(meta.get(key))
+        if parsed:
+            result.setdefault("available_online", parsed)
+            result.setdefault("published_online", parsed)
+            result.setdefault("date_source", "publisher_meta")
+            result.setdefault("date_confidence", "A")
+            break
+
+    patterns = [
+        ("accepted_date", r"(?:Accepted|录用日期|接受日期)\s*[:：]?\s*([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2}|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)"),
+        ("available_online", r"(?:Available online|Online available|上线日期|网络首发)\s*[:：]?\s*([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2}|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)"),
+        ("published_online", r"(?:First published|Published online|发布日期|出版日期)\s*[:：]?\s*([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2}|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)"),
+    ]
+    for field, pattern in patterns:
+        match = re.search(pattern, text, flags=re.I)
+        parsed = parse_date(match.group(1)) if match else None
+        if parsed:
+            result[field] = parsed
+            result["date_source"] = f"publisher_{field}"
+            result["date_confidence"] = "A"
+    return result
+
+
+def should_enrich(record: dict[str, Any]) -> bool:
+    if record.get("date_confidence") == "A" and record.get("accepted_date"):
+        return False
+    url = record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else None)
+    return bool(url and str(url).startswith(("http://", "https://")))
+
+
+def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
+    url = record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else None)
+    if not url:
+        return False, "missing-url"
+    html = fetch_text(str(url), timeout=timeout)
+    dates = extract_dates(html)
+    if not dates:
+        return False, "no-dates"
+    changed = False
+    for field, value in dates.items():
+        if value and record.get(field) != value:
+            record[field] = value
+            changed = True
+    return changed, "updated" if changed else "unchanged"
 
 
 def main() -> None:
-    raise SystemExit("enrich_metadata.py is not implemented yet")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
+    parser.add_argument("--date", default=today_str())
+    parser.add_argument("--limit", type=int, default=60)
+    parser.add_argument("--timeout", type=int, default=15)
+    args = parser.parse_args()
+
+    path = args.daily_dir / f"{args.date}.json"
+    records = read_json(path, [])
+    attempted = changed = 0
+    messages: list[str] = []
+    for record in records:
+        if attempted >= args.limit:
+            break
+        if not should_enrich(record):
+            continue
+        attempted += 1
+        try:
+            did_change, status = enrich_record(record, args.timeout)
+            changed += int(did_change)
+            if status != "no-dates":
+                messages.append(f"{record.get('journal')}: {status}")
+        except Exception as exc:  # noqa: BLE001
+            messages.append(f"{record.get('journal')}: {type(exc).__name__}")
+            continue
+
+    if changed:
+        write_json(path, records)
+    record_source("publisher-detail", ok=True, count=changed, message=f"attempted={attempted}; " + "; ".join(messages[-20:]))
+    print(f"publisher detail attempted={attempted} changed={changed}")
 
 
 if __name__ == "__main__":
     main()
-

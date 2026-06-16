@@ -3,21 +3,26 @@
 from __future__ import annotations
 
 import argparse
+import json
+import os
 from pathlib import Path
 from typing import Any
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from common import (
     DATA_DIR,
+    USER_AGENT,
     date_from_parts,
-    fetch_json,
     first_text,
     load_journals,
-    now_iso,
     polite_sleep,
     recent_cutoff,
     today_str,
     write_json,
 )
+from sources.record import article_record
 from status import record_source
 
 
@@ -28,64 +33,125 @@ def author_name(author: dict[str, Any]) -> str:
 
 
 def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
-    published = (
-        date_from_parts(item.get("published-online"))
-        or date_from_parts(item.get("published-print"))
-        or date_from_parts(item.get("issued"))
+    published_online = date_from_parts(item.get("published-online"))
+    published = date_from_parts(item.get("published"))
+    published_print = date_from_parts(item.get("published-print"))
+    issued = date_from_parts(item.get("issued"))
+    created = date_from_parts(item.get("created"))
+    best_date = published_online or published or published_print or issued or created
+    if published_online:
+        date_source = "crossref_published_online"
+        confidence = "C"
+    elif published:
+        date_source = "crossref_published"
+        confidence = "C"
+    elif published_print or issued:
+        date_source = "crossref_issue"
+        confidence = "D"
+    elif created:
+        date_source = "crossref_created"
+        confidence = "D"
+    else:
+        date_source = None
+        confidence = "F"
+    record = article_record(
+        journal,
+        title=first_text(item.get("title")) or "",
+        url=item.get("URL"),
+        source="crossref",
+        source_url="https://api.crossref.org",
+        doi=item.get("DOI"),
+        authors=[author_name(author) for author in item.get("author", [])],
+        abstract=item.get("abstract"),
+        published_online=best_date,
+        issue_date=published_print or issued,
+        date_source=date_source,
+        date_confidence=confidence,
+        raw_data={"crossref_date_source": date_source},
     )
-    return {
-        "title": first_text(item.get("title")) or "",
-        "title_zh": None,
-        "abstract": item.get("abstract"),
-        "abstract_zh": None,
-        "authors": [author_name(author) for author in item.get("author", [])],
-        "journal": journal["title"],
-        "journal_short": journal.get("short_name"),
-        "journal_id": journal["id"],
-        "source_type": "journal",
-        "source": "crossref",
-        "publisher": item.get("publisher") or journal.get("publisher"),
-        "published_online": published,
-        "available_online": None,
-        "date_source": "crossref_published" if published else None,
-        "detected_at": now_iso(),
-        "doi": item.get("DOI"),
-        "url": item.get("URL"),
-        "pdf_url": None,
-        "fields": journal.get("fields", []),
-        "ai_tags": [],
-        "translation_status": "missing_abstract" if not item.get("abstract") else "skipped",
-    }
+    record["publisher"] = item.get("publisher") or journal.get("publisher")
+    record["translation_status"] = "missing_abstract" if not item.get("abstract") else "skipped"
+    return record
+
+
+def normalize_issn(value: str | None) -> str | None:
+    if not value:
+        return None
+    compact = value.replace("-", "").strip().upper()
+    if len(compact) != 8:
+        return value.strip()
+    return f"{compact[:4]}-{compact[4:]}"
+
+
+def journal_issns(journal: dict[str, Any]) -> list[str]:
+    values = [
+        journal.get("issn"),
+        journal.get("eissn"),
+        journal.get("online_issn"),
+        journal.get("print_issn"),
+    ]
+    for source in journal.get("sources", []):
+        if source.get("type") == "crossref" and source.get("issn"):
+            values.append(source.get("issn"))
+    return [issn for issn in dict.fromkeys(normalize_issn(str(value)) for value in values if value) if issn]
+
+
+def crossref_get(url: str, params: dict[str, Any], timeout: int, retries: int, sleep: float) -> Any:
+    mailto = os.environ.get("CROSSREF_MAILTO")
+    if mailto:
+        params["mailto"] = mailto
+    query = urllib.parse.urlencode(params)
+    request_url = f"{url}?{query}"
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
+    last_error: Exception | None = None
+    for attempt in range(retries + 1):
+        try:
+            request = urllib.request.Request(request_url, headers=headers)
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            last_error = exc
+            if exc.code not in {429, 500, 502, 503, 504}:
+                raise
+        except urllib.error.URLError as exc:
+            last_error = exc
+        polite_sleep(sleep * (attempt + 1))
+    if last_error:
+        raise last_error
+    raise RuntimeError("empty Crossref response")
 
 
 def fetch_for_journal(journal: dict[str, Any], args: argparse.Namespace) -> list[dict[str, Any]]:
-    issn = journal.get("issn")
-    if not issn:
-        for source in journal.get("sources", []):
-            if source.get("type") == "crossref" and source.get("issn"):
-                issn = source["issn"]
-                break
-    if not issn:
+    issns = journal_issns(journal)
+    if not issns:
         return []
 
-    payload = fetch_json(
-        "https://api.crossref.org/works",
-        params={
-            "filter": f"issn:{issn},from-pub-date:{recent_cutoff(args.days)}",
+    records = []
+    seen: set[str] = set()
+    for issn in issns:
+        payload = crossref_get(
+            f"https://api.crossref.org/journals/{urllib.parse.quote(issn)}/works",
+            params={
+            "filter": f"from-pub-date:{recent_cutoff(args.days)}",
             "sort": "published",
             "order": "desc",
             "rows": args.rows,
-            "select": "DOI,URL,title,container-title,author,publisher,published-online,published-print,issued,abstract,type",
-        },
-        timeout=args.timeout,
-    )
-    records = []
-    for item in payload.get("message", {}).get("items", []):
-        if item.get("type") not in {None, "journal-article"}:
-            continue
-        record = parse_item(item, journal)
-        if record["title"]:
-            records.append(record)
+            "select": "DOI,URL,title,container-title,author,publisher,published,published-online,published-print,issued,created,abstract,type",
+            },
+            timeout=args.timeout,
+            retries=args.retries,
+            sleep=args.sleep,
+        )
+        for item in payload.get("message", {}).get("items", []):
+            if item.get("type") not in {None, "journal-article"}:
+                continue
+            record = parse_item(item, journal)
+            key = (record.get("doi") or record.get("url") or record.get("title") or "").casefold()
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            if record["title"]:
+                records.append(record)
     return records
 
 
@@ -99,10 +165,12 @@ def main() -> None:
     parser.add_argument("--only", action="append", default=[])
     parser.add_argument("--sleep", type=float, default=0.2)
     parser.add_argument("--timeout", type=int, default=12)
+    parser.add_argument("--retries", type=int, default=2)
     args = parser.parse_args()
 
     output = args.output or DATA_DIR / "raw" / "crossref" / f"{today_str()}.json"
     records: list[dict[str, Any]] = []
+    messages: list[str] = []
     journals = load_journals(args.journals)
     if args.only:
         selected_ids = set(args.only)
@@ -111,14 +179,19 @@ def main() -> None:
 
     for journal in selected:
         try:
-            records.extend(fetch_for_journal(journal, args))
+            fetched = fetch_for_journal(journal, args)
+            records.extend(fetched)
+            messages.append(f"{journal.get('title')}: {len(fetched)}")
         except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
+            messages.append(f"{journal.get('title')}: error {type(exc).__name__}: {exc}")
             print(f"crossref error for {journal.get('title')}: {exc}")
         polite_sleep(args.sleep)
 
     write_json(output, records)
-    record_source("crossref", ok=True, count=len(records), message=str(output))
+    record_source("crossref", ok=True, count=len(records), message="; ".join(messages[-30:]) or str(output))
     print(f"wrote {len(records)} Crossref records to {output}")
+    for message in messages:
+        print(message)
 
 
 if __name__ == "__main__":

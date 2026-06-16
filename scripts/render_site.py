@@ -217,9 +217,17 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
 
 
 def date_confidence_label(record: dict[str, Any]) -> str:
+    if record.get("accepted_date"):
+        return "Accepted"
     if record.get("available_online"):
         return "在线日期"
-    if record.get("date_source") == "crossref_published" or record.get("source") == "crossref":
+    if record.get("date_source") in {"publisher_meta", "publisher_published_online"}:
+        return "出版社发布日期"
+    if record.get("date_source") == "publisher_available_online":
+        return "Available online"
+    if record.get("date_source") == "crossref_published_online":
+        return "Crossref在线日期"
+    if record.get("date_source") in {"crossref_published", "crossref_issue", "crossref_created"} or record.get("source") == "crossref":
         return "Crossref发布日期"
     if record.get("date_source") == "official_publish_date":
         return "发布日期"
@@ -370,7 +378,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         else:
             link_or_doi = '<span class="doi">暂无链接</span>'
         date_label = date_confidence_label(record)
-        official_date = html_escape(record.get("available_online") or record.get("published_online") or record.get("source_issue") or "待解析")
+        official_date = html_escape(record.get("accepted_date") or record.get("available_online") or record.get("published_online") or record.get("source_issue") or "待解析")
         fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in article_topics(record)[:3] if topic != "china")
         title_zh = record.get("title_zh")
         if title_zh and str(title_zh).strip() == str(record.get("title") or "").strip():
