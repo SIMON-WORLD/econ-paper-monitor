@@ -81,7 +81,26 @@ jobs:
         if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != ''
         run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Chinese journal pages
-        run: python scripts/fetch_cn_journals.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit ${{ steps.mode.outputs.cn_detail_limit }}
+        shell: bash
+        run: |
+          DATE="$(TZ=Asia/Shanghai date +%F)"
+          mkdir -p data/raw/cn
+          for JOURNAL in \
+            journal-f69300dae2 \
+            journal-679eaa2a0c \
+            journal-ba9f46c919 \
+            journal-379b4022ce \
+            journal-bf2aa9381f \
+            journal-edcb877d78
+          do
+            echo "Fetching Chinese journal: $JOURNAL"
+            timeout 75s python scripts/fetch_cn_journals.py \
+              --tier "${{ steps.mode.outputs.tier }}" \
+              --only "$JOURNAL" \
+              --output "data/raw/cn/${DATE}-${JOURNAL}.json" \
+              --detail-limit ${{ steps.mode.outputs.cn_detail_limit }} \
+              || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
+          done
       - name: Dedupe new papers
         run: python scripts/dedupe.py
       - name: Clean Chinese journal noise
