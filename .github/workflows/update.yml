@@ -2,8 +2,22 @@ name: Update Paper Monitor
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "Run mode: light, full, or single"
+        required: false
+        default: "light"
+      journal:
+        description: "Journal id for mode=single"
+        required: false
+        default: ""
+      days:
+        description: "Crossref lookback days"
+        required: false
+        default: "14"
   schedule:
     - cron: "17 * * * *"
+    - cron: "42 20 * * *"
 
 permissions:
   contents: write
@@ -16,18 +30,39 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Resolve run mode
+        id: mode
+        shell: bash
+        run: |
+          MODE="${{ github.event.inputs.mode || 'light' }}"
+          DAYS="${{ github.event.inputs.days || '14' }}"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "42 20 * * *" ]; then
+            MODE="full"
+            DAYS="45"
+          fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "days=$DAYS" >> "$GITHUB_OUTPUT"
+      - name: Build source registry
+        run: python scripts/build_source_registry.py
       - name: Enrich journals
+        if: steps.mode.outputs.mode == 'full'
         run: python scripts/enrich_journals.py --rows 3 --timeout 8 --sleep 0.05
       - name: Fetch RSS feeds
-        run: python scripts/fetch_rss.py
+        run: python scripts/fetch_rss.py --discover
       - name: Fetch Crossref metadata
-        run: python scripts/fetch_crossref.py --days 14 --rows 20 --sleep 0.2
+        if: steps.mode.outputs.mode != 'single'
+        run: python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --rows 20 --sleep 0.2 --retries 2
+      - name: Fetch Crossref metadata for one journal
+        if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != ''
+        run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows 50 --sleep 0.2 --retries 2
       - name: Fetch Chinese journal pages
         run: python scripts/fetch_cn_journals.py
       - name: Dedupe new papers
         run: python scripts/dedupe.py
       - name: Clean Chinese journal noise
         run: python scripts/clean_cn_noise.py
+      - name: Enrich publisher detail pages
+        run: python scripts/enrich_metadata.py --limit 80 --timeout 15
       - name: Translate paper titles
         run: python scripts/translate.py --limit 400
         env:
@@ -39,6 +74,10 @@ jobs:
         run: python scripts/render_site.py
       - name: Build RSS feed
         run: python scripts/build_feed.py --site-url https://simon-world.github.io/econ-paper-monitor/
+      - name: Render local/admin status artifact
+        run: python scripts/render_local_status.py
+      - name: Write run summary
+        run: python scripts/action_summary.py
       - name: Commit generated updates
         run: |
           git config user.name "github-actions[bot]"

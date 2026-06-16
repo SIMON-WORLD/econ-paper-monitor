@@ -10,7 +10,7 @@ from xml.etree import ElementTree
 
 from common import DATA_DIR, fetch_text, load_journals, today_str, write_json
 from sources.record import article_record
-from sources.registry import feeds_for_journal
+from sources.registry import load_registry, save_registry, feeds_for_journal
 from status import record_source
 
 
@@ -94,21 +94,35 @@ def main() -> None:
     selected = journals[: args.limit] if args.limit else journals
     records: list[dict[str, Any]] = []
     messages: list[str] = []
+    registry = load_registry()
 
     for journal in selected:
         feeds, feed_status = feeds_for_journal(journal, discover=args.discover)
+        registry_entry = registry.setdefault("journals", {}).setdefault(journal["id"], {})
+        registry_entry["last_rss_status"] = feed_status
+        registry_entry["last_checked_at"] = today_str()
         if not feeds:
+            registry_entry["last_rss_count"] = 0
             continue
         journal_count = 0
+        errors: list[str] = []
         for source in feeds:
             try:
                 fetched = parse_feed(fetch_text(source["url"]), journal, source["url"])
                 records.extend(fetched)
                 journal_count += len(fetched)
             except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
-                messages.append(f"{journal.get('title')}: {type(exc).__name__}: {exc}")
+                error = f"{type(exc).__name__}: {exc}"
+                errors.append(error)
+                messages.append(f"{journal.get('title')}: {error}")
+        registry_entry["last_rss_count"] = journal_count
+        if errors:
+            registry_entry["last_rss_error"] = errors[-1]
+        else:
+            registry_entry.pop("last_rss_error", None)
         messages.append(f"{journal.get('title')}: {journal_count} via {feed_status}")
 
+    save_registry(registry)
     write_json(output, records)
     record_source("rss", ok=True, count=len(records), message="; ".join(messages[-20:]) or str(output))
     print(f"wrote {len(records)} RSS records to {output}")

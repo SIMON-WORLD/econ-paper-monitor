@@ -23,6 +23,7 @@ from common import (
     write_json,
 )
 from sources.record import article_record
+from sources.registry import load_registry, save_registry
 from status import record_source
 
 
@@ -84,11 +85,16 @@ def normalize_issn(value: str | None) -> str | None:
 
 
 def journal_issns(journal: dict[str, Any]) -> list[str]:
+    registry = load_registry()
+    registry_entry = registry.get("journals", {}).get(journal["id"], {})
     values = [
         journal.get("issn"),
         journal.get("eissn"),
         journal.get("online_issn"),
         journal.get("print_issn"),
+        registry_entry.get("issn"),
+        registry_entry.get("online_issn"),
+        registry_entry.get("print_issn"),
     ]
     for source in journal.get("sources", []):
         if source.get("type") == "crossref" and source.get("issn"):
@@ -129,19 +135,33 @@ def fetch_for_journal(journal: dict[str, Any], args: argparse.Namespace) -> list
     records = []
     seen: set[str] = set()
     for issn in issns:
-        payload = crossref_get(
-            f"https://api.crossref.org/journals/{urllib.parse.quote(issn)}/works",
-            params={
+        params = {
             "filter": f"from-pub-date:{recent_cutoff(args.days)}",
             "sort": "published",
             "order": "desc",
             "rows": args.rows,
             "select": "DOI,URL,title,container-title,author,publisher,published,published-online,published-print,issued,created,abstract,type",
-            },
-            timeout=args.timeout,
-            retries=args.retries,
-            sleep=args.sleep,
-        )
+        }
+        try:
+            payload = crossref_get(
+                f"https://api.crossref.org/journals/{urllib.parse.quote(issn)}/works",
+                params=params,
+                timeout=args.timeout,
+                retries=args.retries,
+                sleep=args.sleep,
+            )
+        except urllib.error.HTTPError as exc:
+            if exc.code != 404:
+                raise
+            fallback_params = dict(params)
+            fallback_params["filter"] = f"issn:{issn},from-pub-date:{recent_cutoff(args.days)}"
+            payload = crossref_get(
+                "https://api.crossref.org/works",
+                params=fallback_params,
+                timeout=args.timeout,
+                retries=args.retries,
+                sleep=args.sleep,
+            )
         for item in payload.get("message", {}).get("items", []):
             if item.get("type") not in {None, "journal-article"}:
                 continue
@@ -176,17 +196,26 @@ def main() -> None:
         selected_ids = set(args.only)
         journals = [journal for journal in journals if journal.get("id") in selected_ids]
     selected = journals[: args.limit] if args.limit else journals
+    registry = load_registry()
 
     for journal in selected:
+        registry_entry = registry.setdefault("journals", {}).setdefault(journal["id"], {})
         try:
             fetched = fetch_for_journal(journal, args)
             records.extend(fetched)
+            registry_entry["last_crossref_count"] = len(fetched)
+            registry_entry["last_crossref_status"] = "ok"
+            registry_entry["last_crossref_error"] = None
             messages.append(f"{journal.get('title')}: {len(fetched)}")
         except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
+            registry_entry["last_crossref_count"] = 0
+            registry_entry["last_crossref_status"] = "error"
+            registry_entry["last_crossref_error"] = f"{type(exc).__name__}: {exc}"
             messages.append(f"{journal.get('title')}: error {type(exc).__name__}: {exc}")
             print(f"crossref error for {journal.get('title')}: {exc}")
         polite_sleep(args.sleep)
 
+    save_registry(registry)
     write_json(output, records)
     record_source("crossref", ok=True, count=len(records), message="; ".join(messages[-30:]) or str(output))
     print(f"wrote {len(records)} Crossref records to {output}")

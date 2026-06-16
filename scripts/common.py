@@ -43,10 +43,19 @@ def read_json(path: Path, default: Any) -> Any:
 
 def write_json(path: Path, value: Any) -> None:
     ensure_parent(path)
-    path.write_text(
-        json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    payload = json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    tmp = path.with_name(f"{path.name}.tmp")
+    tmp.write_text(payload, encoding="utf-8")
+    last_error: OSError | None = None
+    for attempt in range(8):
+        try:
+            tmp.replace(path)
+            return
+        except OSError as exc:
+            last_error = exc
+            time.sleep(0.25 * (attempt + 1))
+    if last_error:
+        raise last_error
 
 
 def fetch_json(url: str, params: dict[str, str | int] | None = None, timeout: int = 30) -> Any:

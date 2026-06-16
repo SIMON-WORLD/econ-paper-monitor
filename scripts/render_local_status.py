@@ -55,7 +55,10 @@ def main() -> None:
     by_source = Counter(record.get("source") or "unknown" for record in records)
     by_confidence = Counter(record.get("date_confidence") or "unknown" for record in records)
     registry = read_json(DATA_DIR / "source_registry.json", {"journals": {}})
-    registry_rss = sum(1 for item in registry.get("journals", {}).values() if item.get("rss"))
+    registry_items = registry.get("journals", {})
+    registry_rss = sum(1 for item in registry_items.values() if item.get("rss"))
+    registry_status = Counter(item.get("status") or "unknown" for item in registry_items.values())
+    registry_platform = Counter(item.get("platform") or "unknown" for item in registry_items.values())
     health = health_items(status)
     rows = []
     for source_id, item in sorted(status.get("sources", {}).items()):
@@ -69,6 +72,14 @@ def main() -> None:
     confidence_counts = "".join(
         f"<li>{html_escape(key)}: {value}</li>"
         for key, value in sorted(by_confidence.items())
+    )
+    registry_status_counts = "".join(
+        f"<li>{html_escape(key)}: {value}</li>"
+        for key, value in sorted(registry_status.items())
+    )
+    registry_platform_counts = "".join(
+        f"<li>{html_escape(key)}: {value}</li>"
+        for key, value in sorted(registry_platform.items())
     )
     daily_rows = "".join(f"<tr><td>{html_escape(day)}</td><td>{count}</td></tr>" for day, count in daily_counts())
     health_rows = "".join(f"<li>{html_escape(item)}</li>" for item in health) or "<li>暂无需要处理的来源异常。</li>"
@@ -98,6 +109,12 @@ def main() -> None:
   <ul>{source_counts}</ul>
   <h2>日期可信度</h2>
   <ul>{confidence_counts}</ul>
+  <h2>Source Registry</h2>
+  <p>用于判断每本期刊当前依赖官网、RSS、Crossref 还是特殊中文适配器。</p>
+  <h3>配置状态</h3>
+  <ul>{registry_status_counts}</ul>
+  <h3>平台分布</h3>
+  <ul>{registry_platform_counts}</ul>
   <h2>最近每日记录数</h2>
   <table><thead><tr><th>日期</th><th>记录数</th></tr></thead><tbody>{daily_rows}</tbody></table>
   <h2>健康提醒</h2>

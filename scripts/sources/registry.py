@@ -75,6 +75,11 @@ def candidate_pages(journal: dict[str, Any]) -> list[str]:
     for source in journal.get("sources", []):
         if source.get("type") in {"homepage", "rss_page"} and source.get("url"):
             pages.append(source["url"])
+    registry = load_registry()
+    journal_entry = registry.get("journals", {}).get(journal["id"], {})
+    for source in journal_entry.get("sources", []):
+        if source.get("type") in {"homepage", "rss_page", "latest"} and source.get("url"):
+            pages.append(source["url"])
     return list(dict.fromkeys(pages))
 
 

@@ -206,7 +206,13 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     today = today_str()
     return {
         "today": len(today_records),
-        "online_today": sum(1 for record in today_records if record.get("available_online") == today),
+        "online_today": sum(
+            1
+            for record in today_records
+            if record.get("available_online") == today
+            or record.get("accepted_date") == today
+            or record.get("published_online") == today
+        ),
         "source_date_today": sum(1 for record in today_records if record.get("published_online") == today),
         "today_journals": len(today_journals),
         "all_records": len(records),
@@ -238,6 +244,50 @@ def date_confidence_label(record: dict[str, Any]) -> str:
     if record.get("source_issue"):
         return "来源期次"
     return "日期待解析"
+
+
+def date_type(record: dict[str, Any]) -> str:
+    if record.get("accepted_date"):
+        return "accepted"
+    if record.get("available_online"):
+        return "available_online"
+    if record.get("published_online"):
+        return "published_online"
+    if record.get("source_issue") or record.get("issue_date"):
+        return "issue"
+    return "first_seen"
+
+
+def date_type_label(value: str) -> str:
+    return {
+        "accepted": "接受日期",
+        "available_online": "Online日期",
+        "published_online": "发布日期",
+        "issue": "来源期次",
+        "first_seen": "首次监测",
+    }.get(value, value)
+
+
+def confidence_value(record: dict[str, Any]) -> str:
+    if record.get("date_confidence"):
+        return str(record.get("date_confidence"))
+    return {
+        "accepted": "A",
+        "available_online": "A",
+        "published_online": "B",
+        "issue": "D",
+        "first_seen": "F",
+    }.get(date_type(record), "F")
+
+
+def confidence_label(value: str) -> str:
+    return {
+        "A": "A 最高",
+        "B": "B 官网/RSS",
+        "C": "C Crossref在线",
+        "D": "D 卷期/印刷",
+        "F": "F 仅首次监测",
+    }.get(value, value)
 
 
 def is_china_related(record: dict[str, Any]) -> bool:
@@ -397,8 +447,10 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
             ]
         )
         field_attr = " ".join(article_topics(record))
+        date_type_attr = date_type(record)
+        confidence_attr = confidence_value(record)
         chunks.append(
-            f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}">
+            f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-date-type="{html_escape(date_type_attr)}" data-confidence="{html_escape(confidence_attr)}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
     <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title'))}</a></h3>
@@ -420,6 +472,8 @@ FILTER_SCRIPT = """
   const search = document.getElementById('searchInput');
   const journal = document.getElementById('journalFilter');
   const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
   const china = document.getElementById('chinaToggle');
   const empty = document.getElementById('filterEmpty');
   const events = Array.from(document.querySelectorAll('.event'));
@@ -429,14 +483,18 @@ FILTER_SCRIPT = """
     const q = (search.value || '').trim().toLowerCase();
     const journalValue = journal.value;
     const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
     const chinaOnly = china.getAttribute('aria-pressed') === 'true';
     let visible = 0;
     for (const item of events) {
       const okSearch = !q || item.dataset.search.includes(q);
       const okJournal = !journalValue || item.dataset.journal === journalValue;
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
       const okChina = !chinaOnly || item.dataset.china === 'true';
-      const show = okSearch && okJournal && okField && okChina;
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
       item.hidden = !show;
       if (show) visible += 1;
     }
@@ -446,6 +504,8 @@ FILTER_SCRIPT = """
   search.addEventListener('input', applyFilters);
   journal.addEventListener('change', applyFilters);
   field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
   china.addEventListener('click', () => {
     const active = china.getAttribute('aria-pressed') !== 'true';
     china.setAttribute('aria-pressed', String(active));
@@ -470,13 +530,19 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False) 
         key=lambda item: item[1],
     )
     topics = sorted({topic for record in records for topic in article_topics(record)}, key=topic_label)
+    date_types = sorted({date_type(record) for record in records}, key=date_type_label)
+    confidences = sorted({confidence_value(record) for record in records})
     journal_options = "".join(f'<option value="{html_escape(jid)}">{html_escape(title)}</option>' for jid, title in journals)
     field_options = "".join(f'<option value="{html_escape(topic)}">{html_escape(topic_label(topic))}</option>' for topic in topics)
+    date_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(date_type_label(value))}</option>' for value in date_types)
+    confidence_options = "".join(f'<option value="{html_escape(value)}">{html_escape(confidence_label(value))}</option>' for value in confidences)
     rss = f'<a class="control primary" href="{BASE}/feed.xml">RSS 订阅</a>' if include_rss else ""
     return f"""<div class="toolbar" id="filters">
   <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者">
   <select class="control" id="journalFilter"><option value="">筛选期刊</option>{journal_options}</select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option>{field_options}</select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option>{date_type_options}</select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option>{confidence_options}</select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   {rss}
 </div>
