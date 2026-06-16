@@ -25,7 +25,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, fetch_text, load_journals, now_iso, today_str, write_json
+from common import DATA_DIR, fetch_text, filter_journals_by_tier, load_journals, now_iso, today_str, write_json
 from status import record_source
 
 
@@ -635,9 +635,10 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit-per-journal", type=int, default=20)
     parser.add_argument("--only", action="append", default=[])
+    parser.add_argument("--tier", default=None)
     args = parser.parse_args()
 
-    journals_by_id = {journal["id"]: journal for journal in load_journals(args.journals)}
+    journals_by_id = {journal["id"]: journal for journal in filter_journals_by_tier(load_journals(args.journals), args.tier)}
     output = args.output or DATA_DIR / "raw" / "cn" / f"{today_str()}.json"
     records: list[dict[str, Any]] = []
     messages: list[str] = []

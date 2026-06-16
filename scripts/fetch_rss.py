@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree
 
-from common import DATA_DIR, fetch_text, load_journals, today_str, write_json
+from common import DATA_DIR, fetch_text, filter_journals_by_tier, load_journals, today_str, write_json
 from sources.record import article_record
 from sources.registry import load_registry, save_registry, feeds_for_journal
 from status import record_source
@@ -87,10 +87,11 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--discover", action="store_true")
+    parser.add_argument("--tier", default=None)
     args = parser.parse_args()
 
     output = args.output or DATA_DIR / "raw" / "rss" / f"{today_str()}.json"
-    journals = load_journals(args.journals)
+    journals = filter_journals_by_tier(load_journals(args.journals), args.tier)
     selected = journals[: args.limit] if args.limit else journals
     records: list[dict[str, Any]] = []
     messages: list[str] = []

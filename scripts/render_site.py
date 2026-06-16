@@ -8,7 +8,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str
+from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str, write_text
 
 
 SITE_NAME = "Econ Papers Daily"
@@ -291,6 +291,8 @@ def confidence_label(value: str) -> str:
 
 
 def is_china_related(record: dict[str, Any]) -> bool:
+    if record.get("china_related") is True:
+        return True
     if "chinese" in (record.get("fields") or []):
         return True
     haystack = " ".join(
@@ -589,7 +591,7 @@ def write_page(path: Path, content: str) -> None:
     depth = len(relative_parent.parts)
     page_base = "." if depth == 0 else "/".join([".."] * depth)
     content = content.replace(BASE, page_base)
-    path.write_text(content, encoding="utf-8")
+    write_text(path, content)
 
 
 def main() -> None:

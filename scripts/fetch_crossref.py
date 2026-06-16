@@ -17,6 +17,7 @@ from common import (
     date_from_parts,
     first_text,
     load_journals,
+    filter_journals_by_tier,
     polite_sleep,
     recent_cutoff,
     today_str,
@@ -183,6 +184,7 @@ def main() -> None:
     parser.add_argument("--rows", type=int, default=20)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--only", action="append", default=[])
+    parser.add_argument("--tier", default=None)
     parser.add_argument("--sleep", type=float, default=0.2)
     parser.add_argument("--timeout", type=int, default=12)
     parser.add_argument("--retries", type=int, default=2)
@@ -191,7 +193,7 @@ def main() -> None:
     output = args.output or DATA_DIR / "raw" / "crossref" / f"{today_str()}.json"
     records: list[dict[str, Any]] = []
     messages: list[str] = []
-    journals = load_journals(args.journals)
+    journals = filter_journals_by_tier(load_journals(args.journals), args.tier)
     if args.only:
         selected_ids = set(args.only)
         journals = [journal for journal in journals if journal.get("id") in selected_ids]

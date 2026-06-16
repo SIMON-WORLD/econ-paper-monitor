@@ -44,6 +44,11 @@ def read_json(path: Path, default: Any) -> Any:
 def write_json(path: Path, value: Any) -> None:
     ensure_parent(path)
     payload = json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    write_text(path, payload)
+
+
+def write_text(path: Path, payload: str) -> None:
+    ensure_parent(path)
     tmp = path.with_name(f"{path.name}.tmp")
     tmp.write_text(payload, encoding="utf-8")
     last_error: OSError | None = None
@@ -170,6 +175,47 @@ def load_journals(path: Path = DATA_DIR / "journals.yml") -> list[dict[str, Any]
     if current:
         journals.append(current)
     return journals
+
+
+def load_simple_yaml(path: Path) -> dict[str, Any]:
+    """Parse the small project YAML files without adding a dependency."""
+    if not path.exists():
+        return {}
+    root: dict[str, Any] = {}
+    current_key: str | None = None
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        if not raw_line.strip() or raw_line.lstrip().startswith("#"):
+            continue
+        if not raw_line.startswith(" ") and raw_line.strip().endswith(":"):
+            current_key = raw_line.strip()[:-1].strip('"')
+            root[current_key] = []
+            continue
+        if current_key and raw_line.strip().startswith("- "):
+            root[current_key].append(parse_scalar(raw_line.strip()[2:].strip()))
+            continue
+        if current_key == "records" and raw_line.startswith("  ") and not raw_line.startswith("    "):
+            root.setdefault("records", {})
+    if "records:" in path.read_text(encoding="utf-8"):
+        # The manual override file has a simple nested mapping; use json-like
+        # parsing via PyYAML when available, otherwise fall back to a narrow parser.
+        try:
+            import yaml  # type: ignore
+
+            loaded = yaml.safe_load(path.read_text(encoding="utf-8"))
+            return loaded or {}
+        except Exception:
+            return {}
+    return root
+
+
+def filter_journals_by_tier(journals: list[dict[str, Any]], tier: str | None) -> list[dict[str, Any]]:
+    if not tier or tier == "full":
+        return journals
+    tiers = load_simple_yaml(DATA_DIR / "monitor_tiers.yml")
+    selected_ids = set(tiers.get(tier, []))
+    if not selected_ids:
+        return journals
+    return [journal for journal in journals if journal.get("id") in selected_ids]
 
 
 def render_journals_yml(journals: list[dict[str, Any]]) -> str:

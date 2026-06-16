@@ -8,7 +8,7 @@ from email.utils import format_datetime
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, DOCS_DIR, html_escape, read_json
+from common import DATA_DIR, DOCS_DIR, html_escape, read_json, write_text
 
 
 def load_records(daily_dir: Path) -> list[dict[str, Any]]:
@@ -58,8 +58,7 @@ def main() -> None:
   </channel>
 </rss>
 """
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(xml, encoding="utf-8")
+    write_text(args.output, xml)
     print(f"wrote {len(records)} feed items to {args.output}")
 
 

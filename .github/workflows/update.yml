@@ -42,18 +42,22 @@ jobs:
           fi
           ROWS="12"
           DETAIL_LIMIT="0"
+          TIER="hourly"
           if [ "$MODE" = "full" ]; then
             ROWS="40"
             DETAIL_LIMIT="120"
+            TIER=""
           fi
           if [ "$MODE" = "single" ]; then
             ROWS="60"
             DETAIL_LIMIT="25"
+            TIER=""
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "days=$DAYS" >> "$GITHUB_OUTPUT"
           echo "rows=$ROWS" >> "$GITHUB_OUTPUT"
           echo "detail_limit=$DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
+          echo "tier=$TIER" >> "$GITHUB_OUTPUT"
       - name: Build source registry
         run: python scripts/build_source_registry.py
       - name: Enrich journals
@@ -61,22 +65,24 @@ jobs:
         run: python scripts/enrich_journals.py --rows 3 --timeout 8 --sleep 0.05
       - name: Fetch RSS feeds
         if: steps.mode.outputs.mode != 'full'
-        run: python scripts/fetch_rss.py
+        run: python scripts/fetch_rss.py --tier "${{ steps.mode.outputs.tier }}"
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full'
         run: python scripts/fetch_rss.py --discover
       - name: Fetch Crossref metadata
         if: steps.mode.outputs.mode != 'single'
-        run: python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
+        run: python scripts/fetch_crossref.py --tier "${{ steps.mode.outputs.tier }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Crossref metadata for one journal
         if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != ''
         run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Chinese journal pages
-        run: python scripts/fetch_cn_journals.py
+        run: python scripts/fetch_cn_journals.py --tier "${{ steps.mode.outputs.tier }}"
       - name: Dedupe new papers
         run: python scripts/dedupe.py
       - name: Clean Chinese journal noise
         run: python scripts/clean_cn_noise.py
+      - name: Apply manual overrides
+        run: python scripts/apply_overrides.py
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0'
         run: python scripts/enrich_metadata.py --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
