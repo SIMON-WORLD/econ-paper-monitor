@@ -29,6 +29,9 @@ from common import DATA_DIR, fetch_text, filter_journals_by_tier, load_journals,
 from status import record_source
 
 
+DETAIL_LIMIT = 0
+DETAIL_ATTEMPTED = 0
+
 CN_HOME_URLS = {
     "journal-f69300dae2": "https://zgncjj.ajcass.com/#/",
     "journal-679eaa2a0c": "https://sjjj.magtech.com.cn/CN/home",
@@ -349,6 +352,7 @@ def parse_world_economy(html_text: str, journal: dict[str, Any], limit: int) -> 
             source_url=base_url,
         )
         if record:
+            enrich_cn_detail(record)
             records.append(record)
         if len(records) >= limit:
             break
@@ -383,6 +387,7 @@ def parse_jqte(html_text: str, journal: dict[str, Any], limit: int) -> list[dict
             source_url=base_url,
         )
         if record:
+            enrich_cn_detail(record)
             records.append(record)
         if len(records) >= limit:
             break
@@ -420,6 +425,7 @@ def parse_cie(html_text: str, journal: dict[str, Any], limit: int) -> list[dict[
             source_url=base_url,
         )
         if record:
+            enrich_cn_detail(record)
             records.append(record)
         if len(records) >= limit:
             break
@@ -610,6 +616,184 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
     return records
 
 
+def extract_date(text: str) -> str | None:  # type: ignore[no-redef]
+    patterns = [
+        r"(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})日?",
+        r"(20\d{2})(\d{2})(\d{2})",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text or "")
+        if not match:
+            continue
+        try:
+            year, month, day = (int(match.group(1)), int(match.group(2)), int(match.group(3)))
+            return f"{year:04d}-{month:02d}-{day:02d}"
+        except ValueError:
+            continue
+    return None
+
+
+def split_authors(value: str | None) -> list[str]:  # type: ignore[no-redef]
+    text = clean_text(value)
+    text = re.sub(r"^\[|\]$", "", text)
+    if not text:
+        return []
+    return [item.strip() for item in re.split(r"[;；、，,\s]+", text) if item.strip()]
+
+
+def issue_key(source_issue: str | None) -> tuple[int, int] | None:  # type: ignore[no-redef]
+    text = clean_text(source_issue)
+    if not text:
+        return None
+    patterns = [
+        r"(20\d{2})\s*年\s*,?\s*第?\s*(\d{1,2})\s*期",
+        r"(20\d{2})\s*年\s*(\d{1,2})\s*期",
+        r"(20\d{2})\s*,\s*\d+\s*\(\s*(\d{1,2})\s*\)",
+        r"(20\d{2})\s*,\s*\(\s*(\d{1,2})\s*\)",
+        r"(20\d{2})年第\s*(\d{1,2})期",
+        r"(20\d{2})年(\d{1,2})期",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if match:
+            return int(match.group(1)), int(match.group(2))
+    return None
+
+
+def latest_issue_note(before: list[dict[str, Any]], after: list[dict[str, Any]]) -> str | None:  # type: ignore[no-redef]
+    keys = [key for key in (issue_key(record.get("source_issue")) for record in before) if key is not None]
+    if not keys:
+        return None
+    latest = max(keys)
+    current_year = int(today_str()[:4])
+    if latest[0] < current_year:
+        return f"stale-latest {latest[0]}年第{latest[1]}期 excluded"
+    if len(after) != len(before):
+        return f"latest-issue {len(after)}/{len(before)}"
+    return None
+
+
+def enrich_cn_detail(record: dict[str, Any]) -> None:
+    global DETAIL_ATTEMPTED
+    if DETAIL_LIMIT <= 0 or DETAIL_ATTEMPTED >= DETAIL_LIMIT:
+        return
+    url = record.get("url")
+    if not url:
+        return
+    DETAIL_ATTEMPTED += 1
+    try:
+        detail_text = fetch_text_partial(str(url), timeout=12, max_bytes=260_000)
+    except Exception:
+        return
+    title, authors, doi, online, published = parse_detail_meta(detail_text)
+    if doi and not record.get("doi"):
+        record["doi"] = doi
+    if authors and not record.get("authors"):
+        record["authors"] = authors
+    if title and not record.get("title"):
+        record["title"] = title
+    date_value = online or published
+    if date_value and not (record.get("available_online") or record.get("published_online")):
+        record["available_online"] = date_value
+        record["published_online"] = date_value
+        record["date_source"] = "official_publish_date"
+    meta = parse_meta(detail_text)
+    abstract = meta.get("citation_abstract") or meta.get("dc.description") or meta.get("description")
+    if abstract and not record.get("abstract"):
+        record["abstract"] = clean_text(abstract)
+        if has_chinese(abstract):
+            record["abstract_zh"] = clean_text(abstract)
+
+
+def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # type: ignore[no-redef]
+    """Fetch Management World current-year issue data when CBPT allows it.
+
+    The CNKI/CBPT site often returns a validation page. In that case we fail
+    fast instead of looping over old issues and slowing every monitor run.
+    """
+    base = "https://glsj.chinajournal.net.cn/WKB/WebPublication/"
+    cookie_jar = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
+    headers = {"User-Agent": "Mozilla/5.0", "Referer": base + "index.aspx?mid=glsj"}
+    records: list[dict[str, Any]] = []
+    try:
+        opener.open(urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers), timeout=8).read()
+    except Exception:
+        return records
+    current_year = int(today_str()[:4])
+    latest_page = ""
+    latest_endpoint = ""
+    for issue in range(12, 0, -1):
+        endpoint = f"getThisIssuePaperInfo.ashx?y={current_year}&i={issue}"
+        try:
+            page = opener.open(urllib.request.Request(base + endpoint, headers=headers), timeout=4).read().decode("utf-8", errors="replace")
+        except Exception:
+            continue
+        if "暂无内容" in page or "showValidateCode.aspx" in page or "login.css" in page or len(page) < 200:
+            continue
+        latest_page = page
+        latest_endpoint = endpoint
+        break
+    if not latest_page:
+        return records
+    blocks = re.findall(r"<li>\s*<h3>[\s\S]*?</li>", latest_page, flags=re.I)
+    for block in blocks:
+        title_match = re.search(r'<a[^>]+href=["\']([^"\']*paperDigest\.aspx\?paperID=[^"\']+)["\'][^>]*>([\s\S]*?)</a>', block, flags=re.I)
+        if not title_match:
+            continue
+        href, title_html = title_match.groups()
+        authors_match = re.search(r"<samp>([\s\S]*?)</samp>", block, flags=re.I)
+        issue_match = re.search(r"<span>([\s\S]*?)<a", block, flags=re.I)
+        record = make_record(
+            journal,
+            title_html,
+            normalize_url(href, base),
+            authors=split_authors(authors_match.group(1) if authors_match else None),
+            source_issue=clean_text(issue_match.group(1)) if issue_match else None,
+            date_source="issue_only",
+            source_url=base + latest_endpoint,
+        )
+        if record:
+            enrich_cn_detail(record)
+            records.append(record)
+        if len(records) >= limit:
+            return records
+    return records
+
+
+def parse_world_economy(html_text: str, journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # type: ignore[no-redef]
+    base_url = CN_HOME_URLS[journal["id"]]
+    blocks = re.findall(r'<li[^>]+id=["\']art\d+["\'][\s\S]*?</li>', html_text, flags=re.I)
+    records: list[dict[str, Any]] = []
+    for block in blocks:
+        title_match = re.search(r'class=["\']j-title-1["\'][\s\S]*?<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]*?)</a>', block, flags=re.I)
+        if not title_match:
+            continue
+        href, title_html = title_match.groups()
+        url = normalize_url(href, base_url)
+        if "/CN/Y" not in url:
+            continue
+        authors_match = re.search(r'class=["\']j-author["\'][^>]*>([\s\S]*?)</div>', block, flags=re.I)
+        issue_match = re.search(r'class=["\']j-volumn["\'][^>]*>([\s\S]*?)</span>', block, flags=re.I)
+        abstract_match = re.search(r'class=["\']j-abstract["\'][^>]*>([\s\S]*?)</div>', block, flags=re.I)
+        record = make_record(
+            journal,
+            clean_title(title_html),
+            url,
+            authors=split_authors(authors_match.group(1) if authors_match else None),
+            abstract=abstract_match.group(1) if abstract_match else None,
+            source_issue=clean_text(issue_match.group(1)) if issue_match else None,
+            date_source="issue_only",
+            source_url=base_url,
+        )
+        if record:
+            enrich_cn_detail(record)
+            records.append(record)
+        if len(records) >= limit:
+            break
+    return records
+
+
 def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[dict[str, Any]], str]:
     journal_id = journal["id"]
     if journal_id in AJCASS_JOURNAL_IDS:
@@ -634,9 +818,13 @@ def main() -> None:
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit-per-journal", type=int, default=20)
+    parser.add_argument("--detail-limit", type=int, default=0)
     parser.add_argument("--only", action="append", default=[])
     parser.add_argument("--tier", default=None)
     args = parser.parse_args()
+    global DETAIL_LIMIT, DETAIL_ATTEMPTED
+    DETAIL_LIMIT = args.detail_limit
+    DETAIL_ATTEMPTED = 0
 
     journals_by_id = {journal["id"]: journal for journal in filter_journals_by_tier(load_journals(args.journals), args.tier)}
     output = args.output or DATA_DIR / "raw" / "cn" / f"{today_str()}.json"
@@ -669,6 +857,8 @@ def main() -> None:
 
     write_json(output, records)
     ok = any(not msg.endswith("empty") for msg in messages) and bool(records)
+    if DETAIL_LIMIT:
+        messages.append(f"detail-attempted={DETAIL_ATTEMPTED}/{DETAIL_LIMIT}")
     record_source("cn-journals", ok=ok, count=len(records), message="; ".join(messages))
     print(f"wrote {len(records)} Chinese journal records to {output}")
     for message in messages:

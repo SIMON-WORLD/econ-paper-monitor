@@ -16,7 +16,9 @@ on:
         required: false
         default: "14"
   schedule:
-    - cron: "0 * * * *"
+    # GitHub often delays or drops jobs scheduled at minute 0 during peak load.
+    # Run the hourly light monitor at minute 7 for better reliability.
+    - cron: "7 * * * *"
     - cron: "30 0 * * *"
 
 permissions:
@@ -42,10 +44,12 @@ jobs:
           fi
           ROWS="12"
           DETAIL_LIMIT="0"
+          CN_DETAIL_LIMIT="0"
           TIER="hourly"
           if [ "$MODE" = "full" ]; then
             ROWS="40"
             DETAIL_LIMIT="120"
+            CN_DETAIL_LIMIT="0"
             TIER=""
           fi
           if [ "$MODE" = "single" ]; then
@@ -57,6 +61,7 @@ jobs:
           echo "days=$DAYS" >> "$GITHUB_OUTPUT"
           echo "rows=$ROWS" >> "$GITHUB_OUTPUT"
           echo "detail_limit=$DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
+          echo "cn_detail_limit=$CN_DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
           echo "tier=$TIER" >> "$GITHUB_OUTPUT"
       - name: Build source registry
         run: python scripts/build_source_registry.py
@@ -76,7 +81,7 @@ jobs:
         if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != ''
         run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Chinese journal pages
-        run: python scripts/fetch_cn_journals.py --tier "${{ steps.mode.outputs.tier }}"
+        run: python scripts/fetch_cn_journals.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit ${{ steps.mode.outputs.cn_detail_limit }}
       - name: Dedupe new papers
         run: python scripts/dedupe.py
       - name: Clean Chinese journal noise

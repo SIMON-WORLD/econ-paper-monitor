@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str, write_text
+from status import load_status
 
 
 SITE_NAME = "Econ Papers Daily"
@@ -206,14 +207,22 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     today = today_str()
     today_journals = {record.get("journal_id") for record in today_records if record.get("journal_id")}
     all_journals = {record.get("journal_id") for record in records if record.get("journal_id")}
-    last_seen = max((record.get("detected_at") or "" for record in records), default="")
+    status = load_status()
+    latest_run = (status.get("runs") or [{}])[0].get("updated_at") or ""
+    latest_source = max(
+        (str(item.get("updated_at") or "") for item in (status.get("sources") or {}).values()),
+        default="",
+    )
+    last_record_seen = max((record.get("detected_at") or "" for record in records), default="")
+    last_run = latest_run or latest_source or last_record_seen
     return {
         "today": len(today_records),
         "online_today": sum(1 for record in today_records if today in {record.get("available_online"), record.get("accepted_date"), record.get("published_online")}),
         "today_journals": len(today_journals),
         "all_records": len(records),
         "all_journals": len(all_journals),
-        "last_seen": beijing_stamp(last_seen),
+        "last_run": beijing_stamp(last_run),
+        "last_record_seen": beijing_stamp(last_record_seen),
     }
 
 
@@ -458,7 +467,8 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   </div>
   <div class="signal">
     <div class="signal-row"><span>排序依据</span><strong>监测时间 / 可靠来源日期</strong></div>
-    <div class="signal-row"><span>最后监测</span><strong>{html_escape(s['last_seen'])}</strong></div>
+    <div class="signal-row"><span>最后监测</span><strong>{html_escape(s['last_run'])}</strong></div>
+    <div class="signal-row"><span>最新论文</span><strong>{html_escape(s['last_record_seen'])}</strong></div>
     <div class="signal-row"><span>运行方式</span><strong>GitHub Actions 自动运行</strong></div>
   </div>
 </section>
