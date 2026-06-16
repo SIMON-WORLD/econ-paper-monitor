@@ -40,8 +40,20 @@ jobs:
             MODE="full"
             DAYS="45"
           fi
+          ROWS="12"
+          DETAIL_LIMIT="0"
+          if [ "$MODE" = "full" ]; then
+            ROWS="40"
+            DETAIL_LIMIT="120"
+          fi
+          if [ "$MODE" = "single" ]; then
+            ROWS="60"
+            DETAIL_LIMIT="25"
+          fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "days=$DAYS" >> "$GITHUB_OUTPUT"
+          echo "rows=$ROWS" >> "$GITHUB_OUTPUT"
+          echo "detail_limit=$DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
       - name: Build source registry
         run: python scripts/build_source_registry.py
       - name: Enrich journals
@@ -55,10 +67,10 @@ jobs:
         run: python scripts/fetch_rss.py --discover
       - name: Fetch Crossref metadata
         if: steps.mode.outputs.mode != 'single'
-        run: python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --rows 20 --sleep 0.2 --retries 2
+        run: python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Crossref metadata for one journal
         if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != ''
-        run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows 50 --sleep 0.2 --retries 2
+        run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Chinese journal pages
         run: python scripts/fetch_cn_journals.py
       - name: Dedupe new papers
@@ -66,7 +78,8 @@ jobs:
       - name: Clean Chinese journal noise
         run: python scripts/clean_cn_noise.py
       - name: Enrich publisher detail pages
-        run: python scripts/enrich_metadata.py --limit 80 --timeout 15
+        if: steps.mode.outputs.detail_limit != '0'
+        run: python scripts/enrich_metadata.py --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
       - name: Translate paper titles
         run: python scripts/translate.py --limit 400
         env:
