@@ -10,6 +10,16 @@ from common import DATA_DIR, read_json, today_str, write_json
 from status import record_source
 
 
+CN_JOURNAL_IDS = {
+    "journal-379b4022ce",
+    "journal-edcb877d78",
+    "journal-bf2aa9381f",
+    "journal-f69300dae2",
+    "journal-679eaa2a0c",
+    "journal-ba9f46c919",
+}
+
+
 def has_chinese(value: str | None) -> bool:
     return any("\u4e00" <= ch <= "\u9fff" for ch in value or "")
 
@@ -33,7 +43,7 @@ def is_chinese_journal(record: dict[str, Any]) -> bool:
     fields = set(record.get("fields") or [])
     source = str(record.get("source") or "")
     journal_id = str(record.get("journal_id") or "")
-    return "chinese" in fields or source == "cn-official" or journal_id.startswith("journal-")
+    return "chinese" in fields or source == "cn-official" or journal_id in CN_JOURNAL_IDS
 
 
 def normalize_record(record: dict[str, Any]) -> bool:

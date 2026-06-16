@@ -128,6 +128,15 @@ COMMON_CHINESE_SURNAMES = {
     "zhu",
 }
 
+CN_JOURNAL_IDS = {
+    "journal-379b4022ce",  # 管理世界
+    "journal-edcb877d78",  # 数量经济技术经济研究
+    "journal-bf2aa9381f",  # 中国工业经济
+    "journal-f69300dae2",  # 中国农村经济
+    "journal-679eaa2a0c",  # 世界经济
+    "journal-ba9f46c919",  # 经济研究
+}
+
 
 def haystack(record: dict[str, Any]) -> str:
     values = [
@@ -155,14 +164,16 @@ def is_chinese_journal(record: dict[str, Any]) -> bool:
     fields = set(record.get("fields") or [])
     source = str(record.get("source") or "")
     journal_id = str(record.get("journal_id") or "")
-    return "chinese" in fields or source == "cn-official" or journal_id.startswith("journal-")
+    return "chinese" in fields or source == "cn-official" or journal_id in CN_JOURNAL_IDS
 
 
 def classify(record: dict[str, Any]) -> tuple[str, str, str]:
     """Return status, reason, source."""
-    if record.get("china_related") is True:
+    manual_reason = str(record.get("china_reason") or "")
+    source = str(record.get("china_related_source") or "")
+    if record.get("china_related") is True and (source in {"manual", "ai"} or manual_reason):
         return "confirmed", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工/上游确认"), "manual"
-    if record.get("china_related") is False:
+    if record.get("china_related") is False and (source in {"manual", "ai"} or manual_reason):
         return "none", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工排除"), "manual"
     if is_chinese_journal(record):
         return "confirmed", "中文期刊默认与中国相关", "rule"
@@ -211,14 +222,26 @@ def main() -> None:
             elif status == "candidate":
                 candidates += 1
                 updates = {
+                    "china_related": None,
+                    "china_related_source": None,
                     "china_relevance_status": "candidate",
                     "china_relevance_reason": reason,
                 }
             else:
-                updates = {"china_relevance_status": "none"}
+                updates = {
+                    "china_related": None,
+                    "china_related_source": None,
+                    "china_relevance_status": "none",
+                }
                 if reason:
                     updates["china_relevance_reason"] = reason
             for key, value in updates.items():
+                if value is None:
+                    if key in record:
+                        record.pop(key, None)
+                        path_changed = True
+                        changed += 1
+                    continue
                 if record.get(key) != value:
                     record[key] = value
                     path_changed = True
