@@ -219,6 +219,8 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
 def date_confidence_label(record: dict[str, Any]) -> str:
     if record.get("available_online"):
         return "在线日期"
+    if record.get("date_source") == "crossref_published" or record.get("source") == "crossref":
+        return "Crossref发布日期"
     if record.get("date_source") == "official_publish_date":
         return "发布日期"
     if record.get("date_source") == "file_upload_date":
@@ -231,6 +233,8 @@ def date_confidence_label(record: dict[str, Any]) -> str:
 
 
 def is_china_related(record: dict[str, Any]) -> bool:
+    if "chinese" in (record.get("fields") or []):
+        return True
     haystack = " ".join(
         str(value or "")
         for value in [

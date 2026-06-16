@@ -47,6 +47,7 @@ def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
         "publisher": item.get("publisher") or journal.get("publisher"),
         "published_online": published,
         "available_online": None,
+        "date_source": "crossref_published" if published else None,
         "detected_at": now_iso(),
         "doi": item.get("DOI"),
         "url": item.get("URL"),
@@ -95,6 +96,7 @@ def main() -> None:
     parser.add_argument("--days", type=int, default=14)
     parser.add_argument("--rows", type=int, default=20)
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--only", action="append", default=[])
     parser.add_argument("--sleep", type=float, default=0.2)
     parser.add_argument("--timeout", type=int, default=12)
     args = parser.parse_args()
@@ -102,6 +104,9 @@ def main() -> None:
     output = args.output or DATA_DIR / "raw" / "crossref" / f"{today_str()}.json"
     records: list[dict[str, Any]] = []
     journals = load_journals(args.journals)
+    if args.only:
+        selected_ids = set(args.only)
+        journals = [journal for journal in journals if journal.get("id") in selected_ids]
     selected = journals[: args.limit] if args.limit else journals
 
     for journal in selected:

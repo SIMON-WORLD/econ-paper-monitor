@@ -30,6 +30,7 @@ DATE_SOURCE_RANK = {
     "": 0,
     "issue_only": 1,
     "file_upload_date": 2,
+    "crossref_published": 2,
     "official_publish_date": 3,
     "rss_published": 4,
 }
