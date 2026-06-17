@@ -14,9 +14,9 @@ from status import now, record_source, record_workflow_run
 
 
 MODE_LABELS = {
-    "light": "快速监测",
-    "full": "全量监测",
-    "single": "单期刊监测",
+    "light": "\u5feb\u901f\u76d1\u6d4b",
+    "full": "\u5168\u91cf\u76d1\u6d4b",
+    "single": "\u5355\u671f\u520a\u76d1\u6d4b",
 }
 
 

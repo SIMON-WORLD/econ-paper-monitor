@@ -16,8 +16,8 @@ on:
         required: false
         default: "14"
   schedule:
-    # Hourly light monitor. GitHub may still delay scheduled jobs by a few minutes.
-    - cron: "0 * * * *"
+    # Watchdog wakeups. The workflow itself skips if the last light monitor is recent.
+    - cron: "*/15 * * * *"
     - cron: "30 0 * * *"
 
 permissions:
@@ -74,24 +74,37 @@ jobs:
           echo "translate_limit=$TRANSLATE_LIMIT" >> "$GITHUB_OUTPUT"
           echo "translate_seconds=$TRANSLATE_SECONDS" >> "$GITHUB_OUTPUT"
           echo "tier=$TIER" >> "$GITHUB_OUTPUT"
+      - name: Scheduled light watchdog
+        id: watchdog
+        if: github.event_name == 'schedule' && github.event.schedule != '30 0 * * *'
+        shell: bash
+        run: |
+          DECISION="$(python scripts/should_run_monitor.py --min-minutes 50)"
+          echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
+          echo "Scheduled light watchdog: $DECISION"
+      - name: Skip recent scheduled light run
+        if: github.event_name == 'schedule' && github.event.schedule != '30 0 * * *' && startsWith(steps.watchdog.outputs.decision, 'skip:')
+        run: echo "Recent light monitor exists; skipping this watchdog wakeup."
       - name: Build source registry
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_source_registry.py
       - name: Enrich journals
-        if: steps.mode.outputs.mode == 'full'
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_journals.py --rows 3 --timeout 8 --sleep 0.05
       - name: Fetch RSS feeds
-        if: steps.mode.outputs.mode != 'full'
+        if: steps.mode.outputs.mode != 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --tier "${{ steps.mode.outputs.tier }}"
       - name: Discover and fetch RSS feeds
-        if: steps.mode.outputs.mode == 'full'
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
       - name: Fetch Crossref metadata
-        if: steps.mode.outputs.mode != 'single'
+        if: steps.mode.outputs.mode != 'single' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_crossref.py --tier "${{ steps.mode.outputs.tier }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Crossref metadata for one journal
-        if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != ''
+        if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != '' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
       - name: Fetch Chinese journal pages
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         shell: bash
         run: |
           DATE="$(TZ=Asia/Shanghai date +%F)"
@@ -113,21 +126,28 @@ jobs:
               || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
           done
       - name: Aggregate Chinese journal status
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/aggregate_cn_status.py
       - name: Dedupe new papers
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/dedupe.py
       - name: Clean Chinese journal noise
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_cn_noise.py
       - name: Apply manual overrides
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/apply_overrides.py
       - name: Normalize daily records
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py
       - name: Enrich publisher detail pages
-        if: steps.mode.outputs.detail_limit != '0'
+        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_metadata.py --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
       - name: Enrich China relevance
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py
       - name: Resolve China relevance candidates with AI
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/ai_china_relevance.py --limit 80
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -135,6 +155,7 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
       - name: Translate paper titles
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -142,16 +163,22 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
       - name: Record workflow context
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/record_run_context.py --mode "${{ steps.mode.outputs.mode }}" --event "${{ github.event_name }}" --schedule "${{ github.event.schedule }}" --run-id "${{ github.run_id }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
       - name: Render static site
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/render_site.py
       - name: Build RSS feed
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_feed.py --site-url https://simon-world.github.io/econ-paper-monitor/
       - name: Render local/admin status artifact
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/render_local_status.py
       - name: Write run summary
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/action_summary.py
       - name: Commit generated updates
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
