@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,486 +51,489 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="economics-letters">Economics Letters</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="has the maturity premium attenuated over time? 期限溢价是否随时间衰减？ yi-ting he, po-chao huang, kuan-cheng ko, wen-chi lo economics letters 10.1016/j.econlet.2026.113009" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="has the maturity premium attenuated over time? 期限溢价是否随时间衰减？ yi-ting he, po-chao huang, kuan-cheng ko, wen-chi lo economics letters 10.1016/j.econlet.2026.113009" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113009">Has the maturity premium attenuated over time?</a></h3>
     <p class="title-zh">期限溢价是否随时间衰减？</p>
     <p class="authors">Yi-Ting He, Po-Chao Huang, Kuan-Cheng Ko, Wen-Chi Lo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113009">10.1016/j.econlet.2026.113009</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="platform competition with common ownership and price parity clauses 共同所有权与价格平价条款下的平台竞争 zheng wang economics letters 10.1016/j.econlet.2026.113024" data-journal="economics-letters" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113024">Platform competition with common ownership and price parity clauses</a></h3>
     <p class="title-zh">共同所有权与价格平价条款下的平台竞争</p>
     <p class="authors">Zheng Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113024">10.1016/j.econlet.2026.113024</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="humidity and work-related accidents 湿度与工伤事故 nicolò barbieri, edoardo santoni, margherita scarlato economics letters 10.1016/j.econlet.2026.112992" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.112992">Humidity and work-related accidents</a></h3>
     <p class="title-zh">湿度与工伤事故</p>
     <p class="authors">Nicolò Barbieri, Edoardo Santoni, Margherita Scarlato</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.112992">10.1016/j.econlet.2026.112992</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="tipping into protectionism: tariff shocks and the fragility of free trade 转向保护主义：关税冲击与自由贸易的脆弱性 david lindequist economics letters 10.1016/j.econlet.2026.112983" data-journal="economics-letters" data-fields="trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.112983">Tipping into protectionism: Tariff shocks and the fragility of free trade</a></h3>
     <p class="title-zh">转向保护主义：关税冲击与自由贸易的脆弱性</p>
     <p class="authors">David Lindequist</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.112983">10.1016/j.econlet.2026.112983</a><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="corrigendum to “student beauty and grades under in-person and remote teaching” [economics letters 2019 (2022) 110782] 勘误：“面对面与远程教学下的学生外貌与成绩” [《经济学快报》2019 (2022) 110782] adrian mehic economics letters 10.1016/j.econlet.2026.113023" data-journal="economics-letters" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113023">Corrigendum to “Student beauty and grades under in-person and remote teaching” [Economics Letters 2019 (2022) 110782]</a></h3>
     <p class="title-zh">勘误：“面对面与远程教学下的学生外貌与成绩” [《经济学快报》2019 (2022) 110782]</p>
     <p class="authors">Adrian Mehic</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113023">10.1016/j.econlet.2026.113023</a><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="design matters: independent fiscal institutions and the cyclicality of government spending 设计至关重要：独立财政机构与政府支出的周期性 christos chrysanthakopoulos, athanasios tagkalakis economics letters 10.1016/j.econlet.2026.113003" data-journal="economics-letters" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113003">Design matters: Independent fiscal institutions and the cyclicality of government spending</a></h3>
     <p class="title-zh">设计至关重要：独立财政机构与政府支出的周期性</p>
     <p class="authors">Christos Chrysanthakopoulos, Athanasios Tagkalakis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113003">10.1016/j.econlet.2026.113003</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="labor market effects of deleting delinquencies 删除逾期记录对劳动力市场的影响 gonzalo maturana, jordan nickerson, santiago truffa economics letters 10.1016/j.econlet.2026.112994" data-journal="economics-letters" data-fields="finance labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.112994">Labor market effects of deleting delinquencies</a></h3>
     <p class="title-zh">删除逾期记录对劳动力市场的影响</p>
     <p class="authors">Gonzalo Maturana, Jordan Nickerson, Santiago Truffa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.112994">10.1016/j.econlet.2026.112994</a><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="price discovery in cryptocurrency markets: sub-second evidence 加密货币市场的价格发现：亚秒级证据 andrei shynkevich economics letters 10.1016/j.econlet.2026.113026" data-journal="economics-letters" data-fields="agriculture finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113026">Price discovery in cryptocurrency markets: sub-second evidence</a></h3>
     <p class="title-zh">加密货币市场的价格发现：亚秒级证据</p>
     <p class="authors">Andrei Shynkevich</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113026">10.1016/j.econlet.2026.113026</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="fiscal demographic reversal 财政人口逆转 hiroaki miyamoto, hiroaki shinohara economics letters 10.1016/j.econlet.2026.113034" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113034">Fiscal demographic reversal</a></h3>
     <p class="title-zh">财政人口逆转</p>
     <p class="authors">Hiroaki Miyamoto, Hiroaki Shinohara</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113034">10.1016/j.econlet.2026.113034</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="interior optimal imprisonment under diminishing marginal disutility 边际负效用递减下的最优监禁刑期 tim friehe, murat c. mungan economics letters 10.1016/j.econlet.2026.113020" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113020">Interior optimal imprisonment under diminishing marginal disutility</a></h3>
     <p class="title-zh">边际负效用递减下的最优监禁刑期</p>
     <p class="authors">Tim Friehe, Murat C. Mungan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113020">10.1016/j.econlet.2026.113020</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="gender gap in pension literacy: evidence from italy 意大利养老金素养的性别差距：来自意大利的证据 barbara alemanni, umberto filotto, gennaro de novellis, gian paolo stella economics letters 10.1016/j.econlet.2026.113052" data-journal="economics-letters" data-fields="inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113052">Gender gap in pension literacy: Evidence from Italy</a></h3>
     <p class="title-zh">意大利养老金素养的性别差距：来自意大利的证据</p>
     <p class="authors">Barbara Alemanni, Umberto Filotto, Gennaro De Novellis, Gian Paolo Stella</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113052">10.1016/j.econlet.2026.113052</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="persistence, patience and costly information acquisition 持久性、耐心与昂贵的信息获取 benjamin davies economics letters 10.1016/j.econlet.2026.113060" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113060">Persistence, patience and costly information acquisition</a></h3>
     <p class="title-zh">持久性、耐心与昂贵的信息获取</p>
     <p class="authors">Benjamin Davies</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113060">10.1016/j.econlet.2026.113060</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="do taxpayer assistance programs improve compliance among small firms? evidence from brazil 纳税人援助计划是否改善了小型企业的合规性？来自巴西的证据 simone covre, paulo henrique muller prado, enlinson mattos economics letters 10.1016/j.econlet.2026.113076" data-journal="economics-letters" data-fields="public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113076">Do Taxpayer Assistance Programs Improve Compliance among Small Firms? Evidence from Brazil</a></h3>
     <p class="title-zh">纳税人援助计划是否改善了小型企业的合规性？来自巴西的证据</p>
     <p class="authors">Simone Covre, Paulo Henrique Muller Prado, Enlinson Mattos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113076">10.1016/j.econlet.2026.113076</a><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="cryptokurtosis: frequent trading fuels higher losses 加密峰度：频繁交易加剧更高损失 stavros degiannakis, george filis, grigorios siourounis economics letters 10.1016/j.econlet.2026.113027" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113027">Cryptokurtosis: Frequent trading fuels higher losses</a></h3>
     <p class="title-zh">加密峰度：频繁交易加剧更高损失</p>
     <p class="authors">Stavros Degiannakis, George Filis, Grigorios Siourounis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113027">10.1016/j.econlet.2026.113027</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="forecasting with log-linear (s)var models: incorporating annual growth rate conditions 使用对数线性(s)var模型进行预测：纳入年度增长率条件 frieder mokinski, markus roth economics letters 10.1016/j.econlet.2026.113006" data-journal="economics-letters" data-fields="macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113006">Forecasting with log-linear (S)VAR models: Incorporating annual growth rate conditions</a></h3>
     <p class="title-zh">使用对数线性(S)VAR模型进行预测：纳入年度增长率条件</p>
     <p class="authors">Frieder Mokinski, Markus Roth</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113006">10.1016/j.econlet.2026.113006</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="safe havens or war hedges? asset behavior during the 2026 escalation of the iran conflict 安全港还是战争对冲？2026年伊朗冲突升级期间的资产表现 andrea paltrinieri, salvatore perdichizzi, stefano piserà economics letters 10.1016/j.econlet.2026.113010" data-journal="economics-letters" data-fields="finance behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113010">Safe havens or war hedges? Asset behavior during the 2026 escalation of the Iran conflict</a></h3>
     <p class="title-zh">安全港还是战争对冲？2026年伊朗冲突升级期间的资产表现</p>
     <p class="authors">Andrea Paltrinieri, Salvatore Perdichizzi, Stefano Piserà</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113010">10.1016/j.econlet.2026.113010</a><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="endogenous volatility and strategic disclosure in mutual funds 共同基金的内生波动性与策略性披露 zhongjie fan economics letters 10.1016/j.econlet.2026.113054" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113054">Endogenous volatility and strategic disclosure in mutual funds</a></h3>
     <p class="title-zh">共同基金的内生波动性与策略性披露</p>
     <p class="authors">Zhongjie Fan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113054">10.1016/j.econlet.2026.113054</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="can public works increase caste-based conflicts? evidence from india’s national rural employment guarantee scheme 公共工程会加剧种姓冲突吗？来自印度全国农村就业保障计划的证据 shampa bhattacharjee, agrani gupta, radhani jagadish kumar, arka roy chaudhuri economics letters 10.1016/j.econlet.2026.113058" data-journal="economics-letters" data-fields="agriculture labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113058">Can public works increase caste-based conflicts? Evidence from India’s National Rural Employment Guarantee Scheme</a></h3>
     <p class="title-zh">公共工程会加剧种姓冲突吗？来自印度全国农村就业保障计划的证据</p>
     <p class="authors">Shampa Bhattacharjee, Agrani Gupta, Radhani Jagadish Kumar, Arka Roy Chaudhuri</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113058">10.1016/j.econlet.2026.113058</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="bootstrap inference for matching estimator under spatially correlated effects 空间相关效应下匹配估计量的bootstrap推断 minghai mao, zixin yang economics letters 10.1016/j.econlet.2026.112978" data-journal="economics-letters" data-fields="econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.112978">Bootstrap inference for matching estimator under spatially correlated effects</a></h3>
     <p class="title-zh">空间相关效应下匹配估计量的Bootstrap推断</p>
     <p class="authors">Minghai Mao, Zixin Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.112978">10.1016/j.econlet.2026.112978</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="do focal firms’ industrial internet platforms promote innovation along the supply chain? 焦点企业的工业互联网平台是否促进了供应链上的创新？ xiaowen lin, yanan lan, ruian zheng, chao zhang economics letters 10.1016/j.econlet.2026.113017" data-journal="economics-letters" data-fields="trade firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113017">Do focal firms’ industrial internet platforms promote innovation along the supply chain?</a></h3>
     <p class="title-zh">焦点企业的工业互联网平台是否促进了供应链上的创新？</p>
     <p class="authors">Xiaowen Lin, Yanan Lan, Ruian Zheng, Chao Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113017">10.1016/j.econlet.2026.113017</a><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="financial literacy, financial vulnerability, and buy now, pay later use 金融素养、财务脆弱性与先买后付使用 miao wang, m.c. sunny wong economics letters 10.1016/j.econlet.2026.113080" data-journal="economics-letters" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113080">Financial literacy, financial vulnerability, and buy now, pay later use</a></h3>
     <p class="title-zh">金融素养、财务脆弱性与先买后付使用</p>
     <p class="authors">Miao Wang, M.C. Sunny Wong</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113080">10.1016/j.econlet.2026.113080</a><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="economic mobility beliefs and parental investment: experimental evidence 经济流动性信念与父母投资：实验证据 rebecca ryan, ariel kalil, marlis m. schneider, mesmin destin, david silverman 等 economics letters 10.1016/j.econlet.2026.113090" data-journal="economics-letters" data-fields="inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113090">Economic mobility beliefs and parental investment: Experimental evidence</a></h3>
     <p class="title-zh">经济流动性信念与父母投资：实验证据</p>
     <p class="authors">Rebecca Ryan, Ariel Kalil, Marlis M. Schneider, Mesmin Destin, David Silverman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113090">10.1016/j.econlet.2026.113090</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="does the climate challenge justify degrowth? 气候挑战是否证明了去增长的合理性？ andré grimaud, gilles lafforgue, luc rouge economics letters 10.1016/j.econlet.2026.113070" data-journal="economics-letters" data-fields="environment macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113070">Does the climate challenge justify degrowth?</a></h3>
     <p class="title-zh">气候挑战是否证明了去增长的合理性？</p>
     <p class="authors">André Grimaud, Gilles Lafforgue, Luc Rouge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113070">10.1016/j.econlet.2026.113070</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="correcting sample selection bias in pisa rankings 修正pisa排名中的样本选择偏差 onil boussim economics letters 10.1016/j.econlet.2026.113063" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113063">Correcting sample selection bias in PISA rankings</a></h3>
     <p class="title-zh">修正PISA排名中的样本选择偏差</p>
     <p class="authors">Onil Boussim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113063">10.1016/j.econlet.2026.113063</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="survival risk, the real interest rate, and the permanent income hypothesis in general equilibrium 一般均衡中的生存风险、实际利率与永久收入假说 hao li, rongsheng tang, gaowang wang economics letters 10.1016/j.econlet.2026.113072" data-journal="economics-letters" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113072">Survival risk, the real interest rate, and the permanent income hypothesis in general equilibrium</a></h3>
     <p class="title-zh">一般均衡中的生存风险、实际利率与永久收入假说</p>
     <p class="authors">Hao Li, Rongsheng Tang, Gaowang Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113072">10.1016/j.econlet.2026.113072</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="net worth trap under ambiguity 模糊性下的净值陷阱 bangru shi, yaoyao wu, siqi zhao economics letters 10.1016/j.econlet.2026.113092" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113092">Net worth trap under ambiguity</a></h3>
     <p class="title-zh">模糊性下的净值陷阱</p>
     <p class="authors">Bangru Shi, Yaoyao Wu, Siqi Zhao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113092">10.1016/j.econlet.2026.113092</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="post-disaster aid and development of the manufacturing sector: lessons from a natural experiment in china revisited 灾后援助与制造业发展：基于中国自然实验的再审视 sherzod b. akhundjanov economics letters 10.1016/j.econlet.2026.113074" data-journal="economics-letters" data-fields="china development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113074">Post-disaster aid and development of the manufacturing sector: Lessons from a natural experiment in China revisited</a></h3>
     <p class="title-zh">灾后援助与制造业发展：基于中国自然实验的再审视</p>
     <p class="authors">Sherzod B. Akhundjanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113074">10.1016/j.econlet.2026.113074</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="climate and sovereign default risk 气候与主权违约风险 lukas balzer, alena miftakhova economics letters 10.1016/j.econlet.2026.113078" data-journal="economics-letters" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113078">Climate and sovereign default risk</a></h3>
     <p class="title-zh">气候与主权违约风险</p>
     <p class="authors">Lukas Balzer, Alena Miftakhova</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113078">10.1016/j.econlet.2026.113078</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="supply chain risk perception, fintech, and cross-regional capital flows: evidence from china 供应链风险感知、金融科技与跨区域资本流动：来自中国的证据 zinan wu, wen li, xuesong tang economics letters 10.1016/j.econlet.2026.113069" data-journal="economics-letters" data-fields="china trade urban" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113069">Supply chain risk perception, FinTech, and cross-regional capital flows: evidence from China</a></h3>
     <p class="title-zh">供应链风险感知、金融科技与跨区域资本流动：来自中国的证据</p>
     <p class="authors">Zinan Wu, Wen Li, Xuesong Tang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113069">10.1016/j.econlet.2026.113069</a><span class="pill">国际贸易</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="state-dependent within-artist anchor reversal in ultra-contemporary art auctions 超当代艺术拍卖中艺术家内部锚定反转的状态依赖性 ziwen chen economics letters 10.1016/j.econlet.2026.113079" data-journal="economics-letters" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113079">State-dependent within-artist anchor reversal in ultra-contemporary art auctions</a></h3>
     <p class="title-zh">超当代艺术拍卖中艺术家内部锚定反转的状态依赖性</p>
     <p class="authors">Ziwen Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113079">10.1016/j.econlet.2026.113079</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="asymmetric cost pass-through in gasoline retailing: the role of retailer size for pass-through 汽油零售中的非对称成本传导：零售商规模对传导的影响 ritvana rrukaj, frode steen economics letters 10.1016/j.econlet.2026.113066" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113066">Asymmetric cost pass-through in gasoline retailing: The role of retailer size for pass-through</a></h3>
     <p class="title-zh">汽油零售中的非对称成本传导：零售商规模对传导的影响</p>
     <p class="authors">Ritvana Rrukaj, Frode Steen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113066">10.1016/j.econlet.2026.113066</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="an upwind scheme for continuous-time optimization with two endogenous state variables 两个内生状态变量连续时间优化的迎风格式 zelin deng economics letters 10.1016/j.econlet.2026.113077" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113077">An upwind scheme for continuous-time optimization with two endogenous state variables</a></h3>
     <p class="title-zh">两个内生状态变量连续时间优化的迎风格式</p>
     <p class="authors">Zelin Deng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113077">10.1016/j.econlet.2026.113077</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="accounting for structural breaks in the hamilton filter 汉密尔顿滤波中结构断点的处理 luiggi donayre, eiji goto economics letters 10.1016/j.econlet.2026.113075" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113075">Accounting for structural breaks in the Hamilton filter</a></h3>
     <p class="title-zh">汉密尔顿滤波中结构断点的处理</p>
     <p class="authors">Luiggi Donayre, Eiji Goto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113075">10.1016/j.econlet.2026.113075</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="central bank access and flight to safety 央行准入与避险行为 lucia gurrieri, chase p. ross, ben schmiedt, alexandros p. vardoulakis, vladimir yankov economics letters 10.1016/j.econlet.2026.113065" data-journal="economics-letters" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113065">Central bank access and flight to safety</a></h3>
     <p class="title-zh">央行准入与避险行为</p>
     <p class="authors">Lucia Gurrieri, Chase P. Ross, Ben Schmiedt, Alexandros P. Vardoulakis, Vladimir Yankov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113065">10.1016/j.econlet.2026.113065</a><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="is the distribution of resolvable uncertainty type i extreme value? a test for random coefficient models using choice probabilities 可解析不确定性的分布是否为第一类极值？基于选择概率的随机系数模型检验 romuald méango economics letters 10.1016/j.econlet.2026.113064" data-journal="economics-letters" data-fields="inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113064">Is the distribution of resolvable uncertainty Type I extreme value? A test for random coefficient models using choice probabilities</a></h3>
     <p class="title-zh">可解析不确定性的分布是否为第一类极值？基于选择概率的随机系数模型检验</p>
     <p class="authors">Romuald Méango</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113064">10.1016/j.econlet.2026.113064</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="investment timing and cash management with time-inconsistent preferences 时间不一致偏好下的投资时机与现金管理 miao liu, pengfei luo economics letters 10.1016/j.econlet.2026.113068" data-journal="economics-letters" data-fields="behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113068">Investment timing and cash management with time-inconsistent preferences</a></h3>
     <p class="title-zh">时间不一致偏好下的投资时机与现金管理</p>
     <p class="authors">Miao Liu, Pengfei Luo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113068">10.1016/j.econlet.2026.113068</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="corruption as a political control device: enforceable vulnerability and coalition breakdown 作为政治控制手段的腐败：可强制执行的脆弱性与联盟瓦解 xiaodong zhang economics letters 10.1016/j.econlet.2026.113073" data-journal="economics-letters" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113073">Corruption as a political control device: Enforceable vulnerability and coalition breakdown</a></h3>
     <p class="title-zh">作为政治控制手段的腐败：可强制执行的脆弱性与联盟瓦解</p>
     <p class="authors">Xiaodong Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113073">10.1016/j.econlet.2026.113073</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="impact of legalization of recreational marijuana on drug law violations: evidence from us colleges and universities 娱乐大麻合法化对毒品违法的影响：来自美国高校的证据 angela dills, manu raghav economics letters 10.1016/j.econlet.2026.113081" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113081">Impact of legalization of recreational marijuana on drug law violations: Evidence from US colleges and universities</a></h3>
     <p class="title-zh">娱乐大麻合法化对毒品违法的影响：来自美国高校的证据</p>
     <p class="authors">Angela Dills, Manu Raghav</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113081">10.1016/j.econlet.2026.113081</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="extending the procedure of engelberg et al. (2009) to surveys with unequal interval widths 将engelberg等人(2009)的方法扩展到不等区间宽度的调查 christoph k. becker, peter duersch, thomas eife, alexander glas economics letters 10.1016/j.econlet.2026.113067" data-journal="economics-letters" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113067">Extending the procedure of Engelberg et al. (2009) to surveys with unequal interval widths</a></h3>
     <p class="title-zh">将Engelberg等人(2009)的方法扩展到不等区间宽度的调查</p>
     <p class="authors">Christoph K. Becker, Peter Duersch, Thomas Eife, Alexander Glas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113067">10.1016/j.econlet.2026.113067</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="population decline, capital deepening, and productivity: cross-country evidence 人口下降、资本深化与生产率：跨国证据 joão tovar jalles economics letters 10.1016/j.econlet.2026.113071" data-journal="economics-letters" data-fields="macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113071">Population decline, capital deepening, and productivity: cross-country evidence</a></h3>
     <p class="title-zh">人口下降、资本深化与生产率：跨国证据</p>
     <p class="authors">João Tovar Jalles</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113071">10.1016/j.econlet.2026.113071</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -549,7 +553,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -571,7 +575,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -603,6 +607,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

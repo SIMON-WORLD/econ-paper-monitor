@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,162 +51,165 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="review-of-financial-studies">Review of Financial Studies</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="do mutual funds walk the talk? evidence from fund risk disclosure 共同基金是否言行一致？来自基金风险披露的证据 jinfei sheng, nan xu, lu zheng review of financial studies 10.1093/rfs/hhag020" data-journal="review-of-financial-studies" data-fields="finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="do mutual funds walk the talk? evidence from fund risk disclosure 共同基金是否言行一致？来自基金风险披露的证据 jinfei sheng, nan xu, lu zheng review of financial studies 10.1093/rfs/hhag020" data-journal="review-of-financial-studies" data-fields="finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag020">Do Mutual Funds Walk the Talk? Evidence from Fund Risk Disclosure</a></h3>
     <p class="title-zh">共同基金是否言行一致？来自基金风险披露的证据</p>
     <p class="authors">Jinfei Sheng, Nan Xu, Lu Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-20</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag020">10.1093/rfs/hhag020</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="proud to not own stocks: how identity shapes financial decisions 以不持有股票为荣：身份认同如何塑造金融决策 luca henkel, christian pugnaghi-zimpelmann review of financial studies 10.1093/rfs/hhag034" data-journal="review-of-financial-studies" data-fields="development finance econometrics theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag034">Proud to Not Own Stocks: How Identity Shapes Financial Decisions</a></h3>
     <p class="title-zh">以不持有股票为荣：身份认同如何塑造金融决策</p>
     <p class="authors">Luca Henkel, Christian Pugnaghi-Zimpelmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag034">10.1093/rfs/hhag034</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="collective moral hazard, risk sharing, and banking unions 集体道德风险、风险分担与银行业联盟 anatoli segura, sergio vicente review of financial studies 10.1093/rfs/hhag024" data-journal="review-of-financial-studies" data-fields="finance public theory health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag024">Collective Moral Hazard, Risk Sharing, and Banking Unions</a></h3>
     <p class="title-zh">集体道德风险、风险分担与银行业联盟</p>
     <p class="authors">Anatoli Segura, Sergio Vicente</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-13</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag024">10.1093/rfs/hhag024</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="generative ai and asset management 生成式人工智能与资产管理 jinfei sheng, zheng sun, baozhong yang, alan l zhang review of financial studies 10.1093/rfs/hhag050" data-journal="review-of-financial-studies" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag050">Generative AI and Asset Management</a></h3>
     <p class="title-zh">生成式人工智能与资产管理</p>
     <p class="authors">Jinfei Sheng, Zheng Sun, Baozhong Yang, Alan L Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag050">10.1093/rfs/hhag050</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="mutual fund flows and the supply of capital in municipal financing 共同基金流动与市政融资中的资本供给 manuel adelino, sophia chiyoung cheong, jaewon choi, ji yeol jimmy oh review of financial studies 10.1093/rfs/hhag048" data-journal="review-of-financial-studies" data-fields="agriculture finance econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag048">Mutual Fund Flows and the Supply of Capital in Municipal Financing</a></h3>
     <p class="title-zh">共同基金流动与市政融资中的资本供给</p>
     <p class="authors">Manuel Adelino, Sophia Chiyoung Cheong, Jaewon Choi, Ji Yeol Jimmy Oh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-09</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag048">10.1093/rfs/hhag048</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="macroeconomic expectations and credit card spending 宏观经济预期与信用卡支出 mikhail galashin, martin kanz, ricardo perez-truglia review of financial studies 10.1093/rfs/hhaf079" data-journal="review-of-financial-studies" data-fields="finance macro behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhaf079">Macroeconomic Expectations and Credit Card Spending</a></h3>
     <p class="title-zh">宏观经济预期与信用卡支出</p>
     <p class="authors">Mikhail Galashin, Martin Kanz, Ricardo Perez-Truglia</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-07</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhaf079">10.1093/rfs/hhaf079</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="a dynamic model of the racial wealth gap 种族财富差距的动态模型 sylvain catherine, ellen jiayang lu, james d paron review of financial studies 10.1093/rfs/hhag047" data-journal="review-of-financial-studies" data-fields="finance public health inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag047">A Dynamic Model of the Racial Wealth Gap</a></h3>
     <p class="title-zh">种族财富差距的动态模型</p>
     <p class="authors">Sylvain Catherine, Ellen Jiayang Lu, James D Paron</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-06</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag047">10.1093/rfs/hhag047</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="the variance premium and seasonal momentum in option returns 期权收益中的方差溢价与季节性动量 steven l heston, christopher s jones, mehdi khorram, shuaiqi li, haitao mo review of financial studies 10.1093/rfs/hhag057" data-journal="review-of-financial-studies" data-fields="finance urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag057">The Variance Premium and Seasonal Momentum in Option Returns</a></h3>
     <p class="title-zh">期权收益中的方差溢价与季节性动量</p>
     <p class="authors">Steven L Heston, Christopher S Jones, Mehdi Khorram, Shuaiqi Li, Haitao Mo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-13</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag057">10.1093/rfs/hhag057</a><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="voting on public goods: citizens vs shareholders 公共产品投票：公民与股东 robin döttling, doron levit, nadya malenko, magdalena rola-janicka review of financial studies 10.1093/rfs/hhag051" data-journal="review-of-financial-studies" data-fields="finance public trade behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag051">Voting on Public Goods: Citizens vs Shareholders</a></h3>
     <p class="title-zh">公共产品投票：公民与股东</p>
     <p class="authors">Robin Döttling, Doron Levit, Nadya Malenko, Magdalena Rola-Janicka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag051">10.1093/rfs/hhag051</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="thematic concentration and mutual fund performance 主题集中度与共同基金业绩 john (jianqiu) bai, yuehua tang, chi wan, zafer yuksel review of financial studies 10.1093/rfs/hhag021" data-journal="review-of-financial-studies" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag021">Thematic Concentration and Mutual Fund Performance</a></h3>
     <p class="title-zh">主题集中度与共同基金业绩</p>
     <p class="authors">John (Jianqiu) Bai, Yuehua Tang, Chi Wan, Zafer Yuksel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag021">10.1093/rfs/hhag021</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="partial equilibrium thinking, extrapolation, and bubbles 局部均衡思维、外推与泡沫 francesca bastianello, paul fontanier review of financial studies 10.1093/rfs/hhag053" data-journal="review-of-financial-studies" data-fields="development finance theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag053">Partial Equilibrium Thinking, Extrapolation, and Bubbles</a></h3>
     <p class="title-zh">局部均衡思维、外推与泡沫</p>
     <p class="authors">Francesca Bastianello, Paul Fontanier</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag053">10.1093/rfs/hhag053</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the real effect of sociopolitical racial/ethnic animus: mutual fund manager performance during aapi hate 社会政治种族/民族敌意的真实效应：aapi仇恨事件期间的共同基金经理表现 vikas agarwal, wei jiang, yuchen luo, hong zou review of financial studies 10.1093/rfs/hhag052" data-journal="review-of-financial-studies" data-fields="china finance macro public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag052">The Real Effect of Sociopolitical Racial/Ethnic Animus: Mutual Fund Manager Performance during AAPI Hate</a></h3>
     <p class="title-zh">社会政治种族/民族敌意的真实效应：AAPI仇恨事件期间的共同基金经理表现</p>
     <p class="authors">Vikas Agarwal, Wei Jiang, Yuchen Luo, Hong Zou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag052">10.1093/rfs/hhag052</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="global capital and local assets: house prices, quantities, and elasticities* 全球资本与本地资产：房价、数量与弹性* caitlin s gorback, benjamin j keys review of financial studies 10.1093/rfs/hhag040" data-journal="review-of-financial-studies" data-fields="agriculture finance public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag040">Global Capital and Local Assets: House Prices, Quantities, and Elasticities*</a></h3>
     <p class="title-zh">全球资本与本地资产：房价、数量与弹性*</p>
     <p class="authors">Caitlin S Gorback, Benjamin J Keys</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>发布日期 2026-05-22</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag040">10.1093/rfs/hhag040</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -225,7 +229,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -247,7 +251,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -279,6 +283,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

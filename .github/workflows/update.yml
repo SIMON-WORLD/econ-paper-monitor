@@ -16,8 +16,9 @@ on:
         required: false
         default: "14"
   schedule:
-    # Watchdog wakeups. The workflow itself skips if the last light monitor is recent.
-    - cron: "*/15 * * * *"
+    # 快速监测：每小时整点触发；脚本仍会跳过过近的重复运行。
+    - cron: "0 * * * *"
+    # 完整监测：每天北京时间 08:30 触发。
     - cron: "30 0 * * *"
 
 permissions:

@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,174 +51,176 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="public">公共与政治经济学</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="theory">理论与博弈</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="triply robust panel estimators 三重稳健面板估计量 susan athey, guido imbens, zhaonan qu, davide viviano journal of applied econometrics 10.1002/jae.70061" data-journal="journal-of-applied-econometrics" data-fields="trade econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="triply robust panel estimators 三重稳健面板估计量 susan athey, guido imbens, zhaonan qu, davide viviano journal of applied econometrics 10.1002/jae.70061" data-journal="journal-of-applied-econometrics" data-fields="trade econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70061">Triply Robust Panel Estimators</a></h3>
     <p class="title-zh">三重稳健面板估计量</p>
     <p class="authors">Susan Athey, Guido Imbens, Zhaonan Qu, Davide Viviano</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-27</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70061">10.1002/jae.70061</a><span class="pill">国际贸易</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="estimation of heterogeneous panel data models with mixed sampling frequencies 混合采样频率下异质性面板数据模型的估计 haoran li, haoyang li, naifu xiao, yimin yang journal of applied econometrics 10.1002/jae.70067" data-journal="journal-of-applied-econometrics" data-fields="macro econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70067">Estimation of Heterogeneous Panel Data Models With Mixed Sampling Frequencies</a></h3>
     <p class="title-zh">混合采样频率下异质性面板数据模型的估计</p>
     <p class="authors">Haoran Li, Haoyang Li, Naifu Xiao, Yimin Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-26</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70067">10.1002/jae.70067</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="bayesian model averaging in causal instrumental variable models 因果工具变量模型中的贝叶斯模型平均 gregor steiner, mark steel journal of applied econometrics 10.1002/jae.70070" data-journal="journal-of-applied-econometrics" data-fields="econometrics education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70070">Bayesian Model Averaging in Causal Instrumental Variable Models</a></h3>
     <p class="title-zh">因果工具变量模型中的贝叶斯模型平均</p>
     <p class="authors">Gregor Steiner, Mark Steel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-22</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70070">10.1002/jae.70070</a><span class="pill">计量方法</span><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="a joint test of unconfoundedness and common trends 无混淆性与共同趋势的联合检验 martin huber, eva‐maria oeß journal of applied econometrics 10.1002/jae.70068" data-journal="journal-of-applied-econometrics" data-fields="public econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70068">A Joint Test of Unconfoundedness and Common Trends</a></h3>
     <p class="title-zh">无混淆性与共同趋势的联合检验</p>
     <p class="authors">Martin Huber, Eva‐Maria Oeß</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-22</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70068">10.1002/jae.70068</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the effects of parental income and family structure on intergenerational mobility: a trajectories‐based approach 父母收入与家庭结构对代际流动的影响：基于轨迹的方法 yoosoon chang, steven n. durlauf, bo hu, joon y. park journal of applied econometrics 10.1002/jae.70065" data-journal="journal-of-applied-econometrics" data-fields="development trade inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70065">The Effects of Parental Income and Family Structure on Intergenerational Mobility: A Trajectories‐Based Approach</a></h3>
     <p class="title-zh">父母收入与家庭结构对代际流动的影响：基于轨迹的方法</p>
     <p class="authors">Yoosoon Chang, Steven N. Durlauf, Bo Hu, Joon Y. Park</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-21</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70065">10.1002/jae.70065</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="optimal covariate discretization in adaptive randomized experiments 自适应随机实验中的最优协变量离散化 seongjin jin journal of applied econometrics 10.1002/jae.70066" data-journal="journal-of-applied-econometrics" data-fields="econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70066">Optimal Covariate Discretization in Adaptive Randomized Experiments</a></h3>
     <p class="title-zh">自适应随机实验中的最优协变量离散化</p>
     <p class="authors">Seongjin Jin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-20</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70066">10.1002/jae.70066</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="joint inference for the regression discontinuity effect and its external validity 断点回归效应及其外部有效性的联合推断 yuta okamoto journal of applied econometrics 10.1002/jae.70063" data-journal="journal-of-applied-econometrics" data-fields="public econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70063">Joint Inference for the Regression Discontinuity Effect and Its External Validity</a></h3>
     <p class="title-zh">断点回归效应及其外部有效性的联合推断</p>
     <p class="authors">Yuta Okamoto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-18</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70063">10.1002/jae.70063</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="improving the finite sample estimation of average treatment effects using double/debiased machine learning with propensity score calibration 使用倾向得分校准的双重/去偏机器学习改进平均处理效应的有限样本估计 daniele ballinari, nora bearth journal of applied econometrics 10.1002/jae.70057" data-journal="journal-of-applied-econometrics" data-fields="econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70057">Improving the Finite Sample Estimation of Average Treatment Effects Using Double/Debiased Machine Learning With Propensity Score Calibration</a></h3>
     <p class="title-zh">使用倾向得分校准的双重/去偏机器学习改进平均处理效应的有限样本估计</p>
     <p class="authors">Daniele Ballinari, Nora Bearth</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70057">10.1002/jae.70057</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="estimating macroeconomic news and surprise shocks 估算宏观经济新闻与意外冲击 lutz kilian, michael d. plante, alexander w. richter journal of applied econometrics 10.1002/jae.70059" data-journal="journal-of-applied-econometrics" data-fields="macro econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70059">Estimating Macroeconomic News and Surprise Shocks</a></h3>
     <p class="title-zh">估算宏观经济新闻与意外冲击</p>
     <p class="authors">Lutz Kilian, Michael D. Plante, Alexander W. Richter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-06</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70059">10.1002/jae.70059</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="reassessing the cross‐sectional fiscal multiplier: evidence from u.s. defense procurement, 1966–2019 重新评估横截面财政乘数：来自美国国防采购的证据（1966–2019） gianluca pallante journal of applied econometrics 10.1002/jae.70058" data-journal="journal-of-applied-econometrics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70058">Reassessing the Cross‐Sectional Fiscal Multiplier: Evidence From U.S. Defense Procurement, 1966–2019</a></h3>
     <p class="title-zh">重新评估横截面财政乘数：来自美国国防采购的证据（1966–2019）</p>
     <p class="authors">Gianluca Pallante</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-05</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70058">10.1002/jae.70058</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="opportunistic upskilling in european labour markets—evidence from a wide replication 欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据 anil yadav, john mchale, jefferson r. b. galetti journal of applied econometrics 10.1002/jae.70072" data-journal="journal-of-applied-econometrics" data-fields="finance macro labor econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70072">Opportunistic Upskilling in European Labour Markets—Evidence From a Wide Replication</a></h3>
     <p class="title-zh">欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据</p>
     <p class="authors">Anil Yadav, John McHale, Jefferson R. B. Galetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-06-09</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-06-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70072">10.1002/jae.70072</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="issue information 期刊信息  journal of applied econometrics 10.1002/jae.70028" data-journal="journal-of-applied-econometrics" data-fields="econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70028">Issue Information</a></h3>
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-06-08</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70028">10.1002/jae.70028</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="multivariate trend inflation in the united states and the euro area 美国和欧元区的多元趋势通胀 max‐sebastian dovì journal of applied econometrics 10.1002/jae.70064" data-journal="journal-of-applied-econometrics" data-fields="finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70064">Multivariate Trend Inflation in the United States and the Euro Area</a></h3>
     <p class="title-zh">美国和欧元区的多元趋势通胀</p>
     <p class="authors">Max‐Sebastian Dovì</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70064">10.1002/jae.70064</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="regularization of synthetic controls for policy evaluation 政策评估中合成控制法的正则化 yi‐ting chen journal of applied econometrics 10.1002/jae.70071" data-journal="journal-of-applied-econometrics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70071">Regularization of Synthetic Controls for Policy Evaluation</a></h3>
     <p class="title-zh">政策评估中合成控制法的正则化</p>
     <p class="authors">Yi‐Ting Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70071">10.1002/jae.70071</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -237,7 +240,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -259,7 +262,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -291,6 +294,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

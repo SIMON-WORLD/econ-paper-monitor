@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,294 +51,297 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="economic-history-review">Economic History Review</option><option value="explorations-in-economic-history">Explorations in Economic History</option><option value="journal-of-economic-history">Journal of Economic History</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="networks paving the way: apprenticeship, guilds, and access to mastership in early modern genoa 网络铺路：近代早期热那亚的学徒制、行会与大师资格获取 alessandro brioschi economic history review 10.1111/ehr.70120" data-journal="economic-history-review" data-fields="development finance labor trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="networks paving the way: apprenticeship, guilds, and access to mastership in early modern genoa 网络铺路：近代早期热那亚的学徒制、行会与大师资格获取 alessandro brioschi economic history review 10.1111/ehr.70120" data-journal="economic-history-review" data-fields="development finance labor trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70120">Networks paving the way: Apprenticeship, guilds, and access to mastership in early modern Genoa</a></h3>
     <p class="title-zh">网络铺路：近代早期热那亚的学徒制、行会与大师资格获取</p>
     <p class="authors">Alessandro Brioschi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-21</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70120">10.1111/ehr.70120</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the many prices of war and occupation: black markets and the cost‐of‐living index in france, 1938–1949 战争与占领的多重代价：法国黑市与生活成本指数（1938–1949） patrice baubeau, matéo teixeira economic history review 10.1111/ehr.70127" data-journal="economic-history-review" data-fields="agriculture development finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70127">The many prices of war and occupation: Black markets and the cost‐of‐living index in France, 1938–1949</a></h3>
     <p class="title-zh">战争与占领的多重代价：法国黑市与生活成本指数（1938–1949）</p>
     <p class="authors">Patrice Baubeau, Matéo Teixeira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-19</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70127">10.1111/ehr.70127</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="economic inequality and social mobility in preindustrial societies: what we know, what we don&#x27;t (but should) know 前工业化社会的经济不平等与社会流动性：已知、未知（但应知） guido alfani economic history review 10.1111/ehr.70122" data-journal="economic-history-review" data-fields="public firms inequality history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70122">Economic inequality and social mobility in preindustrial societies: What we know, what we don&#x27;t (but should) know</a></h3>
     <p class="title-zh">前工业化社会的经济不平等与社会流动性：已知、未知（但应知）</p>
     <p class="authors">Guido Alfani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-19</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70122">10.1111/ehr.70122</a><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="hunting for hollanders: the community responsibility system, trade sanctions, and public debt in the late‐medieval low countries 追寻荷兰人：中世纪晚期低地国家的社区责任体系、贸易制裁与公共债务 jaco zuijderduijn economic history review 10.1111/ehr.70126" data-journal="economic-history-review" data-fields="finance public trade urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70126">Hunting for Hollanders: The community responsibility system, trade sanctions, and public debt in the late‐medieval Low Countries</a></h3>
     <p class="title-zh">追寻荷兰人：中世纪晚期低地国家的社区责任体系、贸易制裁与公共债务</p>
     <p class="authors">Jaco Zuijderduijn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-19</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70126">10.1111/ehr.70126</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="remote investing in latin america, 1869–1929 1869-1929年拉丁美洲的远程投资 gareth campbell, áine gallagher, richard s. grossman economic history review 10.1111/ehr.70124" data-journal="economic-history-review" data-fields="agriculture finance trade firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70124">Remote investing in Latin America, 1869–1929</a></h3>
     <p class="title-zh">1869-1929年拉丁美洲的远程投资</p>
     <p class="authors">Gareth Campbell, Áine Gallagher, Richard S. Grossman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-17</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70124">10.1111/ehr.70124</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="‘elbow grease and yellow soap’: housework time in working‐class households in late‐nineteenth and early twentieth‐century britain 费力与黄皂”：19世纪末20世纪初英国工人阶级家庭的家务劳动时间 sara horrell, jane humphries economic history review 10.1111/ehr.70119" data-journal="economic-history-review" data-fields="development labor firms history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70119">‘Elbow grease and yellow soap’: Housework time in working‐class households in late‐nineteenth and early twentieth‐century Britain</a></h3>
     <p class="title-zh">费力与黄皂”：19世纪末20世纪初英国工人阶级家庭的家务劳动时间</p>
     <p class="authors">Sara Horrell, Jane Humphries</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-15</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70119">10.1111/ehr.70119</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="managing agency business groups, elite directors, and the rubber boom, 1897–1913 管理代理商业集团、精英董事与橡胶繁荣，1897–1913 david higgins, steven toms economic history review 10.1111/ehr.70121" data-journal="economic-history-review" data-fields="finance public urban behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70121">Managing agency business groups, elite directors, and the rubber boom, 1897–1913</a></h3>
     <p class="title-zh">管理代理商业集团、精英董事与橡胶繁荣，1897–1913</p>
     <p class="authors">David Higgins, Steven Toms</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70121">10.1111/ehr.70121</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="locked in the past: old housing and the adoption of electric heating 困于过去：老旧住房与电采暖的采用 yi jie gwee, hui ren tan explorations in economic history 10.1016/j.eeh.2026.101771" data-journal="explorations-in-economic-history" data-fields="urban history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101771">Locked in the past: Old housing and the adoption of electric heating</a></h3>
     <p class="title-zh">困于过去：老旧住房与电采暖的采用</p>
     <p class="authors">Yi Jie Gwee, Hui Ren Tan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101771">10.1016/j.eeh.2026.101771</a><span class="pill">城市与区域</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="agricultural growth in the yangzi delta: 1393–1953 长江三角洲的农业增长：1393–1953 runzhuo zhai explorations in economic history 10.1016/j.eeh.2026.101763" data-journal="explorations-in-economic-history" data-fields="agriculture macro history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101763">Agricultural growth in the Yangzi Delta: 1393–1953</a></h3>
     <p class="title-zh">长江三角洲的农业增长：1393–1953</p>
     <p class="authors">Runzhuo Zhai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101763">10.1016/j.eeh.2026.101763</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the price of war: recalculating inflation in peru during the pacific war era 战争的成本：重新计算太平洋战争时期秘鲁的通货膨胀 gabriel chimoy, romina garibay, ricardo quineche explorations in economic history 10.1016/j.eeh.2026.101769" data-journal="explorations-in-economic-history" data-fields="agriculture macro history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101769">The price of war: Recalculating inflation in Peru during the Pacific War era</a></h3>
     <p class="title-zh">战争的成本：重新计算太平洋战争时期秘鲁的通货膨胀</p>
     <p class="authors">Gabriel Chimoy, Romina Garibay, Ricardo Quineche</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101769">10.1016/j.eeh.2026.101769</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="water mills and human capital accumulation in industrializing prussia 水磨与工业化时期普鲁士的人力资本积累 malte hinrichs explorations in economic history 10.1016/j.eeh.2026.101767" data-journal="explorations-in-economic-history" data-fields="firms history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101767">Water mills and human capital accumulation in industrializing Prussia</a></h3>
     <p class="title-zh">水磨与工业化时期普鲁士的人力资本积累</p>
     <p class="authors">Malte Hinrichs</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101767">10.1016/j.eeh.2026.101767</a><span class="pill">企业与产业</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="price discovery and long-distance market integration: evidence from the republican chinese cotton goods exchange 价格发现与远距离市场整合：来自民国时期中国棉纱交易所的证据 yaohua li, yuhan xiao explorations in economic history 10.1016/j.eeh.2026.101754" data-journal="explorations-in-economic-history" data-fields="china agriculture finance public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101754">Price discovery and long-distance market integration: Evidence from the Republican Chinese Cotton Goods Exchange</a></h3>
     <p class="title-zh">价格发现与远距离市场整合：来自民国时期中国棉纱交易所的证据</p>
     <p class="authors">Yaohua Li, Yuhan Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101754">10.1016/j.eeh.2026.101754</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="finding john smith: using extra information for historical record linkage 寻找约翰·史密斯：利用额外信息进行历史记录链接 ran abramitzky, leah boustan, harriet brookes gray, katherine eriksson, santiago pérez 等 explorations in economic history 10.1016/j.eeh.2026.101764" data-journal="explorations-in-economic-history" data-fields="history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101764">Finding John Smith: Using Extra Information for Historical Record Linkage</a></h3>
     <p class="title-zh">寻找约翰·史密斯：利用额外信息进行历史记录链接</p>
     <p class="authors">Ran Abramitzky, Leah Boustan, Harriet Brookes Gray, Katherine Eriksson, Santiago Pérez 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101764">10.1016/j.eeh.2026.101764</a><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="the profits of pepper. indian ocean trade and the economy of kerala, 800–1600 胡椒的利润：印度洋贸易与喀拉拉邦经济（800–1600年） chris wickham economic history review 10.1111/ehr.70125" data-journal="economic-history-review" data-fields="china agriculture development trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70125">The profits of pepper. Indian Ocean trade and the economy of Kerala, 800–1600</a></h3>
     <p class="title-zh">胡椒的利润：印度洋贸易与喀拉拉邦经济（800–1600年）</p>
     <p class="authors">Chris Wickham</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-06-05</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70125">10.1111/ehr.70125</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="regional and local divergence in welfare provision in england and wales, 1776–1815 1776-1815年英格兰与威尔士福利供给的区域与地方分化 john broad economic history review 10.1111/ehr.70129" data-journal="economic-history-review" data-fields="public urban history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70129">Regional and local divergence in welfare provision in England and Wales, 1776–1815</a></h3>
     <p class="title-zh">1776-1815年英格兰与威尔士福利供给的区域与地方分化</p>
     <p class="authors">John Broad</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70129">10.1111/ehr.70129</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the golden age of al‐andalus? living standards in muslim iberia (950–1200) 安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年） antónio henriques economic history review 10.1111/ehr.70128" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70128">The Golden Age of Al‐Andalus? Living standards in Muslim Iberia (950–1200)</a></h3>
     <p class="title-zh">安达卢斯的黄金时代？穆斯林伊比利亚的生活水平（950–1200年）</p>
     <p class="authors">António Henriques</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70128">10.1111/ehr.70128</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the bread of toledo: prices and political economy, 1535–1800 托莱多的面包：价格与政治经济学，1535–1800 mauricio drelichman, david gonzález agudo economic history review 10.1111/ehr.70130" data-journal="economic-history-review" data-fields="agriculture finance macro labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70130">The bread of Toledo: Prices and political economy, 1535–1800</a></h3>
     <p class="title-zh">托莱多的面包：价格与政治经济学，1535–1800</p>
     <p class="authors">Mauricio Drelichman, David González Agudo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70130">10.1111/ehr.70130</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the depth and breadth of capitalism at the cape 开普地区资本主义的深度与广度 edward kerby, lloyd melusi maphosa economic history review 10.1111/ehr.70123" data-journal="economic-history-review" data-fields="finance macro urban behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70123">The depth and breadth of capitalism at the Cape</a></h3>
     <p class="title-zh">开普地区资本主义的深度与广度</p>
     <p class="authors">Edward Kerby, Lloyd Melusi Maphosa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>发布日期 2026-05-24</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70123">10.1111/ehr.70123</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="politics and institutional change: the water commission act of 1913 政治与制度变迁：1913年《水务委员会法案》 mark tooru kanazawa explorations in economic history 10.1016/j.eeh.2026.101770" data-journal="explorations-in-economic-history" data-fields="history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101770">Politics and institutional change: The Water Commission Act of 1913</a></h3>
     <p class="title-zh">政治与制度变迁：1913年《水务委员会法案》</p>
     <p class="authors">Mark Tooru Kanazawa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101770">10.1016/j.eeh.2026.101770</a><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="epidemic mortality and redistribution of housing wealth in leiden, 1632–1668 1632–1668年莱顿流行病死亡率与住房财富再分配 bram van besouw, daniel r. curtis, roos van oosten explorations in economic history 10.1016/j.eeh.2026.101768" data-journal="explorations-in-economic-history" data-fields="urban health inequality history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101768">Epidemic mortality and redistribution of housing wealth in Leiden, 1632–1668</a></h3>
     <p class="title-zh">1632–1668年莱顿流行病死亡率与住房财富再分配</p>
     <p class="authors">Bram van Besouw, Daniel R. Curtis, Roos van Oosten</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101768">10.1016/j.eeh.2026.101768</a><span class="pill">城市与区域</span><span class="pill">健康</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="quarterly gdp for ireland since 1950 1950年以来爱尔兰季度gdp seán kenny, rebecca stuart explorations in economic history 10.1016/j.eeh.2026.101766" data-journal="explorations-in-economic-history" data-fields="history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101766">Quarterly GDP for Ireland since 1950</a></h3>
     <p class="title-zh">1950年以来爱尔兰季度GDP</p>
     <p class="authors">Seán Kenny, Rebecca Stuart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101766">10.1016/j.eeh.2026.101766</a><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="academic human capital in european countries and regions, 1200–1793 欧洲国家与地区的学术人力资本（1200–1793） matthew curtis, david de la croix, filippo manfredini, mara vitale explorations in economic history 10.1016/j.eeh.2026.101756" data-journal="explorations-in-economic-history" data-fields="history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101756">Academic human capital in European countries and regions, 1200–1793</a></h3>
     <p class="title-zh">欧洲国家与地区的学术人力资本（1200–1793）</p>
     <p class="authors">Matthew Curtis, David de la Croix, Filippo Manfredini, Mara Vitale</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101756">10.1016/j.eeh.2026.101756</a><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="economic dynamics of the early roman empire: insights from lead pollution, coinage, weather, and war 早期罗马帝国的经济动态：来自铅污染、铸币、天气与战争的洞见 luigi oddo, silvio traverso, koenraad verboven explorations in economic history 10.1016/j.eeh.2026.101765" data-journal="explorations-in-economic-history" data-fields="environment history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101765">Economic dynamics of the Early Roman Empire: Insights from lead pollution, coinage, weather, and war</a></h3>
     <p class="title-zh">早期罗马帝国的经济动态：来自铅污染、铸币、天气与战争的洞见</p>
     <p class="authors">Luigi Oddo, Silvio Traverso, Koenraad Verboven</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101765">10.1016/j.eeh.2026.101765</a><span class="pill">环境与气候</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the extent of the market for early american banknotes 早期美国纸币的市场范围 howard bodenhorn journal of economic history 10.1017/s0022050726101521" data-journal="journal-of-economic-history" data-fields="finance trade history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1017/s0022050726101521">The Extent of the Market for Early American Banknotes</a></h3>
     <p class="title-zh">早期美国纸币的市场范围</p>
     <p class="authors">Howard Bodenhorn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic History</span><span>发布日期 2026-06-03</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic History</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/s0022050726101521">10.1017/s0022050726101521</a><span class="pill">金融</span><span class="pill">国际贸易</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -357,7 +361,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -379,7 +383,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -411,6 +415,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

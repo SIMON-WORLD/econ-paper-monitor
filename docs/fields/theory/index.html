@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,774 +51,777 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="economic-theory">Economic Theory</option><option value="journal-of-economic-theory">Journal of Economic Theory</option><option value="journal-of-mathematical-economics">Journal of Mathematical Economics</option><option value="mathematical-social-sciences">Mathematical Social Sciences</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="mankiw–romer–weil model with a delay 含时滞的曼昆-罗默-韦尔模型 anna połeć, adam krawiec mathematical social sciences 10.1016/j.mathsocsci.2026.102544" data-journal="mathematical-social-sciences" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="mankiw–romer–weil model with a delay 含时滞的曼昆-罗默-韦尔模型 anna połeć, adam krawiec mathematical social sciences 10.1016/j.mathsocsci.2026.102544" data-journal="mathematical-social-sciences" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.mathsocsci.2026.102544">Mankiw–Romer–Weil model with a delay</a></h3>
     <p class="title-zh">含时滞的曼昆-罗默-韦尔模型</p>
     <p class="authors">Anna Połeć, Adam Krawiec</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.mathsocsci.2026.102544">10.1016/j.mathsocsci.2026.102544</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="why do people protest? a theory of emotions, public policy, and political unrest 人们为何抗议？情绪、公共政策与政治动荡的理论 césar martinelli, ruolong xiao economic theory 10.1007/s00199-026-01720-5" data-journal="economic-theory" data-fields="public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01720-5">Why Do People Protest? A Theory of Emotions, Public Policy, and Political Unrest</a></h3>
     <p class="title-zh">人们为何抗议？情绪、公共政策与政治动荡的理论</p>
     <p class="authors">César Martinelli, Ruolong Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-05-19</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01720-5">10.1007/s00199-026-01720-5</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="an axiomatic approach to the measurement of inequality of opportunity 机会不平等测度的公理化方法 kristof bosmans, z. emel öztürk economic theory 10.1007/s00199-026-01715-2" data-journal="economic-theory" data-fields="theory inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01715-2">An axiomatic approach to the measurement of inequality of opportunity</a></h3>
     <p class="title-zh">机会不平等测度的公理化方法</p>
     <p class="authors">Kristof Bosmans, Z. Emel Öztürk</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-05-18</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01715-2">10.1007/s00199-026-01715-2</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="information alliance in common agency 共同代理中的信息联盟 rafael costa lima, humberto moreira, alexander rodivilov, dongsoo shin economic theory 10.1007/s00199-026-01717-0" data-journal="economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01717-0">Information alliance in common agency</a></h3>
     <p class="title-zh">共同代理中的信息联盟</p>
     <p class="authors">Rafael Costa Lima, Humberto Moreira, Alexander Rodivilov, Dongsoo Shin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-05-15</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01717-0">10.1007/s00199-026-01717-0</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="how do sectoral compositions affect the impact of ftas on global tariff liberalization? 部门构成如何影响自由贸易协定对全球关税自由化的作用？ antoine l. noël economic theory 10.1007/s00199-026-01718-z" data-journal="economic-theory" data-fields="trade theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01718-z">How do sectoral compositions affect the impact of FTAs on global tariff liberalization?</a></h3>
     <p class="title-zh">部门构成如何影响自由贸易协定对全球关税自由化的作用？</p>
     <p class="authors">Antoine L. Noël</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-05-06</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01718-z">10.1007/s00199-026-01718-z</a><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the elusive quest for disarmed peace: contest games and international relations 寻求解除武装和平的艰难探索：竞争博弈与国际关系 johann caro-burnett, sebastian galiani, gustavo torrens economic theory 10.1007/s00199-026-01716-1" data-journal="economic-theory" data-fields="theory behavior history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01716-1">The elusive quest for disarmed peace: contest games and international relations</a></h3>
     <p class="title-zh">寻求解除武装和平的艰难探索：竞争博弈与国际关系</p>
     <p class="authors">Johann Caro-Burnett, Sebastian Galiani, Gustavo Torrens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-05-05</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01716-1">10.1007/s00199-026-01716-1</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="equity auctions with bidder moral hazard 具有竞标者道德风险的股权拍卖 mingrui gao, xun chen, dazhong wang journal of mathematical economics 10.1016/j.jmateco.2026.103246" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103246">Equity auctions with bidder moral hazard</a></h3>
     <p class="title-zh">具有竞标者道德风险的股权拍卖</p>
     <p class="authors">Mingrui Gao, Xun Chen, Dazhong Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103246">10.1016/j.jmateco.2026.103246</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="pareto improving taxes with non-separable externalities: a differentiable approach 不可分离外部性下的帕累托改进税收：一种可微方法 van-quy nguyen, jean-marc bonnisseau, elena l. del mercato journal of mathematical economics 10.1016/j.jmateco.2026.103248" data-journal="journal-of-mathematical-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103248">Pareto improving taxes with non-separable externalities: A differentiable approach</a></h3>
     <p class="title-zh">不可分离外部性下的帕累托改进税收：一种可微方法</p>
     <p class="authors">Van-Quy Nguyen, Jean-Marc Bonnisseau, Elena L. del Mercato</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103248">10.1016/j.jmateco.2026.103248</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="impartial observer theorem with ambiguity 含模糊性的公正观察者定理 raphael gomes de oliveira journal of mathematical economics 10.1016/j.jmateco.2026.103237" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103237">Impartial observer theorem with ambiguity</a></h3>
     <p class="title-zh">含模糊性的公正观察者定理</p>
     <p class="authors">Raphael Gomes de Oliveira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103237">10.1016/j.jmateco.2026.103237</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="final-offer arbitration with reference-dependent preferences 参考依赖偏好的最终报价仲裁 shunsuke hanato journal of mathematical economics 10.1016/j.jmateco.2026.103228" data-journal="journal-of-mathematical-economics" data-fields="behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103228">Final-offer arbitration with reference-dependent preferences</a></h3>
     <p class="title-zh">参考依赖偏好的最终报价仲裁</p>
     <p class="authors">Shunsuke Hanato</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103228">10.1016/j.jmateco.2026.103228</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="equilibria of large production economies with interdependent preferences: a role for the infinite dimensional fatou’s lemma 具有相互依赖偏好的大型生产经济的均衡：无限维fatou引理的作用 motoki otsuka journal of mathematical economics 10.1016/j.jmateco.2026.103245" data-journal="journal-of-mathematical-economics" data-fields="behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103245">Equilibria of large production economies with interdependent preferences: A role for the infinite dimensional Fatou’s lemma</a></h3>
     <p class="title-zh">具有相互依赖偏好的大型生产经济的均衡：无限维Fatou引理的作用</p>
     <p class="authors">Motoki Otsuka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103245">10.1016/j.jmateco.2026.103245</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="an axiomatization of the smooth ambiguity model using differentiability 使用可微性对平滑模糊模型进行公理化 raphaël giraud journal of mathematical economics 10.1016/j.jmateco.2026.103271" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103271">An axiomatization of the smooth ambiguity model using differentiability</a></h3>
     <p class="title-zh">使用可微性对平滑模糊模型进行公理化</p>
     <p class="authors">Raphaël Giraud</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103271">10.1016/j.jmateco.2026.103271</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="membership mechanism 会员机制 seung han yoo journal of mathematical economics 10.1016/j.jmateco.2026.103241" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103241">Membership mechanism</a></h3>
     <p class="title-zh">会员机制</p>
     <p class="authors">Seung Han Yoo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103241">10.1016/j.jmateco.2026.103241</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="waiting for others: long delays in social learning 等待他人：社会学习中的长时间延迟 luis frones journal of mathematical economics 10.1016/j.jmateco.2026.103244" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103244">Waiting for others: Long delays in social learning</a></h3>
     <p class="title-zh">等待他人：社会学习中的长时间延迟</p>
     <p class="authors">Luis Frones</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103244">10.1016/j.jmateco.2026.103244</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="k-boundedness, feasible communication structures, and the myerson value k-有界性、可行沟通结构与myerson值 takuto kaneko, david lowing, satoshi nakada journal of mathematical economics 10.1016/j.jmateco.2026.103242" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103242">k-boundedness, feasible communication structures, and the Myerson value</a></h3>
     <p class="title-zh">k-有界性、可行沟通结构与Myerson值</p>
     <p class="authors">Takuto Kaneko, David Lowing, Satoshi Nakada</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103242">10.1016/j.jmateco.2026.103242</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="welfare effects of integrating unbalanced matching markets 整合非均衡匹配市场的福利效应 behrang kamali shahdadi, milad mozafari-vanani journal of mathematical economics 10.1016/j.jmateco.2026.103247" data-journal="journal-of-mathematical-economics" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103247">Welfare effects of integrating unbalanced matching markets</a></h3>
     <p class="title-zh">整合非均衡匹配市场的福利效应</p>
     <p class="authors">Behrang Kamali Shahdadi, Milad Mozafari-Vanani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103247">10.1016/j.jmateco.2026.103247</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="minimum price equilibrium in the assignment market: structural properties and the serial vickrey mechanism 指派市场中的最低价格均衡：结构性质与序列维克里机制 yu zhou, shigehiro serizawa journal of economic theory 10.1016/j.jet.2026.106216" data-journal="journal-of-economic-theory" data-fields="agriculture finance theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106216">Minimum price equilibrium in the assignment market: Structural properties and the Serial Vickrey mechanism</a></h3>
     <p class="title-zh">指派市场中的最低价格均衡：结构性质与序列维克里机制</p>
     <p class="authors">Yu Zhou, Shigehiro Serizawa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106216">10.1016/j.jet.2026.106216</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="robustly optimal voting rule 稳健最优投票规则 noriaki kiguchi, shinpei noguchi, yuta takahashi journal of economic theory 10.1016/j.jet.2026.106219" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106219">Robustly Optimal Voting Rule</a></h3>
     <p class="title-zh">稳健最优投票规则</p>
     <p class="authors">Noriaki Kiguchi, Shinpei Noguchi, Yuta Takahashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106219">10.1016/j.jet.2026.106219</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="monotone optimal trajectories in continuous-time infinite horizon optimal control problems 连续时间无限时域最优控制问题中的单调最优轨迹 niko jaakkola, florian wagener journal of mathematical economics 10.1016/j.jmateco.2026.103256" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103256">Monotone optimal trajectories in continuous-time infinite horizon optimal control problems</a></h3>
     <p class="title-zh">连续时间无限时域最优控制问题中的单调最优轨迹</p>
     <p class="authors">Niko Jaakkola, Florian Wagener</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103256">10.1016/j.jmateco.2026.103256</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="discounted subjective expected utility in continuous time 连续时间下的折现主观期望效用 lorenzo bastianello, vassili vergopoulos journal of mathematical economics 10.1016/j.jmateco.2026.103264" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103264">Discounted Subjective Expected Utility in continuous time</a></h3>
     <p class="title-zh">连续时间下的折现主观期望效用</p>
     <p class="authors">Lorenzo Bastianello, Vassili Vergopoulos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103264">10.1016/j.jmateco.2026.103264</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="sorting and matching under rank uncertainty 排名不确定下的分类与匹配 myungkoo song journal of mathematical economics 10.1016/j.jmateco.2026.103269" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103269">Sorting and matching under rank uncertainty</a></h3>
     <p class="title-zh">排名不确定下的分类与匹配</p>
     <p class="authors">Myungkoo Song</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103269">10.1016/j.jmateco.2026.103269</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="sharing opportunities under externalities 外部性下的机会共享 mohamed belhaj, frédéric deroïan, mathieu faure journal of mathematical economics 10.1016/j.jmateco.2026.103249" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103249">Sharing opportunities under externalities</a></h3>
     <p class="title-zh">外部性下的机会共享</p>
     <p class="authors">Mohamed Belhaj, Frédéric Deroïan, Mathieu Faure</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103249">10.1016/j.jmateco.2026.103249</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the walker–groves–ledyard mechanism: improving individual rationality without sacrificing simplicity or stability walker–groves–ledyard机制：在不牺牲简洁性或稳定性的前提下提升个体理性 paul j. healy, renkun yang journal of mathematical economics 10.1016/j.jmateco.2026.103225" data-journal="journal-of-mathematical-economics" data-fields="urban theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103225">The Walker–Groves–Ledyard mechanism: Improving individual rationality without sacrificing simplicity or stability</a></h3>
     <p class="title-zh">Walker–Groves–Ledyard机制：在不牺牲简洁性或稳定性的前提下提升个体理性</p>
     <p class="authors">Paul J. Healy, Renkun Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103225">10.1016/j.jmateco.2026.103225</a><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="a theory of probabilistic economic equilibria 概率经济均衡理论 juan jacobo journal of mathematical economics 10.1016/j.jmateco.2026.103240" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103240">A theory of probabilistic economic equilibria</a></h3>
     <p class="title-zh">概率经济均衡理论</p>
     <p class="authors">Juan Jacobo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103240">10.1016/j.jmateco.2026.103240</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="strategic analysis of fair rank-minimizing mechanisms with agent refusal option 具有代理人拒绝选项的公平排名最小化机制的策略分析 yasunori okumura journal of mathematical economics 10.1016/j.jmateco.2026.103250" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103250">Strategic analysis of fair rank-minimizing mechanisms with agent refusal option</a></h3>
     <p class="title-zh">具有代理人拒绝选项的公平排名最小化机制的策略分析</p>
     <p class="authors">Yasunori Okumura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103250">10.1016/j.jmateco.2026.103250</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="psychological lock-in and institutional persistence: a mean-field model of confidence dynamics 心理锁定与制度持续性：信心动力学的平均场模型 nicolò bellanca journal of mathematical economics 10.1016/j.jmateco.2026.103251" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103251">Psychological lock-in and institutional persistence: A mean-field model of confidence dynamics</a></h3>
     <p class="title-zh">心理锁定与制度持续性：信心动力学的平均场模型</p>
     <p class="authors">Nicolò Bellanca</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103251">10.1016/j.jmateco.2026.103251</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="connected incomplete preferences 关联的不完全偏好 leandro gorno, alessandro t. rivello journal of mathematical economics 10.1016/j.jmateco.2026.103253" data-journal="journal-of-mathematical-economics" data-fields="behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103253">Connected incomplete preferences</a></h3>
     <p class="title-zh">关联的不完全偏好</p>
     <p class="authors">Leandro Gorno, Alessandro T. Rivello</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103253">10.1016/j.jmateco.2026.103253</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="abstention, multiple issues, and the banzhaf power index 弃权、多重议题与班扎夫权力指数 qianqian kong, hans peters journal of mathematical economics 10.1016/j.jmateco.2026.103243" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103243">Abstention, multiple issues, and the Banzhaf power index</a></h3>
     <p class="title-zh">弃权、多重议题与班扎夫权力指数</p>
     <p class="authors">Qianqian Kong, Hans Peters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103243">10.1016/j.jmateco.2026.103243</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="editorial board 编辑委员会  journal of mathematical economics 10.1016/s0304-4068(26)00049-2" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0304-4068(26)00049-2">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-4068(26)00049-2">10.1016/s0304-4068(26)00049-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="popularity in location games 选址博弈中的受欢迎程度 gaëtan fournier, marc schröder journal of mathematical economics 10.1016/j.jmateco.2026.103239" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103239">Popularity in location games</a></h3>
     <p class="title-zh">选址博弈中的受欢迎程度</p>
     <p class="authors">Gaëtan Fournier, Marc Schröder</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103239">10.1016/j.jmateco.2026.103239</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="obviously strategy-proof implementation for mixed-ownership object-allocation problems 混合所有制物品分配问题的显然防策略实施 changwoo park journal of mathematical economics 10.1016/j.jmateco.2026.103252" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103252">Obviously strategy-proof implementation for mixed-ownership object-allocation problems</a></h3>
     <p class="title-zh">混合所有制物品分配问题的显然防策略实施</p>
     <p class="authors">Changwoo Park</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103252">10.1016/j.jmateco.2026.103252</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="characterizing the els values with fixed-population invariance axioms 固定人口不变性公理下的els值特征刻画 yukihiko funaki, yukio koriyama, satoshi nakada, yuki tamura journal of mathematical economics 10.1016/j.jmateco.2026.103270" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103270">Characterizing the ELS values with fixed-population invariance axioms</a></h3>
     <p class="title-zh">固定人口不变性公理下的ELS值特征刻画</p>
     <p class="authors">Yukihiko Funaki, Yukio Koriyama, Satoshi Nakada, Yuki Tamura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103270">10.1016/j.jmateco.2026.103270</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="cooperative games with unpaid players 无报酬参与者的合作博弈 sylvain béal, léa munich, philippe solal, kevin techer journal of mathematical economics 10.1016/j.jmateco.2026.103238" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103238">Cooperative games with unpaid players</a></h3>
     <p class="title-zh">无报酬参与者的合作博弈</p>
     <p class="authors">Sylvain Béal, Léa Munich, Philippe Solal, Kevin Techer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103238">10.1016/j.jmateco.2026.103238</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="time use and heterogeneous markups 时间使用与异质性加成 brian c. albrecht, thomas phelan, nick pretnar journal of economic theory 10.1016/j.jet.2026.106218" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106218">Time Use and Heterogeneous Markups</a></h3>
     <p class="title-zh">时间使用与异质性加成</p>
     <p class="authors">Brian C. Albrecht, Thomas Phelan, Nick Pretnar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106218">10.1016/j.jet.2026.106218</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="information design with endogenous state verification 内生状态验证下的信息设计 lily ling yang journal of economic theory 10.1016/j.jet.2026.106182" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106182">Information design with endogenous state verification</a></h3>
     <p class="title-zh">内生状态验证下的信息设计</p>
     <p class="authors">Lily Ling Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106182">10.1016/j.jet.2026.106182</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="expectation and confusion: evidence and theory 期望与困惑：证据与理论 heng chen, yicheng liu journal of economic theory 10.1016/j.jet.2026.106189" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106189">Expectation and confusion: Evidence and theory</a></h3>
     <p class="title-zh">期望与困惑：证据与理论</p>
     <p class="authors">Heng Chen, Yicheng Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106189">10.1016/j.jet.2026.106189</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="investment sophistication and wealth inequality 投资成熟度与财富不平等 ehsan azarmsa journal of economic theory 10.1016/j.jet.2026.106206" data-journal="journal-of-economic-theory" data-fields="theory inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106206">Investment Sophistication and Wealth Inequality</a></h3>
     <p class="title-zh">投资成熟度与财富不平等</p>
     <p class="authors">Ehsan Azarmsa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-09-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106206">10.1016/j.jet.2026.106206</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="learning through imitation: an experiment 通过模仿学习：一项实验 marina agranov, gabriel lopez-moctezuma, philipp strack, omer tamuz journal of economic theory 10.1016/j.jet.2026.106203" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106203">Learning through imitation: An experiment</a></h3>
     <p class="title-zh">通过模仿学习：一项实验</p>
     <p class="authors">Marina Agranov, Gabriel Lopez-Moctezuma, Philipp Strack, Omer Tamuz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106203">10.1016/j.jet.2026.106203</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the hard problem and the tyranny of the losers 硬问题与失败者的暴政 stan cheung, marco mariotti, roberto veneziani journal of economic theory 10.1016/j.jet.2026.106204" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106204">The Hard Problem and the Tyranny of the Losers</a></h3>
     <p class="title-zh">硬问题与失败者的暴政</p>
     <p class="authors">Stan Cheung, Marco Mariotti, Roberto Veneziani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106204">10.1016/j.jet.2026.106204</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the vcg mechanism, the core, and assignment stages in auctions vcg机制、核心与拍卖中的分配阶段 lawrence m. ausubel, oleg baranov journal of economic theory 10.1016/j.jet.2026.106192" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106192">The VCG mechanism, the core, and assignment stages in auctions</a></h3>
     <p class="title-zh">VCG机制、核心与拍卖中的分配阶段</p>
     <p class="authors">Lawrence M. Ausubel, Oleg Baranov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106192">10.1016/j.jet.2026.106192</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="credit rationing in unsecured debt markets 无担保债务市场中的信贷配给 v. filipe martins-da-rocha, toàn phan, yiannis vailakis journal of economic theory 10.1016/j.jet.2026.106188" data-journal="journal-of-economic-theory" data-fields="finance theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106188">Credit rationing in unsecured debt markets</a></h3>
     <p class="title-zh">无担保债务市场中的信贷配给</p>
     <p class="authors">V. Filipe Martins-da-Rocha, Toàn Phan, Yiannis Vailakis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106188">10.1016/j.jet.2026.106188</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="covert learning and disclosure 隐性学习与信息披露 matteo escudé journal of economic theory 10.1016/j.jet.2026.106179" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106179">Covert learning and disclosure</a></h3>
     <p class="title-zh">隐性学习与信息披露</p>
     <p class="authors">Matteo Escudé</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106179">10.1016/j.jet.2026.106179</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="nonbossy mechanisms: mechanism design robust to secondary goals 非强制性机制：对次要目标稳健的机制设计 renato paes leme, jon schneider, hanrui zhang journal of economic theory 10.1016/j.jet.2026.106187" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106187">Nonbossy mechanisms: Mechanism design robust to secondary goals</a></h3>
     <p class="title-zh">非强制性机制：对次要目标稳健的机制设计</p>
     <p class="authors">Renato Paes Leme, Jon Schneider, Hanrui Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106187">10.1016/j.jet.2026.106187</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="classical matching via network formation 基于网络形成的经典匹配 evan sadler journal of economic theory 10.1016/j.jet.2026.106208" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106208">Classical Matching via Network Formation</a></h3>
     <p class="title-zh">基于网络形成的经典匹配</p>
     <p class="authors">Evan Sadler</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106208">10.1016/j.jet.2026.106208</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="localized perfection 局部完美 enxian chen, lei qiao, xiang sun, yeneng sun journal of economic theory 10.1016/j.jet.2026.106183" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106183">Localized perfection</a></h3>
     <p class="title-zh">局部完美</p>
     <p class="authors">Enxian Chen, Lei Qiao, Xiang Sun, Yeneng Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106183">10.1016/j.jet.2026.106183</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="hold-up in the absence of individual rationality: asymptotic efficiency and gradualism 缺乏个体理性下的敲竹杠问题：渐近效率与渐进主义 prabal roy chowdhury, kunal sengupta journal of economic theory 10.1016/j.jet.2026.106209" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106209">Hold-up in the Absence of Individual Rationality: Asymptotic Efficiency and Gradualism</a></h3>
     <p class="title-zh">缺乏个体理性下的敲竹杠问题：渐近效率与渐进主义</p>
     <p class="authors">Prabal Roy Chowdhury, Kunal Sengupta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106209">10.1016/j.jet.2026.106209</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="editorial board 编辑委员会  journal of economic theory 10.1016/s0022-0531(26)00076-1" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0022-0531(26)00076-1">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0022-0531(26)00076-1">10.1016/s0022-0531(26)00076-1</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the hold-up problem with flexible unobservable investments 灵活不可观测投资下的敲竹杠问题 daniel krähmer journal of economic theory 10.1016/j.jet.2026.106205" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106205">The hold-up problem with flexible unobservable investments</a></h3>
     <p class="title-zh">灵活不可观测投资下的敲竹杠问题</p>
     <p class="authors">Daniel Krähmer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106205">10.1016/j.jet.2026.106205</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="three rules for airport problems: characterizations via order preservation, dispersion minimization, and consistency 机场问题的三条规则：基于顺序保持、分散最小化与一致性的刻画 zeming ma mathematical social sciences 10.1016/j.mathsocsci.2026.102543" data-journal="mathematical-social-sciences" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.mathsocsci.2026.102543">Three rules for airport problems: Characterizations via order preservation, dispersion minimization, and consistency</a></h3>
     <p class="title-zh">机场问题的三条规则：基于顺序保持、分散最小化与一致性的刻画</p>
     <p class="authors">Zeming Ma</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>发布日期 2026-07-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>在线日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.mathsocsci.2026.102543">10.1016/j.mathsocsci.2026.102543</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="silence speaks volumes: dynamic cheap talk over a static issue 沉默胜千言：静态议题下的动态廉价磋商 gunhaeng lee economic theory 10.1007/s00199-026-01728-x" data-journal="economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01728-x">Silence speaks volumes: dynamic cheap talk over a static issue</a></h3>
     <p class="title-zh">沉默胜千言：静态议题下的动态廉价磋商</p>
     <p class="authors">Gunhaeng Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-06-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01728-x">10.1007/s00199-026-01728-x</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="simple forward induction in monotonic multi-sender signaling games 单调多发送者信号博弈中的简单前向归纳 péter vida, takakazu honryo, helmuts āzacis economic theory 10.1007/s00199-026-01723-2" data-journal="economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01723-2">Simple forward induction in monotonic multi-sender signaling games</a></h3>
     <p class="title-zh">单调多发送者信号博弈中的简单前向归纳</p>
     <p class="authors">Péter Vida, Takakazu Honryo, Helmuts Āzacis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-06-10</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01723-2">10.1007/s00199-026-01723-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="a multivariate distribution with pareto tails and pareto maxima 具有帕累托尾部与帕累托最大值的多元分布 costas arkolakis, andrés rodríguez-clare, jiun-hua su economic theory 10.1007/s00199-026-01719-y" data-journal="economic-theory" data-fields="theory inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01719-y">A Multivariate distribution with Pareto tails and Pareto maxima</a></h3>
     <p class="title-zh">具有帕累托尾部与帕累托最大值的多元分布</p>
     <p class="authors">Costas Arkolakis, Andrés Rodríguez-Clare, Jiun-Hua Su</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-06-04</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01719-y">10.1007/s00199-026-01719-y</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="berge equilibria – an algebraic approach 伯格均衡——一种代数方法 frank riedel, maria-laura torrente economic theory 10.1007/s00199-026-01724-1" data-journal="economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01724-1">Berge equilibria – an algebraic approach</a></h3>
     <p class="title-zh">伯格均衡——一种代数方法</p>
     <p class="authors">Frank Riedel, Maria-Laura Torrente</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-06-02</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01724-1">10.1007/s00199-026-01724-1</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="disentangling risk and time for optimal prevention 分离风险与时间以实现最优预防 yichun chi, richard peter, mengjia qi economic theory 10.1007/s00199-026-01722-3" data-journal="economic-theory" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00199-026-01722-3">Disentangling risk and time for optimal prevention</a></h3>
     <p class="title-zh">分离风险与时间以实现最优预防</p>
     <p class="authors">Yichun Chi, Richard Peter, Mengjia Qi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>发布日期 2026-05-27</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01722-3">10.1007/s00199-026-01722-3</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="affine virtual values and the generalized pareto distribution 仿射虚拟值与广义帕累托分布 paolo morganti journal of mathematical economics 10.1016/j.jmateco.2026.103267" data-journal="journal-of-mathematical-economics" data-fields="inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103267">Affine Virtual Values and the Generalized Pareto distribution</a></h3>
     <p class="title-zh">仿射虚拟值与广义帕累托分布</p>
     <p class="authors">Paolo Morganti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103267">10.1016/j.jmateco.2026.103267</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="data-driven persuasion 数据驱动的说服 maxwell rosenthal journal of mathematical economics 10.1016/j.jmateco.2026.103268" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103268">Data-driven persuasion</a></h3>
     <p class="title-zh">数据驱动的说服</p>
     <p class="authors">Maxwell Rosenthal</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103268">10.1016/j.jmateco.2026.103268</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="maximal matchings 最大匹配 anh triêu, iwan bos, marc schröder, dries vermeulen journal of mathematical economics 10.1016/j.jmateco.2026.103254" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103254">Maximal matchings</a></h3>
     <p class="title-zh">最大匹配</p>
     <p class="authors">Anh Triêu, Iwan Bos, Marc Schröder, Dries Vermeulen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103254">10.1016/j.jmateco.2026.103254</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the certainty effect and neo-continuous subjective sources in hurwicz expected utility 确定性效应与赫尔维茨期望效用中的新连续主观来源 simon grant journal of mathematical economics 10.1016/j.jmateco.2026.103257" data-journal="journal-of-mathematical-economics" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103257">The certainty effect and neo-continuous subjective sources in Hurwicz expected utility</a></h3>
     <p class="title-zh">确定性效应与赫尔维茨期望效用中的新连续主观来源</p>
     <p class="authors">Simon Grant</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103257">10.1016/j.jmateco.2026.103257</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="existence and calculation of optimal monetary equilibria on overlapping generations economies 重叠世代经济中最优货币均衡的存在性与计算 leandro lyra braga dognini journal of mathematical economics 10.1016/j.jmateco.2026.103255" data-journal="journal-of-mathematical-economics" data-fields="macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jmateco.2026.103255">Existence and calculation of optimal monetary equilibria on overlapping generations economies</a></h3>
     <p class="title-zh">重叠世代经济中最优货币均衡的存在性与计算</p>
     <p class="authors">Leandro Lyra Braga Dognini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103255">10.1016/j.jmateco.2026.103255</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="credit, money and (pseudo-)anonymity 信贷、货币与（伪）匿名性 remo isch-taudien, fabienne schneider journal of economic theory 10.1016/j.jet.2026.106202" data-journal="journal-of-economic-theory" data-fields="finance theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106202">Credit, money and (pseudo-)anonymity</a></h3>
     <p class="title-zh">信贷、货币与（伪）匿名性</p>
     <p class="authors">Remo Isch-Taudien, Fabienne Schneider</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106202">10.1016/j.jet.2026.106202</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="asymmetric optimal auction design with loss-averse bidders 损失厌恶投标者下的非对称最优拍卖设计 akitoshi muramoto, takeharu sogo journal of economic theory 10.1016/j.jet.2026.106186" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106186">Asymmetric optimal auction design with loss-averse bidders</a></h3>
     <p class="title-zh">损失厌恶投标者下的非对称最优拍卖设计</p>
     <p class="authors">Akitoshi Muramoto, Takeharu Sogo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106186">10.1016/j.jet.2026.106186</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="reference-dependent choice bracketing 参考依赖的选择分组 pauline vorjohann journal of economic theory 10.1016/j.jet.2026.106207" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106207">Reference-dependent choice bracketing</a></h3>
     <p class="title-zh">参考依赖的选择分组</p>
     <p class="authors">Pauline Vorjohann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106207">10.1016/j.jet.2026.106207</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="which experiments test a model? 哪些实验检验了一个模型？ paul j. healy, greg leo journal of economic theory 10.1016/j.jet.2026.106191" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106191">Which experiments test a model?</a></h3>
     <p class="title-zh">哪些实验检验了一个模型？</p>
     <p class="authors">Paul J. Healy, Greg Leo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106191">10.1016/j.jet.2026.106191</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="positive and negative selection in bargaining 议价中的正向与负向选择 dongkyu chang, duk gyoo kim, wooyoung lim journal of economic theory 10.1016/j.jet.2026.106190" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jet.2026.106190">Positive and negative selection in bargaining</a></h3>
     <p class="title-zh">议价中的正向与负向选择</p>
     <p class="authors">Dongkyu Chang, Duk Gyoo Kim, Wooyoung Lim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106190">10.1016/j.jet.2026.106190</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -837,7 +841,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -859,7 +863,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -891,6 +895,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

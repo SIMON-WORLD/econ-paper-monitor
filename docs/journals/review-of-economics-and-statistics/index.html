@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,486 +51,487 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="review-of-economics-and-statistics">Review of Economics and Statistics</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="intergenerational mobility in the land of inequality 不平等之地中的代际流动性 diogo g. c. britto, alexandre fonseca, paolo pinotti, breno sampaio, lucas warwar review of economics and statistics 10.1162/rest.a.1775" data-journal="review-of-economics-and-statistics" data-fields="development public econometrics inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="intergenerational mobility in the land of inequality 不平等之地中的代际流动性 diogo g. c. britto, alexandre fonseca, paolo pinotti, breno sampaio, lucas warwar review of economics and statistics 10.1162/rest.a.1775" data-journal="review-of-economics-and-statistics" data-fields="development public econometrics inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1775">Intergenerational Mobility in the Land of Inequality</a></h3>
     <p class="title-zh">不平等之地中的代际流动性</p>
     <p class="authors">Diogo G. C. Britto, Alexandre Fonseca, Paolo Pinotti, Breno Sampaio, Lucas Warwar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1775">10.1162/rest.a.1775</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="job transitions and employee earnings after acquisitions: linking corporate and worker outcomes 收购后的职位转换与员工收入：企业绩效与员工结果的关联 david arnold, kevin milligan, terry s. moon, amirhossein tavakoli review of economics and statistics 10.1162/rest.a.1787" data-journal="review-of-economics-and-statistics" data-fields="labor firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1787">Job Transitions and Employee Earnings after Acquisitions: Linking Corporate and Worker Outcomes</a></h3>
     <p class="title-zh">收购后的职位转换与员工收入：企业绩效与员工结果的关联</p>
     <p class="authors">David Arnold, Kevin Milligan, Terry S. Moon, Amirhossein Tavakoli</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1787">10.1162/rest.a.1787</a><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="urban forests: environmental health values and risks 城市森林：环境健康价值与风险 jianwei xing, zhiren hu, fan xia, jintao xu, eric yongchen zou review of economics and statistics 10.1162/rest.a.1776" data-journal="review-of-economics-and-statistics" data-fields="china environment macro public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1776">Urban Forests: Environmental Health Values and Risks</a></h3>
     <p class="title-zh">城市森林：环境健康价值与风险</p>
     <p class="authors">Jianwei Xing, Zhiren Hu, Fan Xia, Jintao Xu, Eric Yongchen Zou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1776">10.1162/rest.a.1776</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the curious surge of productivity in u.s. restaurants 美国餐饮业生产率的神秘激增 austan goolsbee, chad syverson, rebecca goldgof, joe tatarka review of economics and statistics 10.1162/rest.a.1790" data-journal="review-of-economics-and-statistics" data-fields="finance macro labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1790">The Curious Surge of Productivity in U.S. Restaurants</a></h3>
     <p class="title-zh">美国餐饮业生产率的神秘激增</p>
     <p class="authors">Austan Goolsbee, Chad Syverson, Rebecca Goldgof, Joe Tatarka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1790">10.1162/rest.a.1790</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="competition and nonprofit’s strategic responses: evidence from fundraising in donative markets 竞争与非营利组织的战略回应：来自捐赠市场筹款的证据 philip g. gayle, teresa d. harrison review of economics and statistics 10.1162/rest.a.1778" data-journal="review-of-economics-and-statistics" data-fields="finance trade theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1778">Competition and Nonprofit’s Strategic Responses: Evidence from Fundraising in Donative Markets</a></h3>
     <p class="title-zh">竞争与非营利组织的战略回应：来自捐赠市场筹款的证据</p>
     <p class="authors">Philip G. Gayle, Teresa D. Harrison</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1778">10.1162/rest.a.1778</a><span class="pill">金融</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="public health, human capital, and economic growth: the lasting effects of disease control in china 公共卫生、人力资本与经济增长：中国疾病控制的持久影响 fan he, wei huang, yinghao pan, jiao wang review of economics and statistics 10.1162/rest.a.1781" data-journal="review-of-economics-and-statistics" data-fields="china macro public urban" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1781">Public Health, Human Capital, and Economic Growth: The Lasting Effects of Disease Control in China</a></h3>
     <p class="title-zh">公共卫生、人力资本与经济增长：中国疾病控制的持久影响</p>
     <p class="authors">Fan He, Wei Huang, Yinghao Pan, Jiao Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1781">10.1162/rest.a.1781</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="black suburbanization: causes and consequences of a transformation of american cities 黑人郊区化：美国城市转型的原因与后果 alexander w. bartik, evan mast review of economics and statistics 10.1162/rest.a.1770" data-journal="review-of-economics-and-statistics" data-fields="agriculture urban education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1770">Black Suburbanization: Causes and Consequences of a Transformation of American Cities</a></h3>
     <p class="title-zh">黑人郊区化：美国城市转型的原因与后果</p>
     <p class="authors">Alexander W. Bartik, Evan Mast</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1770">10.1162/rest.a.1770</a><span class="pill">农业与食品</span><span class="pill">城市与区域</span><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the apple does not fall far from the tree: intergenerational persistence of dietary habits 苹果不会落在离树太远的地方：饮食习惯的代际持续性 frédéric kluser, martina pons review of economics and statistics 10.1162/rest.a.1780" data-journal="review-of-economics-and-statistics" data-fields="trade behavior health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1780">The Apple Does Not Fall Far From the Tree: Intergenerational Persistence of Dietary Habits</a></h3>
     <p class="title-zh">苹果不会落在离树太远的地方：饮食习惯的代际持续性</p>
     <p class="authors">Frédéric Kluser, Martina Pons</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1780">10.1162/rest.a.1780</a><span class="pill">国际贸易</span><span class="pill">行为与组织</span><span class="pill">健康</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="how do large epidemics redistribute market power? evidence from the 2003 sars shock in china 大型流行病如何重新分配市场力量？来自2003年中国sars冲击的证据 yating jiang, hongsong zhang review of economics and statistics 10.1162/rest.a.1769" data-journal="review-of-economics-and-statistics" data-fields="china finance trade firms" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1769">How Do Large Epidemics Redistribute Market Power? Evidence from the 2003 SARS Shock in China</a></h3>
     <p class="title-zh">大型流行病如何重新分配市场力量？来自2003年中国SARS冲击的证据</p>
     <p class="authors">Yating Jiang, Hongsong Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1769">10.1162/rest.a.1769</a><span class="pill">金融</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="trade and u.s. inequality in the tokyo round 东京回合中的贸易与美国不平等 andrew greenland, james lake, john lopresti review of economics and statistics 10.1162/rest.a.1774" data-journal="review-of-economics-and-statistics" data-fields="china labor trade inequality" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1774">Trade and U.S. Inequality in the Tokyo Round</a></h3>
     <p class="title-zh">东京回合中的贸易与美国不平等</p>
     <p class="authors">Andrew Greenland, James Lake, John Lopresti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1774">10.1162/rest.a.1774</a><span class="pill">劳动</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="firm responses to hiring and investment subsidies: regression discontinuity evidence from the california competes tax credit 企业应对招聘与投资补贴的反应：来自加州竞争税收抵免的断点回归证据 benjamin hyman, matthew freedman, shantanu khanna, david neumark review of economics and statistics 10.1162/rest.a.1782" data-journal="review-of-economics-and-statistics" data-fields="development finance labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1782">Firm Responses to Hiring and Investment Subsidies: Regression Discontinuity Evidence from the California Competes Tax Credit</a></h3>
     <p class="title-zh">企业应对招聘与投资补贴的反应：来自加州竞争税收抵免的断点回归证据</p>
     <p class="authors">Benjamin Hyman, Matthew Freedman, Shantanu Khanna, David Neumark</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1782">10.1162/rest.a.1782</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="inflation, war bonds, and voter backlash in the 1950s 20世纪50年代的通胀、战争债券与选民反弹 gillian brunet, eric hilt, matthew jaremski review of economics and statistics 10.1162/rest.a.1783" data-journal="review-of-economics-and-statistics" data-fields="agriculture development macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1783">Inflation, War Bonds, and Voter Backlash in the 1950s</a></h3>
     <p class="title-zh">20世纪50年代的通胀、战争债券与选民反弹</p>
     <p class="authors">Gillian Brunet, Eric Hilt, Matthew Jaremski</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1783">10.1162/rest.a.1783</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="cross-country heterogeneous response to competition: theory and evidence from trade data 跨国竞争反应的异质性：理论与贸易数据的证据 hamed atrianfar, hamid firooz review of economics and statistics 10.1162/rest.a.1772" data-journal="review-of-economics-and-statistics" data-fields="china agriculture trade theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1772">Cross-Country Heterogeneous Response to Competition: Theory and Evidence from Trade Data</a></h3>
     <p class="title-zh">跨国竞争反应的异质性：理论与贸易数据的证据</p>
     <p class="authors">Hamed Atrianfar, Hamid Firooz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1772">10.1162/rest.a.1772</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="spillovers through multimarket firms: the uniform product replacement channel 多市场企业的溢出效应：统一产品替代渠道 jay hyun, ryan kim review of economics and statistics 10.1162/rest.a.1771" data-journal="review-of-economics-and-statistics" data-fields="agriculture finance urban theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1771">Spillovers through Multimarket Firms: The Uniform Product Replacement Channel</a></h3>
     <p class="title-zh">多市场企业的溢出效应：统一产品替代渠道</p>
     <p class="authors">Jay Hyun, Ryan Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1771">10.1162/rest.a.1771</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the employment consequences of anti-dumping tariffs: lessons from brazil 反倾销关税的就业后果：来自巴西的教训 gustavo de souza, haishi li review of economics and statistics 10.1162/rest.a.1773" data-journal="review-of-economics-and-statistics" data-fields="labor public trade firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1773">The Employment Consequences of Anti-Dumping Tariffs: Lessons from Brazil</a></h3>
     <p class="title-zh">反倾销关税的就业后果：来自巴西的教训</p>
     <p class="authors">Gustavo de Souza, Haishi Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1773">10.1162/rest.a.1773</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="sports betting legalization amplifies emotional cues and intimate partner violence 体育博彩合法化加剧情绪线索与亲密伴侣暴力 emily arnesen, kyutaro matsuzawa review of economics and statistics 10.1162/rest.a.1784" data-journal="review-of-economics-and-statistics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1784">Sports Betting Legalization Amplifies Emotional Cues and Intimate Partner Violence</a></h3>
     <p class="title-zh">体育博彩合法化加剧情绪线索与亲密伴侣暴力</p>
     <p class="authors">Emily Arnesen, Kyutaro Matsuzawa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1784">10.1162/rest.a.1784</a><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="common agent or double agent? pharmacy benefit managers in the prescription drug market 共同代理人还是双重代理人？处方药市场中的药品福利管理者 rena m. conti, brigham frandsen, michael powell, james b. rebitzer review of economics and statistics 10.1162/rest.a.1777" data-journal="review-of-economics-and-statistics" data-fields="agriculture finance public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1777">Common Agent or Double Agent? Pharmacy Benefit Managers in the Prescription Drug Market</a></h3>
     <p class="title-zh">共同代理人还是双重代理人？处方药市场中的药品福利管理者</p>
     <p class="authors">Rena M. Conti, Brigham Frandsen, Michael Powell, James B. Rebitzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1777">10.1162/rest.a.1777</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="measurement error and counterfactuals in quantitative trade and spatial models 定量贸易与空间模型中的测量误差与反事实分析 bas sanders review of economics and statistics 10.1162/rest.a.1785" data-journal="review-of-economics-and-statistics" data-fields="trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1785">Measurement Error and Counterfactuals in Quantitative Trade and Spatial Models</a></h3>
     <p class="title-zh">定量贸易与空间模型中的测量误差与反事实分析</p>
     <p class="authors">Bas Sanders</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1785">10.1162/rest.a.1785</a><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="growth-at-risk is investment-at-risk 增长风险即投资风险 aaron j. amburgey, michael w. mccracken review of economics and statistics 10.1162/rest.a.1779" data-journal="review-of-economics-and-statistics" data-fields="finance macro public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1779">Growth-at-Risk Is Investment-at-Risk</a></h3>
     <p class="title-zh">增长风险即投资风险</p>
     <p class="authors">Aaron J. Amburgey, Michael W. McCracken</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1779">10.1162/rest.a.1779</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="globalization, innovation, and margins of sourcing 全球化、创新与采购边际 wenzhuo lu review of economics and statistics 10.1162/rest.a.1768" data-journal="review-of-economics-and-statistics" data-fields="macro labor trade firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1768">Globalization, Innovation, and Margins of Sourcing</a></h3>
     <p class="title-zh">全球化、创新与采购边际</p>
     <p class="authors">Wenzhuo Lu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1768">10.1162/rest.a.1768</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="sibling spillovers and free schooling 兄弟姐妹溢出效应与免费教育 joão r. ferreira, wayne aaron sandholtz review of economics and statistics 10.1162/rest.a.1786" data-journal="review-of-economics-and-statistics" data-fields="development finance theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1786">Sibling Spillovers and Free Schooling</a></h3>
     <p class="title-zh">兄弟姐妹溢出效应与免费教育</p>
     <p class="authors">João R. Ferreira, Wayne Aaron Sandholtz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1786">10.1162/rest.a.1786</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="fundamentally reforming the di system: evidence from germany 从根本上改革伤残保险体系：来自德国的证据 yaming cao, björn fischer-weckemann, johannes geyer, nicolas ziebarth review of economics and statistics 10.1162/rest.a.1789" data-journal="review-of-economics-and-statistics" data-fields="finance public theory health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1789">Fundamentally Reforming the DI System: Evidence from Germany</a></h3>
     <p class="title-zh">从根本上改革伤残保险体系：来自德国的证据</p>
     <p class="authors">Yaming Cao, Björn Fischer-Weckemann, Johannes Geyer, Nicolas Ziebarth</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1789">10.1162/rest.a.1789</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="fairness in winner-take-all competitions 赢者通吃竞争中的公平性 björn bartling, alexander w. cappelen, mathias ekström, erik ø. sørensen, bertil tungodden review of economics and statistics 10.1162/rest.a.1788" data-journal="review-of-economics-and-statistics" data-fields="public behavior inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1788">Fairness in Winner-Take-All Competitions</a></h3>
     <p class="title-zh">赢者通吃竞争中的公平性</p>
     <p class="authors">Björn Bartling, Alexander W. Cappelen, Mathias Ekström, Erik Ø. Sørensen, Bertil Tungodden</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-14</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1788">10.1162/rest.a.1788</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="school choice, student sorting, and academic performance 学校选择、学生分类与学业表现 andrei munteanu review of economics and statistics 10.1162/rest_a_01438" data-journal="review-of-economics-and-statistics" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01438">School Choice, Student Sorting, and Academic Performance</a></h3>
     <p class="title-zh">学校选择、学生分类与学业表现</p>
     <p class="authors">Andrei Munteanu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01438">10.1162/rest_a_01438</a><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="difference-in-differences estimators of intertemporal treatment effects 跨期处理效应的双重差分估计量 clément de chaisemartin, xavier d’haultfœuille review of economics and statistics 10.1162/rest_a_01414" data-journal="review-of-economics-and-statistics" data-fields="econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01414">Difference-in-Differences Estimators of Intertemporal Treatment Effects</a></h3>
     <p class="title-zh">跨期处理效应的双重差分估计量</p>
     <p class="authors">Clément de Chaisemartin, Xavier D’Haultfœuille</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01414">10.1162/rest_a_01414</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="opioid use, mortality risks and crime: insights from a rapid reduction in heroin supply 阿片类药物使用、死亡风险与犯罪：海洛因供应快速减少的启示 timothy j. moore, kevin t. schnepel review of economics and statistics 10.1162/rest_a_01453" data-journal="review-of-economics-and-statistics" data-fields="health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01453">Opioid Use, Mortality Risks and Crime: Insights from a Rapid Reduction in Heroin Supply</a></h3>
     <p class="title-zh">阿片类药物使用、死亡风险与犯罪：海洛因供应快速减少的启示</p>
     <p class="authors">Timothy J. Moore, Kevin T. Schnepel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01453">10.1162/rest_a_01453</a><span class="pill">健康</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="baby bumps in the road: the impact of parenthood on job performance, human capital, and career advancement 育儿路上的坎坷：为人父母对工作绩效、人力资本及职业晋升的影响 olivia j. healy, jennifer a. heissel review of economics and statistics 10.1162/rest_a_01405" data-journal="review-of-economics-and-statistics" data-fields="labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01405">Baby Bumps in the Road: The Impact of Parenthood on Job Performance, Human Capital, and Career Advancement</a></h3>
     <p class="title-zh">育儿路上的坎坷：为人父母对工作绩效、人力资本及职业晋升的影响</p>
     <p class="authors">Olivia J. Healy, Jennifer A. Heissel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01405">10.1162/rest_a_01405</a><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="critical values robust to p-hacking 抗p-hacking的临界值 adam mccloskey, pascal michaillat review of economics and statistics 10.1162/rest_a_01456" data-journal="review-of-economics-and-statistics" data-fields="theory health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01456">Critical Values Robust to P-hacking</a></h3>
     <p class="title-zh">抗p-hacking的临界值</p>
     <p class="authors">Adam McCloskey, Pascal Michaillat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01456">10.1162/rest_a_01456</a><span class="pill">理论与博弈</span><span class="pill">健康</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="weak identification in low-dimensional factor models with one or two factors 一或两个因子低维因子模型中的弱识别问题 gregory fletcher cox review of economics and statistics 10.1162/rest_a_01441" data-journal="review-of-economics-and-statistics" data-fields="econometrics theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01441">Weak Identification in Low-Dimensional Factor Models with One or Two Factors</a></h3>
     <p class="title-zh">一或两个因子低维因子模型中的弱识别问题</p>
     <p class="authors">Gregory Fletcher Cox</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01441">10.1162/rest_a_01441</a><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="knowledge access: the effects of carnegie libraries on innovation 知识获取：卡内基图书馆对创新的影响 enrico berkes, peter nencka review of economics and statistics 10.1162/rest_a_01446" data-journal="review-of-economics-and-statistics" data-fields="labor public urban theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01446">Knowledge Access: The Effects of Carnegie Libraries on Innovation</a></h3>
     <p class="title-zh">知识获取：卡内基图书馆对创新的影响</p>
     <p class="authors">Enrico Berkes, Peter Nencka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01446">10.1162/rest_a_01446</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="machine learning can predict shooting victimization well enough to help prevent it 机器学习能够足够准确地预测枪击受害风险以助预防 sara b. heller, benjamin jakubowski, zubin jelveh, max kapustin review of economics and statistics 10.1162/rest_a_01519" data-journal="review-of-economics-and-statistics" data-fields="econometrics behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01519">Machine Learning Can Predict Shooting Victimization Well Enough to Help Prevent It</a></h3>
     <p class="title-zh">机器学习能够足够准确地预测枪击受害风险以助预防</p>
     <p class="authors">Sara B. Heller, Benjamin Jakubowski, Zubin Jelveh, Max Kapustin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01519">10.1162/rest_a_01519</a><span class="pill">计量方法</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="disentangling reputation from selection effects in markets with informational asymmetries: a field experiment 信息不对称市场中声誉效应与选择效应的分离：一项田野实验 theodore alysandratos, sotiris georganas, matthias sutter review of economics and statistics 10.1162/rest_a_01451" data-journal="review-of-economics-and-statistics" data-fields="finance public trade theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01451">Disentangling Reputation from Selection Effects in Markets with Informational Asymmetries: A Field Experiment</a></h3>
     <p class="title-zh">信息不对称市场中声誉效应与选择效应的分离：一项田野实验</p>
     <p class="authors">Theodore Alysandratos, Sotiris Georganas, Matthias Sutter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01451">10.1162/rest_a_01451</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="urban transit infrastructure and inequality 城市交通基础设施与不平等 kwok hao lee, brandon joel tan review of economics and statistics 10.1162/rest_a_01442" data-journal="review-of-economics-and-statistics" data-fields="development labor public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01442">Urban Transit Infrastructure and Inequality</a></h3>
     <p class="title-zh">城市交通基础设施与不平等</p>
     <p class="authors">Kwok Hao Lee, Brandon Joel Tan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01442">10.1162/rest_a_01442</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="information transmission in groups: peer influence in high-stakes, irreversible financial decisions 群体中的信息传递：高风险不可逆财务决策中的同伴影响 tom ahn, jesse m. cunha, patrick veith review of economics and statistics 10.1162/rest_a_01426" data-journal="review-of-economics-and-statistics" data-fields="finance econometrics inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01426">Information Transmission in Groups: Peer Influence in High-Stakes, Irreversible Financial Decisions</a></h3>
     <p class="title-zh">群体中的信息传递：高风险不可逆财务决策中的同伴影响</p>
     <p class="authors">Tom Ahn, Jesse M. Cunha, Patrick Veith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01426">10.1162/rest_a_01426</a><span class="pill">金融</span><span class="pill">计量方法</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="using rich lists to study the super-rich and top wealth inequality: insights from switzerland 利用富豪榜研究超级富豪与顶层财富不平等：来自瑞士的启示 enea baselgia, isabel z. martínez review of economics and statistics 10.1162/rest_a_01466" data-journal="review-of-economics-and-statistics" data-fields="public inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01466">Using Rich Lists to Study the Super-Rich and Top Wealth Inequality: Insights from Switzerland</a></h3>
     <p class="title-zh">利用富豪榜研究超级富豪与顶层财富不平等：来自瑞士的启示</p>
     <p class="authors">Enea Baselgia, Isabel Z. Martínez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01466">10.1162/rest_a_01466</a><span class="pill">公共与政治经济学</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="monetary policy and home buying inequality 货币政策与购房不平等 daniel ringo review of economics and statistics 10.1162/rest_a_01445" data-journal="review-of-economics-and-statistics" data-fields="development finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01445">Monetary Policy and Home Buying Inequality</a></h3>
     <p class="title-zh">货币政策与购房不平等</p>
     <p class="authors">Daniel Ringo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01445">10.1162/rest_a_01445</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="human capital and climate change 人力资本与气候变化 noam angrist, kevin winseck, harry anthony patrinos, joshua graff zivin review of economics and statistics 10.1162/rest_a_01444" data-journal="review-of-economics-and-statistics" data-fields="environment public econometrics behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01444">Human Capital and Climate Change</a></h3>
     <p class="title-zh">人力资本与气候变化</p>
     <p class="authors">Noam Angrist, Kevin Winseck, Harry Anthony Patrinos, Joshua Graff Zivin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01444">10.1162/rest_a_01444</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="is hybrid work the best of both worlds? evidence from a field experiment 混合办公模式是否两全其美？来自田野实验的证据 prithwiraj choudhury, christos a. makridis, tarun khanna, kyle schirmann review of economics and statistics 10.1162/rest_a_01428" data-journal="review-of-economics-and-statistics" data-fields="labor econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01428">Is Hybrid Work the Best of Both Worlds? Evidence from a Field Experiment</a></h3>
     <p class="title-zh">混合办公模式是否两全其美？来自田野实验的证据</p>
     <p class="authors">Prithwiraj Choudhury, Christos A. Makridis, Tarun Khanna, Kyle Schirmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01428">10.1162/rest_a_01428</a><span class="pill">劳动</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="attrition and the gender patenting gap 流失率与性别专利差距 abhay aneja, oren reshef, gauri subramani review of economics and statistics 10.1162/rest_a_01447" data-journal="review-of-economics-and-statistics" data-fields="inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01447">Attrition and the Gender Patenting Gap</a></h3>
     <p class="title-zh">流失率与性别专利差距</p>
     <p class="authors">Abhay Aneja, Oren Reshef, Gauri Subramani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01447">10.1162/rest_a_01447</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="federal tax deductions and the demand for local public goods 联邦税收减免与地方公共物品需求 brent w. ambrose, maxence valentin review of economics and statistics 10.1162/rest_a_01427" data-journal="review-of-economics-and-statistics" data-fields="public econometrics education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01427">Federal Tax Deductions and the Demand for Local Public Goods</a></h3>
     <p class="title-zh">联邦税收减免与地方公共物品需求</p>
     <p class="authors">Brent W. Ambrose, Maxence Valentin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>发布日期 2026-05-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01427">10.1162/rest_a_01427</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -549,7 +551,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -571,7 +573,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -603,6 +605,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

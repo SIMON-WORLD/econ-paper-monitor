@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,234 +51,236 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="economic-journal">Economic Journal</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="monetary financing produces neither high inflation nor miraculous fiscal multipliers 货币融资既不会导致高通胀，也不会产生奇迹般的财政乘数 christiaan van der kwaak economic journal 10.1093/ej/ueag073" data-journal="economic-journal" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="monetary financing produces neither high inflation nor miraculous fiscal multipliers 货币融资既不会导致高通胀，也不会产生奇迹般的财政乘数 christiaan van der kwaak economic journal 10.1093/ej/ueag073" data-journal="economic-journal" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag073">Monetary financing produces neither high inflation nor miraculous fiscal multipliers</a></h3>
     <p class="title-zh">货币融资既不会导致高通胀，也不会产生奇迹般的财政乘数</p>
     <p class="authors">Christiaan van der Kwaak</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-30</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-30 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag073">10.1093/ej/ueag073</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="on the benefits of robo-advice in financial markets 论机器人投顾在金融市场中的益处 marco lambrecht, joerg oechssler, simon weidenholzer economic journal 10.1093/ej/ueag076" data-journal="economic-journal" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag076">On the Benefits of Robo-Advice in Financial Markets</a></h3>
     <p class="title-zh">论机器人投顾在金融市场中的益处</p>
     <p class="authors">Marco Lambrecht, Joerg Oechssler, Simon Weidenholzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-29</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag076">10.1093/ej/ueag076</a><span class="pill">金融</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="how nurture activates nature in determining savings behavior: evidence from china’s send-down movement and twins data 后天如何激发先天以决定储蓄行为：来自中国上山下乡运动与双胞胎数据的证据 wenchao li, junjian yi, junsen zhang economic journal 10.1093/ej/ueag071" data-journal="economic-journal" data-fields="china environment public urban" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag071">How Nurture Activates Nature in Determining Savings Behavior: Evidence from China’s Send-Down Movement and Twins Data</a></h3>
     <p class="title-zh">后天如何激发先天以决定储蓄行为：来自中国上山下乡运动与双胞胎数据的证据</p>
     <p class="authors">Wenchao Li, Junjian Yi, Junsen Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-29</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag071">10.1093/ej/ueag071</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="persistent effects of social program participation on the third generation 社会项目参与对第三代的持续影响 gordon b dahl, anne c gielen economic journal 10.1093/ej/ueag065" data-journal="economic-journal" data-fields="finance labor health education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag065">Persistent Effects of Social Program Participation on the Third Generation</a></h3>
     <p class="title-zh">社会项目参与对第三代的持续影响</p>
     <p class="authors">Gordon B Dahl, Anne C Gielen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-27</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag065">10.1093/ej/ueag065</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">健康</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="taxation of capital–capital levies and commitment 资本课税——资本征收与承诺 robert j barro, v v chari economic journal 10.1093/ej/ueag069" data-journal="economic-journal" data-fields="development finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag069">Taxation of Capital–Capital Levies and Commitment</a></h3>
     <p class="title-zh">资本课税——资本征收与承诺</p>
     <p class="authors">Robert J Barro, V V Chari</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-25</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag069">10.1093/ej/ueag069</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="meta-analysis of distributional preferences 分配偏好的元分析 salvatore nunnari, massimiliano pozzi economic journal 10.1093/ej/ueag068" data-journal="economic-journal" data-fields="environment behavior inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag068">Meta-Analysis of Distributional Preferences</a></h3>
     <p class="title-zh">分配偏好的元分析</p>
     <p class="authors">Salvatore Nunnari, Massimiliano Pozzi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-23</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag068">10.1093/ej/ueag068</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="extreme justifications fuel polarisation 极端理由加剧极化 christiane buschinger, markus eyting, florian hett, judd kessler economic journal 10.1093/ej/ueag062" data-journal="economic-journal" data-fields="environment finance public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag062">Extreme justifications fuel polarisation</a></h3>
     <p class="title-zh">极端理由加剧极化</p>
     <p class="authors">Christiane Buschinger, Markus Eyting, Florian Hett, Judd Kessler</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-23</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag062">10.1093/ej/ueag062</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="politicians’ social welfare criteria an experiment with german legislators 德国立法者政治家的社会福利标准实验 sandro ambuehl, sebastian blesse, philipp doerrenberg, christoph feldhaus, axel ockenfels economic journal 10.1093/ej/ueag067" data-journal="economic-journal" data-fields="public trade theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag067">Politicians’ Social Welfare Criteria An Experiment With German Legislators</a></h3>
     <p class="title-zh">德国立法者政治家的社会福利标准实验</p>
     <p class="authors">Sandro Ambuehl, Sebastian Blesse, Philipp Doerrenberg, Christoph Feldhaus, Axel Ockenfels</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-21</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag067">10.1093/ej/ueag067</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the intergenerational impact of birth-control policies on fertility: the role of norms 生育控制政策的代际影响：规范的作用 rufei guo, lin lin, junjian yi, hanyu zhu economic journal 10.1093/ej/ueag063" data-journal="economic-journal" data-fields="china public econometrics" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag063">The Intergenerational Impact of Birth-Control Policies on Fertility: The Role of Norms</a></h3>
     <p class="title-zh">生育控制政策的代际影响：规范的作用</p>
     <p class="authors">Rufei Guo, Lin Lin, Junjian Yi, Hanyu Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-18</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag063">10.1093/ej/ueag063</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="does unfairness hurt women? the effects of losing unfair competitions 不公平会伤害女性吗？输掉不公平竞争的影响 stefano piasenti, marica valente, roel van veldhuizen, gregor pfeifer economic journal 10.1093/ej/ueag066" data-journal="economic-journal" data-fields="econometrics behavior inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag066">Does Unfairness Hurt Women? The Effects of Losing Unfair Competitions</a></h3>
     <p class="title-zh">不公平会伤害女性吗？输掉不公平竞争的影响</p>
     <p class="authors">Stefano Piasenti, Marica Valente, Roel van Veldhuizen, Gregor Pfeifer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-18</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag066">10.1093/ej/ueag066</a><span class="pill">计量方法</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the price effects of prohibiting price parity clauses: evidence from global hotel chains 禁止价格平价条款的价格效应：来自全球连锁酒店的证据 jack (peiyao) ma, andrea mantovani, carlo reggiani, annette broocks, néstor duch-brown economic journal 10.1093/ej/ueag059" data-journal="economic-journal" data-fields="agriculture trade behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag059">The Price Effects of Prohibiting Price Parity Clauses: Evidence from Global Hotel Chains</a></h3>
     <p class="title-zh">禁止价格平价条款的价格效应：来自全球连锁酒店的证据</p>
     <p class="authors">Jack (Peiyao) Ma, Andrea Mantovani, Carlo Reggiani, Annette Broocks, Néstor Duch-Brown</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag059">10.1093/ej/ueag059</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="macroeconomic effects of public r&amp;amp;d 公共研发的宏观经济效应 vincenzo de lipsis, matteo deleidi, mariana mazzucato, paolo agnolucci economic journal 10.1093/ej/ueag061" data-journal="economic-journal" data-fields="environment macro public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag061">Macroeconomic Effects of Public R&amp;amp;D</a></h3>
     <p class="title-zh">公共研发的宏观经济效应</p>
     <p class="authors">Vincenzo De Lipsis, Matteo Deleidi, Mariana Mazzucato, Paolo Agnolucci</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-09</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag061">10.1093/ej/ueag061</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="animosity is for the audience: how social context shapes expressions of political hostility 敌意是给观众看的：社会情境如何塑造政治敌意的表达 chloe ahn, shengchun huang, yphtach lelkes economic journal 10.1093/ej/ueag055" data-journal="economic-journal" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag055">Animosity is for the Audience: How Social Context Shapes Expressions of Political Hostility</a></h3>
     <p class="title-zh">敌意是给观众看的：社会情境如何塑造政治敌意的表达</p>
     <p class="authors">Chloe Ahn, Shengchun Huang, Yphtach Lelkes</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-06</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag055">10.1093/ej/ueag055</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="universal investments in toddler health. learning from a large government trial 幼儿健康的普遍投资：来自一项大型政府试验的启示 jennifer l baker, lise g bjerregaard, christian m dahl, torben s d johansen, emil n sørensen 等 economic journal 10.1093/ej/ueag057" data-journal="economic-journal" data-fields="environment finance labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag057">Universal Investments in Toddler Health. Learning from a Large Government Trial</a></h3>
     <p class="title-zh">幼儿健康的普遍投资：来自一项大型政府试验的启示</p>
     <p class="authors">Jennifer L Baker, Lise G Bjerregaard, Christian M Dahl, Torben S D Johansen, Emil N Sørensen 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-04</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag057">10.1093/ej/ueag057</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the bright side of tax evasion 逃税的积极面 wladislaw mill, cornelius schneider economic journal 10.1093/ej/ueag054" data-journal="economic-journal" data-fields="labor public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag054">The Bright Side of Tax Evasion</a></h3>
     <p class="title-zh">逃税的积极面</p>
     <p class="authors">Wladislaw Mill, Cornelius Schneider</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-05-04</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag054">10.1093/ej/ueag054</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="resisting populism through financial market exposure: experimental evidence from brexit 通过金融市场暴露抵制民粹主义：来自英国脱欧的实验证据 saumitra jha economic journal 10.1093/ej/ueag077" data-journal="economic-journal" data-fields="finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag077">Resisting Populism through Financial Market Exposure: Experimental Evidence from Brexit</a></h3>
     <p class="title-zh">通过金融市场暴露抵制民粹主义：来自英国脱欧的实验证据</p>
     <p class="authors">Saumitra Jha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-06-13</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-06-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag077">10.1093/ej/ueag077</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="breaking echo chambers: an experimental study on the willingness to listen to opposite views 打破回音室：倾听对立观点意愿的实验研究 michèle belot, guglielmo briscese economic journal 10.1093/ej/ueag072" data-journal="economic-journal" data-fields="labor theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag072">Breaking Echo Chambers: An Experimental Study on the Willingness to Listen to Opposite Views</a></h3>
     <p class="title-zh">打破回音室：倾听对立观点意愿的实验研究</p>
     <p class="authors">Michèle Belot, Guglielmo Briscese</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag072">10.1093/ej/ueag072</a><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="experimental auctions with securities 证券化实验拍卖 zachary breig, allan hernández-chanto, declan hunt economic journal 10.1093/ej/ueag074" data-journal="economic-journal" data-fields="agriculture development theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag074">Experimental Auctions with Securities</a></h3>
     <p class="title-zh">证券化实验拍卖</p>
     <p class="authors">Zachary Breig, Allan Hernández-Chanto, Declan Hunt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-06-08</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag074">10.1093/ej/ueag074</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="monetary and fiscal policy: some new monetarist arithmetic 货币与财政政策：新货币主义算术 chao gu, randall wright, yu zhu economic journal 10.1093/ej/ueag075" data-journal="economic-journal" data-fields="macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag075">Monetary and Fiscal Policy: Some New Monetarist Arithmetic</a></h3>
     <p class="title-zh">货币与财政政策：新货币主义算术</p>
     <p class="authors">Chao Gu, Randall Wright, Yu Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag075">10.1093/ej/ueag075</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -297,7 +300,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -319,7 +322,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -351,6 +354,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

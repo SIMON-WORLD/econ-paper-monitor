@@ -94,9 +94,10 @@ STYLE = """
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 """
 
 
@@ -219,7 +220,8 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     last_run = latest_run or latest_source or last_record_seen
     return {
         "today": len(today_records),
-        "online_today": sum(1 for record in today_records if today in {record.get("available_online"), record.get("accepted_date"), record.get("published_online")}),
+        "china_today": sum(1 for record in today_records if is_china_related(record)),
+        "online_today": sum(1 for record in today_records if today in {record.get("available_online"), record.get("published_online")}),
         "today_journals": len(today_journals),
         "all_records": len(records),
         "all_journals": len(all_journals),
@@ -232,12 +234,12 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
 
 
 def date_type(record: dict[str, Any]) -> str:
-    if record.get("accepted_date"):
-        return "accepted"
     if record.get("available_online"):
         return "available_online"
     if record.get("published_online"):
         return "published_online"
+    if record.get("accepted_date"):
+        return "accepted"
     if record.get("source_issue") or record.get("issue_date"):
         return "issue"
     return "first_seen"
@@ -261,28 +263,51 @@ def confidence_value(record: dict[str, Any]) -> str:
 
 def confidence_label(value: str) -> str:
     return {
-        "A": "A 最高",
-        "B": "B 出版社/RSS",
-        "C": "C Crossref",
-        "D": "D 卷期/印刷",
-        "F": "F 仅首次监测",
+        "A": "A 高：出版社/PDF 明确日期",
+        "B": "B 中：RSS/出版社备选日期",
+        "C": "C 低：Crossref 元数据",
+        "D": "D 低：卷期/印刷日期",
+        "F": "F 待核：仅首次监测",
     }.get(value, value)
 
 
-def date_confidence_label(record: dict[str, Any]) -> str:
+def public_date_label(record: dict[str, Any]) -> str:
+    if record.get("available_online") or record.get("published_online"):
+        return "在线日期"
     if record.get("accepted_date"):
         return "接受日期"
-    if record.get("available_online"):
-        return "在线日期"
-    if record.get("published_online"):
-        return "发布日期"
     if record.get("source_issue"):
         return "来源期次"
     return "日期待解析"
 
 
 def official_date(record: dict[str, Any]) -> str:
-    return str(record.get("accepted_date") or record.get("available_online") or record.get("published_online") or record.get("source_issue") or "待解析")
+    return str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("source_issue") or "待解析")
+
+
+def date_source_label(record: dict[str, Any]) -> str:
+    source = str(record.get("source") or "").casefold()
+    date_source = str(record.get("date_source") or "").casefold()
+    source_url = str(record.get("source_url") or "").casefold()
+    if "pdf" in date_source:
+        return "PDF"
+    if date_source == "tandf_issue_date_fallback":
+        return "T&F 备选日期"
+    if "publisher" in date_source or "detail" in date_source:
+        return "出版社网页"
+    if "rss" in source or "rss" in date_source:
+        return "RSS"
+    if "crossref" in source or "crossref" in date_source or "crossref" in source_url:
+        return "Crossref"
+    if source in {"cn", "cn-journal", "official-source"} or record.get("source_issue"):
+        return "期刊官网"
+    if record.get("url"):
+        return "文章页面"
+    return "待解析"
+
+
+def public_date_line(record: dict[str, Any]) -> str:
+    return f"{public_date_label(record)} {official_date(record)} · 来源：{date_source_label(record)}"
 
 
 def sidebar(records: list[dict[str, Any]]) -> str:
@@ -351,12 +376,13 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     if not selected:
         return '<div class="empty">暂无符合条件的论文记录。</div>'
     chunks = []
+    current_day = ""
     for record in selected:
-        online_today = today_str() in {
-            str(record.get("available_online") or ""),
-            str(record.get("accepted_date") or ""),
-            str(record.get("published_online") or ""),
-        }
+        day = detected_date(record)
+        if day != current_day:
+            chunks.append(f'<div class="day-divider">{html_escape(day or "日期待解析")}</div>')
+            current_day = day
+        online_today = today_str() in {str(record.get("available_online") or ""), str(record.get("published_online") or "")}
         if record.get("doi"):
             link_or_doi = f'<a class="doi" href="https://doi.org/{html_escape(record.get("doi"))}">{html_escape(record.get("doi"))}</a>'
         elif record.get("url"):
@@ -374,13 +400,13 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         field_attr = " ".join(article_topics(record))
         chunks.append(
             f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}">
-  <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
+  <div class="event-time"><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
     <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title'))}</a></h3>
     {title_zh_html}
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>{html_escape(record.get('journal'))}</span><span>{html_escape(date_confidence_label(record))} {html_escape(official_date(record))}</span><span>{html_escape(confidence_label(confidence_value(record)))}</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>{html_escape(record.get('journal'))}</span><span>{html_escape(public_date_line(record))}</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">{link_or_doi}{fields}{china_tag}</span></div>
     </div>
   </div>
@@ -405,7 +431,7 @@ FILTER_SCRIPT = """
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -427,7 +453,7 @@ FILTER_SCRIPT = """
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -459,6 +485,10 @@ FILTER_SCRIPT = """
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
@@ -498,7 +528,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     s = stats(records, today_records)
     note = (
         '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录；'
-        '“在线日期为今日”优先使用出版社页面、RSS 或 PDF 识别。Crossref 卷期日期可信度较低，会标为 C/D/F。</div>'
+        '“在线日期为今日”只统计 online/published online 日期为今天的记录。前台显示简洁来源，完整证据链保留在本地后台。</div>'
     )
     return f"""<section class="banner">
   <div class="banner-main">
@@ -516,9 +546,9 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 </section>
 <section class="stats">
   <a class="stat" href="#filters" data-filter-preset="all"><strong>{s['today']}</strong><span>今日新发现</span></a>
+  <a class="stat" href="#filters" data-filter-preset="china"><strong>{s['china_today']}</strong><span>与中国相关</span></a>
   <a class="stat" href="#filters" data-filter-preset="online-today"><strong>{s['online_today']}</strong><span>在线日期为今日</span></a>
   <a class="stat" href="{BASE}/journals/"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></a>
-  <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>当前索引记录</span></a>
 </section>
 {filter_toolbar(today_records, include_rss=True)}
 <section class="section-head"><div><h2>今日论文流 <span class="live-count" id="flowCounter"></span></h2><p>按本站监测时间倒序排列，可筛选期刊、主题、日期可信度和“中国相关”。</p></div><p>{html_escape(today_str())}</p></section>

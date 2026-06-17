@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,594 +51,597 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="games-and-economic-behavior">Games and Economic Behavior</option><option value="international-journal-of-game-theory">International Journal of Game Theory</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="public">公共与政治经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="new methods to compensate artists in music streaming platforms 音乐流媒体平台中艺术家补偿的新方法 gustavo bergantiños, juan d. moreno-ternero games and economic behavior 10.1016/j.geb.2026.06.003" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">20:10</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="new methods to compensate artists in music streaming platforms 音乐流媒体平台中艺术家补偿的新方法 gustavo bergantiños, juan d. moreno-ternero games and economic behavior 10.1016/j.geb.2026.06.003" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">20:10</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.06.003">New methods to compensate artists in music streaming platforms</a></h3>
     <p class="title-zh">音乐流媒体平台中艺术家补偿的新方法</p>
     <p class="authors">Gustavo Bergantiños, Juan D. Moreno-Ternero</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.003">10.1016/j.geb.2026.06.003</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="ranking teams 团队排名 adam hamdan games and economic behavior 10.1016/j.geb.2026.06.004" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">20:10</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">20:10</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.06.004">Ranking teams</a></h3>
     <p class="title-zh">团队排名</p>
     <p class="authors">Adam Hamdan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.004">10.1016/j.geb.2026.06.004</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="a note on the diversity owen value 关于多样性owen值的一个注记 songtao he, erfang shan, yuxin sun international journal of game theory 10.1007/s00182-026-00984-4" data-journal="international-journal-of-game-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-00984-4">A note on the Diversity Owen value</a></h3>
     <p class="title-zh">关于多样性Owen值的一个注记</p>
     <p class="authors">Songtao He, Erfang Shan, Yuxin Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-12</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00984-4">10.1007/s00182-026-00984-4</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="a stable and strategy-proof controlled school choice mechanism with integrated and flexible rules 集成灵活规则的稳定且防策略的可控学校选择机制 minoru kitahara, yasunori okumura international journal of game theory 10.1007/s00182-026-01000-5" data-journal="international-journal-of-game-theory" data-fields="theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-01000-5">A stable and strategy-proof controlled school choice mechanism with integrated and flexible rules</a></h3>
     <p class="title-zh">集成灵活规则的稳定且防策略的可控学校选择机制</p>
     <p class="authors">Minoru Kitahara, Yasunori Okumura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-07</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-01000-5">10.1007/s00182-026-01000-5</a><span class="pill">理论与博弈</span><span class="pill">教育</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="language constraints in multi-sender communication games 多发送者通信博弈中的语言约束 nicolas rodriguez international journal of game theory 10.1007/s00182-026-00998-y" data-journal="international-journal-of-game-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-00998-y">Language Constraints in Multi-Sender Communication Games</a></h3>
     <p class="title-zh">多发送者通信博弈中的语言约束</p>
     <p class="authors">Nicolas Rodriguez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-07</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00998-y">10.1007/s00182-026-00998-y</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="bertrand competition with one-sided cost uncertainty 单边成本不确定下的伯特兰竞争 ramakanta patra, hitoshi sadakane international journal of game theory 10.1007/s00182-025-00954-2" data-journal="international-journal-of-game-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-025-00954-2">Bertrand competition with one-sided cost uncertainty</a></h3>
     <p class="title-zh">单边成本不确定下的伯特兰竞争</p>
     <p class="authors">Ramakanta Patra, Hitoshi Sadakane</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-06</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-025-00954-2">10.1007/s00182-025-00954-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="algorithmic cooperation: a comparison with human play in the infinitely repeated prisoner’s dilemma 算法合作：与人类在无限重复囚徒困境中的行为比较 bernhard kasberger, simon martin, hans-theo normann, tobias werner games and economic behavior 10.1016/j.geb.2026.06.001" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.06.001">Algorithmic Cooperation: A Comparison with Human Play in the Infinitely Repeated Prisoner’s Dilemma</a></h3>
     <p class="title-zh">算法合作：与人类在无限重复囚徒困境中的行为比较</p>
     <p class="authors">Bernhard Kasberger, Simon Martin, Hans-Theo Normann, Tobias Werner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.001">10.1016/j.geb.2026.06.001</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="designing heaven’s will: the job assignment in the chinese imperial civil service 设计天意：中国帝国文官制度中的职位分配 inácio bó, li chen games and economic behavior 10.1016/j.geb.2026.03.013" data-journal="games-and-economic-behavior" data-fields="china theory behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.013">Designing Heaven’s will: The job assignment in the Chinese imperial civil service</a></h3>
     <p class="title-zh">设计天意：中国帝国文官制度中的职位分配</p>
     <p class="authors">Inácio Bó, Li Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.013">10.1016/j.geb.2026.03.013</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the effects of induced emotions on punishment and reward 诱导情绪对惩罚与奖励的影响 michalis drouvelis, brit grosskopf games and economic behavior 10.1016/j.geb.2026.03.012" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.012">The effects of induced emotions on punishment and reward</a></h3>
     <p class="title-zh">诱导情绪对惩罚与奖励的影响</p>
     <p class="authors">Michalis Drouvelis, Brit Grosskopf</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.012">10.1016/j.geb.2026.03.012</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="morality meets risk: what makes a good excuse for selfishness 道德与风险相遇：什么构成自私的合理借口 wanxin dong, jiakun zheng games and economic behavior 10.1016/j.geb.2026.02.010" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.02.010">Morality meets risk: What makes a good excuse for selfishness</a></h3>
     <p class="title-zh">道德与风险相遇：什么构成自私的合理借口</p>
     <p class="authors">Wanxin Dong, Jiakun Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.010">10.1016/j.geb.2026.02.010</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="persuasion of interacting receivers 互动接收者的说服 yishu zeng games and economic behavior 10.1016/j.geb.2026.04.009" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.04.009">Persuasion of interacting receivers</a></h3>
     <p class="title-zh">互动接收者的说服</p>
     <p class="authors">Yishu Zeng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.009">10.1016/j.geb.2026.04.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="editorial board 编辑委员会  games and economic behavior 10.1016/s0899-8256(26)00096-5" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0899-8256(26)00096-5">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0899-8256(26)00096-5">10.1016/s0899-8256(26)00096-5</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="competitive limit of competing auctions 竞争性拍卖的竞争极限 zizhen ma, nicolás riquelme games and economic behavior 10.1016/j.geb.2026.03.015" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.015">Competitive limit of competing auctions</a></h3>
     <p class="title-zh">竞争性拍卖的竞争极限</p>
     <p class="authors">Zizhen Ma, Nicolás Riquelme</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.015">10.1016/j.geb.2026.03.015</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="strategic formation of production networks 生产网络的战略形成 antoine mandel, van-quy nguyen, bach dong-xuan games and economic behavior 10.1016/j.geb.2026.05.004" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.004">Strategic formation of production networks</a></h3>
     <p class="title-zh">生产网络的战略形成</p>
     <p class="authors">Antoine Mandel, Van-Quy Nguyen, Bach Dong-Xuan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.004">10.1016/j.geb.2026.05.004</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="river-sharing problem with floods 洪水条件下的河流共享问题 takayuki oishi, tomoya tajika games and economic behavior 10.1016/j.geb.2026.03.011" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.011">River-sharing problem with floods</a></h3>
     <p class="title-zh">洪水条件下的河流共享问题</p>
     <p class="authors">Takayuki Oishi, Tomoya Tajika</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.011">10.1016/j.geb.2026.03.011</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the evolution of strategies in repeated 2  ×  2 anti-coordination games 重复2×2反协调博弈中策略的演化 jiabin wu games and economic behavior 10.1016/j.geb.2026.05.002" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.002">The evolution of strategies in repeated 2  ×  2 anti-coordination games</a></h3>
     <p class="title-zh">重复2×2反协调博弈中策略的演化</p>
     <p class="authors">Jiabin Wu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.002">10.1016/j.geb.2026.05.002</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="information manipulation of wishful thinkers 一厢情愿者的信息操纵 emel filiz-ozbay, zhenxun liu games and economic behavior 10.1016/j.geb.2026.05.010" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.010">Information manipulation of wishful thinkers</a></h3>
     <p class="title-zh">一厢情愿者的信息操纵</p>
     <p class="authors">Emel Filiz-Ozbay, Zhenxun Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.010">10.1016/j.geb.2026.05.010</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="when information and communication are both costly 信息与沟通成本高昂时 shahir safi games and economic behavior 10.1016/j.geb.2026.04.004" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.04.004">When information and communication are both costly</a></h3>
     <p class="title-zh">信息与沟通成本高昂时</p>
     <p class="authors">Shahir Safi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.004">10.1016/j.geb.2026.04.004</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="editorial board 编委会  games and economic behavior 10.1016/s0899-8256(26)00097-7" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0899-8256(26)00097-7">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0899-8256(26)00097-7">10.1016/s0899-8256(26)00097-7</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="competition in persuasion in the attention economy 注意力经济中的说服竞争 federico innocenti games and economic behavior 10.1016/j.geb.2026.04.005" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.04.005">Competition in persuasion in the attention economy</a></h3>
     <p class="title-zh">注意力经济中的说服竞争</p>
     <p class="authors">Federico Innocenti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.005">10.1016/j.geb.2026.04.005</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the quasi-prekernel for cooperative games 合作博弈的拟预核 qianqian kong, hans peters, hao sun games and economic behavior 10.1016/j.geb.2026.03.009" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.009">The quasi-prekernel for cooperative games</a></h3>
     <p class="title-zh">合作博弈的拟预核</p>
     <p class="authors">Qianqian Kong, Hans Peters, Hao Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.009">10.1016/j.geb.2026.03.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="reduced strategies and cognitive hierarchies in the extensive and normal form 简化策略与认知层级在扩展式与标准式博弈中的表现 pierpaolo battigalli games and economic behavior 10.1016/j.geb.2026.03.006" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.006">Reduced strategies and cognitive hierarchies in the extensive and normal form</a></h3>
     <p class="title-zh">简化策略与认知层级在扩展式与标准式博弈中的表现</p>
     <p class="authors">Pierpaolo Battigalli</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.006">10.1016/j.geb.2026.03.006</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="cheap talk and lie detection 廉价谈话与谎言检测 hitoshi sadakane, yin chi tam games and economic behavior 10.1016/j.geb.2026.03.007" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.007">Cheap talk and lie detection</a></h3>
     <p class="title-zh">廉价谈话与谎言检测</p>
     <p class="authors">Hitoshi Sadakane, Yin Chi Tam</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.007">10.1016/j.geb.2026.03.007</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="approximating competitive equilibrium by nash welfare 用纳什福利近似竞争均衡 jugal garg, yixin tao, lászló a. végh games and economic behavior 10.1016/j.geb.2026.03.004" data-journal="games-and-economic-behavior" data-fields="public theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.004">Approximating competitive equilibrium by Nash welfare</a></h3>
     <p class="title-zh">用纳什福利近似竞争均衡</p>
     <p class="authors">Jugal Garg, Yixin Tao, László A. Végh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.004">10.1016/j.geb.2026.03.004</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="welfare properties of the taiwan mechanism 台湾机制的福利性质 ilan wolff games and economic behavior 10.1016/j.geb.2025.11.005" data-journal="games-and-economic-behavior" data-fields="china public theory behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2025.11.005">Welfare properties of the Taiwan mechanism</a></h3>
     <p class="title-zh">台湾机制的福利性质</p>
     <p class="authors">Ilan Wolff</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2025.11.005">10.1016/j.geb.2025.11.005</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="noncooperative oligopoly in markets with a continuum of traders and a strongly connected set of commodities: a limit theorem 连续交易者市场与强连通商品集上的非合作寡头垄断：一个极限定理 francesca busetto, giulio codognato, sayantan ghosal, ludovic julien, damiano turchet games and economic behavior 10.1016/j.geb.2026.03.003" data-journal="games-and-economic-behavior" data-fields="finance trade theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.003">Noncooperative oligopoly in markets with a continuum of traders and a strongly connected set of commodities: A limit theorem</a></h3>
     <p class="title-zh">连续交易者市场与强连通商品集上的非合作寡头垄断：一个极限定理</p>
     <p class="authors">Francesca Busetto, Giulio Codognato, Sayantan Ghosal, Ludovic Julien, Damiano Turchet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.003">10.1016/j.geb.2026.03.003</a><span class="pill">金融</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="a simultaneous analysis of turnout and voting under proportional representation: theory and experiments 比例代表制下投票率与投票行为的联合分析：理论与实验 aaron kamm, arthur schram games and economic behavior 10.1016/j.geb.2026.03.005" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.005">A simultaneous analysis of turnout and voting under proportional representation: Theory and experiments</a></h3>
     <p class="title-zh">比例代表制下投票率与投票行为的联合分析：理论与实验</p>
     <p class="authors">Aaron Kamm, Arthur Schram</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.005">10.1016/j.geb.2026.03.005</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="authority measure for opinion dynamics 意见动态的权威度量 igal milchtaich, ron peretz, yevgeny tsodikovich games and economic behavior 10.1016/j.geb.2026.05.001" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.001">Authority measure for opinion dynamics</a></h3>
     <p class="title-zh">意见动态的权威度量</p>
     <p class="authors">Igal Milchtaich, Ron Peretz, Yevgeny Tsodikovich</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.001">10.1016/j.geb.2026.05.001</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="neural correlates of interactions between adaptive learning and hierarchical reasoning in repeated strategic games 重复策略博弈中适应性学习与层级推理交互作用的神经关联 jun feng, jia jin, sasa zhao, edmund derrington, xiangdong qin 等 games and economic behavior 10.1016/j.geb.2026.02.011" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.02.011">Neural correlates of interactions between adaptive learning and hierarchical reasoning in repeated strategic games</a></h3>
     <p class="title-zh">重复策略博弈中适应性学习与层级推理交互作用的神经关联</p>
     <p class="authors">Jun Feng, Jia Jin, Sasa Zhao, Edmund Derrington, Xiangdong Qin 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.011">10.1016/j.geb.2026.02.011</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="lucky but confident –the effect of confidence on meritocratic beliefs and preferences for redistribution 幸运但自信——自信对精英信念与再分配偏好的影响 kajsa hansson, oda kristine storstad sund games and economic behavior 10.1016/j.geb.2026.04.003" data-journal="games-and-economic-behavior" data-fields="theory behavior inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.04.003">Lucky but confident –The effect of confidence on meritocratic beliefs and preferences for redistribution</a></h3>
     <p class="title-zh">幸运但自信——自信对精英信念与再分配偏好的影响</p>
     <p class="authors">Kajsa Hansson, Oda Kristine Storstad Sund</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.003">10.1016/j.geb.2026.04.003</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="dynamic coordination with switching costs 具有转换成本的动态协调 joe s. ballard, luke boosey games and economic behavior 10.1016/j.geb.2026.05.014" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.014">Dynamic coordination with switching costs</a></h3>
     <p class="title-zh">具有转换成本的动态协调</p>
     <p class="authors">Joe S. Ballard, Luke Boosey</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.014">10.1016/j.geb.2026.05.014</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="a model of participatory persuasion 参与式说服模型 liuchun deng, yufeng sun games and economic behavior 10.1016/j.geb.2026.05.006" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.006">A model of participatory persuasion</a></h3>
     <p class="title-zh">参与式说服模型</p>
     <p class="authors">Liuchun Deng, Yufeng Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.006">10.1016/j.geb.2026.05.006</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="potentials in social environments 社会环境中的潜力 thomas demuynck, p. jean-jacques herings, christian seel games and economic behavior 10.1016/j.geb.2026.04.002" data-journal="games-and-economic-behavior" data-fields="environment theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.04.002">Potentials in social environments</a></h3>
     <p class="title-zh">社会环境中的潜力</p>
     <p class="authors">Thomas Demuynck, P. Jean-Jacques Herings, Christian Seel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.002">10.1016/j.geb.2026.04.002</a><span class="pill">环境与气候</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="eliciting and distinguishing between weak and incomplete preferences: theory, experiment and computation 弱偏好与不完全偏好的引出与区分：理论、实验与计算 georgios gerasimou games and economic behavior 10.1016/j.geb.2026.05.011" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.011">Eliciting and distinguishing between weak and incomplete preferences: Theory, experiment and computation</a></h3>
     <p class="title-zh">弱偏好与不完全偏好的引出与区分：理论、实验与计算</p>
     <p class="authors">Georgios Gerasimou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.011">10.1016/j.geb.2026.05.011</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="on the existence of a strong nash equilibrium under the efficiency-adjusted deferred acceptance mechanism 效率调整延迟接受机制下强纳什均衡的存在性 yao cheng, dazhong wang, jingsheng yu games and economic behavior 10.1016/j.geb.2026.04.006" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.04.006">On the existence of a strong Nash equilibrium under the efficiency-adjusted deferred acceptance mechanism</a></h3>
     <p class="title-zh">效率调整延迟接受机制下强纳什均衡的存在性</p>
     <p class="authors">Yao Cheng, Dazhong Wang, Jingsheng Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.006">10.1016/j.geb.2026.04.006</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the case for lobbying transparency 游说透明化的理由 antoine zerbini games and economic behavior 10.1016/j.geb.2026.02.012" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.02.012">The case for lobbying transparency</a></h3>
     <p class="title-zh">游说透明化的理由</p>
     <p class="authors">Antoine Zerbini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.012">10.1016/j.geb.2026.02.012</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="evaluating non-clairvoyant dynamic mechanisms: theory and experiment 评估非预见性动态机制：理论与实验 shan gui, daniel houser games and economic behavior 10.1016/j.geb.2026.02.009" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.02.009">Evaluating non-clairvoyant dynamic mechanisms: Theory and experiment</a></h3>
     <p class="title-zh">评估非预见性动态机制：理论与实验</p>
     <p class="authors">Shan Gui, Daniel Houser</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.009">10.1016/j.geb.2026.02.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the effect of exit rights on cost-based procurement contracts 退出权对成本型采购合同的影响 rodrigo andrade, henrique castro-pires, humberto moreira games and economic behavior 10.1016/j.geb.2026.03.010" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.010">The effect of exit rights on cost-based procurement contracts</a></h3>
     <p class="title-zh">退出权对成本型采购合同的影响</p>
     <p class="authors">Rodrigo Andrade, Henrique Castro-Pires, Humberto Moreira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.010">10.1016/j.geb.2026.03.010</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the effort-maximizing move order in tullock contests 塔洛克竞赛中努力最大化的行动顺序 lei gao, jingfeng lu, zhewei wang games and economic behavior 10.1016/j.geb.2026.05.005" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.005">The effort-maximizing move order in tullock contests</a></h3>
     <p class="title-zh">塔洛克竞赛中努力最大化的行动顺序</p>
     <p class="authors">Lei Gao, Jingfeng Lu, Zhewei Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.005">10.1016/j.geb.2026.05.005</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="compellingness in nash implementation 纳什实施中的说服力 shurojit chatterji, takashi kunimoto, paulo ramos games and economic behavior 10.1016/j.geb.2026.02.008" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.02.008">Compellingness in Nash implementation</a></h3>
     <p class="title-zh">纳什实施中的说服力</p>
     <p class="authors">Shurojit Chatterji, Takashi Kunimoto, Paulo Ramos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.008">10.1016/j.geb.2026.02.008</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="competing for influence in networks through strategic targeting 通过策略性目标选择在网络中竞争影响力 margherita comola, agnieszka rusinowska, marie claire villeval games and economic behavior 10.1016/j.geb.2026.04.001" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.04.001">Competing for influence in networks through strategic targeting</a></h3>
     <p class="title-zh">通过策略性目标选择在网络中竞争影响力</p>
     <p class="authors">Margherita Comola, Agnieszka Rusinowska, Marie Claire Villeval</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.001">10.1016/j.geb.2026.04.001</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="a simple proof of the sufficiency of dilmé’s power-sequence test for kreps-wilson consistency 迪尔梅幂序列检验对克雷普斯-威尔逊一致性充分性的一个简单证明 philip j. reny international journal of game theory 10.1007/s00182-026-00997-z" data-journal="international-journal-of-game-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-00997-z">A simple proof of the sufficiency of Dilmé’s power-sequence test for Kreps-Wilson consistency</a></h3>
     <p class="title-zh">迪尔梅幂序列检验对克雷普斯-威尔逊一致性充分性的一个简单证明</p>
     <p class="authors">Philip J. Reny</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-22</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00997-z">10.1007/s00182-026-00997-z</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="paying £1(£5) or nothing in dictator games: unexpected differences 独裁者游戏中支付1英镑（5英镑）与零支付的意外差异 pablo brañas-garza, antonio m. espín, diego jorrat international journal of game theory 10.1007/s00182-026-00995-1" data-journal="international-journal-of-game-theory" data-fields="macro trade theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-00995-1">Paying £1(£5) or nothing in dictator games: unexpected differences</a></h3>
     <p class="title-zh">独裁者游戏中支付1英镑（5英镑）与零支付的意外差异</p>
     <p class="authors">Pablo Brañas-Garza, Antonio M. Espín, Diego Jorrat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-22</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00995-1">10.1007/s00182-026-00995-1</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="interim agreements 临时协议 dov samet international journal of game theory 10.1007/s00182-026-00996-0" data-journal="international-journal-of-game-theory" data-fields="urban theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-00996-0">Interim agreements</a></h3>
     <p class="title-zh">临时协议</p>
     <p class="authors">Dov Samet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>发布日期 2026-05-22</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00996-0">10.1007/s00182-026-00996-0</a><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="bureaucratic norms and dynamic bayesian persuasion 官僚规范与动态贝叶斯说服 yihang zhou games and economic behavior 10.1016/j.geb.2026.05.013" data-journal="games-and-economic-behavior" data-fields="econometrics theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.013">Bureaucratic norms and dynamic Bayesian persuasion</a></h3>
     <p class="title-zh">官僚规范与动态贝叶斯说服</p>
     <p class="authors">Yihang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.013">10.1016/j.geb.2026.05.013</a><span class="pill">计量方法</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="motives for delegating financial decisions 委托财务决策的动机 mikhail freer, daniel friedman, simon weidenholzer games and economic behavior 10.1016/j.geb.2026.05.012" data-journal="games-and-economic-behavior" data-fields="finance theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.012">Motives for delegating financial decisions</a></h3>
     <p class="title-zh">委托财务决策的动机</p>
     <p class="authors">Mikhail Freer, Daniel Friedman, Simon Weidenholzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.012">10.1016/j.geb.2026.05.012</a><span class="pill">金融</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="network attrition: theory and policy implications 网络损耗：理论与政策启示 christophe bravard, promit k. chaudhuri, sudipta sarangi, hector tzavellas games and economic behavior 10.1016/j.geb.2026.06.002" data-journal="games-and-economic-behavior" data-fields="public theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.06.002">Network attrition: Theory and policy implications</a></h3>
     <p class="title-zh">网络损耗：理论与政策启示</p>
     <p class="authors">Christophe Bravard, Promit K. Chaudhuri, Sudipta Sarangi, Hector Tzavellas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.002">10.1016/j.geb.2026.06.002</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the resolution of uncertainty in the value and probability domains 价值与概率领域不确定性的消解 eungik lee, kathleen ngangoue, andrew schotter games and economic behavior 10.1016/j.geb.2026.05.009" data-journal="games-and-economic-behavior" data-fields="theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.05.009">The resolution of uncertainty in the value and probability domains</a></h3>
     <p class="title-zh">价值与概率领域不确定性的消解</p>
     <p class="authors">Eungik Lee, Kathleen Ngangoue, Andrew Schotter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-09-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.009">10.1016/j.geb.2026.05.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="efficient equilibrium in submodular global games of entry 次模全局进入博弈中的有效均衡 rabah amir, rodrigo harrison, pedro jara-moroni games and economic behavior 10.1016/j.geb.2026.03.014" data-journal="games-and-economic-behavior" data-fields="trade theory behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.014">Efficient equilibrium in submodular global games of entry</a></h3>
     <p class="title-zh">次模全局进入博弈中的有效均衡</p>
     <p class="authors">Rabah Amir, Rodrigo Harrison, Pedro Jara-Moroni</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.014">10.1016/j.geb.2026.03.014</a><span class="pill">国际贸易</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -657,7 +661,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -679,7 +683,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -711,6 +715,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});

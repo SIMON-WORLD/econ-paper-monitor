@@ -70,6 +70,70 @@ def title_cell(record: dict[str, Any]) -> str:
     return f"<a href='{html_escape(record_link(record))}' target='_blank' rel='noreferrer'>{title}</a>{zh}"
 
 
+def public_date_label(record: dict[str, Any]) -> str:
+    if record.get("available_online") or record.get("published_online"):
+        return "在线日期"
+    if record.get("accepted_date"):
+        return "接受日期"
+    if record.get("source_issue") or record.get("issue_date"):
+        return "来源期次"
+    return "日期待解析"
+
+
+def public_date(record: dict[str, Any]) -> str:
+    return str(
+        record.get("available_online")
+        or record.get("published_online")
+        or record.get("accepted_date")
+        or record.get("source_issue")
+        or record.get("issue_date")
+        or "待解析"
+    )
+
+
+def date_source_label(record: dict[str, Any]) -> str:
+    source = str(record.get("source") or "").casefold()
+    date_source = str(record.get("date_source") or "").casefold()
+    source_url = str(record.get("source_url") or "").casefold()
+    if "pdf" in date_source:
+        return "PDF"
+    if date_source == "tandf_issue_date_fallback":
+        return "T&F 备选日期"
+    if "publisher" in date_source or "detail" in date_source:
+        return "出版社网页"
+    if "rss" in source or "rss" in date_source:
+        return "RSS"
+    if "crossref" in source or "crossref" in date_source or "crossref" in source_url:
+        return "Crossref"
+    if source in {"cn", "cn-journal", "official-source"} or record.get("source_issue"):
+        return "期刊官网"
+    if record.get("url"):
+        return "文章页面"
+    return "待解析"
+
+
+def date_evidence_cell(record: dict[str, Any]) -> str:
+    raw = record.get("raw_data") if isinstance(record.get("raw_data"), dict) else {}
+    items = [
+        ("前台日期", f"{public_date_label(record)} {public_date(record)}"),
+        ("前台来源", date_source_label(record)),
+        ("date_source", record.get("date_source")),
+        ("date_confidence", record.get("date_confidence")),
+        ("accepted_date", record.get("accepted_date")),
+        ("available_online", record.get("available_online")),
+        ("published_online", record.get("published_online")),
+        ("issue_date", record.get("issue_date")),
+        ("source_issue", record.get("source_issue")),
+        ("source", record.get("source")),
+        ("source_url", record.get("source_url")),
+        ("crossref_date_source", raw.get("crossref_date_source")),
+        ("doi", record.get("doi")),
+        ("pdf_url", record.get("pdf_url")),
+    ]
+    lines = [f"<div><b>{html_escape(key)}</b>: {html_escape(value)}</div>" for key, value in items if value]
+    return "".join(lines) or "暂无"
+
+
 def table(rows: list[str], headers: list[str]) -> str:
     head = "".join(f"<th>{html_escape(header)}</th>" for header in headers)
     body = "".join(rows) or f"<tr><td colspan='{len(headers)}'>暂无</td></tr>"
@@ -94,6 +158,7 @@ def main() -> None:
     china_candidates = latest_records(records, lambda record: record.get("china_relevance_status") == "candidate")
     untranslated = latest_records(records, lambda record: record.get("title") and not has_chinese(str(record.get("title"))) and not record.get("title_zh"))
     low_confidence = latest_records(records, lambda record: (record.get("date_confidence") or "F") in {"D", "F", "unknown"})
+    date_evidence_records = latest_records(records, lambda record: True, 30)
     by_source = Counter(record.get("source") or "unknown" for record in records)
     by_confidence = Counter(record.get("date_confidence") or "unknown" for record in records)
 
@@ -132,6 +197,12 @@ def main() -> None:
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
         f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(record.get('date_confidence'))}</td></tr>"
         for record in low_confidence
+    ]
+    date_evidence_rows = [
+        f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
+        f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(public_date_label(record))} {html_escape(public_date(record))} · 来源：{html_escape(date_source_label(record))}</td>"
+        f"<td>{date_evidence_cell(record)}</td></tr>"
+        for record in date_evidence_records
     ]
     daily_rows = "".join(f"<tr><td>{html_escape(day)}</td><td>{count}</td></tr>" for day, count in daily_counts())
     source_counts = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(by_source.items()))
@@ -194,6 +265,9 @@ def main() -> None:
 
   <h2>低可信日期样本</h2>
   {table(low_conf_rows, ["日期", "论文", "期刊", "可信度"])}
+
+  <h2>日期证据链样本</h2>
+  {table(date_evidence_rows, ["日期", "论文", "期刊", "前台显示", "完整证据链"])}
 
   <h2>来源数量</h2>
   <ul>{source_counts}</ul>

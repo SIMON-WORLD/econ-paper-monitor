@@ -15,9 +15,10 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
+.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
 </style>
 </head>
 <body>
@@ -50,186 +51,189 @@
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="international-journal-of-industrial-organization">International Journal of Industrial Organization</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="agriculture">农业与食品</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C Crossref</option><option value="F">F 仅首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="using pass-through as an economic tool: on geographical market definition, competition and number of market players, and vertical relations 利用传导效应作为经济工具：论地理市场界定、竞争与市场参与者数量及纵向关系 athanasios dimas international journal of industrial organization 10.1016/j.ijindorg.2026.103303" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
+<article class="event" data-search="using pass-through as an economic tool: on geographical market definition, competition and number of market players, and vertical relations 利用传导效应作为经济工具：论地理市场界定、竞争与市场参与者数量及纵向关系 athanasios dimas international journal of industrial organization 10.1016/j.ijindorg.2026.103303" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103303">Using Pass-Through as an Economic Tool: On Geographical Market Definition, Competition and Number of Market Players, and Vertical Relations</a></h3>
     <p class="title-zh">利用传导效应作为经济工具：论地理市场界定、竞争与市场参与者数量及纵向关系</p>
     <p class="authors">Athanasios Dimas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103303">10.1016/j.ijindorg.2026.103303</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="data portability and the collection of personal data 数据可携性与个人数据收集 youping li, jianhu zhang international journal of industrial organization 10.1016/j.ijindorg.2026.103289" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103289">Data portability and the collection of personal data</a></h3>
     <p class="title-zh">数据可携性与个人数据收集</p>
     <p class="authors">Youping Li, Jianhu Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103289">10.1016/j.ijindorg.2026.103289</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="causal evidence of antitrust damages in the car manufacturers’ cartel in spain 西班牙汽车制造商卡特尔反垄断损害赔偿的因果证据 juan luis jiménez, carmen garcía-galindo, josé manuel ordóñez-de-haro international journal of industrial organization 10.1016/j.ijindorg.2026.103285" data-journal="international-journal-of-industrial-organization" data-fields="econometrics behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103285">Causal evidence of antitrust damages in the car manufacturers’ cartel in Spain</a></h3>
     <p class="title-zh">西班牙汽车制造商卡特尔反垄断损害赔偿的因果证据</p>
     <p class="authors">Juan Luis Jiménez, Carmen García-Galindo, José Manuel Ordóñez-de-Haro</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103285">10.1016/j.ijindorg.2026.103285</a><span class="pill">计量方法</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="editorial board 编辑委员会  international journal of industrial organization 10.1016/s0167-7187(26)00048-2" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0167-7187(26)00048-2">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0167-7187(26)00048-2">10.1016/s0167-7187(26)00048-2</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="legalization and innovation in the cannabis market 大麻市场的合法化与创新 lucy xiaolu wang, nathan w. chan international journal of industrial organization 10.1016/j.ijindorg.2026.103272" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103272">Legalization and innovation in the cannabis market</a></h3>
     <p class="title-zh">大麻市场的合法化与创新</p>
     <p class="authors">Lucy Xiaolu Wang, Nathan W. Chan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103272">10.1016/j.ijindorg.2026.103272</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the value of personalized recommendations: evidence from netflix 个性化推荐的价值：来自netflix的证据 kevin zielnicki, guy aridor, aurélien bibaut, allen tran, winston chou 等 international journal of industrial organization 10.1016/j.ijindorg.2026.103304" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103304">The value of personalized recommendations: Evidence from Netflix</a></h3>
     <p class="title-zh">个性化推荐的价值：来自Netflix的证据</p>
     <p class="authors">Kevin Zielnicki, Guy Aridor, Aurélien Bibaut, Allen Tran, Winston Chou 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103304">10.1016/j.ijindorg.2026.103304</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="you’d be hard to replace: provider competition in narrow network insurance markets 你很难被替代：窄网络保险市场中的供应商竞争 samuel a. kleiner, thomas g. koch, christopher v. lau international journal of industrial organization 10.1016/j.ijindorg.2026.103271" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103271">You’d be hard to replace: Provider competition in narrow network insurance markets</a></h3>
     <p class="title-zh">你很难被替代：窄网络保险市场中的供应商竞争</p>
     <p class="authors">Samuel A. Kleiner, Thomas G. Koch, Christopher V. Lau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103271">10.1016/j.ijindorg.2026.103271</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="the ijio special issue on market power and the economy: an introduction 市场力量与经济：ijio特刊导论 alon eizenberg international journal of industrial organization 10.1016/j.ijindorg.2026.103286" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103286">The IJIO special issue on market power and the economy: An introduction</a></h3>
     <p class="title-zh">市场力量与经济：IJIO特刊导论</p>
     <p class="authors">Alon Eizenberg</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103286">10.1016/j.ijindorg.2026.103286</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="credit card interchange fees revisited: the role of credit and consumer behavior 信用卡交换费再审视：信贷与消费者行为的作用 josé ignacio heresi international journal of industrial organization 10.1016/j.ijindorg.2026.103290" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103290">Credit card interchange fees revisited: The role of credit and consumer behavior</a></h3>
     <p class="title-zh">信用卡交换费再审视：信贷与消费者行为的作用</p>
     <p class="authors">José Ignacio Heresi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103290">10.1016/j.ijindorg.2026.103290</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="algorithmic collusion under sequential pricing and stochastic costs 序贯定价与随机成本下的算法合谋 gonzalo ballestero international journal of industrial organization 10.1016/j.ijindorg.2026.103281" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103281">Algorithmic collusion under sequential pricing and stochastic costs</a></h3>
     <p class="title-zh">序贯定价与随机成本下的算法合谋</p>
     <p class="authors">Gonzalo Ballestero</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103281">10.1016/j.ijindorg.2026.103281</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
+<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="designing emissions trading schemes for a price-regulated and concentrated industry: insights from china’s power sector 面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示 dong-hyuk kim, hui qiao, ying zheng international journal of industrial organization 10.1016/j.ijindorg.2026.103301" data-journal="international-journal-of-industrial-organization" data-fields="china agriculture environment behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103301">Designing emissions trading schemes for a price-regulated and concentrated industry: Insights from China’s power sector</a></h3>
     <p class="title-zh">面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示</p>
     <p class="authors">Dong-Hyuk Kim, Hui Qiao, Ying Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103301">10.1016/j.ijindorg.2026.103301</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="price discrimination under minimum advertised price restriction 最低广告价格限制下的价格歧视 danial asmat, jake kramer, chenyu yang international journal of industrial organization 10.1016/j.ijindorg.2026.103292" data-journal="international-journal-of-industrial-organization" data-fields="agriculture behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103292">Price discrimination under minimum advertised price restriction</a></h3>
     <p class="title-zh">最低广告价格限制下的价格歧视</p>
     <p class="authors">Danial Asmat, Jake Kramer, Chenyu Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103292">10.1016/j.ijindorg.2026.103292</a><span class="pill">农业与食品</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="focal pricing constraints and pass-through of input cost changes 焦点定价约束与投入成本变化的传导 francesca arduini international journal of industrial organization 10.1016/j.ijindorg.2026.103288" data-journal="international-journal-of-industrial-organization" data-fields="behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103288">Focal pricing constraints and pass-through of input cost changes</a></h3>
     <p class="title-zh">焦点定价约束与投入成本变化的传导</p>
     <p class="authors">Francesca Arduini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103288">10.1016/j.ijindorg.2026.103288</a><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="financial structure and mergers 金融结构与并购 charles taragin, benjamin wallace, eddie watkins international journal of industrial organization 10.1016/j.ijindorg.2026.103302" data-journal="international-journal-of-industrial-organization" data-fields="finance behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103302">Financial structure and mergers</a></h3>
     <p class="title-zh">金融结构与并购</p>
     <p class="authors">Charles Taragin, Benjamin Wallace, Eddie Watkins</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-08-01</span><span>C Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103302">10.1016/j.ijindorg.2026.103302</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
 <article class="event" data-search="interaction of spectrum auctions and mobile market competition: review of theory and evidence from european 4g auctions 频谱拍卖与移动市场竞争的互动：理论与欧洲4g拍卖证据综述 daniel ershov, david salant international journal of industrial organization 10.1016/j.ijindorg.2026.103287" data-journal="international-journal-of-industrial-organization" data-fields="finance theory behavior firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103287">Interaction of spectrum auctions and mobile market competition: Review of theory and evidence from European 4G auctions</a></h3>
     <p class="title-zh">频谱拍卖与移动市场竞争的互动：理论与欧洲4G拍卖证据综述</p>
     <p class="authors">Daniel Ershov, David Salant</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>发布日期 2026-06-01</span><span>F 仅首次监测</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103287">10.1016/j.ijindorg.2026.103287</a><span class="pill">金融</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -249,7 +253,7 @@
   let preset = '';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
-    if (chinaOnly) {
+    if (chinaOnly || preset === 'china') {
       counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
     } else if (preset === 'online-today') {
       counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
@@ -271,7 +275,7 @@
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okChina = !chinaOnly || item.dataset.china === 'true';
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
       const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
@@ -303,6 +307,10 @@
         if (confidence) confidence.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
       }
       applyFilters();
       document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
