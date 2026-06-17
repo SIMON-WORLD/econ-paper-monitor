@@ -161,7 +161,7 @@ def render_record(record: dict[str, Any], tab: str) -> str:
   <p class="reason">{reason}</p>
   {abstract_html}
   <div class="doi">DOI/链接：<a href="{url}" target="_blank" rel="noreferrer">{doi}</a></div>
-  <form method="post" action="/review?tab={h(tab)}">
+  <form method="post" action="/review?tab={h(tab)}" onsubmit="this.querySelectorAll('button').forEach((button)=>{{button.disabled=true;button.textContent='保存中...';}});">
     <input type="hidden" name="key" value="{h(key)}">
     <button name="action" value="confirm" class="yes">确认中国相关</button>
     <button name="action" value="reject" class="no">排除</button>
