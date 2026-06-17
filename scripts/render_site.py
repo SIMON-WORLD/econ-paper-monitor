@@ -90,7 +90,8 @@ STYLE = """
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
 .banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
@@ -351,6 +352,11 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         return '<div class="empty">暂无符合条件的论文记录。</div>'
     chunks = []
     for record in selected:
+        online_today = today_str() in {
+            str(record.get("available_online") or ""),
+            str(record.get("accepted_date") or ""),
+            str(record.get("published_online") or ""),
+        }
         if record.get("doi"):
             link_or_doi = f'<a class="doi" href="https://doi.org/{html_escape(record.get("doi"))}">{html_escape(record.get("doi"))}</a>'
         elif record.get("url"):
@@ -367,7 +373,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
         field_attr = " ".join(article_topics(record))
         chunks.append(
-            f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}">
+            f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
     <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title'))}</a></h3>
@@ -392,9 +398,21 @@ FILTER_SCRIPT = """
   const dateType = document.getElementById('dateTypeFilter');
   const confidence = document.getElementById('confidenceFilter');
   const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
   const empty = document.getElementById('filterEmpty');
   const events = Array.from(document.querySelectorAll('.event'));
   if (!search || !journal || !field || !china) return;
+  let preset = '';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly) {
+      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+    } else {
+      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+    }
+  }
   function applyFilters() {
     const q = (search.value || '').trim().toLowerCase();
     const journalValue = journal.value;
@@ -410,11 +428,13 @@ FILTER_SCRIPT = """
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
       const okChina = !chinaOnly || item.dataset.china === 'true';
-      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina;
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
       item.hidden = !show;
       if (show) visible += 1;
     }
     if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
   }
   search.addEventListener('input', applyFilters);
   journal.addEventListener('change', applyFilters);
@@ -426,6 +446,23 @@ FILTER_SCRIPT = """
     china.setAttribute('aria-pressed', String(active));
     china.classList.toggle('active', active);
     applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
   });
   applyFilters();
 })();
@@ -478,13 +515,13 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   </div>
 </section>
 <section class="stats">
-  <div class="stat"><strong>{s['today']}</strong><span>今日新发现</span></div>
-  <div class="stat"><strong>{s['online_today']}</strong><span>在线日期为今日</span></div>
-  <div class="stat"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></div>
-  <div class="stat"><strong>{s['all_records']}</strong><span>当前索引记录</span></div>
+  <a class="stat" href="#filters" data-filter-preset="all"><strong>{s['today']}</strong><span>今日新发现</span></a>
+  <a class="stat" href="#filters" data-filter-preset="online-today"><strong>{s['online_today']}</strong><span>在线日期为今日</span></a>
+  <a class="stat" href="{BASE}/journals/"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></a>
+  <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>当前索引记录</span></a>
 </section>
 {filter_toolbar(today_records, include_rss=True)}
-<section class="section-head"><div><h2>今日论文流</h2><p>按本站监测时间倒序排列，可筛选期刊、主题、日期可信度和“中国相关”。</p></div><p>{html_escape(today_str())}</p></section>
+<section class="section-head"><div><h2>今日论文流 <span class="live-count" id="flowCounter"></span></h2><p>按本站监测时间倒序排列，可筛选期刊、主题、日期可信度和“中国相关”。</p></div><p>{html_escape(today_str())}</p></section>
 {note}
 {paper_events(today_records)}
 {FILTER_SCRIPT}
