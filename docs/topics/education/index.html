@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="education, marriage, and banning female genital cutting: evidence from benin 教育、婚姻与禁止女性割礼：来自贝宁的证据 coleson weir journal of population economics 10.1007/s00148-026-01172-0" data-journal="journal-of-population-economics" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="education, marriage, and banning female genital cutting: evidence from benin 教育、婚姻与禁止女性割礼：来自贝宁的证据 coleson weir journal of population economics 10.1007/s00148-026-01172-0" data-journal="journal-of-population-economics" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00148-026-01172-0">Education, marriage, and banning female genital cutting: evidence from Benin</a></h3>
     <p class="title-zh">教育、婚姻与禁止女性割礼：来自贝宁的证据</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="public high school expansion and income inequality: revisiting the race between education and technology 公立高中扩张与收入不平等：重访教育与技术的赛跑 jakob madsen, holger strulik journal of economic dynamics and control 10.1016/j.jedc.2026.105321" data-journal="journal-of-economic-dynamics-and-control" data-fields="public education inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jedc.2026.105321">Public high school expansion and income inequality: Revisiting the race between education and technology</a></h3>
     <p class="title-zh">公立高中扩张与收入不平等：重访教育与技术的赛跑</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="bayesian model averaging in causal instrumental variable models 因果工具变量模型中的贝叶斯模型平均 gregor steiner, mark steel journal of applied econometrics 10.1002/jae.70070" data-journal="journal-of-applied-econometrics" data-fields="econometrics education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/jae.70070">Bayesian Model Averaging in Causal Instrumental Variable Models</a></h3>
     <p class="title-zh">因果工具变量模型中的贝叶斯模型平均</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="black suburbanization: causes and consequences of a transformation of american cities 黑人郊区化：美国城市转型的原因与后果 alexander w. bartik, evan mast review of economics and statistics 10.1162/rest.a.1770" data-journal="review-of-economics-and-statistics" data-fields="agriculture urban education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1770">Black Suburbanization: Causes and Consequences of a Transformation of American Cities</a></h3>
     <p class="title-zh">黑人郊区化：美国城市转型的原因与后果</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="sibling spillovers and free schooling 兄弟姐妹溢出效应与免费教育 joão r. ferreira, wayne aaron sandholtz review of economics and statistics 10.1162/rest.a.1786" data-journal="review-of-economics-and-statistics" data-fields="development finance theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1786">Sibling Spillovers and Free Schooling</a></h3>
     <p class="title-zh">兄弟姐妹溢出效应与免费教育</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="school choice, student sorting, and academic performance 学校选择、学生分类与学业表现 andrei munteanu review of economics and statistics 10.1162/rest_a_01438" data-journal="review-of-economics-and-statistics" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01438">School Choice, Student Sorting, and Academic Performance</a></h3>
     <p class="title-zh">学校选择、学生分类与学业表现</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="federal tax deductions and the demand for local public goods 联邦税收减免与地方公共物品需求 brent w. ambrose, maxence valentin review of economics and statistics 10.1162/rest_a_01427" data-journal="review-of-economics-and-statistics" data-fields="public econometrics education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest_a_01427">Federal Tax Deductions and the Demand for Local Public Goods</a></h3>
     <p class="title-zh">联邦税收减免与地方公共物品需求</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="gender quotas in municipal executives: reallocating public spending in italy 市政行政中的性别配额：意大利公共支出的重新分配 flavia cavallini, alice dominici, olivia masi international tax and public finance 10.1007/s10797-026-09947-7" data-journal="international-tax-and-public-finance" data-fields="finance public education inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09947-7">Gender quotas in municipal executives: reallocating public spending in Italy</a></h3>
     <p class="title-zh">市政行政中的性别配额：意大利公共支出的重新分配</p>
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="a stable and strategy-proof controlled school choice mechanism with integrated and flexible rules 集成灵活规则的稳定且防策略的可控学校选择机制 minoru kitahara, yasunori okumura international journal of game theory 10.1007/s00182-026-01000-5" data-journal="international-journal-of-game-theory" data-fields="theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00182-026-01000-5">A stable and strategy-proof controlled school choice mechanism with integrated and flexible rules</a></h3>
     <p class="title-zh">集成灵活规则的稳定且防策略的可控学校选择机制</p>
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="universalism: an 11‐year longitudinal study 普遍主义：一项11年纵向研究 christine bangum, benny geys, rune sørensen economica 10.1111/ecca.70058" data-journal="economica" data-fields="public trade behavior education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ecca.70058">Universalism: an 11‐year longitudinal study</a></h3>
     <p class="title-zh">普遍主义：一项11年纵向研究</p>
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="corrigendum to “student beauty and grades under in-person and remote teaching” [economics letters 2019 (2022) 110782] 勘误：“面对面与远程教学下的学生外貌与成绩” [《经济学快报》2019 (2022) 110782] adrian mehic economics letters 10.1016/j.econlet.2026.113023" data-journal="economics-letters" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113023">Corrigendum to “Student beauty and grades under in-person and remote teaching” [Economics Letters 2019 (2022) 110782]</a></h3>
     <p class="title-zh">勘误：“面对面与远程教学下的学生外貌与成绩” [《经济学快报》2019 (2022) 110782]</p>
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="disconnected: the unequal impact of online learning on minority students 脱节：在线学习对少数族裔学生的不平等影响 naomi gershoni, miri stryjan european economic review 10.1016/j.euroecorev.2026.105356" data-journal="european-economic-review" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105356">Disconnected: The unequal impact of online learning on minority students</a></h3>
     <p class="title-zh">脱节：在线学习对少数族裔学生的不平等影响</p>
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="persistent effects of social program participation on the third generation 社会项目参与对第三代的持续影响 gordon b dahl, anne c gielen economic journal 10.1093/ej/ueag065" data-journal="economic-journal" data-fields="finance labor health education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag065">Persistent Effects of Social Program Participation on the Third Generation</a></h3>
     <p class="title-zh">社会项目参与对第三代的持续影响</p>
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="jackknife standard errors for clustered regression 聚类回归的刀切标准误 bruce e hansen review of economic studies 10.1093/restud/rdag050" data-journal="review-of-economic-studies" data-fields="urban econometrics theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:14</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:14</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/restud/rdag050">Jackknife Standard Errors for Clustered Regression</a></h3>
     <p class="title-zh">聚类回归的刀切标准误</p>
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="racial disparities in federal sentencing: evidence from drug mandatory minimums 联邦量刑中的种族差异：来自毒品强制最低刑期的证据 cody tuttle review of economic studies 10.1093/restud/rdag037" data-journal="review-of-economic-studies" data-fields="behavior education inequality history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:14</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:14</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/restud/rdag037">Racial Disparities in Federal Sentencing: Evidence from Drug Mandatory Minimums</a></h3>
     <p class="title-zh">联邦量刑中的种族差异：来自毒品强制最低刑期的证据</p>
@@ -236,9 +234,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="the impact of unions on the wage distribution: evidence from higher education 工会对工资分布的影响：来自高等教育的证据 michael baker, yosh halberstam, kory kroft, alexandre mas, derek messacar american economic review: insights 10.1257/aeri.20240722" data-journal="american-economic-review-insights" data-fields="finance labor theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aeri.20240722">The Impact of Unions on the Wage Distribution: Evidence from Higher Education</a></h3>
     <p class="title-zh">工会对工资分布的影响：来自高等教育的证据</p>
@@ -250,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="different paths to college success: the impact of massachusetts’s charter schools on college trajectories 通往大学成功的不同路径：马萨诸塞州特许学校对大学轨迹的影响 sarah r. cohodes, astrid c. pineda american economic review: insights 10.1257/aeri.20240391" data-journal="american-economic-review-insights" data-fields="urban education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">19:46</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aeri.20240391">Different Paths to College Success: The Impact of Massachusetts’s Charter Schools on College Trajectories</a></h3>
     <p class="title-zh">通往大学成功的不同路径：马萨诸塞州特许学校对大学轨迹的影响</p>
@@ -262,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="does school lunch equalize? an examination of dietary quality and socioeconomic disparities in germany 学校午餐能否实现平等？德国膳食质量与社会经济差异的考察 vicky heijnk, sebastian hess, anja simmet food policy 10.1016/j.foodpol.2026.103110" data-journal="food-policy" data-fields="agriculture public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103110">Does school lunch equalize? An examination of dietary quality and socioeconomic disparities in Germany</a></h3>
     <p class="title-zh">学校午餐能否实现平等？德国膳食质量与社会经济差异的考察</p>
@@ -274,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="everything schools: university athletic performance and the quality of incoming freshmen 一切皆学校：大学体育表现与新生质量 jasmine bordere, franklin g. mixon, shane sanders applied economics 10.1080/00036846.2026.2685219" data-journal="applied-economics" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2685219">Everything schools: university athletic performance and the quality of incoming freshmen</a></h3>
     <p class="title-zh">一切皆学校：大学体育表现与新生质量</p>
@@ -286,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of the tigray war on child education and labor in ethiopia 提格雷战争对埃塞俄比亚儿童教育与劳动的影响 yemareshet hailu demeke, dainn wie world development 10.1016/j.worlddev.2026.107449" data-journal="world-development" data-fields="development labor education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107449">The impact of the Tigray war on child education and labor in Ethiopia</a></h3>
     <p class="title-zh">提格雷战争对埃塞俄比亚儿童教育与劳动的影响</p>
@@ -298,7 +295,7 @@
   </div>
 </article>
 <article class="event" data-search="number one girl: female top scorers and peer academic performance in junior high schools 第一名女孩：初中女学霸与同伴学业表现 xuezheng qin, yingfei wang, haochen zhang journal of development economics 10.1016/j.jdeveco.2026.103801" data-journal="journal-of-development-economics" data-fields="development education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103801">Number one girl: Female top scorers and peer academic performance in junior high schools</a></h3>
     <p class="title-zh">第一名女孩：初中女学霸与同伴学业表现</p>
@@ -310,7 +307,7 @@
   </div>
 </article>
 <article class="event" data-search="online tutoring, school performance, and school-to-work transitions: evidence from a randomized controlled trial 在线辅导、学业表现与从学校到工作的过渡：来自随机对照试验的证据 silke anger, bernhard christoph, agata galkiewicz, shushanik margaryan, malte sandner 等 european economic review 10.1016/j.euroecorev.2026.105362" data-journal="european-economic-review" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105362">Online tutoring, school performance, and school-to-work transitions: Evidence from a randomized controlled trial</a></h3>
     <p class="title-zh">在线辅导、学业表现与从学校到工作的过渡：来自随机对照试验的证据</p>
@@ -322,7 +319,7 @@
   </div>
 </article>
 <article class="event" data-search="school quality beyond test scores: the role of schools in shaping educational outcomes 超越考试成绩的学校质量：学校在塑造教育成果中的作用 annalisa loviglio european economic review 10.1016/j.euroecorev.2026.105372" data-journal="european-economic-review" data-fields="education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105372">School quality beyond test scores: The role of schools in shaping educational outcomes</a></h3>
     <p class="title-zh">超越考试成绩的学校质量：学校在塑造教育成果中的作用</p>
@@ -334,7 +331,7 @@
   </div>
 </article>
 <article class="event" data-search="friendship networks and political opinions 友谊网络与政治观点 yann algan, nicolò dalvit, quoc-anh do, alexis le chapelain, yves zenou american economic review 10.1257/aer.20231344" data-journal="american-economic-review" data-fields="public theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.20231344">Friendship Networks and Political Opinions</a></h3>
     <p class="title-zh">友谊网络与政治观点</p>
@@ -345,9 +342,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="the role of specialized knowledge and ‘know-how’ for firm productivity: evidence from the equine sector 专业知识与“诀窍”对企业生产率的作用：来自马业部门的证据 pia nilsson, hans andersson, tobias heldt european review of agricultural economics 10.1093/erae/jbag011" data-journal="european-review-of-agricultural-economics" data-fields="agriculture macro public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag011">The role of specialized knowledge and ‘know-how’ for firm productivity: Evidence from the equine sector</a></h3>
     <p class="title-zh">专业知识与“诀窍”对企业生产率的作用：来自马业部门的证据</p>
@@ -359,7 +355,7 @@
   </div>
 </article>
 <article class="event" data-search="gamification as an approach to enhance comprehension in risk elicitation: experimental evidence from smallholder farmers 游戏化作为提升风险诱导理解的方法：来自小农户的实验证据 selina bruns, daniel hermann, oliver musshoff agricultural economics 10.1111/agec.70124" data-journal="agricultural-economics" data-fields="agriculture development trade education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/agec.70124">Gamification as an Approach To Enhance Comprehension in Risk Elicitation: Experimental Evidence From Smallholder Farmers</a></h3>
     <p class="title-zh">游戏化作为提升风险诱导理解的方法：来自小农户的实验证据</p>
@@ -371,7 +367,7 @@
   </div>
 </article>
 <article class="event" data-search="pemahaman dan kepatuhan wajib pajak terhadap ppn dan pph pasal 21 di jawa barat 西爪哇省纳税人对增值税和第21条所得税的理解与遵从度 faridz maulana arif, fauzan ali nursya’bani, muhammad afif, muhammad ikhsan al anshori, rakha al gifhari budiman 等 journal of law &amp; economics 10.56347/jle.v5i1.427" data-journal="journal-of-law-and-economics" data-fields="public behavior education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.56347/jle.v5i1.427">Pemahaman dan Kepatuhan Wajib Pajak terhadap PPN dan PPh Pasal 21 di Jawa Barat</a></h3>
     <p class="title-zh">西爪哇省纳税人对增值税和第21条所得税的理解与遵从度</p>
@@ -383,7 +379,7 @@
   </div>
 </article>
 <article class="event" data-search="do pensions enhance effort and selective retention?: evidence from public schools 养老金能否提升工作努力与选择性留任？——来自公立学校的证据 michael bates, andrew c. johnston journal of public economics 10.1016/j.jpubeco.2026.105684" data-journal="journal-of-public-economics" data-fields="public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105684">Do pensions enhance effort and selective retention?: Evidence from public schools</a></h3>
     <p class="title-zh">养老金能否提升工作努力与选择性留任？——来自公立学校的证据</p>
@@ -395,7 +391,7 @@
   </div>
 </article>
 <article class="event" data-search="self‐esteem and rational self‐handicapping 自尊与理性自我妨碍 rachel mannahan scandinavian journal of economics 10.1111/sjoe.70028" data-journal="scandinavian-journal-of-economics" data-fields="public behavior education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/sjoe.70028">Self‐esteem and rational self‐handicapping</a></h3>
     <p class="title-zh">自尊与理性自我妨碍</p>
@@ -407,7 +403,7 @@
   </div>
 </article>
 <article class="event" data-search="universal free meals and school suspensions 全民免费校餐与停学处分 andres cuadros‐meñaca, di fang, rodolfo m. nayga, michael r. thomsen economic inquiry 10.1111/ecin.70066" data-journal="economic-inquiry" data-fields="agriculture education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ecin.70066">Universal free meals and school suspensions</a></h3>
     <p class="title-zh">全民免费校餐与停学处分</p>
@@ -419,7 +415,7 @@
   </div>
 </article>
 <article class="event" data-search="college loans and human capital investment 大学贷款与人力资本投资 chao fu, hsuan‐chih (luke) lin, atsuko tanaka international economic review 10.1111/iere.70080" data-journal="international-economic-review" data-fields="labor public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/iere.70080">College Loans and Human Capital Investment</a></h3>
     <p class="title-zh">大学贷款与人力资本投资</p>
@@ -431,7 +427,7 @@
   </div>
 </article>
 <article class="event" data-search="socially optimal crime and punishment 社会最优的犯罪与惩罚 eduardo ferraz, rodrigo r soares journal of the european economic association 10.1093/jeea/jvag025" data-journal="journal-of-the-european-economic-association" data-fields="public trade theory education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jeea/jvag025">Socially Optimal Crime and Punishment</a></h3>
     <p class="title-zh">社会最优的犯罪与惩罚</p>
@@ -443,7 +439,7 @@
   </div>
 </article>
 <article class="event" data-search="the effect of education policy on crime: an intergenerational perspective 教育政策对犯罪的影响：代际视角 ulrika ahrsjö, costas meghir, marten palme, marieke schnabel journal of political economy 10.1086/742423" data-journal="journal-of-political-economy" data-fields="public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742423">The Effect of Education Policy on Crime: An Intergenerational Perspective</a></h3>
     <p class="title-zh">教育政策对犯罪的影响：代际视角</p>
@@ -455,7 +451,7 @@
   </div>
 </article>
 <article class="event" data-search="quota versus quality? long-term gains from an unusual gender quota 配额还是质量？一项特殊性别配额的长期收益 ursina schaede, ville mankki american economic review 10.1257/aer.20230376" data-journal="american-economic-review" data-fields="labor trade education inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.20230376">Quota versus Quality? Long-Term Gains from an Unusual Gender Quota</a></h3>
     <p class="title-zh">配额还是质量？一项特殊性别配额的长期收益</p>
@@ -467,7 +463,7 @@
   </div>
 </article>
 <article class="event" data-search="elite universities and the intergenerational transmission of human and social capital 精英大学与人力资本和社会资本的代际传递 andrés barrios-fernández, christopher neilson, seth zimmerman american economic review 10.1257/aer.20230802" data-journal="american-economic-review" data-fields="environment econometrics education inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1257/aer.20230802">Elite Universities and the Intergenerational Transmission of Human and Social Capital</a></h3>
     <p class="title-zh">精英大学与人力资本和社会资本的代际传递</p>

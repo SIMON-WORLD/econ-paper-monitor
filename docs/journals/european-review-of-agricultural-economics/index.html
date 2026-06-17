@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="market integration and the impact of violence on trade networks: evidence from nigeria 市场整合与暴力对贸易网络的影响：来自尼日利亚的证据 jiawen liu, michael olabisi, mywish k maredia european review of agricultural economics 10.1093/erae/jbag005" data-journal="european-review-of-agricultural-economics" data-fields="agriculture finance public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="market integration and the impact of violence on trade networks: evidence from nigeria 市场整合与暴力对贸易网络的影响：来自尼日利亚的证据 jiawen liu, michael olabisi, mywish k maredia european review of agricultural economics 10.1093/erae/jbag005" data-journal="european-review-of-agricultural-economics" data-fields="agriculture finance public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag005">Market integration and the impact of violence on trade networks: Evidence from Nigeria</a></h3>
     <p class="title-zh">市场整合与暴力对贸易网络的影响：来自尼日利亚的证据</p>
@@ -68,9 +66,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="costly regulation, minimal results: the eu’s deforestation regulation effect on global soy trade 高成本监管，低效结果：欧盟毁林法规对全球大豆贸易的影响 manoj sharma, nelson b villoria european review of agricultural economics 10.1093/erae/jbag008" data-journal="european-review-of-agricultural-economics" data-fields="china agriculture environment finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag008">Costly regulation, minimal results: The EU’s deforestation regulation effect on global soy trade</a></h3>
     <p class="title-zh">高成本监管，低效结果：欧盟毁林法规对全球大豆贸易的影响</p>
@@ -82,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="the role of specialized knowledge and ‘know-how’ for firm productivity: evidence from the equine sector 专业知识与“诀窍”对企业生产率的作用：来自马业部门的证据 pia nilsson, hans andersson, tobias heldt european review of agricultural economics 10.1093/erae/jbag011" data-journal="european-review-of-agricultural-economics" data-fields="agriculture macro public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag011">The role of specialized knowledge and ‘know-how’ for firm productivity: Evidence from the equine sector</a></h3>
     <p class="title-zh">专业知识与“诀窍”对企业生产率的作用：来自马业部门的证据</p>
@@ -94,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="comparing the effects of regulating new genomic techniques on investment decisions in the european union 比较欧盟监管新基因组技术对投资决策的影响 maximilian kardung, yasmine ambrogio, kutay cingiz, nicola consmüller, katharina unkel 等 european review of agricultural economics 10.1093/erae/jbag004" data-journal="european-review-of-agricultural-economics" data-fields="agriculture public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag004">Comparing the effects of regulating new genomic techniques on investment decisions in the European Union</a></h3>
     <p class="title-zh">比较欧盟监管新基因组技术对投资决策的影响</p>
@@ -106,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="correction to: experimental mindset for environmental challenges: the puzzling case of public good contributions 更正：应对环境挑战的实验心态：公共品贡献的困惑案例  european review of agricultural economics 10.1093/erae/jbag009" data-journal="european-review-of-agricultural-economics" data-fields="agriculture environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag009">Correction to: Experimental mindset for environmental challenges: the puzzling case of public good contributions</a></h3>
     <p class="title-zh">更正：应对环境挑战的实验心态：公共品贡献的困惑案例</p>
@@ -118,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="behavioural and social factors in farm-level agent-based models for european agricultural policy evaluations 欧洲农业政策评估中农场层面基于主体模型的行为与社会因素 robert huber, jesús barreiro-hurlé, robert finger european review of agricultural economics 10.1093/erae/jbag006" data-journal="european-review-of-agricultural-economics" data-fields="agriculture public trade behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag006">Behavioural and social factors in farm-level agent-based models for European agricultural policy evaluations</a></h3>
     <p class="title-zh">欧洲农业政策评估中农场层面基于主体模型的行为与社会因素</p>

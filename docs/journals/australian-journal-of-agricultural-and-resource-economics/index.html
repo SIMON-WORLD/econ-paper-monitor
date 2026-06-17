@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,11 +54,10 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="2025
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="2025
                     &lt;scp&gt;aares&lt;/scp&gt;
                     distinguished life member 2025年aares杰出终身会员  australian journal of agricultural and resource economics 10.1111/1467-8489.70122" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70122">2025
                     &lt;scp&gt;AARES&lt;/scp&gt;
@@ -73,7 +71,7 @@
   </div>
 </article>
 <article class="event" data-search="2025 aares distinguished fellow 2025年aares杰出研究员  australian journal of agricultural and resource economics 10.1111/1467-8489.70114" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70114">2025 AARES Distinguished Fellow</a></h3>
     <p class="title-zh">2025年AARES杰出研究员</p>
@@ -87,7 +85,7 @@
 <article class="event" data-search="2025
                     &lt;scp&gt;aares&lt;/scp&gt;
                     distinguished fellow 2025年aares杰出研究员  australian journal of agricultural and resource economics 10.1111/1467-8489.70113" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70113">2025
                     &lt;scp&gt;AARES&lt;/scp&gt;
@@ -101,7 +99,7 @@
   </div>
 </article>
 <article class="event" data-search="do governance practices in cluster farming improve wheat farmers&#x27; profitability? evidence from ethiopia 集群农业中的治理实践是否提高了小麦农户的盈利能力？来自埃塞俄比亚的证据 xiuguang bai, yuming li, amenu leta duguma, gemedo furo, tesfaye solomon 等 australian journal of agricultural and resource economics 10.1111/1467-8489.70117" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70117">Do Governance Practices in Cluster Farming Improve Wheat Farmers&#x27; Profitability? Evidence From Ethiopia</a></h3>
     <p class="title-zh">集群农业中的治理实践是否提高了小麦农户的盈利能力？来自埃塞俄比亚的证据</p>
@@ -113,7 +111,7 @@
   </div>
 </article>
 <article class="event" data-search="agricultural vulnerability assessment: climate and non‐climate interactions in crop production systems 农业脆弱性评估：作物生产系统中气候与非气候因素的交互作用 mahdieh khezri‐nejad‐gharaei, bouali guesmi, jeroen buysse, jose maria gil roig australian journal of agricultural and resource economics 10.1111/1467-8489.70119" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70119">Agricultural Vulnerability Assessment: Climate and Non‐Climate Interactions in Crop Production Systems</a></h3>
     <p class="title-zh">农业脆弱性评估：作物生产系统中气候与非气候因素的交互作用</p>
@@ -125,7 +123,7 @@
   </div>
 </article>
 <article class="event" data-search="substituting groundwater with surface water for irrigation in northern china: current status, effectiveness and challenges 中国北方以地表水替代地下水灌溉：现状、成效与挑战 tianhe sun, baozhu guan, huang chen, jinxia wang, wei chao australian journal of agricultural and resource economics 10.1111/1467-8489.70108" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="china agriculture development finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70108">Substituting Groundwater With Surface Water for Irrigation in Northern China: Current Status, Effectiveness and Challenges</a></h3>
     <p class="title-zh">中国北方以地表水替代地下水灌溉：现状、成效与挑战</p>
@@ -139,7 +137,7 @@
 <article class="event" data-search="market design in a weather‐dependent and distributed electricity system: lessons from the 2025
                     &lt;scp&gt;nem&lt;/scp&gt;
                     review 天气依赖与分布式电力系统中的市场设计：2025年nem审查的启示 tim nelson australian journal of agricultural and resource economics 10.1111/1467-8489.70121" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70121">Market Design in a Weather‐Dependent and Distributed Electricity System: Lessons From the 2025
                     &lt;scp&gt;NEM&lt;/scp&gt;
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="convergence of agricultural productivity and the influence of fiscal expenditure in sub‐saharan africa 撒哈拉以南非洲农业生产力趋同与财政支出的影响 gezahegne seyoum, wei chen, gemedo furo, agerie nega wassihun, amenu leta duguma australian journal of agricultural and resource economics 10.1111/1467-8489.70116" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70116">Convergence of Agricultural Productivity and the Influence of Fiscal Expenditure in Sub‐Saharan Africa</a></h3>
     <p class="title-zh">撒哈拉以南非洲农业生产力趋同与财政支出的影响</p>
@@ -164,9 +162,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="contracts and ownership structures in the bioeconomy: a review of their design and role in innovation 生物经济中的合同与所有权结构：其设计与创新作用的综述 lukas bonar nainggolan, julia höhler, alfons oude lansink australian journal of agricultural and resource economics 10.1111/1467-8489.70124" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture labor theory firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">18:10</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">18:10</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70124">Contracts and Ownership Structures in the Bioeconomy: A Review of Their Design and Role in Innovation</a></h3>
     <p class="title-zh">生物经济中的合同与所有权结构：其设计与创新作用的综述</p>
@@ -177,9 +174,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="climate and feeding strategies: an analysis of productivity growth in new zealand dairy 气候与饲养策略：新西兰乳业生产率增长分析 mario fernandez, mark neal, gavan dwyer australian journal of agricultural and resource economics 10.1111/1467-8489.70127" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment macro firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70127">Climate and Feeding Strategies: An Analysis of Productivity Growth in New Zealand Dairy</a></h3>
     <p class="title-zh">气候与饲养策略：新西兰乳业生产率增长分析</p>
@@ -193,7 +189,7 @@
 <article class="event" data-search="recommendations to reform the national electricity market (
                     &lt;scp&gt;nem&lt;/scp&gt;
                     ) 改革国家电力市场（nem）的建议 tim nelson, paula conboy, ava hancock, phil hirschhorn australian journal of agricultural and resource economics 10.1111/1467-8489.70125" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70125">Recommendations to Reform the National Electricity Market (
                     &lt;scp&gt;NEM&lt;/scp&gt;
@@ -207,7 +203,7 @@
   </div>
 </article>
 <article class="event" data-search="the feasibility of household food waste reduction in finland: insights from five consumer profiles 芬兰家庭食物垃圾减量的可行性：基于五种消费者画像的见解 aino friman, dušan drabik australian journal of agricultural and resource economics 10.1111/1467-8489.70126" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70126">The Feasibility of Household Food Waste Reduction in Finland: Insights From Five Consumer Profiles</a></h3>
     <p class="title-zh">芬兰家庭食物垃圾减量的可行性：基于五种消费者画像的见解</p>
@@ -219,7 +215,7 @@
   </div>
 </article>
 <article class="event" data-search="urban agriculture adoption, diet variety and rural support among urban zimbabwe households 津巴布韦城市家庭的城市农业采纳、饮食多样性与农村支持 lloyd chigusiwa, asankha pallegedara, terrence kairiza australian journal of agricultural and resource economics 10.1111/1467-8489.70120" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development labor trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70120">Urban Agriculture Adoption, Diet Variety and Rural Support Among Urban Zimbabwe Households</a></h3>
     <p class="title-zh">津巴布韦城市家庭的城市农业采纳、饮食多样性与农村支持</p>
@@ -231,7 +227,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of income subsidies on maize harvest losses: evidence from chinese farmers 收入补贴对玉米收获损失的影响：来自中国农户的证据 xue qu, yi luo, yonghao hu, laping wu australian journal of agricultural and resource economics 10.1111/1467-8489.70118" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="china agriculture public trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70118">The Impact of Income Subsidies on Maize Harvest Losses: Evidence From Chinese Farmers</a></h3>
     <p class="title-zh">收入补贴对玉米收获损失的影响：来自中国农户的证据</p>

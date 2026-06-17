@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-16</div>
-<article class="event" data-search="深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系 深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系 魏后凯 胡向东 司伟 刘承芳 胡冰川 何可 刘守英 吕捷 刘长全 杨穗 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系 深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系 魏后凯 胡向东 司伟 刘承芳 胡冰川 何可 刘守英 吕捷 刘长全 杨穗 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123032">深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系</a></h3>
     
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="培育智慧农业集群的内在逻辑与实践进路 培育智慧农业集群的内在逻辑与实践进路 杨骞 白鲁佳 史浩琰 刘华军 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123033">培育智慧农业集群的内在逻辑与实践进路</a></h3>
     
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="年末“突击花钱”与惠农工程闲置：现实影响、底层动因与治理路径 年末“突击花钱”与惠农工程闲置：现实影响、底层动因与治理路径 秦国庆 杜宝瑞 朱玉春 高原 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123034">年末“突击花钱”与惠农工程闲置：现实影响、底层动因与治理路径</a></h3>
     
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="食物营养当量视角下粮食主产区政策效应研究 食物营养当量视角下粮食主产区政策效应研究 周力 苏子凡 李昊洋 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123035">食物营养当量视角下粮食主产区政策效应研究</a></h3>
     
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="轮作补贴能否提高粮食全要素生产率——来自东北三省玉米和大豆种植户的微观证据 轮作补贴能否提高粮食全要素生产率——来自东北三省玉米和大豆种植户的微观证据 杨新宇 高鸣 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123036">轮作补贴能否提高粮食全要素生产率——来自东北三省玉米和大豆种植户的微观证据</a></h3>
     
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="收入增长驱动农产品加工业演进的机制——基于农业全产业链视角的跨国经验证据 收入增长驱动农产品加工业演进的机制——基于农业全产业链视角的跨国经验证据 严斌剑 余宝林 王一如 周应恒 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123037">收入增长驱动农产品加工业演进的机制——基于农业全产业链视角的跨国经验证据</a></h3>
     
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="乡村特色产业内生发展的多元路径——基于村社自主性与资源禀赋互构的组态视角 乡村特色产业内生发展的多元路径——基于村社自主性与资源禀赋互构的组态视角 张晓蕾 尚航标 李嘉琪 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123038">乡村特色产业内生发展的多元路径——基于村社自主性与资源禀赋互构的组态视角</a></h3>
     
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="马克思产业演进理论视角下地方政府推动特色产业演进的适应性治理机制 马克思产业演进理论视角下地方政府推动特色产业演进的适应性治理机制 王捷 尹春凤 张利庠 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123039">马克思产业演进理论视角下地方政府推动特色产业演进的适应性治理机制</a></h3>
     
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="破解“协而难治”：分层式组织与特色农业产业协同治理 破解“协而难治”：分层式组织与特色农业产业协同治理 谢作渺 李圆圆 贾雯雯 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123040">破解“协而难治”：分层式组织与特色农业产业协同治理</a></h3>
     
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="以场景牵引科技创新加快发展新质生产力 以场景牵引科技创新加快发展新质生产力 沈坤荣, 金童谣 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260501&amp;flag=1">以场景牵引科技创新加快发展新质生产力</a></h3>
     
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="算法创新与企业全要素生产率提升——来自专利文本的经验证据 算法创新与企业全要素生产率提升——来自专利文本的经验证据 蒋伟杰, 齐晨扬, 陈琦 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260502&amp;flag=1">算法创新与企业全要素生产率提升——来自专利文本的经验证据</a></h3>
     
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="人工智能技术、职业技能重塑与工资效应 人工智能技术、职业技能重塑与工资效应 何小钢, 毛莘娅, 郭晓斌 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260503&amp;flag=1">人工智能技术、职业技能重塑与工资效应</a></h3>
     
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="数字技术对不同类型职业技能的非对称性冲击——基于人工智能与非人工智能技术比较的视角 数字技术对不同类型职业技能的非对称性冲击——基于人工智能与非人工智能技术比较的视角 王林辉, 冯彤, 曹宇彤 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260504&amp;flag=1">数字技术对不同类型职业技能的非对称性冲击——基于人工智能与非人工智能技术比较的视角</a></h3>
     
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="产教融合能否激励校企联合创新——来自产教融合型企业试点的证据 产教融合能否激励校企联合创新——来自产教融合型企业试点的证据 宋建, 邵蔚, 王静 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260505&amp;flag=1">产教融合能否激励校企联合创新——来自产教融合型企业试点的证据</a></h3>
     
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="需求引致型高校专利对转化效率的影响研究——基于科技创新与产业创新融合的视角 需求引致型高校专利对转化效率的影响研究——基于科技创新与产业创新融合的视角 易巍 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260506&amp;flag=1">需求引致型高校专利对转化效率的影响研究——基于科技创新与产业创新融合的视角</a></h3>
     
@@ -237,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="从规则制定到空间重构：企业参与行业标准制定对跨区域投资的影响 从规则制定到空间重构：企业参与行业标准制定对跨区域投资的影响 梁若冰, 胡文君, 刘睿蕾, 汤韵 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260507&amp;flag=1">从规则制定到空间重构：企业参与行业标准制定对跨区域投资的影响</a></h3>
     
@@ -249,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="关税冲击与全国统一大市场形成：基于有为政府的视角 关税冲击与全国统一大市场形成：基于有为政府的视角 苏云晴, 鲁玮骏, 胡稳权 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260508&amp;flag=1">关税冲击与全国统一大市场形成：基于有为政府的视角</a></h3>
     
@@ -261,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="人口老龄化、供需结构变迁与服务业扩能提质 人口老龄化、供需结构变迁与服务业扩能提质 汪玲, 杜浩锋 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260509&amp;flag=1">人口老龄化、供需结构变迁与服务业扩能提质</a></h3>
     
@@ -273,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="投资于人的收入分配效应：来自工伤预防试点工作的证据 投资于人的收入分配效应：来自工伤预防试点工作的证据 霍文希, 唐飞鹏 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260510&amp;flag=1">投资于人的收入分配效应：来自工伤预防试点工作的证据</a></h3>
     
@@ -285,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="国际市场通道与中国城市体系空间重构：中心扩张与外围分化的双重格局 国际市场通道与中国城市体系空间重构：中心扩张与外围分化的双重格局 李辉文, 冯皓, 王磊, 梁渊博 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122969">国际市场通道与中国城市体系空间重构：中心扩张与外围分化的双重格局</a></h3>
     
@@ -297,7 +295,7 @@
   </div>
 </article>
 <article class="event" data-search="本土技术特性、科学研究情境适配与本土技术创新 本土技术特性、科学研究情境适配与本土技术创新 易先忠, 查龙, 高凌云 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122970">本土技术特性、科学研究情境适配与本土技术创新</a></h3>
     
@@ -309,7 +307,7 @@
   </div>
 </article>
 <article class="event" data-search="大语言模型冲击与高等教育远期暴露率：测度方法、就业效应与满意度分析 大语言模型冲击与高等教育远期暴露率：测度方法、就业效应与满意度分析 魏立佳, 白璐, 伍梦圆 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122971">大语言模型冲击与高等教育远期暴露率：测度方法、就业效应与满意度分析</a></h3>
     
@@ -321,7 +319,7 @@
   </div>
 </article>
 <article class="event" data-search="货币政策不确定性、耐心资本与企业战略韧性 货币政策不确定性、耐心资本与企业战略韧性 张雪兰, 赵圆, 徐子尧, 吴蓉蓉 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122973">货币政策不确定性、耐心资本与企业战略韧性</a></h3>
     
@@ -333,7 +331,7 @@
   </div>
 </article>
 <article class="event" data-search="城市地铁建设热潮下的企业投资——兼论房地产周期变化的异质影响 城市地铁建设热潮下的企业投资——兼论房地产周期变化的异质影响 蔡庆丰, 黄蕾, 李东旭 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122974">城市地铁建设热潮下的企业投资——兼论房地产周期变化的异质影响</a></h3>
     
@@ -345,7 +343,7 @@
   </div>
 </article>
 <article class="event" data-search="ai治理如何赋能企业价值创造——基于“人—机”委托代理关系视角 ai治理如何赋能企业价值创造——基于“人—机”委托代理关系视角 赵晶, 刘家彤, 谢泰宇 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122975">AI治理如何赋能企业价值创造——基于“人—机”委托代理关系视角</a></h3>
     
@@ -357,7 +355,7 @@
   </div>
 </article>
 <article class="event" data-search="算法交易与市场公平：来自尾盘价格操纵的证据 算法交易与市场公平：来自尾盘价格操纵的证据 岳崴, 屈建文, 喻旭兰, 刘悦 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122976">算法交易与市场公平：来自尾盘价格操纵的证据</a></h3>
     
@@ -369,7 +367,7 @@
   </div>
 </article>
 <article class="event" data-search="共享数字红利：同行业企业间的数字技术涓滴效应 共享数字红利：同行业企业间的数字技术涓滴效应 杨震宁, 童奕铭 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122977">共享数字红利：同行业企业间的数字技术涓滴效应</a></h3>
     
@@ -381,7 +379,7 @@
   </div>
 </article>
 <article class="event" data-search="新分类模式下的转移支付财力均等化效应再评估 新分类模式下的转移支付财力均等化效应再评估 张莉, 张圣哲, 赵旭杰 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123017">新分类模式下的转移支付财力均等化效应再评估</a></h3>
     
@@ -393,7 +391,7 @@
   </div>
 </article>
 <article class="event" data-search="习近平经济思想研究专题丨习近平经济思想对马克思主义政治经济学的重要原创性贡献 习近平经济思想研究专题丨习近平经济思想对马克思主义政治经济学的重要原创性贡献 简新华, 聂长飞 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123007">习近平经济思想研究专题丨习近平经济思想对马克思主义政治经济学的重要原创性贡献</a></h3>
     
@@ -405,7 +403,7 @@
   </div>
 </article>
 <article class="event" data-search="加快发展农业新质生产力 加快发展农业新质生产力 蒋永穆 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123008">加快发展农业新质生产力</a></h3>
     
@@ -417,7 +415,7 @@
   </div>
 </article>
 <article class="event" data-search="算力资源的动态共享：价格形成与政策分析 算力资源的动态共享：价格形成与政策分析 王勇, 傅芳宁, 李红军 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123009">算力资源的动态共享：价格形成与政策分析</a></h3>
     
@@ -429,7 +427,7 @@
   </div>
 </article>
 <article class="event" data-search="中国专利的经济价值：测度、特征及有效性 中国专利的经济价值：测度、特征及有效性 庄子罐, 曹稚敏, 方晶, 庄子银 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123010">中国专利的经济价值：测度、特征及有效性</a></h3>
     
@@ -441,7 +439,7 @@
   </div>
 </article>
 <article class="event" data-search="外资开放式创新有助于“稳外资”目标的实现吗？——基于内外资价值链生产关联视角 外资开放式创新有助于“稳外资”目标的实现吗？——基于内外资价值链生产关联视角 李磊, 直银苹, 李川川 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123011">外资开放式创新有助于“稳外资”目标的实现吗？——基于内外资价值链生产关联视角</a></h3>
     
@@ -453,7 +451,7 @@
   </div>
 </article>
 <article class="event" data-search="新发展格局下的全国统一大市场建设——基于省际间货运往来的测度 新发展格局下的全国统一大市场建设——基于省际间货运往来的测度 解咪, 钟宁桦, 姬永顺, 闫晟煜 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123012">新发展格局下的全国统一大市场建设——基于省际间货运往来的测度</a></h3>
     
@@ -465,7 +463,7 @@
   </div>
 </article>
 <article class="event" data-search="税收政策复杂性如何影响企业认知决策 税收政策复杂性如何影响企业认知决策 王伟同, 李秀华 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123013">税收政策复杂性如何影响企业认知决策</a></h3>
     
@@ -477,7 +475,7 @@
   </div>
 </article>
 <article class="event" data-search="商事制度改革与企业市场活力——基于简易注销改革的视角 商事制度改革与企业市场活力——基于简易注销改革的视角 万海远, 辛柯均, 贺伟东, 申萌 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123014">商事制度改革与企业市场活力——基于简易注销改革的视角</a></h3>
     
@@ -489,7 +487,7 @@
   </div>
 </article>
 <article class="event" data-search="差异化金融监管的政策效果与优化研究——基于中小企业风险权重调整的视角 差异化金融监管的政策效果与优化研究——基于中小企业风险权重调整的视角 吕之安, 刘冲, 谭姝颖, 刘莉亚 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123015">差异化金融监管的政策效果与优化研究——基于中小企业风险权重调整的视角</a></h3>
     
@@ -501,7 +499,7 @@
   </div>
 </article>
 <article class="event" data-search="税收公平与区域协调发展——来自养老保险缴费率调整的证据 税收公平与区域协调发展——来自养老保险缴费率调整的证据 何凡, 黄添羽, 刘庆, 周玉雯 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123016">税收公平与区域协调发展——来自养老保险缴费率调整的证据</a></h3>
     
@@ -512,9 +510,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="跨境数据流动对企业创新的作用：基于贸易蕴含数据的检验 跨境数据流动对企业创新的作用：基于贸易蕴含数据的检验 汪建新, 沈璐 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/3">跨境数据流动对企业创新的作用：基于贸易蕴含数据的检验</a></h3>
     
@@ -526,7 +523,7 @@
   </div>
 </article>
 <article class="event" data-search="“同气连枝”：华侨华人网络与企业出口 “同气连枝”：华侨华人网络与企业出口 张峰, 吴致尧, 黄玖立 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/34">“同气连枝”：华侨华人网络与企业出口</a></h3>
     
@@ -538,7 +535,7 @@
   </div>
 </article>
 <article class="event" data-search="改革落实的传导机制：企业感知的视角 改革落实的传导机制：企业感知的视角 徐现祥, 李粤麟, 陈希路 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/61">改革落实的传导机制：企业感知的视角</a></h3>
     
@@ -550,7 +547,7 @@
   </div>
 </article>
 <article class="event" data-search="打破数据孤岛：大数据管理局与上市公司异地投资 打破数据孤岛：大数据管理局与上市公司异地投资 游家兴, 夏雨珂, 陈璐 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/92">打破数据孤岛：大数据管理局与上市公司异地投资</a></h3>
     
@@ -562,7 +559,7 @@
   </div>
 </article>
 <article class="event" data-search="效率与公平可否兼顾：基于工资刚性视角的分析 效率与公平可否兼顾：基于工资刚性视角的分析 张晨, 万相昱, 张琦, 徐超 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/134">效率与公平可否兼顾：基于工资刚性视角的分析</a></h3>
     
@@ -574,7 +571,7 @@
   </div>
 </article>
 <article class="event" data-search="产学研合作网络与企业突破性创新 产学研合作网络与企业突破性创新 王群勇, 张慧敏 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/163">产学研合作网络与企业突破性创新</a></h3>
     
@@ -586,7 +583,7 @@
   </div>
 </article>
 <article class="event" data-search="退休与家庭财务脆弱性：理论与经验分析 退休与家庭财务脆弱性：理论与经验分析 尹志超, 栗传政, 沈吉, 吴夕 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/196">退休与家庭财务脆弱性：理论与经验分析</a></h3>
     

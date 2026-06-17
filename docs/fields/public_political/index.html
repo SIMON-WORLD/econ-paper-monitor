@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="estimating the consumption-smoothing value of medicaid expansion: evidence and limits 估算医疗补助扩展的消费平滑价值：证据与局限 anita mukherjee, daniel w. sacks, hoyoung yoo journal of public economics 10.1016/j.jpubeco.2026.105686" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">20:11</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="estimating the consumption-smoothing value of medicaid expansion: evidence and limits 估算医疗补助扩展的消费平滑价值：证据与局限 anita mukherjee, daniel w. sacks, hoyoung yoo journal of public economics 10.1016/j.jpubeco.2026.105686" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">20:11</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105686">Estimating the consumption-smoothing value of Medicaid expansion: Evidence and limits</a></h3>
     <p class="title-zh">估算医疗补助扩展的消费平滑价值：证据与局限</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="do tax cuts ease liquidity constraints? 减税是否缓解了流动性约束？ richard acquah-sarpong, yong chen, david guo, paul lewin international tax and public finance 10.1007/s10797-026-09954-8" data-journal="international-tax-and-public-finance" data-fields="finance public urban econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09954-8">Do tax cuts ease liquidity constraints?</a></h3>
     <p class="title-zh">减税是否缓解了流动性约束？</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="gender quotas in municipal executives: reallocating public spending in italy 市政行政中的性别配额：意大利公共支出的重新分配 flavia cavallini, alice dominici, olivia masi international tax and public finance 10.1007/s10797-026-09947-7" data-journal="international-tax-and-public-finance" data-fields="finance public education inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09947-7">Gender quotas in municipal executives: reallocating public spending in Italy</a></h3>
     <p class="title-zh">市政行政中的性别配额：意大利公共支出的重新分配</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="correction to: how much to pay for tax certainty? the role of advance tax rulings for risky investment under loss offset and tax uncertainty 更正：为税收确定性支付多少？损失抵补与税收不确定性下预约定价安排对风险投资的作用 an chen, peter hieber, caren sureth-sloane international tax and public finance 10.1007/s10797-026-09965-5" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09965-5">Correction to: How much to pay for tax certainty? The role of advance tax rulings for risky investment under loss offset and tax uncertainty</a></h3>
     <p class="title-zh">更正：为税收确定性支付多少？损失抵补与税收不确定性下预约定价安排对风险投资的作用</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="exploring heterogeneity and asymmetries in transfer pricing: evidence from finland 探索转让定价中的异质性与非对称性：来自芬兰的证据 marika viertola international tax and public finance 10.1007/s10797-026-09971-7" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09971-7">Exploring heterogeneity and asymmetries in transfer pricing: evidence from Finland</a></h3>
     <p class="title-zh">探索转让定价中的异质性与非对称性：来自芬兰的证据</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="tax salience: experimental evidence from tanzania 税收显著性：来自坦桑尼亚的实验证据 odd-helge fjeldstad, sunniva nygård ingholm, lucas katera, emil løstegård, ingrid hoem sjursen 等 international tax and public finance 10.1007/s10797-026-09957-5" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09957-5">Tax Salience: Experimental Evidence from Tanzania</a></h3>
     <p class="title-zh">税收显著性：来自坦桑尼亚的实验证据</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="lobbying and rotating leadership 游说与轮值领导 philippe van gruisen public choice 10.1007/s11127-026-01409-2" data-journal="public-choice" data-fields="macro public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01409-2">Lobbying and rotating leadership</a></h3>
     <p class="title-zh">游说与轮值领导</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="duverger’s tilted balance: “two-party system” operationalized 迪韦尔热的倾斜平衡：“两党制”的操作化 rein taagepera public choice 10.1007/s11127-026-01396-4" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01396-4">Duverger’s tilted balance: “Two-party system” operationalized</a></h3>
     <p class="title-zh">迪韦尔热的倾斜平衡：“两党制”的操作化</p>
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="on the ordinal bayesian incentive compatibility of vote share and veto share rules 关于投票份额与否决份额规则的序数贝叶斯激励相容性 madhuparna karmokar, dipjyoti majumdar, souvik roy social choice and welfare 10.1007/s00355-026-01668-4" data-journal="social-choice-and-welfare" data-fields="public econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00355-026-01668-4">On the ordinal Bayesian incentive compatibility of vote share and veto share rules</a></h3>
     <p class="title-zh">关于投票份额与否决份额规则的序数贝叶斯激励相容性</p>
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="using price incentives to bound welfare from pay as you go solar electricity 利用价格激励约束即付即用太阳能电力的福利 megan lang journal of public economics 10.1016/j.jpubeco.2026.105656" data-journal="journal-of-public-economics" data-fields="agriculture environment public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105656">Using price incentives to bound welfare from pay as you go solar electricity</a></h3>
     <p class="title-zh">利用价格激励约束即付即用太阳能电力的福利</p>
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="two-faced on facebook: ad tailoring in u.s. house campaigns 脸谱网上的两面性：美国众议院竞选中的广告定制 sarah waldfogel journal of public economics 10.1016/j.jpubeco.2026.105650" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105650">Two-faced on facebook: Ad tailoring in U.S. house campaigns</a></h3>
     <p class="title-zh">脸谱网上的两面性：美国众议院竞选中的广告定制</p>
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="the effect of emergency financial assistance on employment and earnings 紧急财政援助对就业和收入的影响 daniel hungerman, david phillips, kevin rinz, james sullivan journal of public economics 10.1016/j.jpubeco.2026.105659" data-journal="journal-of-public-economics" data-fields="finance labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105659">The effect of emergency financial assistance on employment and earnings</a></h3>
     <p class="title-zh">紧急财政援助对就业和收入的影响</p>
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="distributional tax analysis in theory and practice: harberger meets diamond-mirrlees 理论与实践中的分配性税收分析：哈伯格与戴蒙德-米尔利斯 emmanuel saez, gabriel zucman journal of public economics 10.1016/j.jpubeco.2026.105675" data-journal="journal-of-public-economics" data-fields="public theory inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105675">Distributional tax analysis in theory and practice: Harberger meets Diamond-Mirrlees</a></h3>
     <p class="title-zh">理论与实践中的分配性税收分析：哈伯格与戴蒙德-米尔利斯</p>
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="drain the swamp: a theory of anti-elite populism 排干沼泽：反精英民粹主义的一种理论 gabriele gratton, barton e. lee journal of public economics 10.1016/j.jpubeco.2026.105682" data-journal="journal-of-public-economics" data-fields="public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105682">Drain the swamp: A theory of anti-elite populism</a></h3>
     <p class="title-zh">排干沼泽：反精英民粹主义的一种理论</p>
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编委会  journal of public economics 10.1016/s0047-2727(26)00128-3" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0047-2727(26)00128-3">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
@@ -237,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="gender equality through turnover: quasi-experimental evidence from term limit reforms in italy 通过人员更替实现性别平等：来自意大利任期限制改革的准实验证据 carolina kansikas, manuel bagues journal of public economics 10.1016/j.jpubeco.2026.105667" data-journal="journal-of-public-economics" data-fields="public inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105667">Gender equality through turnover: Quasi-experimental evidence from term limit reforms in Italy</a></h3>
     <p class="title-zh">通过人员更替实现性别平等：来自意大利任期限制改革的准实验证据</p>
@@ -249,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="the unintended consequences of accountability: quasi-experimental evidence from policing in pakistan 问责制的意外后果：来自巴基斯坦警务准实验的证据 hamna ahmed, dareen haider, kate vyborny journal of public economics 10.1016/j.jpubeco.2026.105614" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105614">The unintended consequences of accountability: Quasi-experimental evidence from policing in Pakistan</a></h3>
     <p class="title-zh">问责制的意外后果：来自巴基斯坦警务准实验的证据</p>
@@ -261,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="almost fare free: impact of a cheap public transport ticket on mobility patterns and train delays 近乎免费：廉价公共交通票对出行模式与列车延误的影响 mario liebensteiner, jakob losert, sarah necker, florian neumeier, jörg paetzold 等 journal of public economics 10.1016/j.jpubeco.2026.105655" data-journal="journal-of-public-economics" data-fields="public inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105655">Almost fare free: Impact of a cheap public transport ticket on mobility patterns and train delays</a></h3>
     <p class="title-zh">近乎免费：廉价公共交通票对出行模式与列车延误的影响</p>
@@ -273,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编委会  journal of public economics 10.1016/s0047-2727(26)00108-8" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0047-2727(26)00108-8">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
@@ -285,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="identifying tax-setting responses from local fiscal policy programs 识别地方财政政策项目中的税收设定反应 georg u. thunecke, valeria merlo, andreas schanbacher, georg wamser journal of public economics 10.1016/j.jpubeco.2026.105643" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105643">Identifying tax-setting responses from local fiscal policy programs</a></h3>
     <p class="title-zh">识别地方财政政策项目中的税收设定反应</p>
@@ -297,7 +295,7 @@
   </div>
 </article>
 <article class="event" data-search="the compliance effects of the automatic exchange of information: evidence from the swiss tax amnesty 自动信息交换的合规效应：来自瑞士税收赦免的证据 enea baselgia journal of public economics 10.1016/j.jpubeco.2026.105653" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105653">The compliance effects of the automatic exchange of information: Evidence from the Swiss tax amnesty</a></h3>
     <p class="title-zh">自动信息交换的合规效应：来自瑞士税收赦免的证据</p>
@@ -309,7 +307,7 @@
   </div>
 </article>
 <article class="event" data-search="can early public childcare reduce child penalties? evidence from germany 早期公共托育能否减少育儿惩罚？来自德国的证据 lisa-marie duletzki, nayeon lim journal of public economics 10.1016/j.jpubeco.2026.105651" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105651">Can early public childcare reduce child penalties? Evidence from Germany</a></h3>
     <p class="title-zh">早期公共托育能否减少育儿惩罚？来自德国的证据</p>
@@ -321,7 +319,7 @@
   </div>
 </article>
 <article class="event" data-search="intertemporal substitution in response to non-linear health insurance contracts 非线性健康保险合同中的跨期替代 katlyn hettinger journal of public economics 10.1016/j.jpubeco.2026.105642" data-journal="journal-of-public-economics" data-fields="public theory health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105642">Intertemporal substitution in response to non-linear health insurance contracts</a></h3>
     <p class="title-zh">非线性健康保险合同中的跨期替代</p>
@@ -333,7 +331,7 @@
   </div>
 </article>
 <article class="event" data-search="better late than never? quantifying funding and liquidity effects of the ppp on pandemic-era employment recovery 迟做总比不做好？量化ppp对疫情时期就业复苏的资金与流动性效应 olga gorbachev, maria j. luengo-prado, j.christina wang journal of public economics 10.1016/j.jpubeco.2026.105641" data-journal="journal-of-public-economics" data-fields="labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105641">Better late than never? Quantifying funding and liquidity effects of the PPP on pandemic-era employment recovery</a></h3>
     <p class="title-zh">迟做总比不做好？量化PPP对疫情时期就业复苏的资金与流动性效应</p>
@@ -345,7 +343,7 @@
   </div>
 </article>
 <article class="event" data-search="taxation and business entry: evidence from the polish self-employment “flat” tax 税收与商业进入：来自波兰自雇“统一”税的证据 justyna klejdysz, tom zawisza journal of public economics 10.1016/j.jpubeco.2026.105640" data-journal="journal-of-public-economics" data-fields="labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105640">Taxation and business entry: Evidence from the Polish self-employment “Flat” tax</a></h3>
     <p class="title-zh">税收与商业进入：来自波兰自雇“统一”税的证据</p>
@@ -357,7 +355,7 @@
   </div>
 </article>
 <article class="event" data-search="access to credit reduces the value of insurance 信贷获取降低了保险的价值 sonia jaffe, anup malani, julian reif journal of public economics 10.1016/j.jpubeco.2026.105633" data-journal="journal-of-public-economics" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105633">Access to credit reduces the value of insurance</a></h3>
     <p class="title-zh">信贷获取降低了保险的价值</p>
@@ -368,9 +366,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-16</div>
 <article class="event" data-search="social observability and demand for transfers: experimental evidence from a low income population 社会可见性与转移支付需求：来自低收入群体的实验证据 marcel fafchamps, fadela sadou zouleya journal of public economics 10.1016/j.jpubeco.2026.105688" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">19:37</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">19:37</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105688">Social observability and demand for transfers: Experimental evidence from a low income population</a></h3>
     <p class="title-zh">社会可见性与转移支付需求：来自低收入群体的实验证据</p>
@@ -381,9 +378,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="political connections, contract imperfections, and firm outsourcing 政治关联、合同不完全性与企业外包 yi zhang, hein roelfsema public choice 10.1007/s11127-026-01421-6" data-journal="public-choice" data-fields="public theory firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01421-6">Political connections, contract imperfections, and firm outsourcing</a></h3>
     <p class="title-zh">政治关联、合同不完全性与企业外包</p>
@@ -395,7 +391,7 @@
   </div>
 </article>
 <article class="event" data-search="the promotion club 推广俱乐部 shuo chen, xinyu fan, zhitao zhu public choice 10.1007/s11127-026-01422-5" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01422-5">The promotion club</a></h3>
     <p class="title-zh">推广俱乐部</p>
@@ -407,7 +403,7 @@
   </div>
 </article>
 <article class="event" data-search="murder in the marketplace 市场中的谋杀 victoria biagi, alexander cardazzi, zachary porreca public choice 10.1007/s11127-026-01415-4" data-journal="public-choice" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01415-4">Murder in the Marketplace</a></h3>
     <p class="title-zh">市场中的谋杀</p>
@@ -419,7 +415,7 @@
   </div>
 </article>
 <article class="event" data-search="the inefficiency of moderate political coercion: a cross-country comparison of coercion intensity, state legitimacy, and regime stability 温和政治胁迫的低效性：胁迫强度、国家合法性与政权稳定性的跨国比较 øivind schøyen, espen sirnes, chris rune andersen public choice 10.1007/s11127-026-01416-3" data-journal="public-choice" data-fields="public history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01416-3">The inefficiency of moderate political coercion: a cross-country comparison of coercion intensity, state legitimacy, and regime stability</a></h3>
     <p class="title-zh">温和政治胁迫的低效性：胁迫强度、国家合法性与政权稳定性的跨国比较</p>
@@ -431,7 +427,7 @@
   </div>
 </article>
 <article class="event" data-search="an almost laboratory experiment: john cowperthwaite and hong kong’s economic prosperity 近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣 vincent geloso, jamie bologna pavlik, yang zhou public choice 10.1007/s11127-026-01404-7" data-journal="public-choice" data-fields="china finance macro labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01404-7">An almost laboratory experiment: John Cowperthwaite and Hong Kong’s economic prosperity</a></h3>
     <p class="title-zh">近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣</p>
@@ -443,7 +439,7 @@
   </div>
 </article>
 <article class="event" data-search="political power and wealth distribution: how anti-corruption reforms reshape inequality 政治权力与财富分配：反腐败改革如何重塑不平等 denis ivanov public choice 10.1007/s11127-026-01408-3" data-journal="public-choice" data-fields="development finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01408-3">Political power and wealth distribution: how anti-corruption reforms reshape inequality</a></h3>
     <p class="title-zh">政治权力与财富分配：反腐败改革如何重塑不平等</p>
@@ -455,7 +451,7 @@
   </div>
 </article>
 <article class="event" data-search="the economic consequences of cultural diversity in political organizations 政治组织中文化多样性的经济后果 jiale yan public choice 10.1007/s11127-026-01406-5" data-journal="public-choice" data-fields="china labor public theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01406-5">The economic consequences of cultural diversity in political organizations</a></h3>
     <p class="title-zh">政治组织中文化多样性的经济后果</p>
@@ -467,7 +463,7 @@
   </div>
 </article>
 <article class="event" data-search="imperial japan, civilian control, and democratic reversal 日本帝国、文官统治与民主逆转 jedediah pida-reese public choice 10.1007/s11127-026-01414-5" data-journal="public-choice" data-fields="public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01414-5">Imperial Japan, civilian control, and democratic reversal</a></h3>
     <p class="title-zh">日本帝国、文官统治与民主逆转</p>
@@ -479,7 +475,7 @@
   </div>
 </article>
 <article class="event" data-search="gender bias in competitive music composition evaluation: an experimental study 竞争性音乐创作评估中的性别偏见：一项实验研究 chaowen ting, yating chuang, john chung-en liu public choice 10.1007/s11127-026-01405-6" data-journal="public-choice" data-fields="public inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01405-6">Gender bias in competitive music composition evaluation: an experimental study</a></h3>
     <p class="title-zh">竞争性音乐创作评估中的性别偏见：一项实验研究</p>
@@ -491,7 +487,7 @@
   </div>
 </article>
 <article class="event" data-search="an interest-group theory of ai-tool governance in science 人工智能工具治理的利益集团理论 niclas berggren public choice 10.1007/s11127-026-01420-7" data-journal="public-choice" data-fields="public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01420-7">An interest-group theory of AI-tool governance in science</a></h3>
     <p class="title-zh">人工智能工具治理的利益集团理论</p>
@@ -503,7 +499,7 @@
   </div>
 </article>
 <article class="event" data-search="aris trantidis, clientelism. shaftesbury road, cambridge: cambridge university press, 2025. iv + 84 pages. usd 23 (paperback) 《庇护主义》 emil panzaru public choice 10.1007/s11127-026-01418-1" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01418-1">Aris Trantidis, Clientelism. Shaftesbury Road, Cambridge: Cambridge University Press, 2025. iv + 84 pages. USD 23 (paperback)</a></h3>
     <p class="title-zh">《庇护主义》</p>
@@ -515,7 +511,7 @@
   </div>
 </article>
 <article class="event" data-search="adam smith and the role of the towns in feudal europe 亚当·斯密与封建欧洲城镇的角色 mark koyama public choice 10.1007/s11127-026-01407-4" data-journal="public-choice" data-fields="development macro public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01407-4">Adam Smith and the role of the towns in feudal Europe</a></h3>
     <p class="title-zh">亚当·斯密与封建欧洲城镇的角色</p>
@@ -527,7 +523,7 @@
   </div>
 </article>
 <article class="event" data-search="democratic backsliding as a pigouvian political externality 民主倒退作为庇古式政治外部性 thomas barnebeck andersen public choice 10.1007/s11127-026-01412-7" data-journal="public-choice" data-fields="environment finance public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01412-7">Democratic backsliding as a Pigouvian political externality</a></h3>
     <p class="title-zh">民主倒退作为庇古式政治外部性</p>
@@ -539,7 +535,7 @@
   </div>
 </article>
 <article class="event" data-search="welfare state and natives’ preferences for immigrants’ types 福利国家与本地居民对移民类型的偏好 daiki kishishita, tomoko matsumoto public choice 10.1007/s11127-026-01411-8" data-journal="public-choice" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01411-8">Welfare state and natives’ preferences for immigrants’ types</a></h3>
     <p class="title-zh">福利国家与本地居民对移民类型的偏好</p>
@@ -551,7 +547,7 @@
   </div>
 </article>
 <article class="event" data-search="the effect of dating markets on maternal and neonatal health 婚恋市场对孕产妇及新生儿健康的影响 krzysztof zaremba journal of public economics 10.1016/j.jpubeco.2026.105687" data-journal="journal-of-public-economics" data-fields="finance public health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105687">The effect of dating markets on maternal and neonatal health</a></h3>
     <p class="title-zh">婚恋市场对孕产妇及新生儿健康的影响</p>
@@ -563,7 +559,7 @@
   </div>
 </article>
 <article class="event" data-search="the (fiscal) dividend of infrastructure: roads and revenues in rwanda 基础设施的（财政）红利：卢旺达的道路与收入 abdou musonera, aimable nsabimana, daniel overbeck journal of public economics 10.1016/j.jpubeco.2026.105676" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105676">The (fiscal) dividend of infrastructure: Roads and revenues in Rwanda</a></h3>
     <p class="title-zh">基础设施的（财政）红利：卢旺达的道路与收入</p>
@@ -575,7 +571,7 @@
   </div>
 </article>
 <article class="event" data-search="a model of china’s economic vertical structure 中国经济垂直结构模型 xi li, xuewen liu, zhikun lu, yong wang journal of public economics 10.1016/j.jpubeco.2026.105662" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105662">A model of China’s economic vertical structure</a></h3>
     <p class="title-zh">中国经济垂直结构模型</p>
@@ -587,7 +583,7 @@
   </div>
 </article>
 <article class="event" data-search="legal representation in disability claims 残疾索赔中的法律代理 hilary hoynes, nicole maestas, alexander strand journal of public economics 10.1016/j.jpubeco.2026.105661" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105661">Legal representation in disability claims</a></h3>
     <p class="title-zh">残疾索赔中的法律代理</p>
@@ -599,7 +595,7 @@
   </div>
 </article>
 <article class="event" data-search="ballots, budgets and bricks: brexit and the polarisation of individual economic behaviours 选票、预算与砖块：英国脱欧与个体经济行为的极化 pei kuang, davide luca, zhiwu wei journal of public economics 10.1016/j.jpubeco.2026.105666" data-journal="journal-of-public-economics" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105666">Ballots, budgets and bricks: Brexit and the polarisation of individual economic behaviours</a></h3>
     <p class="title-zh">选票、预算与砖块：英国脱欧与个体经济行为的极化</p>
@@ -611,7 +607,7 @@
   </div>
 </article>
 <article class="event" data-search="the employment effects of disability benefit reassessment 残疾津贴重新评估的就业效应 anikó bíró, cecília hornok, judit krekó, dániel prinz, ágota scharle journal of public economics 10.1016/j.jpubeco.2026.105652" data-journal="journal-of-public-economics" data-fields="labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105652">The employment effects of disability benefit reassessment</a></h3>
     <p class="title-zh">残疾津贴重新评估的就业效应</p>
@@ -623,7 +619,7 @@
   </div>
 </article>
 <article class="event" data-search="a quantitative urban model for transport appraisal 交通评估的定量城市模型 daniel hörcher, daniel j. graham journal of public economics 10.1016/j.jpubeco.2026.105683" data-journal="journal-of-public-economics" data-fields="public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105683">A quantitative urban model for transport appraisal</a></h3>
     <p class="title-zh">交通评估的定量城市模型</p>
@@ -635,7 +631,7 @@
   </div>
 </article>
 <article class="event" data-search="national content and local political consequences: evidence from public and private television 国家内容与地方政治后果：来自公共与私营电视的证据 mathias bühler, andrew dickens journal of public economics 10.1016/j.jpubeco.2026.105668" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105668">National content and local political consequences: Evidence from public and private television</a></h3>
     <p class="title-zh">国家内容与地方政治后果：来自公共与私营电视的证据</p>
@@ -647,7 +643,7 @@
   </div>
 </article>
 <article class="event" data-search="choosing (not) to choose: uncovering intrinsic preferences for choice autonomy 选择（不）选择：揭示对选择自主权的内在偏好 jana freundt, holger herz, leander kopp journal of public economics 10.1016/j.jpubeco.2026.105681" data-journal="journal-of-public-economics" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105681">Choosing (not) to choose: Uncovering intrinsic preferences for choice autonomy</a></h3>
     <p class="title-zh">选择（不）选择：揭示对选择自主权的内在偏好</p>
@@ -659,7 +655,7 @@
   </div>
 </article>
 <article class="event" data-search="formalizing microentrepreneurs through targeted tax systems: evidence from brazil 通过目标税制规范微型企业家：来自巴西的证据 alison farias, roberto hsu rocha journal of public economics 10.1016/j.jpubeco.2026.105677" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105677">Formalizing microentrepreneurs through targeted tax systems: Evidence from Brazil</a></h3>
     <p class="title-zh">通过目标税制规范微型企业家：来自巴西的证据</p>
@@ -671,7 +667,7 @@
   </div>
 </article>
 <article class="event" data-search="what did we learn from the north american income maintenance experiments? new data and evidence on two-parent families 北美收入维持实验的启示：双亲家庭的新数据与证据 chris riddell, w. craig riddell journal of public economics 10.1016/j.jpubeco.2026.105658" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105658">What did we learn from the North American Income Maintenance Experiments? New data and evidence on two-parent families</a></h3>
     <p class="title-zh">北美收入维持实验的启示：双亲家庭的新数据与证据</p>
@@ -683,7 +679,7 @@
   </div>
 </article>
 <article class="event" data-search="from housing gains to pension losses: micro-macro integration to reveal wealth inequality dynamics in chile 从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态 bastián castro nofal, ignacio flores, pablo gutiérrez cubillos journal of public economics 10.1016/j.jpubeco.2026.105665" data-journal="journal-of-public-economics" data-fields="macro public urban inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105665">From housing gains to pension losses: Micro-macro integration to reveal wealth inequality dynamics in Chile</a></h3>
     <p class="title-zh">从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态</p>
@@ -695,7 +691,7 @@
   </div>
 </article>
 <article class="event" data-search="how do bureaucrats respond to hybrid incentive contract? evidence from china’s air pollution controls 官僚如何回应混合激励合同？来自中国空气污染控制的证据 guangyu cao, xi weng, mingwei xu, li-an zhou journal of public economics 10.1016/j.jpubeco.2026.105664" data-journal="journal-of-public-economics" data-fields="china environment public theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105664">How do bureaucrats respond to hybrid incentive contract? Evidence from China’s air pollution controls</a></h3>
     <p class="title-zh">官僚如何回应混合激励合同？来自中国空气污染控制的证据</p>
@@ -707,7 +703,7 @@
   </div>
 </article>
 <article class="event" data-search="rate of return regulation revisited 回报率监管再审视 karl dunkle werner, stephen jarvis journal of public economics 10.1016/j.jpubeco.2026.105654" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105654">Rate of return regulation revisited</a></h3>
     <p class="title-zh">回报率监管再审视</p>
@@ -719,7 +715,7 @@
   </div>
 </article>
 <article class="event" data-search="supercompliers 超级合规者 matthew l. comey, amanda r. eng, pauline leung, zhuan pei journal of public economics 10.1016/j.jpubeco.2026.105660" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105660">Supercompliers</a></h3>
     <p class="title-zh">超级合规者</p>
@@ -730,9 +726,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="shaking giants: tax accounting, profit shifting, and the slow art of challenging the status quo 撼动巨头：税务会计、利润转移与挑战现状的缓慢艺术 leslie robinson international tax and public finance 10.1007/s10797-026-09980-6" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09980-6">Shaking giants: tax accounting, profit shifting, and the slow art of challenging the status quo</a></h3>
     <p class="title-zh">撼动巨头：税务会计、利润转移与挑战现状的缓慢艺术</p>
@@ -744,7 +739,7 @@
   </div>
 </article>
 <article class="event" data-search="public pensions and ltc insurance with family solidarity 家庭团结视角下的公共养老金与长期护理保险 yukihiro nishimura, pierre pestieau international tax and public finance 10.1007/s10797-026-09978-0" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09978-0">Public pensions and LTC insurance with family solidarity</a></h3>
     <p class="title-zh">家庭团结视角下的公共养老金与长期护理保险</p>
@@ -756,7 +751,7 @@
   </div>
 </article>
 <article class="event" data-search="incentives versus deterrent measures and tax compliance of landowners in benin: a randomized controlled trial approach 贝宁土地所有者激励与威慑措施对税收遵从的影响：一项随机对照试验研究 damas hounsounon, jonas fassinou international tax and public finance 10.1007/s10797-026-09969-1" data-journal="international-tax-and-public-finance" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09969-1">Incentives versus deterrent measures and tax compliance of landowners in Benin: a randomized controlled trial approach</a></h3>
     <p class="title-zh">贝宁土地所有者激励与威慑措施对税收遵从的影响：一项随机对照试验研究</p>
@@ -768,7 +763,7 @@
   </div>
 </article>
 <article class="event" data-search="willing but unable to pay? gender, preferences, resources, and tax compliance 愿意但无力支付？性别、偏好、资源与税收遵从 andrea lopez-luzuriaga, carlos scartascini international tax and public finance 10.1007/s10797-026-09975-3" data-journal="international-tax-and-public-finance" data-fields="development finance public econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09975-3">Willing but unable to pay? Gender, preferences, resources, and tax compliance</a></h3>
     <p class="title-zh">愿意但无力支付？性别、偏好、资源与税收遵从</p>
@@ -780,7 +775,7 @@
   </div>
 </article>
 <article class="event" data-search="can energy transition strengthen tax revenue mobilization in developing countries? empirical evidence and policy implications 能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示 atangana ondoa henri, ngobo philibert junior international tax and public finance 10.1007/s10797-026-09973-5" data-journal="international-tax-and-public-finance" data-fields="china environment finance public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09973-5">Can energy transition strengthen tax revenue mobilization in developing countries? Empirical evidence and policy implications</a></h3>
     <p class="title-zh">能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示</p>
@@ -792,7 +787,7 @@
   </div>
 </article>
 <article class="event" data-search="downstream centrality and industry lobbying in production networks 生产网络中的下游中心性与行业游说 kwok ping tsang public choice 10.1007/s11127-026-01428-z" data-journal="public-choice" data-fields="public econometrics theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01428-z">Downstream centrality and industry lobbying in production networks</a></h3>
     <p class="title-zh">生产网络中的下游中心性与行业游说</p>
@@ -804,7 +799,7 @@
   </div>
 </article>
 <article class="event" data-search="when the money stops: fiscal and political reactions to changing grant eligibility 当资金停止：对拨款资格变化的财政与政治反应 touria jaaidane, sophie larribeau public choice 10.1007/s11127-026-01410-9" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01410-9">When the money stops: fiscal and political reactions to changing grant eligibility</a></h3>
     <p class="title-zh">当资金停止：对拨款资格变化的财政与政治反应</p>
@@ -816,7 +811,7 @@
   </div>
 </article>
 <article class="event" data-search="why bloomington is not in virginia: contrasting the social ontologies, methodologies, and governance theories of the ostroms and buchanan 为何布卢明顿不在弗吉尼亚：奥斯特罗姆与布坎南的社会本体论、方法论及治理理论之对比 massimo cervesato public choice 10.1007/s11127-026-01419-0" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01419-0">Why Bloomington is not in Virginia: Contrasting the social ontologies, methodologies, and governance theories of the Ostroms and Buchanan</a></h3>
     <p class="title-zh">为何布卢明顿不在弗吉尼亚：奥斯特罗姆与布坎南的社会本体论、方法论及治理理论之对比</p>
@@ -828,7 +823,7 @@
   </div>
 </article>
 <article class="event" data-search="loose bricks in the wall: underground press and political opposition in non-democracies 墙上的松动砖块：非民主国家的地下媒体与政治反对 olga tcaci public choice 10.1007/s11127-026-01401-w" data-journal="public-choice" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01401-w">Loose bricks in the wall: Underground press and political opposition in non-democracies</a></h3>
     <p class="title-zh">墙上的松动砖块：非民主国家的地下媒体与政治反对</p>
@@ -840,7 +835,7 @@
   </div>
 </article>
 <article class="event" data-search="ethnic bias, commitment and public good provisioning 民族偏见、承诺与公共品供给 sukanta bhattacharya, t c shinali public choice 10.1007/s11127-026-01417-2" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01417-2">Ethnic bias, commitment and public good provisioning</a></h3>
     <p class="title-zh">民族偏见、承诺与公共品供给</p>
@@ -852,7 +847,7 @@
   </div>
 </article>
 <article class="event" data-search="do grades have absolute meaning? an experiment on majority judgment 成绩具有绝对意义吗？多数判断实验 théo delemazure, roberto brunetti, antoinette baujard, sylvain bouveret social choice and welfare 10.1007/s00355-026-01665-7" data-journal="social-choice-and-welfare" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00355-026-01665-7">Do grades have absolute meaning? An experiment on majority judgment</a></h3>
     <p class="title-zh">成绩具有绝对意义吗？多数判断实验</p>
@@ -864,7 +859,7 @@
   </div>
 </article>
 <article class="event" data-search="formation of teams in contests: tradeoffs between inter- and intra-team inequalities 竞赛中团队的形成：团队间与团队内不平等的权衡 hideo konishi, chen-yu pan, dimitar simeonov social choice and welfare 10.1007/s00355-026-01663-9" data-journal="social-choice-and-welfare" data-fields="public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00355-026-01663-9">Formation of teams in contests: tradeoffs between inter- and intra-team inequalities</a></h3>
     <p class="title-zh">竞赛中团队的形成：团队间与团队内不平等的权衡</p>
@@ -876,7 +871,7 @@
   </div>
 </article>
 <article class="event" data-search="fiscal externalities of transaction taxes: evidence from the los angeles mansion tax 交易税的财政外部性：来自洛杉矶豪宅税的证据 daniel green, vikram jambulapati, jack liebersohn, tejaswi velayudhan journal of public economics 10.1016/j.jpubeco.2026.105678" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105678">Fiscal externalities of transaction taxes: Evidence from the Los Angeles mansion tax</a></h3>
     <p class="title-zh">交易税的财政外部性：来自洛杉矶豪宅税的证据</p>
@@ -888,7 +883,7 @@
   </div>
 </article>
 <article class="event" data-search="do pensions enhance effort and selective retention?: evidence from public schools 养老金能否提升工作努力与选择性留任？——来自公立学校的证据 michael bates, andrew c. johnston journal of public economics 10.1016/j.jpubeco.2026.105684" data-journal="journal-of-public-economics" data-fields="public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105684">Do pensions enhance effort and selective retention?: Evidence from public schools</a></h3>
     <p class="title-zh">养老金能否提升工作努力与选择性留任？——来自公立学校的证据</p>
@@ -900,7 +895,7 @@
   </div>
 </article>
 <article class="event" data-search="occupational hazard? an analysis of birth outcomes among physician mothers 职业危害？医生母亲生育结果分析 anupam b. jena, david slusky, lilly springer journal of public economics 10.1016/j.jpubeco.2026.105680" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105680">Occupational Hazard? An analysis of birth outcomes among physician mothers</a></h3>
     <p class="title-zh">职业危害？医生母亲生育结果分析</p>
@@ -912,7 +907,7 @@
   </div>
 </article>
 <article class="event" data-search="noncredit workforce training, industry credentials, and labor market outcomes 非信贷劳动力培训、行业证书与劳动力市场结果 di xu, kelli a. bird, michael cooper, benjamin l. castleman journal of public economics 10.1016/j.jpubeco.2026.105679" data-journal="journal-of-public-economics" data-fields="finance labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105679">Noncredit workforce training, industry credentials, and labor market outcomes</a></h3>
     <p class="title-zh">非信贷劳动力培训、行业证书与劳动力市场结果</p>
@@ -924,7 +919,7 @@
   </div>
 </article>
 <article class="event" data-search="combining part-time work and social benefits: empirical evidence from finland 兼职工作与社会福利的结合：来自芬兰的实证证据 salla kalin, tomi kyyrä, tuomas matikka journal of public economics 10.1016/j.jpubeco.2026.105685" data-journal="journal-of-public-economics" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105685">Combining part-time work and social benefits: Empirical evidence from Finland</a></h3>
     <p class="title-zh">兼职工作与社会福利的结合：来自芬兰的实证证据</p>

@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="who bears the cost: financial frictions and labor markdown 谁承担成本：金融摩擦与劳动力买方垄断压价 ming li, yao amber li, zehao li journal of development economics 10.1016/j.jdeveco.2026.103828" data-journal="journal-of-development-economics" data-fields="china development finance labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:46</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="who bears the cost: financial frictions and labor markdown 谁承担成本：金融摩擦与劳动力买方垄断压价 ming li, yao amber li, zehao li journal of development economics 10.1016/j.jdeveco.2026.103828" data-journal="journal-of-development-economics" data-fields="china development finance labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:46</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103828">Who bears the cost: Financial frictions and labor markdown</a></h3>
     <p class="title-zh">谁承担成本：金融摩擦与劳动力买方垄断压价</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="turning pressure into power: climate risk exposure and corporate green transformation 化压力为动力：气候风险暴露与企业绿色转型 hang chen, xiaotian zhu applied economics 10.1080/00036846.2026.2687742" data-journal="applied-economics" data-fields="china environment" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">13:25</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">13:25</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687742">Turning pressure into power: climate risk exposure and corporate green transformation</a></h3>
     <p class="title-zh">化压力为动力：气候风险暴露与企业绿色转型</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="the label trap: unintended consequences of pesticide labeling and the power of nudges 标签陷阱：农药标签的意外后果与助推的力量 juhui chen, zhipeng he, junfei bai applied economic perspectives and policy 10.1002/aepp.70086" data-journal="applied-economic-perspectives-and-policy" data-fields="china agriculture public health" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/aepp.70086">The Label Trap: Unintended Consequences of Pesticide Labeling and the Power of Nudges</a></h3>
     <p class="title-zh">标签陷阱：农药标签的意外后果与助推的力量</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="substituting groundwater with surface water for irrigation in northern china: current status, effectiveness and challenges 中国北方以地表水替代地下水灌溉：现状、成效与挑战 tianhe sun, baozhu guan, huang chen, jinxia wang, wei chao australian journal of agricultural and resource economics 10.1111/1467-8489.70108" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="china agriculture development finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70108">Substituting Groundwater With Surface Water for Irrigation in Northern China: Current Status, Effectiveness and Challenges</a></h3>
     <p class="title-zh">中国北方以地表水替代地下水灌溉：现状、成效与挑战</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="agricultural carbon emission efficiency and its regional convergence in china: role of land use modes and economic factors 中国农业碳排放效率及其区域收敛性：土地利用模式与经济因素的作用 yiqi zhu, hanwei liang, yifei wang, yuran feng land use policy 10.1016/j.landusepol.2026.108125" data-journal="land-use-policy" data-fields="china agriculture environment public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108125">Agricultural carbon emission efficiency and its regional convergence in China: Role of land use modes and economic factors</a></h3>
     <p class="title-zh">中国农业碳排放效率及其区域收敛性：土地利用模式与经济因素的作用</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="spatiotemporal dynamics of preferential occupation of high-quality cropland by construction land expansion in china and its implications for food production potential 中国建设用地扩张优先占用优质耕地的时空动态及其对粮食生产潜力的影响 shuangqing sheng, wei song, xiangzheng deng land use policy 10.1016/j.landusepol.2026.108143" data-journal="land-use-policy" data-fields="china agriculture public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108143">Spatiotemporal dynamics of preferential occupation of high-quality cropland by construction land expansion in china and its implications for food production potential</a></h3>
     <p class="title-zh">中国建设用地扩张优先占用优质耕地的时空动态及其对粮食生产潜力的影响</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="composite driving mechanisms of farmland abandonment in plains and mountainous areas of china from a 1-km grid perspective 1公里网格视角下中国平原与山区耕地撂荒的复合驱动机制 jiayi jiang, sijing ye, longfeng weng, guoli wang, shuyi ren 等 land use policy 10.1016/j.landusepol.2026.108138" data-journal="land-use-policy" data-fields="china agriculture public theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108138">Composite driving mechanisms of farmland abandonment in plains and mountainous areas of China from a 1-km grid perspective</a></h3>
     <p class="title-zh">1公里网格视角下中国平原与山区耕地撂荒的复合驱动机制</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="efficiency, shadow pricing and regime switching in multi‐ware technologies: evidence from regulated livestock farms 多仓库技术中的效率、影子定价与制度转换：来自受监管畜牧场的证据 youpei yan, robert g. chambers journal of agricultural economics 10.1111/1477-9552.70059" data-journal="journal-of-agricultural-economics" data-fields="china agriculture environment finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70059">Efficiency, Shadow Pricing and Regime Switching in Multi‐Ware Technologies: Evidence From Regulated Livestock Farms</a></h3>
     <p class="title-zh">多仓库技术中的效率、影子定价与制度转换：来自受监管畜牧场的证据</p>
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="reallocation effects of internalizing externalities: evidence from china&#x27;s straw burning ban 内部化外部性的再配置效应：来自中国秸秆禁烧政策的证据 wenyuan hua journal of agricultural economics 10.1111/1477-9552.70052" data-journal="journal-of-agricultural-economics" data-fields="china agriculture environment macro" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70052">Reallocation Effects of Internalizing Externalities: Evidence From China&#x27;s Straw Burning Ban</a></h3>
     <p class="title-zh">内部化外部性的再配置效应：来自中国秸秆禁烧政策的证据</p>
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="irrigation investments and agricultural productivity in northern china 中国北方灌溉投资与农业生产力 zhuanlin wang, jinxia wang, kaixing huang american journal of agricultural economics 10.1002/ajae.70072" data-journal="american-journal-of-agricultural-economics" data-fields="china agriculture development finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/ajae.70072">Irrigation investments and agricultural productivity in Northern China</a></h3>
     <p class="title-zh">中国北方灌溉投资与农业生产力</p>
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="performance of reward, punishment, and communication in common‐pool resource management: evidence from grassland conservation in china 奖励、惩罚与沟通在公共池塘资源管理中的绩效：来自中国草原保护的证据 min liu, ming jiang, pengfei liu, jizhe wang, zihan nie 等 american journal of agricultural economics 10.1002/ajae.70078" data-journal="american-journal-of-agricultural-economics" data-fields="china agriculture theory inequality" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/ajae.70078">Performance of reward, punishment, and communication in common‐pool resource management: Evidence from grassland conservation in China</a></h3>
     <p class="title-zh">奖励、惩罚与沟通在公共池塘资源管理中的绩效：来自中国草原保护的证据</p>
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="consumer response to environmental standards: evidence from gasoline regulation in china 消费者对环境标准的反应：来自中国汽油管制的证据 yucheng wang, lei zhang, liyang zhou journal of environmental economics and management 10.1016/j.jeem.2026.103314" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment public behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103314">Consumer response to environmental standards: Evidence from gasoline regulation in China</a></h3>
     <p class="title-zh">消费者对环境标准的反应：来自中国汽油管制的证据</p>
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="too hot to haul? the impact of temperature on labor supply and performance of truck drivers 酷热难行？温度对卡车司机劳动力供给与工作绩效的影响 wenzhi dave ding, xincheng wang, yucheng wang, zhenxuan wang journal of environmental economics and management 10.1016/j.jeem.2026.103338" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103338">Too hot to haul? the impact of temperature on labor supply and performance of truck drivers</a></h3>
     <p class="title-zh">酷热难行？温度对卡车司机劳动力供给与工作绩效的影响</p>
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="early-term abortion bans and sex selection after dobbs v jackson 多布斯诉杰克逊案后的早期堕胎禁令与性别选择 xin brown, william jergins journal of population economics 10.1007/s00148-026-01174-y" data-journal="journal-of-population-economics" data-fields="china behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s00148-026-01174-y">Early-term abortion bans and sex selection after Dobbs v Jackson</a></h3>
     <p class="title-zh">多布斯诉杰克逊案后的早期堕胎禁令与性别选择</p>
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="two-group, three-period staggered difference-in-differences design and evaluation of labour market effects of minimum wages in china 两组三阶段交错双重差分设计与中国最低工资劳动力市场效应评估 zhengxiong yang, mingwei liu, shiwei zhang applied economics 10.1080/00036846.2026.2688897" data-journal="applied-economics" data-fields="china finance labor" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2688897">Two-group, three-period staggered difference-in-differences design and evaluation of labour market effects of minimum wages in China</a></h3>
     <p class="title-zh">两组三阶段交错双重差分设计与中国最低工资劳动力市场效应评估</p>
@@ -237,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="artificial intelligence development and corporate supply chain restructuring: evidence from china 人工智能发展与企业供应链重构：来自中国的证据 xinqi li, yun wang, jinhai wang applied economics 10.1080/00036846.2026.2684775" data-journal="applied-economics" data-fields="china development trade" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2684775">Artificial intelligence development and corporate supply chain restructuring: evidence from China</a></h3>
     <p class="title-zh">人工智能发展与企业供应链重构：来自中国的证据</p>
@@ -249,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="smart manufacturing and firm innovation: evidence from china 智能制造与企业创新：来自中国的证据 zhidong tan, fei li, xujia zong, haoxiang wen, yuhong yang applied economics 10.1080/00036846.2026.2682551" data-journal="applied-economics" data-fields="china firms" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2682551">Smart manufacturing and firm innovation: evidence from China</a></h3>
     <p class="title-zh">智能制造与企业创新：来自中国的证据</p>
@@ -261,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="data factor marketization and corporate investment efficiency—a quasi-natural experiment based on the establishment of data trading platforms 数据要素市场化与企业投资效率——基于数据交易平台设立的准自然实验 yuanbin xu, xinyang zhang, shiyun zhong, yani wang, fucai lu applied economics 10.1080/00036846.2026.2682553" data-journal="applied-economics" data-fields="china finance" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2682553">Data factor marketization and corporate investment efficiency—A Quasi-Natural Experiment based on the establishment of data trading platforms</a></h3>
     <p class="title-zh">数据要素市场化与企业投资效率——基于数据交易平台设立的准自然实验</p>
@@ -273,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of local government fiscal transparency on corporate financing costs: evidence from china 地方政府财政透明度对企业融资成本的影响：来自中国的证据 dawei liang, sihan luan, qianqian du, peixi miao applied economics 10.1080/00036846.2026.2685224" data-journal="applied-economics" data-fields="china public" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2685224">The impact of local government fiscal transparency on corporate financing costs: evidence from China</a></h3>
     <p class="title-zh">地方政府财政透明度对企业融资成本的影响：来自中国的证据</p>
@@ -285,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="urban forests: environmental health values and risks 城市森林：环境健康价值与风险 jianwei xing, zhiren hu, fan xia, jintao xu, eric yongchen zou review of economics and statistics 10.1162/rest.a.1776" data-journal="review-of-economics-and-statistics" data-fields="china environment macro public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1776">Urban Forests: Environmental Health Values and Risks</a></h3>
     <p class="title-zh">城市森林：环境健康价值与风险</p>
@@ -297,7 +295,7 @@
   </div>
 </article>
 <article class="event" data-search="public health, human capital, and economic growth: the lasting effects of disease control in china 公共卫生、人力资本与经济增长：中国疾病控制的持久影响 fan he, wei huang, yinghao pan, jiao wang review of economics and statistics 10.1162/rest.a.1781" data-journal="review-of-economics-and-statistics" data-fields="china macro public urban" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1781">Public Health, Human Capital, and Economic Growth: The Lasting Effects of Disease Control in China</a></h3>
     <p class="title-zh">公共卫生、人力资本与经济增长：中国疾病控制的持久影响</p>
@@ -309,7 +307,7 @@
   </div>
 </article>
 <article class="event" data-search="how do large epidemics redistribute market power? evidence from the 2003 sars shock in china 大型流行病如何重新分配市场力量？来自2003年中国sars冲击的证据 yating jiang, hongsong zhang review of economics and statistics 10.1162/rest.a.1769" data-journal="review-of-economics-and-statistics" data-fields="china finance trade firms" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1769">How Do Large Epidemics Redistribute Market Power? Evidence from the 2003 SARS Shock in China</a></h3>
     <p class="title-zh">大型流行病如何重新分配市场力量？来自2003年中国SARS冲击的证据</p>
@@ -321,7 +319,7 @@
   </div>
 </article>
 <article class="event" data-search="trade and u.s. inequality in the tokyo round 东京回合中的贸易与美国不平等 andrew greenland, james lake, john lopresti review of economics and statistics 10.1162/rest.a.1774" data-journal="review-of-economics-and-statistics" data-fields="china labor trade inequality" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1774">Trade and U.S. Inequality in the Tokyo Round</a></h3>
     <p class="title-zh">东京回合中的贸易与美国不平等</p>
@@ -333,7 +331,7 @@
   </div>
 </article>
 <article class="event" data-search="cross-country heterogeneous response to competition: theory and evidence from trade data 跨国竞争反应的异质性：理论与贸易数据的证据 hamed atrianfar, hamid firooz review of economics and statistics 10.1162/rest.a.1772" data-journal="review-of-economics-and-statistics" data-fields="china agriculture trade theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1162/rest.a.1772">Cross-Country Heterogeneous Response to Competition: Theory and Evidence from Trade Data</a></h3>
     <p class="title-zh">跨国竞争反应的异质性：理论与贸易数据的证据</p>
@@ -345,7 +343,7 @@
   </div>
 </article>
 <article class="event" data-search="evaluating the environmental and economic implications of curbing transboundary pollution: evidence from china 遏制跨界污染的环境与经济影响评估：来自中国的证据 zeyang zhang, yuanyi xu, dunhu chang, dingding shao, xin wang journal of development economics 10.1016/j.jdeveco.2026.103854" data-journal="journal-of-development-economics" data-fields="china environment development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103854">Evaluating the environmental and economic implications of curbing transboundary pollution: Evidence from China</a></h3>
     <p class="title-zh">遏制跨界污染的环境与经济影响评估：来自中国的证据</p>
@@ -357,7 +355,7 @@
   </div>
 </article>
 <article class="event" data-search="the drivers and implications of retail margin trading 零售保证金交易的驱动因素及其影响 jiangze bian, zhi da, zhiguo he, dong lou, kelly shue 等 journal of finance 10.1111/jofi.70049" data-journal="journal-of-finance" data-fields="china agriculture finance behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70049">The Drivers and Implications of Retail Margin Trading</a></h3>
     <p class="title-zh">零售保证金交易的驱动因素及其影响</p>
@@ -369,7 +367,7 @@
   </div>
 </article>
 <article class="event" data-search="designing heaven’s will: the job assignment in the chinese imperial civil service 设计天意：中国帝国文官制度中的职位分配 inácio bó, li chen games and economic behavior 10.1016/j.geb.2026.03.013" data-journal="games-and-economic-behavior" data-fields="china theory behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2026.03.013">Designing Heaven’s will: The job assignment in the Chinese imperial civil service</a></h3>
     <p class="title-zh">设计天意：中国帝国文官制度中的职位分配</p>
@@ -381,7 +379,7 @@
   </div>
 </article>
 <article class="event" data-search="welfare properties of the taiwan mechanism 台湾机制的福利性质 ilan wolff games and economic behavior 10.1016/j.geb.2025.11.005" data-journal="games-and-economic-behavior" data-fields="china public theory behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.geb.2025.11.005">Welfare properties of the Taiwan mechanism</a></h3>
     <p class="title-zh">台湾机制的福利性质</p>
@@ -395,7 +393,7 @@
 <article class="event" data-search="inherited inequality and the distribution of opportunities in the
                     &lt;scp&gt;usa&lt;/scp&gt;
                     , china, india and south africa 继承性不平等与美国、中国、印度和南非的机会分布 paolo brunori, francisco h. g. ferreira, pedro salas‐rojo economica 10.1111/ecca.70055" data-journal="economica" data-fields="china development inequality" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ecca.70055">Inherited inequality and the distribution of opportunities in the
                     &lt;scp&gt;USA&lt;/scp&gt;
@@ -409,7 +407,7 @@
   </div>
 </article>
 <article class="event" data-search="the rise of the chinese communist party, 中国共产党的崛起 ting chen, james kai-sing kung journal of the european economic association 10.1093/jeea/jvag029" data-journal="journal-of-the-european-economic-association" data-fields="china public econometrics behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jeea/jvag029">The Rise of the Chinese Communist Party,</a></h3>
     <p class="title-zh">中国共产党的崛起</p>
@@ -421,7 +419,7 @@
   </div>
 </article>
 <article class="event" data-search="ignorance is whose bliss: the repeal of compulsory premarital health examinations and marital outcomes in rural china 无知是谁的福气：中国农村强制婚前体检的废除与婚姻结果 li han, xinzheng shi, ming-ang zhang journal of the european economic association 10.1093/jeea/jvag026" data-journal="journal-of-the-european-economic-association" data-fields="china agriculture public health" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jeea/jvag026">Ignorance is Whose Bliss: The Repeal of Compulsory Premarital Health Examinations and Marital Outcomes in Rural China</a></h3>
     <p class="title-zh">无知是谁的福气：中国农村强制婚前体检的废除与婚姻结果</p>
@@ -433,7 +431,7 @@
   </div>
 </article>
 <article class="event" data-search="how nurture activates nature in determining savings behavior: evidence from china’s send-down movement and twins data 后天如何激发先天以决定储蓄行为：来自中国上山下乡运动与双胞胎数据的证据 wenchao li, junjian yi, junsen zhang economic journal 10.1093/ej/ueag071" data-journal="economic-journal" data-fields="china environment public urban" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag071">How Nurture Activates Nature in Determining Savings Behavior: Evidence from China’s Send-Down Movement and Twins Data</a></h3>
     <p class="title-zh">后天如何激发先天以决定储蓄行为：来自中国上山下乡运动与双胞胎数据的证据</p>
@@ -445,7 +443,7 @@
   </div>
 </article>
 <article class="event" data-search="the intergenerational impact of birth-control policies on fertility: the role of norms 生育控制政策的代际影响：规范的作用 rufei guo, lin lin, junjian yi, hanyu zhu economic journal 10.1093/ej/ueag063" data-journal="economic-journal" data-fields="china public econometrics" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/ej/ueag063">The Intergenerational Impact of Birth-Control Policies on Fertility: The Role of Norms</a></h3>
     <p class="title-zh">生育控制政策的代际影响：规范的作用</p>
@@ -457,7 +455,7 @@
   </div>
 </article>
 <article class="event" data-search="technology transfer and early industrial development: evidence from the sino-soviet alliance 技术转移与早期工业发展：来自中苏联盟的证据 michela giorcelli, bo li review of economic studies 10.1093/restud/rdag047" data-journal="review-of-economic-studies" data-fields="china development macro trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:14</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:14</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/restud/rdag047">Technology Transfer and Early Industrial Development: Evidence from the Sino-Soviet Alliance</a></h3>
     <p class="title-zh">技术转移与早期工业发展：来自中苏联盟的证据</p>
@@ -468,9 +466,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-16</div>
 <article class="event" data-search="app security spillovers in the digital era: immorality or ignorance? 数字时代的应用安全溢出：不道德还是无知？ yuyu chen, jiayi hou, ziteng lei journal of economic behavior and organization 10.1016/j.jebo.2026.107628" data-journal="journal-of-economic-behavior-and-organization" data-fields="china behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107628">App security spillovers in the digital era: Immorality or ignorance?</a></h3>
     <p class="title-zh">数字时代的应用安全溢出：不道德还是无知？</p>
@@ -482,7 +479,7 @@
   </div>
 </article>
 <article class="event" data-search="what doesn’t kill you makes you shorter: the effect of prenatal air pollution on height in adulthood 没杀死你的会让你变矮：产前空气污染对成年身高的影响 liping chen, yuanyuan chen, jiada lin journal of economic behavior and organization 10.1016/j.jebo.2026.107633" data-journal="journal-of-economic-behavior-and-organization" data-fields="china environment behavior health" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107633">What doesn’t kill you makes you shorter: The effect of prenatal air pollution on height in adulthood</a></h3>
     <p class="title-zh">没杀死你的会让你变矮：产前空气污染对成年身高的影响</p>
@@ -494,7 +491,7 @@
   </div>
 </article>
 <article class="event" data-search="the anti-corruption campaign and the intergenerational transmission of bureaucratic employment: evidence from china 反腐败运动与官僚就业的代际传递：来自中国的证据 shuai chen, erqi ge journal of economic behavior and organization 10.1016/j.jebo.2026.107638" data-journal="journal-of-economic-behavior-and-organization" data-fields="china labor behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:27</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jebo.2026.107638">The anti-corruption campaign and the intergenerational transmission of bureaucratic employment: Evidence from China</a></h3>
     <p class="title-zh">反腐败运动与官僚就业的代际传递：来自中国的证据</p>
@@ -506,7 +503,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of low-altitude economy city pilot policy on enterprise total factor productivity: evidence from china 低空经济城市试点政策对企业全要素生产率的影响：来自中国的证据 lin wang, fengqin liu applied economics 10.1080/00036846.2026.2688895" data-journal="applied-economics" data-fields="china macro public urban" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2688895">The impact of low-altitude economy city pilot policy on enterprise total factor productivity: evidence from China</a></h3>
     <p class="title-zh">低空经济城市试点政策对企业全要素生产率的影响：来自中国的证据</p>
@@ -518,7 +515,7 @@
   </div>
 </article>
 <article class="event" data-search="how does artificial intelligence technology impact the efficiency of multinational enterprises’ overseas investments? 人工智能技术如何影响跨国企业海外投资效率 xiaoyang zhao, yongjian huang, yi zhang applied economics 10.1080/00036846.2026.2688896" data-journal="applied-economics" data-fields="china firms" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:45</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:45</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2688896">How does artificial intelligence technology impact the efficiency of multinational enterprises’ overseas investments?</a></h3>
     <p class="title-zh">人工智能技术如何影响跨国企业海外投资效率</p>
@@ -530,7 +527,7 @@
   </div>
 </article>
 <article class="event" data-search="深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系 深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系 魏后凯 胡向东 司伟 刘承芳 胡冰川 何可 刘守英 吕捷 刘长全 杨穗 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123032">深入贯彻习近平总书记重要讲话和重要指示精神，加快构建中国农村发展学自主知识体系</a></h3>
     
@@ -542,7 +539,7 @@
   </div>
 </article>
 <article class="event" data-search="培育智慧农业集群的内在逻辑与实践进路 培育智慧农业集群的内在逻辑与实践进路 杨骞 白鲁佳 史浩琰 刘华军 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123033">培育智慧农业集群的内在逻辑与实践进路</a></h3>
     
@@ -554,7 +551,7 @@
   </div>
 </article>
 <article class="event" data-search="年末“突击花钱”与惠农工程闲置：现实影响、底层动因与治理路径 年末“突击花钱”与惠农工程闲置：现实影响、底层动因与治理路径 秦国庆 杜宝瑞 朱玉春 高原 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123034">年末“突击花钱”与惠农工程闲置：现实影响、底层动因与治理路径</a></h3>
     
@@ -566,7 +563,7 @@
   </div>
 </article>
 <article class="event" data-search="食物营养当量视角下粮食主产区政策效应研究 食物营养当量视角下粮食主产区政策效应研究 周力 苏子凡 李昊洋 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123035">食物营养当量视角下粮食主产区政策效应研究</a></h3>
     
@@ -578,7 +575,7 @@
   </div>
 </article>
 <article class="event" data-search="轮作补贴能否提高粮食全要素生产率——来自东北三省玉米和大豆种植户的微观证据 轮作补贴能否提高粮食全要素生产率——来自东北三省玉米和大豆种植户的微观证据 杨新宇 高鸣 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123036">轮作补贴能否提高粮食全要素生产率——来自东北三省玉米和大豆种植户的微观证据</a></h3>
     
@@ -590,7 +587,7 @@
   </div>
 </article>
 <article class="event" data-search="收入增长驱动农产品加工业演进的机制——基于农业全产业链视角的跨国经验证据 收入增长驱动农产品加工业演进的机制——基于农业全产业链视角的跨国经验证据 严斌剑 余宝林 王一如 周应恒 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123037">收入增长驱动农产品加工业演进的机制——基于农业全产业链视角的跨国经验证据</a></h3>
     
@@ -602,7 +599,7 @@
   </div>
 </article>
 <article class="event" data-search="乡村特色产业内生发展的多元路径——基于村社自主性与资源禀赋互构的组态视角 乡村特色产业内生发展的多元路径——基于村社自主性与资源禀赋互构的组态视角 张晓蕾 尚航标 李嘉琪 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123038">乡村特色产业内生发展的多元路径——基于村社自主性与资源禀赋互构的组态视角</a></h3>
     
@@ -614,7 +611,7 @@
   </div>
 </article>
 <article class="event" data-search="马克思产业演进理论视角下地方政府推动特色产业演进的适应性治理机制 马克思产业演进理论视角下地方政府推动特色产业演进的适应性治理机制 王捷 尹春凤 张利庠 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123039">马克思产业演进理论视角下地方政府推动特色产业演进的适应性治理机制</a></h3>
     
@@ -626,7 +623,7 @@
   </div>
 </article>
 <article class="event" data-search="破解“协而难治”：分层式组织与特色农业产业协同治理 破解“协而难治”：分层式组织与特色农业产业协同治理 谢作渺 李圆圆 贾雯雯 中国农村经济 " data-journal="journal-f69300dae2" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:20</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://zgncjj.ajcass.com/#/detail?contentId=123040">破解“协而难治”：分层式组织与特色农业产业协同治理</a></h3>
     
@@ -638,7 +635,7 @@
   </div>
 </article>
 <article class="event" data-search="以场景牵引科技创新加快发展新质生产力 以场景牵引科技创新加快发展新质生产力 沈坤荣, 金童谣 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260501&amp;flag=1">以场景牵引科技创新加快发展新质生产力</a></h3>
     
@@ -650,7 +647,7 @@
   </div>
 </article>
 <article class="event" data-search="算法创新与企业全要素生产率提升——来自专利文本的经验证据 算法创新与企业全要素生产率提升——来自专利文本的经验证据 蒋伟杰, 齐晨扬, 陈琦 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260502&amp;flag=1">算法创新与企业全要素生产率提升——来自专利文本的经验证据</a></h3>
     
@@ -662,7 +659,7 @@
   </div>
 </article>
 <article class="event" data-search="人工智能技术、职业技能重塑与工资效应 人工智能技术、职业技能重塑与工资效应 何小钢, 毛莘娅, 郭晓斌 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260503&amp;flag=1">人工智能技术、职业技能重塑与工资效应</a></h3>
     
@@ -674,7 +671,7 @@
   </div>
 </article>
 <article class="event" data-search="数字技术对不同类型职业技能的非对称性冲击——基于人工智能与非人工智能技术比较的视角 数字技术对不同类型职业技能的非对称性冲击——基于人工智能与非人工智能技术比较的视角 王林辉, 冯彤, 曹宇彤 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260504&amp;flag=1">数字技术对不同类型职业技能的非对称性冲击——基于人工智能与非人工智能技术比较的视角</a></h3>
     
@@ -686,7 +683,7 @@
   </div>
 </article>
 <article class="event" data-search="产教融合能否激励校企联合创新——来自产教融合型企业试点的证据 产教融合能否激励校企联合创新——来自产教融合型企业试点的证据 宋建, 邵蔚, 王静 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260505&amp;flag=1">产教融合能否激励校企联合创新——来自产教融合型企业试点的证据</a></h3>
     
@@ -698,7 +695,7 @@
   </div>
 </article>
 <article class="event" data-search="需求引致型高校专利对转化效率的影响研究——基于科技创新与产业创新融合的视角 需求引致型高校专利对转化效率的影响研究——基于科技创新与产业创新融合的视角 易巍 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260506&amp;flag=1">需求引致型高校专利对转化效率的影响研究——基于科技创新与产业创新融合的视角</a></h3>
     
@@ -710,7 +707,7 @@
   </div>
 </article>
 <article class="event" data-search="从规则制定到空间重构：企业参与行业标准制定对跨区域投资的影响 从规则制定到空间重构：企业参与行业标准制定对跨区域投资的影响 梁若冰, 胡文君, 刘睿蕾, 汤韵 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260507&amp;flag=1">从规则制定到空间重构：企业参与行业标准制定对跨区域投资的影响</a></h3>
     
@@ -722,7 +719,7 @@
   </div>
 </article>
 <article class="event" data-search="关税冲击与全国统一大市场形成：基于有为政府的视角 关税冲击与全国统一大市场形成：基于有为政府的视角 苏云晴, 鲁玮骏, 胡稳权 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260508&amp;flag=1">关税冲击与全国统一大市场形成：基于有为政府的视角</a></h3>
     
@@ -734,7 +731,7 @@
   </div>
 </article>
 <article class="event" data-search="人口老龄化、供需结构变迁与服务业扩能提质 人口老龄化、供需结构变迁与服务业扩能提质 汪玲, 杜浩锋 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260509&amp;flag=1">人口老龄化、供需结构变迁与服务业扩能提质</a></h3>
     
@@ -746,7 +743,7 @@
   </div>
 </article>
 <article class="event" data-search="投资于人的收入分配效应：来自工伤预防试点工作的证据 投资于人的收入分配效应：来自工伤预防试点工作的证据 霍文希, 唐飞鹏 数量经济技术经济研究 " data-journal="journal-edcb877d78" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260510&amp;flag=1">投资于人的收入分配效应：来自工伤预防试点工作的证据</a></h3>
     
@@ -758,7 +755,7 @@
   </div>
 </article>
 <article class="event" data-search="国际市场通道与中国城市体系空间重构：中心扩张与外围分化的双重格局 国际市场通道与中国城市体系空间重构：中心扩张与外围分化的双重格局 李辉文, 冯皓, 王磊, 梁渊博 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122969">国际市场通道与中国城市体系空间重构：中心扩张与外围分化的双重格局</a></h3>
     
@@ -770,7 +767,7 @@
   </div>
 </article>
 <article class="event" data-search="本土技术特性、科学研究情境适配与本土技术创新 本土技术特性、科学研究情境适配与本土技术创新 易先忠, 查龙, 高凌云 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122970">本土技术特性、科学研究情境适配与本土技术创新</a></h3>
     
@@ -782,7 +779,7 @@
   </div>
 </article>
 <article class="event" data-search="大语言模型冲击与高等教育远期暴露率：测度方法、就业效应与满意度分析 大语言模型冲击与高等教育远期暴露率：测度方法、就业效应与满意度分析 魏立佳, 白璐, 伍梦圆 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122971">大语言模型冲击与高等教育远期暴露率：测度方法、就业效应与满意度分析</a></h3>
     
@@ -794,7 +791,7 @@
   </div>
 </article>
 <article class="event" data-search="货币政策不确定性、耐心资本与企业战略韧性 货币政策不确定性、耐心资本与企业战略韧性 张雪兰, 赵圆, 徐子尧, 吴蓉蓉 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122973">货币政策不确定性、耐心资本与企业战略韧性</a></h3>
     
@@ -806,7 +803,7 @@
   </div>
 </article>
 <article class="event" data-search="城市地铁建设热潮下的企业投资——兼论房地产周期变化的异质影响 城市地铁建设热潮下的企业投资——兼论房地产周期变化的异质影响 蔡庆丰, 黄蕾, 李东旭 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122974">城市地铁建设热潮下的企业投资——兼论房地产周期变化的异质影响</a></h3>
     
@@ -818,7 +815,7 @@
   </div>
 </article>
 <article class="event" data-search="ai治理如何赋能企业价值创造——基于“人—机”委托代理关系视角 ai治理如何赋能企业价值创造——基于“人—机”委托代理关系视角 赵晶, 刘家彤, 谢泰宇 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122975">AI治理如何赋能企业价值创造——基于“人—机”委托代理关系视角</a></h3>
     
@@ -830,7 +827,7 @@
   </div>
 </article>
 <article class="event" data-search="算法交易与市场公平：来自尾盘价格操纵的证据 算法交易与市场公平：来自尾盘价格操纵的证据 岳崴, 屈建文, 喻旭兰, 刘悦 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122976">算法交易与市场公平：来自尾盘价格操纵的证据</a></h3>
     
@@ -842,7 +839,7 @@
   </div>
 </article>
 <article class="event" data-search="共享数字红利：同行业企业间的数字技术涓滴效应 共享数字红利：同行业企业间的数字技术涓滴效应 杨震宁, 童奕铭 中国工业经济 " data-journal="journal-bf2aa9381f" data-fields="china" data-china="true" data-online-today="false" data-date-type="issue" data-confidence="D">
-  <div class="event-time"><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:19</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="http://ciejournal.ajcass.com/Magazine/Show?id=122977">共享数字红利：同行业企业间的数字技术涓滴效应</a></h3>
     
@@ -854,7 +851,7 @@
   </div>
 </article>
 <article class="event" data-search="新分类模式下的转移支付财力均等化效应再评估 新分类模式下的转移支付财力均等化效应再评估 张莉, 张圣哲, 赵旭杰 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123017">新分类模式下的转移支付财力均等化效应再评估</a></h3>
     
@@ -866,7 +863,7 @@
   </div>
 </article>
 <article class="event" data-search="习近平经济思想研究专题丨习近平经济思想对马克思主义政治经济学的重要原创性贡献 习近平经济思想研究专题丨习近平经济思想对马克思主义政治经济学的重要原创性贡献 简新华, 聂长飞 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123007">习近平经济思想研究专题丨习近平经济思想对马克思主义政治经济学的重要原创性贡献</a></h3>
     
@@ -878,7 +875,7 @@
   </div>
 </article>
 <article class="event" data-search="加快发展农业新质生产力 加快发展农业新质生产力 蒋永穆 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123008">加快发展农业新质生产力</a></h3>
     
@@ -890,7 +887,7 @@
   </div>
 </article>
 <article class="event" data-search="算力资源的动态共享：价格形成与政策分析 算力资源的动态共享：价格形成与政策分析 王勇, 傅芳宁, 李红军 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123009">算力资源的动态共享：价格形成与政策分析</a></h3>
     
@@ -902,7 +899,7 @@
   </div>
 </article>
 <article class="event" data-search="中国专利的经济价值：测度、特征及有效性 中国专利的经济价值：测度、特征及有效性 庄子罐, 曹稚敏, 方晶, 庄子银 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123010">中国专利的经济价值：测度、特征及有效性</a></h3>
     
@@ -914,7 +911,7 @@
   </div>
 </article>
 <article class="event" data-search="外资开放式创新有助于“稳外资”目标的实现吗？——基于内外资价值链生产关联视角 外资开放式创新有助于“稳外资”目标的实现吗？——基于内外资价值链生产关联视角 李磊, 直银苹, 李川川 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123011">外资开放式创新有助于“稳外资”目标的实现吗？——基于内外资价值链生产关联视角</a></h3>
     
@@ -926,7 +923,7 @@
   </div>
 </article>
 <article class="event" data-search="新发展格局下的全国统一大市场建设——基于省际间货运往来的测度 新发展格局下的全国统一大市场建设——基于省际间货运往来的测度 解咪, 钟宁桦, 姬永顺, 闫晟煜 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123012">新发展格局下的全国统一大市场建设——基于省际间货运往来的测度</a></h3>
     
@@ -938,7 +935,7 @@
   </div>
 </article>
 <article class="event" data-search="税收政策复杂性如何影响企业认知决策 税收政策复杂性如何影响企业认知决策 王伟同, 李秀华 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123013">税收政策复杂性如何影响企业认知决策</a></h3>
     
@@ -950,7 +947,7 @@
   </div>
 </article>
 <article class="event" data-search="商事制度改革与企业市场活力——基于简易注销改革的视角 商事制度改革与企业市场活力——基于简易注销改革的视角 万海远, 辛柯均, 贺伟东, 申萌 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123014">商事制度改革与企业市场活力——基于简易注销改革的视角</a></h3>
     
@@ -962,7 +959,7 @@
   </div>
 </article>
 <article class="event" data-search="差异化金融监管的政策效果与优化研究——基于中小企业风险权重调整的视角 差异化金融监管的政策效果与优化研究——基于中小企业风险权重调整的视角 吕之安, 刘冲, 谭姝颖, 刘莉亚 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123015">差异化金融监管的政策效果与优化研究——基于中小企业风险权重调整的视角</a></h3>
     
@@ -974,7 +971,7 @@
   </div>
 </article>
 <article class="event" data-search="税收公平与区域协调发展——来自养老保险缴费率调整的证据 税收公平与区域协调发展——来自养老保险缴费率调整的证据 何凡, 黄添羽, 刘庆, 周玉雯 经济研究 " data-journal="journal-ba9f46c919" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">03:18</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://erj.ajcass.com/#/detail?contentId=123016">税收公平与区域协调发展——来自养老保险缴费率调整的证据</a></h3>
     
@@ -985,9 +982,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="跨境数据流动对企业创新的作用：基于贸易蕴含数据的检验 跨境数据流动对企业创新的作用：基于贸易蕴含数据的检验 汪建新, 沈璐 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/3">跨境数据流动对企业创新的作用：基于贸易蕴含数据的检验</a></h3>
     
@@ -999,7 +995,7 @@
   </div>
 </article>
 <article class="event" data-search="“同气连枝”：华侨华人网络与企业出口 “同气连枝”：华侨华人网络与企业出口 张峰, 吴致尧, 黄玖立 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/34">“同气连枝”：华侨华人网络与企业出口</a></h3>
     
@@ -1011,7 +1007,7 @@
   </div>
 </article>
 <article class="event" data-search="改革落实的传导机制：企业感知的视角 改革落实的传导机制：企业感知的视角 徐现祥, 李粤麟, 陈希路 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/61">改革落实的传导机制：企业感知的视角</a></h3>
     
@@ -1023,7 +1019,7 @@
   </div>
 </article>
 <article class="event" data-search="打破数据孤岛：大数据管理局与上市公司异地投资 打破数据孤岛：大数据管理局与上市公司异地投资 游家兴, 夏雨珂, 陈璐 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/92">打破数据孤岛：大数据管理局与上市公司异地投资</a></h3>
     
@@ -1035,7 +1031,7 @@
   </div>
 </article>
 <article class="event" data-search="效率与公平可否兼顾：基于工资刚性视角的分析 效率与公平可否兼顾：基于工资刚性视角的分析 张晨, 万相昱, 张琦, 徐超 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/134">效率与公平可否兼顾：基于工资刚性视角的分析</a></h3>
     
@@ -1047,7 +1043,7 @@
   </div>
 </article>
 <article class="event" data-search="产学研合作网络与企业突破性创新 产学研合作网络与企业突破性创新 王群勇, 张慧敏 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/163">产学研合作网络与企业突破性创新</a></h3>
     
@@ -1059,7 +1055,7 @@
   </div>
 </article>
 <article class="event" data-search="退休与家庭财务脆弱性：理论与经验分析 退休与家庭财务脆弱性：理论与经验分析 尹志超, 栗传政, 沈吉, 吴夕 世界经济 " data-journal="journal-679eaa2a0c" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="B">
-  <div class="event-time"><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">22:57</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/196">退休与家庭财务脆弱性：理论与经验分析</a></h3>
     
@@ -1071,7 +1067,7 @@
   </div>
 </article>
 <article class="event" data-search="unpacking spatially explicit cropland non-agriculturalization in china based on satellite remote sensing data: a 30-year analysis of spatial patterns and conversion types 基于卫星遥感数据的中国耕地非农化空间显式解析：30年空间格局与转换类型分析 desheng jiang, zhuojian wen, yuqi zhong, yuecheng li, guilin liu land use policy 10.1016/j.landusepol.2026.108137" data-journal="land-use-policy" data-fields="china agriculture public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">19:47</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">19:47</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108137">Unpacking spatially explicit cropland non-agriculturalization in China based on satellite remote sensing data: A 30-year analysis of spatial patterns and conversion types</a></h3>
     <p class="title-zh">基于卫星遥感数据的中国耕地非农化空间显式解析：30年空间格局与转换类型分析</p>
@@ -1083,7 +1079,7 @@
   </div>
 </article>
 <article class="event" data-search="from policy pilots to green transformation: multidimensional evidence of how stf policies impacts the enhancement of urban green competitiveness 从政策试点到绿色转型：stf政策影响城市绿色竞争力提升的多维证据 kedi jing, baoliu liu, haotian zheng applied economics 10.1080/00036846.2026.2685877" data-journal="applied-economics" data-fields="china public urban" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">18:09</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">18:09</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2685877">From policy pilots to green transformation: multidimensional evidence of how STF policies impacts the enhancement of urban green competitiveness</a></h3>
     <p class="title-zh">从政策试点到绿色转型：STF政策影响城市绿色竞争力提升的多维证据</p>
@@ -1095,7 +1091,7 @@
   </div>
 </article>
 <article class="event" data-search="digital transformation and the profitability of manufacturing: evidence from china 数字化转型与制造业盈利能力：来自中国的证据 fei dong, yingdong li applied economics 10.1080/00036846.2026.2687745" data-journal="applied-economics" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">13:30</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">13:30</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687745">Digital transformation and the profitability of manufacturing: evidence from China</a></h3>
     <p class="title-zh">数字化转型与制造业盈利能力：来自中国的证据</p>
@@ -1107,7 +1103,7 @@
   </div>
 </article>
 <article class="event" data-search="structural adjustment of industrial land use and economic resilience: evidence from china&#x27;s poverty-stricken counties 工业用地结构调整与经济韧性：来自中国贫困县的证据 jingtong liu, dingyang zhou, guanghui jiang land use policy 10.1016/j.landusepol.2026.108121" data-journal="land-use-policy" data-fields="china agriculture development public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108121">Structural adjustment of industrial land use and economic resilience: Evidence from China&#x27;s poverty-stricken counties</a></h3>
     <p class="title-zh">工业用地结构调整与经济韧性：来自中国贫困县的证据</p>
@@ -1119,7 +1115,7 @@
   </div>
 </article>
 <article class="event" data-search="cognition behind land transactions: how diverse forest value orientations shape willingness, price expectations, and forestland transfer behavior in rural china 土地交易背后的认知：多元森林价值取向如何影响中国农村的意愿、价格预期与林地流转行为 zhang yiwen, huo yiming, wang weiye land use policy 10.1016/j.landusepol.2026.108127" data-journal="land-use-policy" data-fields="china agriculture environment public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108127">Cognition behind land transactions: How diverse forest value orientations shape willingness, price expectations, and forestland transfer behavior in rural China</a></h3>
     <p class="title-zh">土地交易背后的认知：多元森林价值取向如何影响中国农村的意愿、价格预期与林地流转行为</p>
@@ -1131,7 +1127,7 @@
   </div>
 </article>
 <article class="event" data-search="premium procurement channel access and farm-gate prices: evidence from rice farmers in china 优质采购渠道准入与农场交货价格：来自中国稻农的证据 junjie li, jianping li, qin xiao, haixia wu, di liu food policy 10.1016/j.foodpol.2026.103132" data-journal="food-policy" data-fields="china agriculture public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103132">Premium procurement channel access and farm-gate prices: evidence from rice farmers in China</a></h3>
     <p class="title-zh">优质采购渠道准入与农场交货价格：来自中国稻农的证据</p>
@@ -1143,7 +1139,7 @@
   </div>
 </article>
 <article class="event" data-search="the us–china tension and global reallocation of chinese stem talents 中美紧张局势与全球stem领域中国人才的重新配置 weidi yuan journal of comparative economics 10.1016/j.jce.2025.11.004" data-journal="journal-of-comparative-economics" data-fields="china trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2025.11.004">The US–China tension and global reallocation of Chinese STEM talents</a></h3>
     <p class="title-zh">中美紧张局势与全球STEM领域中国人才的重新配置</p>
@@ -1155,7 +1151,7 @@
   </div>
 </article>
 <article class="event" data-search="the long-term impact of industrialization campaigns on human capital accumulation: evidence from the “construction of third front” in china 工业化运动对人力资本积累的长期影响：来自中国“三线建设”的证据 guanghua fang, yinhe liang, fan qin journal of comparative economics 10.1016/j.jce.2026.01.001" data-journal="journal-of-comparative-economics" data-fields="china firms" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.01.001">The long-term impact of industrialization campaigns on human capital accumulation: Evidence from the “Construction of Third Front” in China</a></h3>
     <p class="title-zh">工业化运动对人力资本积累的长期影响：来自中国“三线建设”的证据</p>
@@ -1167,7 +1163,7 @@
   </div>
 </article>
 <article class="event" data-search="air pollution and consumers’ avoidance behavior: evidence from high-frequency payment data in china 空气污染与消费者规避行为：来自中国高频支付数据的证据 haiqiang chen, shihe fu, zhuoyang lyu journal of environmental economics and management 10.1016/j.jeem.2026.103374" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103374">Air pollution and consumers’ avoidance behavior: Evidence from high-frequency payment data in China</a></h3>
     <p class="title-zh">空气污染与消费者规避行为：来自中国高频支付数据的证据</p>
@@ -1179,7 +1175,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of hardening local government budget constraints on corporate digital transformation: evidence from china 硬化地方政府预算约束对企业数字化转型的影响：来自中国的证据 jing yan, yan wang, xinyi zheng applied economics 10.1080/00036846.2026.2687732" data-journal="applied-economics" data-fields="china public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687732">The impact of hardening local government budget constraints on corporate digital transformation: evidence from China</a></h3>
     <p class="title-zh">硬化地方政府预算约束对企业数字化转型的影响：来自中国的证据</p>
@@ -1191,7 +1187,7 @@
   </div>
 </article>
 <article class="event" data-search="climate shocks and environmental disclosure by firms: evidence from china 气候冲击与企业环境信息披露：来自中国的证据 yuzhou guo, qingyuan li applied economics 10.1080/00036846.2026.2688438" data-journal="applied-economics" data-fields="china environment firms" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2688438">Climate shocks and environmental disclosure by firms: evidence from China</a></h3>
     <p class="title-zh">气候冲击与企业环境信息披露：来自中国的证据</p>
@@ -1203,7 +1199,7 @@
   </div>
 </article>
 <article class="event" data-search="a study on asset-light operation and enterprise innovation performance——empirical evidence from listed chinese enterprises 轻资产运营与企业创新绩效研究——来自中国上市企业的经验证据 xiang hui, bingxiang li applied economics 10.1080/00036846.2026.2687735" data-journal="applied-economics" data-fields="china finance firms" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687735">A study on asset-light operation and enterprise innovation performance——empirical evidence from listed Chinese enterprises</a></h3>
     <p class="title-zh">轻资产运营与企业创新绩效研究——来自中国上市企业的经验证据</p>
@@ -1215,7 +1211,7 @@
   </div>
 </article>
 <article class="event" data-search="achieving win–win outcomes in productivity and pollution abatement through environmental tax reform: evidence from china 通过环境税改革实现生产率与污染减排的双赢：来自中国的证据 jingru chen, chuanyu zhou applied economics 10.1080/00036846.2026.2679654" data-journal="applied-economics" data-fields="china environment macro public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2679654">Achieving win–win outcomes in productivity and pollution abatement through environmental tax reform: evidence from China</a></h3>
     <p class="title-zh">通过环境税改革实现生产率与污染减排的双赢：来自中国的证据</p>
@@ -1227,7 +1223,7 @@
   </div>
 </article>
 <article class="event" data-search="from rice to responsibility: collectivism and environmental willingness to pay in china 从稻米到责任：中国的集体主义与环境支付意愿 yuxuan fei, jie ma, qiang wen, xiaojun yang applied economics 10.1080/00036846.2026.2684702" data-journal="applied-economics" data-fields="china agriculture environment" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2684702">From rice to responsibility: collectivism and environmental willingness to pay in China</a></h3>
     <p class="title-zh">从稻米到责任：中国的集体主义与环境支付意愿</p>
@@ -1239,7 +1235,7 @@
   </div>
 </article>
 <article class="event" data-search="the spatial allocation effects of central transfers: evidence from china 中央转移支付的空间配置效应：来自中国的证据 wenbin huang world development 10.1016/j.worlddev.2026.107490" data-journal="world-development" data-fields="china development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107490">The spatial allocation effects of central transfers: evidence from China</a></h3>
     <p class="title-zh">中央转移支付的空间配置效应：来自中国的证据</p>
@@ -1251,7 +1247,7 @@
   </div>
 </article>
 <article class="event" data-search="housing wealth, family relationship and mental health: evidence from china 住房财富、家庭关系与心理健康：来自中国的证据 fenghang li, shenglong liu journal of development economics 10.1016/j.jdeveco.2026.103837" data-journal="journal-of-development-economics" data-fields="china development urban health" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103837">Housing wealth, family relationship and mental health: Evidence from China</a></h3>
     <p class="title-zh">住房财富、家庭关系与心理健康：来自中国的证据</p>
@@ -1263,7 +1259,7 @@
   </div>
 </article>
 <article class="event" data-search="from rents to results: china’s anti-corruption reforms and the effectiveness of aid to africa 从租金到成果：中国反腐改革与对非援助的有效性 yiran du, kai feng, gang xu journal of development economics 10.1016/j.jdeveco.2026.103841" data-journal="journal-of-development-economics" data-fields="china development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103841">From rents to results: China’s anti-corruption reforms and the effectiveness of aid to Africa</a></h3>
     <p class="title-zh">从租金到成果：中国反腐改革与对非援助的有效性</p>
@@ -1275,7 +1271,7 @@
   </div>
 </article>
 <article class="event" data-search="on the right track? railroads, industrial development, and distributional effects in historical china 正轨之上？历史中国的铁路、工业发展与分配效应 shiyu bo, ting chen, cong liu, yan zhou journal of development economics 10.1016/j.jdeveco.2026.103827" data-journal="journal-of-development-economics" data-fields="china development firms inequality" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103827">On the right track? Railroads, industrial development, and distributional effects in historical China</a></h3>
     <p class="title-zh">正轨之上？历史中国的铁路、工业发展与分配效应</p>
@@ -1287,7 +1283,7 @@
   </div>
 </article>
 <article class="event" data-search="the art of not being chocked: environmental awareness, residents&#x27; responses and land transactions in china 不被窒息的艺术：环境意识、居民响应与中国土地交易 wei zou, pinghan liang journal of development economics 10.1016/j.jdeveco.2026.103757" data-journal="journal-of-development-economics" data-fields="china environment development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103757">The art of not being chocked: Environmental awareness, residents&#x27; responses and land transactions in China</a></h3>
     <p class="title-zh">不被窒息的艺术：环境意识、居民响应与中国土地交易</p>
@@ -1299,7 +1295,7 @@
   </div>
 </article>
 <article class="event" data-search="equity financing and exports: evidence from ipo approvals in china 股权融资与出口：来自中国ipo审批的证据 robin kaiji gong, yao amber li, stephen teng sun, shang-jin wei journal of international economics 10.1016/j.jinteco.2026.104292" data-journal="journal-of-international-economics" data-fields="china trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jinteco.2026.104292">Equity financing and exports: Evidence from IPO approvals in China</a></h3>
     <p class="title-zh">股权融资与出口：来自中国IPO审批的证据</p>
@@ -1311,7 +1307,7 @@
   </div>
 </article>
 <article class="event" data-search="price discovery and long-distance market integration: evidence from the republican chinese cotton goods exchange 价格发现与远距离市场整合：来自民国时期中国棉纱交易所的证据 yaohua li, yuhan xiao explorations in economic history 10.1016/j.eeh.2026.101754" data-journal="explorations-in-economic-history" data-fields="china agriculture finance public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.eeh.2026.101754">Price discovery and long-distance market integration: Evidence from the Republican Chinese Cotton Goods Exchange</a></h3>
     <p class="title-zh">价格发现与远距离市场整合：来自民国时期中国棉纱交易所的证据</p>
@@ -1323,7 +1319,7 @@
   </div>
 </article>
 <article class="event" data-search="an almost laboratory experiment: john cowperthwaite and hong kong’s economic prosperity 近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣 vincent geloso, jamie bologna pavlik, yang zhou public choice 10.1007/s11127-026-01404-7" data-journal="public-choice" data-fields="china finance macro labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01404-7">An almost laboratory experiment: John Cowperthwaite and Hong Kong’s economic prosperity</a></h3>
     <p class="title-zh">近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣</p>
@@ -1335,7 +1331,7 @@
   </div>
 </article>
 <article class="event" data-search="the economic consequences of cultural diversity in political organizations 政治组织中文化多样性的经济后果 jiale yan public choice 10.1007/s11127-026-01406-5" data-journal="public-choice" data-fields="china labor public theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s11127-026-01406-5">The economic consequences of cultural diversity in political organizations</a></h3>
     <p class="title-zh">政治组织中文化多样性的经济后果</p>
@@ -1347,7 +1343,7 @@
   </div>
 </article>
 <article class="event" data-search="a model of china’s economic vertical structure 中国经济垂直结构模型 xi li, xuewen liu, zhikun lu, yong wang journal of public economics 10.1016/j.jpubeco.2026.105662" data-journal="journal-of-public-economics" data-fields="china public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105662">A model of China’s economic vertical structure</a></h3>
     <p class="title-zh">中国经济垂直结构模型</p>
@@ -1359,7 +1355,7 @@
   </div>
 </article>
 <article class="event" data-search="how do bureaucrats respond to hybrid incentive contract? evidence from china’s air pollution controls 官僚如何回应混合激励合同？来自中国空气污染控制的证据 guangyu cao, xi weng, mingwei xu, li-an zhou journal of public economics 10.1016/j.jpubeco.2026.105664" data-journal="journal-of-public-economics" data-fields="china environment public theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105664">How do bureaucrats respond to hybrid incentive contract? Evidence from China’s air pollution controls</a></h3>
     <p class="title-zh">官僚如何回应混合激励合同？来自中国空气污染控制的证据</p>
@@ -1371,7 +1367,7 @@
   </div>
 </article>
 <article class="event" data-search="post-disaster aid and development of the manufacturing sector: lessons from a natural experiment in china revisited 灾后援助与制造业发展：基于中国自然实验的再审视 sherzod b. akhundjanov economics letters 10.1016/j.econlet.2026.113074" data-journal="economics-letters" data-fields="china development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113074">Post-disaster aid and development of the manufacturing sector: Lessons from a natural experiment in China revisited</a></h3>
     <p class="title-zh">灾后援助与制造业发展：基于中国自然实验的再审视</p>
@@ -1383,7 +1379,7 @@
   </div>
 </article>
 <article class="event" data-search="supply chain risk perception, fintech, and cross-regional capital flows: evidence from china 供应链风险感知、金融科技与跨区域资本流动：来自中国的证据 zinan wu, wen li, xuesong tang economics letters 10.1016/j.econlet.2026.113069" data-journal="economics-letters" data-fields="china trade urban" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.econlet.2026.113069">Supply chain risk perception, FinTech, and cross-regional capital flows: evidence from China</a></h3>
     <p class="title-zh">供应链风险感知、金融科技与跨区域资本流动：来自中国的证据</p>
@@ -1394,9 +1390,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="outsourcing agricultural services and risk reduction in smallholder rice farming: evidence from china and global implications 农业服务外包与小农户水稻种植中的风险降低：来自中国的证据及全球启示 jian zhang, ashok k. mishra, gaoli zhu, awais jabbar applied economic perspectives and policy 10.1002/aepp.70096" data-journal="applied-economic-perspectives-and-policy" data-fields="china agriculture finance macro" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/aepp.70096">Outsourcing Agricultural Services and Risk Reduction in Smallholder Rice Farming: Evidence From China and Global Implications</a></h3>
     <p class="title-zh">农业服务外包与小农户水稻种植中的风险降低：来自中国的证据及全球启示</p>
@@ -1408,7 +1403,7 @@
   </div>
 </article>
 <article class="event" data-search="how video‐based information affects farmers&#x27; willingness to pay for drone services 视频信息如何影响农民对无人机服务支付意愿 hua zhang, lena kuhn, hang xiong, zhanli sun, thomas glauben applied economic perspectives and policy 10.1002/aepp.70094" data-journal="applied-economic-perspectives-and-policy" data-fields="china agriculture finance public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1002/aepp.70094">How Video‐Based Information Affects Farmers&#x27; Willingness to Pay for Drone Services</a></h3>
     <p class="title-zh">视频信息如何影响农民对无人机服务支付意愿</p>
@@ -1420,7 +1415,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of income subsidies on maize harvest losses: evidence from chinese farmers 收入补贴对玉米收获损失的影响：来自中国农户的证据 xue qu, yi luo, yonghao hu, laping wu australian journal of agricultural and resource economics 10.1111/1467-8489.70118" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="china agriculture public trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1467-8489.70118">The Impact of Income Subsidies on Maize Harvest Losses: Evidence From Chinese Farmers</a></h3>
     <p class="title-zh">收入补贴对玉米收获损失的影响：来自中国农户的证据</p>
@@ -1432,7 +1427,7 @@
   </div>
 </article>
 <article class="event" data-search="costly regulation, minimal results: the eu’s deforestation regulation effect on global soy trade 高成本监管，低效结果：欧盟毁林法规对全球大豆贸易的影响 manoj sharma, nelson b villoria european review of agricultural economics 10.1093/erae/jbag008" data-journal="european-review-of-agricultural-economics" data-fields="china agriculture environment finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/erae/jbag008">Costly regulation, minimal results: The EU’s deforestation regulation effect on global soy trade</a></h3>
     <p class="title-zh">高成本监管，低效结果：欧盟毁林法规对全球大豆贸易的影响</p>
@@ -1444,7 +1439,7 @@
   </div>
 </article>
 <article class="event" data-search="managed urbanization and agricultural productivity: evidence from china’s new-type urbanization pilot program 管理型城市化与农业生产力：来自中国新型城镇化试点项目的证据 tianxiang li, yuanyi liao, tomas baležentis, zhiyang shen food policy 10.1016/j.foodpol.2026.103129" data-journal="food-policy" data-fields="china agriculture macro public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.foodpol.2026.103129">Managed urbanization and agricultural productivity: evidence from China’s New-type urbanization pilot program</a></h3>
     <p class="title-zh">管理型城市化与农业生产力：来自中国新型城镇化试点项目的证据</p>
@@ -1456,7 +1451,7 @@
   </div>
 </article>
 <article class="event" data-search="does pollution affect exports? evidence from china 污染是否影响出口？来自中国的证据 jie bai, larry d. qiu, junji xiao journal of comparative economics 10.1016/j.jce.2026.02.006" data-journal="journal-of-comparative-economics" data-fields="china environment trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jce.2026.02.006">Does pollution affect exports? Evidence from China</a></h3>
     <p class="title-zh">污染是否影响出口？来自中国的证据</p>
@@ -1468,7 +1463,7 @@
   </div>
 </article>
 <article class="event" data-search="blockchain technology, alliance networks, and corporate vertical m&amp;amp;a: empirical evidence from china 区块链技术、联盟网络与企业纵向并购：来自中国的实证证据 rujun xu, jingran wu, na li applied economics 10.1080/00036846.2026.2687728" data-journal="applied-economics" data-fields="china" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687728">Blockchain technology, alliance networks, and corporate vertical M&amp;amp;A: empirical evidence from China</a></h3>
     <p class="title-zh">区块链技术、联盟网络与企业纵向并购：来自中国的实证证据</p>
@@ -1480,7 +1475,7 @@
   </div>
 </article>
 <article class="event" data-search="female board secretaries and stock price informativeness: evidence from china 女性董事会秘书与股价信息含量：来自中国的证据 jianrong wang, bo wang, wokun zhou applied economics 10.1080/00036846.2026.2687734" data-journal="applied-economics" data-fields="china agriculture finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2687734">Female board secretaries and stock price informativeness: evidence from China</a></h3>
     <p class="title-zh">女性董事会秘书与股价信息含量：来自中国的证据</p>
@@ -1492,7 +1487,7 @@
   </div>
 </article>
 <article class="event" data-search="can fintech adoption alleviate energy poverty? evidence from chinese households* 金融科技采纳能否缓解能源贫困？基于中国家庭数据的证据 xiqian wang, yiming chen, zongyue he applied economics 10.1080/00036846.2026.2685879" data-journal="applied-economics" data-fields="china environment development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1080/00036846.2026.2685879">Can FinTech adoption alleviate energy poverty? Evidence from Chinese households*</a></h3>
     <p class="title-zh">金融科技采纳能否缓解能源贫困？基于中国家庭数据的证据</p>
@@ -1504,7 +1499,7 @@
   </div>
 </article>
 <article class="event" data-search="large-firm wage premium in china’s dual labor market 中国双重劳动力市场中的大企业工资溢价 hong cheng, hongbin li, hui wang, li-an zhou economic development and cultural change 10.1086/742631" data-journal="economic-development-and-cultural-change" data-fields="china development finance labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742631">Large-Firm Wage Premium in China’s Dual Labor Market</a></h3>
     <p class="title-zh">中国双重劳动力市场中的大企业工资溢价</p>
@@ -1516,7 +1511,7 @@
   </div>
 </article>
 <article class="event" data-search="intermediary services and rural land market competition: evidence of regional heterogeneity in china 中介服务与农村土地市场竞争：中国区域异质性的证据 xu he, hongmei yi, scott rozelle, takeshi sakurai economic development and cultural change 10.1086/742299" data-journal="economic-development-and-cultural-change" data-fields="china agriculture development finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742299">Intermediary Services and Rural Land Market Competition: Evidence of Regional Heterogeneity in China</a></h3>
     <p class="title-zh">中介服务与农村土地市场竞争：中国区域异质性的证据</p>
@@ -1528,7 +1523,7 @@
   </div>
 </article>
 <article class="event" data-search="the real effect of sociopolitical racial/ethnic animus: mutual fund manager performance during aapi hate 社会政治种族/民族敌意的真实效应：aapi仇恨事件期间的共同基金经理表现 vikas agarwal, wei jiang, yuchen luo, hong zou review of financial studies 10.1093/rfs/hhag052" data-journal="review-of-financial-studies" data-fields="china finance macro public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag052">The Real Effect of Sociopolitical Racial/Ethnic Animus: Mutual Fund Manager Performance during AAPI Hate</a></h3>
     <p class="title-zh">社会政治种族/民族敌意的真实效应：AAPI仇恨事件期间的共同基金经理表现</p>
@@ -1540,7 +1535,7 @@
   </div>
 </article>
 <article class="event" data-search="the profits of pepper. indian ocean trade and the economy of kerala, 800–1600 胡椒的利润：印度洋贸易与喀拉拉邦经济（800–1600年） chris wickham economic history review 10.1111/ehr.70125" data-journal="economic-history-review" data-fields="china agriculture development trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/ehr.70125">The profits of pepper. Indian Ocean trade and the economy of Kerala, 800–1600</a></h3>
     <p class="title-zh">胡椒的利润：印度洋贸易与喀拉拉邦经济（800–1600年）</p>
@@ -1552,7 +1547,7 @@
   </div>
 </article>
 <article class="event" data-search="can energy transition strengthen tax revenue mobilization in developing countries? empirical evidence and policy implications 能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示 atangana ondoa henri, ngobo philibert junior international tax and public finance 10.1007/s10797-026-09973-5" data-journal="international-tax-and-public-finance" data-fields="china environment finance public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1007/s10797-026-09973-5">Can energy transition strengthen tax revenue mobilization in developing countries? Empirical evidence and policy implications</a></h3>
     <p class="title-zh">能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示</p>
@@ -1564,7 +1559,7 @@
   </div>
 </article>
 <article class="event" data-search="how judges’ social identity impacts reversal decisions: evidence from the transitory promotion of judges 法官社会身份对改判决策的影响：基于法官临时晋升的证据 patrick c wu, chang-ching lin, yun-chien chang journal of law, economics &amp; organization 10.1093/jleo/ewag022" data-journal="journal-of-law-economics-and-organization" data-fields="china theory behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/jleo/ewag022">How judges’ social identity impacts reversal decisions: evidence from the transitory promotion of judges</a></h3>
     <p class="title-zh">法官社会身份对改判决策的影响：基于法官临时晋升的证据</p>
@@ -1576,7 +1571,7 @@
   </div>
 </article>
 <article class="event" data-search="designing emissions trading schemes for a price-regulated and concentrated industry: insights from china’s power sector 面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示 dong-hyuk kim, hui qiao, ying zheng international journal of industrial organization 10.1016/j.ijindorg.2026.103301" data-journal="international-journal-of-industrial-organization" data-fields="china agriculture environment behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.ijindorg.2026.103301">Designing emissions trading schemes for a price-regulated and concentrated industry: Insights from China’s power sector</a></h3>
     <p class="title-zh">面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示</p>

@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="timing, uncertainty, and opportunity cost: lessons for ecosystem modification on the colorado river 时机、不确定性与机会成本：科罗拉多河生态系统改造的启示 pierce donovan, lucas s. bair, matthew n. reimer, michael r. springborn, charles b. yackulic journal of environmental economics and management 10.1016/j.jeem.2026.103358" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="timing, uncertainty, and opportunity cost: lessons for ecosystem modification on the colorado river 时机、不确定性与机会成本：科罗拉多河生态系统改造的启示 pierce donovan, lucas s. bair, matthew n. reimer, michael r. springborn, charles b. yackulic journal of environmental economics and management 10.1016/j.jeem.2026.103358" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103358">Timing, uncertainty, and opportunity cost: Lessons for ecosystem modification on the Colorado River</a></h3>
     <p class="title-zh">时机、不确定性与机会成本：科罗拉多河生态系统改造的启示</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="environmental regulation informed by biased stakeholders 受偏见利益相关者影响的环境规制 stefan ambec, jessica coria journal of environmental economics and management 10.1016/j.jeem.2026.103334" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103334">Environmental regulation informed by biased stakeholders</a></h3>
     <p class="title-zh">受偏见利益相关者影响的环境规制</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="consumer response to environmental standards: evidence from gasoline regulation in china 消费者对环境标准的反应：来自中国汽油管制的证据 yucheng wang, lei zhang, liyang zhou journal of environmental economics and management 10.1016/j.jeem.2026.103314" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment public behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103314">Consumer response to environmental standards: Evidence from gasoline regulation in China</a></h3>
     <p class="title-zh">消费者对环境标准的反应：来自中国汽油管制的证据</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="drying the wetland: water scarcity in the brazilian pantanal 湿地干涸：巴西潘塔纳尔的水资源短缺 vinícius hector, rafael araujo, francisco costa journal of environmental economics and management 10.1016/j.jeem.2026.103333" data-journal="journal-of-environmental-economics-and-management" data-fields="environment urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103333">Drying the wetland: Water scarcity in the Brazilian pantanal</a></h3>
     <p class="title-zh">湿地干涸：巴西潘塔纳尔的水资源短缺</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="the illusion of free electricity: household responses to solar panel program in singapore 免费电力的幻觉：新加坡家庭对太阳能板项目的反应 jinze cao, mingxuan fan journal of environmental economics and management 10.1016/j.jeem.2026.103312" data-journal="journal-of-environmental-economics-and-management" data-fields="environment development urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103312">The illusion of free electricity: Household responses to solar panel program in Singapore</a></h3>
     <p class="title-zh">免费电力的幻觉：新加坡家庭对太阳能板项目的反应</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="fog or smog? the impact of uncensored reporting on pollution on individuals’ environmental preferences 雾还是霾？无审查污染报道对个人环境偏好的影响 sven a. hartmann journal of environmental economics and management 10.1016/j.jeem.2026.103325" data-journal="journal-of-environmental-economics-and-management" data-fields="environment behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103325">Fog or smog? The impact of uncensored reporting on pollution on individuals’ environmental preferences</a></h3>
     <p class="title-zh">雾还是霾？无审查污染报道对个人环境偏好的影响</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编辑委员会  journal of environmental economics and management 10.1016/s0095-0696(26)00090-2" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0095-0696(26)00090-2">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="unwillingly informed: the prosocial impact of third-party informers 非自愿知情：第三方告知者的亲社会影响 zachary grossman, tony hua, jo thori lind, karine nyborg journal of environmental economics and management 10.1016/j.jeem.2026.103330" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103330">Unwillingly informed: the prosocial impact of third-party informers</a></h3>
     <p class="title-zh">非自愿知情：第三方告知者的亲社会影响</p>
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="trained to reduce food waste: evidence from an rct with micro-sized and small enterprises in cusco&#x27;s hospitality industry 减少食物浪费培训：库斯科酒店业微型和小型企业随机对照试验的证据 cesar e. del pozo loayza, josé d. lópez-rivas, francisco alpízar journal of environmental economics and management 10.1016/j.jeem.2026.103355" data-journal="journal-of-environmental-economics-and-management" data-fields="agriculture environment health firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103355">Trained to reduce food waste: Evidence from an RCT with micro-sized and small enterprises in Cusco&#x27;s hospitality industry</a></h3>
     <p class="title-zh">减少食物浪费培训：库斯科酒店业微型和小型企业随机对照试验的证据</p>
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="too hot to haul? the impact of temperature on labor supply and performance of truck drivers 酷热难行？温度对卡车司机劳动力供给与工作绩效的影响 wenzhi dave ding, xincheng wang, yucheng wang, zhenxuan wang journal of environmental economics and management 10.1016/j.jeem.2026.103338" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103338">Too hot to haul? the impact of temperature on labor supply and performance of truck drivers</a></h3>
     <p class="title-zh">酷热难行？温度对卡车司机劳动力供给与工作绩效的影响</p>
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="the mental health toll of heat stress in india 印度热应激对心理健康的损害 manuela fritz journal of environmental economics and management 10.1016/j.jeem.2026.103348" data-journal="journal-of-environmental-economics-and-management" data-fields="environment health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103348">The mental health toll of heat stress in India</a></h3>
     <p class="title-zh">印度热应激对心理健康的损害</p>
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of wildfire smoke on local avian biodiversity 野火烟雾对当地鸟类生物多样性的影响 sarah meier, eric strobl journal of environmental economics and management 10.1016/j.jeem.2026.103379" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103379">The impact of wildfire smoke on local avian biodiversity</a></h3>
     <p class="title-zh">野火烟雾对当地鸟类生物多样性的影响</p>
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="impacts of natural resource traceability programs: evidence from the united states’ seafood import monitoring program 自然资源可追溯计划的影响：来自美国海产品进口监测项目的证据 kaitlyn l. malakoff, kailin kroetz, benjamin e. fissel journal of environmental economics and management 10.1016/j.jeem.2026.103331" data-journal="journal-of-environmental-economics-and-management" data-fields="agriculture environment trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103331">Impacts of natural resource traceability programs: evidence from the United States’ seafood import monitoring program</a></h3>
     <p class="title-zh">自然资源可追溯计划的影响：来自美国海产品进口监测项目的证据</p>
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="interactions of behavioral interventions across pro-environmental domains: a natural field experiment 跨环保行为领域的行为干预互动：一项自然田野实验 maoliang ling, yiming liu, lin xu, juntao he journal of environmental economics and management 10.1016/j.jeem.2026.103339" data-journal="journal-of-environmental-economics-and-management" data-fields="environment behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103339">Interactions of behavioral interventions across pro-environmental domains: A natural field experiment</a></h3>
     <p class="title-zh">跨环保行为领域的行为干预互动：一项自然田野实验</p>
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="negative externalities of temporary reductions in cognition: evidence from particulate matter pollution and fatal car crashes 认知暂时下降的负外部性：来自颗粒物污染与致命车祸的证据 anne m. burton, travis roach journal of environmental economics and management 10.1016/j.jeem.2026.103310" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103310">Negative externalities of temporary reductions in cognition: Evidence from particulate matter pollution and fatal car crashes</a></h3>
     <p class="title-zh">认知暂时下降的负外部性：来自颗粒物污染与致命车祸的证据</p>
@@ -237,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="rising waters, falling taxes: the impact of hurricane sandy on property tax assessments in new york city 涨水与减税：飓风桑迪对纽约市房产税评估的影响 wei guo, qing miao, yusun kim, yilin hou journal of environmental economics and management 10.1016/j.jeem.2026.103313" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103313">Rising waters, falling taxes: The impact of Hurricane Sandy on property tax assessments in New York City</a></h3>
     <p class="title-zh">涨水与减税：飓风桑迪对纽约市房产税评估的影响</p>
@@ -249,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="smallholders’ willingness to pay for information: a comparison of individual purchase decisions with contributions to a club good. evidence from indonesian rice farmers 小农户对信息的支付意愿：个体购买决策与俱乐部物品贡献的比较——来自印度尼西亚稻农的证据 michael grimm, nathalie luck, alia bihrajihant raya, udit sawhney journal of environmental economics and management 10.1016/j.jeem.2026.103343" data-journal="journal-of-environmental-economics-and-management" data-fields="agriculture environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103343">Smallholders’ willingness to pay for information: A comparison of individual purchase decisions with contributions to a club good. Evidence from Indonesian rice farmers</a></h3>
     <p class="title-zh">小农户对信息的支付意愿：个体购买决策与俱乐部物品贡献的比较——来自印度尼西亚稻农的证据</p>
@@ -261,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="evaluating the effectiveness of mobile emission standards: evidence from california’s lev program 评估移动排放标准有效性：来自加州低排放车辆项目的证据 yuxian xiao journal of environmental economics and management 10.1016/j.jeem.2026.103356" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103356">Evaluating the effectiveness of mobile emission standards: Evidence from California’s LEV program</a></h3>
     <p class="title-zh">评估移动排放标准有效性：来自加州低排放车辆项目的证据</p>
@@ -273,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="power plays in the jungle: political alignment and environmental degradation in colombia 丛林中的权力博弈：哥伦比亚的政治联盟与环境退化 juan miguel jimenez, lizeth melissa molina alvarez, santiago saavedra journal of environmental economics and management 10.1016/j.jeem.2026.103335" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103335">Power plays in the jungle: Political alignment and environmental degradation in Colombia</a></h3>
     <p class="title-zh">丛林中的权力博弈：哥伦比亚的政治联盟与环境退化</p>
@@ -285,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="light after the darkness: estimating the impact of power outages on subsequent solar installations 黑暗之后的光明：评估停电对后续太阳能安装的影响 chihiro yagi, kenji takeuchi journal of environmental economics and management 10.1016/j.jeem.2026.103341" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103341">Light after the darkness: Estimating the impact of power outages on subsequent solar installations</a></h3>
     <p class="title-zh">黑暗之后的光明：评估停电对后续太阳能安装的影响</p>
@@ -296,9 +294,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="amplified challenges for the joint reduction of emissions and inequality, considering the missing-rich 考虑缺失富裕人群时，排放与不平等协同减排的加剧挑战 markus nabernegg, stefan nabernegg, thomas kopp journal of environmental economics and management 10.1016/j.jeem.2026.103353" data-journal="journal-of-environmental-economics-and-management" data-fields="environment inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103353">Amplified challenges for the joint reduction of emissions and inequality, considering the missing-rich</a></h3>
     <p class="title-zh">考虑缺失富裕人群时，排放与不平等协同减排的加剧挑战</p>
@@ -310,7 +307,7 @@
   </div>
 </article>
 <article class="event" data-search="bitcoin growth amid climate change: policy and investment implications 气候变化背景下的比特币增长：政策与投资启示 mohammadhossein lashkaripour, seyedmehdi hosseini, rizwan ahmed journal of environmental economics and management 10.1016/j.jeem.2026.103351" data-journal="journal-of-environmental-economics-and-management" data-fields="environment macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103351">Bitcoin growth amid climate change: Policy and investment implications</a></h3>
     <p class="title-zh">气候变化背景下的比特币增长：政策与投资启示</p>
@@ -322,7 +319,7 @@
   </div>
 </article>
 <article class="event" data-search="public support for universal road pricing 全民道路收费的公众支持度 alberto antonioni, alice ciccone, cloé garnache, sara ghivarello, askill h. halse 等 journal of environmental economics and management 10.1016/j.jeem.2026.103377" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103377">Public support for universal road pricing</a></h3>
     <p class="title-zh">全民道路收费的公众支持度</p>
@@ -334,7 +331,7 @@
   </div>
 </article>
 <article class="event" data-search="air pollution and consumers’ avoidance behavior: evidence from high-frequency payment data in china 空气污染与消费者规避行为：来自中国高频支付数据的证据 haiqiang chen, shihe fu, zhuoyang lyu journal of environmental economics and management 10.1016/j.jeem.2026.103374" data-journal="journal-of-environmental-economics-and-management" data-fields="china environment behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103374">Air pollution and consumers’ avoidance behavior: Evidence from high-frequency payment data in China</a></h3>
     <p class="title-zh">空气污染与消费者规避行为：来自中国高频支付数据的证据</p>
@@ -346,7 +343,7 @@
   </div>
 </article>
 <article class="event" data-search="reducing peak load from electric vehicles through grid tariffs: evidence from a randomized field experiment 通过电网电价降低电动汽车峰值负荷：来自随机现场实验的证据 floris van montfoort, peter t. dijkstra, machiel mulder, dávid kopányi journal of environmental economics and management 10.1016/j.jeem.2026.103354" data-journal="journal-of-environmental-economics-and-management" data-fields="environment trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103354">Reducing peak load from electric vehicles through grid tariffs: Evidence from a randomized field experiment</a></h3>
     <p class="title-zh">通过电网电价降低电动汽车峰值负荷：来自随机现场实验的证据</p>
@@ -358,7 +355,7 @@
   </div>
 </article>
 <article class="event" data-search="a hidden health impact of heat: exacerbated anemia in india 热浪的隐性健康影响：印度贫血症的加剧 claire lepault, philippe quirion, pierre uginet journal of environmental economics and management 10.1016/j.jeem.2026.103365" data-journal="journal-of-environmental-economics-and-management" data-fields="environment health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103365">A hidden health impact of heat: exacerbated anemia in India</a></h3>
     <p class="title-zh">热浪的隐性健康影响：印度贫血症的加剧</p>
@@ -370,7 +367,7 @@
   </div>
 </article>
 <article class="event" data-search="when climate risks become evident: a natural experiment on risk perceptions in the housing market 气候风险显现时：住房市场风险认知的自然实验 anders dugstad, dag einar sommervoll journal of environmental economics and management 10.1016/j.jeem.2026.103364" data-journal="journal-of-environmental-economics-and-management" data-fields="environment finance urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103364">When climate risks become evident: A natural experiment on risk perceptions in the housing market</a></h3>
     <p class="title-zh">气候风险显现时：住房市场风险认知的自然实验</p>
@@ -382,7 +379,7 @@
   </div>
 </article>
 <article class="event" data-search="greener thy neighbor? on the welfare effects of protectionist climate policies 更绿色的邻居？论保护主义气候政策的福利效应 saumya deojain, david lindequist journal of environmental economics and management 10.1016/j.jeem.2026.103366" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103366">Greener thy neighbor? On the welfare effects of protectionist climate policies</a></h3>
     <p class="title-zh">更绿色的邻居？论保护主义气候政策的福利效应</p>
@@ -394,7 +391,7 @@
   </div>
 </article>
 <article class="event" data-search="environmental benefits of renewable energy: evidence from coal mining-induced deforestation and air pollution emissions 可再生能源的环境效益：来自煤炭开采导致森林砍伐和空气污染排放的证据 lin yang, wenjie luo journal of environmental economics and management 10.1016/j.jeem.2026.103363" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103363">Environmental benefits of renewable energy: Evidence from coal mining-induced deforestation and air pollution emissions</a></h3>
     <p class="title-zh">可再生能源的环境效益：来自煤炭开采导致森林砍伐和空气污染排放的证据</p>
@@ -406,7 +403,7 @@
   </div>
 </article>
 <article class="event" data-search="impact of air pollution on birth outcomes: causal evidence from india 空气污染对出生结果的影响：来自印度的因果证据 shashank misra, shobhit kulshreshtha journal of environmental economics and management 10.1016/j.jeem.2026.103360" data-journal="journal-of-environmental-economics-and-management" data-fields="environment econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103360">Impact of air pollution on birth outcomes: Causal evidence from India</a></h3>
     <p class="title-zh">空气污染对出生结果的影响：来自印度的因果证据</p>
@@ -418,7 +415,7 @@
   </div>
 </article>
 <article class="event" data-search="environmental implications of brazil’s tax reform on household consumption 巴西税制改革对家庭消费的环境影响 samuel bícego, paula carvalho pereda journal of environmental economics and management 10.1016/j.jeem.2026.103376" data-journal="journal-of-environmental-economics-and-management" data-fields="environment development public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103376">Environmental implications of Brazil’s tax reform on household consumption</a></h3>
     <p class="title-zh">巴西税制改革对家庭消费的环境影响</p>
@@ -430,7 +427,7 @@
   </div>
 </article>
 <article class="event" data-search="incentivizing capital investments in electric vehicle attributes to stimulate demand 激励电动汽车属性资本投资以刺激需求 minsu kim journal of environmental economics and management 10.1016/j.jeem.2026.103344" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103344">Incentivizing capital investments in electric vehicle attributes to stimulate demand</a></h3>
     <p class="title-zh">激励电动汽车属性资本投资以刺激需求</p>
@@ -442,7 +439,7 @@
   </div>
 </article>
 <article class="event" data-search="the impacts of global warming on forestry: an age-structured ricardian approach 全球变暖对林业的影响：基于年龄结构的李嘉图方法 françois bareille, philippe delacote, abdoul latif sokoundou journal of environmental economics and management 10.1016/j.jeem.2026.103336" data-journal="journal-of-environmental-economics-and-management" data-fields="environment trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103336">The impacts of global warming on forestry: an age-structured Ricardian approach</a></h3>
     <p class="title-zh">全球变暖对林业的影响：基于年龄结构的李嘉图方法</p>
@@ -454,7 +451,7 @@
   </div>
 </article>
 <article class="event" data-search="multi-level regression and post-stratification for discrete choice modelling and stated preference research 离散选择建模与陈述偏好研究中的多层次回归与事后分层 patrick lloyd-smith journal of environmental economics and management 10.1016/j.jeem.2026.103315" data-journal="journal-of-environmental-economics-and-management" data-fields="environment econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103315">Multi-level regression and post-stratification for discrete choice modelling and stated preference research</a></h3>
     <p class="title-zh">离散选择建模与陈述偏好研究中的多层次回归与事后分层</p>
@@ -466,7 +463,7 @@
   </div>
 </article>
 <article class="event" data-search="upstreamness, foreign environmental regulation and co2 emissions in indian manufacturing firms 上游度、外国环境规制与印度制造业企业的二氧化碳排放 finn ole semrau journal of environmental economics and management 10.1016/j.jeem.2026.103324" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103324">Upstreamness, foreign environmental regulation and CO2 emissions in Indian manufacturing firms</a></h3>
     <p class="title-zh">上游度、外国环境规制与印度制造业企业的二氧化碳排放</p>
@@ -477,9 +474,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="cost-effective and equitable targeting of corrective subsidies: differentiated green subsidies for new and existing homes 成本效益与公平导向的矫正性补贴：新旧住宅差异化绿色补贴 takahiko kiso journal of environmental economics and management 10.1016/j.jeem.2026.103340" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103340">Cost-effective and equitable targeting of corrective subsidies: Differentiated green subsidies for new and existing homes</a></h3>
     <p class="title-zh">成本效益与公平导向的矫正性补贴：新旧住宅差异化绿色补贴</p>
@@ -491,7 +487,7 @@
   </div>
 </article>
 <article class="event" data-search="who benefits from capacity reduction programs? insights from the u.s. pacific coast groundfish fishery 谁从产能削减计划中受益？来自美国太平洋沿岸底栖鱼类渔业的启示 frederik strabo, matthew n. reimer, james n. sanchirico journal of environmental economics and management 10.1016/j.jeem.2026.103362" data-journal="journal-of-environmental-economics-and-management" data-fields="environment urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103362">Who benefits from capacity reduction programs? Insights from the U.S. Pacific Coast groundfish fishery</a></h3>
     <p class="title-zh">谁从产能削减计划中受益？来自美国太平洋沿岸底栖鱼类渔业的启示</p>
@@ -503,7 +499,7 @@
   </div>
 </article>
 <article class="event" data-search="how do smallholder farmers adapt to water scarcity? evidence from the three gorges dam 小农户如何适应水资源短缺？来自三峡大坝的证据 ting chen, chong liu, sen ma journal of environmental economics and management 10.1016/j.jeem.2026.103357" data-journal="journal-of-environmental-economics-and-management" data-fields="agriculture environment urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103357">How do smallholder farmers adapt to water scarcity? Evidence from the three Gorges Dam</a></h3>
     <p class="title-zh">小农户如何适应水资源短缺？来自三峡大坝的证据</p>
@@ -515,7 +511,7 @@
   </div>
 </article>
 <article class="event" data-search="occupational affiliation and the incidence of environmental regulation 职业归属与环境规制的发生率 alex l. marten, andrew schreiber, ann wolverton journal of environmental economics and management 10.1016/j.jeem.2026.103361" data-journal="journal-of-environmental-economics-and-management" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103361">Occupational affiliation and the incidence of environmental regulation</a></h3>
     <p class="title-zh">职业归属与环境规制的发生率</p>
@@ -527,7 +523,7 @@
   </div>
 </article>
 <article class="event" data-search="the enduring impacts of early life exposure to heatwaves on climate governance 早期热浪暴露对气候治理的持久影响 jingbo cui, chunhua wang, zhenxuan wang journal of environmental economics and management 10.1016/j.jeem.2026.103359" data-journal="journal-of-environmental-economics-and-management" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jeem.2026.103359">The enduring impacts of early life exposure to heatwaves on climate governance</a></h3>
     <p class="title-zh">早期热浪暴露对气候治理的持久影响</p>

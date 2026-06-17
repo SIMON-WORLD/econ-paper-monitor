@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="learning to navigate a new financial technology 学习驾驭新型金融技术 emily breza, martin kanz, leora klapper journal of finance 10.1111/jofi.70062" data-journal="journal-of-finance" data-fields="finance labor behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">20:11</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="learning to navigate a new financial technology 学习驾驭新型金融技术 emily breza, martin kanz, leora klapper journal of finance 10.1111/jofi.70062" data-journal="journal-of-finance" data-fields="finance labor behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">20:11</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70062">Learning to Navigate a New Financial Technology</a></h3>
     <p class="title-zh">学习驾驭新型金融技术</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="measuring firms’ capability to absorb external knowledge 企业吸收外部知识能力的测度 michael woeppel, m. deniz yavuz journal of financial economics 10.1016/j.jfineco.2026.104322" data-journal="journal-of-financial-economics" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">13:25</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">13:25</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104322">Measuring firms’ capability to absorb external knowledge</a></h3>
     <p class="title-zh">企业吸收外部知识能力的测度</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="do mutual funds walk the talk? evidence from fund risk disclosure 共同基金是否言行一致？来自基金风险披露的证据 jinfei sheng, nan xu, lu zheng review of financial studies 10.1093/rfs/hhag020" data-journal="review-of-financial-studies" data-fields="finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag020">Do Mutual Funds Walk the Talk? Evidence from Fund Risk Disclosure</a></h3>
     <p class="title-zh">共同基金是否言行一致？来自基金风险披露的证据</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="proud to not own stocks: how identity shapes financial decisions 以不持有股票为荣：身份认同如何塑造金融决策 luca henkel, christian pugnaghi-zimpelmann review of financial studies 10.1093/rfs/hhag034" data-journal="review-of-financial-studies" data-fields="development finance econometrics theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag034">Proud to Not Own Stocks: How Identity Shapes Financial Decisions</a></h3>
     <p class="title-zh">以不持有股票为荣：身份认同如何塑造金融决策</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="collective moral hazard, risk sharing, and banking unions 集体道德风险、风险分担与银行业联盟 anatoli segura, sergio vicente review of financial studies 10.1093/rfs/hhag024" data-journal="review-of-financial-studies" data-fields="finance public theory health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag024">Collective Moral Hazard, Risk Sharing, and Banking Unions</a></h3>
     <p class="title-zh">集体道德风险、风险分担与银行业联盟</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="generative ai and asset management 生成式人工智能与资产管理 jinfei sheng, zheng sun, baozhong yang, alan l zhang review of financial studies 10.1093/rfs/hhag050" data-journal="review-of-financial-studies" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag050">Generative AI and Asset Management</a></h3>
     <p class="title-zh">生成式人工智能与资产管理</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="mutual fund flows and the supply of capital in municipal financing 共同基金流动与市政融资中的资本供给 manuel adelino, sophia chiyoung cheong, jaewon choi, ji yeol jimmy oh review of financial studies 10.1093/rfs/hhag048" data-journal="review-of-financial-studies" data-fields="agriculture finance econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag048">Mutual Fund Flows and the Supply of Capital in Municipal Financing</a></h3>
     <p class="title-zh">共同基金流动与市政融资中的资本供给</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="macroeconomic expectations and credit card spending 宏观经济预期与信用卡支出 mikhail galashin, martin kanz, ricardo perez-truglia review of financial studies 10.1093/rfs/hhaf079" data-journal="review-of-financial-studies" data-fields="finance macro behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhaf079">Macroeconomic Expectations and Credit Card Spending</a></h3>
     <p class="title-zh">宏观经济预期与信用卡支出</p>
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="a dynamic model of the racial wealth gap 种族财富差距的动态模型 sylvain catherine, ellen jiayang lu, james d paron review of financial studies 10.1093/rfs/hhag047" data-journal="review-of-financial-studies" data-fields="finance public health inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag047">A Dynamic Model of the Racial Wealth Gap</a></h3>
     <p class="title-zh">种族财富差距的动态模型</p>
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="patents that match your standards: firm-level evidence on competition, innovation and growth 符合标准的专利：关于竞争、创新与增长的企业层面证据 antonin bergeaud, julia schmidt, riccardo zago journal of financial economics 10.1016/j.jfineco.2026.104281" data-journal="journal-of-financial-economics" data-fields="finance macro firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104281">Patents that match your standards: Firm-level evidence on competition, innovation and growth</a></h3>
     <p class="title-zh">符合标准的专利：关于竞争、创新与增长的企业层面证据</p>
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="operational shorting and etf liquidity provision 运营做空与etf流动性提供 richard b. evans, rabih moussawi, michael s. pagano, john sedunov journal of financial economics 10.1016/j.jfineco.2026.104241" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104241">Operational shorting and ETF liquidity provision</a></h3>
     <p class="title-zh">运营做空与ETF流动性提供</p>
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编委会  journal of financial economics 10.1016/s0304-405x(26)00058-9" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0304-405x(26)00058-9">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="foundational processes and growth 基础过程与增长 wing wah tham, salomé baslandze, elvira sojli, leo liu journal of financial economics 10.1016/j.jfineco.2026.104276" data-journal="journal-of-financial-economics" data-fields="finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104276">Foundational processes and growth</a></h3>
     <p class="title-zh">基础过程与增长</p>
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="face-to-face social interactions and local informational advantage 面对面社交互动与本地信息优势 robin y. lee journal of financial economics 10.1016/j.jfineco.2026.104280" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104280">Face-to-face social interactions and local informational advantage</a></h3>
     <p class="title-zh">面对面社交互动与本地信息优势</p>
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="past is prologue: inference from the cross section of returns around an event 过去即是序幕：事件前后横截面收益的推断 jonathan b. cohn, travis l. johnson, zack liu, malcolm i. wardlaw journal of financial economics 10.1016/j.jfineco.2026.104278" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104278">Past is prologue: Inference from the cross section of returns around an event</a></h3>
     <p class="title-zh">过去即是序幕：事件前后横截面收益的推断</p>
@@ -237,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="market feedback: evidence from the horse’s mouth 市场反馈：来自马嘴的证据 itay goldstein, bibo liu, liyan yang journal of financial economics 10.1016/j.jfineco.2026.104255" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104255">Market feedback: Evidence from the horse’s mouth</a></h3>
     <p class="title-zh">市场反馈：来自马嘴的证据</p>
@@ -249,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="dual peer effects and cross-stock predictability 双重同伴效应与跨股票可预测性 doron avramov, shuyi ge, shaoran li, oliver linton journal of financial economics 10.1016/j.jfineco.2026.104274" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104274">Dual peer effects and cross-stock predictability</a></h3>
     <p class="title-zh">双重同伴效应与跨股票可预测性</p>
@@ -261,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="cashless payment and financial inclusion 无现金支付与金融包容性 shumiao ouyang journal of financial economics 10.1016/j.jfineco.2026.104277" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104277">Cashless payment and financial inclusion</a></h3>
     <p class="title-zh">无现金支付与金融包容性</p>
@@ -273,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="cash heterogeneity and the payout channel of monetary policy 现金异质性与货币政策的支付渠道 altan pazarbaşi journal of finance 10.1111/jofi.70059" data-journal="journal-of-finance" data-fields="agriculture finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70059">Cash Heterogeneity and the Payout Channel of Monetary Policy</a></h3>
     <p class="title-zh">现金异质性与货币政策的支付渠道</p>
@@ -285,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="detecting informed trading risk from undercutting activity 从压价行为中识别知情交易风险 yashar h. barardehi, peter dixon, qiyu liu journal of finance 10.1111/jofi.70047" data-journal="journal-of-finance" data-fields="finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70047">Detecting Informed Trading Risk from Undercutting Activity</a></h3>
     <p class="title-zh">从压价行为中识别知情交易风险</p>
@@ -297,7 +295,7 @@
   </div>
 </article>
 <article class="event" data-search="quote competition in corporate bonds 公司债券中的报价竞争 terrence hendershott, dan li, dmitry livdan, norman schürhoff, kumar venkataraman journal of finance 10.1111/jofi.70048" data-journal="journal-of-finance" data-fields="agriculture finance trade theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70048">Quote Competition in Corporate Bonds</a></h3>
     <p class="title-zh">公司债券中的报价竞争</p>
@@ -309,7 +307,7 @@
   </div>
 </article>
 <article class="event" data-search="issue information 期刊信息  journal of finance 10.1111/jofi.13349" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.13349">ISSUE INFORMATION</a></h3>
     <p class="title-zh">期刊信息</p>
@@ -321,7 +319,7 @@
   </div>
 </article>
 <article class="event" data-search="announcements 公告  journal of finance 10.1111/jofi.70017" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70017">ANNOUNCEMENTS</a></h3>
     <p class="title-zh">公告</p>
@@ -333,7 +331,7 @@
   </div>
 </article>
 <article class="event" data-search="hedger of last resort: evidence from brazilian fx interventions, local credit, and global financial cycles 最后避险对冲者：来自巴西外汇干预、本地信贷与全球金融周期的证据 rodrigo barbone gonzalez, dmitry khametshin, josé‐luis peydró, andrea polo journal of finance 10.1111/jofi.70054" data-journal="journal-of-finance" data-fields="finance labor public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70054">Hedger of Last Resort: Evidence from Brazilian FX Interventions, Local Credit, and Global Financial Cycles</a></h3>
     <p class="title-zh">最后避险对冲者：来自巴西外汇干预、本地信贷与全球金融周期的证据</p>
@@ -345,7 +343,7 @@
   </div>
 </article>
 <article class="event" data-search="american finance association 美国金融协会  journal of finance 10.1111/jofi.13350" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.13350">AMERICAN FINANCE ASSOCIATION</a></h3>
     <p class="title-zh">美国金融协会</p>
@@ -357,7 +355,7 @@
   </div>
 </article>
 <article class="event" data-search="investing with purpose: evidence from private foundations 有目的的投资：来自私人基金会的证据 matteo binfarè, kyle e. zimmerschied journal of finance 10.1111/jofi.70055" data-journal="journal-of-finance" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70055">Investing with Purpose: Evidence from Private Foundations</a></h3>
     <p class="title-zh">有目的的投资：来自私人基金会的证据</p>
@@ -369,7 +367,7 @@
   </div>
 </article>
 <article class="event" data-search="why have ceo pay levels become less diverse? 为何ceo薪酬水平变得不那么多样化？ torsten jochem, gaizka ormazabal, anjana rajamani journal of finance 10.1111/jofi.70050" data-journal="journal-of-finance" data-fields="finance public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70050">Why Have CEO Pay Levels Become Less Diverse?</a></h3>
     <p class="title-zh">为何CEO薪酬水平变得不那么多样化？</p>
@@ -381,7 +379,7 @@
   </div>
 </article>
 <article class="event" data-search="bank competition amid digital disruption: implications for financial inclusion 数字冲击下的银行竞争：对金融包容性的影响 erica xuewei jiang, gloria yang yu, jinyuan zhang journal of finance 10.1111/jofi.70051" data-journal="journal-of-finance" data-fields="agriculture development finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70051">Bank Competition Amid Digital Disruption: Implications for Financial Inclusion</a></h3>
     <p class="title-zh">数字冲击下的银行竞争：对金融包容性的影响</p>
@@ -393,7 +391,7 @@
   </div>
 </article>
 <article class="event" data-search="consumption in asset returns 资产收益中的消费 svetlana bryzgalova, jiantao huang, christian julliard journal of finance 10.1111/jofi.70044" data-journal="journal-of-finance" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70044">Consumption in Asset Returns</a></h3>
     <p class="title-zh">资产收益中的消费</p>
@@ -405,7 +403,7 @@
   </div>
 </article>
 <article class="event" data-search="the drivers and implications of retail margin trading 零售保证金交易的驱动因素及其影响 jiangze bian, zhi da, zhiguo he, dong lou, kelly shue 等 journal of finance 10.1111/jofi.70049" data-journal="journal-of-finance" data-fields="china agriculture finance behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70049">The Drivers and Implications of Retail Margin Trading</a></h3>
     <p class="title-zh">零售保证金交易的驱动因素及其影响</p>
@@ -417,7 +415,7 @@
   </div>
 </article>
 <article class="event" data-search="risk‐free rates and convenience yields around the world 全球无风险利率与便利收益 william diamond, peter van tassel journal of finance 10.1111/jofi.70045" data-journal="journal-of-finance" data-fields="agriculture finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70045">Risk‐Free Rates and Convenience Yields around the World</a></h3>
     <p class="title-zh">全球无风险利率与便利收益</p>
@@ -429,7 +427,7 @@
   </div>
 </article>
 <article class="event" data-search="the equilibrium effects of eviction policies 驱逐政策的均衡效应 boaz abramson journal of finance 10.1111/jofi.70046" data-journal="journal-of-finance" data-fields="finance public urban theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70046">The Equilibrium Effects of Eviction Policies</a></h3>
     <p class="title-zh">驱逐政策的均衡效应</p>
@@ -441,7 +439,7 @@
   </div>
 </article>
 <article class="event" data-search="partisan entrepreneurship 党派创业 joseph engelberg, jorge guzman, runjing lu, william mullins journal of finance 10.1111/jofi.70042" data-journal="journal-of-finance" data-fields="finance public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70042">Partisan Entrepreneurship</a></h3>
     <p class="title-zh">党派创业</p>
@@ -453,7 +451,7 @@
   </div>
 </article>
 <article class="event" data-search="learning in the limit: income inference from credit extensions 极限学习：从信贷扩展中推断收入 xiao yin journal of finance 10.1111/jofi.70040" data-journal="journal-of-finance" data-fields="finance behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70040">Learning in the Limit: Income Inference from Credit Extensions</a></h3>
     <p class="title-zh">极限学习：从信贷扩展中推断收入</p>
@@ -465,7 +463,7 @@
   </div>
 </article>
 <article class="event" data-search="angels, entrepreneurship, and employment dynamics: evidence from investor accreditation rules 天使投资、创业与就业动态：来自投资者认证规则的证据 laura lindsey, luke c.d. stein journal of financial economics 10.1016/j.jfineco.2026.104323" data-journal="journal-of-financial-economics" data-fields="finance labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">00:24</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">00:24</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104323">Angels, entrepreneurship, and employment dynamics: Evidence from investor accreditation rules</a></h3>
     <p class="title-zh">天使投资、创业与就业动态：来自投资者认证规则的证据</p>
@@ -476,9 +474,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-16</div>
 <article class="event" data-search="the debt‐equity spread 债务-权益利差 hui chen, zhiyao chen, jun li journal of finance 10.1111/jofi.70060" data-journal="journal-of-finance" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70060">The Debt‐Equity Spread</a></h3>
     <p class="title-zh">债务-权益利差</p>
@@ -490,7 +487,7 @@
   </div>
 </article>
 <article class="event" data-search="private equity and pay gaps inside the firm 私募股权与企业内部薪酬差距 lily fang, jim goldman, alexandra roulet journal of finance 10.1111/jofi.70043" data-journal="journal-of-finance" data-fields="finance labor firms inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70043">Private Equity and Pay Gaps Inside the Firm</a></h3>
     <p class="title-zh">私募股权与企业内部薪酬差距</p>
@@ -504,7 +501,7 @@
 <article class="event" data-search="report of the editor of
                     &lt;i&gt;the journal of finance&lt;/i&gt;
                     for the year 2025 《金融学刊》2025年度主编报告 antoinette schoar journal of finance 10.1111/jofi.70061" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70061">Report of the Editor of
                     &lt;i&gt;The Journal of Finance&lt;/i&gt;
@@ -517,9 +514,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="the co-pricing factor zoo 共同定价因子动物园 alexander dickerson, christian julliard, philippe mueller journal of financial economics 10.1016/j.jfineco.2026.104295" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104295">The co-pricing factor zoo</a></h3>
     <p class="title-zh">共同定价因子动物园</p>
@@ -531,7 +527,7 @@
   </div>
 </article>
 <article class="event" data-search="dirty air and green investments: the impact of pollution information on portfolio allocations 污浊空气与绿色投资：污染信息对资产配置的影响 raymond fisman, pulak ghosh, arkodipta sarkar, jian zhang journal of financial economics 10.1016/j.jfineco.2026.104309" data-journal="journal-of-financial-economics" data-fields="environment finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104309">Dirty air and green investments: The impact of pollution information on portfolio allocations</a></h3>
     <p class="title-zh">污浊空气与绿色投资：污染信息对资产配置的影响</p>
@@ -543,7 +539,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编辑委员会  journal of financial economics 10.1016/s0304-405x(26)00087-5" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0304-405x(26)00087-5">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
@@ -555,7 +551,7 @@
   </div>
 </article>
 <article class="event" data-search="government debt management and inflation with real and nominal bonds 实际与名义债券下的政府债务管理与通胀 lukas schmid, vytautas valaitis, alessandro t. villa journal of financial economics 10.1016/j.jfineco.2026.104293" data-journal="journal-of-financial-economics" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104293">Government debt management and inflation with real and nominal bonds</a></h3>
     <p class="title-zh">实际与名义债券下的政府债务管理与通胀</p>
@@ -567,7 +563,7 @@
   </div>
 </article>
 <article class="event" data-search="out of sight, out of mind: divestments and the global reallocation of pollutive assets 眼不见，心不烦：撤资与污染性资产的全球重新配置 tobias berg, lin ma, daniel streitz journal of financial economics 10.1016/j.jfineco.2026.104308" data-journal="journal-of-financial-economics" data-fields="finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104308">Out of sight, out of mind: Divestments and the global reallocation of pollutive assets</a></h3>
     <p class="title-zh">眼不见，心不烦：撤资与污染性资产的全球重新配置</p>
@@ -579,7 +575,7 @@
   </div>
 </article>
 <article class="event" data-search="risk-averse dealers in a risk-free market—the role of trading desk risk limits 无风险市场中的风险规避交易商——交易台风险限额的作用 dan li, lubomir petrasek, mary tian journal of financial economics 10.1016/j.jfineco.2026.104290" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104290">Risk-averse dealers in a risk-free market—The role of trading desk risk limits</a></h3>
     <p class="title-zh">无风险市场中的风险规避交易商——交易台风险限额的作用</p>
@@ -591,7 +587,7 @@
   </div>
 </article>
 <article class="event" data-search="financial literacy and financial crime: a regression discontinuity approach 金融素养与金融犯罪：基于断点回归方法的研究 paul g. freed, john hackney journal of financial economics 10.1016/j.jfineco.2026.104292" data-journal="journal-of-financial-economics" data-fields="finance econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104292">Financial literacy and financial crime: A regression discontinuity approach</a></h3>
     <p class="title-zh">金融素养与金融犯罪：基于断点回归方法的研究</p>
@@ -603,7 +599,7 @@
   </div>
 </article>
 <article class="event" data-search="government litigation risk and the decline in low-income mortgage lending 政府诉讼风险与低收入群体抵押贷款发放的减少 w. scott frame, kristopher gerardi, erik j. mayer, billy y. xu, lawrence chengzhi zhao journal of financial economics 10.1016/j.jfineco.2026.104279" data-journal="journal-of-financial-economics" data-fields="development finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104279">Government litigation risk and the decline in low-income mortgage lending</a></h3>
     <p class="title-zh">政府诉讼风险与低收入群体抵押贷款发放的减少</p>
@@ -615,7 +611,7 @@
   </div>
 </article>
 <article class="event" data-search="sustainable investing and market governance 可持续投资与市场治理 alvin chen, deeksha gupta, jan starmans journal of financial economics 10.1016/j.jfineco.2026.104273" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104273">Sustainable investing and market governance</a></h3>
     <p class="title-zh">可持续投资与市场治理</p>
@@ -627,7 +623,7 @@
   </div>
 </article>
 <article class="event" data-search="extrapolators and contrarians: forecast bias and individual investor stock trading 外推者与反向投资者：预测偏差与个人投资者股票交易 steffen andersen, stephen g. dimmock, kasper meisner nielsen, kim peijnenburg journal of financial economics 10.1016/j.jfineco.2026.104291" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104291">Extrapolators and contrarians: Forecast bias and individual investor stock trading</a></h3>
     <p class="title-zh">外推者与反向投资者：预测偏差与个人投资者股票交易</p>
@@ -639,7 +635,7 @@
   </div>
 </article>
 <article class="event" data-search="glass box machine learning and corporate bond returns 玻璃箱机器学习与公司债券收益 sebastian bell, ali kakhbod, martin lettau, abdolreza nazemi journal of financial economics 10.1016/j.jfineco.2026.104294" data-journal="journal-of-financial-economics" data-fields="finance econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104294">Glass box machine learning and corporate bond returns</a></h3>
     <p class="title-zh">玻璃箱机器学习与公司债券收益</p>
@@ -651,7 +647,7 @@
   </div>
 </article>
 <article class="event" data-search="flying below the radar: insider trading by executives below the top 隐匿于雷达之下：非高层管理人员的内部交易 hans k. hvide, kasper meisner nielsen journal of financial economics 10.1016/j.jfineco.2026.104282" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104282">Flying below the radar: Insider trading by executives below the top</a></h3>
     <p class="title-zh">隐匿于雷达之下：非高层管理人员的内部交易</p>
@@ -663,7 +659,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编委会  journal of financial economics 10.1016/s0304-405x(26)00070-x" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0304-405x(26)00070-x">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
@@ -675,7 +671,7 @@
   </div>
 </article>
 <article class="event" data-search="bonding with risk: corporate investment and savings in risky financial assets 风险共担：企业风险金融资产投资与储蓄 teng huang, stefano sacchetto journal of financial economics 10.1016/j.jfineco.2026.104283" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104283">Bonding with risk: Corporate investment and savings in risky financial assets</a></h3>
     <p class="title-zh">风险共担：企业风险金融资产投资与储蓄</p>
@@ -687,7 +683,7 @@
   </div>
 </article>
 <article class="event" data-search="the variance premium and seasonal momentum in option returns 期权收益中的方差溢价与季节性动量 steven l heston, christopher s jones, mehdi khorram, shuaiqi li, haitao mo review of financial studies 10.1093/rfs/hhag057" data-journal="review-of-financial-studies" data-fields="finance urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag057">The Variance Premium and Seasonal Momentum in Option Returns</a></h3>
     <p class="title-zh">期权收益中的方差溢价与季节性动量</p>
@@ -699,7 +695,7 @@
   </div>
 </article>
 <article class="event" data-search="did pandemic relief fraud inflate house prices? 疫情救济欺诈是否推高了房价？ john m. griffin, samuel kruger, prateek mahajan journal of financial economics 10.1016/j.jfineco.2026.104275" data-journal="journal-of-financial-economics" data-fields="agriculture finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104275">Did pandemic relief fraud inflate house prices?</a></h3>
     <p class="title-zh">疫情救济欺诈是否推高了房价？</p>
@@ -710,9 +706,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="voting on public goods: citizens vs shareholders 公共产品投票：公民与股东 robin döttling, doron levit, nadya malenko, magdalena rola-janicka review of financial studies 10.1093/rfs/hhag051" data-journal="review-of-financial-studies" data-fields="finance public trade behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag051">Voting on Public Goods: Citizens vs Shareholders</a></h3>
     <p class="title-zh">公共产品投票：公民与股东</p>
@@ -724,7 +719,7 @@
   </div>
 </article>
 <article class="event" data-search="thematic concentration and mutual fund performance 主题集中度与共同基金业绩 john (jianqiu) bai, yuehua tang, chi wan, zafer yuksel review of financial studies 10.1093/rfs/hhag021" data-journal="review-of-financial-studies" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag021">Thematic Concentration and Mutual Fund Performance</a></h3>
     <p class="title-zh">主题集中度与共同基金业绩</p>
@@ -736,7 +731,7 @@
   </div>
 </article>
 <article class="event" data-search="partial equilibrium thinking, extrapolation, and bubbles 局部均衡思维、外推与泡沫 francesca bastianello, paul fontanier review of financial studies 10.1093/rfs/hhag053" data-journal="review-of-financial-studies" data-fields="development finance theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag053">Partial Equilibrium Thinking, Extrapolation, and Bubbles</a></h3>
     <p class="title-zh">局部均衡思维、外推与泡沫</p>
@@ -748,7 +743,7 @@
   </div>
 </article>
 <article class="event" data-search="the real effect of sociopolitical racial/ethnic animus: mutual fund manager performance during aapi hate 社会政治种族/民族敌意的真实效应：aapi仇恨事件期间的共同基金经理表现 vikas agarwal, wei jiang, yuchen luo, hong zou review of financial studies 10.1093/rfs/hhag052" data-journal="review-of-financial-studies" data-fields="china finance macro public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag052">The Real Effect of Sociopolitical Racial/Ethnic Animus: Mutual Fund Manager Performance during AAPI Hate</a></h3>
     <p class="title-zh">社会政治种族/民族敌意的真实效应：AAPI仇恨事件期间的共同基金经理表现</p>
@@ -760,7 +755,7 @@
   </div>
 </article>
 <article class="event" data-search="global capital and local assets: house prices, quantities, and elasticities* 全球资本与本地资产：房价、数量与弹性* caitlin s gorback, benjamin j keys review of financial studies 10.1093/rfs/hhag040" data-journal="review-of-financial-studies" data-fields="agriculture finance public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1093/rfs/hhag040">Global Capital and Local Assets: House Prices, Quantities, and Elasticities*</a></h3>
     <p class="title-zh">全球资本与本地资产：房价、数量与弹性*</p>
@@ -772,7 +767,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of introducing a (nearly) redundant security: evidence from malaysian corporate bonds 引入（近乎）冗余证券的影响：来自马来西亚公司债券的证据 antje berndt, jean helwege, amanda liu, frank packer journal of financial economics 10.1016/j.jfineco.2026.104310" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104310">The impact of introducing a (nearly) redundant security: Evidence from Malaysian corporate bonds</a></h3>
     <p class="title-zh">引入（近乎）冗余证券的影响：来自马来西亚公司债券的证据</p>
@@ -784,7 +779,7 @@
   </div>
 </article>
 <article class="event" data-search="firm-to-firm financial linkages and dollar risk transmission 企业间金融联系与美元风险传导 bryan hardy, felipe saffie, ina simonovska journal of financial economics 10.1016/j.jfineco.2026.104311" data-journal="journal-of-financial-economics" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104311">Firm-to-firm financial linkages and dollar risk transmission</a></h3>
     <p class="title-zh">企业间金融联系与美元风险传导</p>
@@ -796,7 +791,7 @@
   </div>
 </article>
 <article class="event" data-search="are patents with female inventors under-cited? evidence from text estimation 女性发明人的专利是否被低估引用？基于文本估计的证据 yael v. hochberg, ali kakhbod, peiyao li, kunal sachdeva journal of financial economics 10.1016/j.jfineco.2026.104307" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104307">Are patents with female inventors under-cited? Evidence from text estimation</a></h3>
     <p class="title-zh">女性发明人的专利是否被低估引用？基于文本估计的证据</p>
@@ -808,7 +803,7 @@
   </div>
 </article>
 <article class="event" data-search="monetary policy transmission through the exchange rate factor structure 汇率因子结构下的货币政策传导 erik loualiche, alexandre r. pecora, fabricius somogyi, colin ward journal of financial economics 10.1016/j.jfineco.2026.104305" data-journal="journal-of-financial-economics" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104305">Monetary policy transmission through the exchange rate factor structure</a></h3>
     <p class="title-zh">汇率因子结构下的货币政策传导</p>
@@ -820,7 +815,7 @@
   </div>
 </article>
 <article class="event" data-search="intellectual property protection lost and competition: an examination using large language models 知识产权保护缺失与竞争：基于大语言模型的检验 utku u. acikalin, tolga caskurlu, gerard hoberg, gordon m. phillips journal of financial economics 10.1016/j.jfineco.2026.104306" data-journal="journal-of-financial-economics" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jfineco.2026.104306">Intellectual property protection lost and competition: An examination using large language models</a></h3>
     <p class="title-zh">知识产权保护缺失与竞争：基于大语言模型的检验</p>

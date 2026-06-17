@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="learning to navigate a new financial technology 学习驾驭新型金融技术 emily breza, martin kanz, leora klapper journal of finance 10.1111/jofi.70062" data-journal="journal-of-finance" data-fields="finance labor behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">20:11</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="learning to navigate a new financial technology 学习驾驭新型金融技术 emily breza, martin kanz, leora klapper journal of finance 10.1111/jofi.70062" data-journal="journal-of-finance" data-fields="finance labor behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">20:11</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70062">Learning to Navigate a New Financial Technology</a></h3>
     <p class="title-zh">学习驾驭新型金融技术</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="cash heterogeneity and the payout channel of monetary policy 现金异质性与货币政策的支付渠道 altan pazarbaşi journal of finance 10.1111/jofi.70059" data-journal="journal-of-finance" data-fields="agriculture finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70059">Cash Heterogeneity and the Payout Channel of Monetary Policy</a></h3>
     <p class="title-zh">现金异质性与货币政策的支付渠道</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="detecting informed trading risk from undercutting activity 从压价行为中识别知情交易风险 yashar h. barardehi, peter dixon, qiyu liu journal of finance 10.1111/jofi.70047" data-journal="journal-of-finance" data-fields="finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70047">Detecting Informed Trading Risk from Undercutting Activity</a></h3>
     <p class="title-zh">从压价行为中识别知情交易风险</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="quote competition in corporate bonds 公司债券中的报价竞争 terrence hendershott, dan li, dmitry livdan, norman schürhoff, kumar venkataraman journal of finance 10.1111/jofi.70048" data-journal="journal-of-finance" data-fields="agriculture finance trade theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70048">Quote Competition in Corporate Bonds</a></h3>
     <p class="title-zh">公司债券中的报价竞争</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="issue information 期刊信息  journal of finance 10.1111/jofi.13349" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.13349">ISSUE INFORMATION</a></h3>
     <p class="title-zh">期刊信息</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="announcements 公告  journal of finance 10.1111/jofi.70017" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70017">ANNOUNCEMENTS</a></h3>
     <p class="title-zh">公告</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="hedger of last resort: evidence from brazilian fx interventions, local credit, and global financial cycles 最后避险对冲者：来自巴西外汇干预、本地信贷与全球金融周期的证据 rodrigo barbone gonzalez, dmitry khametshin, josé‐luis peydró, andrea polo journal of finance 10.1111/jofi.70054" data-journal="journal-of-finance" data-fields="finance labor public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70054">Hedger of Last Resort: Evidence from Brazilian FX Interventions, Local Credit, and Global Financial Cycles</a></h3>
     <p class="title-zh">最后避险对冲者：来自巴西外汇干预、本地信贷与全球金融周期的证据</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="american finance association 美国金融协会  journal of finance 10.1111/jofi.13350" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.13350">AMERICAN FINANCE ASSOCIATION</a></h3>
     <p class="title-zh">美国金融协会</p>
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="investing with purpose: evidence from private foundations 有目的的投资：来自私人基金会的证据 matteo binfarè, kyle e. zimmerschied journal of finance 10.1111/jofi.70055" data-journal="journal-of-finance" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70055">Investing with Purpose: Evidence from Private Foundations</a></h3>
     <p class="title-zh">有目的的投资：来自私人基金会的证据</p>
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="why have ceo pay levels become less diverse? 为何ceo薪酬水平变得不那么多样化？ torsten jochem, gaizka ormazabal, anjana rajamani journal of finance 10.1111/jofi.70050" data-journal="journal-of-finance" data-fields="finance public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70050">Why Have CEO Pay Levels Become Less Diverse?</a></h3>
     <p class="title-zh">为何CEO薪酬水平变得不那么多样化？</p>
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="bank competition amid digital disruption: implications for financial inclusion 数字冲击下的银行竞争：对金融包容性的影响 erica xuewei jiang, gloria yang yu, jinyuan zhang journal of finance 10.1111/jofi.70051" data-journal="journal-of-finance" data-fields="agriculture development finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70051">Bank Competition Amid Digital Disruption: Implications for Financial Inclusion</a></h3>
     <p class="title-zh">数字冲击下的银行竞争：对金融包容性的影响</p>
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="consumption in asset returns 资产收益中的消费 svetlana bryzgalova, jiantao huang, christian julliard journal of finance 10.1111/jofi.70044" data-journal="journal-of-finance" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70044">Consumption in Asset Returns</a></h3>
     <p class="title-zh">资产收益中的消费</p>
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="the drivers and implications of retail margin trading 零售保证金交易的驱动因素及其影响 jiangze bian, zhi da, zhiguo he, dong lou, kelly shue 等 journal of finance 10.1111/jofi.70049" data-journal="journal-of-finance" data-fields="china agriculture finance behavior" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70049">The Drivers and Implications of Retail Margin Trading</a></h3>
     <p class="title-zh">零售保证金交易的驱动因素及其影响</p>
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="risk‐free rates and convenience yields around the world 全球无风险利率与便利收益 william diamond, peter van tassel journal of finance 10.1111/jofi.70045" data-journal="journal-of-finance" data-fields="agriculture finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70045">Risk‐Free Rates and Convenience Yields around the World</a></h3>
     <p class="title-zh">全球无风险利率与便利收益</p>
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="the equilibrium effects of eviction policies 驱逐政策的均衡效应 boaz abramson journal of finance 10.1111/jofi.70046" data-journal="journal-of-finance" data-fields="finance public urban theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70046">The Equilibrium Effects of Eviction Policies</a></h3>
     <p class="title-zh">驱逐政策的均衡效应</p>
@@ -237,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="partisan entrepreneurship 党派创业 joseph engelberg, jorge guzman, runjing lu, william mullins journal of finance 10.1111/jofi.70042" data-journal="journal-of-finance" data-fields="finance public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70042">Partisan Entrepreneurship</a></h3>
     <p class="title-zh">党派创业</p>
@@ -249,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="learning in the limit: income inference from credit extensions 极限学习：从信贷扩展中推断收入 xiao yin journal of finance 10.1111/jofi.70040" data-journal="journal-of-finance" data-fields="finance behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70040">Learning in the Limit: Income Inference from Credit Extensions</a></h3>
     <p class="title-zh">极限学习：从信贷扩展中推断收入</p>
@@ -260,9 +258,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-16</div>
 <article class="event" data-search="the debt‐equity spread 债务-权益利差 hui chen, zhiyao chen, jun li journal of finance 10.1111/jofi.70060" data-journal="journal-of-finance" data-fields="finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70060">The Debt‐Equity Spread</a></h3>
     <p class="title-zh">债务-权益利差</p>
@@ -274,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="private equity and pay gaps inside the firm 私募股权与企业内部薪酬差距 lily fang, jim goldman, alexandra roulet journal of finance 10.1111/jofi.70043" data-journal="journal-of-finance" data-fields="finance labor firms inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70043">Private Equity and Pay Gaps Inside the Firm</a></h3>
     <p class="title-zh">私募股权与企业内部薪酬差距</p>
@@ -288,7 +285,7 @@
 <article class="event" data-search="report of the editor of
                     &lt;i&gt;the journal of finance&lt;/i&gt;
                     for the year 2025 《金融学刊》2025年度主编报告 antoinette schoar journal of finance 10.1111/jofi.70061" data-journal="journal-of-finance" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">12:26</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jofi.70061">Report of the Editor of
                     &lt;i&gt;The Journal of Finance&lt;/i&gt;

@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,10 +54,9 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="&lt;scp&gt;jae&lt;/scp&gt;
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="&lt;scp&gt;jae&lt;/scp&gt;
                     2025: report of the editor‐in‐chief jae 2025：主编报告 jonathan brooks journal of agricultural economics 10.1111/1477-9552.70056" data-journal="journal-of-agricultural-economics" data-fields="agriculture public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70056">&lt;scp&gt;JAE&lt;/scp&gt;
                     2025: Report of the Editor‐in‐Chief</a></h3>
@@ -71,7 +69,7 @@
   </div>
 </article>
 <article class="event" data-search="efficiency, shadow pricing and regime switching in multi‐ware technologies: evidence from regulated livestock farms 多仓库技术中的效率、影子定价与制度转换：来自受监管畜牧场的证据 youpei yan, robert g. chambers journal of agricultural economics 10.1111/1477-9552.70059" data-journal="journal-of-agricultural-economics" data-fields="china agriculture environment finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70059">Efficiency, Shadow Pricing and Regime Switching in Multi‐Ware Technologies: Evidence From Regulated Livestock Farms</a></h3>
     <p class="title-zh">多仓库技术中的效率、影子定价与制度转换：来自受监管畜牧场的证据</p>
@@ -83,7 +81,7 @@
   </div>
 </article>
 <article class="event" data-search="intra‐seasonal crop management and the potential benefit of seasonal precipitation forecasts: farm‐level embedded risk analysis in ethiopia 埃塞俄比亚农场层面嵌入风险分析：季节性内作物管理与季节性降水预报的潜在收益 christian troost, samuel elias kayamo, livia rasche, thomas berger journal of agricultural economics 10.1111/1477-9552.70054" data-journal="journal-of-agricultural-economics" data-fields="agriculture development finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70054">Intra‐Seasonal Crop Management and the Potential Benefit of Seasonal Precipitation Forecasts: Farm‐Level Embedded Risk Analysis in Ethiopia</a></h3>
     <p class="title-zh">埃塞俄比亚农场层面嵌入风险分析：季节性内作物管理与季节性降水预报的潜在收益</p>
@@ -95,7 +93,7 @@
   </div>
 </article>
 <article class="event" data-search="reallocation effects of internalizing externalities: evidence from china&#x27;s straw burning ban 内部化外部性的再配置效应：来自中国秸秆禁烧政策的证据 wenyuan hua journal of agricultural economics 10.1111/1477-9552.70052" data-journal="journal-of-agricultural-economics" data-fields="china agriculture environment macro" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70052">Reallocation Effects of Internalizing Externalities: Evidence From China&#x27;s Straw Burning Ban</a></h3>
     <p class="title-zh">内部化外部性的再配置效应：来自中国秸秆禁烧政策的证据</p>
@@ -107,7 +105,7 @@
   </div>
 </article>
 <article class="event" data-search="repurposing agricultural budgets with multiple objectives and fiscal constraints: a multicriteria decision‐making policy tool applied to sub‐saharan african countries 多重目标与财政约束下的农业预算重新配置：应用于撒哈拉以南非洲国家的多准则决策政策工具 marco v. sánchez, martín cicowiez, lucia battaglia, valentina pernechele journal of agricultural economics 10.1111/1477-9552.70053" data-journal="journal-of-agricultural-economics" data-fields="agriculture development macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70053">Repurposing Agricultural Budgets With Multiple Objectives and Fiscal Constraints: A Multicriteria Decision‐Making Policy Tool Applied to Sub‐Saharan African Countries</a></h3>
     <p class="title-zh">多重目标与财政约束下的农业预算重新配置：应用于撒哈拉以南非洲国家的多准则决策政策工具</p>
@@ -119,7 +117,7 @@
   </div>
 </article>
 <article class="event" data-search="outcomes of a public program to support sustainable livestock farming: evidence from uruguay 乌拉圭支持可持续畜牧业公共项目的成效：来自实证的证据 emilio aguirre, juan baraldo, marcelo caffera, hugo laguna journal of agricultural economics 10.1111/1477-9552.70033" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70033">Outcomes of a Public Program to Support Sustainable Livestock Farming: Evidence From Uruguay</a></h3>
     <p class="title-zh">乌拉圭支持可持续畜牧业公共项目的成效：来自实证的证据</p>
@@ -131,7 +129,7 @@
   </div>
 </article>
 <article class="event" data-search="antimicrobial use in livestock: the economic cost of action or inaction 畜牧业中抗生素的使用：行动或不行动的经济成本 alejandro acosta, wondmagegn tirkaso, marco artavia, francesco nicolli, thomas chatzopoulos 等 journal of agricultural economics 10.1111/1477-9552.70041" data-journal="journal-of-agricultural-economics" data-fields="agriculture finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70041">Antimicrobial Use in Livestock: The Economic Cost of Action or Inaction</a></h3>
     <p class="title-zh">畜牧业中抗生素的使用：行动或不行动的经济成本</p>
@@ -143,7 +141,7 @@
   </div>
 </article>
 <article class="event" data-search="adoption of new practices in latin american agriculture: livestock technologies and systems 拉丁美洲农业新实践的采纳：畜牧技术与系统 david j. pannell journal of agricultural economics 10.1111/1477-9552.70051" data-journal="journal-of-agricultural-economics" data-fields="agriculture finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70051">Adoption of New Practices in Latin American Agriculture: Livestock Technologies and Systems</a></h3>
     <p class="title-zh">拉丁美洲农业新实践的采纳：畜牧技术与系统</p>
@@ -155,7 +153,7 @@
   </div>
 </article>
 <article class="event" data-search="sustainability and the reallocation of production across grazing regimes in livestock systems: evidence from mexico 可持续性与畜牧系统中放牧模式间生产重新配置：来自墨西哥的证据 saúl basurto‐hernández, allan beltrán, luis peña‐lévano journal of agricultural economics 10.1111/1477-9552.70050" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70050">Sustainability and the Reallocation of Production Across Grazing Regimes in Livestock Systems: Evidence From Mexico</a></h3>
     <p class="title-zh">可持续性与畜牧系统中放牧模式间生产重新配置：来自墨西哥的证据</p>
@@ -167,7 +165,7 @@
   </div>
 </article>
 <article class="event" data-search="adoption of sustainable livestock innovations: evidence from latin america 采纳可持续畜牧业创新：来自拉丁美洲的证据 allen blackman, gonzalo muñoz, lina salazar, paul winters journal of agricultural economics 10.1111/1477-9552.70049" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment development finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70049">Adoption of Sustainable Livestock Innovations: Evidence from Latin America</a></h3>
     <p class="title-zh">采纳可持续畜牧业创新：来自拉丁美洲的证据</p>
@@ -179,7 +177,7 @@
   </div>
 </article>
 <article class="event" data-search="sustainable livestock decisions in a post‐conflict frontier: evidence from colombia&#x27;s orinoquía 后冲突前沿地区的可持续畜牧业决策：来自哥伦比亚奥里诺基亚地区的证据 hernando flórez‐díaz, emiliano lopez barrera, adriana maría molina‐romero, diana elisa correa‐pinilla, carlos fontanilla‐díaz journal of agricultural economics 10.1111/1477-9552.70047" data-journal="journal-of-agricultural-economics" data-fields="agriculture finance public econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70047">Sustainable Livestock Decisions in a Post‐Conflict Frontier: Evidence From Colombia&#x27;s Orinoquía</a></h3>
     <p class="title-zh">后冲突前沿地区的可持续畜牧业决策：来自哥伦比亚奥里诺基亚地区的证据</p>
@@ -193,7 +191,7 @@
 <article class="event" data-search="correction to ‘protected areas and agricultural biodiversity conservation—do parks increase
                     &lt;scp&gt;aes&lt;/scp&gt;
                     adoption?’ 更正《保护区和农业生物多样性保护——公园是否增加了aes的采用？》  journal of agricultural economics 10.1111/1477-9552.70055" data-journal="journal-of-agricultural-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70055">Correction to ‘Protected Areas and Agricultural Biodiversity Conservation—Do Parks Increase
                     &lt;scp&gt;AES&lt;/scp&gt;
@@ -206,9 +204,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="the economic and ecological impact of soy in brazil: a synthetic control method approach 巴西大豆的经济与生态影响：基于合成控制法的分析 stefano ghinoi, simone piras, luca tasciotti, valdemar joão wesz junior journal of agricultural economics 10.1111/1477-9552.70061" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment development finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70061">The Economic and Ecological Impact of Soy in Brazil: A Synthetic Control Method Approach</a></h3>
     <p class="title-zh">巴西大豆的经济与生态影响：基于合成控制法的分析</p>
@@ -220,7 +217,7 @@
   </div>
 </article>
 <article class="event" data-search="an economic and environmental analysis of virtual fencing for precision grazing 精准放牧虚拟围栏的经济与环境分析 elias maritan, karl behrendt, sarah morgan, steven mark rutter, james lowenberg‐deboer journal of agricultural economics 10.1111/1477-9552.70062" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment finance labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70062">An Economic and Environmental Analysis of Virtual Fencing for Precision Grazing</a></h3>
     <p class="title-zh">精准放牧虚拟围栏的经济与环境分析</p>
@@ -236,7 +233,7 @@
                     on
                     &lt;scp&gt;eu&lt;/scp&gt;
                     agricultural emissions and regional disparities 滋养气候政策：cbam对欧盟农业排放与区域差异的双重影响 davit stepanyan, omid zamani, claudia heidecke, janine pelikan, jörg rieger 等 journal of agricultural economics 10.1111/1477-9552.70060" data-journal="journal-of-agricultural-economics" data-fields="agriculture environment public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70060">Fertilising Climate Policy: The Dual Impact of
                     &lt;scp&gt;CBAM&lt;/scp&gt;
@@ -252,7 +249,7 @@
   </div>
 </article>
 <article class="event" data-search="issue information 期刊信息  journal of agricultural economics 10.1111/1477-9552.70058" data-journal="journal-of-agricultural-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/1477-9552.70058">Issue Information</a></h3>
     <p class="title-zh">期刊信息</p>

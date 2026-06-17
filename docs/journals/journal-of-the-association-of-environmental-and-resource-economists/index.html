@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="the impact of offshoring and import competition on carbon emissions 离岸外包与进口竞争对碳排放的影响 jonathan leisner, jakob roland munch, august twile nielsen, georg schaur journal of the association of environmental and resource economists 10.1086/742219" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="the impact of offshoring and import competition on carbon emissions 离岸外包与进口竞争对碳排放的影响 jonathan leisner, jakob roland munch, august twile nielsen, georg schaur journal of the association of environmental and resource economists 10.1086/742219" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742219">The Impact of Offshoring and Import Competition on Carbon Emissions</a></h3>
     <p class="title-zh">离岸外包与进口竞争对碳排放的影响</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="from gross to net: carbon dioxide removal in an analytic climate economy 从毛到净：分析性气候经济中的二氧化碳移除 felix meier, martin quaas, wilfried rickels, christian traeger journal of the association of environmental and resource economists 10.1086/742258" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742258">From Gross to Net: Carbon Dioxide Removal in an Analytic Climate Economy</a></h3>
     <p class="title-zh">从毛到净：分析性气候经济中的二氧化碳移除</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="increasing household waste segregation rates in the presence of a segregated collection service: a randomized controlled trial in india 存在分类收集服务的情况下提高家庭垃圾分类率：印度的一项随机对照试验 shivani wadehra, zihan nie, francisco alpizar journal of the association of environmental and resource economists 10.1086/742220" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742220">Increasing household waste segregation rates in the presence of a segregated collection service: A randomized controlled trial in India</a></h3>
     <p class="title-zh">存在分类收集服务的情况下提高家庭垃圾分类率：印度的一项随机对照试验</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="noise and learning: evidence from india 噪音与学习：来自印度的证据 arzi adbi, sumit agarwal, pulak ghosh journal of the association of environmental and resource economists 10.1086/742218" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742218">Noise and Learning: Evidence from India</a></h3>
     <p class="title-zh">噪音与学习：来自印度的证据</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="the potential of carbon border adjustments to foster climate cooperation 碳边境调整促进气候合作的潜力 timothé beaufils, joschka wanner, leonie wenz journal of the association of environmental and resource economists 10.1086/742163" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742163">The potential of Carbon Border Adjustments to foster climate cooperation</a></h3>
     <p class="title-zh">碳边境调整促进气候合作的潜力</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="political ideology and u.s. electric vehicle adoption 政治意识形态与美国电动汽车普及 lucas w. davis, jing li, katalin springel journal of the association of environmental and resource economists 10.1086/742108" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742108">Political Ideology and U.S. Electric Vehicle Adoption</a></h3>
     <p class="title-zh">政治意识形态与美国电动汽车普及</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="mismeasured and misunderstood: unmasking the temperature proxy problem in climate impact estimates 被误测与误解：揭示气候影响评估中的温度代理问题 richard t. carson, chu (alex) yu journal of the association of environmental and resource economists 10.1086/742106" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742106">Mismeasured and Misunderstood: Unmasking the Temperature Proxy Problem in Climate Impact Estimates</a></h3>
     <p class="title-zh">被误测与误解：揭示气候影响评估中的温度代理问题</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="electricity, agricultural productivity, and deforestation: evidence from brazil 电力、农业生产力与森林砍伐：来自巴西的证据 dimitri szerman, juliano assuncao, molly lipscomb, ahmed musfhiq mobarak journal of the association of environmental and resource economists 10.1086/742115" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="agriculture environment macro urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742115">Electricity, Agricultural Productivity, and Deforestation: Evidence from Brazil</a></h3>
     <p class="title-zh">电力、农业生产力与森林砍伐：来自巴西的证据</p>
@@ -152,9 +150,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="the urban equilibrium effects of electric vehicle tax credits 电动汽车税收抵免的城市均衡效应 weihua zhao, william larson, becka brolinson journal of the association of environmental and resource economists 10.1086/740185" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment finance public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/740185">The Urban Equilibrium Effects of Electric Vehicle Tax Credits</a></h3>
     <p class="title-zh">电动汽车税收抵免的城市均衡效应</p>
@@ -166,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="environmental liability, insurance, and market structure in coal mining 煤矿开采中的环境责任、保险与市场结构 tom eisenberg, joshua macey journal of the association of environmental and resource economists 10.1086/740953" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/740953">Environmental Liability, Insurance, and Market Structure in Coal Mining</a></h3>
     <p class="title-zh">煤矿开采中的环境责任、保险与市场结构</p>
@@ -178,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="droughts and economic activity: do dams and groundwater mediate the impact? 干旱与经济活动：水坝与地下水能否缓解其影响？ sheila m. olmstead, hilary sigman journal of the association of environmental and resource economists 10.1086/740567" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/740567">Droughts and Economic Activity: Do Dams and Groundwater Mediate the Impact?</a></h3>
     <p class="title-zh">干旱与经济活动：水坝与地下水能否缓解其影响？</p>
@@ -190,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="parameter recovery using remotely sensed variables 使用遥感变量进行参数反演 jonathan proctor, tamma carleton, sandy sum journal of the association of environmental and resource economists 10.1086/742595" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742595">Parameter recovery using remotely sensed variables</a></h3>
     <p class="title-zh">使用遥感变量进行参数反演</p>
@@ -202,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="when the regulator goes home: the effectiveness of environmental inspections and enforcement 当监管者回家：环境检查与执法的有效性 zach raff, jason m. walter, dietrich earnhart journal of the association of environmental and resource economists 10.1086/742583" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742583">When the Regulator Goes Home: The Effectiveness of Environmental Inspections and Enforcement</a></h3>
     <p class="title-zh">当监管者回家：环境检查与执法的有效性</p>
@@ -214,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="energy efficiency dynamics and climate policy 能源效率动态与气候政策 gregory casey, yang gao, peter k. kruse-andersen journal of the association of environmental and resource economists 10.1086/742586" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742586">Energy Efficiency Dynamics and Climate Policy</a></h3>
     <p class="title-zh">能源效率动态与气候政策</p>
@@ -226,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="success and failure of a zero-interest green loan program: evidence from france 零利率绿色贷款项目的成功与失败：来自法国的证据 ilya eryzhenskiy, louis-gaëtan giraudet, mariona segu journal of the association of environmental and resource economists 10.1086/742585" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:53</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742585">Success and Failure of a Zero-Interest Green Loan program: Evidence from France</a></h3>
     <p class="title-zh">零利率绿色贷款项目的成功与失败：来自法国的证据</p>
@@ -237,9 +234,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="causal inference, high-frequency data, and the recreational value of water quality 因果推断、高频数据与水质的休闲价值 andrew earle, hyunjung kim journal of the association of environmental and resource economists 10.1086/741509" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/741509">Causal Inference, High-Frequency Data, and the Recreational Value of Water Quality</a></h3>
     <p class="title-zh">因果推断、高频数据与水质的休闲价值</p>
@@ -251,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="a hedge fund in your garage: automobile purchases under gasoline price            uncertainty 车库里的对冲基金：汽油价格不确定性下的汽车购买行为 james archsmith, simon levin journal of the association of environmental and resource economists 10.1086/740879" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="agriculture environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/740879">A Hedge Fund in Your Garage: Automobile Purchases Under Gasoline Price            Uncertainty</a></h3>
     <p class="title-zh">车库里的对冲基金：汽油价格不确定性下的汽车购买行为</p>
@@ -263,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="shock avoidance: high bill alert programs and energy consumption 避免冲击：高额账单预警项目与能源消费 grant d. jacobsen, james i. stewart journal of the association of environmental and resource economists 10.1086/740839" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/740839">Shock Avoidance: High Bill Alert Programs and Energy Consumption</a></h3>
     <p class="title-zh">避免冲击：高额账单预警项目与能源消费</p>
@@ -275,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="are we doing more harm than good? using hypothetical bias reduction techniques in consequential decision settings 我们是否弊大于利？在后果性决策情境中使用假设性偏差减少技术 vasudha chopra, christian a. vossler journal of the association of environmental and resource economists 10.1086/740568" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/740568">Are We Doing More Harm than Good? Using Hypothetical Bias Reduction Techniques in Consequential Decision Settings</a></h3>
     <p class="title-zh">我们是否弊大于利？在后果性决策情境中使用假设性偏差减少技术</p>
@@ -287,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="irrigation and climate change: long-run adaptation and its externalities 灌溉与气候变化：长期适应及其外部性 charles a. taylor journal of the association of environmental and resource economists 10.1086/741141" data-journal="journal-of-the-association-of-environmental-and-resource-economists" data-fields="environment" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/741141">Irrigation and Climate Change: Long-Run Adaptation and Its Externalities</a></h3>
     <p class="title-zh">灌溉与气候变化：长期适应及其外部性</p>

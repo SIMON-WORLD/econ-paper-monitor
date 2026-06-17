@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="issue information 期刊信息  journal of money, credit and banking 10.1111/jmcb.70056" data-journal="journal-of-money-credit-and-banking" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="issue information 期刊信息  journal of money, credit and banking 10.1111/jmcb.70056" data-journal="journal-of-money-credit-and-banking" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70056">Issue Information</a></h3>
     <p class="title-zh">期刊信息</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="issue information 期刊信息  journal of money, credit and banking 10.1111/jmcb.70057" data-journal="journal-of-money-credit-and-banking" data-fields="finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70057">Issue Information</a></h3>
     <p class="title-zh">期刊信息</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="the welfare and distributional consequences of corporate tax cuts in open economies 开放经济中企业减税的福利与分配效应 mamoon kader, hashmat khan, minjoon lee, raúl razo‐garcía journal of money, credit and banking 10.1111/jmcb.70059" data-journal="journal-of-money-credit-and-banking" data-fields="development finance public inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70059">The Welfare and Distributional Consequences of Corporate Tax Cuts in Open Economies</a></h3>
     <p class="title-zh">开放经济中企业减税的福利与分配效应</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="self‐fundamentals, cross‐fundamentals, and exchange rate predictions 自我基本面、交叉基本面与汇率预测 qin wang, yu ren journal of money, credit and banking 10.1111/jmcb.70066" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro trade theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70066">Self‐Fundamentals, Cross‐Fundamentals, and Exchange Rate Predictions</a></h3>
     <p class="title-zh">自我基本面、交叉基本面与汇率预测</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="carbon pricing, credit reallocation, and real effects 碳定价、信贷重新配置与实际效应 federico apicella, andrea fabiani journal of money, credit and banking 10.1111/jmcb.70060" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture environment finance econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70060">Carbon Pricing, Credit Reallocation, and Real Effects</a></h3>
     <p class="title-zh">碳定价、信贷重新配置与实际效应</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="the liquidity of the government bond market—what impact does quantitative easing have? evidence from sweden 政府债券市场流动性——量化宽松有何影响？来自瑞典的证据 marianna blix grimaldi, alberto crosta, dong zhang journal of money, credit and banking 10.1111/jmcb.70061" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70061">The Liquidity of the Government Bond Market—What Impact Does Quantitative Easing Have? Evidence from Sweden</a></h3>
     <p class="title-zh">政府债券市场流动性——量化宽松有何影响？来自瑞典的证据</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="mixing it up: inflation at risk 混合效应：风险中的通胀 maximilian schröder journal of money, credit and banking 10.1111/jmcb.70055" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70055">Mixing It Up: Inflation at Risk</a></h3>
     <p class="title-zh">混合效应：风险中的通胀</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="reading between the lines—uncovering asymmetry in the central bank loss function 字里行间——揭示中央银行损失函数中的非对称性 markus haavio, joni heikkinen, pirkka jalasjoki, juha kilponen, maritta paloviita 等 journal of money, credit and banking 10.1111/jmcb.70053" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70053">Reading between the Lines—Uncovering Asymmetry in the Central Bank Loss Function</a></h3>
     <p class="title-zh">字里行间——揭示中央银行损失函数中的非对称性</p>
@@ -152,9 +150,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="debasements and small coins: an untold story of commodity money 铸币贬损与小额硬币：商品货币的一段未述往事 gu jin, tao zhu journal of money, credit and banking 10.1111/jmcb.70062" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70062">Debasements and Small Coins: An Untold Story of Commodity Money</a></h3>
     <p class="title-zh">铸币贬损与小额硬币：商品货币的一段未述往事</p>
@@ -166,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="eu ets market expectations and rational bubbles 欧盟排放交易体系市场预期与理性泡沫 christoph wegener, robinson kruse‐becher, tony klein journal of money, credit and banking 10.1111/jmcb.70068" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture environment finance urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70068">EU ETS Market Expectations and Rational Bubbles</a></h3>
     <p class="title-zh">欧盟排放交易体系市场预期与理性泡沫</p>
@@ -178,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="optimal payment arrangement in a cash‐less monetary economy 无现金货币经济中的最优支付安排 nicola amendola, luis araujo, leo ferraris journal of money, credit and banking 10.1111/jmcb.70058" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70058">Optimal Payment Arrangement in a Cash‐Less Monetary Economy</a></h3>
     <p class="title-zh">无现金货币经济中的最优支付安排</p>
@@ -190,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="monetary policy, employment shortfalls, and the natural rate hypothesis 货币政策、就业缺口与自然率假说 michael t. kiley journal of money, credit and banking 10.1111/jmcb.70067" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70067">Monetary Policy, Employment Shortfalls, and the Natural Rate Hypothesis</a></h3>
     <p class="title-zh">货币政策、就业缺口与自然率假说</p>
@@ -201,9 +198,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="long‐term debt and short‐term rates: fixed‐rate mortgages and monetary transmission 长期债务与短期利率：固定利率抵押贷款与货币政策传导 alessia de stefani, rui c. mano journal of money, credit and banking 10.1111/jmcb.70069" data-journal="journal-of-money-credit-and-banking" data-fields="finance macro public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70069">Long‐Term Debt and Short‐Term Rates: Fixed‐Rate Mortgages and Monetary Transmission</a></h3>
     <p class="title-zh">长期债务与短期利率：固定利率抵押贷款与货币政策传导</p>
@@ -215,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="a heterogeneous agent model of energy consumption and energy conservation 能源消费与节能的异质性主体模型 volha audzei, ivan sutóris journal of money, credit and banking 10.1111/jmcb.70070" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture environment finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70070">A Heterogeneous Agent Model of Energy Consumption and Energy Conservation</a></h3>
     <p class="title-zh">能源消费与节能的异质性主体模型</p>
@@ -227,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="central bank digital currency with collateral‐constrained banks 抵押约束银行下的央行数字货币 hanfeng chen, maria elena filippin journal of money, credit and banking 10.1111/jmcb.70063" data-journal="journal-of-money-credit-and-banking" data-fields="development finance theory firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70063">Central Bank Digital Currency with Collateral‐Constrained Banks</a></h3>
     <p class="title-zh">抵押约束银行下的央行数字货币</p>
@@ -239,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="climate policies, macroprudential regulation, and the welfare cost of business cycles 气候政策、宏观审慎监管与商业周期的福利成本 barbara annicchiarico, marco carli, francesca diluiso journal of money, credit and banking 10.1111/jmcb.70064" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture environment finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70064">Climate Policies, Macroprudential Regulation, and the Welfare Cost of Business Cycles</a></h3>
     <p class="title-zh">气候政策、宏观审慎监管与商业周期的福利成本</p>
@@ -251,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="another look at the (ir)relevance of long‐run risks for equity risk premia 长期风险对股权风险溢价的（不）相关性再审视 paulo maio journal of money, credit and banking 10.1111/jmcb.70065" data-journal="journal-of-money-credit-and-banking" data-fields="agriculture finance macro firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1111/jmcb.70065">Another Look at the (Ir)Relevance of Long‐Run Risks for Equity Risk Premia</a></h3>
     <p class="title-zh">长期风险对股权风险溢价的（不）相关性再审视</p>

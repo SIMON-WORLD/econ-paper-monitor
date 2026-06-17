@@ -15,10 +15,9 @@
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.day-divider{position:sticky;top:0;z-index:2;margin:24px 0 2px;padding:8px 0 8px 76px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,248,250,.96);color:var(--muted);font-size:13px;font-weight:800}
-.event{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;border-bottom:1px solid var(--line);padding:18px 0;position:relative}.event:before{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:var(--line)}.event[hidden]{display:none}.event-time{position:relative;z-index:1;background:#fff;padding:1px 0;text-align:right}.event-time:after{content:"";position:absolute;right:-5px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}.time{font-weight:800;color:var(--blue);font-size:13px}.date-note{color:var(--muted);font-size:10px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:48px minmax(0,1fr);gap:12px}.event:before{left:23px}.day-divider{padding-left:60px}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,9 +54,8 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><div class="day-divider">2026-06-17</div>
-<article class="event" data-search="who bears the cost: financial frictions and labor markdown 谁承担成本：金融摩擦与劳动力买方垄断压价 ming li, yao amber li, zehao li journal of development economics 10.1016/j.jdeveco.2026.103828" data-journal="journal-of-development-economics" data-fields="china development finance labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:46</div><div class="date-note">2026-06-17</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="who bears the cost: financial frictions and labor markdown 谁承担成本：金融摩擦与劳动力买方垄断压价 ming li, yao amber li, zehao li journal of development economics 10.1016/j.jdeveco.2026.103828" data-journal="journal-of-development-economics" data-fields="china development finance labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:46</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103828">Who bears the cost: Financial frictions and labor markdown</a></h3>
     <p class="title-zh">谁承担成本：金融摩擦与劳动力买方垄断压价</p>
@@ -69,7 +67,7 @@
   </div>
 </article>
 <article class="event" data-search="no need to wait for reporting − examining learning from results-based management practices in development cooperation 无需等待报告——审视发展合作中基于结果的管理实践的学习 janet vähämäki, annika hilgert, kathrin wolf, martin bruder world development 10.1016/j.worlddev.2026.107451" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107451">No need to wait for reporting − Examining learning from results-based management practices in development cooperation</a></h3>
     <p class="title-zh">无需等待报告——审视发展合作中基于结果的管理实践的学习</p>
@@ -81,7 +79,7 @@
   </div>
 </article>
 <article class="event" data-search="the disconnects between trade policy and the rhetoric of inclusive trade december 2025 贸易政策与包容性贸易言论之间的脱节（2025年12月） amrita saha, mattia di ubaldo, amrita bahri, l. alan winters world development 10.1016/j.worlddev.2026.107465" data-journal="world-development" data-fields="development public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107465">The disconnects between trade policy and the rhetoric of inclusive trade December 2025</a></h3>
     <p class="title-zh">贸易政策与包容性贸易言论之间的脱节（2025年12月）</p>
@@ -93,7 +91,7 @@
   </div>
 </article>
 <article class="event" data-search="not gone with the wind: long-run impact of herbicidal warfare in vietnam 随风未逝：越南除草剂战争的长期影响 gaku ito, duc tran, yuichiro yoshida world development 10.1016/j.worlddev.2026.107467" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107467">Not gone with the wind: Long-run impact of herbicidal warfare in Vietnam</a></h3>
     <p class="title-zh">随风未逝：越南除草剂战争的长期影响</p>
@@ -105,7 +103,7 @@
   </div>
 </article>
 <article class="event" data-search="fdi and coal lock-in: the global south’s development dilemma 外商直接投资与煤炭锁定：全球南方的发展困境 xinya hao, lin zhang, huanhuan zheng world development 10.1016/j.worlddev.2026.107453" data-journal="world-development" data-fields="development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107453">FDI and coal lock-in: The Global South’s development dilemma</a></h3>
     <p class="title-zh">外商直接投资与煤炭锁定：全球南方的发展困境</p>
@@ -117,7 +115,7 @@
   </div>
 </article>
 <article class="event" data-search="inequality and social unrest in india 印度不平等与社会动荡 mathieu couttenier, jeremy laurent-lucchetti, lore vandewalle world development 10.1016/j.worlddev.2026.107418" data-journal="world-development" data-fields="development inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107418">Inequality and social unrest in India</a></h3>
     <p class="title-zh">印度不平等与社会动荡</p>
@@ -129,7 +127,7 @@
   </div>
 </article>
 <article class="event" data-search="urban community-led total sanitation: opportunities, barriers and lessons from nanded, india 城市社区主导的全面环境卫生：来自印度南德的机会、障碍与经验 lyla mehta, ruth kennedy-walker, apeksha vohra, tanvi bhatkal, pallavi harshe 等 world development 10.1016/j.worlddev.2026.107336" data-journal="world-development" data-fields="development urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107336">Urban community-led total sanitation: opportunities, barriers and lessons from Nanded, India</a></h3>
     <p class="title-zh">城市社区主导的全面环境卫生：来自印度南德的机会、障碍与经验</p>
@@ -141,7 +139,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编委会  world development 10.1016/s0305-750x(26)00162-2" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0305-750x(26)00162-2">Editorial Board</a></h3>
     <p class="title-zh">编委会</p>
@@ -153,7 +151,7 @@
   </div>
 </article>
 <article class="event" data-search="measuring forest-related depth in preferential trade agreements: the forest provisions depth index 优惠贸易协定中森林相关深度的测量：森林条款深度指数 michelle márcia viana martins, alan leal, rodrigo fagundes cezar world development 10.1016/j.worlddev.2026.107442" data-journal="world-development" data-fields="environment development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107442">Measuring forest-related depth in preferential trade agreements: the forest provisions depth index</a></h3>
     <p class="title-zh">优惠贸易协定中森林相关深度的测量：森林条款深度指数</p>
@@ -165,7 +163,7 @@
   </div>
 </article>
 <article class="event" data-search="development and interdisciplinarity: additional insights on the ‘economics silo’ 发展与跨学科性：关于“经济学孤岛”的补充见解 matthias aistleitner world development 10.1016/j.worlddev.2026.107435" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107435">Development and interdisciplinarity: additional insights on the ‘economics silo’</a></h3>
     <p class="title-zh">发展与跨学科性：关于“经济学孤岛”的补充见解</p>
@@ -177,7 +175,7 @@
   </div>
 </article>
 <article class="event" data-search="catalysts for third-country market entry: the role of preferential trade agreements 第三方市场进入的催化剂：优惠贸易协定的作用 qiugu he, xuan luo world development 10.1016/j.worlddev.2026.107437" data-journal="world-development" data-fields="development finance trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107437">Catalysts for third-country market entry: The role of preferential trade agreements</a></h3>
     <p class="title-zh">第三方市场进入的催化剂：优惠贸易协定的作用</p>
@@ -189,7 +187,7 @@
   </div>
 </article>
 <article class="event" data-search="public support for military conservation: understanding public opinion to the ‘war on poachers’ in three countries 公众对军事化保护的支持：理解三国公众对“反偷猎战争”的态度 lauren yehle, aksel sundström, patrik michaelsen, sverker c. jagers world development 10.1016/j.worlddev.2026.107440" data-journal="world-development" data-fields="development public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107440">Public support for military conservation: Understanding public opinion to the ‘war on poachers’ in three countries</a></h3>
     <p class="title-zh">公众对军事化保护的支持：理解三国公众对“反偷猎战争”的态度</p>
@@ -201,7 +199,7 @@
   </div>
 </article>
 <article class="event" data-search="land tenure conflicts in ghana and zimbabwe: an institutional perspective 加纳与津巴布韦的土地权属冲突：制度视角 abel gwaindepi, helen akolgo-azupogo world development 10.1016/j.worlddev.2026.107438" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107438">Land tenure conflicts in Ghana and Zimbabwe: An institutional perspective</a></h3>
     <p class="title-zh">加纳与津巴布韦的土地权属冲突：制度视角</p>
@@ -213,7 +211,7 @@
   </div>
 </article>
 <article class="event" data-search="feeding the accelerator: a metabolic historical analysis of the us food regime 喂养加速器：美国食物体制的代谢历史分析 stefano menegat world development 10.1016/j.worlddev.2026.107439" data-journal="world-development" data-fields="agriculture development history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107439">Feeding the accelerator: A metabolic historical analysis of the US food regime</a></h3>
     <p class="title-zh">喂养加速器：美国食物体制的代谢历史分析</p>
@@ -225,7 +223,7 @@
   </div>
 </article>
 <article class="event" data-search="trade openness, global value chain integration and firms’ adoption of environment-friendly strategies 贸易开放、全球价值链整合与企业环境友好型战略的采纳 isabel maria bodas freitas, fulvio castellacci, keun lee, matthias staessens world development 10.1016/j.worlddev.2026.107430" data-journal="world-development" data-fields="environment development trade firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107430">Trade openness, global value chain integration and firms’ adoption of environment-friendly strategies</a></h3>
     <p class="title-zh">贸易开放、全球价值链整合与企业环境友好型战略的采纳</p>
@@ -237,7 +235,7 @@
   </div>
 </article>
 <article class="event" data-search="toward a clean drinking water act for india: a review of drinking water quality standards 迈向印度清洁饮用水法案：饮用水质量标准综述 atul singh, aditya shrinivas, anil suraj, gopal naik world development 10.1016/j.worlddev.2026.107433" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107433">Toward a clean drinking water act for India: A review of drinking water quality standards</a></h3>
     <p class="title-zh">迈向印度清洁饮用水法案：饮用水质量标准综述</p>
@@ -249,7 +247,7 @@
   </div>
 </article>
 <article class="event" data-search="rebuilding after disaster in haiti: effects of expecting external, diaspora, and local support 海地灾后重建：预期外部、侨民与本地支持的影响 tracy kijewski-correa, william kakenmaster, debra javeline, alexandros taflanidis, karen richman world development 10.1016/j.worlddev.2026.107395" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107395">Rebuilding after disaster in Haiti: effects of expecting external, diaspora, and local support</a></h3>
     <p class="title-zh">海地灾后重建：预期外部、侨民与本地支持的影响</p>
@@ -261,7 +259,7 @@
   </div>
 </article>
 <article class="event" data-search="electoral cycles in female sterilization 女性绝育手术中的选举周期 simeon nichter, dario toman world development 10.1016/j.worlddev.2026.107407" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107407">Electoral cycles in female sterilization</a></h3>
     <p class="title-zh">女性绝育手术中的选举周期</p>
@@ -273,7 +271,7 @@
   </div>
 </article>
 <article class="event" data-search="good for business, not so much for the environment? entry into importing and the energy intensity of indian plants 对商业有利，对环境却未必？进口进入与印度工厂的能源强度 michele delera, nanditha mathew, tania treibich world development 10.1016/j.worlddev.2026.107412" data-journal="world-development" data-fields="environment development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107412">Good for business, not so much for the environment? Entry into importing and the energy intensity of Indian plants</a></h3>
     <p class="title-zh">对商业有利，对环境却未必？进口进入与印度工厂的能源强度</p>
@@ -285,7 +283,7 @@
   </div>
 </article>
 <article class="event" data-search="teetering on the brink of debt and hunger: empirical examination of the linkages between external debt and food security in africa 摇摇欲坠于债务与饥饿边缘：非洲外债与粮食安全关联性的实证研究 assem abu hatab, emmanuel orkoh world development 10.1016/j.worlddev.2026.107417" data-journal="world-development" data-fields="agriculture development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107417">Teetering on the brink of debt and hunger: Empirical examination of the linkages between external debt and food security in Africa</a></h3>
     <p class="title-zh">摇摇欲坠于债务与饥饿边缘：非洲外债与粮食安全关联性的实证研究</p>
@@ -297,7 +295,7 @@
   </div>
 </article>
 <article class="event" data-search="the lasting effects of early childhood interventions: the national vaccination commando program in burkina faso 早期儿童干预的持久影响：布基纳法索国家疫苗接种突击计划 richard daramola, md shahadath hossain, harounan kazianga, karim nchare journal of development economics 10.1016/j.jdeveco.2026.103851" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103851">The lasting effects of early childhood interventions: The National Vaccination Commando Program in Burkina Faso</a></h3>
     <p class="title-zh">早期儿童干预的持久影响：布基纳法索国家疫苗接种突击计划</p>
@@ -309,7 +307,7 @@
   </div>
 </article>
 <article class="event" data-search="violence against journalists and freedom of the press: evidence from mexico 针对记者的暴力与新闻自由：来自墨西哥的证据 josé a. jurado, juan s. morales journal of development economics 10.1016/j.jdeveco.2026.103775" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103775">Violence against journalists and freedom of the press: Evidence from Mexico</a></h3>
     <p class="title-zh">针对记者的暴力与新闻自由：来自墨西哥的证据</p>
@@ -321,7 +319,7 @@
   </div>
 </article>
 <article class="event" data-search="chat over coffee? diffusion of agronomic practices and market spillovers in rwanda 咖啡闲聊？卢旺达农业技术扩散与市场溢出效应 esther duflo, daniel keniston, tavneet suri, céline zipfel journal of development economics 10.1016/j.jdeveco.2026.103733" data-journal="journal-of-development-economics" data-fields="development finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103733">Chat over coffee? Diffusion of agronomic practices and market spillovers in Rwanda</a></h3>
     <p class="title-zh">咖啡闲聊？卢旺达农业技术扩散与市场溢出效应</p>
@@ -333,7 +331,7 @@
   </div>
 </article>
 <article class="event" data-search="labor market competition and inequality 劳动力市场竞争与不平等 jose garcia-louzao, alessandro ruggieri journal of development economics 10.1016/j.jdeveco.2026.103821" data-journal="journal-of-development-economics" data-fields="development finance labor inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103821">Labor market competition and inequality</a></h3>
     <p class="title-zh">劳动力市场竞争与不平等</p>
@@ -345,7 +343,7 @@
   </div>
 </article>
 <article class="event" data-search="unintended consequences of sanitation investment: negative externalities on water quality and health in india 卫生投资的非预期后果：印度水质与健康的负外部性 kazuki motohashi journal of development economics 10.1016/j.jdeveco.2026.103793" data-journal="journal-of-development-economics" data-fields="development health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103793">Unintended consequences of sanitation investment: Negative externalities on water quality and health in India</a></h3>
     <p class="title-zh">卫生投资的非预期后果：印度水质与健康的负外部性</p>
@@ -357,7 +355,7 @@
   </div>
 </article>
 <article class="event" data-search="trafficking as choice? evidence from nigeria 贩卖作为选择？来自尼日利亚的证据 tamara bogatzki, daniel meierrieks journal of development economics 10.1016/j.jdeveco.2026.103809" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103809">Trafficking as choice? Evidence from Nigeria</a></h3>
     <p class="title-zh">贩卖作为选择？来自尼日利亚的证据</p>
@@ -369,7 +367,7 @@
   </div>
 </article>
 <article class="event" data-search="improving childhood immunization through maternal support: evidence from a randomized intervention in pakistan 通过母亲支持改善儿童免疫接种：来自巴基斯坦随机干预项目的证据 adeline delavande, areeba shahab, javed younas, basit zafar journal of development economics 10.1016/j.jdeveco.2026.103808" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103808">Improving childhood immunization through maternal support: Evidence from a randomized intervention in Pakistan</a></h3>
     <p class="title-zh">通过母亲支持改善儿童免疫接种：来自巴基斯坦随机干预项目的证据</p>
@@ -381,7 +379,7 @@
   </div>
 </article>
 <article class="event" data-search="who benefits from a maternity leave extension? evidence from chile 产假延长谁受益？来自智利的证据 fernanda rojas-ampuero journal of development economics 10.1016/j.jdeveco.2026.103763" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103763">Who benefits from a maternity leave extension? Evidence from Chile</a></h3>
     <p class="title-zh">产假延长谁受益？来自智利的证据</p>
@@ -393,7 +391,7 @@
   </div>
 </article>
 <article class="event" data-search="the effect of reminders for self-set goals on productivity 自我设定目标的提醒对生产率的影响 martin abel, tomoko harigaya, michael kremer, jessica zhu journal of development economics 10.1016/j.jdeveco.2026.103822" data-journal="journal-of-development-economics" data-fields="development macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103822">The effect of reminders for self-set goals on productivity</a></h3>
     <p class="title-zh">自我设定目标的提醒对生产率的影响</p>
@@ -405,7 +403,7 @@
   </div>
 </article>
 <article class="event" data-search="retraction notice to “natural disasters, intra-national fdi spillovers, and economic divergence: evidence from india” [j. dev. econ. 157 (2022) 102872] 撤回通知：《自然灾害、国内fdi溢出效应与经济分化：来自印度的证据》[j. dev. econ. 157 (2022) 102872] felix l. friedt, aidan toner-rodgers journal of development economics 10.1016/j.jdeveco.2026.103788" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103788">Retraction notice to “Natural disasters, intra-national FDI spillovers, and economic divergence: Evidence from India” [J. Dev. Econ. 157 (2022) 102872]</a></h3>
     <p class="title-zh">撤回通知：《自然灾害、国内FDI溢出效应与经济分化：来自印度的证据》[J. Dev. Econ. 157 (2022) 102872]</p>
@@ -417,7 +415,7 @@
   </div>
 </article>
 <article class="event" data-search="raising the bar: an inclusive global poverty line 提高标准：一个包容性的全球贫困线 lant pritchett, martina viarengo journal of development economics 10.1016/j.jdeveco.2026.103803" data-journal="journal-of-development-economics" data-fields="development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103803">Raising the bar: An inclusive global poverty line</a></h3>
     <p class="title-zh">提高标准：一个包容性的全球贫困线</p>
@@ -429,7 +427,7 @@
   </div>
 </article>
 <article class="event" data-search="temporary acceleration or long-term change? experimental evidence on female empowerment and intimate partner violence in urban liberia 暂时加速还是长期变革？利比里亚城市地区女性赋权与亲密伴侣暴力的实验证据 david sungho park journal of development economics 10.1016/j.jdeveco.2026.103823" data-journal="journal-of-development-economics" data-fields="development urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103823">Temporary acceleration or long-term change? Experimental evidence on female empowerment and intimate partner violence in urban Liberia</a></h3>
     <p class="title-zh">暂时加速还是长期变革？利比里亚城市地区女性赋权与亲密伴侣暴力的实验证据</p>
@@ -441,7 +439,7 @@
   </div>
 </article>
 <article class="event" data-search="parental mental health and the economic preferences of the next generation 父母心理健康与下一代经济偏好 alexander bertermann, hannah schildberg-hörisch journal of development economics 10.1016/j.jdeveco.2026.103785" data-journal="journal-of-development-economics" data-fields="development behavior health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103785">Parental mental health and the economic preferences of the next generation</a></h3>
     <p class="title-zh">父母心理健康与下一代经济偏好</p>
@@ -453,7 +451,7 @@
   </div>
 </article>
 <article class="event" data-search="evaluating the environmental and economic implications of curbing transboundary pollution: evidence from china 遏制跨界污染的环境与经济影响评估：来自中国的证据 zeyang zhang, yuanyi xu, dunhu chang, dingding shao, xin wang journal of development economics 10.1016/j.jdeveco.2026.103854" data-journal="journal-of-development-economics" data-fields="china environment development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103854">Evaluating the environmental and economic implications of curbing transboundary pollution: Evidence from China</a></h3>
     <p class="title-zh">遏制跨界污染的环境与经济影响评估：来自中国的证据</p>
@@ -465,7 +463,7 @@
   </div>
 </article>
 <article class="event" data-search="moving up the ranks: conscription and intergenerational mobility 提升排名：征兵与代际流动 diego ramos-toro, juan pedro ronconi journal of development economics 10.1016/j.jdeveco.2026.103764" data-journal="journal-of-development-economics" data-fields="development inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103764">Moving up the ranks: Conscription and intergenerational mobility</a></h3>
     <p class="title-zh">提升排名：征兵与代际流动</p>
@@ -477,7 +475,7 @@
   </div>
 </article>
 <article class="event" data-search="the limits of local laws in global supply chains: cutting ties or “edutrading” procurement partners? 全球供应链中地方法律的局限性：切断联系还是“教育型交易”采购伙伴？ hendrik keilbach, michael koetter, melina ludolph, fabian woebbeking journal of development economics 10.1016/j.jdeveco.2026.103804" data-journal="journal-of-development-economics" data-fields="development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103804">The limits of local laws in global supply chains: Cutting ties or “edutrading” procurement partners?</a></h3>
     <p class="title-zh">全球供应链中地方法律的局限性：切断联系还是“教育型交易”采购伙伴？</p>
@@ -489,7 +487,7 @@
   </div>
 </article>
 <article class="event" data-search="adjustment without accumulation: evidence on capital formation from imf programs 调整而非积累：imf项目中的资本形成证据 daniel rinner, kevin p. gallagher, rebecca ray journal of development economics 10.1016/j.jdeveco.2026.103825" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103825">Adjustment without accumulation: Evidence on capital formation from IMF programs</a></h3>
     <p class="title-zh">调整而非积累：IMF项目中的资本形成证据</p>
@@ -501,7 +499,7 @@
   </div>
 </article>
 <article class="event" data-search="contract enforcement in a stateless economy 无国家经济中的合同执行 sultan mehmood, georgii marinichev, sajwaar khalid, daniel chen, margarita kudaeva journal of development economics 10.1016/j.jdeveco.2026.103802" data-journal="journal-of-development-economics" data-fields="development theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103802">Contract enforcement in a stateless economy</a></h3>
     <p class="title-zh">无国家经济中的合同执行</p>
@@ -513,7 +511,7 @@
   </div>
 </article>
 <article class="event" data-search="the forsaken road: reassessing living standards following the cuban revolution and the american embargo 被遗弃之路：重新评估古巴革命与美国禁运后的生活水平 joão pedro bastos, vincent geloso, jamie bologna pavlik journal of development economics 10.1016/j.jdeveco.2026.103831" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
+  <div><div class="time">02:16</div><div class="date-note">2026-06-17</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103831">The forsaken road: Reassessing living standards following the Cuban Revolution and the American embargo</a></h3>
     <p class="title-zh">被遗弃之路：重新评估古巴革命与美国禁运后的生活水平</p>
@@ -524,9 +522,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-16</div>
 <article class="event" data-search="coups d’état and the informal economy 政变与非正规经济 ablam estel apeti, dorgyles c.m. kouakou, assi okara, kolotioloma i.h. yéo world development 10.1016/j.worlddev.2026.107477" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">19:37</div><div class="date-note">2026-06-16</div></div>
+  <div><div class="time">19:37</div><div class="date-note">2026-06-16</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107477">Coups d’état and the informal economy</a></h3>
     <p class="title-zh">政变与非正规经济</p>
@@ -537,9 +534,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-15</div>
 <article class="event" data-search="large-scale land acquisitions in ethiopia: impacts on agricultural productivity and deforestation 埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响 workineh asmare kassie, yeshwas admasu, dagim belay, solomon zena walelign, jipeng zhang journal of development economics 10.1016/j.jdeveco.2026.103836" data-journal="journal-of-development-economics" data-fields="agriculture environment development macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">18:09</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">18:09</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103836">Large-scale land acquisitions in Ethiopia: Impacts on agricultural productivity and deforestation</a></h3>
     <p class="title-zh">埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响</p>
@@ -551,7 +547,7 @@
   </div>
 </article>
 <article class="event" data-search="the spatial allocation effects of central transfers: evidence from china 中央转移支付的空间配置效应：来自中国的证据 wenbin huang world development 10.1016/j.worlddev.2026.107490" data-journal="world-development" data-fields="china development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107490">The spatial allocation effects of central transfers: evidence from China</a></h3>
     <p class="title-zh">中央转移支付的空间配置效应：来自中国的证据</p>
@@ -563,7 +559,7 @@
   </div>
 </article>
 <article class="event" data-search="patrilocal residence and young women’s status: evidence from sri lanka 从夫居与年轻女性地位：来自斯里兰卡的证据 deborah s. degraff, kone a.p. siddhisena world development 10.1016/j.worlddev.2026.107459" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107459">Patrilocal residence and young women’s status: Evidence from Sri Lanka</a></h3>
     <p class="title-zh">从夫居与年轻女性地位：来自斯里兰卡的证据</p>
@@ -575,7 +571,7 @@
   </div>
 </article>
 <article class="event" data-search="informal institutions and global trade: real effects of the elusive 非正式制度与全球贸易：难以捉摸的真实效应 eiji fujii world development 10.1016/j.worlddev.2026.107458" data-journal="world-development" data-fields="development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107458">Informal institutions and global trade: Real effects of the elusive</a></h3>
     <p class="title-zh">非正式制度与全球贸易：难以捉摸的真实效应</p>
@@ -587,7 +583,7 @@
   </div>
 </article>
 <article class="event" data-search="unintended consequences of externally aided projects on fiscal transfers: a subnational study of india 外部援助项目对财政转移支付的意外后果：印度次国家级研究 vadlamannati krishna chaitanya, iacono roberto world development 10.1016/j.worlddev.2026.107454" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107454">Unintended consequences of externally aided projects on fiscal transfers: a subnational study of India</a></h3>
     <p class="title-zh">外部援助项目对财政转移支付的意外后果：印度次国家级研究</p>
@@ -599,7 +595,7 @@
   </div>
 </article>
 <article class="event" data-search="brazil’s pacifying police units revisited: a failed democratic policing project and lessons for institutional reforms 巴西安抚警察部队再审视：一项失败的民主警务计划及其对制度改革的启示 julia maia goldani, mariana mota prado world development 10.1016/j.worlddev.2026.107462" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107462">Brazil’s pacifying police units revisited: A failed democratic policing project and lessons for institutional reforms</a></h3>
     <p class="title-zh">巴西安抚警察部队再审视：一项失败的民主警务计划及其对制度改革的启示</p>
@@ -611,7 +607,7 @@
   </div>
 </article>
 <article class="event" data-search="is there a business case for banks to increase lending to women and women-led firms? cross-country evidence on financial performance 银行增加对女性和女性领导企业贷款的商业理由是否存在？跨国财务绩效证据 christoph sommer world development 10.1016/j.worlddev.2026.107457" data-journal="world-development" data-fields="development finance firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107457">Is there a business case for banks to increase lending to women and women-led firms? Cross-country evidence on financial performance</a></h3>
     <p class="title-zh">银行增加对女性和女性领导企业贷款的商业理由是否存在？跨国财务绩效证据</p>
@@ -623,7 +619,7 @@
   </div>
 </article>
 <article class="event" data-search="editorial board 编辑委员会  world development 10.1016/s0305-750x(26)00173-7" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/s0305-750x(26)00173-7">Editorial Board</a></h3>
     <p class="title-zh">编辑委员会</p>
@@ -635,7 +631,7 @@
   </div>
 </article>
 <article class="event" data-search="corporate governance in microfinance institutions: a systematic review of theoretical perspectives, methodological approaches, and empirical evidence 小额信贷机构的公司治理：理论视角、方法论与实证证据的系统综述 giovanni cardillo, alessandra cavallo, giuseppe torluccio world development 10.1016/j.worlddev.2026.107455" data-journal="world-development" data-fields="development finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107455">Corporate governance in microfinance institutions: A systematic review of theoretical perspectives, methodological approaches, and empirical evidence</a></h3>
     <p class="title-zh">小额信贷机构的公司治理：理论视角、方法论与实证证据的系统综述</p>
@@ -647,7 +643,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of the tigray war on child education and labor in ethiopia 提格雷战争对埃塞俄比亚儿童教育与劳动的影响 yemareshet hailu demeke, dainn wie world development 10.1016/j.worlddev.2026.107449" data-journal="world-development" data-fields="development labor education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107449">The impact of the Tigray war on child education and labor in Ethiopia</a></h3>
     <p class="title-zh">提格雷战争对埃塞俄比亚儿童教育与劳动的影响</p>
@@ -659,7 +655,7 @@
   </div>
 </article>
 <article class="event" data-search="the two sides of migration in central america: aggregate and distributional impacts in guatemala 中美洲移民的两面性：危地马拉的总体与分配影响 luis escalante, emerta aragie, manuel a. hernandez world development 10.1016/j.worlddev.2026.107450" data-journal="world-development" data-fields="development labor inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107450">The two sides of migration in Central America: aggregate and distributional impacts in Guatemala</a></h3>
     <p class="title-zh">中美洲移民的两面性：危地马拉的总体与分配影响</p>
@@ -671,7 +667,7 @@
   </div>
 </article>
 <article class="event" data-search="long panel studies of small-scale rural societies in the global south: what is their value, why are they rare, and suggestions to make them happen 全球南方小规模农村社会的长期面板研究：其价值、稀缺原因及推进建议 jonathan bauchet, ricardo godoy, william r. leonard, victoria reyes-garcía, asher y. rosinger 等 world development 10.1016/j.worlddev.2026.107452" data-journal="world-development" data-fields="agriculture development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107452">Long panel studies of small-scale rural societies in the Global South: What is their value, why are they rare, and suggestions to make them happen</a></h3>
     <p class="title-zh">全球南方小规模农村社会的长期面板研究：其价值、稀缺原因及推进建议</p>
@@ -683,7 +679,7 @@
   </div>
 </article>
 <article class="event" data-search="the impact of trade integration on the business cycles synchronization in west african countries: implications for the afcfta 贸易一体化对西非国家经济周期同步性的影响：对非洲大陆自由贸易区的启示 ahmed racine yago, samba diop, cheikh tidiane ndiaye, simplice a. asongu world development 10.1016/j.worlddev.2026.107461" data-journal="world-development" data-fields="development macro trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107461">The impact of trade integration on the business cycles synchronization in West African Countries: Implications for the AfCFTA</a></h3>
     <p class="title-zh">贸易一体化对西非国家经济周期同步性的影响：对非洲大陆自由贸易区的启示</p>
@@ -695,7 +691,7 @@
   </div>
 </article>
 <article class="event" data-search="the mobilization curse? how oil wealth affects the composition of resistance episodes 动员的诅咒？石油财富如何影响抵抗事件的构成 thea johansen, charles butcher world development 10.1016/j.worlddev.2026.107456" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107456">The mobilization curse? How oil wealth affects the composition of resistance episodes</a></h3>
     <p class="title-zh">动员的诅咒？石油财富如何影响抵抗事件的构成</p>
@@ -707,7 +703,7 @@
   </div>
 </article>
 <article class="event" data-search="eu climate aid and trade interests: strategy or byproduct of closer ties? 欧盟气候援助与贸易利益：战略还是关系深化的副产品？ alexandra bögner, gabriele spilker world development 10.1016/j.worlddev.2026.107469" data-journal="world-development" data-fields="environment development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107469">EU climate aid and trade interests: strategy or byproduct of closer ties?</a></h3>
     <p class="title-zh">欧盟气候援助与贸易利益：战略还是关系深化的副产品？</p>
@@ -719,7 +715,7 @@
   </div>
 </article>
 <article class="event" data-search="diamonds aren’t forever: manufactured substitutes, irreversible substitution, and the new resource curse 钻石并非永恒：人造替代品、不可逆替代与新资源诅咒 dwayne woods world development 10.1016/j.worlddev.2026.107464" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107464">Diamonds aren’t forever: manufactured substitutes, irreversible substitution, and the new resource curse</a></h3>
     <p class="title-zh">钻石并非永恒：人造替代品、不可逆替代与新资源诅咒</p>
@@ -731,7 +727,7 @@
   </div>
 </article>
 <article class="event" data-search="housing wealth, family relationship and mental health: evidence from china 住房财富、家庭关系与心理健康：来自中国的证据 fenghang li, shenglong liu journal of development economics 10.1016/j.jdeveco.2026.103837" data-journal="journal-of-development-economics" data-fields="china development urban health" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103837">Housing wealth, family relationship and mental health: Evidence from China</a></h3>
     <p class="title-zh">住房财富、家庭关系与心理健康：来自中国的证据</p>
@@ -743,7 +739,7 @@
   </div>
 </article>
 <article class="event" data-search="from rents to results: china’s anti-corruption reforms and the effectiveness of aid to africa 从租金到成果：中国反腐改革与对非援助的有效性 yiran du, kai feng, gang xu journal of development economics 10.1016/j.jdeveco.2026.103841" data-journal="journal-of-development-economics" data-fields="china development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103841">From rents to results: China’s anti-corruption reforms and the effectiveness of aid to Africa</a></h3>
     <p class="title-zh">从租金到成果：中国反腐改革与对非援助的有效性</p>
@@ -755,7 +751,7 @@
   </div>
 </article>
 <article class="event" data-search="the benefits of public transit to households: evidence from india 公共交通对家庭的好处：来自印度的证据 palak suri, maureen cropper journal of development economics 10.1016/j.jdeveco.2026.103839" data-journal="journal-of-development-economics" data-fields="development public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103839">The benefits of public transit to households: Evidence from India</a></h3>
     <p class="title-zh">公共交通对家庭的好处：来自印度的证据</p>
@@ -767,7 +763,7 @@
   </div>
 </article>
 <article class="event" data-search="on the right track? railroads, industrial development, and distributional effects in historical china 正轨之上？历史中国的铁路、工业发展与分配效应 shiyu bo, ting chen, cong liu, yan zhou journal of development economics 10.1016/j.jdeveco.2026.103827" data-journal="journal-of-development-economics" data-fields="china development firms inequality" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103827">On the right track? Railroads, industrial development, and distributional effects in historical China</a></h3>
     <p class="title-zh">正轨之上？历史中国的铁路、工业发展与分配效应</p>
@@ -779,7 +775,7 @@
   </div>
 </article>
 <article class="event" data-search="the emergence of the poverty-mental health gradient: evidence from the great pakistan earthquake of 2005 贫困-心理健康梯度的出现：来自2005年巴基斯坦大地震的证据 tahir andrabi, benjamin daniels, jishnu das journal of development economics 10.1016/j.jdeveco.2026.103795" data-journal="journal-of-development-economics" data-fields="development health" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103795">The emergence of the poverty-mental health gradient: Evidence from the great Pakistan earthquake of 2005</a></h3>
     <p class="title-zh">贫困-心理健康梯度的出现：来自2005年巴基斯坦大地震的证据</p>
@@ -791,7 +787,7 @@
   </div>
 </article>
 <article class="event" data-search="demonetization and under-reporting of economic activity: evidence from real estate 废除货币化与经济活动的低报：来自房地产市场的证据 santosh anagol, vimal balasubramaniam, tarun ramadorai, antoine uettwiller journal of development economics 10.1016/j.jdeveco.2026.103783" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103783">Demonetization and under-reporting of economic activity: Evidence from real estate</a></h3>
     <p class="title-zh">废除货币化与经济活动的低报：来自房地产市场的证据</p>
@@ -803,7 +799,7 @@
   </div>
 </article>
 <article class="event" data-search="the art of not being chocked: environmental awareness, residents&#x27; responses and land transactions in china 不被窒息的艺术：环境意识、居民响应与中国土地交易 wei zou, pinghan liang journal of development economics 10.1016/j.jdeveco.2026.103757" data-journal="journal-of-development-economics" data-fields="china environment development" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103757">The art of not being chocked: Environmental awareness, residents&#x27; responses and land transactions in China</a></h3>
     <p class="title-zh">不被窒息的艺术：环境意识、居民响应与中国土地交易</p>
@@ -815,7 +811,7 @@
   </div>
 </article>
 <article class="event" data-search="climate policies, labor markets, and macroeconomic outcomes in emerging economies 新兴经济体的气候政策、劳动力市场与宏观经济结果 alan finkelstein shapiro, victoria nuguer journal of development economics 10.1016/j.jdeveco.2026.103782" data-journal="journal-of-development-economics" data-fields="environment development finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103782">Climate policies, labor markets, and macroeconomic outcomes in emerging economies</a></h3>
     <p class="title-zh">新兴经济体的气候政策、劳动力市场与宏观经济结果</p>
@@ -827,7 +823,7 @@
   </div>
 </article>
 <article class="event" data-search="did the cold war produce development clusters in africa? 冷战是否在非洲催生了发展集群？ paul castañeda dower, gunes gokmen, michel le breton, shlomo weber journal of development economics 10.1016/j.jdeveco.2026.103776" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103776">Did the Cold War produce development clusters in Africa?</a></h3>
     <p class="title-zh">冷战是否在非洲催生了发展集群？</p>
@@ -839,7 +835,7 @@
   </div>
 </article>
 <article class="event" data-search="it will rain: the effect of information on flood preparedness in urban mozambique 降雨将至：信息对莫桑比克城市洪水防备的影响 stefan leeffers journal of development economics 10.1016/j.jdeveco.2026.103787" data-journal="journal-of-development-economics" data-fields="development urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103787">It will rain: The effect of information on flood preparedness in urban Mozambique</a></h3>
     <p class="title-zh">降雨将至：信息对莫桑比克城市洪水防备的影响</p>
@@ -851,7 +847,7 @@
   </div>
 </article>
 <article class="event" data-search="c&#x27;est la vie!: mixed impacts of an edutainment television series in west africa 这就是生活！：西非一部寓教于乐电视系列剧的混合影响 malick dione, jessica heckert, melissa hidrobo, agnes le port, amber peterman 等 journal of development economics 10.1016/j.jdeveco.2026.103748" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103748">C&#x27;est la vie!: Mixed impacts of an edutainment television series in West Africa</a></h3>
     <p class="title-zh">这就是生活！：西非一部寓教于乐电视系列剧的混合影响</p>
@@ -863,7 +859,7 @@
   </div>
 </article>
 <article class="event" data-search="number one girl: female top scorers and peer academic performance in junior high schools 第一名女孩：初中女学霸与同伴学业表现 xuezheng qin, yingfei wang, haochen zhang journal of development economics 10.1016/j.jdeveco.2026.103801" data-journal="journal-of-development-economics" data-fields="development education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103801">Number one girl: Female top scorers and peer academic performance in junior high schools</a></h3>
     <p class="title-zh">第一名女孩：初中女学霸与同伴学业表现</p>
@@ -875,7 +871,7 @@
   </div>
 </article>
 <article class="event" data-search="weather or climate? a new perspective on temperature shocks 天气还是气候？温度冲击的新视角 nooman rebei journal of development economics 10.1016/j.jdeveco.2026.103814" data-journal="journal-of-development-economics" data-fields="environment development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103814">Weather or climate? A new perspective on temperature shocks</a></h3>
     <p class="title-zh">天气还是气候？温度冲击的新视角</p>
@@ -887,7 +883,7 @@
   </div>
 </article>
 <article class="event" data-search="foreign interventions and community cohesion in times of conflict 冲突时期的外部干预与社区凝聚力 sarah langlotz journal of development economics 10.1016/j.jdeveco.2026.103751" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103751">Foreign interventions and community cohesion in times of conflict</a></h3>
     <p class="title-zh">冲突时期的外部干预与社区凝聚力</p>
@@ -899,7 +895,7 @@
   </div>
 </article>
 <article class="event" data-search="resource booms, revenue sharing, and growth 资源繁荣、收入分享与经济增长 margaret e. brehm, paul a. brehm, alecia cassidy, traviss cassidy journal of development economics 10.1016/j.jdeveco.2026.103811" data-journal="journal-of-development-economics" data-fields="development macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103811">Resource booms, revenue sharing, and growth</a></h3>
     <p class="title-zh">资源繁荣、收入分享与经济增长</p>
@@ -910,9 +906,8 @@
     </div>
   </div>
 </article>
-<div class="day-divider">2026-06-14</div>
 <article class="event" data-search="no man’s land? the effect of forced displacement on forest cover change in colombia 无人之地？强迫迁移对哥伦比亚森林覆盖变化的影响 emilio leguízamo, ana maría montoya world development 10.1016/j.worlddev.2026.107441" data-journal="world-development" data-fields="environment development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107441">No man’s land? The effect of forced displacement on forest cover change in Colombia</a></h3>
     <p class="title-zh">无人之地？强迫迁移对哥伦比亚森林覆盖变化的影响</p>
@@ -924,7 +919,7 @@
   </div>
 </article>
 <article class="event" data-search="distance, prospects, and migration to towns and cities 距离、前景与向城镇迁移 joachim de weerdt, luc christiaensen, ravi kanbur world development 10.1016/j.worlddev.2026.107419" data-journal="world-development" data-fields="development labor urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107419">Distance, prospects, and migration to towns and cities</a></h3>
     <p class="title-zh">距离、前景与向城镇迁移</p>
@@ -936,7 +931,7 @@
   </div>
 </article>
 <article class="event" data-search="here comes the rain: precipitation shocks and economic outcomes in ecuador 降雨来袭：厄瓜多尔的降水冲击与经济产出 gustavo canavire-bacarreza, alejandro puerta-cuartas, andrey ramos world development 10.1016/j.worlddev.2026.107468" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107468">Here comes the rain: Precipitation shocks and economic outcomes in Ecuador</a></h3>
     <p class="title-zh">降雨来袭：厄瓜多尔的降水冲击与经济产出</p>
@@ -948,7 +943,7 @@
   </div>
 </article>
 <article class="event" data-search="the environmental smile curve: input-output evidence on the pollution haven hypothesis 环境微笑曲线：污染避难所假说的投入产出证据 giovanni dosi, federico riccio, maria enrica virgillito world development 10.1016/j.worlddev.2026.107411" data-journal="world-development" data-fields="environment development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107411">The environmental smile curve: input-output evidence on the pollution haven hypothesis</a></h3>
     <p class="title-zh">环境微笑曲线：污染避难所假说的投入产出证据</p>
@@ -960,7 +955,7 @@
   </div>
 </article>
 <article class="event" data-search="heat after the harvest: farmer choices and perceptions of crop residue burning in thailand 收获后的热浪：泰国农民对秸秆焚烧的选择与认知 witsanu attavanich, adrian a. lopes, sailesh tiwari, ajalavat viriyavipart world development 10.1016/j.worlddev.2026.107466" data-journal="world-development" data-fields="agriculture development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107466">Heat after the Harvest: Farmer Choices and Perceptions of Crop Residue Burning in Thailand</a></h3>
     <p class="title-zh">收获后的热浪：泰国农民对秸秆焚烧的选择与认知</p>
@@ -972,7 +967,7 @@
   </div>
 </article>
 <article class="event" data-search="large-firm wage premium in china’s dual labor market 中国双重劳动力市场中的大企业工资溢价 hong cheng, hongbin li, hui wang, li-an zhou economic development and cultural change 10.1086/742631" data-journal="economic-development-and-cultural-change" data-fields="china development finance labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742631">Large-Firm Wage Premium in China’s Dual Labor Market</a></h3>
     <p class="title-zh">中国双重劳动力市场中的大企业工资溢价</p>
@@ -984,7 +979,7 @@
   </div>
 </article>
 <article class="event" data-search="slum housing externalities 贫民窟住房的外部性 raimundo undurraga economic development and cultural change 10.1086/742606" data-journal="economic-development-and-cultural-change" data-fields="development urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742606">Slum Housing Externalities</a></h3>
     <p class="title-zh">贫民窟住房的外部性</p>
@@ -996,7 +991,7 @@
   </div>
 </article>
 <article class="event" data-search="reducing over-the-counter sale of antibiotics in low- and middle- income countries: a randomized controlled trial 减少中低收入国家非处方抗生素销售：一项随机对照试验 prajwol nepal, yubraj acharya economic development and cultural change 10.1086/742594" data-journal="economic-development-and-cultural-change" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742594">Reducing Over-the-Counter Sale of Antibiotics in Low- and Middle- Income Countries: A Randomized Controlled Trial</a></h3>
     <p class="title-zh">减少中低收入国家非处方抗生素销售：一项随机对照试验</p>
@@ -1008,7 +1003,7 @@
   </div>
 </article>
 <article class="event" data-search="information and social norms: experimental evidence on the labor market aspirations of saudi women 信息与社会规范：沙特女性劳动力市场抱负的实验证据 monira essa aloud, sara al-rashood, ina ganguli, basit zafar economic development and cultural change 10.1086/742354" data-journal="economic-development-and-cultural-change" data-fields="development finance labor" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742354">Information and Social Norms: Experimental Evidence on the Labor Market Aspirations of Saudi Women</a></h3>
     <p class="title-zh">信息与社会规范：沙特女性劳动力市场抱负的实验证据</p>
@@ -1020,7 +1015,7 @@
   </div>
 </article>
 <article class="event" data-search="intermediary services and rural land market competition: evidence of regional heterogeneity in china 中介服务与农村土地市场竞争：中国区域异质性的证据 xu he, hongmei yi, scott rozelle, takeshi sakurai economic development and cultural change 10.1086/742299" data-journal="economic-development-and-cultural-change" data-fields="china agriculture development finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="F">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1086/742299">Intermediary Services and Rural Land Market Competition: Evidence of Regional Heterogeneity in China</a></h3>
     <p class="title-zh">中介服务与农村土地市场竞争：中国区域异质性的证据</p>
@@ -1032,7 +1027,7 @@
   </div>
 </article>
 <article class="event" data-search="government demand and firm growth 政府需求与企业成长 bernard hoekman, marco sanfilippo, filippo santi, rohit ticku journal of development economics 10.1016/j.jdeveco.2026.103832" data-journal="journal-of-development-economics" data-fields="development macro public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103832">Government demand and firm growth</a></h3>
     <p class="title-zh">政府需求与企业成长</p>
@@ -1044,7 +1039,7 @@
   </div>
 </article>
 <article class="event" data-search="right-sizing incentives 合理调整激励措施 edward n. okeke, isa s. abubakar journal of development economics 10.1016/j.jdeveco.2026.103834" data-journal="journal-of-development-economics" data-fields="development" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103834">Right-sizing incentives</a></h3>
     <p class="title-zh">合理调整激励措施</p>
@@ -1056,7 +1051,7 @@
   </div>
 </article>
 <article class="event" data-search="texting parents about early child development: behavioral changes and unintended social effects 关于早期儿童发展的短信提醒：行为变化与非预期社会效应 oscar barrera rodríguez, karen macours, patrick premand, renos vakis journal of development economics 10.1016/j.jdeveco.2026.103833" data-journal="journal-of-development-economics" data-fields="development behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103833">Texting parents about early child development: Behavioral changes and unintended social effects</a></h3>
     <p class="title-zh">关于早期儿童发展的短信提醒：行为变化与非预期社会效应</p>
@@ -1068,7 +1063,7 @@
   </div>
 </article>
 <article class="event" data-search="non-normal empirical bayes prediction of local welfare 局部福利的非正态经验贝叶斯预测 chris elbers, roy van der weide journal of development economics 10.1016/j.jdeveco.2026.103835" data-journal="journal-of-development-economics" data-fields="development public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103835">Non-normal Empirical Bayes prediction of local welfare</a></h3>
     <p class="title-zh">局部福利的非正态经验贝叶斯预测</p>
@@ -1080,7 +1075,7 @@
   </div>
 </article>
 <article class="event" data-search="local and spillover effects of trade on structural transformation: evidence from brazil 贸易对结构转型的地方与溢出效应：来自巴西的证据 mateo hoyos, josé alejandro coronado, guilherme klein martins journal of development economics 10.1016/j.jdeveco.2026.103840" data-journal="journal-of-development-economics" data-fields="development trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
-  <div class="event-time"><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
   <div>
     <h3><a href="https://doi.org/10.1016/j.jdeveco.2026.103840">Local and spillover effects of trade on structural transformation: Evidence from Brazil</a></h3>
     <p class="title-zh">贸易对结构转型的地方与溢出效应：来自巴西的证据</p>
