@@ -526,6 +526,16 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False) 
 
 def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
     s = stats(records, today_records)
+    latest_day = detected_date(records[0]) if records else ""
+    if today_records:
+        events_html = paper_events(today_records)
+    elif latest_day:
+        events_html = (
+            f'<div class="empty">今日暂无新发现。'
+            f'可先查看最近有记录的日期：<a href="{BASE}/daily/{html_escape(latest_day)}/">{html_escape(latest_day)} 监测记录</a>。</div>'
+        )
+    else:
+        events_html = paper_events(today_records)
     note = (
         '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录；'
         '“在线日期为今日”只统计 online/published online 日期为今天的记录。前台显示简洁来源，完整证据链保留在本地后台。</div>'
@@ -553,7 +563,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 {filter_toolbar(today_records, include_rss=True)}
 <section class="section-head"><div><h2>今日论文流 <span class="live-count" id="flowCounter"></span></h2><p>按本站监测时间倒序排列，可筛选期刊、主题、日期可信度和“中国相关”。</p></div><p>{html_escape(today_str())}</p></section>
 {note}
-{paper_events(today_records)}
+{events_html}
 {FILTER_SCRIPT}
 """
 

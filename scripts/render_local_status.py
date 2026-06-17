@@ -153,6 +153,13 @@ def main() -> None:
     cn_group = (status.get("source_groups") or {}).get("cn-journals") or {}
 
     english_titles = sum(1 for record in records if record.get("title") and not has_chinese(str(record.get("title"))))
+    english_translated = sum(
+        1
+        for record in records
+        if record.get("title")
+        and not has_chinese(str(record.get("title")))
+        and record.get("title_zh")
+    )
     translated = sum(1 for record in records if record.get("title_zh"))
     china_confirmed = sum(1 for record in records if record.get("china_related") is True or record.get("china_relevance_status") == "confirmed")
     china_candidates = latest_records(records, lambda record: record.get("china_relevance_status") == "candidate")
@@ -233,7 +240,7 @@ def main() -> None:
   <div class="grid">
     <div class="card"><strong>{len(records)}</strong><span>总记录</span></div>
     <div class="card"><strong>{translated}</strong><span>已有中文标题</span></div>
-    <div class="card"><strong>{pct(translated, max(english_titles, 1))}</strong><span>英文标题翻译覆盖率</span></div>
+    <div class="card"><strong>{pct(english_translated, max(english_titles, 1))}</strong><span>英文标题翻译覆盖率</span></div>
     <div class="card"><strong>{china_confirmed}</strong><span>已确认中国相关</span></div>
     <div class="card"><strong>{len(china_candidates)}</strong><span>中国相关待审核</span></div>
     <div class="card"><strong>{len(untranslated)}</strong><span>未翻译英文标题样本</span></div>
