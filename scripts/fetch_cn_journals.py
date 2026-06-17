@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, fetch_text, filter_journals_by_tier, load_journals, now_iso, today_str, write_json
-from status import record_source
+from status import load_status, now, record_source, save_status
 
 
 DETAIL_LIMIT = 0
@@ -830,6 +830,7 @@ def main() -> None:
     output = args.output or DATA_DIR / "raw" / "cn" / f"{today_str()}.json"
     records: list[dict[str, Any]] = []
     messages: list[str] = []
+    journal_summaries: list[dict[str, Any]] = []
 
     selected_urls = CN_HOME_URLS
     if args.only:
@@ -840,6 +841,16 @@ def main() -> None:
         journal = journals_by_id.get(journal_id)
         if not journal:
             messages.append(f"{journal_id}: missing journal config")
+            journal_summaries.append(
+                {
+                    "journal_id": journal_id,
+                    "journal": journal_id,
+                    "ok": False,
+                    "count": 0,
+                    "mode": "missing-config",
+                    "message": "missing journal config",
+                }
+            )
             continue
         try:
             fetched, mode = fetch_journal(journal, url, args.limit_per_journal)
@@ -852,14 +863,42 @@ def main() -> None:
                     mode = f"{mode}, {note}"
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
+            journal_summaries.append(
+                {
+                    "journal_id": journal_id,
+                    "journal": journal.get("title") or journal_id,
+                    "ok": True,
+                    "count": len(fetched),
+                    "mode": mode,
+                    "message": f"{len(fetched)} via {mode}",
+                }
+            )
         except Exception as exc:  # noqa: BLE001
             messages.append(f"{journal_id}: error {type(exc).__name__}: {exc}")
+            journal_summaries.append(
+                {
+                    "journal_id": journal_id,
+                    "journal": journal.get("title") or journal_id,
+                    "ok": False,
+                    "count": 0,
+                    "mode": "error",
+                    "message": f"{type(exc).__name__}: {exc}",
+                }
+            )
 
     write_json(output, records)
     ok = any(not msg.endswith("empty") for msg in messages) and bool(records)
     if DETAIL_LIMIT:
         messages.append(f"detail-attempted={DETAIL_ATTEMPTED}/{DETAIL_LIMIT}")
     record_source("cn-journals", ok=ok, count=len(records), message="; ".join(messages))
+    status = load_status()
+    status.setdefault("source_groups", {})["cn-journals"] = {
+        "ok": ok,
+        "count": len(records),
+        "updated_at": now(),
+        "journals": journal_summaries,
+    }
+    save_status(status)
     print(f"wrote {len(records)} Chinese journal records to {output}")
     for message in messages:
         print(message)

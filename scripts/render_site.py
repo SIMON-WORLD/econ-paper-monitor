@@ -208,7 +208,8 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
     today_journals = {record.get("journal_id") for record in today_records if record.get("journal_id")}
     all_journals = {record.get("journal_id") for record in records if record.get("journal_id")}
     status = load_status()
-    latest_run = (status.get("runs") or [{}])[0].get("updated_at") or ""
+    workflow = status.get("workflow") or {}
+    latest_run = workflow.get("finished_at") or (status.get("runs") or [{}])[0].get("updated_at") or ""
     latest_source = max(
         (str(item.get("updated_at") or "") for item in (status.get("sources") or {}).values()),
         default="",
@@ -222,6 +223,9 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
         "all_records": len(records),
         "all_journals": len(all_journals),
         "last_run": beijing_stamp(last_run),
+        "last_run_label": workflow.get("mode_label") or "自动监测",
+        "last_full_run": beijing_stamp(workflow.get("last_full_finished_at")),
+        "last_light_run": beijing_stamp(workflow.get("last_light_finished_at")),
         "last_record_seen": beijing_stamp(last_record_seen),
     }
 
@@ -467,9 +471,10 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   </div>
   <div class="signal">
     <div class="signal-row"><span>排序依据</span><strong>监测时间 / 可靠来源日期</strong></div>
-    <div class="signal-row"><span>最后监测</span><strong>{html_escape(s['last_run'])}</strong></div>
+    <div class="signal-row"><span>最近监测</span><strong>{html_escape(s['last_run'])}</strong></div>
+    <div class="signal-row"><span>监测类型</span><strong>{html_escape(s['last_run_label'])}</strong></div>
+    <div class="signal-row"><span>最近全量</span><strong>{html_escape(s['last_full_run'])}</strong></div>
     <div class="signal-row"><span>最新论文</span><strong>{html_escape(s['last_record_seen'])}</strong></div>
-    <div class="signal-row"><span>运行方式</span><strong>GitHub Actions 自动运行</strong></div>
   </div>
 </section>
 <section class="stats">

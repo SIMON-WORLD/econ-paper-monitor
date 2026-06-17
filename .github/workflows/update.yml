@@ -45,16 +45,22 @@ jobs:
           ROWS="12"
           DETAIL_LIMIT="0"
           CN_DETAIL_LIMIT="0"
+          TRANSLATE_LIMIT="80"
+          TRANSLATE_SECONDS="180"
           TIER="hourly"
           if [ "$MODE" = "full" ]; then
             ROWS="40"
             DETAIL_LIMIT="120"
             CN_DETAIL_LIMIT="0"
+            TRANSLATE_LIMIT="160"
+            TRANSLATE_SECONDS="240"
             TIER=""
           fi
           if [ "$MODE" = "single" ]; then
             ROWS="60"
             DETAIL_LIMIT="25"
+            TRANSLATE_LIMIT="80"
+            TRANSLATE_SECONDS="180"
             TIER=""
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
@@ -62,6 +68,8 @@ jobs:
           echo "rows=$ROWS" >> "$GITHUB_OUTPUT"
           echo "detail_limit=$DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
           echo "cn_detail_limit=$CN_DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
+          echo "translate_limit=$TRANSLATE_LIMIT" >> "$GITHUB_OUTPUT"
+          echo "translate_seconds=$TRANSLATE_SECONDS" >> "$GITHUB_OUTPUT"
           echo "tier=$TIER" >> "$GITHUB_OUTPUT"
       - name: Build source registry
         run: python scripts/build_source_registry.py
@@ -101,6 +109,8 @@ jobs:
               --detail-limit ${{ steps.mode.outputs.cn_detail_limit }} \
               || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
           done
+      - name: Aggregate Chinese journal status
+        run: python scripts/aggregate_cn_status.py
       - name: Dedupe new papers
         run: python scripts/dedupe.py
       - name: Clean Chinese journal noise
@@ -122,12 +132,14 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
       - name: Translate paper titles
-        run: python scripts/translate.py --limit 400
+        run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+      - name: Record workflow context
+        run: python scripts/record_run_context.py --mode "${{ steps.mode.outputs.mode }}" --event "${{ github.event_name }}" --schedule "${{ github.event.schedule }}" --run-id "${{ github.run_id }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
       - name: Render static site
         run: python scripts/render_site.py
       - name: Build RSS feed

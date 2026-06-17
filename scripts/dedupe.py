@@ -157,7 +157,8 @@ def main() -> None:
     daily_records = merge_daily(existing_daily, new_records)
 
     write_json(args.seen, seen)
-    write_json(daily_path, daily_records)
+    if daily_records or daily_path.exists():
+        write_json(daily_path, daily_records)
     record_source("dedupe", ok=True, count=len(new_records), message=f"daily_total={len(daily_records)} seen={len(seen_papers)} enriched={enriched}")
     record_run({"new": len(new_records), "daily_total": len(daily_records), "seen": len(seen_papers), "enriched": enriched})
     print(f"new={len(new_records)} daily_total={len(daily_records)} seen={len(seen_papers)} enriched={enriched}")

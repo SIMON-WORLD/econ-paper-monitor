@@ -48,3 +48,20 @@ def record_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> None:
     runs.insert(0, {"updated_at": now(), **summary})
     del runs[20:]
     save_status(status, path)
+
+
+def record_workflow_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> None:
+    """Store the latest end-to-end workflow context for dashboards."""
+    status = load_status(path)
+    workflow = status.setdefault("workflow", {})
+    workflow.update(summary)
+    workflow.setdefault("updated_at", now())
+    mode = summary.get("mode")
+    finished_at = summary.get("finished_at") or workflow["updated_at"]
+    if mode == "full":
+        workflow["last_full_finished_at"] = finished_at
+    elif mode == "light":
+        workflow["last_light_finished_at"] = finished_at
+    elif mode == "single":
+        workflow["last_single_finished_at"] = finished_at
+    save_status(status, path)

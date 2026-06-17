@@ -10,6 +10,7 @@ import argparse
 import hashlib
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -107,7 +108,10 @@ def translate_daily_file(
     records = read_json(path, [])
     records_to_translate = sorted(records, key=lambda record: str(record.get("detected_at") or ""), reverse=True)
     changed = attempted = cached = 0
+    started_at = time.monotonic()
     for record in records_to_translate:
+        if args.max_seconds and time.monotonic() - started_at >= args.max_seconds:
+            break
         if args.limit and attempted >= args.limit:
             break
         title = str(record.get("title") or "").strip()
@@ -133,6 +137,8 @@ def translate_daily_file(
 
         attempted += 1
         try:
+            if args.sleep > 0 and attempted > 1:
+                time.sleep(args.sleep)
             title_zh = translate_title(title, key, base_url, model, args.timeout)
             record["title_zh"] = title_zh
             record["translation_status"] = "title_translated"
@@ -153,6 +159,8 @@ def main() -> None:
     parser.add_argument("--date", default=None)
     parser.add_argument("--limit", type=int, default=400)
     parser.add_argument("--timeout", type=int, default=45)
+    parser.add_argument("--max-seconds", type=int, default=0)
+    parser.add_argument("--sleep", type=float, default=0.0)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--stop-on-error", action="store_true")
     args = parser.parse_args()
