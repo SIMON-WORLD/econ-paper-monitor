@@ -1,0 +1,42 @@
+name: Monitor Watchdog
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: paper-monitor-watchdog
+  cancel-in-progress: true
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check monitor freshness
+        id: freshness
+        shell: bash
+        run: |
+          DECISION="$(python scripts/should_run_monitor.py --min-minutes 50)"
+          echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
+          echo "Monitor freshness: $DECISION"
+      - name: Dispatch monitor update
+        if: steps.freshness.outputs.decision == 'run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run update.yml \
+            --repo "${{ github.repository }}" \
+            -f mode=light \
+            -f days=14
+      - name: Skip fresh monitor
+        if: startsWith(steps.freshness.outputs.decision, 'skip:')
+        run: echo "Recent light monitor exists; watchdog dispatch skipped."
