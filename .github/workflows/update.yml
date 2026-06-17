@@ -16,13 +16,16 @@ on:
         required: false
         default: "14"
   schedule:
-    # GitHub often delays or drops jobs scheduled at minute 0 during peak load.
-    # Run the hourly light monitor at minute 7 for better reliability.
-    - cron: "7 * * * *"
+    # Hourly light monitor. GitHub may still delay scheduled jobs by a few minutes.
+    - cron: "0 * * * *"
     - cron: "30 0 * * *"
 
 permissions:
   contents: write
+
+concurrency:
+  group: paper-monitor-update
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -152,6 +155,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add data docs
           git diff --cached --quiet || git commit -m "Update paper monitor"
           git push
