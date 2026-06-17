@@ -45,11 +45,6 @@ WEAK_TOPIC_HINTS = [
     "pollution",
     "app security",
     "digital era",
-    "financial friction",
-    "labor markdown",
-    "labour markdown",
-    "labor",
-    "labour",
     "climate risk",
     "green transformation",
     "corporate green",
@@ -192,10 +187,10 @@ def classify(record: dict[str, Any]) -> tuple[str, str, str]:
         return "confirmed", "标题、摘要或元数据包含中国相关关键词", "rule"
 
     author_count = chinese_author_count(record)
-    if author_count >= 2 and any(hint in text for hint in WEAK_TOPIC_HINTS):
-        return "candidate", f"{author_count} 位疑似中文姓名作者，且题名/摘要含常见中国研究主题词，需要 AI 或人工确认", "rule"
-    if author_count >= 3:
-        return "candidate", f"{author_count} 位疑似中文姓名作者，但缺少明确中国研究对象，需要 AI 或人工确认", "rule"
+    has_abstract = bool(record.get("abstract") or record.get("abstract_zh"))
+    has_weak_topic = any(hint in text for hint in WEAK_TOPIC_HINTS)
+    if author_count >= 2 and has_weak_topic and has_abstract:
+        return "candidate", f"{author_count} 位疑似中文姓名作者，且摘要/题名含常见中国研究主题词，需要 AI 确认", "rule"
     return "none", "", "rule"
 
 

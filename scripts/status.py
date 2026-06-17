@@ -54,14 +54,33 @@ def record_workflow_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> No
     """Store the latest end-to-end workflow context for dashboards."""
     status = load_status(path)
     workflow = status.setdefault("workflow", {})
+    previous = dict(workflow)
     workflow.update(summary)
-    workflow.setdefault("updated_at", now())
+    workflow["updated_at"] = summary.get("updated_at") or now()
     mode = summary.get("mode")
-    finished_at = summary.get("finished_at") or workflow["updated_at"]
+    finished_at = summary.get("finished_at") or workflow.get("updated_at") or now()
     if mode == "full":
         workflow["last_full_finished_at"] = finished_at
     elif mode == "light":
         workflow["last_light_finished_at"] = finished_at
     elif mode == "single":
         workflow["last_single_finished_at"] = finished_at
+    for key in ("last_full_finished_at", "last_light_finished_at", "last_single_finished_at"):
+        if key not in workflow and previous.get(key):
+            workflow[key] = previous[key]
+
+    history = workflow.setdefault("history", [])
+    history.insert(
+        0,
+        {
+            "mode": mode or "unknown",
+            "mode_label": summary.get("mode_label") or mode or "unknown",
+            "event": summary.get("event") or "",
+            "schedule": summary.get("schedule") or "",
+            "run_id": summary.get("run_id") or "",
+            "run_url": summary.get("run_url") or "",
+            "finished_at": finished_at,
+        },
+    )
+    del history[30:]
     save_status(status, path)

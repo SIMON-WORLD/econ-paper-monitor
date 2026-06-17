@@ -8,6 +8,7 @@ Cloudflare, CAPTCHA, or institutional access controls.
 from __future__ import annotations
 
 import argparse
+import html as html_lib
 import re
 from datetime import date
 from pathlib import Path
@@ -55,7 +56,7 @@ def clean_text(value: str) -> str:
     value = re.sub(r"<script[\s\S]*?</script>", " ", value, flags=re.I)
     value = re.sub(r"<style[\s\S]*?</style>", " ", value, flags=re.I)
     value = re.sub(r"<[^>]+>", " ", value)
-    return re.sub(r"\s+", " ", value).strip()
+    return re.sub(r"\s+", " ", html_lib.unescape(value)).strip()
 
 
 def parse_date(value: str | None) -> str | None:
@@ -93,19 +94,32 @@ def extract_page_metadata(html: str) -> dict[str, str]:
     text = clean_text(html)
     result: dict[str, str] = {}
 
-    for key in ("citation_online_date", "article:published_time", "dc.date", "citation_publication_date"):
+    meta_date_fields = (
+        ("available_online", "citation_online_date"),
+        ("published_online", "article:published_time"),
+        ("published_online", "dc.date"),
+        ("published_online", "dc.date.issued"),
+        ("published_online", "dc.date.available"),
+        ("published_online", "prism.publicationdate"),
+        ("published_online", "citation_publication_date"),
+        ("accepted_date", "citation_acceptance_date"),
+        ("accepted_date", "citation_accepted_date"),
+        ("accepted_date", "dc.date.accepted"),
+    )
+    for field, key in meta_date_fields:
         parsed = parse_date(meta.get(key))
         if parsed:
-            result.setdefault("available_online", parsed)
-            result.setdefault("published_online", parsed)
-            result.setdefault("date_source", "publisher_meta")
+            result.setdefault(field, parsed)
+            if field in {"available_online", "published_online"}:
+                result.setdefault("available_online", parsed)
+                result.setdefault("published_online", parsed)
+            result.setdefault("date_source", f"publisher_meta:{key}")
             result.setdefault("date_confidence", "A")
-            break
 
     patterns = [
-        ("accepted_date", rf"(?:Accepted|录用日期|接受日期)\s*[:：]?\s*({DATE_CAPTURE})"),
-        ("available_online", rf"(?:Available online|Online available|上线日期|网络首发)\s*[:：]?\s*({DATE_CAPTURE})"),
-        ("published_online", rf"(?:First published|Published online|发布日期|出版日期)\s*[:：]?\s*({DATE_CAPTURE})"),
+        ("accepted_date", rf"(?:Accepted|Accepted on|Date accepted|录用日期|接受日期)\s*[:：]?\s*({DATE_CAPTURE})"),
+        ("available_online", rf"(?:Available online|Online available|Article available online|上线日期|网络首发)\s*[:：]?\s*({DATE_CAPTURE})"),
+        ("published_online", rf"(?:First published|Published online|Published Online|Publication date|Published|发布日期|出版日期)\s*[:：]?\s*({DATE_CAPTURE})"),
     ]
     for field, pattern in patterns:
         match = re.search(pattern, text, flags=re.I)

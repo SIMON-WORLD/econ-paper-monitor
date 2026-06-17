@@ -40,7 +40,7 @@ def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
     published_print = date_from_parts(item.get("published-print"))
     issued = date_from_parts(item.get("issued"))
     created = date_from_parts(item.get("created"))
-    best_date = published_online or published or published_print or issued or created
+    issue_date = published_print or published or issued
     if published_online:
         date_source = "crossref_published_online"
         confidence = "C"
@@ -65,8 +65,8 @@ def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
         doi=item.get("DOI"),
         authors=[author_name(author) for author in item.get("author", [])],
         abstract=item.get("abstract"),
-        published_online=best_date,
-        issue_date=published_print or issued,
+        published_online=published_online,
+        issue_date=issue_date or created,
         date_source=date_source,
         date_confidence=confidence,
         raw_data={"crossref_date_source": date_source},

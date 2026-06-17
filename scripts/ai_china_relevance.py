@@ -115,10 +115,22 @@ def apply_decision(record: dict[str, Any], decision: dict[str, Any]) -> bool:
     return changed
 
 
+def daily_paths(daily_dir: Path, date_filter: str | None, latest_days: int) -> list[Path]:
+    paths = sorted(daily_dir.glob("*.json"), reverse=True)
+    if date_filter:
+        path = daily_dir / f"{date_filter}.json"
+        return [path] if path.exists() else []
+    if latest_days > 0:
+        return paths[:latest_days]
+    return paths
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--date", default=today_str())
+    parser.add_argument("--all", action="store_true", help="Process all daily archives.")
+    parser.add_argument("--latest-days", type=int, default=14, help="When --all is set, limit to newest N daily files; 0 means all.")
     parser.add_argument("--limit", type=int, default=30)
     parser.add_argument("--timeout", type=int, default=45)
     args = parser.parse_args()
@@ -129,37 +141,46 @@ def main() -> None:
         print("ai china relevance skipped: missing api key")
         return
 
-    path = args.daily_dir / f"{args.date}.json"
-    records = read_json(path, [])
     cache = read_json(CACHE_PATH, {"records": {}})
     cache_records = cache.setdefault("records", {})
     attempted = changed = confirmed = auto_no = 0
-    for record in records:
+    date_filter = None if args.all else args.date
+    changed_paths = []
+    for path in daily_paths(args.daily_dir, date_filter, args.latest_days):
+        records = read_json(path, [])
+        if not isinstance(records, list):
+            continue
+        path_changed = False
+        for record in records:
+            if attempted >= args.limit:
+                break
+            if record.get("china_relevance_status") != "candidate":
+                continue
+            key_id = record_key(record)
+            try:
+                decision = cache_records.get(key_id)
+                if not decision:
+                    decision = ask_model(record, key, base_url, model, args.timeout)
+                    cache_records[key_id] = decision
+                    attempted += 1
+                if apply_decision(record, decision):
+                    changed += 1
+                    path_changed = True
+                if record.get("china_related") is True:
+                    confirmed += 1
+                if record.get("china_related") is False:
+                    auto_no += 1
+            except (json.JSONDecodeError, KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
+                cache_records[key_id] = {"verdict": "uncertain", "confidence": 0, "reason": f"AI 判定失败：{exc}"}
+                continue
+        if path_changed:
+            write_json(path, records)
+            changed_paths.append(str(path))
         if attempted >= args.limit:
             break
-        if record.get("china_relevance_status") != "candidate":
-            continue
-        key_id = record_key(record)
-        try:
-            decision = cache_records.get(key_id)
-            if not decision:
-                decision = ask_model(record, key, base_url, model, args.timeout)
-                cache_records[key_id] = decision
-                attempted += 1
-            if apply_decision(record, decision):
-                changed += 1
-            if record.get("china_related") is True:
-                confirmed += 1
-            if record.get("china_related") is False:
-                auto_no += 1
-        except (json.JSONDecodeError, KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
-            cache_records[key_id] = {"verdict": "uncertain", "confidence": 0, "reason": f"AI 判定失败：{exc}"}
-            continue
 
     write_json(CACHE_PATH, cache)
-    if changed:
-        write_json(path, records)
-    record_source("ai-china-relevance", ok=True, count=confirmed, message=f"attempted={attempted} changed={changed} auto_no={auto_no}")
+    record_source("ai-china-relevance", ok=True, count=confirmed, message=f"attempted={attempted} changed={changed} auto_no={auto_no} files={len(changed_paths)}")
     print(f"ai china relevance attempted={attempted} changed={changed} confirmed={confirmed} auto_no={auto_no}")
 
 

@@ -67,6 +67,15 @@ def normalize_record(record: dict[str, Any]) -> bool:
             if record.get(key) != value:
                 record[key] = value
                 changed = True
+    date_source = str(record.get("date_source") or "")
+    crossref_source = str((record.get("raw_data") or {}).get("crossref_date_source") or date_source)
+    if crossref_source in {"crossref_published", "crossref_issue", "crossref_created"} and record.get("published_online"):
+        if not record.get("issue_date"):
+            record["issue_date"] = record.get("published_online")
+        record["published_online"] = None
+        if date_source == "crossref_published":
+            record["date_source"] = "crossref_issue"
+        changed = True
     confidence = confidence_from_record(record)
     if record.get("date_confidence") != confidence:
         record["date_confidence"] = confidence

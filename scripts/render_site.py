@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -148,6 +148,20 @@ def beijing_stamp(value: str | None) -> str:
     return dt.strftime("%Y-%m-%d %H:%M 北京时间") if dt else "暂无"
 
 
+def next_hourly_run(value: str | None) -> str:
+    dt = beijing_datetime(value) or datetime.now(CN_TZ)
+    next_dt = dt.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
+    return next_dt.strftime("%Y-%m-%d %H:%M 北京时间")
+
+
+def next_daily_full_run(value: str | None) -> str:
+    dt = beijing_datetime(value) or datetime.now(CN_TZ)
+    candidate = dt.replace(hour=8, minute=30, second=0, microsecond=0)
+    if candidate <= dt:
+        candidate += timedelta(days=1)
+    return candidate.strftime("%Y-%m-%d %H:%M 北京时间")
+
+
 def load_all_daily(daily_dir: Path) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     if not daily_dir.exists():
@@ -204,7 +218,7 @@ def journal_lookup() -> dict[str, dict[str, Any]]:
     return {journal["id"]: journal for journal in load_journals(DATA_DIR / "journals.yml")}
 
 
-def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> dict[str, Any]:
+def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]], flow_records: list[dict[str, Any]]) -> dict[str, Any]:
     today = today_str()
     today_journals = {record.get("journal_id") for record in today_records if record.get("journal_id")}
     all_journals = {record.get("journal_id") for record in records if record.get("journal_id")}
@@ -222,12 +236,18 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) ->
         "china_today": sum(1 for record in today_records if is_china_related(record)),
         "online_today": sum(1 for record in today_records if today in {record.get("available_online"), record.get("published_online")}),
         "today_journals": len(today_journals),
+        "flow": len(flow_records),
+        "china_flow": sum(1 for record in flow_records if is_china_related(record)),
+        "online_today_flow": sum(1 for record in flow_records if today in {record.get("available_online"), record.get("published_online")}),
+        "flow_journals": len({record.get("journal_id") for record in flow_records if record.get("journal_id")}),
         "all_records": len(records),
         "all_journals": len(all_journals),
         "last_run": beijing_stamp(last_run),
         "last_run_label": workflow.get("mode_label") or "自动监测",
         "last_full_run": beijing_stamp(workflow.get("last_full_finished_at")),
         "last_light_run": beijing_stamp(workflow.get("last_light_finished_at")),
+        "next_light_run": next_hourly_run(workflow.get("last_light_finished_at") or last_run),
+        "next_full_run": next_daily_full_run(workflow.get("last_full_finished_at") or last_run),
         "last_record_seen": beijing_stamp(last_record_seen),
     }
 
@@ -277,11 +297,13 @@ def public_date_label(record: dict[str, Any]) -> str:
         return "接受日期"
     if record.get("source_issue"):
         return "来源期次"
+    if record.get("issue_date"):
+        return "卷期日期"
     return "日期待解析"
 
 
 def official_date(record: dict[str, Any]) -> str:
-    return str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("source_issue") or "待解析")
+    return str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("source_issue") or record.get("issue_date") or "待解析")
 
 
 def date_source_label(record: dict[str, Any]) -> str:
@@ -519,17 +541,25 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False) 
 
 
 def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
-    s = stats(records, today_records)
     latest_day = detected_date(records[0]) if records else ""
+    latest_records = [record for record in records if detected_date(record) == latest_day] if latest_day else []
+    flow_records = today_records or latest_records
+    s = stats(records, today_records, flow_records)
     if today_records:
-        events_html = paper_events(today_records)
+        events_html = paper_events(flow_records)
+        flow_title = "今日论文流"
+        flow_date = today_str()
+        flow_note = "按本站监测时间倒序排列，可筛选期刊、主题、日期可信度和“中国相关”。"
     elif latest_day:
-        events_html = (
-            f'<div class="empty">今日暂无新发现。'
-            f'可先查看最近有记录的日期：<a href="{BASE}/daily/{html_escape(latest_day)}/">{html_escape(latest_day)} 监测记录</a>。</div>'
-        )
+        events_html = paper_events(flow_records)
+        flow_title = "最新论文流"
+        flow_date = latest_day
+        flow_note = f'今日暂无新发现，首页先展示最近有记录的 <a href="{BASE}/daily/{html_escape(latest_day)}/">{html_escape(latest_day)} 监测记录</a>。'
     else:
-        events_html = paper_events(today_records)
+        events_html = paper_events(flow_records)
+        flow_title = "最新论文流"
+        flow_date = today_str()
+        flow_note = "暂无论文记录。"
     note = (
         '<div class="empty">说明：“今日新发现”指今天首次被本站监测到的记录；'
         '“在线日期为今日”只统计 online/published online 日期为今天的记录。前台显示简洁来源，完整证据链保留在本地后台。</div>'
@@ -545,17 +575,19 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     <div class="signal-row"><span>最近监测</span><strong>{html_escape(s['last_run'])}</strong></div>
     <div class="signal-row"><span>监测类型</span><strong>{html_escape(s['last_run_label'])}</strong></div>
     <div class="signal-row"><span>最近全量</span><strong>{html_escape(s['last_full_run'])}</strong></div>
+    <div class="signal-row"><span>下次快速</span><strong>{html_escape(s['next_light_run'])}</strong></div>
+    <div class="signal-row"><span>下次全量</span><strong>{html_escape(s['next_full_run'])}</strong></div>
     <div class="signal-row"><span>最新论文</span><strong>{html_escape(s['last_record_seen'])}</strong></div>
   </div>
 </section>
 <section class="stats">
   <a class="stat" href="#filters" data-filter-preset="all"><strong>{s['today']}</strong><span>今日新发现</span></a>
-  <a class="stat" href="#filters" data-filter-preset="china"><strong>{s['china_today']}</strong><span>与中国相关</span></a>
-  <a class="stat" href="#filters" data-filter-preset="online-today"><strong>{s['online_today']}</strong><span>在线日期为今日</span></a>
-  <a class="stat" href="{BASE}/journals/"><strong>{s['today_journals']}</strong><span>今日涉及期刊</span></a>
+  <a class="stat" href="#filters" data-filter-preset="china"><strong>{s['china_flow']}</strong><span>当前流中与中国相关</span></a>
+  <a class="stat" href="#filters" data-filter-preset="online-today"><strong>{s['online_today_flow']}</strong><span>在线日期为今日</span></a>
+  <a class="stat" href="{BASE}/journals/"><strong>{s['flow_journals']}</strong><span>当前流涉及期刊</span></a>
 </section>
-{filter_toolbar(today_records, include_rss=True)}
-<section class="section-head"><div><h2>今日论文流 <span class="live-count" id="flowCounter"></span></h2><p>按本站监测时间倒序排列，可筛选期刊、主题、日期可信度和“中国相关”。</p></div><p>{html_escape(today_str())}</p></section>
+{filter_toolbar(flow_records, include_rss=True)}
+<section class="section-head"><div><h2>{flow_title} <span class="live-count" id="flowCounter"></span></h2><p>{flow_note}</p></div><p>{html_escape(flow_date)}</p></section>
 {note}
 {events_html}
 {FILTER_SCRIPT}
