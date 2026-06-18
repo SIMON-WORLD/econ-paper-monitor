@@ -134,11 +134,13 @@ jobs:
         run: |
           STAGE="1"
           LIMIT="12"
+          PREPRINT_DETAIL_LIMIT="6"
           if [ "${{ steps.mode.outputs.mode }}" = "full" ]; then
             STAGE="2"
             LIMIT="30"
+            PREPRINT_DETAIL_LIMIT="18"
           fi
-          python scripts/fetch_preprints.py --stage "$STAGE" --limit-per-source "$LIMIT" --timeout 20
+          python scripts/fetch_preprints.py --stage "$STAGE" --limit-per-source "$LIMIT" --detail-limit "$PREPRINT_DETAIL_LIMIT" --timeout 20
       - name: Aggregate Chinese journal status
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/aggregate_cn_status.py

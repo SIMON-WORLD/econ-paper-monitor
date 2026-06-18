@@ -191,6 +191,21 @@ def is_china_related(record: dict[str, Any]) -> bool:
     return record.get("china_related") is True or record.get("china_relevance_status") == "confirmed"
 
 
+def is_working_paper(record: dict[str, Any]) -> bool:
+    source_type = str(record.get("source_type") or "")
+    return str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}
+
+
+def source_type_label(record: dict[str, Any]) -> str:
+    source_type = str(record.get("source_type") or "")
+    return {
+        "working_paper": "工作论文",
+        "policy_paper": "政策论文",
+        "aggregator": "聚合源",
+        "journal_article": "期刊论文",
+    }.get(source_type, "工作论文" if is_working_paper(record) else "期刊论文")
+
+
 def article_topics(record: dict[str, Any]) -> list[str]:
     haystack = " ".join(
         str(value or "")
@@ -220,8 +235,22 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     return list(dict.fromkeys(fallback))[:3] or ["development"]
 
 
+def working_paper_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [record for record in records if is_working_paper(record)]
+
+
 def journal_lookup() -> dict[str, dict[str, Any]]:
-    return {journal["id"]: journal for journal in load_journals(DATA_DIR / "journals.yml")}
+    lookup = {journal["id"]: journal for journal in load_journals(DATA_DIR / "journals.yml")}
+    for source in load_working_paper_sources():
+        source_id = str(source.get("id") or "")
+        if not source_id:
+            continue
+        lookup[f"source-{source_id}"] = {
+            "id": f"source-{source_id}",
+            "title": source.get("title") or source_id,
+            "chinese_name": SOURCE_CN_NAMES.get(source_id) or source.get("chinese_name") or "",
+        }
+    return lookup
 
 
 SOURCE_STATUS = {
@@ -235,6 +264,8 @@ SOURCE_STATUS = {
     "cesifo-working-papers": ("待增强", "todo", "需要收紧 CESifo 页面过滤规则。"),
     "oecd-working-papers": ("入口受限", "pause", "当前入口返回访问限制，需要替代源或 API。"),
     "repec-nep": ("暂缓", "pause", "聚合源噪声较高，先放到第三阶段。"),
+    "ssrn-economics-research-network": ("待验证", "todo", "先接入公开浏览页；如遇限制，再切换到替代入口或邮件源。"),
+    "ssrn-health-economics-network": ("待验证", "todo", "先接入公开浏览页；如遇限制，再切换到替代入口或邮件源。"),
 }
 
 
@@ -251,6 +282,8 @@ SOURCE_CN_NAMES = {
     "world-bank-prwp": "世界银行政策研究工作论文",
     "imf-working-papers": "IMF 工作论文",
     "repec-nep": "RePEc NEP 新经济学论文",
+    "ssrn-economics-research-network": "SSRN 经济学研究网络",
+    "ssrn-health-economics-network": "SSRN 健康经济学网络",
     "cepr-dp": "CEPR 讨论论文",
     "cesifo-working-papers": "CESifo 工作论文",
     "fed-feds": "美联储 FEDS 工作论文",
@@ -469,6 +502,7 @@ def sidebar(
     <a class="side-link" href="{BASE}/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+    <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
     <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
   </div>
   <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
@@ -504,7 +538,7 @@ def page(
           <a href="{BASE}/topics/china/">与中国相关</a>
           <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
           <a href="{BASE}/journals/">监测期刊</a>
-          <a class="{ 'active' if active == 'sources' else '' }" href="{BASE}/sources/working-papers/">工作论文</a>
+          <a class="{ 'active' if active == 'working-papers' else '' }" href="{BASE}/working-papers/">工作论文</a>
           <a href="{BASE}/feed.xml">RSS</a>
         </nav>
       </div></header>
@@ -538,6 +572,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
         field_attr = " ".join(article_topics(record))
+        type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
         chunks.append(
             f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
@@ -546,7 +581,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
     {title_zh_html}
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span><span class="source-chip">{html_escape(public_date_line(record))}</span></span></div>
+      <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}<span class="source-chip">{html_escape(public_date_line(record))}</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">{link_or_doi}{fields}{china_tag}</span></div>
     </div>
   </div>
@@ -784,6 +819,31 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 """
 
 
+def working_papers_body(records: list[dict[str, Any]], *, china_only: bool = False) -> str:
+    wp_records = working_paper_records(records)
+    if china_only:
+        wp_records = [record for record in wp_records if is_china_related(record)]
+    latest_day = detected_date(wp_records[0]) if wp_records else ""
+    today_count = sum(1 for record in wp_records if detected_date(record) == today_str())
+    china_count = sum(1 for record in wp_records if is_china_related(record))
+    title = "与中国相关工作论文" if china_only else "最新工作论文"
+    note = "覆盖工作论文和政策论文来源，按首次监测时间倒序排列。" if not china_only else "从工作论文和政策论文来源中筛选已确认的中国相关研究。"
+    return f"""<section class="section-head">
+  <div><h2>{title} <span class="live-count" id="flowCounter"></span></h2><p>{note}</p></div>
+  <p>{html_escape(latest_day or today_str())}</p>
+</section>
+<section class="stats">
+  <a class="stat" href="{BASE}/working-papers/"><strong>{len(working_paper_records(records))}</strong><span>累计工作论文记录</span></a>
+  <a class="stat" href="{BASE}/working-papers/?china=1"><strong>{china_count}</strong><span>与中国相关</span></a>
+  <a class="stat" href="{BASE}/working-papers/"><strong>{today_count}</strong><span>今日新发现</span></a>
+  <a class="stat" href="{BASE}/sources/working-papers/"><strong>{len(load_working_paper_sources())}</strong><span>监测来源</span></a>
+</section>
+{filter_toolbar(wp_records)}
+{paper_events(wp_records)}
+{FILTER_SCRIPT}
+"""
+
+
 def write_page(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     relative_parent = path.parent.relative_to(DOCS_DIR)
@@ -813,8 +873,31 @@ def main() -> None:
             "工作论文来源",
             records,
             working_paper_sources_body(),
-            active="sources",
+            active="working-papers",
             sidebar_records=home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
+    )
+    wp_records = working_paper_records(records)
+    write_page(
+        args.docs_dir / "working-papers" / "index.html",
+        page(
+            "最新工作论文",
+            records,
+            working_papers_body(records),
+            active="working-papers",
+            sidebar_records=wp_records[:40] or home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
+    )
+    write_page(
+        args.docs_dir / "working-papers" / "china" / "index.html",
+        page(
+            "与中国相关工作论文",
+            records,
+            working_papers_body(records, china_only=True),
+            active="working-papers",
+            sidebar_records=[record for record in wp_records if is_china_related(record)][:40] or wp_records[:40] or home_flow_records,
             sidebar_date=home_flow_date,
         ),
     )

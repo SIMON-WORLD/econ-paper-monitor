@@ -9,11 +9,12 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 from xml.etree import ElementTree
 
 from common import DATA_DIR, fetch_text, now_iso, today_str, write_json
@@ -68,7 +69,31 @@ def clean_text(value: str | None) -> str:
     value = re.sub(r"<[^>]+>", " ", value)
     value = html.unescape(value)
     value = re.sub(r"\s+", " ", value)
+    value = fix_mojibake(value)
     return value.strip()
+
+
+def fix_mojibake(value: str) -> str:
+    replacements = {
+        "鈥檚": "'s",
+        "鈥檛": "n't",
+        "鈥?": "-",
+        "鈥�": "-",
+        "鈥�": "-",
+        "鈥淪": '"S',
+        "鈥漵": '"',
+        "鈥": "'",
+        "â€™": "'",
+        "â€œ": '"',
+        "â€\x9d": '"',
+        "â€“": "-",
+        "â€”": "-",
+        "Â ": " ",
+        "Â": "",
+    }
+    for bad, good in replacements.items():
+        value = value.replace(bad, good)
+    return value
 
 
 def parse_date(value: str | None) -> str | None:
@@ -83,6 +108,95 @@ def parse_date(value: str | None) -> str | None:
     if match:
         year, month, day = match.groups()
         return f"{year}-{int(month):02d}-{int(day):02d}"
+    return None
+
+
+def normalize_url(url: str | None) -> str | None:
+    if not url:
+        return None
+    parsed = urlparse(url)
+    clean = parsed._replace(query="", fragment="")
+    return clean.geturl().rstrip("/")
+
+
+def first_match(patterns: list[str], text: str, flags: int = re.I | re.S) -> str | None:
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=flags)
+        if match:
+            return clean_text(match.group(1))
+    return None
+
+
+def meta_values(html_text: str, names: list[str]) -> list[str]:
+    values: list[str] = []
+    for name in names:
+        pattern = (
+            r'<meta[^>]+(?:name|property)=["\']'
+            + re.escape(name)
+            + r'["\'][^>]+content=["\']([^"\']+)["\'][^>]*>'
+        )
+        values.extend(clean_text(match) for match in re.findall(pattern, html_text, flags=re.I | re.S))
+        pattern = (
+            r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:name|property)=["\']'
+            + re.escape(name)
+            + r'["\'][^>]*>'
+        )
+        values.extend(clean_text(match) for match in re.findall(pattern, html_text, flags=re.I | re.S))
+    return [value for value in values if value]
+
+
+def json_ld_objects(html_text: str) -> list[dict[str, Any]]:
+    objects: list[dict[str, Any]] = []
+    for match in re.finditer(r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html_text, flags=re.I | re.S):
+        payload = clean_text(match.group(1))
+        try:
+            parsed = json.loads(payload)
+        except Exception:
+            continue
+        candidates = parsed if isinstance(parsed, list) else [parsed]
+        for item in candidates:
+            if isinstance(item, dict):
+                objects.append(item)
+            if isinstance(item, dict) and isinstance(item.get("@graph"), list):
+                objects.extend(node for node in item["@graph"] if isinstance(node, dict))
+    return objects
+
+
+def json_ld_value(html_text: str, keys: list[str]) -> str | None:
+    for item in json_ld_objects(html_text):
+        for key in keys:
+            value = item.get(key)
+            if isinstance(value, str) and value.strip():
+                return clean_text(value)
+            if isinstance(value, list) and value:
+                pieces = []
+                for part in value:
+                    if isinstance(part, str):
+                        pieces.append(part)
+                    elif isinstance(part, dict) and part.get("name"):
+                        pieces.append(str(part["name"]))
+                if pieces:
+                    return clean_text(", ".join(pieces))
+    return None
+
+
+def detect_paper_number(source: dict[str, Any], title: str, url: str | None) -> str | None:
+    source_id = str(source.get("id") or "")
+    text = f"{title} {url or ''}"
+    patterns = {
+        "nber": [r"/papers/(w\d+)", r"\b(w\d{4,})\b"],
+        "iza": [r"/dp/(\d+)/", r"\bDP\s*No\.?\s*(\d+)\b"],
+        "cepr-dp": [r"/publications/(dp\d+)", r"\bDP\s*(\d{4,})\b"],
+        "fed-feds": [r"/econres/feds/([^/.]+)", r"\bFEDS\s*(\d{4}-\d+)\b"],
+        "bis-working-papers": [r"/publ/(work\d+)", r"\bWorking Paper[s]?\s*No\.?\s*(\d+)\b"],
+        "imf-working-papers": [r"\bWP/(\d+/\d+)\b", r"/Issues/.+?/([^/]+)$"],
+        "world-bank-prwp": [r"/entities/publication/([^/?#]+)"],
+        "cesifo-working-papers": [r"\bWorking Paper\s*No\.?\s*(\d+)\b"],
+    }
+    for pattern in patterns.get(source_id, []):
+        match = re.search(pattern, text, flags=re.I)
+        if match:
+            return clean_text(match.group(1))
     return None
 
 
@@ -104,8 +218,10 @@ def source_record(
 ) -> dict[str, Any]:
     source_type = str(source.get("type") or "working_paper")
     source_title = str(source.get("title") or source.get("id") or "Working Paper")
+    clean_url = normalize_url(url)
+    clean_title = clean_text(title)
     return {
-        "title": clean_text(title),
+        "title": clean_title,
         "authors": [],
         "journal": source_title,
         "journal_id": f"source-{source.get('id')}",
@@ -113,8 +229,12 @@ def source_record(
         "fields": source.get("fields") or ["general"],
         "source": "working_papers",
         "source_type": source_type,
+        "source_id": source.get("id"),
+        "source_name": source_title,
+        "series": source_title,
+        "paper_number": detect_paper_number(source, clean_title, clean_url),
         "source_url": source.get("feed") or source.get("homepage"),
-        "url": url,
+        "url": clean_url,
         "doi": None,
         "abstract": clean_text(abstract) or None,
         "published_online": published,
@@ -123,6 +243,74 @@ def source_record(
         "date_confidence": "B" if published else "F",
         "detected_at": now_iso(),
     }
+
+
+def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *, timeout: int) -> dict[str, Any]:
+    url = record.get("url")
+    if not url:
+        return record
+    try:
+        html_text = fetch_text(str(url), timeout=timeout)
+    except Exception:
+        return record
+
+    title = (
+        first_match([r'<h1[^>]*>(.*?)</h1>'], html_text)
+        or (meta_values(html_text, ["citation_title", "dc.title", "og:title"]) or [None])[0]
+        or json_ld_value(html_text, ["headline", "name"])
+    )
+    if title and plausible_title(title):
+        record["title"] = title
+
+    authors = meta_values(html_text, ["citation_author", "dc.creator", "author"])
+    if authors:
+        record["authors"] = list(dict.fromkeys(authors))[:12]
+    elif json_authors := json_ld_value(html_text, ["author", "creator"]):
+        record["authors"] = [item.strip() for item in json_authors.split(",") if item.strip()][:12]
+
+    abstract = (
+        (meta_values(html_text, ["citation_abstract", "dc.description", "description", "og:description"]) or [None])[0]
+        or json_ld_value(html_text, ["description", "abstract"])
+        or first_match(
+            [
+                r'<h2[^>]*>\s*Abstract\s*</h2>\s*<p[^>]*>(.*?)</p>',
+                r'<div[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</div>',
+                r'<section[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</section>',
+            ],
+            html_text,
+        )
+    )
+    if abstract:
+        record["abstract"] = clean_text(abstract)
+
+    date_value = (
+        (meta_values(html_text, ["citation_publication_date", "citation_online_date", "article:published_time", "dc.date"]) or [None])[0]
+        or json_ld_value(html_text, ["datePublished", "dateCreated", "dateModified"])
+        or first_match(
+            [
+                r'(?:Published|Posted|Date)\s*:?\s*</?[^>]*>\s*([A-Z][a-z]+\s+\d{1,2},\s+20\d{2})',
+                r'(?:Published|Posted|Date)\s*:?\s*(20\d{2}-\d{1,2}-\d{1,2})',
+            ],
+            html_text,
+        )
+    )
+    parsed_date = parse_date(date_value)
+    if parsed_date:
+        record["published_online"] = parsed_date
+        record["available_online"] = parsed_date
+        record["date_source"] = "publisher_detail"
+        record["date_confidence"] = "B"
+
+    doi = (meta_values(html_text, ["citation_doi", "dc.identifier"]) or [None])[0]
+    if doi and "10." in doi:
+        doi_match = re.search(r"(10\.\d{4,9}/\S+)", doi)
+        record["doi"] = doi_match.group(1).rstrip(".") if doi_match else doi
+
+    pdf = (meta_values(html_text, ["citation_pdf_url"]) or [None])[0]
+    if pdf:
+        record["pdf_url"] = urljoin(str(url), pdf)
+    record["paper_number"] = record.get("paper_number") or detect_paper_number(source, str(record.get("title") or ""), str(record.get("url") or ""))
+    return record
 
 
 def parse_feed(xml_text: str, source: dict[str, Any]) -> list[dict[str, Any]]:
@@ -183,6 +371,82 @@ def parse_html_list(html_text: str, source: dict[str, Any], limit: int) -> list[
     return records
 
 
+def parse_nber_list(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for match in re.finditer(r'<a[^>]+href=["\'](?P<href>/papers/w\d+)["\'][^>]*>(?P<title>.*?)</a>', html_text, flags=re.I | re.S):
+        url = urljoin(str(source.get("homepage")), match.group("href"))
+        title = clean_text(match.group("title"))
+        if not plausible_title(title) or url in seen:
+            continue
+        seen.add(url)
+        records.append(source_record(source, title=title, url=url))
+        if len(records) >= limit:
+            break
+    return records
+
+
+def parse_imf_list(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    pattern = r'<a[^>]+href=["\'](?P<href>[^"\']*/en/Publications/WP/Issues/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>'
+    for match in re.finditer(pattern, html_text, flags=re.I | re.S):
+        url = normalize_url(urljoin("https://www.imf.org", html.unescape(match.group("href"))))
+        title = clean_text(match.group("title"))
+        if not url or url in seen or not plausible_title(title):
+            continue
+        seen.add(url)
+        records.append(source_record(source, title=title, url=url))
+        if len(records) >= limit:
+            break
+    return records
+
+
+def parse_bis_list(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    pattern = r'<a[^>]+href=["\'](?P<href>[^"\']*/publ/work\d+[^"\']*)["\'][^>]*>(?P<title>.*?)</a>'
+    for match in re.finditer(pattern, html_text, flags=re.I | re.S):
+        url = normalize_url(urljoin("https://www.bis.org", html.unescape(match.group("href"))))
+        title = clean_text(match.group("title"))
+        if not url or url in seen or not plausible_title(title):
+            continue
+        seen.add(url)
+        records.append(source_record(source, title=title, url=url))
+        if len(records) >= limit:
+            break
+    return records
+
+
+def parse_world_bank_list(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    pattern = r'<a[^>]+href=["\'](?P<href>[^"\']*/entities/publication/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>'
+    for match in re.finditer(pattern, html_text, flags=re.I | re.S):
+        url = normalize_url(urljoin(str(source.get("homepage")), html.unescape(match.group("href"))))
+        title = clean_text(match.group("title"))
+        if not url or url in seen or not plausible_title(title):
+            continue
+        seen.add(url)
+        records.append(source_record(source, title=title, url=url))
+        if len(records) >= limit:
+            break
+    return records
+
+
+def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    source_id = str(source.get("id") or "")
+    if source_id == "nber":
+        return parse_nber_list(html_text, source, limit)
+    if source_id == "imf-working-papers":
+        return parse_imf_list(html_text, source, limit)
+    if source_id == "bis-working-papers":
+        return parse_bis_list(html_text, source, limit)
+    if source_id == "world-bank-prwp":
+        return parse_world_bank_list(html_text, source, limit)
+    return []
+
+
 def plausible_title(title: str) -> bool:
     bad_fragments = [
         "subscribe",
@@ -222,6 +486,9 @@ def fetch_source(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[l
         records = parse_feed(xml_text, source)
         return records[:limit], "feed"
     html_text = fetch_text(str(source["homepage"]), timeout=timeout)
+    specialized = parse_specialized_html(html_text, source, limit)
+    if specialized:
+        return specialized[:limit], "specialized-html"
     discovered_feed = discover_feed(html_text, str(source.get("homepage") or ""))
     if discovered_feed:
         try:
@@ -256,6 +523,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--stage", type=int, default=2, help="Fetch sources with stage <= this value.")
     parser.add_argument("--limit-per-source", type=int, default=20)
+    parser.add_argument("--detail-limit", type=int, default=10)
     parser.add_argument("--timeout", type=int, default=20)
     args = parser.parse_args()
 
@@ -265,13 +533,24 @@ def main() -> None:
     messages: list[str] = []
     failures = 0
     for source in sources:
+        source_id = str(source.get("id") or "unknown")
         try:
             records, method = fetch_source(source, timeout=args.timeout, limit=args.limit_per_source)
+            if args.detail_limit:
+                enriched: list[dict[str, Any]] = []
+                for index, record in enumerate(records):
+                    if index < args.detail_limit:
+                        record = enrich_record_from_detail(record, source, timeout=args.timeout)
+                    enriched.append(record)
+                records = enriched
             all_records.extend(records)
-            messages.append(f"{source.get('id')}: {len(records)} via {method}")
+            messages.append(f"{source_id}: {len(records)} via {method}")
+            record_source(f"working-paper:{source_id}", ok=True, count=len(records), message=method)
         except Exception as exc:  # noqa: BLE001 - source failures should not block the monitor.
             failures += 1
-            messages.append(f"{source.get('id')}: {type(exc).__name__}: {exc}")
+            message = f"{type(exc).__name__}: {exc}"
+            messages.append(f"{source_id}: {message}")
+            record_source(f"working-paper:{source_id}", ok=False, count=0, message=message)
 
     write_json(output, all_records)
     record_source(

@@ -182,6 +182,11 @@ def latest_records(records: list[dict[str, Any]], predicate, limit: int = 20) ->
     return sorted(selected, key=lambda item: item.get("detected_at") or item.get("_daily_date") or "", reverse=True)[:limit]
 
 
+def is_working_paper(record: dict[str, Any]) -> bool:
+    source_type = str(record.get("source_type") or "")
+    return str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}
+
+
 def main() -> None:
     records = load_records()
     status = load_status()
@@ -203,6 +208,14 @@ def main() -> None:
     untranslated = latest_records(records, lambda record: record.get("title") and not has_chinese(str(record.get("title"))) and not record.get("title_zh"))
     low_confidence = latest_records(records, lambda record: (record.get("date_confidence") or "F") in {"D", "F", "unknown"})
     date_evidence_records = latest_records(records, lambda record: True, 30)
+    working_papers = [record for record in records if is_working_paper(record)]
+    latest_working_papers = latest_records(records, is_working_paper, 30)
+    china_working_papers = latest_records(
+        records,
+        lambda record: is_working_paper(record)
+        and (record.get("china_related") is True or record.get("china_relevance_status") == "confirmed"),
+        30,
+    )
     by_source = Counter(record.get("source") or "unknown" for record in records)
     by_confidence = Counter(record.get("date_confidence") or "unknown" for record in records)
 
@@ -230,6 +243,13 @@ def main() -> None:
         f"<td>{html_escape(item.get('message'))}</td></tr>"
         for source_id, item in sorted(sources.items())
     ]
+    wp_source_rows = [
+        f"<tr><td>{html_escape(str(source_id).removeprefix('working-paper:'))}</td><td>{'OK' if item.get('ok') else 'FAIL'}</td>"
+        f"<td>{html_escape(item.get('count'))}</td><td>{html_escape(beijing_stamp(item.get('updated_at')))}</td>"
+        f"<td>{html_escape(item.get('message'))}</td></tr>"
+        for source_id, item in sorted(sources.items())
+        if str(source_id).startswith("working-paper:")
+    ]
     cn_rows = [
         f"<tr class='{'warn' if item.get('ok') and int(item.get('count') or 0) == 0 else ''}'><td>{html_escape(item.get('journal'))}</td><td>{'OK' if item.get('ok') else 'FAIL'}</td>"
         f"<td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td>"
@@ -256,6 +276,17 @@ def main() -> None:
         f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(public_date_label(record))} {html_escape(public_date(record))} · 来源：{html_escape(date_source_label(record))}</td>"
         f"<td>{date_evidence_cell(record)}</td></tr>"
         for record in date_evidence_records
+    ]
+    latest_wp_rows = [
+        f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
+        f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(public_date_label(record))} {html_escape(public_date(record))}</td>"
+        f"<td>{html_escape(record.get('paper_number') or '')}</td></tr>"
+        for record in latest_working_papers
+    ]
+    china_wp_rows = [
+        f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
+        f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(record.get('china_relevance_reason'))}</td></tr>"
+        for record in china_working_papers
     ]
     daily_rows = "".join(f"<tr><td>{html_escape(day)}</td><td>{count}</td></tr>" for day, count in daily_counts())
     source_counts = "".join(f"<li>{html_escape(key)}: {value}</li>" for key, value in sorted(by_source.items()))
@@ -314,6 +345,16 @@ def main() -> None:
 
   <h2>健康提醒</h2>
   <ul>{health_rows}</ul>
+  </section>
+
+  <section class="section">
+  <h2>工作论文来源状态</h2>
+  <p class="muted">按来源拆分显示抓取结果；这里能看到 NBER、IZA、CEPR、Fed FEDS、World Bank、IMF、BIS、SSRN 等入口是否成功。</p>
+  {table(wp_source_rows, ["来源", "状态", "数量", "更新时间", "信息"])}
+  <h2>最新工作论文/政策论文</h2>
+  {table(latest_wp_rows, ["日期", "论文", "来源", "公开日期", "编号"])}
+  <h2>与中国相关工作论文/政策论文</h2>
+  {table(china_wp_rows, ["日期", "论文", "来源", "判定原因"])}
   </section>
 
   <section class="section">

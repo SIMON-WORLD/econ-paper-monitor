@@ -75,6 +75,36 @@ sources:
     fields:
       - general
 
+  - id: ssrn-economics-research-network
+    title: SSRN Economics Research Network
+    chinese_name: SSRN 经济学研究网络
+    type: aggregator
+    stage: 2
+    homepage: https://papers.ssrn.com/sol3/DisplayJournalBrowse.cfm
+    url_pattern: "/sol3/papers\\.cfm\\?abstract_id=\\d+"
+    url_contains:
+      - /sol3/papers.cfm?abstract_id=
+    fields:
+      - general
+      - macro
+      - finance
+      - labor
+      - trade
+
+  - id: ssrn-health-economics-network
+    title: SSRN Health Economics Network
+    chinese_name: SSRN 健康经济学网络
+    type: aggregator
+    stage: 2
+    homepage: https://papers.ssrn.com/sol3/DisplayJournalBrowse.cfm
+    url_pattern: "/sol3/papers\\.cfm\\?abstract_id=\\d+"
+    url_contains:
+      - /sol3/papers.cfm?abstract_id=
+    fields:
+      - health
+      - public
+      - labor
+
   - id: cepr-dp
     title: CEPR Discussion Papers
     chinese_name: CEPR 讨论论文
