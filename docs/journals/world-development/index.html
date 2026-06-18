@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>World Development</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -65,7 +65,7 @@
     <p class="title-zh">缩小差距：可再生能源发展如何降低中国城乡收入不平等</p>
     <p class="authors">Jing-Yue Liu, Quan Lei, Yue-Jun Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107489">10.1016/j.worlddev.2026.107489</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <p class="title-zh">无需等待报告——审视发展合作中基于结果的管理实践的学习</p>
     <p class="authors">Janet Vähämäki, Annika Hilgert, Kathrin Wolf, Martin Bruder</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107451">10.1016/j.worlddev.2026.107451</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -89,7 +89,7 @@
     <p class="title-zh">贸易政策与包容性贸易言论之间的脱节（2025年12月）</p>
     <p class="authors">Amrita Saha, Mattia Di Ubaldo, Amrita Bahri, L. Alan Winters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107465">10.1016/j.worlddev.2026.107465</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -101,7 +101,7 @@
     <p class="title-zh">随风未逝：越南除草剂战争的长期影响</p>
     <p class="authors">Gaku Ito, Duc Tran, Yuichiro Yoshida</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107467">10.1016/j.worlddev.2026.107467</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -113,7 +113,7 @@
     <p class="title-zh">外商直接投资与煤炭锁定：全球南方的发展困境</p>
     <p class="authors">Xinya Hao, Lin Zhang, Huanhuan Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107453">10.1016/j.worlddev.2026.107453</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -125,7 +125,7 @@
     <p class="title-zh">印度不平等与社会动荡</p>
     <p class="authors">Mathieu Couttenier, Jeremy Laurent-Lucchetti, Lore Vandewalle</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107418">10.1016/j.worlddev.2026.107418</a><span class="pill">发展经济学</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -137,7 +137,7 @@
     <p class="title-zh">城市社区主导的全面环境卫生：来自印度南德的机会、障碍与经验</p>
     <p class="authors">Lyla Mehta, Ruth Kennedy-Walker, Apeksha Vohra, Tanvi Bhatkal, Pallavi Harshe 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107336">10.1016/j.worlddev.2026.107336</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -149,7 +149,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0305-750x(26)00162-2">10.1016/s0305-750x(26)00162-2</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -161,7 +161,7 @@
     <p class="title-zh">优惠贸易协定中森林相关深度的测量：森林条款深度指数</p>
     <p class="authors">Michelle Márcia Viana Martins, Alan Leal, Rodrigo Fagundes Cezar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107442">10.1016/j.worlddev.2026.107442</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -173,7 +173,7 @@
     <p class="title-zh">发展与跨学科性：关于“经济学孤岛”的补充见解</p>
     <p class="authors">Matthias Aistleitner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107435">10.1016/j.worlddev.2026.107435</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -185,7 +185,7 @@
     <p class="title-zh">第三方市场进入的催化剂：优惠贸易协定的作用</p>
     <p class="authors">Qiugu He, Xuan Luo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107437">10.1016/j.worlddev.2026.107437</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -197,7 +197,7 @@
     <p class="title-zh">公众对军事化保护的支持：理解三国公众对“反偷猎战争”的态度</p>
     <p class="authors">Lauren Yehle, Aksel Sundström, Patrik Michaelsen, Sverker C. Jagers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107440">10.1016/j.worlddev.2026.107440</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -209,7 +209,7 @@
     <p class="title-zh">加纳与津巴布韦的土地权属冲突：制度视角</p>
     <p class="authors">Abel Gwaindepi, Helen Akolgo-Azupogo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107438">10.1016/j.worlddev.2026.107438</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -221,7 +221,7 @@
     <p class="title-zh">喂养加速器：美国食物体制的代谢历史分析</p>
     <p class="authors">Stefano Menegat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107439">10.1016/j.worlddev.2026.107439</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -233,7 +233,7 @@
     <p class="title-zh">贸易开放、全球价值链整合与企业环境友好型战略的采纳</p>
     <p class="authors">Isabel Maria Bodas Freitas, Fulvio Castellacci, Keun Lee, Matthias Staessens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107430">10.1016/j.worlddev.2026.107430</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -245,7 +245,7 @@
     <p class="title-zh">迈向印度清洁饮用水法案：饮用水质量标准综述</p>
     <p class="authors">Atul Singh, Aditya Shrinivas, Anil Suraj, Gopal Naik</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107433">10.1016/j.worlddev.2026.107433</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -257,7 +257,7 @@
     <p class="title-zh">海地灾后重建：预期外部、侨民与本地支持的影响</p>
     <p class="authors">Tracy Kijewski-Correa, William Kakenmaster, Debra Javeline, Alexandros Taflanidis, Karen Richman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107395">10.1016/j.worlddev.2026.107395</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -269,7 +269,7 @@
     <p class="title-zh">女性绝育手术中的选举周期</p>
     <p class="authors">Simeon Nichter, Dario Toman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107407">10.1016/j.worlddev.2026.107407</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -281,7 +281,7 @@
     <p class="title-zh">对商业有利，对环境却未必？进口进入与印度工厂的能源强度</p>
     <p class="authors">Michele Delera, Nanditha Mathew, Tania Treibich</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107412">10.1016/j.worlddev.2026.107412</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -293,7 +293,7 @@
     <p class="title-zh">摇摇欲坠于债务与饥饿边缘：非洲外债与粮食安全关联性的实证研究</p>
     <p class="authors">Assem Abu Hatab, Emmanuel Orkoh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107417">10.1016/j.worlddev.2026.107417</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -305,7 +305,7 @@
     <p class="title-zh">政变与非正规经济</p>
     <p class="authors">Ablam Estel Apeti, Dorgyles C.M. Kouakou, Assi Okara, Kolotioloma I.H. Yéo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107477">10.1016/j.worlddev.2026.107477</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -317,7 +317,7 @@
     <p class="title-zh">中央转移支付的空间配置效应：来自中国的证据</p>
     <p class="authors">Wenbin Huang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107490">10.1016/j.worlddev.2026.107490</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -329,7 +329,7 @@
     <p class="title-zh">从夫居与年轻女性地位：来自斯里兰卡的证据</p>
     <p class="authors">Deborah S. DeGraff, Kone A.P. Siddhisena</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107459">10.1016/j.worlddev.2026.107459</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -341,7 +341,7 @@
     <p class="title-zh">非正式制度与全球贸易：难以捉摸的真实效应</p>
     <p class="authors">Eiji Fujii</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107458">10.1016/j.worlddev.2026.107458</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -353,7 +353,7 @@
     <p class="title-zh">外部援助项目对财政转移支付的意外后果：印度次国家级研究</p>
     <p class="authors">Vadlamannati Krishna Chaitanya, Iacono Roberto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107454">10.1016/j.worlddev.2026.107454</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -365,7 +365,7 @@
     <p class="title-zh">巴西安抚警察部队再审视：一项失败的民主警务计划及其对制度改革的启示</p>
     <p class="authors">Julia Maia Goldani, Mariana Mota Prado</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107462">10.1016/j.worlddev.2026.107462</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -377,7 +377,7 @@
     <p class="title-zh">银行增加对女性和女性领导企业贷款的商业理由是否存在？跨国财务绩效证据</p>
     <p class="authors">Christoph Sommer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107457">10.1016/j.worlddev.2026.107457</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -389,7 +389,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0305-750x(26)00173-7">10.1016/s0305-750x(26)00173-7</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -401,7 +401,7 @@
     <p class="title-zh">小额信贷机构的公司治理：理论视角、方法论与实证证据的系统综述</p>
     <p class="authors">Giovanni Cardillo, Alessandra Cavallo, Giuseppe Torluccio</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107455">10.1016/j.worlddev.2026.107455</a><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -413,7 +413,7 @@
     <p class="title-zh">提格雷战争对埃塞俄比亚儿童教育与劳动的影响</p>
     <p class="authors">Yemareshet Hailu Demeke, Dainn Wie</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107449">10.1016/j.worlddev.2026.107449</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -425,7 +425,7 @@
     <p class="title-zh">中美洲移民的两面性：危地马拉的总体与分配影响</p>
     <p class="authors">Luis Escalante, Emerta Aragie, Manuel A. Hernandez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107450">10.1016/j.worlddev.2026.107450</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -437,7 +437,7 @@
     <p class="title-zh">全球南方小规模农村社会的长期面板研究：其价值、稀缺原因及推进建议</p>
     <p class="authors">Jonathan Bauchet, Ricardo Godoy, William R. Leonard, Victoria Reyes-García, Asher Y. Rosinger 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107452">10.1016/j.worlddev.2026.107452</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -449,7 +449,7 @@
     <p class="title-zh">贸易一体化对西非国家经济周期同步性的影响：对非洲大陆自由贸易区的启示</p>
     <p class="authors">Ahmed Racine Yago, Samba Diop, Cheikh Tidiane Ndiaye, Simplice A. Asongu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107461">10.1016/j.worlddev.2026.107461</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -461,7 +461,7 @@
     <p class="title-zh">动员的诅咒？石油财富如何影响抵抗事件的构成</p>
     <p class="authors">Thea Johansen, Charles Butcher</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107456">10.1016/j.worlddev.2026.107456</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -473,7 +473,7 @@
     <p class="title-zh">欧盟气候援助与贸易利益：战略还是关系深化的副产品？</p>
     <p class="authors">Alexandra Bögner, Gabriele Spilker</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107469">10.1016/j.worlddev.2026.107469</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -485,7 +485,7 @@
     <p class="title-zh">钻石并非永恒：人造替代品、不可逆替代与新资源诅咒</p>
     <p class="authors">Dwayne Woods</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107464">10.1016/j.worlddev.2026.107464</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -497,7 +497,7 @@
     <p class="title-zh">无人之地？强迫迁移对哥伦比亚森林覆盖变化的影响</p>
     <p class="authors">Emilio Leguízamo, Ana María Montoya</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107441">10.1016/j.worlddev.2026.107441</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -509,7 +509,7 @@
     <p class="title-zh">距离、前景与向城镇迁移</p>
     <p class="authors">Joachim De Weerdt, Luc Christiaensen, Ravi Kanbur</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107419">10.1016/j.worlddev.2026.107419</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -521,7 +521,7 @@
     <p class="title-zh">降雨来袭：厄瓜多尔的降水冲击与经济产出</p>
     <p class="authors">Gustavo Canavire-Bacarreza, Alejandro Puerta-Cuartas, Andrey Ramos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107468">10.1016/j.worlddev.2026.107468</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -533,7 +533,7 @@
     <p class="title-zh">环境微笑曲线：污染避难所假说的投入产出证据</p>
     <p class="authors">Giovanni Dosi, Federico Riccio, Maria Enrica Virgillito</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107411">10.1016/j.worlddev.2026.107411</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -545,7 +545,7 @@
     <p class="title-zh">收获后的热浪：泰国农民对秸秆焚烧的选择与认知</p>
     <p class="authors">Witsanu Attavanich, Adrian A. Lopes, Sailesh Tiwari, Ajalavat Viriyavipart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107466">10.1016/j.worlddev.2026.107466</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -577,11 +577,11 @@
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
     } else if (preset === 'online-today') {
-      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
     } else {
-      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
     }
   }
   function applyFilters() {

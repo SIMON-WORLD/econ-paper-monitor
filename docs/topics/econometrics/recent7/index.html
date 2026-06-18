@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>计量方法 最近 7 天</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -65,7 +65,7 @@
     <p class="title-zh">时变内生随机系数面板数据模型的识别与估计</p>
     <p class="authors">Ming Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106272">10.1016/j.jeconom.2026.106272</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <p class="title-zh">预测长期因果效应</p>
     <p class="authors">David Rhys Bernard, Mark Himmelstein, Ezra Karger, Philipp Schoenegger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103820">10.1016/j.jdeveco.2026.103820</a><span class="pill">发展经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -89,7 +89,7 @@
     <p class="title-zh">组织能力作为一个组织问题</p>
     <p class="authors">Nicola Mastrorocco, Edoardo Teso</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag061">10.1093/restud/rdag061</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -101,7 +101,7 @@
     <p class="title-zh">后冲突前沿地区的可持续畜牧业决策：来自哥伦比亚奥里诺基亚地区的证据</p>
     <p class="authors">Hernando Flórez‐Díaz, Emiliano Lopez Barrera, Adriana María Molina‐Romero, Diana Elisa Correa‐Pinilla, Carlos Fontanilla‐Díaz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70047">10.1111/1477-9552.70047</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -113,7 +113,7 @@
     <p class="title-zh">减轻合成控制法中溢出偏差的经济学方法：以捕捞配额价格效应为例</p>
     <p class="authors">Jordan Moor, Andrew Ropicki, Frank Asche, Adams Ceballos‐Concha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70079">10.1002/ajae.70079</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -125,7 +125,7 @@
     <p class="title-zh">农业优惠贸易：基于结构引力分析与机器学习的新见解</p>
     <p class="authors">Dongin Kim, Sandro Steinbach</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70077">10.1002/ajae.70077</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -137,7 +137,7 @@
     <p class="title-zh">经济学与金融学中的贝叶斯方法：统一综述与分类</p>
     <p class="authors">Subal C. Kumbhakar, Sushanta K. Mallick</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106269">10.1016/j.jeconom.2026.106269</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -149,7 +149,7 @@
     <p class="title-zh">工作中的CBD：大麻二酚获取对职场健康的影响</p>
     <p class="authors">Mattia Filomena, Francesco Principe</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>在线日期 2026-06-16 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Population Economics</span><span class="source-chip">在线日期 2026-06-16 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01180-0">10.1007/s00148-026-01180-0</a><span class="pill">劳动</span><span class="pill">计量方法</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -161,7 +161,7 @@
     <p class="title-zh">碳定价、信贷重新配置与实际效应</p>
     <p class="authors">FEDERICO APICELLA, ANDREA FABIANI</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70060">10.1111/jmcb.70060</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -173,7 +173,7 @@
     <p class="title-zh">三重稳健面板估计量</p>
     <p class="authors">Susan Athey, Guido Imbens, Zhaonan Qu, Davide Viviano</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70061">10.1002/jae.70061</a><span class="pill">国际贸易</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -185,7 +185,7 @@
     <p class="title-zh">混合采样频率下异质性面板数据模型的估计</p>
     <p class="authors">Haoran Li, Haoyang Li, Naifu Xiao, Yimin Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70067">10.1002/jae.70067</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -197,7 +197,7 @@
     <p class="title-zh">因果工具变量模型中的贝叶斯模型平均</p>
     <p class="authors">Gregor Steiner, Mark Steel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70070">10.1002/jae.70070</a><span class="pill">计量方法</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -209,7 +209,7 @@
     <p class="title-zh">无混淆性与共同趋势的联合检验</p>
     <p class="authors">Martin Huber, Eva‐Maria Oeß</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70068">10.1002/jae.70068</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -221,7 +221,7 @@
     <p class="title-zh">自适应随机实验中的最优协变量离散化</p>
     <p class="authors">Seongjin Jin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70066">10.1002/jae.70066</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -233,7 +233,7 @@
     <p class="title-zh">断点回归效应及其外部有效性的联合推断</p>
     <p class="authors">Yuta Okamoto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70063">10.1002/jae.70063</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -245,7 +245,7 @@
     <p class="title-zh">使用倾向得分校准的双重/去偏机器学习改进平均处理效应的有限样本估计</p>
     <p class="authors">Daniele Ballinari, Nora Bearth</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70057">10.1002/jae.70057</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -257,7 +257,7 @@
     <p class="title-zh">估算宏观经济新闻与意外冲击</p>
     <p class="authors">Lutz Kilian, Michael D. Plante, Alexander W. Richter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70059">10.1002/jae.70059</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -269,7 +269,7 @@
     <p class="title-zh">不平等之地中的代际流动性</p>
     <p class="authors">Diogo G. C. Britto, Alexandre Fonseca, Paolo Pinotti, Breno Sampaio, Lucas Warwar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1775">10.1162/rest.a.1775</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -281,7 +281,7 @@
     <p class="title-zh">跨期处理效应的双重差分估计量</p>
     <p class="authors">Clément de Chaisemartin, Xavier D’Haultfœuille</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01414">10.1162/rest_a_01414</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -293,7 +293,7 @@
     <p class="title-zh">一或两个因子低维因子模型中的弱识别问题</p>
     <p class="authors">Gregory Fletcher Cox</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01441">10.1162/rest_a_01441</a><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -305,7 +305,7 @@
     <p class="title-zh">机器学习能够足够准确地预测枪击受害风险以助预防</p>
     <p class="authors">Sara B. Heller, Benjamin Jakubowski, Zubin Jelveh, Max Kapustin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01519">10.1162/rest_a_01519</a><span class="pill">计量方法</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -317,7 +317,7 @@
     <p class="title-zh">群体中的信息传递：高风险不可逆财务决策中的同伴影响</p>
     <p class="authors">Tom Ahn, Jesse M. Cunha, Patrick Veith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01426">10.1162/rest_a_01426</a><span class="pill">金融</span><span class="pill">计量方法</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -329,7 +329,7 @@
     <p class="title-zh">人力资本与气候变化</p>
     <p class="authors">Noam Angrist, Kevin Winseck, Harry Anthony Patrinos, Joshua Graff Zivin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01444">10.1162/rest_a_01444</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -341,7 +341,7 @@
     <p class="title-zh">混合办公模式是否两全其美？来自田野实验的证据</p>
     <p class="authors">Prithwiraj Choudhury, Christos A. Makridis, Tarun Khanna, Kyle Schirmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01428">10.1162/rest_a_01428</a><span class="pill">劳动</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -353,7 +353,7 @@
     <p class="title-zh">联邦税收减免与地方公共物品需求</p>
     <p class="authors">Brent W. Ambrose, Maxence Valentin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01427">10.1162/rest_a_01427</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -365,7 +365,7 @@
     <p class="title-zh">以不持有股票为荣：身份认同如何塑造金融决策</p>
     <p class="authors">Luca Henkel, Christian Pugnaghi-Zimpelmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag034">10.1093/rfs/hhag034</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -377,7 +377,7 @@
     <p class="title-zh">共同基金流动与市政融资中的资本供给</p>
     <p class="authors">Manuel Adelino, Sophia Chiyoung Cheong, Jaewon Choi, Ji Yeol Jimmy Oh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag048">10.1093/rfs/hhag048</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -389,7 +389,7 @@
     <p class="title-zh">减税是否缓解了流动性约束？</p>
     <p class="authors">Richard Acquah-Sarpong, Yong Chen, David Guo, Paul Lewin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Tax and Public Finance</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09954-8">10.1007/s10797-026-09954-8</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -401,7 +401,7 @@
     <p class="title-zh">关于投票份额与否决份额规则的序数贝叶斯激励相容性</p>
     <p class="authors">Madhuparna Karmokar, Dipjyoti Majumdar, Souvik Roy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Social Choice and Welfare</span><span>在线日期 2026-06-16 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Social Choice and Welfare</span><span class="source-chip">在线日期 2026-06-16 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00355-026-01668-4">10.1007/s00355-026-01668-4</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -413,7 +413,7 @@
     <p class="title-zh">美国与欧元区经济衰退与扩张时期的宏观经济预测</p>
     <p class="authors">Jan Čapek, Jakub Chalmovianský, Vlastimil Reichel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Inquiry</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Inquiry</span><span class="source-chip">在线日期 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecin.70067">10.1111/ecin.70067</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -425,7 +425,7 @@
     <p class="title-zh">空间相关效应下匹配估计量的Bootstrap推断</p>
     <p class="authors">Minghai Mao, Zixin Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.112978">10.1016/j.econlet.2026.112978</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -437,7 +437,7 @@
     <p class="title-zh">为和平而采矿</p>
     <p class="authors">Roland Hodler, Paul Schaudt, Alberto Vesperoni</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag031">10.1093/jeea/jvag031</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -449,7 +449,7 @@
     <p class="title-zh">中国共产党的崛起</p>
     <p class="authors">Ting Chen, James Kai-sing Kung</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag029">10.1093/jeea/jvag029</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -461,7 +461,7 @@
     <p class="title-zh">生育控制政策的代际影响：规范的作用</p>
     <p class="authors">Rufei Guo, Lin Lin, Junjian Yi, Hanyu Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag063">10.1093/ej/ueag063</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -473,7 +473,7 @@
     <p class="title-zh">不公平会伤害女性吗？输掉不公平竞争的影响</p>
     <p class="authors">Stefano Piasenti, Marica Valente, Roel van Veldhuizen, Gregor Pfeifer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag066">10.1093/ej/ueag066</a><span class="pill">计量方法</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -485,7 +485,7 @@
     <p class="title-zh">引出多重先验信念</p>
     <p class="authors">Mohammed Abdellaoui, Philippe Colo, Brian Hill</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag043">10.1093/restud/rdag043</a><span class="pill">国际贸易</span><span class="pill">计量方法</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -497,7 +497,7 @@
     <p class="title-zh">聚类回归的刀切标准误</p>
     <p class="authors">Bruce E Hansen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag050">10.1093/restud/rdag050</a><span class="pill">城市与区域</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -513,7 +513,7 @@
     <p class="title-zh">TSLS何时实际上是LATE？</p>
     <p class="authors">Christine Blandhol, John Bonney, Magne Mogstad, Alexander Torgovitsky</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag029">10.1093/restud/rdag029</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -525,7 +525,7 @@
     <p class="title-zh">结构动态离散选择模型的反事实分析</p>
     <p class="authors">Myrto Kalouptsidi, Yuichi Kitamura, Lucas Lima, Eduardo Souza-Rodrigues</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag039">10.1093/restud/rdag039</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -537,7 +537,7 @@
     <p class="title-zh">居家办公与残疾人就业</p>
     <p class="authors">Nicholas Bloom, Gordon B. Dahl, Dan-Olof Rooth</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review: Insights</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20240538">10.1257/aeri.20240538</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -549,7 +549,7 @@
     <p class="title-zh">德国统一对经济自由的因果效应</p>
     <p class="authors">Vincent Geloso, Kevin Grier, Florence Muhoza</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2025.12.001">10.1016/j.jce.2025.12.001</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -561,7 +561,7 @@
     <p class="title-zh">空气污染对出生结果的影响：来自印度的因果证据</p>
     <p class="authors">Shashank Misra, Shobhit Kulshreshtha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103360">10.1016/j.jeem.2026.103360</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -573,7 +573,7 @@
     <p class="title-zh">多维匹配的半非参数模型：一种最优传输方法</p>
     <p class="authors">Dongwoo Kim, Young Jun Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106242">10.1016/j.jeconom.2026.106242</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -585,7 +585,7 @@
     <p class="title-zh">通过汇总观测值间的有限信息来界定处理效应</p>
     <p class="authors">Sokbae Lee, Martin Weidner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106254">10.1016/j.jeconom.2026.106254</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -597,7 +597,7 @@
     <p class="title-zh">基于特征的分位数因子模型的估计</p>
     <p class="authors">Liang Chen, Juan J. Dolado, Jesús Gonzalo, Haozi Pan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106267">10.1016/j.jeconom.2026.106267</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -609,7 +609,7 @@
     <p class="title-zh">离散选择建模与陈述偏好研究中的多层次回归与事后分层</p>
     <p class="authors">Patrick Lloyd-Smith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103315">10.1016/j.jeem.2026.103315</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -621,7 +621,7 @@
     <p class="title-zh">大规模宏观经济政策基于主体模型的贝叶斯估计</p>
     <p class="authors">Sylvain Barde</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105354">10.1016/j.jedc.2026.105354</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -633,7 +633,7 @@
     <p class="title-zh">需求不确定与贝叶斯学习下的资本投资动态模型</p>
     <p class="authors">Laura Delaney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105335">10.1016/j.jedc.2026.105335</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -645,7 +645,7 @@
     <p class="title-zh">单圈时间离散度作为一级方程式赛车内部竞争平衡的一个方面</p>
     <p class="authors">Jonathan M. Lee, Cameron S. Prince, Lester A. Zeager</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2683698">10.1080/00036846.2026.2683698</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -657,7 +657,7 @@
     <p class="title-zh">金融素养与金融犯罪：基于断点回归方法的研究</p>
     <p class="authors">Paul G. Freed, John Hackney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104292">10.1016/j.jfineco.2026.104292</a><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -669,7 +669,7 @@
     <p class="title-zh">玻璃箱机器学习与公司债券收益</p>
     <p class="authors">Sebastian Bell, Ali Kakhbod, Martin Lettau, Abdolreza Nazemi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104294">10.1016/j.jfineco.2026.104294</a><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -681,7 +681,7 @@
     <p class="title-zh">西班牙汽车制造商卡特尔反垄断损害赔偿的因果证据</p>
     <p class="authors">Juan Luis Jiménez, Carmen García-Galindo, José Manuel Ordóñez-de-Haro</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Industrial Organization</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103285">10.1016/j.ijindorg.2026.103285</a><span class="pill">计量方法</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -693,7 +693,7 @@
     <p class="title-zh">平均因果效应的合成控制推断中的去偏与T检验</p>
     <p class="authors">Victor Chernozhukov, Kaspar Wuthrich, Yinchu Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Political Economy</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742424">10.1086/742424</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -705,7 +705,7 @@
     <p class="title-zh">大规模质量调整：享乐指数与精确需求价格指数的比较</p>
     <p class="authors">Gabriel Ehrlich, John Haltiwanger, Ron Jarmin, David Johnson, Ed Olivares 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230766">10.1257/aer.20230766</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -717,7 +717,7 @@
     <p class="title-zh">因果推断、高频数据与水质的休闲价值</p>
     <p class="authors">Andrew Earle, Hyunjung Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/741509">10.1086/741509</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -729,7 +729,7 @@
     <p class="title-zh">西爪哇中小企业中清真运营管理与供应链整合对物流绩效的交互作用</p>
     <p class="authors">Tribowo Rachmat Fauzan, Ajeung Syilva Syara Noor Silmi Sudrajat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law &amp; Economics</span><span>在线日期 2026-05-30 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law &amp; Economics</span><span class="source-chip">在线日期 2026-05-30 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.56347/jle.v5i1.421">10.56347/jle.v5i1.421</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -741,7 +741,7 @@
     <p class="title-zh">社交媒体、营销沟通与顾客评价对棉兰市Z世代学生电子商务购买决策的影响</p>
     <p class="authors">Achiruddin Siregar, Moh. Zaini, Dwi Wahyono, Yuni Candra, Dikdik Purwadisastra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law &amp; Economics</span><span>在线日期 2026-05-30 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law &amp; Economics</span><span class="source-chip">在线日期 2026-05-30 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.56347/jle.v5i1.424">10.56347/jle.v5i1.424</a><span class="pill">金融</span><span class="pill">城市与区域</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -753,7 +753,7 @@
     <p class="title-zh">多回归元异方差回归的AIC</p>
     <p class="authors">Stanislav Anatolyev</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106270">10.1016/j.jeconom.2026.106270</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -765,7 +765,7 @@
     <p class="title-zh">奇异向量自回归</p>
     <p class="authors">Eric Eisenstat, Rodney W. Strachan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106255">10.1016/j.jeconom.2026.106255</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -777,7 +777,7 @@
     <p class="title-zh">边界断点设计中的估计与推断：基于距离的方法</p>
     <p class="authors">Matias D. Cattaneo, Rocío Titiunik, Ruiqi (Rae) Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106266">10.1016/j.jeconom.2026.106266</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -789,7 +789,7 @@
     <p class="title-zh">基于核化的非参数二元选择模型方法</p>
     <p class="authors">Guo Yan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106264">10.1016/j.jeconom.2026.106264</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -801,7 +801,7 @@
     <p class="title-zh">使用目标工具的处理效应</p>
     <p class="authors">Sokbae Lee, Bernard Salanié</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106253">10.1016/j.jeconom.2026.106253</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -813,7 +813,7 @@
     <p class="title-zh">国际储备与企业投资：基于银行信贷再配置的识别</p>
     <p class="authors">Woo Jin Choi, Ju Hyun Pyun, Youngjin Yun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105360">10.1016/j.jedc.2026.105360</a><span class="pill">金融</span><span class="pill">计量方法</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -825,7 +825,7 @@
     <p class="title-zh">欧洲劳动力市场中的机会性技能提升——基于广泛复制的证据</p>
     <p class="authors">Anil Yadav, John McHale, Jefferson R. B. Galetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-06-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-06-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70072">10.1002/jae.70072</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -837,7 +837,7 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70028">10.1002/jae.70028</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -849,7 +849,7 @@
     <p class="title-zh">愿意但无力支付？性别、偏好、资源与税收遵从</p>
     <p class="authors">Andrea Lopez-Luzuriaga, Carlos Scartascini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Tax and Public Finance</span><span class="source-chip">在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09975-3">10.1007/s10797-026-09975-3</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -861,7 +861,7 @@
     <p class="title-zh">生产网络中的下游中心性与行业游说</p>
     <p class="authors">Kwok Ping Tsang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01428-z">10.1007/s11127-026-01428-z</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -873,7 +873,7 @@
     <p class="title-zh">生产函数估计的统一方法：代理变量与动态面板数据</p>
     <p class="authors">Jose Miguel Abito, Konstantinos Metaxoglou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Industrial Economics</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70033">10.1111/joie.70033</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -885,7 +885,7 @@
     <p class="title-zh">官僚规范与动态贝叶斯说服</p>
     <p class="authors">Yihang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.013">10.1016/j.geb.2026.05.013</a><span class="pill">计量方法</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -897,7 +897,7 @@
     <p class="title-zh">追踪资金流向：健康价值评估的计量经济学研究</p>
     <p class="authors">Tinna Laufey Ásgeirsdóttir, Viktor Andri Kárason</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Scandinavian Journal of Economics</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70026">10.1111/sjoe.70026</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -909,7 +909,7 @@
     <p class="title-zh">精英大学与人力资本和社会资本的代际传递</p>
     <p class="authors">Andrés Barrios-Fernández, Christopher Neilson, Seth Zimmerman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230802">10.1257/aer.20230802</a><span class="pill">环境与气候</span><span class="pill">计量方法</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -941,11 +941,11 @@
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
     } else if (preset === 'online-today') {
-      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
     } else {
-      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
     }
   }
   function applyFilters() {

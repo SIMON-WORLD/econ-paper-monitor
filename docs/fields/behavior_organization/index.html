@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>行为/组织</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -61,7 +61,7 @@
     <p class="title-zh">监管刑与非监管刑：基于一项预期改革的长期证据</p>
     <p class="authors">Bastien Michel, Camille Hémet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107586">10.1016/j.jebo.2026.107586</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -73,7 +73,7 @@
     <p class="title-zh">最优医疗保健合同：理论与实证证据</p>
     <p class="authors">Paolo Berta, Gianni De Fraja, Stefano Verzillo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70035">10.1111/jems.70035</a><span class="pill">理论与博弈</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -85,7 +85,7 @@
     <p class="title-zh">投入品供应商的兴衰</p>
     <p class="authors">Unni Pillai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70034">10.1111/jems.70034</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -97,7 +97,7 @@
     <p class="title-zh">蜈蚣博弈中的策略法效应：一种最优设计方法</p>
     <p class="authors">Shiang-Hung Hu, Po-Hsuan Lin, Thomas R. Palfrey, Joseph Tao-yi Wang, Yu-Hsiang Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107599">10.1016/j.jebo.2026.107599</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -109,7 +109,7 @@
     <p class="title-zh">摘取禁果：限制敏感型选择</p>
     <p class="authors">Niels Boissonnet, Alexis Ghersengorin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107653">10.1016/j.jebo.2026.107653</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -121,7 +121,7 @@
     <p class="title-zh">民主与亲市场情绪</p>
     <p class="authors">Veeshan Rayamajhee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107604">10.1016/j.jebo.2026.107604</a><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -133,7 +133,7 @@
     <p class="title-zh">数字时代的应用安全溢出：不道德还是无知？</p>
     <p class="authors">Yuyu Chen, Jiayi Hou, Ziteng Lei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107628">10.1016/j.jebo.2026.107628</a><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -145,7 +145,7 @@
     <p class="title-zh">没杀死你的会让你变矮：产前空气污染对成年身高的影响</p>
     <p class="authors">Liping Chen, Yuanyuan Chen, Jiada Lin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107633">10.1016/j.jebo.2026.107633</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -157,7 +157,7 @@
     <p class="title-zh">培育未来：积极教养如何影响儿童技能与福祉</p>
     <p class="authors">Laura Breitkopf, Shyamal Chowdhury, Shambhavi Priyam, Hannah Schildberg-Hörisch, Matthias Sutter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107630">10.1016/j.jebo.2026.107630</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -169,7 +169,7 @@
     <p class="title-zh">关于健康与财富社会风险偏好的稳定性</p>
     <p class="authors">Arthur E. Attema, Olivier L’Haridon, Gijs van de Kuilen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107624">10.1016/j.jebo.2026.107624</a><span class="pill">行为与组织</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -181,7 +181,7 @@
     <p class="title-zh">财富、成本与认知偏差：金融-宏观经济主体模型中三种交互渠道的实证估计</p>
     <p class="authors">Jiri Kukacka, Eric Zila</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107658">10.1016/j.jebo.2026.107658</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -193,7 +193,7 @@
     <p class="title-zh">凸显组织成本：一项自然田野实验</p>
     <p class="authors">Fuhai Hong, Yohanes E. Riyanto, Jubo Yan, Yuanyuan Huo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107634">10.1016/j.jebo.2026.107634</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -205,7 +205,7 @@
     <p class="title-zh">质量管理如何帮助农产品企业出口</p>
     <p class="authors">Charlotte Emlinger, Karine Latouche</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107652">10.1016/j.jebo.2026.107652</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -217,7 +217,7 @@
     <p class="title-zh">疫情封锁期间社交媒体使用的结构性神经自动分析</p>
     <p class="authors">Yi Xin, Lawrence J. Jin, Jessica Fong, Colin Camerer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107589">10.1016/j.jebo.2026.107589</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -229,7 +229,7 @@
     <p class="title-zh">社交媒体是否加剧了政治极化？——来自总统辩论期间不同Twitter/X访问权限的实验证据</p>
     <p class="authors">Rafael Di Tella, Ramiro H. Gálvez, Ernesto Schargrodsky</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107590">10.1016/j.jebo.2026.107590</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -241,7 +241,7 @@
     <p class="title-zh">绩效薪酬中的模糊性：一项真实努力实验</p>
     <p class="authors">David J. Cooper, David B. Johnson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107659">10.1016/j.jebo.2026.107659</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -253,7 +253,7 @@
     <p class="title-zh">债务暴露对自雇就业的影响：来自美国大衰退时期地方市场的证据</p>
     <p class="authors">Bulent Unel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107639">10.1016/j.jebo.2026.107639</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -265,7 +265,7 @@
     <p class="title-zh">无道义的制裁：国家为何实施制裁？</p>
     <p class="authors">Daniel J. D’Amico, Cameron Tilley, Joshua D. Ammons, Eric H. Wilhelm</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107605">10.1016/j.jebo.2026.107605</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -277,7 +277,7 @@
     <p class="title-zh">基于情境效应的附加销售</p>
     <p class="authors">Philipp Brunner, Christian Zihlmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107627">10.1016/j.jebo.2026.107627</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -289,7 +289,7 @@
     <p class="title-zh">序贯博弈中的虚拟可观测性</p>
     <p class="authors">C. Monica Capra, Charles A. Holt, Po-Hsuan Lin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107618">10.1016/j.jebo.2026.107618</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -301,7 +301,7 @@
     <p class="title-zh">工作设计授权与不完美绩效衡量</p>
     <p class="authors">Anna Rohlfing-Bastian, Anja Schöttner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107644">10.1016/j.jebo.2026.107644</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -313,7 +313,7 @@
     <p class="title-zh">工资报价中的美貌溢价：来自越南在线招聘广告的证据</p>
     <p class="authors">Carlo Perroni, Kimberley Scharf, Oleksandr Talavera, Linh Vi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107643">10.1016/j.jebo.2026.107643</a><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -325,7 +325,7 @@
     <p class="title-zh">管理层激励是否助长了反竞争行为？来自合谋的证据</p>
     <p class="authors">Marek Giebel, Anja Rösner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107625">10.1016/j.jebo.2026.107625</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -337,7 +337,7 @@
     <p class="title-zh">反腐败运动与官僚就业的代际传递：来自中国的证据</p>
     <p class="authors">Shuai Chen, Erqi Ge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107638">10.1016/j.jebo.2026.107638</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -349,7 +349,7 @@
     <p class="title-zh">训练时间、机器人及技术性失业</p>
     <p class="authors">Fenicia Cossu, Alessio Moro, Michelle Petersen Rendall</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107631">10.1016/j.jebo.2026.107631</a><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -361,7 +361,7 @@
     <p class="title-zh">我们能否让交易对投资者财富的危害更小？来自金融服务固定费率与佣金选择的证据</p>
     <p class="authors">Steffen Meyer, Charline Uhr</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107626">10.1016/j.jebo.2026.107626</a><span class="pill">金融</span><span class="pill">行为与组织</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -373,7 +373,7 @@
     <p class="title-zh">跨资产套利机会与一价定律的实验分析</p>
     <p class="authors">Jieyi Duan, Nobuyuki Hanaki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107640">10.1016/j.jebo.2026.107640</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -385,7 +385,7 @@
     <p class="title-zh">社会信息对竞争选择的影响</p>
     <p class="authors">Ritwik Banerjee, Lata Gangadharan, Anand Kumar, Srinivasan Murali</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107591">10.1016/j.jebo.2026.107591</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -397,7 +397,7 @@
     <p class="title-zh">大型区位博弈中的周期性行为</p>
     <p class="authors">Gary Charness, Daniel Friedman, Weinan Gong, Lones Smith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107609">10.1016/j.jebo.2026.107609</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -409,7 +409,7 @@
     <p class="title-zh">发挥优势：巴西地方选举中的在位效应与议题侧重</p>
     <p class="authors">Leila Pereira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107619">10.1016/j.jebo.2026.107619</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -421,7 +421,7 @@
     <p class="title-zh">德梅尼投票下的生育率与福利</p>
     <p class="authors">Daryna Grechyna, Rhema Vaithianathan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107617">10.1016/j.jebo.2026.107617</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -433,7 +433,7 @@
     <p class="title-zh">原籍国信息与移民行为：来自美国COVID-19大流行的证据</p>
     <p class="authors">Stephanie Kang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107636">10.1016/j.jebo.2026.107636</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -445,7 +445,7 @@
     <p class="title-zh">单议题偏好与互投赞成票的力量</p>
     <p class="authors">Arseniy Samsonov, Albert Solé Ollé, Dimitrios Xefteris</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107642">10.1016/j.jebo.2026.107642</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -457,7 +457,7 @@
     <p class="title-zh">不稳定时期自我控制的稳定性</p>
     <p class="authors">Deborah A. Cobb-Clark, Anthony Lepinteur, Giorgia Menta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107637">10.1016/j.jebo.2026.107637</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -469,7 +469,7 @@
     <p class="title-zh">拥有女儿是否影响政治偏好？基于多项调查的元分析</p>
     <p class="authors">Yifan Yang, Magnus Johannesson, Anna Dreber, Frank Fossen, Levent Neyse 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107641">10.1016/j.jebo.2026.107641</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -481,7 +481,7 @@
     <p class="title-zh">实验方法：重访实验经济学的基本准则</p>
     <p class="authors">Uri Gneezy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107558">10.1016/j.jebo.2026.107558</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -493,7 +493,7 @@
     <p class="title-zh">公平不平等？来自肯尼亚的实验证据</p>
     <p class="authors">Kjetil Bjorvatn, Nicola D. Coniglio, Arne Nasgowitz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107579">10.1016/j.jebo.2026.107579</a><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -505,7 +505,7 @@
     <p class="title-zh">通胀目标制与收入不平等</p>
     <p class="authors">Hippolyte Balima, Alexandru Minea, Cezara Vinturis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2025.107348">10.1016/j.jebo.2025.107348</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -517,7 +517,7 @@
     <p class="title-zh">竞争与协调：政府扁平化对企业创立与全要素生产率的影响</p>
     <p class="authors">Lingran Yuan, Qizheng Zhang, Binlei Gong</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107606">10.1016/j.jebo.2026.107606</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -529,7 +529,7 @@
     <p class="title-zh">增长对耐心传导的影响</p>
     <p class="authors">Domenico Delli Gatti, Jakob Grazzini, Domenico Massaro, Fabrizio Panebianco</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107603">10.1016/j.jebo.2026.107603</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -541,7 +541,7 @@
     <p class="title-zh">宏观经济预期：形成、测度与后果</p>
     <p class="authors">Zeno Enders, Stefan T. Trautmann, Dmitri V. Vinogradov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107620">10.1016/j.jebo.2026.107620</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -553,7 +553,7 @@
     <p class="title-zh">多元无知与气候政策：信息提供实验</p>
     <p class="authors">Laura Galdikiene, Jurate Jaraite, Agne Kajackaite</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107601">10.1016/j.jebo.2026.107601</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -565,7 +565,7 @@
     <p class="title-zh">自雇收入逃税与不平等</p>
     <p class="authors">Martina Bazzoli, Paolo Di Caro, Francesco Figari, Carlo V. Fiorio, Marco Manzo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107598">10.1016/j.jebo.2026.107598</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -577,7 +577,7 @@
     <p class="title-zh">信任品市场中的诊断不确定性与保险覆盖：一项实验研究</p>
     <p class="authors">Loukas Balafoutas, Helena Fornwagner, Rudolf Kerschbamer, Matthias Sutter, Marina Tverdostup</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107608">10.1016/j.jebo.2026.107608</a><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -589,7 +589,7 @@
     <p class="title-zh">产假与劳动力市场结果</p>
     <p class="authors">Purna Banerjee, Shreya Biswas, Debojyoti Mazumder</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107602">10.1016/j.jebo.2026.107602</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -601,7 +601,7 @@
     <p class="title-zh">单亲母亲的劳动力市场惩罚</p>
     <p class="authors">Somdeep Chatterjee, Ralitza Dimova, Shubham Ojha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107600">10.1016/j.jebo.2026.107600</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -613,7 +613,7 @@
     <p class="title-zh">针对态度以打击性骚扰：挪威军队中的一项随机干预实验</p>
     <p class="authors">Olle Folke, Torbjørn Hanson, Åshild A. Johnsen, Andreas Kotsadam, Johanna Rickne</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107596">10.1016/j.jebo.2026.107596</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -625,7 +625,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0167-2681(26)00235-0">10.1016/s0167-2681(26)00235-0</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -637,7 +637,7 @@
     <p class="title-zh">实验室实验的优点</p>
     <p class="authors">Gary Charness, James C. Cox, Catherine C. Eckel, Charles A. Holt, Brian Jabarian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107595">10.1016/j.jebo.2026.107595</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -649,7 +649,7 @@
     <p class="title-zh">策略性提交：补充药物批准的分析</p>
     <p class="authors">Pierre Dubois, Elissa Philip Gentry, Tuba Tunçel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>在线日期 2026-06-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-06-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70038">10.1111/jems.70038</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -661,7 +661,7 @@
     <p class="title-zh">工人异质性与竞业限制对企业绩效的影响</p>
     <p class="authors">Zhaozhao He, Modupe Babajide Wintoki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70040">10.1111/jems.70040</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -673,7 +673,7 @@
     <p class="title-zh">法官社会身份对改判决策的影响：基于法官临时晋升的证据</p>
     <p class="authors">Patrick C Wu, Chang-Ching Lin, Yun-chien Chang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag022">10.1093/jleo/ewag022</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -685,7 +685,7 @@
     <p class="title-zh">财政规则对建筑许可和经济活动的影响：准实验证据</p>
     <p class="authors">Marco Fregoni, Marco Leonardi, Sauro Mocetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag015">10.1093/jleo/ewag015</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -697,7 +697,7 @@
     <p class="title-zh">基于规范的承诺执行</p>
     <p class="authors">Nathan Atkinson, Rebecca Stone, Alexander Stremitzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag019">10.1093/jleo/ewag019</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -729,11 +729,11 @@
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
     } else if (preset === 'online-today') {
-      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
     } else {
-      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
     }
   }
   function applyFilters() {

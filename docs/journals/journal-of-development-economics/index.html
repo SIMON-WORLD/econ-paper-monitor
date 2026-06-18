@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Journal of Development Economics</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -65,7 +65,7 @@
     <p class="title-zh">预测长期因果效应</p>
     <p class="authors">David Rhys Bernard, Mark Himmelstein, Ezra Karger, Philipp Schoenegger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103820">10.1016/j.jdeveco.2026.103820</a><span class="pill">发展经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <p class="title-zh">高速互联网对幼儿发展有害吗？来自全国性项目的证据</p>
     <p class="authors">Karina Colombo, Elisa Failache</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103843">10.1016/j.jdeveco.2026.103843</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -89,7 +89,7 @@
     <p class="title-zh">谁承担成本：金融摩擦与劳动力买方垄断压价</p>
     <p class="authors">Ming Li, Yao Amber Li, Zehao Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103828">10.1016/j.jdeveco.2026.103828</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -101,7 +101,7 @@
     <p class="title-zh">早期儿童干预的持久影响：布基纳法索国家疫苗接种突击计划</p>
     <p class="authors">Richard Daramola, Md Shahadath Hossain, Harounan Kazianga, Karim Nchare</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103851">10.1016/j.jdeveco.2026.103851</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -113,7 +113,7 @@
     <p class="title-zh">针对记者的暴力与新闻自由：来自墨西哥的证据</p>
     <p class="authors">José A. Jurado, Juan S. Morales</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103775">10.1016/j.jdeveco.2026.103775</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -125,7 +125,7 @@
     <p class="title-zh">咖啡闲聊？卢旺达农业技术扩散与市场溢出效应</p>
     <p class="authors">Esther Duflo, Daniel Keniston, Tavneet Suri, Céline Zipfel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103733">10.1016/j.jdeveco.2026.103733</a><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -137,7 +137,7 @@
     <p class="title-zh">劳动力市场竞争与不平等</p>
     <p class="authors">Jose Garcia-Louzao, Alessandro Ruggieri</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103821">10.1016/j.jdeveco.2026.103821</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -149,7 +149,7 @@
     <p class="title-zh">卫生投资的非预期后果：印度水质与健康的负外部性</p>
     <p class="authors">Kazuki Motohashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103793">10.1016/j.jdeveco.2026.103793</a><span class="pill">发展经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -161,7 +161,7 @@
     <p class="title-zh">贩卖作为选择？来自尼日利亚的证据</p>
     <p class="authors">Tamara Bogatzki, Daniel Meierrieks</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103809">10.1016/j.jdeveco.2026.103809</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -173,7 +173,7 @@
     <p class="title-zh">通过母亲支持改善儿童免疫接种：来自巴基斯坦随机干预项目的证据</p>
     <p class="authors">Adeline Delavande, Areeba Shahab, Javed Younas, Basit Zafar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103808">10.1016/j.jdeveco.2026.103808</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -185,7 +185,7 @@
     <p class="title-zh">产假延长谁受益？来自智利的证据</p>
     <p class="authors">Fernanda Rojas-Ampuero</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103763">10.1016/j.jdeveco.2026.103763</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -197,7 +197,7 @@
     <p class="title-zh">自我设定目标的提醒对生产率的影响</p>
     <p class="authors">Martin Abel, Tomoko Harigaya, Michael Kremer, Jessica Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103822">10.1016/j.jdeveco.2026.103822</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -209,7 +209,7 @@
     <p class="title-zh">撤回通知：《自然灾害、国内FDI溢出效应与经济分化：来自印度的证据》[J. Dev. Econ. 157 (2022) 102872]</p>
     <p class="authors">Felix L. Friedt, Aidan Toner-Rodgers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103788">10.1016/j.jdeveco.2026.103788</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -221,7 +221,7 @@
     <p class="title-zh">提高标准：一个包容性的全球贫困线</p>
     <p class="authors">Lant Pritchett, Martina Viarengo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103803">10.1016/j.jdeveco.2026.103803</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -233,7 +233,7 @@
     <p class="title-zh">暂时加速还是长期变革？利比里亚城市地区女性赋权与亲密伴侣暴力的实验证据</p>
     <p class="authors">David Sungho Park</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103823">10.1016/j.jdeveco.2026.103823</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -245,7 +245,7 @@
     <p class="title-zh">父母心理健康与下一代经济偏好</p>
     <p class="authors">Alexander Bertermann, Hannah Schildberg-Hörisch</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103785">10.1016/j.jdeveco.2026.103785</a><span class="pill">发展经济学</span><span class="pill">行为与组织</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -257,7 +257,7 @@
     <p class="title-zh">遏制跨界污染的环境与经济影响评估：来自中国的证据</p>
     <p class="authors">Zeyang Zhang, Yuanyi Xu, Dunhu Chang, Dingding Shao, Xin Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103854">10.1016/j.jdeveco.2026.103854</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -269,7 +269,7 @@
     <p class="title-zh">提升排名：征兵与代际流动</p>
     <p class="authors">Diego Ramos-Toro, Juan Pedro Ronconi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103764">10.1016/j.jdeveco.2026.103764</a><span class="pill">发展经济学</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -281,7 +281,7 @@
     <p class="title-zh">全球供应链中地方法律的局限性：切断联系还是“教育型交易”采购伙伴？</p>
     <p class="authors">Hendrik Keilbach, Michael Koetter, Melina Ludolph, Fabian Woebbeking</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103804">10.1016/j.jdeveco.2026.103804</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -293,7 +293,7 @@
     <p class="title-zh">调整而非积累：IMF项目中的资本形成证据</p>
     <p class="authors">Daniel Rinner, Kevin P. Gallagher, Rebecca Ray</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103825">10.1016/j.jdeveco.2026.103825</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -305,7 +305,7 @@
     <p class="title-zh">无国家经济中的合同执行</p>
     <p class="authors">Sultan Mehmood, Georgii Marinichev, Sajwaar Khalid, Daniel Chen, Margarita Kudaeva</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103802">10.1016/j.jdeveco.2026.103802</a><span class="pill">发展经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -317,7 +317,7 @@
     <p class="title-zh">被遗弃之路：重新评估古巴革命与美国禁运后的生活水平</p>
     <p class="authors">João Pedro Bastos, Vincent Geloso, Jamie Bologna Pavlik</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103831">10.1016/j.jdeveco.2026.103831</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -329,7 +329,7 @@
     <p class="title-zh">埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响</p>
     <p class="authors">Workineh Asmare Kassie, Yeshwas Admasu, Dagim Belay, Solomon Zena Walelign, Jipeng Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103836">10.1016/j.jdeveco.2026.103836</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -341,7 +341,7 @@
     <p class="title-zh">住房财富、家庭关系与心理健康：来自中国的证据</p>
     <p class="authors">Fenghang Li, Shenglong Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103837">10.1016/j.jdeveco.2026.103837</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -353,7 +353,7 @@
     <p class="title-zh">从租金到成果：中国反腐改革与对非援助的有效性</p>
     <p class="authors">Yiran Du, Kai Feng, Gang Xu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103841">10.1016/j.jdeveco.2026.103841</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -365,7 +365,7 @@
     <p class="title-zh">公共交通对家庭的好处：来自印度的证据</p>
     <p class="authors">Palak Suri, Maureen Cropper</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103839">10.1016/j.jdeveco.2026.103839</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -377,7 +377,7 @@
     <p class="title-zh">正轨之上？历史中国的铁路、工业发展与分配效应</p>
     <p class="authors">Shiyu Bo, Ting Chen, Cong Liu, Yan Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103827">10.1016/j.jdeveco.2026.103827</a><span class="pill">发展经济学</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -389,7 +389,7 @@
     <p class="title-zh">贫困-心理健康梯度的出现：来自2005年巴基斯坦大地震的证据</p>
     <p class="authors">Tahir Andrabi, Benjamin Daniels, Jishnu Das</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103795">10.1016/j.jdeveco.2026.103795</a><span class="pill">发展经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -401,7 +401,7 @@
     <p class="title-zh">废除货币化与经济活动的低报：来自房地产市场的证据</p>
     <p class="authors">Santosh Anagol, Vimal Balasubramaniam, Tarun Ramadorai, Antoine Uettwiller</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103783">10.1016/j.jdeveco.2026.103783</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -413,7 +413,7 @@
     <p class="title-zh">不被窒息的艺术：环境意识、居民响应与中国土地交易</p>
     <p class="authors">Wei Zou, Pinghan Liang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103757">10.1016/j.jdeveco.2026.103757</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -425,7 +425,7 @@
     <p class="title-zh">新兴经济体的气候政策、劳动力市场与宏观经济结果</p>
     <p class="authors">Alan Finkelstein Shapiro, Victoria Nuguer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103782">10.1016/j.jdeveco.2026.103782</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -437,7 +437,7 @@
     <p class="title-zh">冷战是否在非洲催生了发展集群？</p>
     <p class="authors">Paul Castañeda Dower, Gunes Gokmen, Michel Le Breton, Shlomo Weber</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103776">10.1016/j.jdeveco.2026.103776</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -449,7 +449,7 @@
     <p class="title-zh">降雨将至：信息对莫桑比克城市洪水防备的影响</p>
     <p class="authors">Stefan Leeffers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103787">10.1016/j.jdeveco.2026.103787</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -461,7 +461,7 @@
     <p class="title-zh">这就是生活！：西非一部寓教于乐电视系列剧的混合影响</p>
     <p class="authors">Malick Dione, Jessica Heckert, Melissa Hidrobo, Agnes Le Port, Amber Peterman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103748">10.1016/j.jdeveco.2026.103748</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -473,7 +473,7 @@
     <p class="title-zh">第一名女孩：初中女学霸与同伴学业表现</p>
     <p class="authors">Xuezheng Qin, Yingfei Wang, Haochen Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103801">10.1016/j.jdeveco.2026.103801</a><span class="pill">发展经济学</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -485,7 +485,7 @@
     <p class="title-zh">天气还是气候？温度冲击的新视角</p>
     <p class="authors">Nooman Rebei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103814">10.1016/j.jdeveco.2026.103814</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -497,7 +497,7 @@
     <p class="title-zh">冲突时期的外部干预与社区凝聚力</p>
     <p class="authors">Sarah Langlotz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103751">10.1016/j.jdeveco.2026.103751</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -509,7 +509,7 @@
     <p class="title-zh">资源繁荣、收入分享与经济增长</p>
     <p class="authors">Margaret E. Brehm, Paul A. Brehm, Alecia Cassidy, Traviss Cassidy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103811">10.1016/j.jdeveco.2026.103811</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -521,7 +521,7 @@
     <p class="title-zh">政府需求与企业成长</p>
     <p class="authors">Bernard Hoekman, Marco Sanfilippo, Filippo Santi, Rohit Ticku</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103832">10.1016/j.jdeveco.2026.103832</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -533,7 +533,7 @@
     <p class="title-zh">合理调整激励措施</p>
     <p class="authors">Edward N. Okeke, Isa S. Abubakar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103834">10.1016/j.jdeveco.2026.103834</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -545,7 +545,7 @@
     <p class="title-zh">关于早期儿童发展的短信提醒：行为变化与非预期社会效应</p>
     <p class="authors">Oscar Barrera Rodríguez, Karen Macours, Patrick Premand, Renos Vakis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103833">10.1016/j.jdeveco.2026.103833</a><span class="pill">发展经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -557,7 +557,7 @@
     <p class="title-zh">局部福利的非正态经验贝叶斯预测</p>
     <p class="authors">Chris Elbers, Roy van der Weide</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103835">10.1016/j.jdeveco.2026.103835</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -569,7 +569,7 @@
     <p class="title-zh">贸易对结构转型的地方与溢出效应：来自巴西的证据</p>
     <p class="authors">Mateo Hoyos, José Alejandro Coronado, Guilherme Klein Martins</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103840">10.1016/j.jdeveco.2026.103840</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -601,11 +601,11 @@
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
     } else if (preset === 'online-today') {
-      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
     } else {
-      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
     }
   }
   function applyFilters() {

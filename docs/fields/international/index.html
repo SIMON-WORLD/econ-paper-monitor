@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>国际经济学</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -61,7 +61,7 @@
     <p class="title-zh">贸易政策反思：过去与现在</p>
     <p class="authors">Kala Krishna</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-06-16 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-06-16 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70066">10.1111/caje.70066</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -73,7 +73,7 @@
     <p class="title-zh">新兴市场货币政策的信息渠道是否有效？</p>
     <p class="authors">Mariana García-Schmidt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104297">10.1016/j.jinteco.2026.104297</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -85,7 +85,7 @@
     <p class="title-zh">负债美元化与汇率传递对国内价格的影响</p>
     <p class="authors">Junhyong Kim, Annie Soyean Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104294">10.1016/j.jinteco.2026.104294</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -97,7 +97,7 @@
     <p class="title-zh">后疫情通胀飙升期间的需求冲击：国际视角</p>
     <p class="authors">Drago Bergholt, Inga Nielsen Friis, Francesco Furlanetto, Kristine Matsen, Ørjan Robstad</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104296">10.1016/j.jinteco.2026.104296</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -109,7 +109,7 @@
     <p class="title-zh">考虑贸易政策：过去与现在</p>
     <p class="authors">Barbara J. Spencer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70065">10.1111/caje.70065</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -121,7 +121,7 @@
     <p class="title-zh">以牛桥命名你的企业，是耶非耶？</p>
     <p class="authors">Thomas Hellmann, Junida Mulla, Matthias Qian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-06-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-06-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70059">10.1111/caje.70059</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -133,7 +133,7 @@
     <p class="title-zh">詹姆斯·A·布兰德：致敬</p>
     <p class="authors">Douglas A. Irwin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-06-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-06-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70064">10.1111/caje.70064</a><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -145,7 +145,7 @@
     <p class="title-zh">纪念詹姆斯·A·布兰德研讨会导言</p>
     <p class="authors">Zhiqi Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-06-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-06-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70062">10.1111/caje.70062</a><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -157,7 +157,7 @@
     <p class="title-zh">政府本土偏好与效率损失：来自国家及地方政府的证据</p>
     <p class="authors">Manuel García-Santana, Marta Santamaría</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104285">10.1016/j.jinteco.2026.104285</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -169,7 +169,7 @@
     <p class="title-zh">当邻居不再敲门：加拿大2025年旅游业下滑对美国地方劳动力市场的影响</p>
     <p class="authors">André Kurmann, Etienne Lalé, Julien Martin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104269">10.1016/j.jinteco.2026.104269</a><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -181,7 +181,7 @@
     <p class="title-zh">全球银行与自然灾害</p>
     <p class="authors">Francisco E. Ilabaca, Robert Mann, Philip Mulder</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104289">10.1016/j.jinteco.2026.104289</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -193,7 +193,7 @@
     <p class="title-zh">现在燃烧还是永不燃烧？气候政策暴露与化石燃料企业投资</p>
     <p class="authors">Jakob Feveile Adolfsen, Malte Heissel, Ana-Simona Manu, Francesca Vinci</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104267">10.1016/j.jinteco.2026.104267</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -205,7 +205,7 @@
     <p class="title-zh">欧元区财政政策与通货膨胀</p>
     <p class="authors">Guido Ascari, Dennis Bonam, Lorenzo Mori, Andra Smadu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104281">10.1016/j.jinteco.2026.104281</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -217,7 +217,7 @@
     <p class="title-zh">空间关联与大宗商品繁荣的非均衡效应</p>
     <p class="authors">Felipe Benguria, Felipe Saffie, Shihangyin Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104287">10.1016/j.jinteco.2026.104287</a><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -229,7 +229,7 @@
     <p class="title-zh">航空通达性与出口偏向型增长：基于企业进入的证据</p>
     <p class="authors">Yangming Bao, Jie Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104270">10.1016/j.jinteco.2026.104270</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -241,7 +241,7 @@
     <p class="title-zh">银行与主权危机中的最优救助</p>
     <p class="authors">Sewon Hur, César Sosa-Padilla, Zeynep Yom</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104283">10.1016/j.jinteco.2026.104283</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -253,7 +253,7 @@
     <p class="title-zh">国际贸易融资与学习动态</p>
     <p class="authors">David Kohn, Emiliano Luttini, Michal Szkup, Shengxing Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104286">10.1016/j.jinteco.2026.104286</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -265,7 +265,7 @@
     <p class="title-zh">美国货币政策对新兴市场的溢出效应：政策驱动因素与脆弱性均至关重要</p>
     <p class="authors">Shaghil Ahmed, Özge Akıncı, Albert Queralto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104288">10.1016/j.jinteco.2026.104288</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -277,7 +277,7 @@
     <p class="title-zh">延迟的代价：供应链中断与定价动态</p>
     <p class="authors">Salomé Baslandze, Simon Fuchs</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104265">10.1016/j.jinteco.2026.104265</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -289,7 +289,7 @@
     <p class="title-zh">关税与商品市场搜寻摩擦</p>
     <p class="authors">Pawel M. Krolikowski, Andrew H. McCallum</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104266">10.1016/j.jinteco.2026.104266</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -301,7 +301,7 @@
     <p class="title-zh">股权融资与出口：来自中国IPO审批的证据</p>
     <p class="authors">Robin Kaiji Gong, Yao Amber Li, Stephen Teng Sun, Shang-Jin Wei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104292">10.1016/j.jinteco.2026.104292</a><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -313,7 +313,7 @@
     <p class="title-zh">如何培育发票货币：来自阿根廷的微观证据</p>
     <p class="authors">Felipe Benguria, Dennis Novy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104290">10.1016/j.jinteco.2026.104290</a><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -325,7 +325,7 @@
     <p class="title-zh">NBER国际宏观经济学研讨会导论</p>
     <p class="authors">Jeffrey Frankel, Hélène Rey</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104295">10.1016/j.jinteco.2026.104295</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -337,7 +337,7 @@
     <p class="title-zh">联邦财政结构中的收入分配、税收与转移</p>
     <p class="authors">Federico Revelli, Tsung‐Sheng Tsai, Roberto Zotti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70055">10.1111/caje.70055</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -349,7 +349,7 @@
     <p class="title-zh">减少与俄罗斯的贸易：制裁与企业自愿暂停活动</p>
     <p class="authors">Juan de Lucio, Raúl Mínguez, Asier Minondo, Francisco Requena</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104284">10.1016/j.jinteco.2026.104284</a><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -361,7 +361,7 @@
     <p class="title-zh">从本土到全球：外资并购如何重塑职业流动性</p>
     <p class="authors">Carl Davidson, Fredrik Heyman, Steven Matusz, Fredrik Sjöholm, Susan Chun Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104278">10.1016/j.jinteco.2026.104278</a><span class="pill">国际贸易</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -373,7 +373,7 @@
     <p class="title-zh">金融摩擦、外汇储备与本地货币债务下的汇率管理</p>
     <p class="authors">Sauhard Srivastava</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104282">10.1016/j.jinteco.2026.104282</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -385,7 +385,7 @@
     <p class="title-zh">贸易模型、贸易弹性与贸易收益</p>
     <p class="authors">Ina Simonovska, Michael E. Waugh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104268">10.1016/j.jinteco.2026.104268</a><span class="pill">国际贸易</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -397,7 +397,7 @@
     <p class="title-zh">熟悉的陌生人：侨民网络在外资与长期发展中的作用</p>
     <p class="authors">Fanghao Chen, Ruichi Xiong, Xiaobo Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104293">10.1016/j.jinteco.2026.104293</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -429,11 +429,11 @@
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
     } else if (preset === 'online-today') {
-      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
     } else {
-      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
     }
   }
   function applyFilters() {

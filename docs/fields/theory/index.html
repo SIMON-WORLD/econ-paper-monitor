@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>经济理论</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -61,7 +61,7 @@
     <p class="title-zh">含时滞的曼昆-罗默-韦尔模型</p>
     <p class="authors">Anna Połeć, Adam Krawiec</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Mathematical Social Sciences</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.mathsocsci.2026.102544">10.1016/j.mathsocsci.2026.102544</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -73,7 +73,7 @@
     <p class="title-zh">人们为何抗议？情绪、公共政策与政治动荡的理论</p>
     <p class="authors">César Martinelli, Ruolong Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01720-5">10.1007/s00199-026-01720-5</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -85,7 +85,7 @@
     <p class="title-zh">机会不平等测度的公理化方法</p>
     <p class="authors">Kristof Bosmans, Z. Emel Öztürk</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01715-2">10.1007/s00199-026-01715-2</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -97,7 +97,7 @@
     <p class="title-zh">共同代理中的信息联盟</p>
     <p class="authors">Rafael Costa Lima, Humberto Moreira, Alexander Rodivilov, Dongsoo Shin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01717-0">10.1007/s00199-026-01717-0</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -109,7 +109,7 @@
     <p class="title-zh">部门构成如何影响自由贸易协定对全球关税自由化的作用？</p>
     <p class="authors">Antoine L. Noël</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01718-z">10.1007/s00199-026-01718-z</a><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -121,7 +121,7 @@
     <p class="title-zh">寻求解除武装和平的艰难探索：竞争博弈与国际关系</p>
     <p class="authors">Johann Caro-Burnett, Sebastian Galiani, Gustavo Torrens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01716-1">10.1007/s00199-026-01716-1</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -133,7 +133,7 @@
     <p class="title-zh">具有竞标者道德风险的股权拍卖</p>
     <p class="authors">Mingrui Gao, Xun Chen, Dazhong Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103246">10.1016/j.jmateco.2026.103246</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -145,7 +145,7 @@
     <p class="title-zh">不可分离外部性下的帕累托改进税收：一种可微方法</p>
     <p class="authors">Van-Quy Nguyen, Jean-Marc Bonnisseau, Elena L. del Mercato</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103248">10.1016/j.jmateco.2026.103248</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -157,7 +157,7 @@
     <p class="title-zh">含模糊性的公正观察者定理</p>
     <p class="authors">Raphael Gomes de Oliveira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103237">10.1016/j.jmateco.2026.103237</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -169,7 +169,7 @@
     <p class="title-zh">参考依赖偏好的最终报价仲裁</p>
     <p class="authors">Shunsuke Hanato</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103228">10.1016/j.jmateco.2026.103228</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -181,7 +181,7 @@
     <p class="title-zh">具有相互依赖偏好的大型生产经济的均衡：无限维Fatou引理的作用</p>
     <p class="authors">Motoki Otsuka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103245">10.1016/j.jmateco.2026.103245</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -193,7 +193,7 @@
     <p class="title-zh">使用可微性对平滑模糊模型进行公理化</p>
     <p class="authors">Raphaël Giraud</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103271">10.1016/j.jmateco.2026.103271</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -205,7 +205,7 @@
     <p class="title-zh">会员机制</p>
     <p class="authors">Seung Han Yoo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103241">10.1016/j.jmateco.2026.103241</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -217,7 +217,7 @@
     <p class="title-zh">等待他人：社会学习中的长时间延迟</p>
     <p class="authors">Luis Frones</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103244">10.1016/j.jmateco.2026.103244</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -229,7 +229,7 @@
     <p class="title-zh">k-有界性、可行沟通结构与Myerson值</p>
     <p class="authors">Takuto Kaneko, David Lowing, Satoshi Nakada</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103242">10.1016/j.jmateco.2026.103242</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -241,7 +241,7 @@
     <p class="title-zh">整合非均衡匹配市场的福利效应</p>
     <p class="authors">Behrang Kamali Shahdadi, Milad Mozafari-Vanani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103247">10.1016/j.jmateco.2026.103247</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -253,7 +253,7 @@
     <p class="title-zh">指派市场中的最低价格均衡：结构性质与序列维克里机制</p>
     <p class="authors">Yu Zhou, Shigehiro Serizawa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106216">10.1016/j.jet.2026.106216</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -265,7 +265,7 @@
     <p class="title-zh">稳健最优投票规则</p>
     <p class="authors">Noriaki Kiguchi, Shinpei Noguchi, Yuta Takahashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106219">10.1016/j.jet.2026.106219</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -277,7 +277,7 @@
     <p class="title-zh">连续时间无限时域最优控制问题中的单调最优轨迹</p>
     <p class="authors">Niko Jaakkola, Florian Wagener</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103256">10.1016/j.jmateco.2026.103256</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -289,7 +289,7 @@
     <p class="title-zh">连续时间下的折现主观期望效用</p>
     <p class="authors">Lorenzo Bastianello, Vassili Vergopoulos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103264">10.1016/j.jmateco.2026.103264</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -301,7 +301,7 @@
     <p class="title-zh">排名不确定下的分类与匹配</p>
     <p class="authors">Myungkoo Song</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103269">10.1016/j.jmateco.2026.103269</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -313,7 +313,7 @@
     <p class="title-zh">外部性下的机会共享</p>
     <p class="authors">Mohamed Belhaj, Frédéric Deroïan, Mathieu Faure</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103249">10.1016/j.jmateco.2026.103249</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -325,7 +325,7 @@
     <p class="title-zh">Walker–Groves–Ledyard机制：在不牺牲简洁性或稳定性的前提下提升个体理性</p>
     <p class="authors">Paul J. Healy, Renkun Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103225">10.1016/j.jmateco.2026.103225</a><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -337,7 +337,7 @@
     <p class="title-zh">概率经济均衡理论</p>
     <p class="authors">Juan Jacobo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103240">10.1016/j.jmateco.2026.103240</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -349,7 +349,7 @@
     <p class="title-zh">具有代理人拒绝选项的公平排名最小化机制的策略分析</p>
     <p class="authors">Yasunori Okumura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103250">10.1016/j.jmateco.2026.103250</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -361,7 +361,7 @@
     <p class="title-zh">心理锁定与制度持续性：信心动力学的平均场模型</p>
     <p class="authors">Nicolò Bellanca</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103251">10.1016/j.jmateco.2026.103251</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -373,7 +373,7 @@
     <p class="title-zh">关联的不完全偏好</p>
     <p class="authors">Leandro Gorno, Alessandro T. Rivello</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103253">10.1016/j.jmateco.2026.103253</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -385,7 +385,7 @@
     <p class="title-zh">弃权、多重议题与班扎夫权力指数</p>
     <p class="authors">Qianqian Kong, Hans Peters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103243">10.1016/j.jmateco.2026.103243</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -397,7 +397,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-4068(26)00049-2">10.1016/s0304-4068(26)00049-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -409,7 +409,7 @@
     <p class="title-zh">选址博弈中的受欢迎程度</p>
     <p class="authors">Gaëtan Fournier, Marc Schröder</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103239">10.1016/j.jmateco.2026.103239</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -421,7 +421,7 @@
     <p class="title-zh">混合所有制物品分配问题的显然防策略实施</p>
     <p class="authors">Changwoo Park</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103252">10.1016/j.jmateco.2026.103252</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -433,7 +433,7 @@
     <p class="title-zh">固定人口不变性公理下的ELS值特征刻画</p>
     <p class="authors">Yukihiko Funaki, Yukio Koriyama, Satoshi Nakada, Yuki Tamura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103270">10.1016/j.jmateco.2026.103270</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -445,7 +445,7 @@
     <p class="title-zh">无报酬参与者的合作博弈</p>
     <p class="authors">Sylvain Béal, Léa Munich, Philippe Solal, Kevin Techer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103238">10.1016/j.jmateco.2026.103238</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -457,7 +457,7 @@
     <p class="title-zh">时间使用与异质性加成</p>
     <p class="authors">Brian C. Albrecht, Thomas Phelan, Nick Pretnar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106218">10.1016/j.jet.2026.106218</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -469,7 +469,7 @@
     <p class="title-zh">内生状态验证下的信息设计</p>
     <p class="authors">Lily Ling Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106182">10.1016/j.jet.2026.106182</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -481,7 +481,7 @@
     <p class="title-zh">期望与困惑：证据与理论</p>
     <p class="authors">Heng Chen, Yicheng Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106189">10.1016/j.jet.2026.106189</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -493,7 +493,7 @@
     <p class="title-zh">投资成熟度与财富不平等</p>
     <p class="authors">Ehsan Azarmsa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106206">10.1016/j.jet.2026.106206</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -505,7 +505,7 @@
     <p class="title-zh">通过模仿学习：一项实验</p>
     <p class="authors">Marina Agranov, Gabriel Lopez-Moctezuma, Philipp Strack, Omer Tamuz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106203">10.1016/j.jet.2026.106203</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -517,7 +517,7 @@
     <p class="title-zh">硬问题与失败者的暴政</p>
     <p class="authors">Stan Cheung, Marco Mariotti, Roberto Veneziani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106204">10.1016/j.jet.2026.106204</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -529,7 +529,7 @@
     <p class="title-zh">VCG机制、核心与拍卖中的分配阶段</p>
     <p class="authors">Lawrence M. Ausubel, Oleg Baranov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106192">10.1016/j.jet.2026.106192</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -541,7 +541,7 @@
     <p class="title-zh">无担保债务市场中的信贷配给</p>
     <p class="authors">V. Filipe Martins-da-Rocha, Toàn Phan, Yiannis Vailakis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106188">10.1016/j.jet.2026.106188</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -553,7 +553,7 @@
     <p class="title-zh">隐性学习与信息披露</p>
     <p class="authors">Matteo Escudé</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106179">10.1016/j.jet.2026.106179</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -565,7 +565,7 @@
     <p class="title-zh">非强制性机制：对次要目标稳健的机制设计</p>
     <p class="authors">Renato Paes Leme, Jon Schneider, Hanrui Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106187">10.1016/j.jet.2026.106187</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -577,7 +577,7 @@
     <p class="title-zh">基于网络形成的经典匹配</p>
     <p class="authors">Evan Sadler</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106208">10.1016/j.jet.2026.106208</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -589,7 +589,7 @@
     <p class="title-zh">局部完美</p>
     <p class="authors">Enxian Chen, Lei Qiao, Xiang Sun, Yeneng Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106183">10.1016/j.jet.2026.106183</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -601,7 +601,7 @@
     <p class="title-zh">缺乏个体理性下的敲竹杠问题：渐近效率与渐进主义</p>
     <p class="authors">Prabal Roy Chowdhury, Kunal Sengupta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106209">10.1016/j.jet.2026.106209</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -613,7 +613,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0022-0531(26)00076-1">10.1016/s0022-0531(26)00076-1</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -625,7 +625,7 @@
     <p class="title-zh">灵活不可观测投资下的敲竹杠问题</p>
     <p class="authors">Daniel Krähmer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106205">10.1016/j.jet.2026.106205</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -637,7 +637,7 @@
     <p class="title-zh">机场问题的三条规则：基于顺序保持、分散最小化与一致性的刻画</p>
     <p class="authors">Zeming Ma</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Mathematical Social Sciences</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.mathsocsci.2026.102543">10.1016/j.mathsocsci.2026.102543</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -649,7 +649,7 @@
     <p class="title-zh">沉默胜千言：静态议题下的动态廉价磋商</p>
     <p class="authors">Gunhaeng Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01728-x">10.1007/s00199-026-01728-x</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -661,7 +661,7 @@
     <p class="title-zh">单调多发送者信号博弈中的简单前向归纳</p>
     <p class="authors">Péter Vida, Takakazu Honryo, Helmuts Āzacis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01723-2">10.1007/s00199-026-01723-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -673,7 +673,7 @@
     <p class="title-zh">具有帕累托尾部与帕累托最大值的多元分布</p>
     <p class="authors">Costas Arkolakis, Andrés Rodríguez-Clare, Jiun-Hua Su</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01719-y">10.1007/s00199-026-01719-y</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -685,7 +685,7 @@
     <p class="title-zh">伯格均衡——一种代数方法</p>
     <p class="authors">Frank Riedel, Maria-Laura Torrente</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01724-1">10.1007/s00199-026-01724-1</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -697,7 +697,7 @@
     <p class="title-zh">分离风险与时间以实现最优预防</p>
     <p class="authors">Yichun Chi, Richard Peter, Mengjia Qi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01722-3">10.1007/s00199-026-01722-3</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -709,7 +709,7 @@
     <p class="title-zh">仿射虚拟值与广义帕累托分布</p>
     <p class="authors">Paolo Morganti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103267">10.1016/j.jmateco.2026.103267</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -721,7 +721,7 @@
     <p class="title-zh">数据驱动的说服</p>
     <p class="authors">Maxwell Rosenthal</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103268">10.1016/j.jmateco.2026.103268</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -733,7 +733,7 @@
     <p class="title-zh">最大匹配</p>
     <p class="authors">Anh Triêu, Iwan Bos, Marc Schröder, Dries Vermeulen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103254">10.1016/j.jmateco.2026.103254</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -745,7 +745,7 @@
     <p class="title-zh">确定性效应与赫尔维茨期望效用中的新连续主观来源</p>
     <p class="authors">Simon Grant</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103257">10.1016/j.jmateco.2026.103257</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -757,7 +757,7 @@
     <p class="title-zh">重叠世代经济中最优货币均衡的存在性与计算</p>
     <p class="authors">Leandro Lyra Braga Dognini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103255">10.1016/j.jmateco.2026.103255</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -769,7 +769,7 @@
     <p class="title-zh">信贷、货币与（伪）匿名性</p>
     <p class="authors">Remo Isch-Taudien, Fabienne Schneider</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106202">10.1016/j.jet.2026.106202</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -781,7 +781,7 @@
     <p class="title-zh">损失厌恶投标者下的非对称最优拍卖设计</p>
     <p class="authors">Akitoshi Muramoto, Takeharu Sogo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106186">10.1016/j.jet.2026.106186</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -793,7 +793,7 @@
     <p class="title-zh">参考依赖的选择分组</p>
     <p class="authors">Pauline Vorjohann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106207">10.1016/j.jet.2026.106207</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -805,7 +805,7 @@
     <p class="title-zh">哪些实验检验了一个模型？</p>
     <p class="authors">Paul J. Healy, Greg Leo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106191">10.1016/j.jet.2026.106191</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -817,7 +817,7 @@
     <p class="title-zh">议价中的正向与负向选择</p>
     <p class="authors">Dongkyu Chang, Duk Gyoo Kim, Wooyoung Lim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106190">10.1016/j.jet.2026.106190</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -849,11 +849,11 @@
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
     } else if (preset === 'online-today') {
-      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
     } else {
-      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
     }
   }
   function applyFilters() {

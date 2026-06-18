@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>城市与区域</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -65,7 +65,7 @@
     <p class="title-zh">资本流动的微观与宏观动态</p>
     <p class="authors">Felipe Saffie, Liliana Varela, Kei-Mu Yi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag066">10.1093/restud/rdag066</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <p class="title-zh">组织能力作为一个组织问题</p>
     <p class="authors">Nicola Mastrorocco, Edoardo Teso</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag061">10.1093/restud/rdag061</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -89,7 +89,7 @@
     <p class="title-zh">谈判价格下的空间差异化产品市场竞争</p>
     <p class="authors">Walter Beckert, Howard Smith, Yuya Takahashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag064">10.1093/restud/rdag064</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -101,7 +101,7 @@
     <p class="title-zh">农作物保险设计与农场风险适应</p>
     <p class="authors">Gerald Van Tassell, Alan P. Ker</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70087">10.1002/aepp.70087</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -113,7 +113,7 @@
     <p class="title-zh">乙醇设施对农地资本化效应的解析</p>
     <p class="authors">Gabriel S. Sampson, Jisang Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70085">10.1002/aepp.70085</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -125,7 +125,7 @@
     <p class="title-zh">绘制、量化与预测未来城市绿色基础设施动态：以埃塞俄比亚德雷达瓦为例</p>
     <p class="authors">Habtamu Dersso Meseganaw, Kassahun Gashu, Abenezer Wakuma Kitila, Kassaye Hussien</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108117">10.1016/j.landusepol.2026.108117</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -137,7 +137,7 @@
     <p class="title-zh">埃塞俄比亚合作住房开发土地分配可持续性与合规性分析</p>
     <p class="authors">Masresha Belete Asnakew, Tewachew Yirga Getie, Yeneneh Nigusie, Yeshareg Baye Simegn, Takele Abebe 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108159">10.1016/j.landusepol.2026.108159</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -149,7 +149,7 @@
     <p class="title-zh">定义南欧城市非正规性：巴勒莫CEP社区的非正规性指标</p>
     <p class="authors">Meghdad Kahvand, Marco Picone, Michelangelo Carraro, Mona Saadvandi, Annalisa Giampino</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108142">10.1016/j.landusepol.2026.108142</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -161,7 +161,7 @@
     <p class="title-zh">电力、农业生产力与森林砍伐：来自巴西的证据</p>
     <p class="authors">Dimitri Szerman, Juliano Assuncao, Molly Lipscomb, Ahmed Musfhiq Mobarak</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742115">10.1086/742115</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -173,7 +173,7 @@
     <p class="title-zh">评估巴西肉牛养殖利润保险中的基差风险</p>
     <p class="authors">Beatriz Salandin Dal Pozzo, Vitor Augusto Ozaki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>在线日期 2026-05-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Agricultural Economics</span><span class="source-chip">在线日期 2026-05-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70116">10.1111/agec.70116</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -185,7 +185,7 @@
     <p class="title-zh">地方食品环境政策中的议程设置：荷兰城市协议网络的比较多源流分析</p>
     <p class="authors">Fleur ter Ellen, Mika Grijzenhout, Jesse Vastenhoud, Joost Oude Groeniger, Frank J. van Lenthe 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103097">10.1016/j.foodpol.2026.103097</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -197,7 +197,7 @@
     <p class="title-zh">大沙丘国家公园暗夜天空评估中的条件行为建模</p>
     <p class="authors">Mark Eiswerth, Liam Mullen, Guanyi Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70080">10.1002/ajae.70080</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -209,7 +209,7 @@
     <p class="title-zh">赫芬达尔中性点：基于美国生猪加工企业数据的市场集中度管理阈值</p>
     <p class="authors">Andrew J. Keller, Krishna P. Paudel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70076">10.1002/ajae.70076</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -221,7 +221,7 @@
     <p class="title-zh">湿地干涸：巴西潘塔纳尔的水资源短缺</p>
     <p class="authors">Vinícius Hector, Rafael Araujo, Francisco Costa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103333">10.1016/j.jeem.2026.103333</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -233,7 +233,7 @@
     <p class="title-zh">免费电力的幻觉：新加坡家庭对太阳能板项目的反应</p>
     <p class="authors">Jinze Cao, Mingxuan Fan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103312">10.1016/j.jeem.2026.103312</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -245,7 +245,7 @@
     <p class="title-zh">涨水与减税：飓风桑迪对纽约市房产税评估的影响</p>
     <p class="authors">Wei Guo, Qing Miao, Yusun Kim, Yilin Hou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103313">10.1016/j.jeem.2026.103313</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -257,7 +257,7 @@
     <p class="title-zh">公共卫生、人力资本与经济增长：中国疾病控制的持久影响</p>
     <p class="authors">Fan He, Wei Huang, Yinghao Pan, Jiao Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1781">10.1162/rest.a.1781</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -269,7 +269,7 @@
     <p class="title-zh">黑人郊区化：美国城市转型的原因与后果</p>
     <p class="authors">Alexander W. Bartik, Evan Mast</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1770">10.1162/rest.a.1770</a><span class="pill">农业与食品</span><span class="pill">城市与区域</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -281,7 +281,7 @@
     <p class="title-zh">多市场企业的溢出效应：统一产品替代渠道</p>
     <p class="authors">Jay Hyun, Ryan Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1771">10.1162/rest.a.1771</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -293,7 +293,7 @@
     <p class="title-zh">知识获取：卡内基图书馆对创新的影响</p>
     <p class="authors">Enrico Berkes, Peter Nencka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01446">10.1162/rest_a_01446</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -305,7 +305,7 @@
     <p class="title-zh">城市社区主导的全面环境卫生：来自印度南德的机会、障碍与经验</p>
     <p class="authors">Lyla Mehta, Ruth Kennedy-Walker, Apeksha Vohra, Tanvi Bhatkal, Pallavi Harshe 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107336">10.1016/j.worlddev.2026.107336</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -317,7 +317,7 @@
     <p class="title-zh">暂时加速还是长期变革？利比里亚城市地区女性赋权与亲密伴侣暴力的实验证据</p>
     <p class="authors">David Sungho Park</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103823">10.1016/j.jdeveco.2026.103823</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -329,7 +329,7 @@
     <p class="title-zh">驱逐政策的均衡效应</p>
     <p class="authors">BOAZ ABRAMSON</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70046">10.1111/jofi.70046</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -341,7 +341,7 @@
     <p class="title-zh">追寻荷兰人：中世纪晚期低地国家的社区责任体系、贸易制裁与公共债务</p>
     <p class="authors">Jaco Zuijderduijn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70126">10.1111/ehr.70126</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -353,7 +353,7 @@
     <p class="title-zh">管理代理商业集团、精英董事与橡胶繁荣，1897–1913</p>
     <p class="authors">David Higgins, Steven Toms</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70121">10.1111/ehr.70121</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -365,7 +365,7 @@
     <p class="title-zh">困于过去：老旧住房与电采暖的采用</p>
     <p class="authors">Yi Jie Gwee, Hui Ren Tan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101771">10.1016/j.eeh.2026.101771</a><span class="pill">城市与区域</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -377,7 +377,7 @@
     <p class="title-zh">减税是否缓解了流动性约束？</p>
     <p class="authors">Richard Acquah-Sarpong, Yong Chen, David Guo, Paul Lewin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Tax and Public Finance</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09954-8">10.1007/s10797-026-09954-8</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -389,7 +389,7 @@
     <p class="title-zh">利用价格激励约束即付即用太阳能电力的福利</p>
     <p class="authors">Megan Lang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105656">10.1016/j.jpubeco.2026.105656</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -401,7 +401,7 @@
     <p class="title-zh">后天如何激发先天以决定储蓄行为：来自中国上山下乡运动与双胞胎数据的证据</p>
     <p class="authors">Wenchao Li, Junjian Yi, Junsen Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag071">10.1093/ej/ueag071</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -413,7 +413,7 @@
     <p class="title-zh">通过职场多样性缩小性别差距：第一次世界大战的代际效应</p>
     <p class="authors">Abhay Aneja, Silvia Farina, Guo Xu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag048">10.1093/restud/rdag048</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -425,7 +425,7 @@
     <p class="title-zh">聚类回归的刀切标准误</p>
     <p class="authors">Bruce E Hansen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag050">10.1093/restud/rdag050</a><span class="pill">城市与区域</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -437,7 +437,7 @@
     <p class="title-zh">低空经济城市试点政策对企业全要素生产率的影响：来自中国的证据</p>
     <p class="authors">Lin Wang, Fengqin Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688895">10.1080/00036846.2026.2688895</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -449,7 +449,7 @@
     <p class="title-zh">通往大学成功的不同路径：马萨诸塞州特许学校对大学轨迹的影响</p>
     <p class="authors">Sarah R. Cohodes, Astrid C. Pineda</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review: Insights</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20240391">10.1257/aeri.20240391</a><span class="pill">城市与区域</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -461,7 +461,7 @@
     <p class="title-zh">从政策试点到绿色转型：STF政策影响城市绿色竞争力提升的多维证据</p>
     <p class="authors">Kedi Jing, Baoliu Liu, Haotian Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2685877">10.1080/00036846.2026.2685877</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -473,7 +473,7 @@
     <p class="title-zh">灾害暴露与住宅太阳能采用：来自日本城市的证据</p>
     <p class="authors">Jian Wang, Cheng Peng, Xiugang Zhu, Xuepeng Qian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108144">10.1016/j.landusepol.2026.108144</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -485,7 +485,7 @@
     <p class="title-zh">投机陷阱与困境推动：坦桑尼亚城郊农业的分化路径</p>
     <p class="authors">Cuthbert W. Mushi, Agnes G. Kapinga</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108122">10.1016/j.landusepol.2026.108122</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -497,7 +497,7 @@
     <p class="title-zh">BGBI：面向规划与政策评估的全市参考双向土地利用混合指数</p>
     <p class="authors">Jorge Ubirajara Pedreira Junior, Thiago Vinícius Louro, Lucas Brandão Monteiro de Assis, Patrícia Lustosa Brito, Fabio Garboggini Bomfim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108135">10.1016/j.landusepol.2026.108135</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -509,7 +509,7 @@
     <p class="title-zh">电动汽车税收抵免的城市均衡效应</p>
     <p class="authors">Weihua Zhao, William Larson, Becka Brolinson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740185">10.1086/740185</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -521,7 +521,7 @@
     <p class="title-zh">气候风险显现时：住房市场风险认知的自然实验</p>
     <p class="authors">Anders Dugstad, Dag Einar Sommervoll</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103364">10.1016/j.jeem.2026.103364</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -533,7 +533,7 @@
     <p class="title-zh">异方差形式未知时非基础ARMA模型的时域估计</p>
     <p class="authors">Ignacio N. Lobato, Carlos Velasco</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Econometrics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2026.106265">10.1016/j.jeconom.2026.106265</a><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -545,7 +545,7 @@
     <p class="title-zh">衡量住房市场疲软程度</p>
     <p class="authors">N. Kundan Kishor</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105370">10.1016/j.jedc.2026.105370</a><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -557,7 +557,7 @@
     <p class="title-zh">欧盟排放交易体系市场预期与理性泡沫</p>
     <p class="authors">CHRISTOPH WEGENER, ROBINSON KRUSE‐BECHER, TONY KLEIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70068">10.1111/jmcb.70068</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -569,7 +569,7 @@
     <p class="title-zh">全球地方GDP估算</p>
     <p class="authors">Esteban Rossi-Hansberg, Jialing Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103871">10.1016/j.jue.2026.103871</a><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -581,7 +581,7 @@
     <p class="title-zh">扁平化政府与扁平化增长：辖区改革中的均等化-效率权衡</p>
     <p class="authors">Shawn Xiaoguang Chen, Pei Li, Saijie Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103885">10.1016/j.jue.2026.103885</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -593,7 +593,7 @@
     <p class="title-zh">埃塞俄比亚工业园区社会经济影响研究</p>
     <p class="authors">Guangbo Huang, Min Wang, Huayu Xu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103867">10.1016/j.jue.2026.103867</a><span class="pill">城市与区域</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -605,7 +605,7 @@
     <p class="title-zh">失望近在咫尺：可见性与企业本地市场势力</p>
     <p class="authors">Romain Gauriot, Jeanne Jadeau, Lionel Page</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103869">10.1016/j.jue.2026.103869</a><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -617,7 +617,7 @@
     <p class="title-zh">高街”之死？主街关闭、社会失序与城市变迁</p>
     <p class="authors">Nils Braakmann, Diego Zambiasi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103884">10.1016/j.jue.2026.103884</a><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -629,7 +629,7 @@
     <p class="title-zh">公共数据开放如何提升城市全要素生产率？——基于政府治理与交易成本的视角</p>
     <p class="authors">Fengxia Hao, Junhao Qiu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687754">10.1080/00036846.2026.2687754</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -641,7 +641,7 @@
     <p class="title-zh">住房财富、家庭关系与心理健康：来自中国的证据</p>
     <p class="authors">Fenghang Li, Shenglong Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103837">10.1016/j.jdeveco.2026.103837</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -653,7 +653,7 @@
     <p class="title-zh">降雨将至：信息对莫桑比克城市洪水防备的影响</p>
     <p class="authors">Stefan Leeffers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103787">10.1016/j.jdeveco.2026.103787</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -665,7 +665,7 @@
     <p class="title-zh">期权收益中的方差溢价与季节性动量</p>
     <p class="authors">Steven L Heston, Christopher S Jones, Mehdi Khorram, Shuaiqi Li, Haitao Mo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag057">10.1093/rfs/hhag057</a><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -677,7 +677,7 @@
     <p class="title-zh">亚当·斯密与封建欧洲城镇的角色</p>
     <p class="authors">Mark Koyama</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01407-4">10.1007/s11127-026-01407-4</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -689,7 +689,7 @@
     <p class="title-zh">交通评估的定量城市模型</p>
     <p class="authors">Daniel Hörcher, Daniel J. Graham</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105683">10.1016/j.jpubeco.2026.105683</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -701,7 +701,7 @@
     <p class="title-zh">从住房收益到养老金损失：微观-宏观整合揭示智利财富不平等动态</p>
     <p class="authors">Bastián Castro Nofal, Ignacio Flores, Pablo Gutiérrez Cubillos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105665">10.1016/j.jpubeco.2026.105665</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -713,7 +713,7 @@
     <p class="title-zh">Walker–Groves–Ledyard机制：在不牺牲简洁性或稳定性的前提下提升个体理性</p>
     <p class="authors">Paul J. Healy, Renkun Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103225">10.1016/j.jmateco.2026.103225</a><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -725,7 +725,7 @@
     <p class="title-zh">供应链风险感知、金融科技与跨区域资本流动：来自中国的证据</p>
     <p class="authors">Zinan Wu, Wen Li, Xuesong Tang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113069">10.1016/j.econlet.2026.113069</a><span class="pill">国际贸易</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -737,7 +737,7 @@
     <p class="title-zh">庇古运输定价的实践</p>
     <p class="authors">Beat Hintermann, Beaumont Schoeman, Joseph Molloy, Thomas Götschi, Alberto Castro 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag051">10.1093/restud/rdag051</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -749,7 +749,7 @@
     <p class="title-zh">碳税与汽油税的累进性：收入不平等的作用</p>
     <p class="authors">Julius J. Andersson, Giles Atkinson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01093-2">10.1007/s10640-026-01093-2</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -761,7 +761,7 @@
     <p class="title-zh">全球城市的去地方化：高级生产者服务业如何加剧区域空间不平等？</p>
     <p class="authors">Jiaming Li, Jiachuan Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108140">10.1016/j.landusepol.2026.108140</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -773,7 +773,7 @@
     <p class="title-zh">社交媒体、营销沟通与顾客评价对棉兰市Z世代学生电子商务购买决策的影响</p>
     <p class="authors">Achiruddin Siregar, Moh. Zaini, Dwi Wahyono, Yuni Candra, Dikdik Purwadisastra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law &amp; Economics</span><span>在线日期 2026-05-30 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law &amp; Economics</span><span class="source-chip">在线日期 2026-05-30 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.56347/jle.v5i1.424">10.56347/jle.v5i1.424</a><span class="pill">金融</span><span class="pill">城市与区域</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -785,7 +785,7 @@
     <p class="title-zh">谁从产能削减计划中受益？来自美国太平洋沿岸底栖鱼类渔业的启示</p>
     <p class="authors">Frederik Strabo, Matthew N. Reimer, James N. Sanchirico</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103362">10.1016/j.jeem.2026.103362</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -797,7 +797,7 @@
     <p class="title-zh">小农户如何适应水资源短缺？来自三峡大坝的证据</p>
     <p class="authors">Ting Chen, Chong Liu, Sen Ma</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103357">10.1016/j.jeem.2026.103357</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -809,7 +809,7 @@
     <p class="title-zh">开发审批时间与新房供给：来自洛杉矶的证据</p>
     <p class="authors">Stuart Gabriel, Edward Kung</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103872">10.1016/j.jue.2026.103872</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -821,7 +821,7 @@
     <p class="title-zh">农业加工产业的工业溢出效应：来自甜菜制糖业的证据</p>
     <p class="authors">Youn Baek</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103883">10.1016/j.jue.2026.103883</a><span class="pill">农业与食品</span><span class="pill">城市与区域</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -833,7 +833,7 @@
     <p class="title-zh">压裂鬼城：社区暴露如何驱动人口下降</p>
     <p class="authors">Arman Khachiyan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103870">10.1016/j.jue.2026.103870</a><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -845,7 +845,7 @@
     <p class="title-zh">拼车对环境有益吗？基于美国城市卫星与调查数据的证据</p>
     <p class="authors">Yoshifumi Konishi, Akari Ono</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103882">10.1016/j.jue.2026.103882</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -857,7 +857,7 @@
     <p class="title-zh">JUE洞察：城市规模、买方垄断与最低工资的就业效应</p>
     <p class="authors">Priyaranjan Jha, Jyotsana Kala, David Neumark, Antonio Rodriguez-Lopez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103868">10.1016/j.jue.2026.103868</a><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -869,7 +869,7 @@
     <p class="title-zh">距离、前景与向城镇迁移</p>
     <p class="authors">Joachim De Weerdt, Luc Christiaensen, Ravi Kanbur</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107419">10.1016/j.worlddev.2026.107419</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -881,7 +881,7 @@
     <p class="title-zh">贫民窟住房的外部性</p>
     <p class="authors">Raimundo Undurraga</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Development and Cultural Change</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742606">10.1086/742606</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -893,7 +893,7 @@
     <p class="title-zh">联邦财政结构中的收入分配、税收与转移</p>
     <p class="authors">Federico Revelli, Tsung‐Sheng Tsai, Roberto Zotti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70055">10.1111/caje.70055</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -905,7 +905,7 @@
     <p class="title-zh">贸易模型、贸易弹性与贸易收益</p>
     <p class="authors">Ina Simonovska, Michael E. Waugh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104268">10.1016/j.jinteco.2026.104268</a><span class="pill">国际贸易</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -917,7 +917,7 @@
     <p class="title-zh">1776-1815年英格兰与威尔士福利供给的区域与地方分化</p>
     <p class="authors">John Broad</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70129">10.1111/ehr.70129</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -929,7 +929,7 @@
     <p class="title-zh">开普地区资本主义的深度与广度</p>
     <p class="authors">Edward Kerby, Lloyd Melusi Maphosa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="source-chip">在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70123">10.1111/ehr.70123</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -941,7 +941,7 @@
     <p class="title-zh">1632–1668年莱顿流行病死亡率与住房财富再分配</p>
     <p class="authors">Bram van Besouw, Daniel R. Curtis, Roos van Oosten</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101768">10.1016/j.eeh.2026.101768</a><span class="pill">城市与区域</span><span class="pill">健康</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -953,7 +953,7 @@
     <p class="title-zh">临时协议</p>
     <p class="authors">Dov Samet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00996-0">10.1007/s00182-026-00996-0</a><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -965,7 +965,7 @@
     <p class="title-zh">美国关税变化中州级异质性的决定因素是什么？</p>
     <p class="authors">Ana Maria Santacreu, Michael Sposi, Jing Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Economic Review</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/iere.70081">10.1111/iere.70081</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -977,7 +977,7 @@
     <p class="title-zh">士绅化与可负担住房政策</p>
     <p class="authors">Rainald Borck, Niklas Gohl, Oliver Krebs</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105387">10.1016/j.euroecorev.2026.105387</a><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -989,7 +989,7 @@
     <p class="title-zh">远程办公的空间影响</p>
     <p class="authors">Matthew J Delventhal, Andrii Parkhomenko</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag057">10.1093/restud/rdag057</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1001,7 +1001,7 @@
     <p class="title-zh">空间经济中的总福利解构</p>
     <p class="authors">Eric Donald, Masao Fukui, Yuhei Miyauchi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag021">10.1093/restud/rdag021</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1033,11 +1033,11 @@
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
     } else if (preset === 'online-today') {
-      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
     } else {
-      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
     }
   }
   function applyFilters() {
