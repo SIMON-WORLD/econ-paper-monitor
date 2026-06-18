@@ -89,8 +89,8 @@ STYLE = """
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.operator{display:flex;align-items:center;gap:14px;margin-top:18px;color:var(--muted);font-size:14px}.operator strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;background:#fff;object-fit:cover}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
@@ -359,7 +359,9 @@ def sidebar(
         journal_links.append(
             f'<a class="side-link" href="{BASE}/daily/{html_escape(journal_target_date)}/?journal={html_escape(journal_id)}"><span class="side-main"><strong>{html_escape(title)}</strong><em>{html_escape(chinese_name)}</em></span><span class="count">{count}</span></a>'
         )
-    journal_title = "今日涉及期刊" if journal_target_date == today_str() else f"{journal_target_date} 涉及期刊"
+    is_today_context = journal_target_date == today_str()
+    topic_title = "今日文章主题" if is_today_context else f"{journal_target_date} 文章主题"
+    journal_title = "今日涉及期刊" if is_today_context else f"{journal_target_date} 涉及期刊"
     if not journal_links:
         journal_links.append('<div class="side-link"><span class="side-main"><strong>暂无期刊更新</strong></span><span class="count">0</span></div>')
     return f"""<aside class="sidebar">
@@ -371,7 +373,7 @@ def sidebar(
     <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
-  <div class="side-block"><div class="side-title">文章主题</div>{topics}</div>
+  <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
   <div class="side-block"><div class="side-title">{html_escape(journal_title)}</div>{"".join(journal_links)}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>"""
 
@@ -648,6 +650,10 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     <p class="eyebrow">Today's economics papers</p>
     <h1>{SITE_NAME}</h1>
     <p>{SITE_SUBTITLE}</p>
+    <div class="operator">
+      <img src="{BASE}/assets/academic-portal-qr.jpg" alt="学术传送门二维码">
+      <div><strong>本站由 学术传送门 运营</strong><span>欢迎关注，获取更多学术更新。</span></div>
+    </div>
   </div>
   <div class="signal">
     <div class="signal-row"><span>排序依据</span><strong>监测时间 / 可靠来源日期</strong></div>
@@ -664,6 +670,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   <a class="stat" href="#filters" data-filter-preset="china"><strong>{s['china_flow']}</strong><span>当前流中与中国相关</span></a>
   <a class="stat" href="#filters" data-filter-preset="online-today"><strong>{s['online_today_flow']}</strong><span>在线日期为今日</span></a>
   <a class="stat" href="{BASE}/journals/"><strong>{s['flow_journals']}</strong><span>当前流涉及期刊</span></a>
+  <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
 </section>
 {filter_toolbar(flow_records, include_rss=True)}
 <section class="section-head"><div><h2>{flow_title} <span class="live-count" id="flowCounter"></span></h2><p>{flow_note}</p></div><p>{html_escape(flow_date)}</p></section>

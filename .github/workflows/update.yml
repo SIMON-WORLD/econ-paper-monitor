@@ -33,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Sync latest main
+        run: git pull --ff-only origin main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -189,5 +191,13 @@ jobs:
             exit 0
           fi
           git commit -m "Update paper monitor"
-          git pull --rebase origin main
-          git push
+          for attempt in 1 2 3; do
+            if git pull --rebase -X theirs origin main && git push; then
+              exit 0
+            fi
+            git rebase --abort || true
+            echo "Push attempt ${attempt} failed; retrying after a short wait."
+            sleep $((attempt * 10))
+          done
+          echo "Failed to push generated updates after retries."
+          exit 1
