@@ -94,7 +94,7 @@ STYLE = """
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 """
@@ -222,6 +222,103 @@ def article_topics(record: dict[str, Any]) -> list[str]:
 
 def journal_lookup() -> dict[str, dict[str, Any]]:
     return {journal["id"]: journal for journal in load_journals(DATA_DIR / "journals.yml")}
+
+
+SOURCE_STATUS = {
+    "iza": ("已跑通", "ok", "RSS/页面入口可抓取，已纳入第一批测试。"),
+    "cepr-dp": ("已跑通", "ok", "公开页面可抓取，已纳入第二批测试。"),
+    "fed-feds": ("已跑通", "ok", "公开页面可抓取，已纳入第二批测试。"),
+    "nber": ("待增强", "todo", "需要专项解析 NBER 列表页和论文详情页。"),
+    "world-bank-prwp": ("待增强", "todo", "需要专项解析 World Bank Open Knowledge 页面。"),
+    "imf-working-papers": ("待增强", "todo", "需要专项解析 IMF 列表页和详情页。"),
+    "bis-working-papers": ("待增强", "todo", "需要专项解析 BIS 列表页和详情页。"),
+    "cesifo-working-papers": ("待增强", "todo", "需要收紧 CESifo 页面过滤规则。"),
+    "oecd-working-papers": ("入口受限", "pause", "当前入口返回访问限制，需要替代源或 API。"),
+    "repec-nep": ("暂缓", "pause", "聚合源噪声较高，先放到第三阶段。"),
+}
+
+
+SOURCE_TYPE_LABELS = {
+    "working_paper": "工作论文",
+    "policy_paper": "政策论文",
+    "aggregator": "聚合源",
+}
+
+
+SOURCE_CN_NAMES = {
+    "nber": "美国国家经济研究局工作论文",
+    "iza": "IZA 讨论论文",
+    "world-bank-prwp": "世界银行政策研究工作论文",
+    "imf-working-papers": "IMF 工作论文",
+    "repec-nep": "RePEc NEP 新经济学论文",
+    "cepr-dp": "CEPR 讨论论文",
+    "cesifo-working-papers": "CESifo 工作论文",
+    "fed-feds": "美联储 FEDS 工作论文",
+    "bis-working-papers": "国际清算银行工作论文",
+    "oecd-working-papers": "OECD 工作论文",
+}
+
+
+def load_working_paper_sources(path: Path = DATA_DIR / "working_paper_sources.yml") -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    try:
+        import yaml
+
+        loaded = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        sources = loaded.get("sources") or []
+        return [source for source in sources if isinstance(source, dict)]
+    except Exception:
+        sources: list[dict[str, Any]] = []
+        current: dict[str, Any] | None = None
+        for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            line = raw_line.rstrip()
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            if stripped.startswith("- id:"):
+                if current:
+                    sources.append(current)
+                current = {"id": stripped.split(":", 1)[1].strip()}
+            elif current is not None and ":" in stripped and not stripped.startswith("- "):
+                key, value = stripped.split(":", 1)
+                value = value.strip().strip('"').strip("'")
+                if key.strip() == "stage":
+                    try:
+                        current[key.strip()] = int(value)
+                    except ValueError:
+                        current[key.strip()] = value
+                else:
+                    current[key.strip()] = value
+        if current:
+            sources.append(current)
+        return sources
+
+
+def working_paper_sources_body() -> str:
+    sources = load_working_paper_sources()
+    rows = []
+    for source in sources:
+        source_id = str(source.get("id") or "")
+        label, status_class, note = SOURCE_STATUS.get(source_id, ("待评估", "todo", "已加入配置，等待抓取验证。"))
+        chinese_name = SOURCE_CN_NAMES.get(source_id) or str(source.get("chinese_name") or "")
+        homepage = str(source.get("homepage") or "")
+        homepage_html = f'<a href="{html_escape(homepage)}">{html_escape(homepage)}</a>' if homepage else '<span class="muted">未配置</span>'
+        rows.append(
+            f"""<tr>
+  <td><strong>{html_escape(str(source.get("title") or source_id))}</strong><div class="muted">{html_escape(chinese_name)}</div></td>
+  <td>{html_escape(SOURCE_TYPE_LABELS.get(str(source.get("type") or ""), str(source.get("type") or "")))}</td>
+  <td>{html_escape(str(source.get("stage") or ""))}</td>
+  <td><span class="source-status {html_escape(status_class)}">{html_escape(label)}</span><div class="muted">{html_escape(note)}</div></td>
+  <td>{homepage_html}</td>
+</tr>"""
+        )
+    return f"""<section class="section-head">
+  <div><h2>工作论文来源</h2><p>当前分支正在接入 NBER、IZA、CEPR、SSRN 替代入口、央行和国际组织工作论文。这里只展示来源接入状态，不下载 PDF。</p></div>
+  <p>{len(sources)} 个来源</p>
+</section>
+<div class="empty home-note">目前已经跑通 IZA、CEPR、Federal Reserve FEDS 三个公开元数据入口；NBER、World Bank、IMF、BIS、OECD 需要继续做专项解析或替代入口。工作论文抓取结果会写入 <code>data/raw/working_papers/</code>，后续复用现有去重、翻译和“与中国相关”识别流程。</div>
+<table class="journal-table"><thead><tr><th>来源</th><th>类型</th><th>阶段</th><th>接入状态</th><th>入口</th></tr></thead><tbody>{"".join(rows)}</tbody></table>"""
 
 
 def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]], flow_records: list[dict[str, Any]]) -> dict[str, Any]:
@@ -372,6 +469,7 @@ def sidebar(
     <a class="side-link" href="{BASE}/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+    <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
   </div>
   <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
   <div class="side-block"><div class="side-title">{html_escape(journal_title)}</div>{"".join(journal_links)}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
@@ -406,6 +504,7 @@ def page(
           <a href="{BASE}/topics/china/">与中国相关</a>
           <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
           <a href="{BASE}/journals/">监测期刊</a>
+          <a class="{ 'active' if active == 'sources' else '' }" href="{BASE}/sources/working-papers/">工作论文</a>
           <a href="{BASE}/feed.xml">RSS</a>
         </nav>
       </div></header>
@@ -707,6 +806,17 @@ def main() -> None:
     write_page(
         args.docs_dir / "index.html",
         page(SITE_NAME, records, home_body(records, today_records), active="home", sidebar_records=home_flow_records, sidebar_date=home_flow_date),
+    )
+    write_page(
+        args.docs_dir / "sources" / "working-papers" / "index.html",
+        page(
+            "工作论文来源",
+            records,
+            working_paper_sources_body(),
+            active="sources",
+            sidebar_records=home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
     )
 
     by_date: dict[str, list[dict[str, Any]]] = defaultdict(list)
