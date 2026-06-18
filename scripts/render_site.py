@@ -108,6 +108,12 @@ def topic_label(topic: str) -> str:
     return TOPIC_LABELS.get(topic, topic.replace("_", " "))
 
 
+def ordered_topic_counts(records: list[dict[str, Any]]) -> list[tuple[str, int]]:
+    counts = Counter(topic for record in records for topic in article_topics(record))
+    items = list(counts.items())
+    return sorted(items, key=lambda item: (0 if item[0] == "china" else 1, -item[1], topic_label(item[0])))
+
+
 def normalize_attr(value: Any) -> str:
     return str(value or "").lower().replace('"', "&quot;")
 
@@ -338,12 +344,11 @@ def sidebar(
     context_date: str | None = None,
 ) -> str:
     side_records = context_records if context_records is not None else records
-    topic_counts = Counter(topic for record in side_records for topic in article_topics(record))
     journal_counts = Counter(record.get("journal_id") for record in side_records if record.get("journal_id"))
     journals_by_id = journal_lookup()
     topics = "".join(
         f'<a class="side-link" href="{BASE}/topics/{html_escape(topic)}/"><span class="side-main"><strong>{html_escape(topic_label(topic))}</strong></span><span class="count">{count}</span></a>'
-        for topic, count in topic_counts.most_common(12)
+        for topic, count in ordered_topic_counts(side_records)[:12]
     )
     journal_links = []
     journal_target_date = context_date or today_str()
@@ -600,6 +605,20 @@ def journal_view_links(journal_id: str, journal_records: list[dict[str, Any]], t
 </div>"""
 
 
+def topic_view_links(topic: str, topic_records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
+    topic_today = [record for record in today_records if topic in article_topics(record)]
+    latest_day = detected_date(topic_records[0]) if topic_records else today_str()
+    latest_count = len([record for record in topic_records if detected_date(record) == latest_day])
+    recent = recent_records(topic_records, 7)
+    target_day = today_str() if topic_today else latest_day
+    today_label = f"今日 {len(topic_today)}" if topic_today else f"最新日期 {latest_count}"
+    return f"""<div class="toolbar">
+  <a class="control primary" href="{BASE}/daily/{html_escape(target_day)}/?field={html_escape(topic)}">{html_escape(today_label)}</a>
+  <a class="control" href="{BASE}/topics/{html_escape(topic)}/recent7/">最近 7 天 {len(recent)}</a>
+  <a class="control" href="{BASE}/topics/{html_escape(topic)}/">全部历史 {len(topic_records)}</a>
+</div>"""
+
+
 def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
     latest_day = detected_date(records[0]) if records else ""
     latest_records = [record for record in records if detected_date(record) == latest_day] if latest_day else []
@@ -755,8 +774,20 @@ def main() -> None:
     for topic, topic_records in by_topic.items():
         title = topic_label(topic)
         note = "基于规则、AI 判定和人工确认的中国相关记录。" if topic == "china" else "基于标题、摘要和期刊信息生成的文章主题标签。"
-        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>{html_escape(note)}</p></div><p>{len(topic_records)} 篇</p></section>{filter_toolbar(topic_records)}{paper_events(topic_records)}{FILTER_SCRIPT}'
-        write_page(args.docs_dir / "topics" / topic / "index.html", page(title, records, body))
+        topic_links = topic_view_links(topic, topic_records, today_records)
+        latest_topic_date = detected_date(topic_records[0]) if topic_records else None
+        latest_topic_records = [record for record in topic_records if detected_date(record) == latest_topic_date] if latest_topic_date else []
+        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>{html_escape(note)}</p></div><p>{len(topic_records)} 篇</p></section>{topic_links}{filter_toolbar(topic_records)}{paper_events(topic_records)}{FILTER_SCRIPT}'
+        write_page(
+            args.docs_dir / "topics" / topic / "index.html",
+            page(title, records, body, sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
+        )
+        recent = recent_records(topic_records, 7)
+        recent_body = f'<section class="section-head"><div><h2>{html_escape(title)}：最近 7 天</h2><p>{html_escape(note)}</p></div><p>{len(recent)} 篇</p></section>{topic_links}{filter_toolbar(recent)}{paper_events(recent)}{FILTER_SCRIPT}'
+        write_page(
+            args.docs_dir / "topics" / topic / "recent7" / "index.html",
+            page(f"{title} 最近 7 天", records, recent_body, sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
+        )
 
     archive_body = '<section class="section-head"><div><h2>历史归档</h2><p>按本站首次监测日期整理。</p></div></section><ul class="archive-list">' + "\n".join(archive_links) + "</ul>"
     write_page(args.docs_dir / "archive" / "index.html", page("历史归档", records, archive_body, active="archive"))
