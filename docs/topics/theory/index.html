@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>理论与博弈</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%)}.banner-main{padding:34px 42px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:28px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:0 1px 0 rgba(31,35,40,.05);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;color:var(--muted);font-size:13px}.operator-card img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;object-fit:cover}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:280px}.hero-stats{grid-template-columns:1fr}.event{grid-template-columns:1fr}}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -64,7 +65,7 @@
     <p class="title-zh">音乐流媒体平台中艺术家补偿的新方法</p>
     <p class="authors">Gustavo Bergantiños, Juan D. Moreno-Ternero</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.003">10.1016/j.geb.2026.06.003</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -76,7 +77,7 @@
     <p class="title-zh">团队排名</p>
     <p class="authors">Adam Hamdan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.004">10.1016/j.geb.2026.06.004</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -88,7 +89,7 @@
     <p class="title-zh">为什么我没有获得赔付？理解农户选择、指数保险与基差风险</p>
     <p class="authors">S. Lucille Blakeley, Sean Posey, Kathy Baylis, Daniel Osgood, Stuart Sweeney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70080">10.1002/aepp.70080</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -100,7 +101,7 @@
     <p class="title-zh">邻接外部性与木材采伐时机——以风倒风险为例</p>
     <p class="authors">Jussi Lintunen, Matti Hyyrynen, Jonathan Holder, Mikko Peltoniemi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01085-2">10.1007/s10640-026-01085-2</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -112,7 +113,7 @@
     <p class="title-zh">合同互动：埃塞俄比亚北部提格雷地区的土地租赁组合与农业生产力</p>
     <p class="authors">Tafesse W. Gezahegn, Tewodros Tadesse, Bouali Guesmi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108162">10.1016/j.landusepol.2026.108162</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -124,7 +125,7 @@
     <p class="title-zh">1公里网格视角下中国平原与山区耕地撂荒的复合驱动机制</p>
     <p class="authors">Jiayi Jiang, Sijing Ye, Longfeng Weng, Guoli Wang, Shuyi Ren 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108138">10.1016/j.landusepol.2026.108138</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -136,7 +137,7 @@
     <p class="title-zh">减轻合成控制法中溢出偏差的经济学方法：以捕捞配额价格效应为例</p>
     <p class="authors">Jordan Moor, Andrew Ropicki, Frank Asche, Adams Ceballos‐Concha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70079">10.1002/ajae.70079</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -148,7 +149,7 @@
     <p class="title-zh">农业优惠贸易：基于结构引力分析与机器学习的新见解</p>
     <p class="authors">Dongin Kim, Sandro Steinbach</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70077">10.1002/ajae.70077</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -160,7 +161,7 @@
     <p class="title-zh">奖励、惩罚与沟通在公共池塘资源管理中的绩效：来自中国草原保护的证据</p>
     <p class="authors">Min Liu, Ming Jiang, Pengfei Liu, Jizhe Wang, Zihan Nie 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70078">10.1002/ajae.70078</a><span class="pill">农业与食品</span><span class="pill">理论与博弈</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -172,7 +173,7 @@
     <p class="title-zh">多参与者的广义时机博弈</p>
     <p class="authors">Alexander Matros, Vladimir Smirnov, Andrew Wait</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105319">10.1016/j.jedc.2026.105319</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -184,7 +185,7 @@
     <p class="title-zh">自我基本面、交叉基本面与汇率预测</p>
     <p class="authors">QIN WANG, YU REN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70066">10.1111/jmcb.70066</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -196,7 +197,7 @@
     <p class="title-zh">重新评估横截面财政乘数：来自美国国防采购的证据（1966–2019）</p>
     <p class="authors">Gianluca Pallante</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Applied Econometrics</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70058">10.1002/jae.70058</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -208,7 +209,7 @@
     <p class="title-zh">竞争与非营利组织的战略回应：来自捐赠市场筹款的证据</p>
     <p class="authors">Philip G. Gayle, Teresa D. Harrison</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1778">10.1162/rest.a.1778</a><span class="pill">金融</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -220,7 +221,7 @@
     <p class="title-zh">跨国竞争反应的异质性：理论与贸易数据的证据</p>
     <p class="authors">Hamed Atrianfar, Hamid Firooz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1772">10.1162/rest.a.1772</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -232,7 +233,7 @@
     <p class="title-zh">多市场企业的溢出效应：统一产品替代渠道</p>
     <p class="authors">Jay Hyun, Ryan Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1771">10.1162/rest.a.1771</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -244,7 +245,7 @@
     <p class="title-zh">共同代理人还是双重代理人？处方药市场中的药品福利管理者</p>
     <p class="authors">Rena M. Conti, Brigham Frandsen, Michael Powell, James B. Rebitzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1777">10.1162/rest.a.1777</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -256,7 +257,7 @@
     <p class="title-zh">兄弟姐妹溢出效应与免费教育</p>
     <p class="authors">João R. Ferreira, Wayne Aaron Sandholtz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1786">10.1162/rest.a.1786</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -268,7 +269,7 @@
     <p class="title-zh">从根本上改革伤残保险体系：来自德国的证据</p>
     <p class="authors">Yaming Cao, Björn Fischer-Weckemann, Johannes Geyer, Nicolas Ziebarth</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1789">10.1162/rest.a.1789</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -280,7 +281,7 @@
     <p class="title-zh">抗p-hacking的临界值</p>
     <p class="authors">Adam McCloskey, Pascal Michaillat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01456">10.1162/rest_a_01456</a><span class="pill">理论与博弈</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -292,7 +293,7 @@
     <p class="title-zh">一或两个因子低维因子模型中的弱识别问题</p>
     <p class="authors">Gregory Fletcher Cox</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01441">10.1162/rest_a_01441</a><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -304,7 +305,7 @@
     <p class="title-zh">知识获取：卡内基图书馆对创新的影响</p>
     <p class="authors">Enrico Berkes, Peter Nencka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01446">10.1162/rest_a_01446</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -316,7 +317,7 @@
     <p class="title-zh">信息不对称市场中声誉效应与选择效应的分离：一项田野实验</p>
     <p class="authors">Theodore Alysandratos, Sotiris Georganas, Matthias Sutter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01451">10.1162/rest_a_01451</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -328,7 +329,7 @@
     <p class="title-zh">无国家经济中的合同执行</p>
     <p class="authors">Sultan Mehmood, Georgii Marinichev, Sajwaar Khalid, Daniel Chen, Margarita Kudaeva</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103802">10.1016/j.jdeveco.2026.103802</a><span class="pill">发展经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -340,7 +341,7 @@
     <p class="title-zh">以不持有股票为荣：身份认同如何塑造金融决策</p>
     <p class="authors">Luca Henkel, Christian Pugnaghi-Zimpelmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag034">10.1093/rfs/hhag034</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -352,7 +353,7 @@
     <p class="title-zh">集体道德风险、风险分担与银行业联盟</p>
     <p class="authors">Anatoli Segura, Sergio Vicente</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag024">10.1093/rfs/hhag024</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -364,7 +365,7 @@
     <p class="title-zh">公司债券中的报价竞争</p>
     <p class="authors">TERRENCE HENDERSHOTT, DAN LI, DMITRY LIVDAN, NORMAN SCHÜRHOFF, KUMAR VENKATARAMAN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70048">10.1111/jofi.70048</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -376,7 +377,7 @@
     <p class="title-zh">驱逐政策的均衡效应</p>
     <p class="authors">BOAZ ABRAMSON</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70046">10.1111/jofi.70046</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -388,7 +389,7 @@
     <p class="title-zh">理论与实践中的分配性税收分析：哈伯格与戴蒙德-米尔利斯</p>
     <p class="authors">Emmanuel Saez, Gabriel Zucman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105675">10.1016/j.jpubeco.2026.105675</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -400,7 +401,7 @@
     <p class="title-zh">排干沼泽：反精英民粹主义的一种理论</p>
     <p class="authors">Gabriele Gratton, Barton E. Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105682">10.1016/j.jpubeco.2026.105682</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -412,7 +413,7 @@
     <p class="title-zh">非线性健康保险合同中的跨期替代</p>
     <p class="authors">Katlyn Hettinger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105642">10.1016/j.jpubeco.2026.105642</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -424,7 +425,7 @@
     <p class="title-zh">最优医疗保健合同：理论与实证证据</p>
     <p class="authors">Paolo Berta, Gianni De Fraja, Stefano Verzillo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70035">10.1111/jems.70035</a><span class="pill">理论与博弈</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -436,7 +437,7 @@
     <p class="title-zh">上游竞争与非契约努力下的转售价格维持与纵向一体化</p>
     <p class="authors">Michele Bisceglia, Mark Israel, Salvatore Piccolo, Paolo Ramezzana</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>在线日期 2026-05-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Industrial Economics</span><span class="source-chip">在线日期 2026-05-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70026">10.1111/joie.70026</a><span class="pill">国际贸易</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -448,7 +449,7 @@
     <p class="title-zh">含时滞的曼昆-罗默-韦尔模型</p>
     <p class="authors">Anna Połeć, Adam Krawiec</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Mathematical Social Sciences</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.mathsocsci.2026.102544">10.1016/j.mathsocsci.2026.102544</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -460,7 +461,7 @@
     <p class="title-zh">人们为何抗议？情绪、公共政策与政治动荡的理论</p>
     <p class="authors">César Martinelli, Ruolong Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01720-5">10.1007/s00199-026-01720-5</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -472,7 +473,7 @@
     <p class="title-zh">机会不平等测度的公理化方法</p>
     <p class="authors">Kristof Bosmans, Z. Emel Öztürk</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01715-2">10.1007/s00199-026-01715-2</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -484,7 +485,7 @@
     <p class="title-zh">共同代理中的信息联盟</p>
     <p class="authors">Rafael Costa Lima, Humberto Moreira, Alexander Rodivilov, Dongsoo Shin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01717-0">10.1007/s00199-026-01717-0</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -496,7 +497,7 @@
     <p class="title-zh">部门构成如何影响自由贸易协定对全球关税自由化的作用？</p>
     <p class="authors">Antoine L. Noël</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01718-z">10.1007/s00199-026-01718-z</a><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -508,7 +509,7 @@
     <p class="title-zh">寻求解除武装和平的艰难探索：竞争博弈与国际关系</p>
     <p class="authors">Johann Caro-Burnett, Sebastian Galiani, Gustavo Torrens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01716-1">10.1007/s00199-026-01716-1</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -520,7 +521,7 @@
     <p class="title-zh">具有竞标者道德风险的股权拍卖</p>
     <p class="authors">Mingrui Gao, Xun Chen, Dazhong Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103246">10.1016/j.jmateco.2026.103246</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -532,7 +533,7 @@
     <p class="title-zh">含模糊性的公正观察者定理</p>
     <p class="authors">Raphael Gomes de Oliveira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103237">10.1016/j.jmateco.2026.103237</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -544,7 +545,7 @@
     <p class="title-zh">使用可微性对平滑模糊模型进行公理化</p>
     <p class="authors">Raphaël Giraud</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103271">10.1016/j.jmateco.2026.103271</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -556,7 +557,7 @@
     <p class="title-zh">会员机制</p>
     <p class="authors">Seung Han Yoo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103241">10.1016/j.jmateco.2026.103241</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -568,7 +569,7 @@
     <p class="title-zh">等待他人：社会学习中的长时间延迟</p>
     <p class="authors">Luis Frones</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103244">10.1016/j.jmateco.2026.103244</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -580,7 +581,7 @@
     <p class="title-zh">k-有界性、可行沟通结构与Myerson值</p>
     <p class="authors">Takuto Kaneko, David Lowing, Satoshi Nakada</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103242">10.1016/j.jmateco.2026.103242</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -592,7 +593,7 @@
     <p class="title-zh">指派市场中的最低价格均衡：结构性质与序列维克里机制</p>
     <p class="authors">Yu Zhou, Shigehiro Serizawa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106216">10.1016/j.jet.2026.106216</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -604,7 +605,7 @@
     <p class="title-zh">稳健最优投票规则</p>
     <p class="authors">Noriaki Kiguchi, Shinpei Noguchi, Yuta Takahashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106219">10.1016/j.jet.2026.106219</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -616,7 +617,7 @@
     <p class="title-zh">关于多样性Owen值的一个注记</p>
     <p class="authors">Songtao He, Erfang Shan, Yuxin Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00984-4">10.1007/s00182-026-00984-4</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -628,7 +629,7 @@
     <p class="title-zh">集成灵活规则的稳定且防策略的可控学校选择机制</p>
     <p class="authors">Minoru Kitahara, Yasunori Okumura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-01000-5">10.1007/s00182-026-01000-5</a><span class="pill">理论与博弈</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -640,7 +641,7 @@
     <p class="title-zh">多发送者通信博弈中的语言约束</p>
     <p class="authors">Nicolas Rodriguez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00998-y">10.1007/s00182-026-00998-y</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -652,7 +653,7 @@
     <p class="title-zh">单边成本不确定下的伯特兰竞争</p>
     <p class="authors">Ramakanta Patra, Hitoshi Sadakane</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-025-00954-2">10.1007/s00182-025-00954-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -664,7 +665,7 @@
     <p class="title-zh">算法合作：与人类在无限重复囚徒困境中的行为比较</p>
     <p class="authors">Bernhard Kasberger, Simon Martin, Hans-Theo Normann, Tobias Werner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.001">10.1016/j.geb.2026.06.001</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -676,7 +677,7 @@
     <p class="title-zh">设计天意：中国帝国文官制度中的职位分配</p>
     <p class="authors">Inácio Bó, Li Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.013">10.1016/j.geb.2026.03.013</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -688,7 +689,7 @@
     <p class="title-zh">诱导情绪对惩罚与奖励的影响</p>
     <p class="authors">Michalis Drouvelis, Brit Grosskopf</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.012">10.1016/j.geb.2026.03.012</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -700,7 +701,7 @@
     <p class="title-zh">道德与风险相遇：什么构成自私的合理借口</p>
     <p class="authors">Wanxin Dong, Jiakun Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.010">10.1016/j.geb.2026.02.010</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -712,7 +713,7 @@
     <p class="title-zh">互动接收者的说服</p>
     <p class="authors">Yishu Zeng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.009">10.1016/j.geb.2026.04.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -724,7 +725,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0899-8256(26)00096-5">10.1016/s0899-8256(26)00096-5</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -736,7 +737,7 @@
     <p class="title-zh">竞争性拍卖的竞争极限</p>
     <p class="authors">Zizhen Ma, Nicolás Riquelme</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.015">10.1016/j.geb.2026.03.015</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -748,7 +749,7 @@
     <p class="title-zh">生产网络的战略形成</p>
     <p class="authors">Antoine Mandel, Van-Quy Nguyen, Bach Dong-Xuan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.004">10.1016/j.geb.2026.05.004</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -760,7 +761,7 @@
     <p class="title-zh">洪水条件下的河流共享问题</p>
     <p class="authors">Takayuki Oishi, Tomoya Tajika</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.011">10.1016/j.geb.2026.03.011</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -772,7 +773,7 @@
     <p class="title-zh">重复2×2反协调博弈中策略的演化</p>
     <p class="authors">Jiabin Wu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.002">10.1016/j.geb.2026.05.002</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -784,7 +785,7 @@
     <p class="title-zh">一厢情愿者的信息操纵</p>
     <p class="authors">Emel Filiz-Ozbay, Zhenxun Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.010">10.1016/j.geb.2026.05.010</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -796,7 +797,7 @@
     <p class="title-zh">信息与沟通成本高昂时</p>
     <p class="authors">Shahir Safi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.004">10.1016/j.geb.2026.04.004</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -808,7 +809,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0899-8256(26)00097-7">10.1016/s0899-8256(26)00097-7</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -820,7 +821,7 @@
     <p class="title-zh">注意力经济中的说服竞争</p>
     <p class="authors">Federico Innocenti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.005">10.1016/j.geb.2026.04.005</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -832,7 +833,7 @@
     <p class="title-zh">合作博弈的拟预核</p>
     <p class="authors">Qianqian Kong, Hans Peters, Hao Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.009">10.1016/j.geb.2026.03.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -844,7 +845,7 @@
     <p class="title-zh">简化策略与认知层级在扩展式与标准式博弈中的表现</p>
     <p class="authors">Pierpaolo Battigalli</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.006">10.1016/j.geb.2026.03.006</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -856,7 +857,7 @@
     <p class="title-zh">廉价谈话与谎言检测</p>
     <p class="authors">Hitoshi Sadakane, Yin Chi Tam</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.007">10.1016/j.geb.2026.03.007</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -868,7 +869,7 @@
     <p class="title-zh">用纳什福利近似竞争均衡</p>
     <p class="authors">Jugal Garg, Yixin Tao, László A. Végh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.004">10.1016/j.geb.2026.03.004</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -880,7 +881,7 @@
     <p class="title-zh">台湾机制的福利性质</p>
     <p class="authors">Ilan Wolff</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2025.11.005">10.1016/j.geb.2025.11.005</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -892,7 +893,7 @@
     <p class="title-zh">连续交易者市场与强连通商品集上的非合作寡头垄断：一个极限定理</p>
     <p class="authors">Francesca Busetto, Giulio Codognato, Sayantan Ghosal, Ludovic Julien, Damiano Turchet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.003">10.1016/j.geb.2026.03.003</a><span class="pill">金融</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -904,7 +905,7 @@
     <p class="title-zh">基本收入与就业</p>
     <p class="authors">Marta Aloi, Teresa Lloyd‐Braga</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Scandinavian Journal of Economics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70025">10.1111/sjoe.70025</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -916,7 +917,7 @@
     <p class="title-zh">一个傻瓜、一个白痴与一位经济理论家</p>
     <p class="authors">Ariel Rubinstein</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economica</span><span class="source-chip">在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecca.70057">10.1111/ecca.70057</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -928,7 +929,7 @@
     <p class="title-zh">我的团队成员是亲社会的吗？社会价值取向信息影响公共品博弈中的合作</p>
     <p class="authors">Edward Cartwright, Yidan Chai, Lian Xue</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105333">10.1016/j.euroecorev.2026.105333</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -940,7 +941,7 @@
     <p class="title-zh">基于搜索的并购浪潮理论</p>
     <p class="authors">Flavien Moreau, Semih Üslü</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105354">10.1016/j.euroecorev.2026.105354</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -952,7 +953,7 @@
     <p class="title-zh">参考依赖偏好的政治含义</p>
     <p class="authors">Fausto Panunzi, Nicola Pavoni, Guido Tabellini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag028">10.1093/jeea/jvag028</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -964,7 +965,7 @@
     <p class="title-zh">构建声誉：国家支持的叛乱与跨国身份</p>
     <p class="authors">Marion Mercier, Arthur Silve, Benjamin Tremblay-Auger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag023">10.1093/jeea/jvag023</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -976,7 +977,7 @@
     <p class="title-zh">德国立法者政治家的社会福利标准实验</p>
     <p class="authors">Sandro Ambuehl, Sebastian Blesse, Philipp Doerrenberg, Christoph Feldhaus, Axel Ockenfels</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag067">10.1093/ej/ueag067</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -988,7 +989,7 @@
     <p class="title-zh">信息异质性下的竞争：来自汽车保险的证据</p>
     <p class="authors">Marco Cosconati, Yi Xin, Fan Wu, Yizhou Jin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-16 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-16 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag058">10.1093/restud/rdag058</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1000,7 +1001,7 @@
     <p class="title-zh">聚类回归的刀切标准误</p>
     <p class="authors">Bruce E Hansen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag050">10.1093/restud/rdag050</a><span class="pill">城市与区域</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1012,7 +1013,7 @@
     <p class="title-zh">气候风险下的投入品采购：来自美国制造业企业的证据</p>
     <p class="authors">Joaquin Blaum, Federico Esposito, Sebastian Heise</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag031">10.1093/restud/rdag031</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1024,7 +1025,7 @@
     <p class="title-zh">微分博弈中的马尔可夫完美均衡——兼论其在气候政策中的应用</p>
     <p class="authors">Niko Jaakkola, Florian Wagener</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag045">10.1093/restud/rdag045</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1036,7 +1037,7 @@
     <p class="title-zh">质量搜寻中的验证动态</p>
     <p class="authors">Zihao Li, Jonathan Libgober</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag040">10.1093/restud/rdag040</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1048,7 +1049,7 @@
     <p class="title-zh">蜈蚣博弈中的策略法效应：一种最优设计方法</p>
     <p class="authors">Shiang-Hung Hu, Po-Hsuan Lin, Thomas R. Palfrey, Joseph Tao-yi Wang, Yu-Hsiang Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107599">10.1016/j.jebo.2026.107599</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1060,7 +1061,7 @@
     <p class="title-zh">大型区位博弈中的周期性行为</p>
     <p class="authors">Gary Charness, Daniel Friedman, Weinan Gong, Lones Smith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107609">10.1016/j.jebo.2026.107609</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1072,7 +1073,7 @@
     <p class="title-zh">配额机制：有限样本最优性与稳健性</p>
     <p class="authors">Ian Schofield Ball, Deniz Kattwinkel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Political Economy</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742716">10.1086/742716</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1084,7 +1085,7 @@
     <p class="title-zh">工人异质性与竞业限制对企业绩效的影响</p>
     <p class="authors">Zhaozhao He, Modupe Babajide Wintoki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economics &amp; Management Strategy</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70040">10.1111/jems.70040</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1096,7 +1097,7 @@
     <p class="title-zh">工会对工资分布的影响：来自高等教育的证据</p>
     <p class="authors">Michael Baker, Yosh Halberstam, Kory Kroft, Alexandre Mas, Derek Messacar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review: Insights</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20240722">10.1257/aeri.20240722</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1108,7 +1109,7 @@
     <p class="title-zh">长期战争</p>
     <p class="authors">Sandeep Baliga, Tomas Sjöström</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review: Insights</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review: Insights</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aeri.20240624">10.1257/aeri.20240624</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1120,7 +1121,7 @@
     <p class="title-zh">打破回音室：倾听对立观点意愿的实验研究</p>
     <p class="authors">Michèle Belot, Guglielmo Briscese</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag072">10.1093/ej/ueag072</a><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1132,7 +1133,7 @@
     <p class="title-zh">证券化实验拍卖</p>
     <p class="authors">Zachary Breig, Allan Hernández-Chanto, Declan Hunt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag074">10.1093/ej/ueag074</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1144,7 +1145,7 @@
     <p class="title-zh">生物经济中的合同与所有权结构：其设计与创新作用的综述</p>
     <p class="authors">Lukas Bonar Nainggolan, Julia Höhler, Alfons Oude Lansink</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70124">10.1111/1467-8489.70124</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1156,7 +1157,7 @@
     <p class="title-zh">以牛桥命名你的企业，是耶非耶？</p>
     <p class="authors">Thomas Hellmann, Junida Mulla, Matthias Qian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Canadian Journal of Economics</span><span>在线日期 2026-06-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-06-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70059">10.1111/caje.70059</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1168,7 +1169,7 @@
     <p class="title-zh">异质企业、内生加成定价与一般均衡中的进入与福利</p>
     <p class="authors">Kyle Bagwell, Seung Hoon Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Economic Review</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Economic Review</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/iere.70079">10.1111/iere.70079</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1180,7 +1181,7 @@
     <p class="title-zh">超越自上而下的政策制定：策略游戏中政策制定者与土地所有者的互动促进再造林</p>
     <p class="authors">Simona Rödlach, Giacomo Vaccario, Clare Cooper, Jaboury Ghazoul, Ivan P. Novotny</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108101">10.1016/j.landusepol.2026.108101</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1192,7 +1193,7 @@
     <p class="title-zh">抵押贷款证券化与一般均衡中的信息摩擦</p>
     <p class="authors">Salomon Garcia-Villegas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101342">10.1016/j.red.2026.101342</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1204,7 +1205,7 @@
     <p class="title-zh">异质性企业与货币政策的投资传导机制</p>
     <p class="authors">Hanwen Zhang, Xiaoke Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2686349">10.1080/00036846.2026.2686349</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1216,7 +1217,7 @@
     <p class="title-zh">政治关联、合同不完全性与企业外包</p>
     <p class="authors">Yi Zhang, Hein Roelfsema</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01421-6">10.1007/s11127-026-01421-6</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -1228,7 +1229,7 @@
     <p class="title-zh">政治组织中文化多样性的经济后果</p>
     <p class="authors">Jiale Yan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01406-5">10.1007/s11127-026-01406-5</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1240,7 +1241,7 @@
     <p class="title-zh">人工智能工具治理的利益集团理论</p>
     <p class="authors">Niclas Berggren</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01420-7">10.1007/s11127-026-01420-7</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1252,7 +1253,7 @@
     <p class="title-zh">民主倒退作为庇古式政治外部性</p>
     <p class="authors">Thomas Barnebeck Andersen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01412-7">10.1007/s11127-026-01412-7</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1264,7 +1265,7 @@
     <p class="title-zh">官僚如何回应混合激励合同？来自中国空气污染控制的证据</p>
     <p class="authors">Guangyu Cao, Xi Weng, Mingwei Xu, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105664">10.1016/j.jpubeco.2026.105664</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1276,7 +1277,7 @@
     <p class="title-zh">连续时间无限时域最优控制问题中的单调最优轨迹</p>
     <p class="authors">Niko Jaakkola, Florian Wagener</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103256">10.1016/j.jmateco.2026.103256</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1288,7 +1289,7 @@
     <p class="title-zh">连续时间下的折现主观期望效用</p>
     <p class="authors">Lorenzo Bastianello, Vassili Vergopoulos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103264">10.1016/j.jmateco.2026.103264</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1300,7 +1301,7 @@
     <p class="title-zh">排名不确定下的分类与匹配</p>
     <p class="authors">Myungkoo Song</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103269">10.1016/j.jmateco.2026.103269</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1312,7 +1313,7 @@
     <p class="title-zh">外部性下的机会共享</p>
     <p class="authors">Mohamed Belhaj, Frédéric Deroïan, Mathieu Faure</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103249">10.1016/j.jmateco.2026.103249</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1324,7 +1325,7 @@
     <p class="title-zh">Walker–Groves–Ledyard机制：在不牺牲简洁性或稳定性的前提下提升个体理性</p>
     <p class="authors">Paul J. Healy, Renkun Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103225">10.1016/j.jmateco.2026.103225</a><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1336,7 +1337,7 @@
     <p class="title-zh">概率经济均衡理论</p>
     <p class="authors">Juan Jacobo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103240">10.1016/j.jmateco.2026.103240</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1348,7 +1349,7 @@
     <p class="title-zh">具有代理人拒绝选项的公平排名最小化机制的策略分析</p>
     <p class="authors">Yasunori Okumura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103250">10.1016/j.jmateco.2026.103250</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1360,7 +1361,7 @@
     <p class="title-zh">心理锁定与制度持续性：信心动力学的平均场模型</p>
     <p class="authors">Nicolò Bellanca</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103251">10.1016/j.jmateco.2026.103251</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1372,7 +1373,7 @@
     <p class="title-zh">弃权、多重议题与班扎夫权力指数</p>
     <p class="authors">Qianqian Kong, Hans Peters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103243">10.1016/j.jmateco.2026.103243</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1384,7 +1385,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-4068(26)00049-2">10.1016/s0304-4068(26)00049-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1396,7 +1397,7 @@
     <p class="title-zh">选址博弈中的受欢迎程度</p>
     <p class="authors">Gaëtan Fournier, Marc Schröder</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103239">10.1016/j.jmateco.2026.103239</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1408,7 +1409,7 @@
     <p class="title-zh">混合所有制物品分配问题的显然防策略实施</p>
     <p class="authors">Changwoo Park</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103252">10.1016/j.jmateco.2026.103252</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1420,7 +1421,7 @@
     <p class="title-zh">固定人口不变性公理下的ELS值特征刻画</p>
     <p class="authors">Yukihiko Funaki, Yukio Koriyama, Satoshi Nakada, Yuki Tamura</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103270">10.1016/j.jmateco.2026.103270</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1432,7 +1433,7 @@
     <p class="title-zh">无报酬参与者的合作博弈</p>
     <p class="authors">Sylvain Béal, Léa Munich, Philippe Solal, Kevin Techer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103238">10.1016/j.jmateco.2026.103238</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1444,7 +1445,7 @@
     <p class="title-zh">时间使用与异质性加成</p>
     <p class="authors">Brian C. Albrecht, Thomas Phelan, Nick Pretnar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106218">10.1016/j.jet.2026.106218</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1456,7 +1457,7 @@
     <p class="title-zh">内生状态验证下的信息设计</p>
     <p class="authors">Lily Ling Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106182">10.1016/j.jet.2026.106182</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1468,7 +1469,7 @@
     <p class="title-zh">期望与困惑：证据与理论</p>
     <p class="authors">Heng Chen, Yicheng Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106189">10.1016/j.jet.2026.106189</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1480,7 +1481,7 @@
     <p class="title-zh">投资成熟度与财富不平等</p>
     <p class="authors">Ehsan Azarmsa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106206">10.1016/j.jet.2026.106206</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -1492,7 +1493,7 @@
     <p class="title-zh">通过模仿学习：一项实验</p>
     <p class="authors">Marina Agranov, Gabriel Lopez-Moctezuma, Philipp Strack, Omer Tamuz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106203">10.1016/j.jet.2026.106203</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1504,7 +1505,7 @@
     <p class="title-zh">硬问题与失败者的暴政</p>
     <p class="authors">Stan Cheung, Marco Mariotti, Roberto Veneziani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106204">10.1016/j.jet.2026.106204</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1516,7 +1517,7 @@
     <p class="title-zh">VCG机制、核心与拍卖中的分配阶段</p>
     <p class="authors">Lawrence M. Ausubel, Oleg Baranov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106192">10.1016/j.jet.2026.106192</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1528,7 +1529,7 @@
     <p class="title-zh">无担保债务市场中的信贷配给</p>
     <p class="authors">V. Filipe Martins-da-Rocha, Toàn Phan, Yiannis Vailakis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106188">10.1016/j.jet.2026.106188</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1540,7 +1541,7 @@
     <p class="title-zh">隐性学习与信息披露</p>
     <p class="authors">Matteo Escudé</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106179">10.1016/j.jet.2026.106179</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1552,7 +1553,7 @@
     <p class="title-zh">非强制性机制：对次要目标稳健的机制设计</p>
     <p class="authors">Renato Paes Leme, Jon Schneider, Hanrui Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106187">10.1016/j.jet.2026.106187</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1564,7 +1565,7 @@
     <p class="title-zh">基于网络形成的经典匹配</p>
     <p class="authors">Evan Sadler</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106208">10.1016/j.jet.2026.106208</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1576,7 +1577,7 @@
     <p class="title-zh">局部完美</p>
     <p class="authors">Enxian Chen, Lei Qiao, Xiang Sun, Yeneng Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106183">10.1016/j.jet.2026.106183</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1588,7 +1589,7 @@
     <p class="title-zh">缺乏个体理性下的敲竹杠问题：渐近效率与渐进主义</p>
     <p class="authors">Prabal Roy Chowdhury, Kunal Sengupta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106209">10.1016/j.jet.2026.106209</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1600,7 +1601,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0022-0531(26)00076-1">10.1016/s0022-0531(26)00076-1</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1612,7 +1613,7 @@
     <p class="title-zh">灵活不可观测投资下的敲竹杠问题</p>
     <p class="authors">Daniel Krähmer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106205">10.1016/j.jet.2026.106205</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1624,7 +1625,7 @@
     <p class="title-zh">比例代表制下投票率与投票行为的联合分析：理论与实验</p>
     <p class="authors">Aaron Kamm, Arthur Schram</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.005">10.1016/j.geb.2026.03.005</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1636,7 +1637,7 @@
     <p class="title-zh">意见动态的权威度量</p>
     <p class="authors">Igal Milchtaich, Ron Peretz, Yevgeny Tsodikovich</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.001">10.1016/j.geb.2026.05.001</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1648,7 +1649,7 @@
     <p class="title-zh">重复策略博弈中适应性学习与层级推理交互作用的神经关联</p>
     <p class="authors">Jun Feng, Jia Jin, Sasa Zhao, Edmund Derrington, Xiangdong Qin 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.011">10.1016/j.geb.2026.02.011</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1660,7 +1661,7 @@
     <p class="title-zh">幸运但自信——自信对精英信念与再分配偏好的影响</p>
     <p class="authors">Kajsa Hansson, Oda Kristine Storstad Sund</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.003">10.1016/j.geb.2026.04.003</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -1672,7 +1673,7 @@
     <p class="title-zh">具有转换成本的动态协调</p>
     <p class="authors">Joe S. Ballard, Luke Boosey</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.014">10.1016/j.geb.2026.05.014</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1684,7 +1685,7 @@
     <p class="title-zh">参与式说服模型</p>
     <p class="authors">Liuchun Deng, Yufeng Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.006">10.1016/j.geb.2026.05.006</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1696,7 +1697,7 @@
     <p class="title-zh">社会环境中的潜力</p>
     <p class="authors">Thomas Demuynck, P. Jean-Jacques Herings, Christian Seel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.002">10.1016/j.geb.2026.04.002</a><span class="pill">环境与气候</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1708,7 +1709,7 @@
     <p class="title-zh">弱偏好与不完全偏好的引出与区分：理论、实验与计算</p>
     <p class="authors">Georgios Gerasimou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.011">10.1016/j.geb.2026.05.011</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1720,7 +1721,7 @@
     <p class="title-zh">效率调整延迟接受机制下强纳什均衡的存在性</p>
     <p class="authors">Yao Cheng, Dazhong Wang, Jingsheng Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.006">10.1016/j.geb.2026.04.006</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1732,7 +1733,7 @@
     <p class="title-zh">游说透明化的理由</p>
     <p class="authors">Antoine Zerbini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.012">10.1016/j.geb.2026.02.012</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1744,7 +1745,7 @@
     <p class="title-zh">评估非预见性动态机制：理论与实验</p>
     <p class="authors">Shan Gui, Daniel Houser</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.009">10.1016/j.geb.2026.02.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1756,7 +1757,7 @@
     <p class="title-zh">退出权对成本型采购合同的影响</p>
     <p class="authors">Rodrigo Andrade, Henrique Castro-Pires, Humberto Moreira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.010">10.1016/j.geb.2026.03.010</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1768,7 +1769,7 @@
     <p class="title-zh">塔洛克竞赛中努力最大化的行动顺序</p>
     <p class="authors">Lei Gao, Jingfeng Lu, Zhewei Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.005">10.1016/j.geb.2026.05.005</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1780,7 +1781,7 @@
     <p class="title-zh">纳什实施中的说服力</p>
     <p class="authors">Shurojit Chatterji, Takashi Kunimoto, Paulo Ramos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.02.008">10.1016/j.geb.2026.02.008</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1792,7 +1793,7 @@
     <p class="title-zh">通过策略性目标选择在网络中竞争影响力</p>
     <p class="authors">Margherita Comola, Agnieszka Rusinowska, Marie Claire Villeval</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.001">10.1016/j.geb.2026.04.001</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1804,7 +1805,7 @@
     <p class="title-zh">一般均衡中的生存风险、实际利率与永久收入假说</p>
     <p class="authors">Hao Li, Rongsheng Tang, Gaowang Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113072">10.1016/j.econlet.2026.113072</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1816,7 +1817,7 @@
     <p class="title-zh">超当代艺术拍卖中艺术家内部锚定反转的状态依赖性</p>
     <p class="authors">Ziwen Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113079">10.1016/j.econlet.2026.113079</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1828,7 +1829,7 @@
     <p class="title-zh">连接社会偏好与个人偏好：理论与实验</p>
     <p class="authors">William R. Zame, Bertil Tungodden, Erik Ø. Sørensen, Shachar Kariv, Alexander W. Cappelen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Political Economy</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/739832">10.1086/739832</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1840,7 +1841,7 @@
     <p class="title-zh">庇古运输定价的实践</p>
     <p class="authors">Beat Hintermann, Beaumont Schoeman, Joseph Molloy, Thomas Götschi, Alberto Castro 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag051">10.1093/restud/rdag051</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1852,7 +1853,7 @@
     <p class="title-zh">友谊网络与政治观点</p>
     <p class="authors">Yann Algan, Nicolò Dalvit, Quoc-Anh Do, Alexis Le Chapelain, Yves Zenou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20231344">10.1257/aer.20231344</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -1864,7 +1865,7 @@
     <p class="title-zh">大规模质量调整：享乐指数与精确需求价格指数的比较</p>
     <p class="authors">Gabriel Ehrlich, John Haltiwanger, Ron Jarmin, David Johnson, Ed Olivares 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230766">10.1257/aer.20230766</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -1876,7 +1877,7 @@
     <p class="title-zh">人口老龄化与环境：自然关注型与行动需求型结果的比较研究</p>
     <p class="authors">Andreas Irmen, Maria Krelifa, Anastasia Litina</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01094-1">10.1007/s10640-026-01094-1</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1892,7 +1893,7 @@
     <p class="title-zh">自然灾害与农业代际职业选择：来自美国沙尘暴的证据</p>
     <p class="authors">Jhih‐Yun Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70081">10.1002/ajae.70081</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -1904,7 +1905,7 @@
     <p class="title-zh">内部迁移与劳动份额：理论与证据</p>
     <p class="authors">Yang Yang, Qi Yu, Junsen Zhang, Kang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.01.005">10.1016/j.jce.2026.01.005</a><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1916,7 +1917,7 @@
     <p class="title-zh">公共信息与分裂多数下的协调</p>
     <p class="authors">Caleb A. Cox, Angela de Oliveira, Brock Stoddard</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Experimental Economics</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10051">10.1017/eec.2026.10051</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1928,7 +1929,7 @@
     <p class="title-zh">网络游戏中的虚拟货币提升对开箱付费意愿：一项实验分析</p>
     <p class="authors">Niccolò Toccafondi, Roberto Di Paolo, Sibilla Di Guida</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Experimental Economics</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10049">10.1017/eec.2026.10049</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1940,7 +1941,7 @@
     <p class="title-zh">多期选美竞赛博弈实验研究</p>
     <p class="authors">Nobuyuki Hanaki, Yuta Takahashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Experimental Economics</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10048">10.1017/eec.2026.10048</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1952,7 +1953,7 @@
     <p class="title-zh">童年冲击与生育率：来自父母失业的证据</p>
     <p class="authors">Krista Riukula</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>在线日期 2026-05-28 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Population Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01178-8">10.1007/s00148-026-01178-8</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1964,7 +1965,7 @@
     <p class="title-zh">长期债务与短期利率：固定利率抵押贷款与货币政策传导</p>
     <p class="authors">ALESSIA DE STEFANI, RUI C. MANO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70069">10.1111/jmcb.70069</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1976,7 +1977,7 @@
     <p class="title-zh">抵押约束银行下的央行数字货币</p>
     <p class="authors">HANFENG CHEN, MARIA ELENA FILIPPIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70063">10.1111/jmcb.70063</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1988,7 +1989,7 @@
     <p class="title-zh">局部均衡思维、外推与泡沫</p>
     <p class="authors">Francesca Bastianello, Paul Fontanier</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag053">10.1093/rfs/hhag053</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2000,7 +2001,7 @@
     <p class="title-zh">生产网络中的下游中心性与行业游说</p>
     <p class="authors">Kwok Ping Tsang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01428-z">10.1007/s11127-026-01428-z</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2012,7 +2013,7 @@
     <p class="title-zh">法官社会身份对改判决策的影响：基于法官临时晋升的证据</p>
     <p class="authors">Patrick C Wu, Chang-Ching Lin, Yun-chien Chang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag022">10.1093/jleo/ewag022</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -2024,7 +2025,7 @@
     <p class="title-zh">基于规范的承诺执行</p>
     <p class="authors">Nathan Atkinson, Rebecca Stone, Alexander Stremitzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag019">10.1093/jleo/ewag019</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2036,7 +2037,7 @@
     <p class="title-zh">可转移效用合作博弈中度r的必要性</p>
     <p class="authors">Haoyu Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Design</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Design</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10058-026-00399-3">10.1007/s10058-026-00399-3</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2048,7 +2049,7 @@
     <p class="title-zh">强限制竞拍者下的锦标赛拍卖</p>
     <p class="authors">Luca Anderlini, GaOn Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Design</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Design</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10058-026-00400-z">10.1007/s10058-026-00400-z</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2060,7 +2061,7 @@
     <p class="title-zh">潜伏性专利权利要求与战略性许可合同</p>
     <p class="authors">Jay Pil Choi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Industrial Economics</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70031">10.1111/joie.70031</a><span class="pill">理论与博弈</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -2072,7 +2073,7 @@
     <p class="title-zh">生产函数估计的统一方法：代理变量与动态面板数据</p>
     <p class="authors">Jose Miguel Abito, Konstantinos Metaxoglou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Industrial Economics</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Industrial Economics</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/joie.70033">10.1111/joie.70033</a><span class="pill">宏观与货币</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2084,7 +2085,7 @@
     <p class="title-zh">频谱拍卖与移动市场竞争的互动：理论与欧洲4G拍卖证据综述</p>
     <p class="authors">Daniel Ershov, David Salant</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Industrial Organization</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103287">10.1016/j.ijindorg.2026.103287</a><span class="pill">金融</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2096,7 +2097,7 @@
     <p class="title-zh">机场问题的三条规则：基于顺序保持、分散最小化与一致性的刻画</p>
     <p class="authors">Zeming Ma</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Mathematical Social Sciences</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Mathematical Social Sciences</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.mathsocsci.2026.102543">10.1016/j.mathsocsci.2026.102543</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2108,7 +2109,7 @@
     <p class="title-zh">沉默胜千言：静态议题下的动态廉价磋商</p>
     <p class="authors">Gunhaeng Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01728-x">10.1007/s00199-026-01728-x</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2120,7 +2121,7 @@
     <p class="title-zh">单调多发送者信号博弈中的简单前向归纳</p>
     <p class="authors">Péter Vida, Takakazu Honryo, Helmuts Āzacis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01723-2">10.1007/s00199-026-01723-2</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2132,7 +2133,7 @@
     <p class="title-zh">具有帕累托尾部与帕累托最大值的多元分布</p>
     <p class="authors">Costas Arkolakis, Andrés Rodríguez-Clare, Jiun-Hua Su</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01719-y">10.1007/s00199-026-01719-y</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -2144,7 +2145,7 @@
     <p class="title-zh">伯格均衡——一种代数方法</p>
     <p class="authors">Frank Riedel, Maria-Laura Torrente</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01724-1">10.1007/s00199-026-01724-1</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2156,7 +2157,7 @@
     <p class="title-zh">分离风险与时间以实现最优预防</p>
     <p class="authors">Yichun Chi, Richard Peter, Mengjia Qi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Theory</span><span>在线日期 2026-05-27 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Theory</span><span class="source-chip">在线日期 2026-05-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00199-026-01722-3">10.1007/s00199-026-01722-3</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2168,7 +2169,7 @@
     <p class="title-zh">数据驱动的说服</p>
     <p class="authors">Maxwell Rosenthal</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103268">10.1016/j.jmateco.2026.103268</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2180,7 +2181,7 @@
     <p class="title-zh">最大匹配</p>
     <p class="authors">Anh Triêu, Iwan Bos, Marc Schröder, Dries Vermeulen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103254">10.1016/j.jmateco.2026.103254</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2192,7 +2193,7 @@
     <p class="title-zh">确定性效应与赫尔维茨期望效用中的新连续主观来源</p>
     <p class="authors">Simon Grant</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Mathematical Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmateco.2026.103257">10.1016/j.jmateco.2026.103257</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2204,7 +2205,7 @@
     <p class="title-zh">信贷、货币与（伪）匿名性</p>
     <p class="authors">Remo Isch-Taudien, Fabienne Schneider</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106202">10.1016/j.jet.2026.106202</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2216,7 +2217,7 @@
     <p class="title-zh">损失厌恶投标者下的非对称最优拍卖设计</p>
     <p class="authors">Akitoshi Muramoto, Takeharu Sogo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106186">10.1016/j.jet.2026.106186</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2228,7 +2229,7 @@
     <p class="title-zh">参考依赖的选择分组</p>
     <p class="authors">Pauline Vorjohann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106207">10.1016/j.jet.2026.106207</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2240,7 +2241,7 @@
     <p class="title-zh">哪些实验检验了一个模型？</p>
     <p class="authors">Paul J. Healy, Greg Leo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106191">10.1016/j.jet.2026.106191</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2252,7 +2253,7 @@
     <p class="title-zh">议价中的正向与负向选择</p>
     <p class="authors">Dongkyu Chang, Duk Gyoo Kim, Wooyoung Lim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Theory</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106190">10.1016/j.jet.2026.106190</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2264,7 +2265,7 @@
     <p class="title-zh">迪尔梅幂序列检验对克雷普斯-威尔逊一致性充分性的一个简单证明</p>
     <p class="authors">Philip J. Reny</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00997-z">10.1007/s00182-026-00997-z</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2276,7 +2277,7 @@
     <p class="title-zh">独裁者游戏中支付1英镑（5英镑）与零支付的意外差异</p>
     <p class="authors">Pablo Brañas-Garza, Antonio M. Espín, Diego Jorrat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00995-1">10.1007/s00182-026-00995-1</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2288,7 +2289,7 @@
     <p class="title-zh">临时协议</p>
     <p class="authors">Dov Samet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Game Theory</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Game Theory</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00182-026-00996-0">10.1007/s00182-026-00996-0</a><span class="pill">城市与区域</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2300,7 +2301,7 @@
     <p class="title-zh">官僚规范与动态贝叶斯说服</p>
     <p class="authors">Yihang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.013">10.1016/j.geb.2026.05.013</a><span class="pill">计量方法</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2312,7 +2313,7 @@
     <p class="title-zh">委托财务决策的动机</p>
     <p class="authors">Mikhail Freer, Daniel Friedman, Simon Weidenholzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.012">10.1016/j.geb.2026.05.012</a><span class="pill">金融</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2324,7 +2325,7 @@
     <p class="title-zh">网络损耗：理论与政策启示</p>
     <p class="authors">Christophe Bravard, Promit K. Chaudhuri, Sudipta Sarangi, Hector Tzavellas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.06.002">10.1016/j.geb.2026.06.002</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2336,7 +2337,7 @@
     <p class="title-zh">价值与概率领域不确定性的消解</p>
     <p class="authors">Eungik Lee, Kathleen Ngangoue, Andrew Schotter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.05.009">10.1016/j.geb.2026.05.009</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2348,7 +2349,7 @@
     <p class="title-zh">次模全局进入博弈中的有效均衡</p>
     <p class="authors">Rabah Amir, Rodrigo Harrison, Pedro Jara-Moroni</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.014">10.1016/j.geb.2026.03.014</a><span class="pill">国际贸易</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2360,7 +2361,7 @@
     <p class="title-zh">环境规制中的参照点转移：从污染者付费到受益者补偿</p>
     <p class="authors">Jens Gudmundsson, Jens Leth Hougaard, Erik Ansink</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Scandinavian Journal of Economics</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70030">10.1111/sjoe.70030</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -2372,7 +2373,7 @@
     <p class="title-zh">应用理论改造</p>
     <p class="authors">Ran Spiegler</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economica</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecca.70061">10.1111/ecca.70061</a><span class="pill">农业与食品</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -2384,7 +2385,7 @@
     <p class="title-zh">社会最优的犯罪与惩罚</p>
     <p class="authors">Eduardo Ferraz, Rodrigo R Soares</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag025">10.1093/jeea/jvag025</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2396,7 +2397,7 @@
     <p class="title-zh">推理与选择的认知理论</p>
     <p class="authors">Pedro Bordalo, Nicola Gennaioli, Giacomo Lanzani, Andrei Shleifer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Quarterly Journal of Economics</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Quarterly Journal of Economics</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/qje/qjag023">10.1093/qje/qjag023</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2408,7 +2409,7 @@
     <p class="title-zh">商业、流动性与信息周期</p>
     <p class="authors">Gorkem Bostanci, Guillermo Ordoñez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Quarterly Journal of Economics</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Quarterly Journal of Economics</span><span class="source-chip">在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/qje/qjag029">10.1093/qje/qjag029</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -2420,7 +2421,7 @@
     <p class="title-zh">公共服务的私人提供：来自医疗补助随机分配的证据</p>
     <p class="authors">Danil Agafiev Macambira, Michael Geruso, Anthony Lollo, Chima D. Ndumele, Jacob Wallace</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230541">10.1257/aer.20230541</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>

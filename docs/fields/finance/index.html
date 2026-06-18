@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>金融</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%)}.banner-main{padding:34px 42px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:28px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:0 1px 0 rgba(31,35,40,.05);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;color:var(--muted);font-size:13px}.operator-card img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;object-fit:cover}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:280px}.hero-stats{grid-template-columns:1fr}.event{grid-template-columns:1fr}}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -60,7 +61,7 @@
     <p class="title-zh">学习驾驭新型金融技术</p>
     <p class="authors">EMILY BREZA, MARTIN KANZ, LEORA KLAPPER</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70062">10.1111/jofi.70062</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -72,7 +73,7 @@
     <p class="title-zh">企业吸收外部知识能力的测度</p>
     <p class="authors">Michael Woeppel, M. Deniz Yavuz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104322">10.1016/j.jfineco.2026.104322</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -84,7 +85,7 @@
     <p class="title-zh">共同基金是否言行一致？来自基金风险披露的证据</p>
     <p class="authors">Jinfei Sheng, Nan Xu, Lu Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag020">10.1093/rfs/hhag020</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -96,7 +97,7 @@
     <p class="title-zh">以不持有股票为荣：身份认同如何塑造金融决策</p>
     <p class="authors">Luca Henkel, Christian Pugnaghi-Zimpelmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag034">10.1093/rfs/hhag034</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -108,7 +109,7 @@
     <p class="title-zh">集体道德风险、风险分担与银行业联盟</p>
     <p class="authors">Anatoli Segura, Sergio Vicente</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag024">10.1093/rfs/hhag024</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -120,7 +121,7 @@
     <p class="title-zh">生成式人工智能与资产管理</p>
     <p class="authors">Jinfei Sheng, Zheng Sun, Baozhong Yang, Alan L Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag050">10.1093/rfs/hhag050</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -132,7 +133,7 @@
     <p class="title-zh">共同基金流动与市政融资中的资本供给</p>
     <p class="authors">Manuel Adelino, Sophia Chiyoung Cheong, Jaewon Choi, Ji Yeol Jimmy Oh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag048">10.1093/rfs/hhag048</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -144,7 +145,7 @@
     <p class="title-zh">宏观经济预期与信用卡支出</p>
     <p class="authors">Mikhail Galashin, Martin Kanz, Ricardo Perez-Truglia</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhaf079">10.1093/rfs/hhaf079</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -156,7 +157,7 @@
     <p class="title-zh">种族财富差距的动态模型</p>
     <p class="authors">Sylvain Catherine, Ellen Jiayang Lu, James D Paron</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag047">10.1093/rfs/hhag047</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -168,7 +169,7 @@
     <p class="title-zh">符合标准的专利：关于竞争、创新与增长的企业层面证据</p>
     <p class="authors">Antonin Bergeaud, Julia Schmidt, Riccardo Zago</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104281">10.1016/j.jfineco.2026.104281</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -180,7 +181,7 @@
     <p class="title-zh">运营做空与ETF流动性提供</p>
     <p class="authors">Richard B. Evans, Rabih Moussawi, Michael S. Pagano, John Sedunov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104241">10.1016/j.jfineco.2026.104241</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -192,7 +193,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-405x(26)00058-9">10.1016/s0304-405x(26)00058-9</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -204,7 +205,7 @@
     <p class="title-zh">基础过程与增长</p>
     <p class="authors">Wing Wah Tham, Salomé Baslandze, Elvira Sojli, Leo Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104276">10.1016/j.jfineco.2026.104276</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -216,7 +217,7 @@
     <p class="title-zh">面对面社交互动与本地信息优势</p>
     <p class="authors">Robin Y. Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104280">10.1016/j.jfineco.2026.104280</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -228,7 +229,7 @@
     <p class="title-zh">过去即是序幕：事件前后横截面收益的推断</p>
     <p class="authors">Jonathan B. Cohn, Travis L. Johnson, Zack Liu, Malcolm I. Wardlaw</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104278">10.1016/j.jfineco.2026.104278</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -240,7 +241,7 @@
     <p class="title-zh">市场反馈：来自马嘴的证据</p>
     <p class="authors">Itay Goldstein, Bibo Liu, Liyan Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104255">10.1016/j.jfineco.2026.104255</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -252,7 +253,7 @@
     <p class="title-zh">双重同伴效应与跨股票可预测性</p>
     <p class="authors">Doron Avramov, Shuyi Ge, Shaoran Li, Oliver Linton</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104274">10.1016/j.jfineco.2026.104274</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -264,7 +265,7 @@
     <p class="title-zh">无现金支付与金融包容性</p>
     <p class="authors">Shumiao Ouyang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104277">10.1016/j.jfineco.2026.104277</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -276,7 +277,7 @@
     <p class="title-zh">现金异质性与货币政策的支付渠道</p>
     <p class="authors">ALTAN PAZARBAŞI</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70059">10.1111/jofi.70059</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -288,7 +289,7 @@
     <p class="title-zh">从压价行为中识别知情交易风险</p>
     <p class="authors">YASHAR H. BARARDEHI, PETER DIXON, QIYU LIU</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70047">10.1111/jofi.70047</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -300,7 +301,7 @@
     <p class="title-zh">公司债券中的报价竞争</p>
     <p class="authors">TERRENCE HENDERSHOTT, DAN LI, DMITRY LIVDAN, NORMAN SCHÜRHOFF, KUMAR VENKATARAMAN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70048">10.1111/jofi.70048</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -312,7 +313,7 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.13349">10.1111/jofi.13349</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -324,7 +325,7 @@
     <p class="title-zh">公告</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70017">10.1111/jofi.70017</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -336,7 +337,7 @@
     <p class="title-zh">最后避险对冲者：来自巴西外汇干预、本地信贷与全球金融周期的证据</p>
     <p class="authors">RODRIGO BARBONE GONZALEZ, DMITRY KHAMETSHIN, JOSÉ‐LUIS PEYDRÓ, ANDREA POLO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70054">10.1111/jofi.70054</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -348,7 +349,7 @@
     <p class="title-zh">美国金融协会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.13350">10.1111/jofi.13350</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -360,7 +361,7 @@
     <p class="title-zh">有目的的投资：来自私人基金会的证据</p>
     <p class="authors">MATTEO BINFARÈ, KYLE E. ZIMMERSCHIED</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70055">10.1111/jofi.70055</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -372,7 +373,7 @@
     <p class="title-zh">为何CEO薪酬水平变得不那么多样化？</p>
     <p class="authors">TORSTEN JOCHEM, GAIZKA ORMAZABAL, ANJANA RAJAMANI</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70050">10.1111/jofi.70050</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -384,7 +385,7 @@
     <p class="title-zh">数字冲击下的银行竞争：对金融包容性的影响</p>
     <p class="authors">ERICA XUEWEI JIANG, GLORIA YANG YU, JINYUAN ZHANG</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70051">10.1111/jofi.70051</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -396,7 +397,7 @@
     <p class="title-zh">资产收益中的消费</p>
     <p class="authors">SVETLANA BRYZGALOVA, JIANTAO HUANG, CHRISTIAN JULLIARD</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70044">10.1111/jofi.70044</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -408,7 +409,7 @@
     <p class="title-zh">零售保证金交易的驱动因素及其影响</p>
     <p class="authors">JIANGZE BIAN, ZHI DA, ZHIGUO HE, DONG LOU, KELLY SHUE 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70049">10.1111/jofi.70049</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -420,7 +421,7 @@
     <p class="title-zh">全球无风险利率与便利收益</p>
     <p class="authors">William Diamond, Peter Van Tassel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70045">10.1111/jofi.70045</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -432,7 +433,7 @@
     <p class="title-zh">驱逐政策的均衡效应</p>
     <p class="authors">BOAZ ABRAMSON</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70046">10.1111/jofi.70046</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -444,7 +445,7 @@
     <p class="title-zh">党派创业</p>
     <p class="authors">JOSEPH ENGELBERG, JORGE GUZMAN, RUNJING LU, WILLIAM MULLINS</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70042">10.1111/jofi.70042</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -456,7 +457,7 @@
     <p class="title-zh">极限学习：从信贷扩展中推断收入</p>
     <p class="authors">XIAO YIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70040">10.1111/jofi.70040</a><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -468,7 +469,7 @@
     <p class="title-zh">天使投资、创业与就业动态：来自投资者认证规则的证据</p>
     <p class="authors">Laura Lindsey, Luke C.D. Stein</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104323">10.1016/j.jfineco.2026.104323</a><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -480,7 +481,7 @@
     <p class="title-zh">债务-权益利差</p>
     <p class="authors">HUI CHEN, ZHIYAO CHEN, JUN LI</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-06-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-06-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70060">10.1111/jofi.70060</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -492,7 +493,7 @@
     <p class="title-zh">私募股权与企业内部薪酬差距</p>
     <p class="authors">LILY FANG, JIM GOLDMAN, ALEXANDRA ROULET</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70043">10.1111/jofi.70043</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -508,7 +509,7 @@
     <p class="title-zh">《金融学刊》2025年度主编报告</p>
     <p class="authors">ANTOINETTE SCHOAR</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70061">10.1111/jofi.70061</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -520,7 +521,7 @@
     <p class="title-zh">共同定价因子动物园</p>
     <p class="authors">Alexander Dickerson, Christian Julliard, Philippe Mueller</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104295">10.1016/j.jfineco.2026.104295</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -532,7 +533,7 @@
     <p class="title-zh">污浊空气与绿色投资：污染信息对资产配置的影响</p>
     <p class="authors">Raymond Fisman, Pulak Ghosh, Arkodipta Sarkar, Jian Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104309">10.1016/j.jfineco.2026.104309</a><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -544,7 +545,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-405x(26)00087-5">10.1016/s0304-405x(26)00087-5</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -556,7 +557,7 @@
     <p class="title-zh">实际与名义债券下的政府债务管理与通胀</p>
     <p class="authors">Lukas Schmid, Vytautas Valaitis, Alessandro T. Villa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104293">10.1016/j.jfineco.2026.104293</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -568,7 +569,7 @@
     <p class="title-zh">眼不见，心不烦：撤资与污染性资产的全球重新配置</p>
     <p class="authors">Tobias Berg, Lin Ma, Daniel Streitz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104308">10.1016/j.jfineco.2026.104308</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -580,7 +581,7 @@
     <p class="title-zh">无风险市场中的风险规避交易商——交易台风险限额的作用</p>
     <p class="authors">Dan Li, Lubomir Petrasek, Mary Tian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104290">10.1016/j.jfineco.2026.104290</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -592,7 +593,7 @@
     <p class="title-zh">金融素养与金融犯罪：基于断点回归方法的研究</p>
     <p class="authors">Paul G. Freed, John Hackney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104292">10.1016/j.jfineco.2026.104292</a><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -604,7 +605,7 @@
     <p class="title-zh">政府诉讼风险与低收入群体抵押贷款发放的减少</p>
     <p class="authors">W. Scott Frame, Kristopher Gerardi, Erik J. Mayer, Billy Y. Xu, Lawrence Chengzhi Zhao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104279">10.1016/j.jfineco.2026.104279</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -616,7 +617,7 @@
     <p class="title-zh">可持续投资与市场治理</p>
     <p class="authors">Alvin Chen, Deeksha Gupta, Jan Starmans</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104273">10.1016/j.jfineco.2026.104273</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -628,7 +629,7 @@
     <p class="title-zh">外推者与反向投资者：预测偏差与个人投资者股票交易</p>
     <p class="authors">Steffen Andersen, Stephen G. Dimmock, Kasper Meisner Nielsen, Kim Peijnenburg</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104291">10.1016/j.jfineco.2026.104291</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -640,7 +641,7 @@
     <p class="title-zh">玻璃箱机器学习与公司债券收益</p>
     <p class="authors">Sebastian Bell, Ali Kakhbod, Martin Lettau, Abdolreza Nazemi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104294">10.1016/j.jfineco.2026.104294</a><span class="pill">金融</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -652,7 +653,7 @@
     <p class="title-zh">隐匿于雷达之下：非高层管理人员的内部交易</p>
     <p class="authors">Hans K. Hvide, Kasper Meisner Nielsen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104282">10.1016/j.jfineco.2026.104282</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -664,7 +665,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-405x(26)00070-x">10.1016/s0304-405x(26)00070-x</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -676,7 +677,7 @@
     <p class="title-zh">风险共担：企业风险金融资产投资与储蓄</p>
     <p class="authors">Teng Huang, Stefano Sacchetto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104283">10.1016/j.jfineco.2026.104283</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -688,7 +689,7 @@
     <p class="title-zh">期权收益中的方差溢价与季节性动量</p>
     <p class="authors">Steven L Heston, Christopher S Jones, Mehdi Khorram, Shuaiqi Li, Haitao Mo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag057">10.1093/rfs/hhag057</a><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -700,7 +701,7 @@
     <p class="title-zh">疫情救济欺诈是否推高了房价？</p>
     <p class="authors">John M. Griffin, Samuel Kruger, Prateek Mahajan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104275">10.1016/j.jfineco.2026.104275</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -712,7 +713,7 @@
     <p class="title-zh">公共产品投票：公民与股东</p>
     <p class="authors">Robin Döttling, Doron Levit, Nadya Malenko, Magdalena Rola-Janicka</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag051">10.1093/rfs/hhag051</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -724,7 +725,7 @@
     <p class="title-zh">主题集中度与共同基金业绩</p>
     <p class="authors">John (Jianqiu) Bai, Yuehua Tang, Chi Wan, Zafer Yuksel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag021">10.1093/rfs/hhag021</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -736,7 +737,7 @@
     <p class="title-zh">局部均衡思维、外推与泡沫</p>
     <p class="authors">Francesca Bastianello, Paul Fontanier</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag053">10.1093/rfs/hhag053</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -748,7 +749,7 @@
     <p class="title-zh">社会政治种族/民族敌意的真实效应：AAPI仇恨事件期间的共同基金经理表现</p>
     <p class="authors">Vikas Agarwal, Wei Jiang, Yuchen Luo, Hong Zou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag052">10.1093/rfs/hhag052</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -760,7 +761,7 @@
     <p class="title-zh">全球资本与本地资产：房价、数量与弹性*</p>
     <p class="authors">Caitlin S Gorback, Benjamin J Keys</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag040">10.1093/rfs/hhag040</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -772,7 +773,7 @@
     <p class="title-zh">引入（近乎）冗余证券的影响：来自马来西亚公司债券的证据</p>
     <p class="authors">Antje Berndt, Jean Helwege, Amanda Liu, Frank Packer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104310">10.1016/j.jfineco.2026.104310</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -784,7 +785,7 @@
     <p class="title-zh">企业间金融联系与美元风险传导</p>
     <p class="authors">Bryan Hardy, Felipe Saffie, Ina Simonovska</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104311">10.1016/j.jfineco.2026.104311</a><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -796,7 +797,7 @@
     <p class="title-zh">女性发明人的专利是否被低估引用？基于文本估计的证据</p>
     <p class="authors">Yael V. Hochberg, Ali Kakhbod, Peiyao Li, Kunal Sachdeva</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104307">10.1016/j.jfineco.2026.104307</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -808,7 +809,7 @@
     <p class="title-zh">汇率因子结构下的货币政策传导</p>
     <p class="authors">Erik Loualiche, Alexandre R. Pecora, Fabricius Somogyi, Colin Ward</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104305">10.1016/j.jfineco.2026.104305</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -820,7 +821,7 @@
     <p class="title-zh">知识产权保护缺失与竞争：基于大语言模型的检验</p>
     <p class="authors">Utku U. Acikalin, Tolga Caskurlu, Gerard Hoberg, Gordon M. Phillips</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104306">10.1016/j.jfineco.2026.104306</a><span class="pill">金融</span></span></div>
     </div>
   </div>

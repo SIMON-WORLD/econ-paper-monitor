@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>与中国相关</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%)}.banner-main{padding:34px 42px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:28px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:0 1px 0 rgba(31,35,40,.05);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;color:var(--muted);font-size:13px}.operator-card img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;object-fit:cover}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:280px}.hero-stats{grid-template-columns:1fr}.event{grid-template-columns:1fr}}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -64,7 +65,7 @@
     <p class="title-zh">缩小差距：可再生能源发展如何降低中国城乡收入不平等</p>
     <p class="authors">Jing-Yue Liu, Quan Lei, Yue-Jun Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107489">10.1016/j.worlddev.2026.107489</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -76,7 +77,7 @@
     <p class="title-zh">产出质量、生产率与需求：来自中国钢铁行业的证据</p>
     <p class="authors">Jing Li, Shengyu Li, Hongsong Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>RAND Journal of Economics</span><span>在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RAND Journal of Economics</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1756-2171.70063">10.1111/1756-2171.70063</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -88,7 +89,7 @@
     <p class="title-zh">谁承担成本：金融摩擦与劳动力买方垄断压价</p>
     <p class="authors">Ming Li, Yao Amber Li, Zehao Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103828">10.1016/j.jdeveco.2026.103828</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -100,7 +101,7 @@
     <p class="title-zh">化压力为动力：气候风险暴露与企业绿色转型</p>
     <p class="authors">Hang Chen, Xiaotian Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-16 · 来源：T&amp;F 备选日期</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-16 · 来源：T&amp;F 备选日期</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687742">10.1080/00036846.2026.2687742</a><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -112,7 +113,7 @@
     <p class="title-zh">标签陷阱：农药标签的意外后果与助推的力量</p>
     <p class="authors">Juhui Chen, Zhipeng He, Junfei Bai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70086">10.1002/aepp.70086</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -124,7 +125,7 @@
     <p class="title-zh">中国北方以地表水替代地下水灌溉：现状、成效与挑战</p>
     <p class="authors">Tianhe Sun, Baozhu Guan, Huang Chen, Jinxia Wang, Wei Chao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70108">10.1111/1467-8489.70108</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -136,7 +137,7 @@
     <p class="title-zh">中国农业碳排放效率及其区域收敛性：土地利用模式与经济因素的作用</p>
     <p class="authors">Yiqi Zhu, Hanwei Liang, Yifei Wang, Yuran Feng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108125">10.1016/j.landusepol.2026.108125</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -148,7 +149,7 @@
     <p class="title-zh">中国建设用地扩张优先占用优质耕地的时空动态及其对粮食生产潜力的影响</p>
     <p class="authors">Shuangqing Sheng, Wei Song, Xiangzheng Deng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108143">10.1016/j.landusepol.2026.108143</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -160,7 +161,7 @@
     <p class="title-zh">1公里网格视角下中国平原与山区耕地撂荒的复合驱动机制</p>
     <p class="authors">Jiayi Jiang, Sijing Ye, Longfeng Weng, Guoli Wang, Shuyi Ren 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108138">10.1016/j.landusepol.2026.108138</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -172,7 +173,7 @@
     <p class="title-zh">多仓库技术中的效率、影子定价与制度转换：来自受监管畜牧场的证据</p>
     <p class="authors">Youpei Yan, Robert G. Chambers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70059">10.1111/1477-9552.70059</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -184,7 +185,7 @@
     <p class="title-zh">内部化外部性的再配置效应：来自中国秸秆禁烧政策的证据</p>
     <p class="authors">Wenyuan Hua</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70052">10.1111/1477-9552.70052</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -196,7 +197,7 @@
     <p class="title-zh">中国北方灌溉投资与农业生产力</p>
     <p class="authors">Zhuanlin Wang, Jinxia Wang, Kaixing Huang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70072">10.1002/ajae.70072</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -208,7 +209,7 @@
     <p class="title-zh">奖励、惩罚与沟通在公共池塘资源管理中的绩效：来自中国草原保护的证据</p>
     <p class="authors">Min Liu, Ming Jiang, Pengfei Liu, Jizhe Wang, Zihan Nie 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70078">10.1002/ajae.70078</a><span class="pill">农业与食品</span><span class="pill">理论与博弈</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -220,7 +221,7 @@
     <p class="title-zh">消费者对环境标准的反应：来自中国汽油管制的证据</p>
     <p class="authors">Yucheng Wang, Lei Zhang, Liyang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103314">10.1016/j.jeem.2026.103314</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -232,7 +233,7 @@
     <p class="title-zh">酷热难行？温度对卡车司机劳动力供给与工作绩效的影响</p>
     <p class="authors">Wenzhi Dave Ding, Xincheng Wang, Yucheng Wang, Zhenxuan Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103338">10.1016/j.jeem.2026.103338</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -244,7 +245,7 @@
     <p class="title-zh">多布斯诉杰克逊案后的早期堕胎禁令与性别选择</p>
     <p class="authors">Xin Brown, William Jergins</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Population Economics</span><span class="source-chip">在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01174-y">10.1007/s00148-026-01174-y</a><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -256,7 +257,7 @@
     <p class="title-zh">两组三阶段交错双重差分设计与中国最低工资劳动力市场效应评估</p>
     <p class="authors">Zhengxiong Yang, Mingwei Liu, Shiwei Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-16 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-16 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688897">10.1080/00036846.2026.2688897</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -268,7 +269,7 @@
     <p class="title-zh">人工智能发展与企业供应链重构：来自中国的证据</p>
     <p class="authors">Xinqi Li, Yun Wang, Jinhai Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2684775">10.1080/00036846.2026.2684775</a><span class="pill">发展经济学</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -280,7 +281,7 @@
     <p class="title-zh">智能制造与企业创新：来自中国的证据</p>
     <p class="authors">Zhidong Tan, Fei Li, Xujia Zong, Haoxiang Wen, Yuhong Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2682551">10.1080/00036846.2026.2682551</a><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -292,7 +293,7 @@
     <p class="title-zh">数据要素市场化与企业投资效率——基于数据交易平台设立的准自然实验</p>
     <p class="authors">Yuanbin Xu, Xinyang Zhang, Shiyun Zhong, Yani Wang, Fucai Lu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2682553">10.1080/00036846.2026.2682553</a><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -304,7 +305,7 @@
     <p class="title-zh">地方政府财政透明度对企业融资成本的影响：来自中国的证据</p>
     <p class="authors">Dawei Liang, Sihan Luan, Qianqian Du, Peixi Miao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-06 · 来源：T&amp;F 备选日期</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-06 · 来源：T&amp;F 备选日期</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2685224">10.1080/00036846.2026.2685224</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -316,7 +317,7 @@
     <p class="title-zh">城市森林：环境健康价值与风险</p>
     <p class="authors">Jianwei Xing, Zhiren Hu, Fan Xia, Jintao Xu, Eric Yongchen Zou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1776">10.1162/rest.a.1776</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -328,7 +329,7 @@
     <p class="title-zh">公共卫生、人力资本与经济增长：中国疾病控制的持久影响</p>
     <p class="authors">Fan He, Wei Huang, Yinghao Pan, Jiao Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1781">10.1162/rest.a.1781</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -340,7 +341,7 @@
     <p class="title-zh">大型流行病如何重新分配市场力量？来自2003年中国SARS冲击的证据</p>
     <p class="authors">Yating Jiang, Hongsong Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1769">10.1162/rest.a.1769</a><span class="pill">金融</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -352,7 +353,7 @@
     <p class="title-zh">东京回合中的贸易与美国不平等</p>
     <p class="authors">Andrew Greenland, James Lake, John Lopresti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1774">10.1162/rest.a.1774</a><span class="pill">劳动</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -364,7 +365,7 @@
     <p class="title-zh">跨国竞争反应的异质性：理论与贸易数据的证据</p>
     <p class="authors">Hamed Atrianfar, Hamid Firooz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1772">10.1162/rest.a.1772</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -376,7 +377,7 @@
     <p class="title-zh">遏制跨界污染的环境与经济影响评估：来自中国的证据</p>
     <p class="authors">Zeyang Zhang, Yuanyi Xu, Dunhu Chang, Dingding Shao, Xin Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103854">10.1016/j.jdeveco.2026.103854</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -388,7 +389,7 @@
     <p class="title-zh">零售保证金交易的驱动因素及其影响</p>
     <p class="authors">JIANGZE BIAN, ZHI DA, ZHIGUO HE, DONG LOU, KELLY SHUE 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Finance</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Finance</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jofi.70049">10.1111/jofi.70049</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -400,7 +401,7 @@
     <p class="title-zh">设计天意：中国帝国文官制度中的职位分配</p>
     <p class="authors">Inácio Bó, Li Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.03.013">10.1016/j.geb.2026.03.013</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -412,7 +413,7 @@
     <p class="title-zh">台湾机制的福利性质</p>
     <p class="authors">Ilan Wolff</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2025.11.005">10.1016/j.geb.2025.11.005</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -428,7 +429,7 @@
     <p class="title-zh">继承性不平等与美国、中国、印度和南非的机会分布</p>
     <p class="authors">Paolo Brunori, Francisco H. G. Ferreira, Pedro Salas‐Rojo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economica</span><span>在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economica</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ecca.70055">10.1111/ecca.70055</a><span class="pill">发展经济学</span><span class="pill">不平等</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -440,7 +441,7 @@
     <p class="title-zh">中国共产党的崛起</p>
     <p class="authors">Ting Chen, James Kai-sing Kung</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag029">10.1093/jeea/jvag029</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -452,7 +453,7 @@
     <p class="title-zh">无知是谁的福气：中国农村强制婚前体检的废除与婚姻结果</p>
     <p class="authors">Li Han, Xinzheng Shi, Ming-ang Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag026">10.1093/jeea/jvag026</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -464,7 +465,7 @@
     <p class="title-zh">后天如何激发先天以决定储蓄行为：来自中国上山下乡运动与双胞胎数据的证据</p>
     <p class="authors">Wenchao Li, Junjian Yi, Junsen Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag071">10.1093/ej/ueag071</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -476,7 +477,7 @@
     <p class="title-zh">生育控制政策的代际影响：规范的作用</p>
     <p class="authors">Rufei Guo, Lin Lin, Junjian Yi, Hanyu Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag063">10.1093/ej/ueag063</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -488,7 +489,7 @@
     <p class="title-zh">技术转移与早期工业发展：来自中苏联盟的证据</p>
     <p class="authors">Michela Giorcelli, Bo Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag047">10.1093/restud/rdag047</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -500,7 +501,7 @@
     <p class="title-zh">数字时代的应用安全溢出：不道德还是无知？</p>
     <p class="authors">Yuyu Chen, Jiayi Hou, Ziteng Lei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107628">10.1016/j.jebo.2026.107628</a><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -512,7 +513,7 @@
     <p class="title-zh">没杀死你的会让你变矮：产前空气污染对成年身高的影响</p>
     <p class="authors">Liping Chen, Yuanyuan Chen, Jiada Lin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107633">10.1016/j.jebo.2026.107633</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -524,7 +525,7 @@
     <p class="title-zh">反腐败运动与官僚就业的代际传递：来自中国的证据</p>
     <p class="authors">Shuai Chen, Erqi Ge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107638">10.1016/j.jebo.2026.107638</a><span class="pill">劳动</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -536,7 +537,7 @@
     <p class="title-zh">低空经济城市试点政策对企业全要素生产率的影响：来自中国的证据</p>
     <p class="authors">Lin Wang, Fengqin Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688895">10.1080/00036846.2026.2688895</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -548,7 +549,7 @@
     <p class="title-zh">人工智能技术如何影响跨国企业海外投资效率</p>
     <p class="authors">Xiaoyang Zhao, Yongjian Huang, Yi Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688896">10.1080/00036846.2026.2688896</a><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -560,7 +561,7 @@
     
     <p class="authors">魏后凯 胡向东 司伟 刘承芳 胡冰川 何可 刘守英 吕捷 刘长全 杨穗</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123032">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -572,7 +573,7 @@
     
     <p class="authors">杨骞 白鲁佳 史浩琰 刘华军</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123033">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -584,7 +585,7 @@
     
     <p class="authors">秦国庆 杜宝瑞 朱玉春 高原</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123034">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -596,7 +597,7 @@
     
     <p class="authors">周力 苏子凡 李昊洋</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123035">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -608,7 +609,7 @@
     
     <p class="authors">杨新宇 高鸣</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123036">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -620,7 +621,7 @@
     
     <p class="authors">严斌剑 余宝林 王一如 周应恒</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123037">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -632,7 +633,7 @@
     
     <p class="authors">张晓蕾 尚航标 李嘉琪</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123038">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -644,7 +645,7 @@
     
     <p class="authors">王捷 尹春凤 张利庠</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123039">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -656,7 +657,7 @@
     
     <p class="authors">谢作渺 李圆圆 贾雯雯</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国农村经济</span><span>在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国农村经济</span><span class="source-chip">在线日期 2026-06-15 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://zgncjj.ajcass.com/#/detail?contentId=123040">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -668,7 +669,7 @@
     
     <p class="authors">沈坤荣, 金童谣</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):5-29 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):5-29 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260501&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -680,7 +681,7 @@
     
     <p class="authors">蒋伟杰, 齐晨扬, 陈琦</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):30-53 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):30-53 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260502&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -692,7 +693,7 @@
     
     <p class="authors">何小钢, 毛莘娅, 郭晓斌</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):54-78 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):54-78 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260503&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -704,7 +705,7 @@
     
     <p class="authors">王林辉, 冯彤, 曹宇彤</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):79-104 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):79-104 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260504&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -716,7 +717,7 @@
     
     <p class="authors">宋建, 邵蔚, 王静</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):105-130 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):105-130 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260505&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -728,7 +729,7 @@
     
     <p class="authors">易巍</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):131-157 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):131-157 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260506&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -740,7 +741,7 @@
     
     <p class="authors">梁若冰, 胡文君, 刘睿蕾, 汤韵</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):158-181 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):158-181 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260507&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -752,7 +753,7 @@
     
     <p class="authors">苏云晴, 鲁玮骏, 胡稳权</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):182-204 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):182-204 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260508&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -764,7 +765,7 @@
     
     <p class="authors">汪玲, 杜浩锋</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):205-230 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):205-230 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260509&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -776,7 +777,7 @@
     
     <p class="authors">霍文希, 唐飞鹏</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>数量经济技术经济研究</span><span>来源期次 2026,(5):231-252 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="source-chip">来源期次 2026,(5):231-252 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.jqte.net/sljjjsjjyj/ch/reader/view_abstract.aspx?file_no=20260510&amp;flag=1">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -788,7 +789,7 @@
     
     <p class="authors">李辉文, 冯皓, 王磊, 梁渊博</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :5-28 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :5-28 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122969">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -800,7 +801,7 @@
     
     <p class="authors">易先忠, 查龙, 高凌云</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :29-51 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :29-51 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122970">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -812,7 +813,7 @@
     
     <p class="authors">魏立佳, 白璐, 伍梦圆</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :52-75 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :52-75 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122971">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -824,7 +825,7 @@
     
     <p class="authors">张雪兰, 赵圆, 徐子尧, 吴蓉蓉</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :99-122 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :99-122 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122973">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -836,7 +837,7 @@
     
     <p class="authors">蔡庆丰, 黄蕾, 李东旭</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :123-146 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :123-146 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122974">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -848,7 +849,7 @@
     
     <p class="authors">赵晶, 刘家彤, 谢泰宇</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :147-168 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :147-168 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122975">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -860,7 +861,7 @@
     
     <p class="authors">岳崴, 屈建文, 喻旭兰, 刘悦</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :169-192 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :169-192 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122976">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -872,7 +873,7 @@
     
     <p class="authors">杨震宁, 童奕铭</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>中国工业经济</span><span>来源期次 2026 年,第 5 期 :193-216 页 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">中国工业经济</span><span class="source-chip">来源期次 2026 年,第 5 期 :193-216 页 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="http://ciejournal.ajcass.com/Magazine/Show?id=122977">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -884,7 +885,7 @@
     
     <p class="authors">张莉, 张圣哲, 赵旭杰</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123017">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -896,7 +897,7 @@
     
     <p class="authors">简新华, 聂长飞</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123007">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -908,7 +909,7 @@
     
     <p class="authors">蒋永穆</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123008">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -920,7 +921,7 @@
     
     <p class="authors">王勇, 傅芳宁, 李红军</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123009">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -932,7 +933,7 @@
     
     <p class="authors">庄子罐, 曹稚敏, 方晶, 庄子银</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123010">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -944,7 +945,7 @@
     
     <p class="authors">李磊, 直银苹, 李川川</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123011">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -956,7 +957,7 @@
     
     <p class="authors">解咪, 钟宁桦, 姬永顺, 闫晟煜</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123012">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -968,7 +969,7 @@
     
     <p class="authors">王伟同, 李秀华</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123013">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -980,7 +981,7 @@
     
     <p class="authors">万海远, 辛柯均, 贺伟东, 申萌</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123014">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -992,7 +993,7 @@
     
     <p class="authors">吕之安, 刘冲, 谭姝颖, 刘莉亚</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123015">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1004,7 +1005,7 @@
     
     <p class="authors">何凡, 黄添羽, 刘庆, 周玉雯</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>经济研究</span><span>在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">经济研究</span><span class="source-chip">在线日期 2026-06-10 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://erj.ajcass.com/#/detail?contentId=123016">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1016,7 +1017,7 @@
     
     <p class="authors">汪建新, 沈璐</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>世界经济</span><span>在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">世界经济</span><span class="source-chip">在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/3">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1028,7 +1029,7 @@
     
     <p class="authors">张峰, 吴致尧, 黄玖立</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>世界经济</span><span>在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">世界经济</span><span class="source-chip">在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/34">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1040,7 +1041,7 @@
     
     <p class="authors">徐现祥, 李粤麟, 陈希路</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>世界经济</span><span>在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">世界经济</span><span class="source-chip">在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/61">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1052,7 +1053,7 @@
     
     <p class="authors">游家兴, 夏雨珂, 陈璐</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>世界经济</span><span>在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">世界经济</span><span class="source-chip">在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/92">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1064,7 +1065,7 @@
     
     <p class="authors">张晨, 万相昱, 张琦, 徐超</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>世界经济</span><span>在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">世界经济</span><span class="source-chip">在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/134">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1076,7 +1077,7 @@
     
     <p class="authors">王群勇, 张慧敏</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>世界经济</span><span>在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">世界经济</span><span class="source-chip">在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/163">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1088,7 +1089,7 @@
     
     <p class="authors">尹志超, 栗传政, 沈吉, 吴夕</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>世界经济</span><span>在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">世界经济</span><span class="source-chip">在线日期 2026-06-11 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://sjjj.magtech.com.cn/CN/Y2026/V49/I6/196">文章链接</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1100,7 +1101,7 @@
     <p class="title-zh">基于卫星遥感数据的中国耕地非农化空间显式解析：30年空间格局与转换类型分析</p>
     <p class="authors">Desheng Jiang, Zhuojian Wen, Yuqi Zhong, Yuecheng Li, Guilin Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108137">10.1016/j.landusepol.2026.108137</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1112,7 +1113,7 @@
     <p class="title-zh">从政策试点到绿色转型：STF政策影响城市绿色竞争力提升的多维证据</p>
     <p class="authors">Kedi Jing, Baoliu Liu, Haotian Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2685877">10.1080/00036846.2026.2685877</a><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1124,7 +1125,7 @@
     <p class="title-zh">数字化转型与制造业盈利能力：来自中国的证据</p>
     <p class="authors">Fei Dong, Yingdong Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687745">10.1080/00036846.2026.2687745</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1136,7 +1137,7 @@
     <p class="title-zh">工业用地结构调整与经济韧性：来自中国贫困县的证据</p>
     <p class="authors">Jingtong Liu, Dingyang Zhou, Guanghui Jiang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108121">10.1016/j.landusepol.2026.108121</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1148,7 +1149,7 @@
     <p class="title-zh">土地交易背后的认知：多元森林价值取向如何影响中国农村的意愿、价格预期与林地流转行为</p>
     <p class="authors">Zhang Yiwen, Huo Yiming, Wang Weiye</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108127">10.1016/j.landusepol.2026.108127</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1160,7 +1161,7 @@
     <p class="title-zh">优质采购渠道准入与农场交货价格：来自中国稻农的证据</p>
     <p class="authors">Junjie Li, Jianping Li, Qin Xiao, Haixia Wu, Di Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103132">10.1016/j.foodpol.2026.103132</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1172,7 +1173,7 @@
     <p class="title-zh">中美紧张局势与全球STEM领域中国人才的重新配置</p>
     <p class="authors">Weidi Yuan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2025.11.004">10.1016/j.jce.2025.11.004</a><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1184,7 +1185,7 @@
     <p class="title-zh">工业化运动对人力资本积累的长期影响：来自中国“三线建设”的证据</p>
     <p class="authors">Guanghua Fang, Yinhe Liang, Fan Qin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.01.001">10.1016/j.jce.2026.01.001</a><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1196,7 +1197,7 @@
     <p class="title-zh">空气污染与消费者规避行为：来自中国高频支付数据的证据</p>
     <p class="authors">Haiqiang Chen, Shihe Fu, Zhuoyang Lyu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103374">10.1016/j.jeem.2026.103374</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1208,7 +1209,7 @@
     <p class="title-zh">硬化地方政府预算约束对企业数字化转型的影响：来自中国的证据</p>
     <p class="authors">Jing Yan, Yan Wang, Xinyi Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687732">10.1080/00036846.2026.2687732</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1220,7 +1221,7 @@
     <p class="title-zh">气候冲击与企业环境信息披露：来自中国的证据</p>
     <p class="authors">Yuzhou Guo, Qingyuan Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688438">10.1080/00036846.2026.2688438</a><span class="pill">环境与气候</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1232,7 +1233,7 @@
     <p class="title-zh">轻资产运营与企业创新绩效研究——来自中国上市企业的经验证据</p>
     <p class="authors">Xiang Hui, Bingxiang Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687735">10.1080/00036846.2026.2687735</a><span class="pill">金融</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1244,7 +1245,7 @@
     <p class="title-zh">通过环境税改革实现生产率与污染减排的双赢：来自中国的证据</p>
     <p class="authors">Jingru Chen, Chuanyu Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2679654">10.1080/00036846.2026.2679654</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1256,7 +1257,7 @@
     <p class="title-zh">从稻米到责任：中国的集体主义与环境支付意愿</p>
     <p class="authors">Yuxuan Fei, Jie Ma, Qiang Wen, Xiaojun Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2684702">10.1080/00036846.2026.2684702</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1268,7 +1269,7 @@
     <p class="title-zh">中央转移支付的空间配置效应：来自中国的证据</p>
     <p class="authors">Wenbin Huang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107490">10.1016/j.worlddev.2026.107490</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1280,7 +1281,7 @@
     <p class="title-zh">住房财富、家庭关系与心理健康：来自中国的证据</p>
     <p class="authors">Fenghang Li, Shenglong Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103837">10.1016/j.jdeveco.2026.103837</a><span class="pill">发展经济学</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1292,7 +1293,7 @@
     <p class="title-zh">从租金到成果：中国反腐改革与对非援助的有效性</p>
     <p class="authors">Yiran Du, Kai Feng, Gang Xu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103841">10.1016/j.jdeveco.2026.103841</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1304,7 +1305,7 @@
     <p class="title-zh">正轨之上？历史中国的铁路、工业发展与分配效应</p>
     <p class="authors">Shiyu Bo, Ting Chen, Cong Liu, Yan Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103827">10.1016/j.jdeveco.2026.103827</a><span class="pill">发展经济学</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1316,7 +1317,7 @@
     <p class="title-zh">不被窒息的艺术：环境意识、居民响应与中国土地交易</p>
     <p class="authors">Wei Zou, Pinghan Liang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103757">10.1016/j.jdeveco.2026.103757</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1328,7 +1329,7 @@
     <p class="title-zh">股权融资与出口：来自中国IPO审批的证据</p>
     <p class="authors">Robin Kaiji Gong, Yao Amber Li, Stephen Teng Sun, Shang-Jin Wei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104292">10.1016/j.jinteco.2026.104292</a><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1340,7 +1341,7 @@
     <p class="title-zh">价格发现与远距离市场整合：来自民国时期中国棉纱交易所的证据</p>
     <p class="authors">Yaohua Li, Yuhan Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101754">10.1016/j.eeh.2026.101754</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1352,7 +1353,7 @@
     <p class="title-zh">近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣</p>
     <p class="authors">Vincent Geloso, Jamie Bologna Pavlik, Yang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01404-7">10.1007/s11127-026-01404-7</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1364,7 +1365,7 @@
     <p class="title-zh">政治组织中文化多样性的经济后果</p>
     <p class="authors">Jiale Yan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01406-5">10.1007/s11127-026-01406-5</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1376,7 +1377,7 @@
     <p class="title-zh">中国经济垂直结构模型</p>
     <p class="authors">Xi Li, Xuewen Liu, Zhikun Lu, Yong Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105662">10.1016/j.jpubeco.2026.105662</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1388,7 +1389,7 @@
     <p class="title-zh">官僚如何回应混合激励合同？来自中国空气污染控制的证据</p>
     <p class="authors">Guangyu Cao, Xi Weng, Mingwei Xu, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105664">10.1016/j.jpubeco.2026.105664</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1400,7 +1401,7 @@
     <p class="title-zh">灾后援助与制造业发展：基于中国自然实验的再审视</p>
     <p class="authors">Sherzod B. Akhundjanov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113074">10.1016/j.econlet.2026.113074</a><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1412,7 +1413,7 @@
     <p class="title-zh">供应链风险感知、金融科技与跨区域资本流动：来自中国的证据</p>
     <p class="authors">Zinan Wu, Wen Li, Xuesong Tang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113069">10.1016/j.econlet.2026.113069</a><span class="pill">国际贸易</span><span class="pill">城市与区域</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1424,7 +1425,7 @@
     <p class="title-zh">农业服务外包与小农户水稻种植中的风险降低：来自中国的证据及全球启示</p>
     <p class="authors">Jian Zhang, Ashok K. Mishra, Gaoli Zhu, Awais Jabbar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70096">10.1002/aepp.70096</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1436,7 +1437,7 @@
     <p class="title-zh">视频信息如何影响农民对无人机服务支付意愿</p>
     <p class="authors">Hua Zhang, Lena Kuhn, Hang Xiong, Zhanli Sun, Thomas Glauben</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70094">10.1002/aepp.70094</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1448,7 +1449,7 @@
     <p class="title-zh">收入补贴对玉米收获损失的影响：来自中国农户的证据</p>
     <p class="authors">Xue Qu, Yi Luo, Yonghao Hu, Laping Wu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70118">10.1111/1467-8489.70118</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1460,7 +1461,7 @@
     <p class="title-zh">高成本监管，低效结果：欧盟毁林法规对全球大豆贸易的影响</p>
     <p class="authors">Manoj Sharma, Nelson B Villoria</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Review of Agricultural Economics</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Review of Agricultural Economics</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/erae/jbag008">10.1093/erae/jbag008</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1472,7 +1473,7 @@
     <p class="title-zh">管理型城市化与农业生产力：来自中国新型城镇化试点项目的证据</p>
     <p class="authors">Tianxiang Li, Yuanyi Liao, Tomas Baležentis, Zhiyang Shen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103129">10.1016/j.foodpol.2026.103129</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1484,7 +1485,7 @@
     <p class="title-zh">污染是否影响出口？来自中国的证据</p>
     <p class="authors">Jie Bai, Larry D. Qiu, Junji Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.02.006">10.1016/j.jce.2026.02.006</a><span class="pill">环境与气候</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1496,7 +1497,7 @@
     <p class="title-zh">区块链技术、联盟网络与企业纵向并购：来自中国的实证证据</p>
     <p class="authors">Rujun Xu, Jingran Wu, Na Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687728">10.1080/00036846.2026.2687728</a><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1508,7 +1509,7 @@
     <p class="title-zh">女性董事会秘书与股价信息含量：来自中国的证据</p>
     <p class="authors">Jianrong Wang, Bo Wang, Wokun Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687734">10.1080/00036846.2026.2687734</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1520,7 +1521,7 @@
     <p class="title-zh">金融科技采纳能否缓解能源贫困？基于中国家庭数据的证据</p>
     <p class="authors">Xiqian Wang, Yiming Chen, Zongyue He</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2685879">10.1080/00036846.2026.2685879</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1532,7 +1533,7 @@
     <p class="title-zh">中国双重劳动力市场中的大企业工资溢价</p>
     <p class="authors">Hong Cheng, Hongbin Li, Hui Wang, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Development and Cultural Change</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742631">10.1086/742631</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1544,7 +1545,7 @@
     <p class="title-zh">中介服务与农村土地市场竞争：中国区域异质性的证据</p>
     <p class="authors">Xu He, Hongmei Yi, Scott Rozelle, Takeshi Sakurai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Development and Cultural Change</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Development and Cultural Change</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742299">10.1086/742299</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1556,7 +1557,7 @@
     <p class="title-zh">社会政治种族/民族敌意的真实效应：AAPI仇恨事件期间的共同基金经理表现</p>
     <p class="authors">Vikas Agarwal, Wei Jiang, Yuchen Luo, Hong Zou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Financial Studies</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Financial Studies</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/rfs/hhag052">10.1093/rfs/hhag052</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1568,7 +1569,7 @@
     <p class="title-zh">胡椒的利润：印度洋贸易与喀拉拉邦经济（800–1600年）</p>
     <p class="authors">Chris Wickham</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic History Review</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70125">10.1111/ehr.70125</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1580,7 +1581,7 @@
     <p class="title-zh">能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示</p>
     <p class="authors">Atangana Ondoa Henri, Ngobo Philibert Junior</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Tax and Public Finance</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09973-5">10.1007/s10797-026-09973-5</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1592,7 +1593,7 @@
     <p class="title-zh">法官社会身份对改判决策的影响：基于法官临时晋升的证据</p>
     <p class="authors">Patrick C Wu, Chang-Ching Lin, Yun-chien Chang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Law, Economics &amp; Organization</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag022">10.1093/jleo/ewag022</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1604,7 +1605,7 @@
     <p class="title-zh">面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示</p>
     <p class="authors">Dong-Hyuk Kim, Hui Qiao, Ying Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Industrial Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103301">10.1016/j.ijindorg.2026.103301</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>

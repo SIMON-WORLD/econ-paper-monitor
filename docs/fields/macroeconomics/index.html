@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>宏观经济学</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%)}.banner-main{padding:34px 42px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:28px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:0 1px 0 rgba(31,35,40,.05);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;color:var(--muted);font-size:13px}.operator-card img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;object-fit:cover}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:280px}.hero-stats{grid-template-columns:1fr}.event{grid-template-columns:1fr}}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -60,7 +61,7 @@
     <p class="title-zh">股市经历如何塑造财富不平等？</p>
     <p class="authors">Xiaowen Lei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105337">10.1016/j.jedc.2026.105337</a><span class="pill">金融</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -72,7 +73,7 @@
     <p class="title-zh">基于数据的经济金融压力测试框架：评估供应链网络对金融系统性风险的影响</p>
     <p class="authors">Jan Fialkowski, Christian Diem, András Borsos, Stefan Thurner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105333">10.1016/j.jedc.2026.105333</a><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -84,7 +85,7 @@
     <p class="title-zh">识别财政紧缩时期：基于大语言模型的方法</p>
     <p class="authors">Karan Bhasin, Prakash Loungani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105351">10.1016/j.jedc.2026.105351</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -96,7 +97,7 @@
     <p class="title-zh">资本要求下银行负债结构的体制转换框架研究</p>
     <p class="authors">Wenli Huang, Xiang Liu, Yingjie Niu, Kezhen Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105338">10.1016/j.jedc.2026.105338</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -108,7 +109,7 @@
     <p class="title-zh">基于市场的短期利率不确定性与时变预期收益</p>
     <p class="authors">Deshui Yu, Difang Huang, Ximing Yin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105348">10.1016/j.jedc.2026.105348</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -120,7 +121,7 @@
     <p class="title-zh">利用企业层面数据识别宏观经济冲击：德国制造业的原材料短缺</p>
     <p class="authors">Friederike Fourné, Lara Zarges</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105330">10.1016/j.jedc.2026.105330</a><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -132,7 +133,7 @@
     <p class="title-zh">解读新闻：媒体风险与模糊性如何影响信用违约互换利差</p>
     <p class="authors">Amirhossein Sadoghi, Caterina Santi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105322">10.1016/j.jedc.2026.105322</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -144,7 +145,7 @@
     <p class="title-zh">多参与者的广义时机博弈</p>
     <p class="authors">Alexander Matros, Vladimir Smirnov, Andrew Wait</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105319">10.1016/j.jedc.2026.105319</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -156,7 +157,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0165-1889(26)00088-6">10.1016/s0165-1889(26)00088-6</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -168,7 +169,7 @@
     <p class="title-zh">两个家庭的故事：婚姻形成、父母人力资本投资与大学教育获得</p>
     <p class="authors">Chao Wei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105317">10.1016/j.jedc.2026.105317</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -180,7 +181,7 @@
     <p class="title-zh">企业层面的生产网络：我们（真正）了解什么？</p>
     <p class="authors">Andrea Bacilieri, András Borsos, Pablo Astudillo-Estévez, Mads Hoefer, François Lafond</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105313">10.1016/j.jedc.2026.105313</a><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -192,7 +193,7 @@
     <p class="title-zh">公立高中扩张与收入不平等：重访教育与技术的赛跑</p>
     <p class="authors">Jakob Madsen, Holger Strulik</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105321">10.1016/j.jedc.2026.105321</a><span class="pill">公共与政治经济学</span><span class="pill">教育</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -204,7 +205,7 @@
     <p class="title-zh">衡量冲击对不平等的影响：关键在于数据</p>
     <p class="authors">Marie Hogan, Laura E. Jackson, Michael T. Owyang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105332">10.1016/j.jedc.2026.105332</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -216,7 +217,7 @@
     <p class="title-zh">股票收益的内生离散度与波动性</p>
     <p class="authors">Wukuang Cun, Junjie Xia</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105320">10.1016/j.jedc.2026.105320</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -228,7 +229,7 @@
     <p class="title-zh">剪枝偏斜卡尔曼滤波与平滑器及其在DSGE模型中的应用</p>
     <p class="authors">Gaygysyz Guljanov, Willi Mutschler, Mark Trede</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105315">10.1016/j.jedc.2026.105315</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -240,7 +241,7 @@
     <p class="title-zh">风险新闻与信贷市场情绪</p>
     <p class="authors">Paul Labonne, Leif Anders Thorsrud</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105331">10.1016/j.jedc.2026.105331</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -252,7 +253,7 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70056">10.1111/jmcb.70056</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -264,7 +265,7 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70057">10.1111/jmcb.70057</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -276,7 +277,7 @@
     <p class="title-zh">开放经济中企业减税的福利与分配效应</p>
     <p class="authors">MAMOON KADER, HASHMAT KHAN, MINJOON LEE, RAÚL RAZO‐GARCÍA</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70059">10.1111/jmcb.70059</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -288,7 +289,7 @@
     <p class="title-zh">自我基本面、交叉基本面与汇率预测</p>
     <p class="authors">QIN WANG, YU REN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70066">10.1111/jmcb.70066</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -300,7 +301,7 @@
     <p class="title-zh">碳定价、信贷重新配置与实际效应</p>
     <p class="authors">FEDERICO APICELLA, ANDREA FABIANI</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70060">10.1111/jmcb.70060</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -312,7 +313,7 @@
     <p class="title-zh">政府债券市场流动性——量化宽松有何影响？来自瑞典的证据</p>
     <p class="authors">MARIANNA BLIX GRIMALDI, ALBERTO CROSTA, DONG ZHANG</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70061">10.1111/jmcb.70061</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -324,7 +325,7 @@
     <p class="title-zh">混合效应：风险中的通胀</p>
     <p class="authors">MAXIMILIAN SCHRÖDER</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70055">10.1111/jmcb.70055</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -336,7 +337,7 @@
     <p class="title-zh">字里行间——揭示中央银行损失函数中的非对称性</p>
     <p class="authors">MARKUS HAAVIO, JONI HEIKKINEN, PIRKKA JALASJOKI, JUHA KILPONEN, MARITTA PALOVIITA 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70053">10.1111/jmcb.70053</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -348,7 +349,7 @@
     <p class="title-zh">从经济状况调查项目到全民基本收入——转移支付项目中内生参与的作用</p>
     <p class="authors">Fan Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103960">10.1016/j.jmoneco.2026.103960</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -360,7 +361,7 @@
     <p class="title-zh">衡量住房市场疲软程度</p>
     <p class="authors">N. Kundan Kishor</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105370">10.1016/j.jedc.2026.105370</a><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -372,7 +373,7 @@
     <p class="title-zh">遗产、创业与遗产税</p>
     <p class="authors">Yanran Guo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105359">10.1016/j.jedc.2026.105359</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -384,7 +385,7 @@
     <p class="title-zh">家庭债务、劳动收入份额与收入不平等</p>
     <p class="authors">Mark Robinson, Pedro Silos, Diego Vilán</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105352">10.1016/j.jedc.2026.105352</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -396,7 +397,7 @@
     <p class="title-zh">搜索摩擦与公共部门就业的异质性主体新凯恩斯模型</p>
     <p class="authors">Pavlos Balamatsias</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105357">10.1016/j.jedc.2026.105357</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -408,7 +409,7 @@
     <p class="title-zh">对《基于市场的短期利率不确定性与时变预期收益》的勘误 [Journal of Economic Dynamics and Control 188 (2026) 105348]</p>
     <p class="authors">Deshui Yu, Difang Huang, Ximing Yin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105358">10.1016/j.jedc.2026.105358</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -420,7 +421,7 @@
     <p class="title-zh">消费者异质性与价格-质量关系</p>
     <p class="authors">Régis Y. Chenavaz, Dominika Machowska</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105347">10.1016/j.jedc.2026.105347</a><span class="pill">农业与食品</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -432,7 +433,7 @@
     <p class="title-zh">欧元区能源商品价格冲击：基于大规模结构模型的证据</p>
     <p class="authors">Beatrice Pataracchia, Philipp Pfeiffer, Marco Ratto, Jan Teresiński</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105350">10.1016/j.jedc.2026.105350</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -444,7 +445,7 @@
     <p class="title-zh">将重大健康冲击纳入生命周期模型——癌症诊断影响的建模</p>
     <p class="authors">Michael Freiberger, Michael Kuhn, Stefan Wrzaczek</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105367">10.1016/j.jedc.2026.105367</a><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -456,7 +457,7 @@
     <p class="title-zh">当流行病遇上气候风险：复合压力下非线性宏观经济动态的基于主体模型</p>
     <p class="authors">Paola D’Orazio, Anh-Duy Pham, Son Hong Nguyen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105356">10.1016/j.jedc.2026.105356</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -468,7 +469,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0165-1889(26)00109-0">10.1016/s0165-1889(26)00109-0</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -480,7 +481,7 @@
     <p class="title-zh">简单限价订单簿模型中的动态订单分散与波动持续性</p>
     <p class="authors">Andrew Hawley, Blake LeBaron, Mark Paddrik, Nathan Palmer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105334">10.1016/j.jedc.2026.105334</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -492,7 +493,7 @@
     <p class="title-zh">通过简单财政政策恢复有效下限的存在性与唯一性</p>
     <p class="authors">David Murakami, Ivan Shchapov, Yifan Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105336">10.1016/j.jedc.2026.105336</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -504,7 +505,7 @@
     <p class="title-zh">大规模宏观经济政策基于主体模型的贝叶斯估计</p>
     <p class="authors">Sylvain Barde</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105354">10.1016/j.jedc.2026.105354</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -516,7 +517,7 @@
     <p class="title-zh">生产与内生偏好</p>
     <p class="authors">Ilya Dergunov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105346">10.1016/j.jedc.2026.105346</a><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -528,7 +529,7 @@
     <p class="title-zh">需求不确定与贝叶斯学习下的资本投资动态模型</p>
     <p class="authors">Laura Delaney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105335">10.1016/j.jedc.2026.105335</a><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -540,7 +541,7 @@
     <p class="title-zh">抵押贷款证券化与一般均衡中的信息摩擦</p>
     <p class="authors">Salomon Garcia-Villegas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101342">10.1016/j.red.2026.101342</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -552,7 +553,7 @@
     <p class="title-zh">铸币贬损与小额硬币：商品货币的一段未述往事</p>
     <p class="authors">GU JIN, TAO ZHU</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70062">10.1111/jmcb.70062</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -564,7 +565,7 @@
     <p class="title-zh">欧盟排放交易体系市场预期与理性泡沫</p>
     <p class="authors">CHRISTOPH WEGENER, ROBINSON KRUSE‐BECHER, TONY KLEIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70068">10.1111/jmcb.70068</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -576,7 +577,7 @@
     <p class="title-zh">无现金货币经济中的最优支付安排</p>
     <p class="authors">NICOLA AMENDOLA, LUIS ARAUJO, LEO FERRARIS</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70058">10.1111/jmcb.70058</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -588,7 +589,7 @@
     <p class="title-zh">货币政策、就业缺口与自然率假说</p>
     <p class="authors">MICHAEL T. KILEY</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70067">10.1111/jmcb.70067</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -600,7 +601,7 @@
     <p class="title-zh">不稳定的繁荣：全球化如何加剧世界经济波动</p>
     <p class="authors">Enrique G. Mendoza, Vincenzo Quadrini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103945">10.1016/j.jmoneco.2026.103945</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -612,7 +613,7 @@
     <p class="title-zh">编委会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0304-3932(26)00066-8">10.1016/s0304-3932(26)00066-8</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -624,7 +625,7 @@
     <p class="title-zh">犯罪与财富中的种族差异</p>
     <p class="authors">Ayşe İmrohoroğlu, Çağrı S. Kumru, Jiu Lian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103942">10.1016/j.jmoneco.2026.103942</a><span class="pill">宏观与货币</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -636,7 +637,7 @@
     <p class="title-zh">全球供应链中断中的货币政策权衡</p>
     <p class="authors">Luis G. Hernández-Román</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103934">10.1016/j.jmoneco.2026.103934</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -648,7 +649,7 @@
     <p class="title-zh">银行集中度、产品市场竞争与生产率增长</p>
     <p class="authors">Lei Ye</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103946">10.1016/j.jmoneco.2026.103946</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -660,7 +661,7 @@
     <p class="title-zh">客户积累、规模报酬与长期趋势</p>
     <p class="authors">Andrea Chiavari</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103935">10.1016/j.jmoneco.2026.103935</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -672,7 +673,7 @@
     <p class="title-zh">讨论：“自动信用额度提升与消费者福利</p>
     <p class="authors">Joel P. Flynn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103943">10.1016/j.jmoneco.2026.103943</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -684,7 +685,7 @@
     <p class="title-zh">投资时间依赖时的偏好揭示</p>
     <p class="authors">Weidong Tian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105369">10.1016/j.jedc.2026.105369</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -696,7 +697,7 @@
     <p class="title-zh">英国抵押贷款市场信息价值评估</p>
     <p class="authors">Mateusz Myśliwski, May Rostom</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105368">10.1016/j.jedc.2026.105368</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -708,7 +709,7 @@
     <p class="title-zh">基于梯度的动态分位数模型强化学习</p>
     <p class="authors">Lukáš Janásek</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105355">10.1016/j.jedc.2026.105355</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -720,7 +721,7 @@
     <p class="title-zh">AI智能体能否击中移动目标？</p>
     <p class="authors">Aruhan Rui Shi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105349">10.1016/j.jedc.2026.105349</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -732,7 +733,7 @@
     <p class="title-zh">国际储备与企业投资：基于银行信贷再配置的识别</p>
     <p class="authors">Woo Jin Choi, Ju Hyun Pyun, Youngjin Yun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105360">10.1016/j.jedc.2026.105360</a><span class="pill">金融</span><span class="pill">计量方法</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -744,7 +745,7 @@
     <p class="title-zh">逆向选择与小企业融资</p>
     <p class="authors">Fan Liang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101344">10.1016/j.red.2026.101344</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -756,7 +757,7 @@
     <p class="title-zh">带在职搜寻的模型中含再谈判的讨价还价</p>
     <p class="authors">Axel Gottfries</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101343">10.1016/j.red.2026.101343</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -768,7 +769,7 @@
     <p class="title-zh">风险厌恶与时变风险的不相关定理</p>
     <p class="authors">Andrew Y. Chen, Francisco Palomino</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101347">10.1016/j.red.2026.101347</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -780,7 +781,7 @@
     <p class="title-zh">医学创新与健康差距</p>
     <p class="authors">Barton H. Hamilton, Andrés Hincapié, Emma C. Kalish, Nicholas W. Papageorge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101346">10.1016/j.red.2026.101346</a><span class="pill">健康</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -792,7 +793,7 @@
     <p class="title-zh">谁在高买低卖：逆预期收益交易与财富不平等</p>
     <p class="authors">Jung Sakong</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Dynamics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.red.2026.101331">10.1016/j.red.2026.101331</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -804,7 +805,7 @@
     <p class="title-zh">长期债务与短期利率：固定利率抵押贷款与货币政策传导</p>
     <p class="authors">ALESSIA DE STEFANI, RUI C. MANO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70069">10.1111/jmcb.70069</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -816,7 +817,7 @@
     <p class="title-zh">能源消费与节能的异质性主体模型</p>
     <p class="authors">VOLHA AUDZEI, IVAN SUTÓRIS</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70070">10.1111/jmcb.70070</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -828,7 +829,7 @@
     <p class="title-zh">抵押约束银行下的央行数字货币</p>
     <p class="authors">HANFENG CHEN, MARIA ELENA FILIPPIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70063">10.1111/jmcb.70063</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -840,7 +841,7 @@
     <p class="title-zh">气候政策、宏观审慎监管与商业周期的福利成本</p>
     <p class="authors">BARBARA ANNICCHIARICO, MARCO CARLI, FRANCESCA DILUISO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70064">10.1111/jmcb.70064</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -852,7 +853,7 @@
     <p class="title-zh">长期风险对股权风险溢价的（不）相关性再审视</p>
     <p class="authors">PAULO MAIO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70065">10.1111/jmcb.70065</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -864,7 +865,7 @@
     <p class="title-zh">Wasserstein最坏情形与资产定价</p>
     <p class="authors">Zhonghui Zhang, Fushu Luan, Chihwa Kao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103955">10.1016/j.jmoneco.2026.103955</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -876,7 +877,7 @@
     <p class="title-zh">评论：驱动市场力量的是人工智能还是数据？</p>
     <p class="authors">Miao Ben Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103926">10.1016/j.jmoneco.2026.103926</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -888,7 +889,7 @@
     <p class="title-zh">人事代理机构与内部谈判</p>
     <p class="authors">Agneta Berge, Ann-Sofie Kolm, Per Krusell</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103944">10.1016/j.jmoneco.2026.103944</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -900,7 +901,7 @@
     <p class="title-zh">评述：Enrique Ide与Eduard Talamàs的《人工智能对全球知识工作的影响》</p>
     <p class="authors">Daniel Rock</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103947">10.1016/j.jmoneco.2026.103947</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -912,7 +913,7 @@
     <p class="title-zh">失业保险金的抑制效应</p>
     <p class="authors">Andreas Hornstein, Marios Karabarbounis, André Kurmann, Etienne Lalé, Lien Ta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Monetary Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103958">10.1016/j.jmoneco.2026.103958</a><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>

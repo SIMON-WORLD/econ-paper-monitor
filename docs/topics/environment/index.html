@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>环境与气候</title>
   <style>
-:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%)}.banner-main{padding:34px 42px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:28px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:0 1px 0 rgba(31,35,40,.05);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;color:var(--muted);font-size:13px}.operator-card img{width:72px;height:72px;border:1px solid var(--line);border-radius:6px;object-fit:cover}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:280px}.hero-stats{grid-template-columns:1fr}.event{grid-template-columns:1fr}}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -64,7 +65,7 @@
     <p class="title-zh">缩小差距：可再生能源发展如何降低中国城乡收入不平等</p>
     <p class="authors">Jing-Yue Liu, Quan Lei, Yue-Jun Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107489">10.1016/j.worlddev.2026.107489</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -76,7 +77,7 @@
     <p class="title-zh">增强全球南方韧性：来自巴西分散式水政策的证据</p>
     <p class="authors">Marcelo S.O. Goncalves</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103350">10.1016/j.jeem.2026.103350</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -88,7 +89,7 @@
     <p class="title-zh">巴西亚马逊地区财产规模与森林砍伐、破碎化及森林火灾的关联</p>
     <p class="authors">Ciar D. Noble, James J. Gilroy, Weslei Butturi, Carlos A. Peres</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108161">10.1016/j.landusepol.2026.108161</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -100,7 +101,7 @@
     <p class="title-zh">化压力为动力：气候风险暴露与企业绿色转型</p>
     <p class="authors">Hang Chen, Xiaotian Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-16 · 来源：T&amp;F 备选日期</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-16 · 来源：T&amp;F 备选日期</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687742">10.1080/00036846.2026.2687742</a><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -112,7 +113,7 @@
     <p class="title-zh">意大利葡萄栽培中精准农业采纳的驱动因素</p>
     <p class="authors">Olimpia Fontana, Linda Arata, Margherita Muzzillo, Paolo Sckokai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70090">10.1002/aepp.70090</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -124,7 +125,7 @@
     <p class="title-zh">乙醇设施对农地资本化效应的解析</p>
     <p class="authors">Gabriel S. Sampson, Jisang Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70085">10.1002/aepp.70085</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -136,7 +137,7 @@
     <p class="title-zh">美国鸡蛋价格波动理解与机器学习政策启示</p>
     <p class="authors">Xuemei Zhao, Simon Meister, Lucie Maruejols, Xiaohua Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70082">10.1002/aepp.70082</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -148,7 +149,7 @@
     <p class="title-zh">应对生产风险：播种植物多样性对草地作物保险吸引力的影响</p>
     <p class="authors">Nicolas Alou, Sergei Schaub, Martin Quaas, Robert Finger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70081">10.1002/aepp.70081</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -160,7 +161,7 @@
     <p class="title-zh">农业脆弱性评估：作物生产系统中气候与非气候因素的交互作用</p>
     <p class="authors">Mahdieh Khezri‐nejad‐gharaei, Bouali Guesmi, Jeroen Buysse, Jose Maria Gil Roig</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-05-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70119">10.1111/1467-8489.70119</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -176,7 +177,7 @@
     <p class="title-zh">天气依赖与分布式电力系统中的市场设计：2025年NEM审查的启示</p>
     <p class="authors">Tim Nelson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-05-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70121">10.1111/1467-8489.70121</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -188,7 +189,7 @@
     <p class="title-zh">利用社会信息提升公众对庇古税的支持</p>
     <p class="authors">Marion Dupoux, Benjamin Ouvrard</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01086-1">10.1007/s10640-026-01086-1</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -200,7 +201,7 @@
     <p class="title-zh">邻接外部性与木材采伐时机——以风倒风险为例</p>
     <p class="authors">Jussi Lintunen, Matti Hyyrynen, Jonathan Holder, Mikko Peltoniemi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01085-2">10.1007/s10640-026-01085-2</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -212,7 +213,7 @@
     <p class="title-zh">农林业在土地利用与土地覆盖变化中的经济学分析：坦桑尼亚巴加-基西马贡贾生态廊道案例研究</p>
     <p class="authors">Qambemeda Nyanghura, Paulo Mandela, Lilian Binego, Felister Mombo, Ulrich Schmutz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108158">10.1016/j.landusepol.2026.108158</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -224,7 +225,7 @@
     <p class="title-zh">产权对农户气候智慧型投资的异质性影响：来自尼日利亚的经验证据</p>
     <p class="authors">Osayi Precious Emokpae, Edeoba William Edobor, Micheal Attah, Nneji Ifeyinwa Umeokeke, Grace Sewuese Orshio 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108119">10.1016/j.landusepol.2026.108119</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -236,7 +237,7 @@
     <p class="title-zh">中国农业碳排放效率及其区域收敛性：土地利用模式与经济因素的作用</p>
     <p class="authors">Yiqi Zhu, Hanwei Liang, Yifei Wang, Yuran Feng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108125">10.1016/j.landusepol.2026.108125</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -248,7 +249,7 @@
     <p class="title-zh">离岸外包与进口竞争对碳排放的影响</p>
     <p class="authors">Jonathan Leisner, Jakob Roland Munch, August Twile Nielsen, Georg Schaur</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742219">10.1086/742219</a><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -260,7 +261,7 @@
     <p class="title-zh">从毛到净：分析性气候经济中的二氧化碳移除</p>
     <p class="authors">Felix Meier, Martin Quaas, Wilfried Rickels, Christian Traeger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742258">10.1086/742258</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -272,7 +273,7 @@
     <p class="title-zh">存在分类收集服务的情况下提高家庭垃圾分类率：印度的一项随机对照试验</p>
     <p class="authors">Shivani Wadehra, Zihan Nie, Francisco Alpizar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742220">10.1086/742220</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -284,7 +285,7 @@
     <p class="title-zh">噪音与学习：来自印度的证据</p>
     <p class="authors">Arzi Adbi, Sumit Agarwal, Pulak Ghosh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742218">10.1086/742218</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -296,7 +297,7 @@
     <p class="title-zh">碳边境调整促进气候合作的潜力</p>
     <p class="authors">Timothé Beaufils, Joschka Wanner, Leonie Wenz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742163">10.1086/742163</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -308,7 +309,7 @@
     <p class="title-zh">政治意识形态与美国电动汽车普及</p>
     <p class="authors">Lucas W. Davis, Jing Li, Katalin Springel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742108">10.1086/742108</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -320,7 +321,7 @@
     <p class="title-zh">被误测与误解：揭示气候影响评估中的温度代理问题</p>
     <p class="authors">Richard T. Carson, Chu (Alex) Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742106">10.1086/742106</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -332,7 +333,7 @@
     <p class="title-zh">电力、农业生产力与森林砍伐：来自巴西的证据</p>
     <p class="authors">Dimitri Szerman, Juliano Assuncao, Molly Lipscomb, Ahmed Musfhiq Mobarak</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-05-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-05-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742115">10.1086/742115</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -344,7 +345,7 @@
     <p class="title-zh">更有效的农业环境政策的定向奖励</p>
     <p class="authors">Matteo Zavalloni, Katherine Simpson, Nick Hanley</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>在线日期 2026-05-28 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70122">10.1111/agec.70122</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -356,7 +357,7 @@
     <p class="title-zh">天气冲击与作物多样化对家庭粮食安全的异质性影响：性别维度</p>
     <p class="authors">Khadijat B. Amolegbe, Eugenie R. Fontep, Bernadin G. C. Ahodode, Abdelkrim Araar, Emmanuelle D. M. Pagal</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>在线日期 2026-05-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Agricultural Economics</span><span class="source-chip">在线日期 2026-05-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70119">10.1111/agec.70119</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -368,7 +369,7 @@
     <p class="title-zh">多仓库技术中的效率、影子定价与制度转换：来自受监管畜牧场的证据</p>
     <p class="authors">Youpei Yan, Robert G. Chambers</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70059">10.1111/1477-9552.70059</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -380,7 +381,7 @@
     <p class="title-zh">内部化外部性的再配置效应：来自中国秸秆禁烧政策的证据</p>
     <p class="authors">Wenyuan Hua</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70052">10.1111/1477-9552.70052</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -392,7 +393,7 @@
     <p class="title-zh">乌拉圭支持可持续畜牧业公共项目的成效：来自实证的证据</p>
     <p class="authors">Emilio Aguirre, Juan Baraldo, Marcelo Caffera, Hugo Laguna</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70033">10.1111/1477-9552.70033</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -404,7 +405,7 @@
     <p class="title-zh">可持续性与畜牧系统中放牧模式间生产重新配置：来自墨西哥的证据</p>
     <p class="authors">Saúl Basurto‐Hernández, Allan Beltrán, Luis Peña‐Lévano</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70050">10.1111/1477-9552.70050</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -416,7 +417,7 @@
     <p class="title-zh">采纳可持续畜牧业创新：来自拉丁美洲的证据</p>
     <p class="authors">Allen Blackman, Gonzalo Muñoz, Lina Salazar, Paul Winters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70049">10.1111/1477-9552.70049</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -428,7 +429,7 @@
     <p class="title-zh">地方食品环境政策中的议程设置：荷兰城市协议网络的比较多源流分析</p>
     <p class="authors">Fleur ter Ellen, Mika Grijzenhout, Jesse Vastenhoud, Joost Oude Groeniger, Frank J. van Lenthe 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103097">10.1016/j.foodpol.2026.103097</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -440,7 +441,7 @@
     <p class="title-zh">大沙丘国家公园暗夜天空评估中的条件行为建模</p>
     <p class="authors">Mark Eiswerth, Liam Mullen, Guanyi Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-05-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70080">10.1002/ajae.70080</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -452,7 +453,7 @@
     <p class="title-zh">时机、不确定性与机会成本：科罗拉多河生态系统改造的启示</p>
     <p class="authors">Pierce Donovan, Lucas S. Bair, Matthew N. Reimer, Michael R. Springborn, Charles B. Yackulic</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103358">10.1016/j.jeem.2026.103358</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -464,7 +465,7 @@
     <p class="title-zh">受偏见利益相关者影响的环境规制</p>
     <p class="authors">Stefan Ambec, Jessica Coria</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103334">10.1016/j.jeem.2026.103334</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -476,7 +477,7 @@
     <p class="title-zh">消费者对环境标准的反应：来自中国汽油管制的证据</p>
     <p class="authors">Yucheng Wang, Lei Zhang, Liyang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103314">10.1016/j.jeem.2026.103314</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -488,7 +489,7 @@
     <p class="title-zh">湿地干涸：巴西潘塔纳尔的水资源短缺</p>
     <p class="authors">Vinícius Hector, Rafael Araujo, Francisco Costa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103333">10.1016/j.jeem.2026.103333</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -500,7 +501,7 @@
     <p class="title-zh">免费电力的幻觉：新加坡家庭对太阳能板项目的反应</p>
     <p class="authors">Jinze Cao, Mingxuan Fan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103312">10.1016/j.jeem.2026.103312</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -512,7 +513,7 @@
     <p class="title-zh">雾还是霾？无审查污染报道对个人环境偏好的影响</p>
     <p class="authors">Sven A. Hartmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103325">10.1016/j.jeem.2026.103325</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -524,7 +525,7 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0095-0696(26)00090-2">10.1016/s0095-0696(26)00090-2</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -536,7 +537,7 @@
     <p class="title-zh">非自愿知情：第三方告知者的亲社会影响</p>
     <p class="authors">Zachary Grossman, Tony Hua, Jo Thori Lind, Karine Nyborg</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103330">10.1016/j.jeem.2026.103330</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -548,7 +549,7 @@
     <p class="title-zh">减少食物浪费培训：库斯科酒店业微型和小型企业随机对照试验的证据</p>
     <p class="authors">Cesar E. Del Pozo Loayza, José D. López-Rivas, Francisco Alpízar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103355">10.1016/j.jeem.2026.103355</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -560,7 +561,7 @@
     <p class="title-zh">酷热难行？温度对卡车司机劳动力供给与工作绩效的影响</p>
     <p class="authors">Wenzhi Dave Ding, Xincheng Wang, Yucheng Wang, Zhenxuan Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103338">10.1016/j.jeem.2026.103338</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -572,7 +573,7 @@
     <p class="title-zh">印度热应激对心理健康的损害</p>
     <p class="authors">Manuela Fritz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103348">10.1016/j.jeem.2026.103348</a><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -584,7 +585,7 @@
     <p class="title-zh">野火烟雾对当地鸟类生物多样性的影响</p>
     <p class="authors">Sarah Meier, Eric Strobl</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103379">10.1016/j.jeem.2026.103379</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -596,7 +597,7 @@
     <p class="title-zh">自然资源可追溯计划的影响：来自美国海产品进口监测项目的证据</p>
     <p class="authors">Kaitlyn L. Malakoff, Kailin Kroetz, Benjamin E. Fissel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103331">10.1016/j.jeem.2026.103331</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -608,7 +609,7 @@
     <p class="title-zh">跨环保行为领域的行为干预互动：一项自然田野实验</p>
     <p class="authors">Maoliang Ling, Yiming Liu, Lin Xu, Juntao He</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103339">10.1016/j.jeem.2026.103339</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -620,7 +621,7 @@
     <p class="title-zh">认知暂时下降的负外部性：来自颗粒物污染与致命车祸的证据</p>
     <p class="authors">Anne M. Burton, Travis Roach</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103310">10.1016/j.jeem.2026.103310</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -632,7 +633,7 @@
     <p class="title-zh">涨水与减税：飓风桑迪对纽约市房产税评估的影响</p>
     <p class="authors">Wei Guo, Qing Miao, Yusun Kim, Yilin Hou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103313">10.1016/j.jeem.2026.103313</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -644,7 +645,7 @@
     <p class="title-zh">小农户对信息的支付意愿：个体购买决策与俱乐部物品贡献的比较——来自印度尼西亚稻农的证据</p>
     <p class="authors">Michael Grimm, Nathalie Luck, Alia Bihrajihant Raya, Udit Sawhney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103343">10.1016/j.jeem.2026.103343</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -656,7 +657,7 @@
     <p class="title-zh">评估移动排放标准有效性：来自加州低排放车辆项目的证据</p>
     <p class="authors">Yuxian Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103356">10.1016/j.jeem.2026.103356</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -668,7 +669,7 @@
     <p class="title-zh">丛林中的权力博弈：哥伦比亚的政治联盟与环境退化</p>
     <p class="authors">Juan Miguel Jimenez, Lizeth Melissa Molina Alvarez, Santiago Saavedra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103335">10.1016/j.jeem.2026.103335</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -680,7 +681,7 @@
     <p class="title-zh">黑暗之后的光明：评估停电对后续太阳能安装的影响</p>
     <p class="authors">Chihiro Yagi, Kenji Takeuchi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103341">10.1016/j.jeem.2026.103341</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -692,7 +693,7 @@
     <p class="title-zh">碳定价、信贷重新配置与实际效应</p>
     <p class="authors">FEDERICO APICELLA, ANDREA FABIANI</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70060">10.1111/jmcb.70060</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -704,7 +705,7 @@
     <p class="title-zh">城市森林：环境健康价值与风险</p>
     <p class="authors">Jianwei Xing, Zhiren Hu, Fan Xia, Jintao Xu, Eric Yongchen Zou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest.a.1776">10.1162/rest.a.1776</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -716,7 +717,7 @@
     <p class="title-zh">人力资本与气候变化</p>
     <p class="authors">Noam Angrist, Kevin Winseck, Harry Anthony Patrinos, Joshua Graff Zivin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economics and Statistics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economics and Statistics</span><span class="source-chip">在线日期 2026-05-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1162/rest_a_01444">10.1162/rest_a_01444</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -728,7 +729,7 @@
     <p class="title-zh">优惠贸易协定中森林相关深度的测量：森林条款深度指数</p>
     <p class="authors">Michelle Márcia Viana Martins, Alan Leal, Rodrigo Fagundes Cezar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107442">10.1016/j.worlddev.2026.107442</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -740,7 +741,7 @@
     <p class="title-zh">贸易开放、全球价值链整合与企业环境友好型战略的采纳</p>
     <p class="authors">Isabel Maria Bodas Freitas, Fulvio Castellacci, Keun Lee, Matthias Staessens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107430">10.1016/j.worlddev.2026.107430</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -752,7 +753,7 @@
     <p class="title-zh">对商业有利，对环境却未必？进口进入与印度工厂的能源强度</p>
     <p class="authors">Michele Delera, Nanditha Mathew, Tania Treibich</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107412">10.1016/j.worlddev.2026.107412</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -764,7 +765,7 @@
     <p class="title-zh">遏制跨界污染的环境与经济影响评估：来自中国的证据</p>
     <p class="authors">Zeyang Zhang, Yuanyi Xu, Dunhu Chang, Dingding Shao, Xin Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103854">10.1016/j.jdeveco.2026.103854</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -776,7 +777,7 @@
     <p class="title-zh">利用价格激励约束即付即用太阳能电力的福利</p>
     <p class="authors">Megan Lang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105656">10.1016/j.jpubeco.2026.105656</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -788,7 +789,7 @@
     <p class="title-zh">排放税与价格带许可证市场下的技术采纳</p>
     <p class="authors">Timothy N. Cason, John K. Stranlund, Frans P. de Vries</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105358">10.1016/j.euroecorev.2026.105358</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -800,7 +801,7 @@
     <p class="title-zh">通胀并非人人平等：能源冲击的异质性效应</p>
     <p class="authors">Francesco Corsello, Marianna Riggi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105298">10.1016/j.euroecorev.2026.105298</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -812,7 +813,7 @@
     <p class="title-zh">后天如何激发先天以决定储蓄行为：来自中国上山下乡运动与双胞胎数据的证据</p>
     <p class="authors">Wenchao Li, Junjian Yi, Junsen Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag071">10.1093/ej/ueag071</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -824,7 +825,7 @@
     <p class="title-zh">分配偏好的元分析</p>
     <p class="authors">Salvatore Nunnari, Massimiliano Pozzi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag068">10.1093/ej/ueag068</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -836,7 +837,7 @@
     <p class="title-zh">极端理由加剧极化</p>
     <p class="authors">Christiane Buschinger, Markus Eyting, Florian Hett, Judd Kessler</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag062">10.1093/ej/ueag062</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -848,7 +849,7 @@
     <p class="title-zh">公共研发的宏观经济效应</p>
     <p class="authors">Vincenzo De Lipsis, Matteo Deleidi, Mariana Mazzucato, Paolo Agnolucci</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag061">10.1093/ej/ueag061</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -860,7 +861,7 @@
     <p class="title-zh">幼儿健康的普遍投资：来自一项大型政府试验的启示</p>
     <p class="authors">Jennifer L Baker, Lise G Bjerregaard, Christian M Dahl, Torben S D Johansen, Emil N Sørensen 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economic Journal</span><span>在线日期 2026-05-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-05-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag057">10.1093/ej/ueag057</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -872,7 +873,7 @@
     <p class="title-zh">灾难、延误与学习</p>
     <p class="authors">Matti Liski, François Salanié</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag025">10.1093/restud/rdag025</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -884,7 +885,7 @@
     <p class="title-zh">气候风险下的投入品采购：来自美国制造业企业的证据</p>
     <p class="authors">Joaquin Blaum, Federico Esposito, Sebastian Heise</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag031">10.1093/restud/rdag031</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -896,7 +897,7 @@
     <p class="title-zh">微分博弈中的马尔可夫完美均衡——兼论其在气候政策中的应用</p>
     <p class="authors">Niko Jaakkola, Florian Wagener</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-05-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag045">10.1093/restud/rdag045</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -908,7 +909,7 @@
     <p class="title-zh">没杀死你的会让你变矮：产前空气污染对成年身高的影响</p>
     <p class="authors">Liping Chen, Yuanyuan Chen, Jiada Lin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107633">10.1016/j.jebo.2026.107633</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -920,7 +921,7 @@
     <p class="title-zh">多元无知与气候政策：信息提供实验</p>
     <p class="authors">Laura Galdikiene, Jurate Jaraite, Agne Kajackaite</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Behavior and Organization</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jebo.2026.107601">10.1016/j.jebo.2026.107601</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -932,7 +933,7 @@
     <p class="title-zh">碳氢基础设施政策的环境后果</p>
     <p class="authors">Thomas R Covert, Ryan Kellogg</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Political Economy</span><span class="source-chip">在线日期 2026-06-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742713">10.1086/742713</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -944,7 +945,7 @@
     <p class="title-zh">埃塞俄比亚大规模土地收购：对农业生产率与森林砍伐的影响</p>
     <p class="authors">Workineh Asmare Kassie, Yeshwas Admasu, Dagim Belay, Solomon Zena Walelign, Jipeng Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103836">10.1016/j.jdeveco.2026.103836</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -956,7 +957,7 @@
     <p class="title-zh">人工智能代币与能源行业的互动：一个新视角</p>
     <p class="authors">Naif Alsagr, Ahmed Bouteska</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2687744">10.1080/00036846.2026.2687744</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -968,7 +969,7 @@
     <p class="title-zh">影响非洲可持续土地管理的社会经济和环境挑战：面向综合框架提案的系统综述</p>
     <p class="authors">Titus Adeyemi Alonge, Nabiebakye Henrietta, Michael Addaney, Jonas Ayaribilla Akudugu, Rejoice Selorm Wireko-Gyebi 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108115">10.1016/j.landusepol.2026.108115</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -980,7 +981,7 @@
     <p class="title-zh">土地交易背后的认知：多元森林价值取向如何影响中国农村的意愿、价格预期与林地流转行为</p>
     <p class="authors">Zhang Yiwen, Huo Yiming, Wang Weiye</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108127">10.1016/j.landusepol.2026.108127</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -992,7 +993,7 @@
     <p class="title-zh">超越自上而下的政策制定：策略游戏中政策制定者与土地所有者的互动促进再造林</p>
     <p class="authors">Simona Rödlach, Giacomo Vaccario, Clare Cooper, Jaboury Ghazoul, Ivan P. Novotny</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108101">10.1016/j.landusepol.2026.108101</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1004,7 +1005,7 @@
     <p class="title-zh">什么激励爱尔兰农民参与新造林计划：经济驱动还是环境驱动？</p>
     <p class="authors">Zohreh Rafiee, James Breen, Kevin Kilcline, Mohammad Mohammadrezaei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108105">10.1016/j.landusepol.2026.108105</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1016,7 +1017,7 @@
     <p class="title-zh">气候变化驱动巴西东南部巴拉那帕内马河流域农业用地竞争</p>
     <p class="authors">Argemiro Teixeira Leite-Filho, Érica Acioli Canamary, Anaí Floriano Vasconcelos, Daniel Andrés Rodriguez, Jaqueline Carolino Santos 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108120">10.1016/j.landusepol.2026.108120</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1028,7 +1029,7 @@
     <p class="title-zh">电动汽车税收抵免的城市均衡效应</p>
     <p class="authors">Weihua Zhao, William Larson, Becka Brolinson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740185">10.1086/740185</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1040,7 +1041,7 @@
     <p class="title-zh">煤矿开采中的环境责任、保险与市场结构</p>
     <p class="authors">Tom Eisenberg, Joshua Macey</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740953">10.1086/740953</a><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1052,7 +1053,7 @@
     <p class="title-zh">干旱与经济活动：水坝与地下水能否缓解其影响？</p>
     <p class="authors">Sheila M. Olmstead, Hilary Sigman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740567">10.1086/740567</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1064,7 +1065,7 @@
     <p class="title-zh">使用遥感变量进行参数反演</p>
     <p class="authors">Jonathan Proctor, Tamma Carleton, Sandy Sum</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742595">10.1086/742595</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1076,7 +1077,7 @@
     <p class="title-zh">当监管者回家：环境检查与执法的有效性</p>
     <p class="authors">Zach Raff, Jason M. Walter, Dietrich Earnhart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742583">10.1086/742583</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1088,7 +1089,7 @@
     <p class="title-zh">能源效率动态与气候政策</p>
     <p class="authors">Gregory Casey, Yang Gao, Peter K. Kruse-Andersen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742586">10.1086/742586</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1100,7 +1101,7 @@
     <p class="title-zh">零利率绿色贷款项目的成功与失败：来自法国的证据</p>
     <p class="authors">Ilya Eryzhenskiy, Louis-Gaëtan Giraudet, Mariona Segu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742585">10.1086/742585</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1112,7 +1113,7 @@
     <p class="title-zh">低碳试点政策对健康的影响</p>
     <p class="authors">Hong Cao, Liyan Han, Lei Li, Libo Yin, Peng Yin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.02.001">10.1016/j.jce.2026.02.001</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -1124,7 +1125,7 @@
     <p class="title-zh">考虑缺失富裕人群时，排放与不平等协同减排的加剧挑战</p>
     <p class="authors">Markus Nabernegg, Stefan Nabernegg, Thomas Kopp</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103353">10.1016/j.jeem.2026.103353</a><span class="pill">环境与气候</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -1136,7 +1137,7 @@
     <p class="title-zh">气候变化背景下的比特币增长：政策与投资启示</p>
     <p class="authors">Mohammadhossein Lashkaripour, Seyedmehdi Hosseini, Rizwan Ahmed</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103351">10.1016/j.jeem.2026.103351</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1148,7 +1149,7 @@
     <p class="title-zh">全民道路收费的公众支持度</p>
     <p class="authors">Alberto Antonioni, Alice Ciccone, Cloé Garnache, Sara Ghivarello, Askill H. Halse 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103377">10.1016/j.jeem.2026.103377</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1160,7 +1161,7 @@
     <p class="title-zh">空气污染与消费者规避行为：来自中国高频支付数据的证据</p>
     <p class="authors">Haiqiang Chen, Shihe Fu, Zhuoyang Lyu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103374">10.1016/j.jeem.2026.103374</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1172,7 +1173,7 @@
     <p class="title-zh">通过电网电价降低电动汽车峰值负荷：来自随机现场实验的证据</p>
     <p class="authors">Floris van Montfoort, Peter T. Dijkstra, Machiel Mulder, Dávid Kopányi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103354">10.1016/j.jeem.2026.103354</a><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1184,7 +1185,7 @@
     <p class="title-zh">热浪的隐性健康影响：印度贫血症的加剧</p>
     <p class="authors">Claire Lepault, Philippe Quirion, Pierre Uginet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103365">10.1016/j.jeem.2026.103365</a><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -1196,7 +1197,7 @@
     <p class="title-zh">气候风险显现时：住房市场风险认知的自然实验</p>
     <p class="authors">Anders Dugstad, Dag Einar Sommervoll</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103364">10.1016/j.jeem.2026.103364</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1208,7 +1209,7 @@
     <p class="title-zh">更绿色的邻居？论保护主义气候政策的福利效应</p>
     <p class="authors">Saumya Deojain, David Lindequist</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103366">10.1016/j.jeem.2026.103366</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1220,7 +1221,7 @@
     <p class="title-zh">可再生能源的环境效益：来自煤炭开采导致森林砍伐和空气污染排放的证据</p>
     <p class="authors">Lin Yang, Wenjie Luo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103363">10.1016/j.jeem.2026.103363</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1232,7 +1233,7 @@
     <p class="title-zh">空气污染对出生结果的影响：来自印度的因果证据</p>
     <p class="authors">Shashank Misra, Shobhit Kulshreshtha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103360">10.1016/j.jeem.2026.103360</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -1244,7 +1245,7 @@
     <p class="title-zh">巴西税制改革对家庭消费的环境影响</p>
     <p class="authors">Samuel Bícego, Paula Carvalho Pereda</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103376">10.1016/j.jeem.2026.103376</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1256,7 +1257,7 @@
     <p class="title-zh">激励电动汽车属性资本投资以刺激需求</p>
     <p class="authors">Minsu Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103344">10.1016/j.jeem.2026.103344</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1268,7 +1269,7 @@
     <p class="title-zh">全球变暖对林业的影响：基于年龄结构的李嘉图方法</p>
     <p class="authors">François Bareille, Philippe Delacote, Abdoul Latif Sokoundou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103336">10.1016/j.jeem.2026.103336</a><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1280,7 +1281,7 @@
     <p class="title-zh">离散选择建模与陈述偏好研究中的多层次回归与事后分层</p>
     <p class="authors">Patrick Lloyd-Smith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103315">10.1016/j.jeem.2026.103315</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -1292,7 +1293,7 @@
     <p class="title-zh">上游度、外国环境规制与印度制造业企业的二氧化碳排放</p>
     <p class="authors">Finn Ole Semrau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103324">10.1016/j.jeem.2026.103324</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -1304,7 +1305,7 @@
     <p class="title-zh">欧元区能源商品价格冲击：基于大规模结构模型的证据</p>
     <p class="authors">Beatrice Pataracchia, Philipp Pfeiffer, Marco Ratto, Jan Teresiński</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105350">10.1016/j.jedc.2026.105350</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1316,7 +1317,7 @@
     <p class="title-zh">当流行病遇上气候风险：复合压力下非线性宏观经济动态的基于主体模型</p>
     <p class="authors">Paola D’Orazio, Anh-Duy Pham, Son Hong Nguyen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Dynamics and Control</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105356">10.1016/j.jedc.2026.105356</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1328,7 +1329,7 @@
     <p class="title-zh">欧盟排放交易体系市场预期与理性泡沫</p>
     <p class="authors">CHRISTOPH WEGENER, ROBINSON KRUSE‐BECHER, TONY KLEIN</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70068">10.1111/jmcb.70068</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1340,7 +1341,7 @@
     <p class="title-zh">气候冲击与企业环境信息披露：来自中国的证据</p>
     <p class="authors">Yuzhou Guo, Qingyuan Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2688438">10.1080/00036846.2026.2688438</a><span class="pill">环境与气候</span><span class="pill">企业与产业</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1352,7 +1353,7 @@
     <p class="title-zh">通过环境税改革实现生产率与污染减排的双赢：来自中国的证据</p>
     <p class="authors">Jingru Chen, Chuanyu Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2679654">10.1080/00036846.2026.2679654</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1364,7 +1365,7 @@
     <p class="title-zh">从稻米到责任：中国的集体主义与环境支付意愿</p>
     <p class="authors">Yuxuan Fei, Jie Ma, Qiang Wen, Xiaojun Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-09 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2684702">10.1080/00036846.2026.2684702</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1376,7 +1377,7 @@
     <p class="title-zh">欧盟气候援助与贸易利益：战略还是关系深化的副产品？</p>
     <p class="authors">Alexandra Bögner, Gabriele Spilker</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107469">10.1016/j.worlddev.2026.107469</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1388,7 +1389,7 @@
     <p class="title-zh">不被窒息的艺术：环境意识、居民响应与中国土地交易</p>
     <p class="authors">Wei Zou, Pinghan Liang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103757">10.1016/j.jdeveco.2026.103757</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1400,7 +1401,7 @@
     <p class="title-zh">新兴经济体的气候政策、劳动力市场与宏观经济结果</p>
     <p class="authors">Alan Finkelstein Shapiro, Victoria Nuguer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103782">10.1016/j.jdeveco.2026.103782</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1412,7 +1413,7 @@
     <p class="title-zh">天气还是气候？温度冲击的新视角</p>
     <p class="authors">Nooman Rebei</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Development Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jdeveco.2026.103814">10.1016/j.jdeveco.2026.103814</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1424,7 +1425,7 @@
     <p class="title-zh">污浊空气与绿色投资：污染信息对资产配置的影响</p>
     <p class="authors">Raymond Fisman, Pulak Ghosh, Arkodipta Sarkar, Jian Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Financial Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104309">10.1016/j.jfineco.2026.104309</a><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1436,7 +1437,7 @@
     <p class="title-zh">现在燃烧还是永不燃烧？气候政策暴露与化石燃料企业投资</p>
     <p class="authors">Jakob Feveile Adolfsen, Malte Heissel, Ana-Simona Manu, Francesca Vinci</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of International Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2026.104267">10.1016/j.jinteco.2026.104267</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -1448,7 +1449,7 @@
     <p class="title-zh">民主倒退作为庇古式政治外部性</p>
     <p class="authors">Thomas Barnebeck Andersen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Public Choice</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01412-7">10.1007/s11127-026-01412-7</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1460,7 +1461,7 @@
     <p class="title-zh">官僚如何回应混合激励合同？来自中国空气污染控制的证据</p>
     <p class="authors">Guangyu Cao, Xi Weng, Mingwei Xu, Li-An Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Public Economics</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105664">10.1016/j.jpubeco.2026.105664</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1472,7 +1473,7 @@
     <p class="title-zh">社会环境中的潜力</p>
     <p class="authors">Thomas Demuynck, P. Jean-Jacques Herings, Christian Seel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Games and Economic Behavior</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Games and Economic Behavior</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.geb.2026.04.002">10.1016/j.geb.2026.04.002</a><span class="pill">环境与气候</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1484,7 +1485,7 @@
     <p class="title-zh">气候挑战是否证明了去增长的合理性？</p>
     <p class="authors">André Grimaud, Gilles Lafforgue, Luc Rouge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113070">10.1016/j.econlet.2026.113070</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1496,7 +1497,7 @@
     <p class="title-zh">气候与主权违约风险</p>
     <p class="authors">Lukas Balzer, Alena Miftakhova</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Economics Letters</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113078">10.1016/j.econlet.2026.113078</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1508,7 +1509,7 @@
     <p class="title-zh">庇古运输定价的实践</p>
     <p class="authors">Beat Hintermann, Beaumont Schoeman, Joseph Molloy, Thomas Götschi, Alberto Castro 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag051">10.1093/restud/rdag051</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1520,7 +1521,7 @@
     <p class="title-zh">极端天气事件与消费者食品反应</p>
     <p class="authors">Ahmad Zia Wahdat, Joseph Balagtas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70095">10.1002/aepp.70095</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1532,7 +1533,7 @@
     <p class="title-zh">气候与饲养策略：新西兰乳业生产率增长分析</p>
     <p class="authors">Mario Fernandez, Mark Neal, Gavan Dwyer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70127">10.1111/1467-8489.70127</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1548,7 +1549,7 @@
     <p class="title-zh">改革国家电力市场（NEM）的建议</p>
     <p class="authors">Tim Nelson, Paula Conboy, Ava Hancock, Phil Hirschhorn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70125">10.1111/1467-8489.70125</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1560,7 +1561,7 @@
     <p class="title-zh">非再生森林中货币激励的引入与终止：来自框架田野实验的启示</p>
     <p class="authors">Nils Christian Hoenow, Gunther Bensch, Michael Kirk</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01095-0">10.1007/s10640-026-01095-0</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1572,7 +1573,7 @@
     <p class="title-zh">人口老龄化与环境：自然关注型与行动需求型结果的比较研究</p>
     <p class="authors">Andreas Irmen, Maria Krelifa, Anastasia Litina</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01094-1">10.1007/s10640-026-01094-1</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1584,7 +1585,7 @@
     <p class="title-zh">碳税与汽油税的累进性：收入不平等的作用</p>
     <p class="authors">Julius J. Andersson, Giles Atkinson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01093-2">10.1007/s10640-026-01093-2</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1596,7 +1597,7 @@
     <p class="title-zh">绿色和平红利：军事化对排放与绿色转型的影响</p>
     <p class="authors">Balázs Markó</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-05-28 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01089-y">10.1007/s10640-026-01089-y</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -1608,7 +1609,7 @@
     <p class="title-zh">房地产经纪人关于购房者能效偏好预测的准确性</p>
     <p class="authors">Erik Gråd, Anna Kristina Edenbrandt, Alexander Eriksson, Emilia Mattsson, Jens Rommel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Environmental and Resource Economics</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Environmental and Resource Economics</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10640-026-01088-z">10.1007/s10640-026-01088-z</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1620,7 +1621,7 @@
     <p class="title-zh">高成本监管，低效结果：欧盟毁林法规对全球大豆贸易的影响</p>
     <p class="authors">Manoj Sharma, Nelson B Villoria</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Review of Agricultural Economics</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Review of Agricultural Economics</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/erae/jbag008">10.1093/erae/jbag008</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1632,7 +1633,7 @@
     <p class="title-zh">更正：应对环境挑战的实验心态：公共品贡献的困惑案例</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Review of Agricultural Economics</span><span>在线日期 2026-05-28 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Review of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/erae/jbag009">10.1093/erae/jbag009</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1644,7 +1645,7 @@
     <p class="title-zh">性别平等对森林保护的影响：经济、社会、政治与能源因素的作用</p>
     <p class="authors">Xiaojiao Zhu, Haochang Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108148">10.1016/j.landusepol.2026.108148</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1656,7 +1657,7 @@
     <p class="title-zh">基于时空趋势分析（2000–2022年）的希尔卡尼森林土地覆盖变化模式研究</p>
     <p class="authors">Qadir Ashournejad, Fateme Garshasbi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Land Use Policy</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108116">10.1016/j.landusepol.2026.108116</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1668,7 +1669,7 @@
     <p class="title-zh">因果推断、高频数据与水质的休闲价值</p>
     <p class="authors">Andrew Earle, Hyunjung Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/741509">10.1086/741509</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -1680,7 +1681,7 @@
     <p class="title-zh">车库里的对冲基金：汽油价格不确定性下的汽车购买行为</p>
     <p class="authors">James Archsmith, Simon Levin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740879">10.1086/740879</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1692,7 +1693,7 @@
     <p class="title-zh">避免冲击：高额账单预警项目与能源消费</p>
     <p class="authors">Grant D. Jacobsen, James I. Stewart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740839">10.1086/740839</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1704,7 +1705,7 @@
     <p class="title-zh">我们是否弊大于利？在后果性决策情境中使用假设性偏差减少技术</p>
     <p class="authors">Vasudha Chopra, Christian A. Vossler</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740568">10.1086/740568</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1716,7 +1717,7 @@
     <p class="title-zh">灌溉与气候变化：长期适应及其外部性</p>
     <p class="authors">Charles A. Taylor</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the Association of Environmental and Resource Economists</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the Association of Environmental and Resource Economists</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/741141">10.1086/741141</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1728,7 +1729,7 @@
     <p class="title-zh">美国经济与天气条件对农民自杀的影响</p>
     <p class="authors">Qi Wu, Pierre Mérel, Richard J. Sexton</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Agricultural Economics</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70127">10.1111/agec.70127</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1740,7 +1741,7 @@
     <p class="title-zh">从肉类到植物基产品？疯牛病对牛肉消费的持久影响</p>
     <p class="authors">Jader Velásquez, Shon Ferguson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Agricultural Economics</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Agricultural Economics</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70120">10.1111/agec.70120</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1752,7 +1753,7 @@
     <p class="title-zh">巴西大豆的经济与生态影响：基于合成控制法的分析</p>
     <p class="authors">Stefano Ghinoi, Simone Piras, Luca Tasciotti, Valdemar João Wesz Junior</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70061">10.1111/1477-9552.70061</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1764,7 +1765,7 @@
     <p class="title-zh">精准放牧虚拟围栏的经济与环境分析</p>
     <p class="authors">Elias Maritan, Karl Behrendt, Sarah Morgan, Steven Mark Rutter, James Lowenberg‐DeBoer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70062">10.1111/1477-9552.70062</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1784,7 +1785,7 @@
     <p class="title-zh">滋养气候政策：CBAM对欧盟农业排放与区域差异的双重影响</p>
     <p class="authors">Davit Stepanyan, Omid Zamani, Claudia Heidecke, Janine Pelikan, Jörg Rieger 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Agricultural Economics</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-06-03 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1477-9552.70060">10.1111/1477-9552.70060</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1796,7 +1797,7 @@
     <p class="title-zh">食品价格通胀预测：基于宏观经济自回归随机森林方法的洞见</p>
     <p class="authors">William McWilliams, Shamar L. Stewart, Olga Isengildina Massa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103115">10.1016/j.foodpol.2026.103115</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1808,7 +1809,7 @@
     <p class="title-zh">生产者组织是否促进了气候智慧型农业？评估尼日利亚的直接效应与溢出效应</p>
     <p class="authors">Abebayehu Girma Geffersa, Martin Paul Jr. Tabe-Ojong</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Food Policy</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2026.103117">10.1016/j.foodpol.2026.103117</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1820,7 +1821,7 @@
     <p class="title-zh">土地休耕政策对农业劳动力和土地保有权的影响：来自美国历史性保护储备计划的证据</p>
     <p class="authors">Aparna Howlader, Liqing Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Journal of Agricultural Economics</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-06-02 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/ajae.70082">10.1002/ajae.70082</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1832,7 +1833,7 @@
     <p class="title-zh">污染是否影响出口？来自中国的证据</p>
     <p class="authors">Jie Bai, Larry D. Qiu, Junji Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Comparative Economics</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jce.2026.02.006">10.1016/j.jce.2026.02.006</a><span class="pill">环境与气候</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1844,7 +1845,7 @@
     <p class="title-zh">网络游戏中的虚拟货币提升对开箱付费意愿：一项实验分析</p>
     <p class="authors">Niccolò Toccafondi, Roberto Di Paolo, Sibilla Di Guida</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Experimental Economics</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10049">10.1017/eec.2026.10049</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1856,7 +1857,7 @@
     <p class="title-zh">多期选美竞赛博弈实验研究</p>
     <p class="authors">Nobuyuki Hanaki, Yuta Takahashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Experimental Economics</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Experimental Economics</span><span class="source-chip">在线日期 2026-05-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1017/eec.2026.10048">10.1017/eec.2026.10048</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1868,7 +1869,7 @@
     <p class="title-zh">成本效益与公平导向的矫正性补贴：新旧住宅差异化绿色补贴</p>
     <p class="authors">Takahiko Kiso</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103340">10.1016/j.jeem.2026.103340</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1880,7 +1881,7 @@
     <p class="title-zh">谁从产能削减计划中受益？来自美国太平洋沿岸底栖鱼类渔业的启示</p>
     <p class="authors">Frederik Strabo, Matthew N. Reimer, James N. Sanchirico</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103362">10.1016/j.jeem.2026.103362</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1892,7 +1893,7 @@
     <p class="title-zh">小农户如何适应水资源短缺？来自三峡大坝的证据</p>
     <p class="authors">Ting Chen, Chong Liu, Sen Ma</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103357">10.1016/j.jeem.2026.103357</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1904,7 +1905,7 @@
     <p class="title-zh">职业归属与环境规制的发生率</p>
     <p class="authors">Alex L. Marten, Andrew Schreiber, Ann Wolverton</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103361">10.1016/j.jeem.2026.103361</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1916,7 +1917,7 @@
     <p class="title-zh">早期热浪暴露对气候治理的持久影响</p>
     <p class="authors">Jingbo Cui, Chunhua Wang, Zhenxuan Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Environmental Economics and Management</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103359">10.1016/j.jeem.2026.103359</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -1928,7 +1929,7 @@
     <p class="title-zh">地理死亡率差异与质量-数量权衡</p>
     <p class="authors">Sinara Gharibyan, David Gomtsyan, Èric Roca Fernández</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Population Economics</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Population Economics</span><span class="source-chip">在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s00148-026-01175-x">10.1007/s00148-026-01175-x</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1940,7 +1941,7 @@
     <p class="title-zh">能源消费与节能的异质性主体模型</p>
     <p class="authors">VOLHA AUDZEI, IVAN SUTÓRIS</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-10 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70070">10.1111/jmcb.70070</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1952,7 +1953,7 @@
     <p class="title-zh">气候政策、宏观审慎监管与商业周期的福利成本</p>
     <p class="authors">BARBARA ANNICCHIARICO, MARCO CARLI, FRANCESCA DILUISO</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Money, Credit and Banking</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70064">10.1111/jmcb.70064</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1964,7 +1965,7 @@
     <p class="title-zh">拼车对环境有益吗？基于美国城市卫星与调查数据的证据</p>
     <p class="authors">Yoshifumi Konishi, Akari Ono</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Urban Economics</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jue.2026.103882">10.1016/j.jue.2026.103882</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1976,7 +1977,7 @@
     <p class="title-zh">金融科技采纳能否缓解能源贫困？基于中国家庭数据的证据</p>
     <p class="authors">Xiqian Wang, Yiming Chen, Zongyue He</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2685879">10.1080/00036846.2026.2685879</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -1988,7 +1989,7 @@
     <p class="title-zh">无人之地？强迫迁移对哥伦比亚森林覆盖变化的影响</p>
     <p class="authors">Emilio Leguízamo, Ana María Montoya</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-11-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107441">10.1016/j.worlddev.2026.107441</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -2000,7 +2001,7 @@
     <p class="title-zh">环境微笑曲线：污染避难所假说的投入产出证据</p>
     <p class="authors">Giovanni Dosi, Federico Riccio, Maria Enrica Virgillito</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>World Development</span><span>卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">卷期日期 2026-10-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107411">10.1016/j.worlddev.2026.107411</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -2012,7 +2013,7 @@
     <p class="title-zh">早期罗马帝国的经济动态：来自铅污染、铸币、天气与战争的洞见</p>
     <p class="authors">Luigi Oddo, Silvio Traverso, Koenraad Verboven</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Explorations in Economic History</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.eeh.2026.101765">10.1016/j.eeh.2026.101765</a><span class="pill">环境与气候</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -2024,7 +2025,7 @@
     <p class="title-zh">能源转型能否增强发展中国家的税收动员能力？实证证据与政策启示</p>
     <p class="authors">Atangana Ondoa Henri, Ngobo Philibert Junior</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Tax and Public Finance</span><span>在线日期 2026-05-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Tax and Public Finance</span><span class="source-chip">在线日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s10797-026-09973-5">10.1007/s10797-026-09973-5</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -2036,7 +2037,7 @@
     <p class="title-zh">面向价格管制与集中型行业的碳排放交易机制设计：来自中国电力部门的启示</p>
     <p class="authors">Dong-Hyuk Kim, Hui Qiao, Ying Zheng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>International Journal of Industrial Organization</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Journal of Industrial Organization</span><span class="source-chip">卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.ijindorg.2026.103301">10.1016/j.ijindorg.2026.103301</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -2048,7 +2049,7 @@
     <p class="title-zh">环境规制中的参照点转移：从污染者付费到受益者补偿</p>
     <p class="authors">Jens Gudmundsson, Jens Leth Hougaard, Erik Ansink</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Scandinavian Journal of Economics</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Scandinavian Journal of Economics</span><span class="source-chip">在线日期 2026-06-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70030">10.1111/sjoe.70030</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -2060,7 +2061,7 @@
     <p class="title-zh">货币政策和通胀公告如何影响高通胀环境中的企业预期？</p>
     <p class="authors">Okan Akarsu, Emrehan Aktuğ</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag036">10.1093/jeea/jvag036</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -2072,7 +2073,7 @@
     <p class="title-zh">气候变化与移民：非洲案例研究</p>
     <p class="authors">Bruno Conte</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag035">10.1093/jeea/jvag035</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -2084,7 +2085,7 @@
     <p class="title-zh">大选择集下数量折扣的实证模型</p>
     <p class="authors">Alessandro Iaria, Ao Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of the European Economic Association</span><span>在线日期 2026-05-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of the European Economic Association</span><span class="source-chip">在线日期 2026-05-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jeea/jvag033">10.1093/jeea/jvag033</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -2096,7 +2097,7 @@
     <p class="title-zh">量化供给侧气候政策</p>
     <p class="authors">Lassi Ahlvik, Jørgen Juel Andersen, Jonas Hveding Hamang, Torfinn Harding</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Review of Economic Studies</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Studies</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/restud/rdag024">10.1093/restud/rdag024</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -2108,7 +2109,7 @@
     <p class="title-zh">精英大学与人力资本和社会资本的代际传递</p>
     <p class="authors">Andrés Barrios-Fernández, Christopher Neilson, Seth Zimmerman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>American Economic Review</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Review</span><span class="source-chip">卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/aer.20230802">10.1257/aer.20230802</a><span class="pill">环境与气候</span><span class="pill">计量方法</span><span class="pill">教育</span></span></div>
     </div>
   </div>
