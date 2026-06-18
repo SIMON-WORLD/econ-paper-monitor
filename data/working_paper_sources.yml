@@ -1,0 +1,145 @@
+# Working paper and policy paper sources.
+# stage:
+#   1 = first-batch priority sources
+#   2 = second-batch priority sources
+# Fetchers must only collect public metadata. Do not bulk-download PDFs.
+sources:
+  - id: nber
+    title: NBER Working Papers
+    chinese_name: 美国国家经济研究局工作论文
+    type: working_paper
+    stage: 1
+    homepage: https://www.nber.org/papers
+    url_pattern: "/papers/w\\d+"
+    url_contains:
+      - /papers/w
+    fields:
+      - general
+      - macro
+      - finance
+      - labor
+      - health
+      - trade
+
+  - id: iza
+    title: IZA Discussion Papers
+    chinese_name: IZA 讨论论文
+    type: working_paper
+    stage: 1
+    homepage: https://www.iza.org/publications/dp
+    url_pattern: "/publications/dp/\\d+/"
+    url_contains:
+      - /publications/dp/
+    fields:
+      - labor
+      - education
+      - health
+      - development
+
+  - id: world-bank-prwp
+    title: World Bank Policy Research Working Papers
+    chinese_name: 世界银行政策研究工作论文
+    type: policy_paper
+    stage: 1
+    homepage: https://openknowledge.worldbank.org/collections/8a7a2f5a-73af-5c1f-9f6d-7a60e34d65b5
+    url_pattern: "/entities/publication/"
+    url_contains:
+      - /entities/publication/
+    fields:
+      - development
+      - trade
+      - environment
+      - public
+
+  - id: imf-working-papers
+    title: IMF Working Papers
+    chinese_name: IMF 工作论文
+    type: policy_paper
+    stage: 1
+    homepage: https://www.imf.org/en/Publications/WP
+    url_pattern: "/en/Publications/WP/Issues/"
+    url_contains:
+      - /en/Publications/WP/Issues/
+    fields:
+      - macro
+      - finance
+      - public
+      - trade
+
+  - id: repec-nep
+    title: RePEc NEP New Economics Papers
+    chinese_name: RePEc NEP 新经济学论文
+    type: aggregator
+    stage: 3
+    homepage: https://nep.repec.org/
+    fields:
+      - general
+
+  - id: cepr-dp
+    title: CEPR Discussion Papers
+    chinese_name: CEPR 讨论论文
+    type: working_paper
+    stage: 2
+    homepage: https://cepr.org/publications/discussion-papers
+    url_pattern: "/publications/dp\\d+"
+    url_contains:
+      - /publications/dp
+    fields:
+      - macro
+      - finance
+      - trade
+      - development
+
+  - id: cesifo-working-papers
+    title: CESifo Working Papers
+    chinese_name: CESifo 工作论文
+    type: working_paper
+    stage: 2
+    homepage: https://www.cesifo.org/en/publications/cesifo-working-papers
+    url_pattern: "/publications/[0-9-]+/cesifo-working-paper"
+    url_contains:
+      - /cesifo-working-paper-
+    fields:
+      - public
+      - labor
+      - trade
+      - macro
+
+  - id: fed-feds
+    title: Federal Reserve FEDS Working Papers
+    chinese_name: 美联储 FEDS 工作论文
+    type: working_paper
+    stage: 2
+    homepage: https://www.federalreserve.gov/econres/feds/index.htm
+    url_pattern: "/econres/feds/.+\\.htm"
+    url_contains:
+      - /econres/feds/
+    fields:
+      - macro
+      - finance
+      - labor
+
+  - id: bis-working-papers
+    title: BIS Working Papers
+    chinese_name: 国际清算银行工作论文
+    type: working_paper
+    stage: 2
+    homepage: https://www.bis.org/list/wpapers/index.htm
+    url_pattern: "/publ/work\\d+"
+    url_contains:
+      - /publ/work
+    fields:
+      - finance
+      - macro
+
+  - id: oecd-working-papers
+    title: OECD Working Papers
+    chinese_name: OECD 工作论文
+    type: policy_paper
+    stage: 2
+    homepage: https://www.oecd-ilibrary.org/economics/oecd-economics-department-working-papers_18151973
+    fields:
+      - public
+      - macro
+      - labor
+      - environment
