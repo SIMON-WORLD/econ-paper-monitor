@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Journal of Economic Theory 最近 7 天</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-17 涉及期刊</div><a class="side-link" href="../../../daily/2026-06-17/?journal=journal-of-economic-theory"><span class="side-main"><strong>Journal of Economic Theory</strong><em>经济理论杂志</em></span><span class="count">2</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="../../../">今日</a>
+          <a href="../../../topics/china/">与中国相关</a>
+          <a class="" href="../../../archive/">归档</a>
+          <a href="../../../journals/">监测期刊</a>
+          <a href="../../../feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>Journal of Economic Theory：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>22 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-17/?journal=journal-of-economic-theory">最新日期 2</a>
+  <a class="control" href="../../../journals/journal-of-economic-theory/recent7/">最近 7 天 22</a>
+  <a class="control" href="../../../journals/journal-of-economic-theory/">全部历史 22</a>
+</div><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="journal-of-economic-theory">Journal of Economic Theory</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="agriculture">农业与食品</option><option value="theory">理论与博弈</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="issue">来源期次</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="minimum price equilibrium in the assignment market: structural properties and the serial vickrey mechanism 指派市场中的最低价格均衡：结构性质与序列维克里机制 yu zhou, shigehiro serizawa journal of economic theory 10.1016/j.jet.2026.106216" data-journal="journal-of-economic-theory" data-fields="agriculture finance theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106216">Minimum price equilibrium in the assignment market: Structural properties and the Serial Vickrey mechanism</a></h3>
+    <p class="title-zh">指派市场中的最低价格均衡：结构性质与序列维克里机制</p>
+    <p class="authors">Yu Zhou, Shigehiro Serizawa</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106216">10.1016/j.jet.2026.106216</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="robustly optimal voting rule 稳健最优投票规则 noriaki kiguchi, shinpei noguchi, yuta takahashi journal of economic theory 10.1016/j.jet.2026.106219" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106219">Robustly Optimal Voting Rule</a></h3>
+    <p class="title-zh">稳健最优投票规则</p>
+    <p class="authors">Noriaki Kiguchi, Shinpei Noguchi, Yuta Takahashi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106219">10.1016/j.jet.2026.106219</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="time use and heterogeneous markups 时间使用与异质性加成 brian c. albrecht, thomas phelan, nick pretnar journal of economic theory 10.1016/j.jet.2026.106218" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106218">Time Use and Heterogeneous Markups</a></h3>
+    <p class="title-zh">时间使用与异质性加成</p>
+    <p class="authors">Brian C. Albrecht, Thomas Phelan, Nick Pretnar</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106218">10.1016/j.jet.2026.106218</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="information design with endogenous state verification 内生状态验证下的信息设计 lily ling yang journal of economic theory 10.1016/j.jet.2026.106182" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106182">Information design with endogenous state verification</a></h3>
+    <p class="title-zh">内生状态验证下的信息设计</p>
+    <p class="authors">Lily Ling Yang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106182">10.1016/j.jet.2026.106182</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="expectation and confusion: evidence and theory 期望与困惑：证据与理论 heng chen, yicheng liu journal of economic theory 10.1016/j.jet.2026.106189" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106189">Expectation and confusion: Evidence and theory</a></h3>
+    <p class="title-zh">期望与困惑：证据与理论</p>
+    <p class="authors">Heng Chen, Yicheng Liu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106189">10.1016/j.jet.2026.106189</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="investment sophistication and wealth inequality 投资成熟度与财富不平等 ehsan azarmsa journal of economic theory 10.1016/j.jet.2026.106206" data-journal="journal-of-economic-theory" data-fields="theory inequality" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106206">Investment Sophistication and Wealth Inequality</a></h3>
+    <p class="title-zh">投资成熟度与财富不平等</p>
+    <p class="authors">Ehsan Azarmsa</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106206">10.1016/j.jet.2026.106206</a><span class="pill">理论与博弈</span><span class="pill">不平等</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="learning through imitation: an experiment 通过模仿学习：一项实验 marina agranov, gabriel lopez-moctezuma, philipp strack, omer tamuz journal of economic theory 10.1016/j.jet.2026.106203" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106203">Learning through imitation: An experiment</a></h3>
+    <p class="title-zh">通过模仿学习：一项实验</p>
+    <p class="authors">Marina Agranov, Gabriel Lopez-Moctezuma, Philipp Strack, Omer Tamuz</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106203">10.1016/j.jet.2026.106203</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the hard problem and the tyranny of the losers 硬问题与失败者的暴政 stan cheung, marco mariotti, roberto veneziani journal of economic theory 10.1016/j.jet.2026.106204" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106204">The Hard Problem and the Tyranny of the Losers</a></h3>
+    <p class="title-zh">硬问题与失败者的暴政</p>
+    <p class="authors">Stan Cheung, Marco Mariotti, Roberto Veneziani</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106204">10.1016/j.jet.2026.106204</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the vcg mechanism, the core, and assignment stages in auctions vcg机制、核心与拍卖中的分配阶段 lawrence m. ausubel, oleg baranov journal of economic theory 10.1016/j.jet.2026.106192" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106192">The VCG mechanism, the core, and assignment stages in auctions</a></h3>
+    <p class="title-zh">VCG机制、核心与拍卖中的分配阶段</p>
+    <p class="authors">Lawrence M. Ausubel, Oleg Baranov</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106192">10.1016/j.jet.2026.106192</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="credit rationing in unsecured debt markets 无担保债务市场中的信贷配给 v. filipe martins-da-rocha, toàn phan, yiannis vailakis journal of economic theory 10.1016/j.jet.2026.106188" data-journal="journal-of-economic-theory" data-fields="finance theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106188">Credit rationing in unsecured debt markets</a></h3>
+    <p class="title-zh">无担保债务市场中的信贷配给</p>
+    <p class="authors">V. Filipe Martins-da-Rocha, Toàn Phan, Yiannis Vailakis</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106188">10.1016/j.jet.2026.106188</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="covert learning and disclosure 隐性学习与信息披露 matteo escudé journal of economic theory 10.1016/j.jet.2026.106179" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106179">Covert learning and disclosure</a></h3>
+    <p class="title-zh">隐性学习与信息披露</p>
+    <p class="authors">Matteo Escudé</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106179">10.1016/j.jet.2026.106179</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="nonbossy mechanisms: mechanism design robust to secondary goals 非强制性机制：对次要目标稳健的机制设计 renato paes leme, jon schneider, hanrui zhang journal of economic theory 10.1016/j.jet.2026.106187" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106187">Nonbossy mechanisms: Mechanism design robust to secondary goals</a></h3>
+    <p class="title-zh">非强制性机制：对次要目标稳健的机制设计</p>
+    <p class="authors">Renato Paes Leme, Jon Schneider, Hanrui Zhang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106187">10.1016/j.jet.2026.106187</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="classical matching via network formation 基于网络形成的经典匹配 evan sadler journal of economic theory 10.1016/j.jet.2026.106208" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106208">Classical Matching via Network Formation</a></h3>
+    <p class="title-zh">基于网络形成的经典匹配</p>
+    <p class="authors">Evan Sadler</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106208">10.1016/j.jet.2026.106208</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="localized perfection 局部完美 enxian chen, lei qiao, xiang sun, yeneng sun journal of economic theory 10.1016/j.jet.2026.106183" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106183">Localized perfection</a></h3>
+    <p class="title-zh">局部完美</p>
+    <p class="authors">Enxian Chen, Lei Qiao, Xiang Sun, Yeneng Sun</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106183">10.1016/j.jet.2026.106183</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="hold-up in the absence of individual rationality: asymptotic efficiency and gradualism 缺乏个体理性下的敲竹杠问题：渐近效率与渐进主义 prabal roy chowdhury, kunal sengupta journal of economic theory 10.1016/j.jet.2026.106209" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106209">Hold-up in the Absence of Individual Rationality: Asymptotic Efficiency and Gradualism</a></h3>
+    <p class="title-zh">缺乏个体理性下的敲竹杠问题：渐近效率与渐进主义</p>
+    <p class="authors">Prabal Roy Chowdhury, Kunal Sengupta</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-09-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106209">10.1016/j.jet.2026.106209</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="editorial board 编辑委员会  journal of economic theory 10.1016/s0022-0531(26)00076-1" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/s0022-0531(26)00076-1">Editorial Board</a></h3>
+    <p class="title-zh">编辑委员会</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0022-0531(26)00076-1">10.1016/s0022-0531(26)00076-1</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the hold-up problem with flexible unobservable investments 灵活不可观测投资下的敲竹杠问题 daniel krähmer journal of economic theory 10.1016/j.jet.2026.106205" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106205">The hold-up problem with flexible unobservable investments</a></h3>
+    <p class="title-zh">灵活不可观测投资下的敲竹杠问题</p>
+    <p class="authors">Daniel Krähmer</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106205">10.1016/j.jet.2026.106205</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="credit, money and (pseudo-)anonymity 信贷、货币与（伪）匿名性 remo isch-taudien, fabienne schneider journal of economic theory 10.1016/j.jet.2026.106202" data-journal="journal-of-economic-theory" data-fields="finance theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106202">Credit, money and (pseudo-)anonymity</a></h3>
+    <p class="title-zh">信贷、货币与（伪）匿名性</p>
+    <p class="authors">Remo Isch-Taudien, Fabienne Schneider</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106202">10.1016/j.jet.2026.106202</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="asymmetric optimal auction design with loss-averse bidders 损失厌恶投标者下的非对称最优拍卖设计 akitoshi muramoto, takeharu sogo journal of economic theory 10.1016/j.jet.2026.106186" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106186">Asymmetric optimal auction design with loss-averse bidders</a></h3>
+    <p class="title-zh">损失厌恶投标者下的非对称最优拍卖设计</p>
+    <p class="authors">Akitoshi Muramoto, Takeharu Sogo</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106186">10.1016/j.jet.2026.106186</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="reference-dependent choice bracketing 参考依赖的选择分组 pauline vorjohann journal of economic theory 10.1016/j.jet.2026.106207" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106207">Reference-dependent choice bracketing</a></h3>
+    <p class="title-zh">参考依赖的选择分组</p>
+    <p class="authors">Pauline Vorjohann</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106207">10.1016/j.jet.2026.106207</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="which experiments test a model? 哪些实验检验了一个模型？ paul j. healy, greg leo journal of economic theory 10.1016/j.jet.2026.106191" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106191">Which experiments test a model?</a></h3>
+    <p class="title-zh">哪些实验检验了一个模型？</p>
+    <p class="authors">Paul J. Healy, Greg Leo</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106191">10.1016/j.jet.2026.106191</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="positive and negative selection in bargaining 议价中的正向与负向选择 dongkyu chang, duk gyoo kim, wooyoung lim journal of economic theory 10.1016/j.jet.2026.106190" data-journal="journal-of-economic-theory" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.jet.2026.106190">Positive and negative selection in bargaining</a></h3>
+    <p class="title-zh">议价中的正向与负向选择</p>
+    <p class="authors">Dongkyu Chang, Duk Gyoo Kim, Wooyoung Lim</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Economic Theory</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jet.2026.106190">10.1016/j.jet.2026.106190</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
+  let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly || preset === 'china') {
+      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+    } else {
+      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+    }
+  }
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+  applyFilters();
+})();
+</script>
+</main>
+    </div>
+  </div>
+</body>
+</html>

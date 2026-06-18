@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>European Economic Review 最近 7 天</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">8</span></a><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">8</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">3</span></a><a class="side-link" href="../../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">3</span></a><a class="side-link" href="../../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/education/"><span class="side-main"><strong>教育</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-17 涉及期刊</div><a class="side-link" href="../../../daily/2026-06-17/?journal=european-economic-review"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">20</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="../../../">今日</a>
+          <a href="../../../topics/china/">与中国相关</a>
+          <a class="" href="../../../archive/">归档</a>
+          <a href="../../../journals/">监测期刊</a>
+          <a href="../../../feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>European Economic Review：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>41 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-17/?journal=european-economic-review">最新日期 20</a>
+  <a class="control" href="../../../journals/european-economic-review/recent7/">最近 7 天 41</a>
+  <a class="control" href="../../../journals/european-economic-review/">全部历史 41</a>
+</div><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="european-economic-review">European Economic Review</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="issue">来源期次</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="hand-to-mouth households in the eurosystem and the transmission of monetary policy 欧元体系中的手头拮据家庭与货币政策的传导 okan akarsu, emrehan aktuğ, müşerref küçükbayrak european economic review 10.1016/j.euroecorev.2026.105401" data-journal="european-economic-review" data-fields="development macro public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">08:23</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105401">Hand-to-mouth households in the eurosystem and the transmission of monetary policy</a></h3>
+    <p class="title-zh">欧元体系中的手头拮据家庭与货币政策的传导</p>
+    <p class="authors">Okan Akarsu, Emrehan Aktuğ, Müşerref Küçükbayrak</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105401">10.1016/j.euroecorev.2026.105401</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="optimal income taxes and tariffs in a small economy 小型经济体中的最优所得税与关税 elias dinopoulos, bulent unel european economic review 10.1016/j.euroecorev.2026.105382" data-journal="european-economic-review" data-fields="public trade" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105382">Optimal income taxes and tariffs in a small economy</a></h3>
+    <p class="title-zh">小型经济体中的最优所得税与关税</p>
+    <p class="authors">Elias Dinopoulos, Bulent Unel</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105382">10.1016/j.euroecorev.2026.105382</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="do you get what you pay for? 你花的钱值不值？ wei-shiun chang, sarah jane ereneo, timothy c. salmon european economic review 10.1016/j.euroecorev.2026.105357" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105357">Do you get what you pay for?</a></h3>
+    <p class="title-zh">你花的钱值不值？</p>
+    <p class="authors">Wei-Shiun Chang, Sarah Jane Ereneo, Timothy C. Salmon</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105357">10.1016/j.euroecorev.2026.105357</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="monetary policy consequences of financial stability interventions: assessing the uk gilt crisis and the central bank policy response 金融稳定干预的货币政策后果：评估英国金边债券危机与央行政策应对 nicolò bandera, jacob stevens european economic review 10.1016/j.euroecorev.2026.105360" data-journal="european-economic-review" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105360">Monetary policy consequences of financial stability interventions: Assessing the UK gilt crisis and the central bank policy response</a></h3>
+    <p class="title-zh">金融稳定干预的货币政策后果：评估英国金边债券危机与央行政策应对</p>
+    <p class="authors">Nicolò Bandera, Jacob Stevens</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105360">10.1016/j.euroecorev.2026.105360</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="technology adoption under emissions taxes and permit markets with price collars 排放税与价格带许可证市场下的技术采纳 timothy n. cason, john k. stranlund, frans p. de vries european economic review 10.1016/j.euroecorev.2026.105358" data-journal="european-economic-review" data-fields="agriculture environment finance public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105358">Technology adoption under emissions taxes and permit markets with price collars</a></h3>
+    <p class="title-zh">排放税与价格带许可证市场下的技术采纳</p>
+    <p class="authors">Timothy N. Cason, John K. Stranlund, Frans P. de Vries</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105358">10.1016/j.euroecorev.2026.105358</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="unleveling the playing field? — experimental evidence on parents’ willingness to give their children an advantage 拉平竞技场？——父母给予子女优势意愿的实验证据 oda kristine storstad sund european economic review 10.1016/j.euroecorev.2026.105334" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105334">Unleveling the playing field? — Experimental evidence on parents’ willingness to give their children an advantage</a></h3>
+    <p class="title-zh">拉平竞技场？——父母给予子女优势意愿的实验证据</p>
+    <p class="authors">Oda Kristine Storstad Sund</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105334">10.1016/j.euroecorev.2026.105334</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="markups, pass-through, and firm heterogeneity with sequentially mixed search 顺序混合搜索中的加成、传导与企业异质性 alex chernoff, allen head, beverly lapham european economic review 10.1016/j.euroecorev.2026.105349" data-journal="european-economic-review" data-fields="firms" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105349">Markups, pass-through, and firm heterogeneity with sequentially mixed search</a></h3>
+    <p class="title-zh">顺序混合搜索中的加成、传导与企业异质性</p>
+    <p class="authors">Alex Chernoff, Allen Head, Beverly Lapham</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105349">10.1016/j.euroecorev.2026.105349</a><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="fiscal shocks and the surge of inflation 财政冲击与通胀飙升 lorenzo mori european economic review 10.1016/j.euroecorev.2026.105384" data-journal="european-economic-review" data-fields="macro" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105384">Fiscal shocks and the surge of inflation</a></h3>
+    <p class="title-zh">财政冲击与通胀飙升</p>
+    <p class="authors">Lorenzo Mori</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105384">10.1016/j.euroecorev.2026.105384</a><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="inflation targeting, monetary policy, and inequality 通胀目标、货币政策与不平等 georgios chortareas, anastasios evgenidis, apostolos fasianos european economic review 10.1016/j.euroecorev.2026.105359" data-journal="european-economic-review" data-fields="macro public inequality" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105359">Inflation targeting, Monetary policy, and Inequality</a></h3>
+    <p class="title-zh">通胀目标、货币政策与不平等</p>
+    <p class="authors">Georgios Chortareas, Anastasios Evgenidis, Apostolos Fasianos</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105359">10.1016/j.euroecorev.2026.105359</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">不平等</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="are my team members pro-social? information about social value orientation influences cooperation in public good games 我的团队成员是亲社会的吗？社会价值取向信息影响公共品博弈中的合作 edward cartwright, yidan chai, lian xue european economic review 10.1016/j.euroecorev.2026.105333" data-journal="european-economic-review" data-fields="public theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105333">Are my team members pro-social? Information about social value orientation influences cooperation in public good games</a></h3>
+    <p class="title-zh">我的团队成员是亲社会的吗？社会价值取向信息影响公共品博弈中的合作</p>
+    <p class="authors">Edward Cartwright, Yidan Chai, Lian Xue</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105333">10.1016/j.euroecorev.2026.105333</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="trade, innovation, and natural capital: growth dynamics near ecological thresholds 贸易、创新与自然资本：生态阈值附近的增长动态 nicoletta batini, luigi durand european economic review 10.1016/j.euroecorev.2026.105351" data-journal="european-economic-review" data-fields="macro trade firms" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105351">Trade, innovation, and natural capital: Growth dynamics near ecological thresholds</a></h3>
+    <p class="title-zh">贸易、创新与自然资本：生态阈值附近的增长动态</p>
+    <p class="authors">Nicoletta Batini, Luigi Durand</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105351">10.1016/j.euroecorev.2026.105351</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="performance thresholds, effort and risk-taking 绩效阈值、努力与风险承担 pol campos-mercade, sergio currarini, carmen marchiori, friederike mengel european economic review 10.1016/j.euroecorev.2026.105363" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105363">Performance thresholds, effort and risk-taking</a></h3>
+    <p class="title-zh">绩效阈值、努力与风险承担</p>
+    <p class="authors">Pol Campos-Mercade, Sergio Currarini, Carmen Marchiori, Friederike Mengel</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105363">10.1016/j.euroecorev.2026.105363</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="disconnected: the unequal impact of online learning on minority students 脱节：在线学习对少数族裔学生的不平等影响 naomi gershoni, miri stryjan european economic review 10.1016/j.euroecorev.2026.105356" data-journal="european-economic-review" data-fields="education" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105356">Disconnected: The unequal impact of online learning on minority students</a></h3>
+    <p class="title-zh">脱节：在线学习对少数族裔学生的不平等影响</p>
+    <p class="authors">Naomi Gershoni, Miri Stryjan</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105356">10.1016/j.euroecorev.2026.105356</a><span class="pill">教育</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the show must go on: the role of public financial support in promoting firm innovation investments during a crisis 演出必须继续：公共财政支持在危机中促进企业创新投资的作用 marc cowling, luca farè, silvio vismara european economic review 10.1016/j.euroecorev.2026.105365" data-journal="european-economic-review" data-fields="finance public firms" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105365">The show must go on: The role of public financial support in promoting firm innovation investments during a crisis</a></h3>
+    <p class="title-zh">演出必须继续：公共财政支持在危机中促进企业创新投资的作用</p>
+    <p class="authors">Marc Cowling, Luca Farè, Silvio Vismara</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105365">10.1016/j.euroecorev.2026.105365</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the eurasian roundabout: trade flows into russia through the caucasus and central asia 欧亚环岛：经由高加索和中亚流入俄罗斯的贸易流 maxim chupilkin, beata javorcik, alexander plekhanov european economic review 10.1016/j.euroecorev.2026.105340" data-journal="european-economic-review" data-fields="trade" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105340">The Eurasian roundabout: Trade flows into Russia through the Caucasus and Central Asia</a></h3>
+    <p class="title-zh">欧亚环岛：经由高加索和中亚流入俄罗斯的贸易流</p>
+    <p class="authors">Maxim Chupilkin, Beata Javorcik, Alexander Plekhanov</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105340">10.1016/j.euroecorev.2026.105340</a><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="inflation is not equal for all: the heterogeneous effects of energy shocks 通胀并非人人平等：能源冲击的异质性效应 francesco corsello, marianna riggi european economic review 10.1016/j.euroecorev.2026.105298" data-journal="european-economic-review" data-fields="environment macro" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105298">Inflation is not equal for all: The heterogeneous effects of energy shocks</a></h3>
+    <p class="title-zh">通胀并非人人平等：能源冲击的异质性效应</p>
+    <p class="authors">Francesco Corsello, Marianna Riggi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105298">10.1016/j.euroecorev.2026.105298</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="occupation ladders over the business cycle 经济周期中的职业阶梯 ismail baydur, toshihiko mukoyama european economic review 10.1016/j.euroecorev.2026.105348" data-journal="european-economic-review" data-fields="macro" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105348">Occupation ladders over the business cycle</a></h3>
+    <p class="title-zh">经济周期中的职业阶梯</p>
+    <p class="authors">Ismail Baydur, Toshihiko Mukoyama</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105348">10.1016/j.euroecorev.2026.105348</a><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="a search-based theory of merger waves 基于搜索的并购浪潮理论 flavien moreau, semih üslü european economic review 10.1016/j.euroecorev.2026.105354" data-journal="european-economic-review" data-fields="theory" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105354">A search-based theory of merger waves</a></h3>
+    <p class="title-zh">基于搜索的并购浪潮理论</p>
+    <p class="authors">Flavien Moreau, Semih Üslü</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105354">10.1016/j.euroecorev.2026.105354</a><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="raising the inflation target: what are the effective gains in policy room? 提高通胀目标：政策空间的有效增益是什么？ jean-paul l’huillier, raphael schoenle european economic review 10.1016/j.euroecorev.2026.105332" data-journal="european-economic-review" data-fields="macro public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105332">Raising the inflation target: What are the effective gains in policy room?</a></h3>
+    <p class="title-zh">提高通胀目标：政策空间的有效增益是什么？</p>
+    <p class="authors">Jean-Paul L’Huillier, Raphael Schoenle</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105332">10.1016/j.euroecorev.2026.105332</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="job market stars: statistical significance and academic hiring in economics 就业市场明星：经济学中的统计显著性与学术招聘 abel brodeur, lamis kattan, marco musumeci european economic review 10.1016/j.euroecorev.2026.105353" data-journal="european-economic-review" data-fields="finance" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105353">Job market stars: Statistical significance and academic hiring in economics</a></h3>
+    <p class="title-zh">就业市场明星：经济学中的统计显著性与学术招聘</p>
+    <p class="authors">Abel Brodeur, Lamis Kattan, Marco Musumeci</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105353">10.1016/j.euroecorev.2026.105353</a><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the impact of new products on ethical beliefs 新产品对伦理信念的影响 zach freitas-groff, bobbie macdonald, eva vivalt european economic review 10.1016/j.euroecorev.2026.105388" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105388">The impact of new products on ethical beliefs</a></h3>
+    <p class="title-zh">新产品对伦理信念的影响</p>
+    <p class="authors">Zach Freitas-Groff, Bobbie Macdonald, Eva Vivalt</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105388">10.1016/j.euroecorev.2026.105388</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="how important is global r-star for open economies? 全球r-star对开放经济体的重要性如何？ james morley, benjamin wong european economic review 10.1016/j.euroecorev.2026.105391" data-journal="european-economic-review" data-fields="trade" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105391">How important is global r-star for open economies?</a></h3>
+    <p class="title-zh">全球r-star对开放经济体的重要性如何？</p>
+    <p class="authors">James Morley, Benjamin Wong</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105391">10.1016/j.euroecorev.2026.105391</a><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="international tax spillovers and tangible investment, with implications for a global minimum tax 国际税收溢出效应与有形投资：对全球最低税的影响 michael keen, li liu, hayley pallan european economic review 10.1016/j.euroecorev.2026.105378" data-journal="european-economic-review" data-fields="public trade" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105378">International tax spillovers and tangible investment, with implications for a global minimum tax</a></h3>
+    <p class="title-zh">国际税收溢出效应与有形投资：对全球最低税的影响</p>
+    <p class="authors">Michael Keen, Li Liu, Hayley Pallan</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105378">10.1016/j.euroecorev.2026.105378</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="service imports, workforce composition, and firm performance: evidence from finnish microdata 服务进口、劳动力结构与企业绩效：来自芬兰微观数据的证据 andrea ariu, katariina nilsson hakkala, j. bradford jensen, saara tamminen european economic review 10.1016/j.euroecorev.2026.105381" data-journal="european-economic-review" data-fields="trade firms" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105381">Service imports, workforce composition, and firm performance: Evidence from Finnish microdata</a></h3>
+    <p class="title-zh">服务进口、劳动力结构与企业绩效：来自芬兰微观数据的证据</p>
+    <p class="authors">Andrea Ariu, Katariina Nilsson Hakkala, J. Bradford Jensen, Saara Tamminen</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105381">10.1016/j.euroecorev.2026.105381</a><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="unemployment insurance when the wealth distribution matters 财富分布重要时的失业保险问题 facundo piguillem, hernán ruffo, nicholas trachter european economic review 10.1016/j.euroecorev.2026.105386" data-journal="european-economic-review" data-fields="labor inequality" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105386">Unemployment insurance when the wealth distribution matters</a></h3>
+    <p class="title-zh">财富分布重要时的失业保险问题</p>
+    <p class="authors">Facundo Piguillem, Hernán Ruffo, Nicholas Trachter</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105386">10.1016/j.euroecorev.2026.105386</a><span class="pill">劳动</span><span class="pill">不平等</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="geopolitical risk shocks: when size matters 地缘政治风险冲击：当规模至关重要时 davide brignone, luca gambetti, martino ricci european economic review 10.1016/j.euroecorev.2026.105392" data-journal="european-economic-review" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105392">Geopolitical risk shocks: When size matters</a></h3>
+    <p class="title-zh">地缘政治风险冲击：当规模至关重要时</p>
+    <p class="authors">Davide Brignone, Luca Gambetti, Martino Ricci</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105392">10.1016/j.euroecorev.2026.105392</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="on the robustness of monetary stakes and lying 论金钱激励与说谎行为的稳健性 michalis drouvelis, zeyu qiu european economic review 10.1016/j.euroecorev.2026.105379" data-journal="european-economic-review" data-fields="macro" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105379">On the robustness of monetary stakes and lying</a></h3>
+    <p class="title-zh">论金钱激励与说谎行为的稳健性</p>
+    <p class="authors">Michalis Drouvelis, Zeyu Qiu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105379">10.1016/j.euroecorev.2026.105379</a><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="unpacking trend inflation: evidence from a factor correlated unobserved components model of sticky and flexible prices 解构趋势通胀：来自粘性与弹性价格因子相关不可观测成分模型的证据 mengheng li, ivan mendieta-muñoz european economic review 10.1016/j.euroecorev.2026.105377" data-journal="european-economic-review" data-fields="agriculture macro" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105377">Unpacking trend inflation: Evidence from a factor correlated unobserved components model of sticky and flexible prices</a></h3>
+    <p class="title-zh">解构趋势通胀：来自粘性与弹性价格因子相关不可观测成分模型的证据</p>
+    <p class="authors">Mengheng Li, Ivan Mendieta-Muñoz</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105377">10.1016/j.euroecorev.2026.105377</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="online tutoring, school performance, and school-to-work transitions: evidence from a randomized controlled trial 在线辅导、学业表现与从学校到工作的过渡：来自随机对照试验的证据 silke anger, bernhard christoph, agata galkiewicz, shushanik margaryan, malte sandner 等 european economic review 10.1016/j.euroecorev.2026.105362" data-journal="european-economic-review" data-fields="education" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105362">Online tutoring, school performance, and school-to-work transitions: Evidence from a randomized controlled trial</a></h3>
+    <p class="title-zh">在线辅导、学业表现与从学校到工作的过渡：来自随机对照试验的证据</p>
+    <p class="authors">Silke Anger, Bernhard Christoph, Agata Galkiewicz, Shushanik Margaryan, Malte Sandner 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105362">10.1016/j.euroecorev.2026.105362</a><span class="pill">教育</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="school quality beyond test scores: the role of schools in shaping educational outcomes 超越考试成绩的学校质量：学校在塑造教育成果中的作用 annalisa loviglio european economic review 10.1016/j.euroecorev.2026.105372" data-journal="european-economic-review" data-fields="education" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105372">School quality beyond test scores: The role of schools in shaping educational outcomes</a></h3>
+    <p class="title-zh">超越考试成绩的学校质量：学校在塑造教育成果中的作用</p>
+    <p class="authors">Annalisa Loviglio</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105372">10.1016/j.euroecorev.2026.105372</a><span class="pill">教育</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="strategy-proofness, investment efficiency, and marginal returns: an equivalence 策略证明性、投资效率与边际收益：一个等价性 john william hatfield, fuhito kojima, scott duke kominers european economic review 10.1016/j.euroecorev.2025.105256" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2025.105256">Strategy-proofness, investment efficiency, and marginal returns: An equivalence</a></h3>
+    <p class="title-zh">策略证明性、投资效率与边际收益：一个等价性</p>
+    <p class="authors">John William Hatfield, Fuhito Kojima, Scott Duke Kominers</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2025.105256">10.1016/j.euroecorev.2025.105256</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="inputs in distress: geoeconomic fragmentation and firms’ sourcing 困境中的投入：地缘经济分裂与企业的采购来源 ludovic panon, laura lebastard, michele mancini, alessandro borin, peonare caka tofani 等 european economic review 10.1016/j.euroecorev.2026.105355" data-journal="european-economic-review" data-fields="firms" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105355">Inputs in distress: Geoeconomic fragmentation and firms’ sourcing</a></h3>
+    <p class="title-zh">困境中的投入：地缘经济分裂与企业的采购来源</p>
+    <p class="authors">Ludovic Panon, Laura Lebastard, Michele Mancini, Alessandro Borin, Peonare Caka Tofani 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105355">10.1016/j.euroecorev.2026.105355</a><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the road not taken: socioemotional learning and academic rigor 未选择的路：社会情感学习与学术严谨性 eric p. bettinger, mari rege, ingeborg f. solli, maximiliaan w.p.t. thijssen, david s. yeager european economic review 10.1016/j.euroecorev.2026.105361" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105361">The road not taken: Socioemotional learning and academic rigor</a></h3>
+    <p class="title-zh">未选择的路：社会情感学习与学术严谨性</p>
+    <p class="authors">Eric P. Bettinger, Mari Rege, Ingeborg F. Solli, Maximiliaan W.P.T. Thijssen, David S. Yeager</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105361">10.1016/j.euroecorev.2026.105361</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="uncertainty and the term structure of interest rates 不确定性与利率期限结构 jamie l. cross, aubrey poon, dan zhu european economic review 10.1016/j.euroecorev.2026.105352" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105352">Uncertainty and the term structure of interest rates</a></h3>
+    <p class="title-zh">不确定性与利率期限结构</p>
+    <p class="authors">Jamie L. Cross, Aubrey Poon, Dan Zhu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105352">10.1016/j.euroecorev.2026.105352</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="editorial board 编辑委员会  european economic review 10.1016/s0014-2921(26)00141-8" data-journal="european-economic-review" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/s0014-2921(26)00141-8">Editorial Board</a></h3>
+    <p class="title-zh">编辑委员会</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0014-2921(26)00141-8">10.1016/s0014-2921(26)00141-8</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="commodity price uncertainty comovement: does it matter for global economic growth? 大宗商品价格不确定性的联动性：对全球经济增长重要吗？ laurent ferrara, aikaterini karadimitropoulou, athanasios triantafyllou european economic review 10.1016/j.euroecorev.2026.105339" data-journal="european-economic-review" data-fields="agriculture macro trade" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105339">Commodity price uncertainty comovement: Does it matter for global economic growth?</a></h3>
+    <p class="title-zh">大宗商品价格不确定性的联动性：对全球经济增长重要吗？</p>
+    <p class="authors">Laurent Ferrara, Aikaterini Karadimitropoulou, Athanasios Triantafyllou</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105339">10.1016/j.euroecorev.2026.105339</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="information, prices and buyer entry 信息、价格与买方进入 mei dong, janet hua jiang, ling sun european economic review 10.1016/j.euroecorev.2026.105375" data-journal="european-economic-review" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105375">Information, prices and buyer entry</a></h3>
+    <p class="title-zh">信息、价格与买方进入</p>
+    <p class="authors">Mei Dong, Janet Hua Jiang, Ling Sun</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105375">10.1016/j.euroecorev.2026.105375</a><span class="pill">农业与食品</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="banking concentration and loan-rate markups in a frictional loan market 摩擦性贷款市场中的银行集中度与贷款利率加成 mei dong, stella huangfu, timothy kam, sam ng european economic review 10.1016/j.euroecorev.2026.105393" data-journal="european-economic-review" data-fields="finance" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105393">Banking concentration and loan-rate markups in a frictional loan market</a></h3>
+    <p class="title-zh">摩擦性贷款市场中的银行集中度与贷款利率加成</p>
+    <p class="authors">Mei Dong, Stella HuangFu, Timothy Kam, Sam Ng</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105393">10.1016/j.euroecorev.2026.105393</a><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="living up to expectations: the effectiveness of forward guidance and inflation dynamics post-global financial crisis 符合预期：全球金融危机后前瞻性指引的有效性与通胀动态 stephen j. cole, enrique martínez garcía, eric sims european economic review 10.1016/j.euroecorev.2026.105385" data-journal="european-economic-review" data-fields="finance macro trade" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105385">Living Up to Expectations: The Effectiveness of Forward Guidance and Inflation Dynamics Post-Global Financial Crisis</a></h3>
+    <p class="title-zh">符合预期：全球金融危机后前瞻性指引的有效性与通胀动态</p>
+    <p class="authors">Stephen J. Cole, Enrique Martínez García, Eric Sims</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105385">10.1016/j.euroecorev.2026.105385</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="dynamics of market power in monetary economies 货币经济中市场势力的动态变化 jyotsana kala, lucie lebeau, lu wang european economic review 10.1016/j.euroecorev.2026.105380" data-journal="european-economic-review" data-fields="finance macro" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105380">Dynamics of market power in monetary economies</a></h3>
+    <p class="title-zh">货币经济中市场势力的动态变化</p>
+    <p class="authors">Jyotsana Kala, Lucie Lebeau, Lu Wang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105380">10.1016/j.euroecorev.2026.105380</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="gentrification and affordable housing policies 士绅化与可负担住房政策 rainald borck, niklas gohl, oliver krebs european economic review 10.1016/j.euroecorev.2026.105387" data-journal="european-economic-review" data-fields="urban" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1016/j.euroecorev.2026.105387">Gentrification and affordable housing policies</a></h3>
+    <p class="title-zh">士绅化与可负担住房政策</p>
+    <p class="authors">Rainald Borck, Niklas Gohl, Oliver Krebs</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>European Economic Review</span><span>卷期日期 2026-08-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105387">10.1016/j.euroecorev.2026.105387</a><span class="pill">城市与区域</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
+  let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly || preset === 'china') {
+      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+    } else {
+      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+    }
+  }
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+  applyFilters();
+})();
+</script>
+</main>
+    </div>
+  </div>
+</body>
+</html>

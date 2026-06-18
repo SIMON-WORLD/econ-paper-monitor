@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Australian Journal of Agricultural and Resource Economics 最近 7 天</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">8</span></a><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">3</span></a><a class="side-link" href="../../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-17 涉及期刊</div><a class="side-link" href="../../../daily/2026-06-17/?journal=australian-journal-of-agricultural-and-resource-economics"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">8</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="../../../">今日</a>
+          <a href="../../../topics/china/">与中国相关</a>
+          <a class="" href="../../../archive/">归档</a>
+          <a href="../../../journals/">监测期刊</a>
+          <a href="../../../feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>Australian Journal of Agricultural and Resource Economics：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>14 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-17/?journal=australian-journal-of-agricultural-and-resource-economics">最新日期 8</a>
+  <a class="control" href="../../../journals/australian-journal-of-agricultural-and-resource-economics/recent7/">最近 7 天 14</a>
+  <a class="control" href="../../../journals/australian-journal-of-agricultural-and-resource-economics/">全部历史 14</a>
+</div><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="2025
+                    &lt;scp&gt;aares&lt;/scp&gt;
+                    distinguished life member 2025年aares杰出终身会员  australian journal of agricultural and resource economics 10.1111/1467-8489.70122" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70122">2025
+                    &lt;scp&gt;AARES&lt;/scp&gt;
+                    Distinguished Life Member</a></h3>
+    <p class="title-zh">2025年AARES杰出终身会员</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-28 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70122">10.1111/1467-8489.70122</a><span class="pill">农业与食品</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="2025 aares distinguished fellow 2025年aares杰出研究员  australian journal of agricultural and resource economics 10.1111/1467-8489.70114" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70114">2025 AARES Distinguished Fellow</a></h3>
+    <p class="title-zh">2025年AARES杰出研究员</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70114">10.1111/1467-8489.70114</a><span class="pill">农业与食品</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="2025
+                    &lt;scp&gt;aares&lt;/scp&gt;
+                    distinguished fellow 2025年aares杰出研究员  australian journal of agricultural and resource economics 10.1111/1467-8489.70113" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70113">2025
+                    &lt;scp&gt;AARES&lt;/scp&gt;
+                    Distinguished Fellow</a></h3>
+    <p class="title-zh">2025年AARES杰出研究员</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70113">10.1111/1467-8489.70113</a><span class="pill">农业与食品</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="do governance practices in cluster farming improve wheat farmers&#x27; profitability? evidence from ethiopia 集群农业中的治理实践是否提高了小麦农户的盈利能力？来自埃塞俄比亚的证据 xiuguang bai, yuming li, amenu leta duguma, gemedo furo, tesfaye solomon 等 australian journal of agricultural and resource economics 10.1111/1467-8489.70117" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70117">Do Governance Practices in Cluster Farming Improve Wheat Farmers&#x27; Profitability? Evidence From Ethiopia</a></h3>
+    <p class="title-zh">集群农业中的治理实践是否提高了小麦农户的盈利能力？来自埃塞俄比亚的证据</p>
+    <p class="authors">Xiuguang Bai, Yuming Li, Amenu Leta Duguma, Gemedo Furo, Tesfaye Solomon 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70117">10.1111/1467-8489.70117</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="agricultural vulnerability assessment: climate and non‐climate interactions in crop production systems 农业脆弱性评估：作物生产系统中气候与非气候因素的交互作用 mahdieh khezri‐nejad‐gharaei, bouali guesmi, jeroen buysse, jose maria gil roig australian journal of agricultural and resource economics 10.1111/1467-8489.70119" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70119">Agricultural Vulnerability Assessment: Climate and Non‐Climate Interactions in Crop Production Systems</a></h3>
+    <p class="title-zh">农业脆弱性评估：作物生产系统中气候与非气候因素的交互作用</p>
+    <p class="authors">Mahdieh Khezri‐nejad‐gharaei, Bouali Guesmi, Jeroen Buysse, Jose Maria Gil Roig</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70119">10.1111/1467-8489.70119</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="substituting groundwater with surface water for irrigation in northern china: current status, effectiveness and challenges 中国北方以地表水替代地下水灌溉：现状、成效与挑战 tianhe sun, baozhu guan, huang chen, jinxia wang, wei chao australian journal of agricultural and resource economics 10.1111/1467-8489.70108" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="china agriculture development finance" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70108">Substituting Groundwater With Surface Water for Irrigation in Northern China: Current Status, Effectiveness and Challenges</a></h3>
+    <p class="title-zh">中国北方以地表水替代地下水灌溉：现状、成效与挑战</p>
+    <p class="authors">Tianhe Sun, Baozhu Guan, Huang Chen, Jinxia Wang, Wei Chao</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70108">10.1111/1467-8489.70108</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="market design in a weather‐dependent and distributed electricity system: lessons from the 2025
+                    &lt;scp&gt;nem&lt;/scp&gt;
+                    review 天气依赖与分布式电力系统中的市场设计：2025年nem审查的启示 tim nelson australian journal of agricultural and resource economics 10.1111/1467-8489.70121" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70121">Market Design in a Weather‐Dependent and Distributed Electricity System: Lessons From the 2025
+                    &lt;scp&gt;NEM&lt;/scp&gt;
+                    Review</a></h3>
+    <p class="title-zh">天气依赖与分布式电力系统中的市场设计：2025年NEM审查的启示</p>
+    <p class="authors">Tim Nelson</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70121">10.1111/1467-8489.70121</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="convergence of agricultural productivity and the influence of fiscal expenditure in sub‐saharan africa 撒哈拉以南非洲农业生产力趋同与财政支出的影响 gezahegne seyoum, wei chen, gemedo furo, agerie nega wassihun, amenu leta duguma australian journal of agricultural and resource economics 10.1111/1467-8489.70116" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development finance macro" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70116">Convergence of Agricultural Productivity and the Influence of Fiscal Expenditure in Sub‐Saharan Africa</a></h3>
+    <p class="title-zh">撒哈拉以南非洲农业生产力趋同与财政支出的影响</p>
+    <p class="authors">Gezahegne Seyoum, Wei Chen, Gemedo Furo, Agerie Nega Wassihun, Amenu Leta Duguma</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70116">10.1111/1467-8489.70116</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="contracts and ownership structures in the bioeconomy: a review of their design and role in innovation 生物经济中的合同与所有权结构：其设计与创新作用的综述 lukas bonar nainggolan, julia höhler, alfons oude lansink australian journal of agricultural and resource economics 10.1111/1467-8489.70124" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture labor theory firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">18:10</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70124">Contracts and Ownership Structures in the Bioeconomy: A Review of Their Design and Role in Innovation</a></h3>
+    <p class="title-zh">生物经济中的合同与所有权结构：其设计与创新作用的综述</p>
+    <p class="authors">Lukas Bonar Nainggolan, Julia Höhler, Alfons Oude Lansink</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70124">10.1111/1467-8489.70124</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="climate and feeding strategies: an analysis of productivity growth in new zealand dairy 气候与饲养策略：新西兰乳业生产率增长分析 mario fernandez, mark neal, gavan dwyer australian journal of agricultural and resource economics 10.1111/1467-8489.70127" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment macro firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70127">Climate and Feeding Strategies: An Analysis of Productivity Growth in New Zealand Dairy</a></h3>
+    <p class="title-zh">气候与饲养策略：新西兰乳业生产率增长分析</p>
+    <p class="authors">Mario Fernandez, Mark Neal, Gavan Dwyer</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70127">10.1111/1467-8489.70127</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="recommendations to reform the national electricity market (
+                    &lt;scp&gt;nem&lt;/scp&gt;
+                    ) 改革国家电力市场（nem）的建议 tim nelson, paula conboy, ava hancock, phil hirschhorn australian journal of agricultural and resource economics 10.1111/1467-8489.70125" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture environment finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70125">Recommendations to Reform the National Electricity Market (
+                    &lt;scp&gt;NEM&lt;/scp&gt;
+                    )</a></h3>
+    <p class="title-zh">改革国家电力市场（NEM）的建议</p>
+    <p class="authors">Tim Nelson, Paula Conboy, Ava Hancock, Phil Hirschhorn</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70125">10.1111/1467-8489.70125</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the feasibility of household food waste reduction in finland: insights from five consumer profiles 芬兰家庭食物垃圾减量的可行性：基于五种消费者画像的见解 aino friman, dušan drabik australian journal of agricultural and resource economics 10.1111/1467-8489.70126" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70126">The Feasibility of Household Food Waste Reduction in Finland: Insights From Five Consumer Profiles</a></h3>
+    <p class="title-zh">芬兰家庭食物垃圾减量的可行性：基于五种消费者画像的见解</p>
+    <p class="authors">Aino Friman, Dušan Drabik</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70126">10.1111/1467-8489.70126</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="urban agriculture adoption, diet variety and rural support among urban zimbabwe households 津巴布韦城市家庭的城市农业采纳、饮食多样性与农村支持 lloyd chigusiwa, asankha pallegedara, terrence kairiza australian journal of agricultural and resource economics 10.1111/1467-8489.70120" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="agriculture development labor trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70120">Urban Agriculture Adoption, Diet Variety and Rural Support Among Urban Zimbabwe Households</a></h3>
+    <p class="title-zh">津巴布韦城市家庭的城市农业采纳、饮食多样性与农村支持</p>
+    <p class="authors">Lloyd Chigusiwa, Asankha Pallegedara, Terrence Kairiza</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70120">10.1111/1467-8489.70120</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the impact of income subsidies on maize harvest losses: evidence from chinese farmers 收入补贴对玉米收获损失的影响：来自中国农户的证据 xue qu, yi luo, yonghao hu, laping wu australian journal of agricultural and resource economics 10.1111/1467-8489.70118" data-journal="australian-journal-of-agricultural-and-resource-economics" data-fields="china agriculture public trade" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1111/1467-8489.70118">The Impact of Income Subsidies on Maize Harvest Losses: Evidence From Chinese Farmers</a></h3>
+    <p class="title-zh">收入补贴对玉米收获损失的影响：来自中国农户的证据</p>
+    <p class="authors">Xue Qu, Yi Luo, Yonghao Hu, Laping Wu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Australian Journal of Agricultural and Resource Economics</span><span>在线日期 2026-06-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/1467-8489.70118">10.1111/1467-8489.70118</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
+  let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly || preset === 'china') {
+      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+    } else {
+      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+    }
+  }
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+  applyFilters();
+})();
+</script>
+</main>
+    </div>
+  </div>
+</body>
+</html>

@@ -331,22 +331,32 @@ def public_date_line(record: dict[str, Any]) -> str:
     return f"{public_date_label(record)} {official_date(record)} · 来源：{date_source_label(record)}"
 
 
-def sidebar(records: list[dict[str, Any]]) -> str:
-    topic_counts = Counter(topic for record in records for topic in article_topics(record))
-    journal_counts = Counter(record.get("journal_id") for record in records if record.get("journal_id"))
+def sidebar(
+    records: list[dict[str, Any]],
+    *,
+    context_records: list[dict[str, Any]] | None = None,
+    context_date: str | None = None,
+) -> str:
+    side_records = context_records if context_records is not None else records
+    topic_counts = Counter(topic for record in side_records for topic in article_topics(record))
+    journal_counts = Counter(record.get("journal_id") for record in side_records if record.get("journal_id"))
     journals_by_id = journal_lookup()
     topics = "".join(
         f'<a class="side-link" href="{BASE}/topics/{html_escape(topic)}/"><span class="side-main"><strong>{html_escape(topic_label(topic))}</strong></span><span class="count">{count}</span></a>'
         for topic, count in topic_counts.most_common(12)
     )
     journal_links = []
+    journal_target_date = context_date or today_str()
     for journal_id, count in journal_counts.most_common(10):
         journal = journals_by_id.get(journal_id, {})
         title = journal.get("title") or journal_id
         chinese_name = journal.get("chinese_name") or ""
         journal_links.append(
-            f'<a class="side-link" href="{BASE}/journals/{html_escape(journal_id)}/"><span class="side-main"><strong>{html_escape(title)}</strong><em>{html_escape(chinese_name)}</em></span><span class="count">{count}</span></a>'
+            f'<a class="side-link" href="{BASE}/daily/{html_escape(journal_target_date)}/?journal={html_escape(journal_id)}"><span class="side-main"><strong>{html_escape(title)}</strong><em>{html_escape(chinese_name)}</em></span><span class="count">{count}</span></a>'
         )
+    journal_title = "今日涉及期刊" if journal_target_date == today_str() else f"{journal_target_date} 涉及期刊"
+    if not journal_links:
+        journal_links.append('<div class="side-link"><span class="side-main"><strong>暂无期刊更新</strong></span><span class="count">0</span></div>')
     return f"""<aside class="sidebar">
   <h1 class="brand">{SITE_NAME}</h1>
   <div class="subtitle">{SITE_SUBTITLE}</div>
@@ -357,11 +367,19 @@ def sidebar(records: list[dict[str, Any]]) -> str:
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
   </div>
   <div class="side-block"><div class="side-title">文章主题</div>{topics}</div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div>{"".join(journal_links)}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+  <div class="side-block"><div class="side-title">{html_escape(journal_title)}</div>{"".join(journal_links)}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>"""
 
 
-def page(title: str, records: list[dict[str, Any]], body: str, active: str = "") -> str:
+def page(
+    title: str,
+    records: list[dict[str, Any]],
+    body: str,
+    active: str = "",
+    *,
+    sidebar_records: list[dict[str, Any]] | None = None,
+    sidebar_date: str | None = None,
+) -> str:
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -372,7 +390,7 @@ def page(title: str, records: list[dict[str, Any]], body: str, active: str = "")
 </head>
 <body>
   <div class="shell">
-    {sidebar(records)}
+    {sidebar(records, context_records=sidebar_records, context_date=sidebar_date)}
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
         <div><strong>{SITE_NAME}</strong> <span class="subtitle">{SITE_SUBTITLE}</span></div>
@@ -444,7 +462,18 @@ FILTER_SCRIPT = """
   const empty = document.getElementById('filterEmpty');
   const events = Array.from(document.querySelectorAll('.event'));
   if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
   let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
   function setCounter(visible, chinaOnly) {
     if (!counter) return;
     if (chinaOnly || preset === 'china') {
@@ -540,6 +569,37 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False) 
 <div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div>"""
 
 
+def date_from_record(record: dict[str, Any]) -> datetime | None:
+    value = detected_date(record)
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
+
+
+def recent_records(records: list[dict[str, Any]], days: int = 7) -> list[dict[str, Any]]:
+    dates = [date_from_record(record) for record in records]
+    dates = [item for item in dates if item is not None]
+    if not dates:
+        return records
+    cutoff = max(dates) - timedelta(days=days - 1)
+    return [record for record in records if (date_from_record(record) or datetime.min) >= cutoff]
+
+
+def journal_view_links(journal_id: str, journal_records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
+    latest_day = detected_date(journal_records[0]) if journal_records else today_str()
+    today_count = len([record for record in today_records if record.get("journal_id") == journal_id])
+    latest_count = len([record for record in journal_records if detected_date(record) == latest_day])
+    recent_count = len(recent_records(journal_records, 7))
+    today_label = f"今日 {today_count}" if today_count else f"最新日期 {latest_count}"
+    target_day = today_str() if today_count else latest_day
+    return f"""<div class="toolbar">
+  <a class="control primary" href="{BASE}/daily/{html_escape(target_day)}/?journal={html_escape(journal_id)}">{html_escape(today_label)}</a>
+  <a class="control" href="{BASE}/journals/{html_escape(journal_id)}/recent7/">最近 7 天 {recent_count}</a>
+  <a class="control" href="{BASE}/journals/{html_escape(journal_id)}/">全部历史 {len(journal_records)}</a>
+</div>"""
+
+
 def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
     latest_day = detected_date(records[0]) if records else ""
     latest_records = [record for record in records if detected_date(record) == latest_day] if latest_day else []
@@ -610,7 +670,13 @@ def main() -> None:
 
     records = load_all_daily(args.daily_dir)
     today_records = [record for record in records if detected_date(record) == today_str()]
-    write_page(args.docs_dir / "index.html", page(SITE_NAME, records, home_body(records, today_records), active="home"))
+    latest_day = detected_date(records[0]) if records else today_str()
+    home_flow_records = today_records or ([record for record in records if detected_date(record) == latest_day] if latest_day else [])
+    home_flow_date = today_str() if today_records else latest_day
+    write_page(
+        args.docs_dir / "index.html",
+        page(SITE_NAME, records, home_body(records, today_records), active="home", sidebar_records=home_flow_records, sidebar_date=home_flow_date),
+    )
 
     by_date: dict[str, list[dict[str, Any]]] = defaultdict(list)
     by_journal: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -631,15 +697,30 @@ def main() -> None:
             f'<p>支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section>'
             f'{filter_toolbar(daily_records)}{paper_events(daily_records)}{FILTER_SCRIPT}'
         )
-        write_page(args.docs_dir / "daily" / daily_date / "index.html", page(f"{daily_date} 归档", records, body, active="archive"))
+        write_page(
+            args.docs_dir / "daily" / daily_date / "index.html",
+            page(f"{daily_date} 归档", records, body, active="archive", sidebar_records=daily_records, sidebar_date=daily_date),
+        )
         archive_links.append(f'<li><a href="{BASE}/daily/{html_escape(daily_date)}/">{html_escape(daily_date)}</a> ({len(daily_records)})</li>')
 
     journals = load_journals(DATA_DIR / "journals.yml")
     journals_by_id = {journal["id"]: journal for journal in journals}
     for journal_id, journal_records in by_journal.items():
         title = str(journal_records[0].get("journal") or journals_by_id.get(journal_id, {}).get("title") or journal_id)
-        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊历史发现记录。</p></div></section>{filter_toolbar(journal_records)}{paper_events(journal_records)}{FILTER_SCRIPT}'
-        write_page(args.docs_dir / "journals" / journal_id / "index.html", page(title, records, body))
+        latest_journal_date = detected_date(journal_records[0]) if journal_records else None
+        latest_journal_records = [record for record in journal_records if detected_date(record) == latest_journal_date] if latest_journal_date else []
+        view_links = journal_view_links(journal_id, journal_records, today_records)
+        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊历史发现记录。</p></div></section>{view_links}{filter_toolbar(journal_records)}{paper_events(journal_records)}{FILTER_SCRIPT}'
+        write_page(
+            args.docs_dir / "journals" / journal_id / "index.html",
+            page(title, records, body, sidebar_records=latest_journal_records, sidebar_date=latest_journal_date),
+        )
+        recent = recent_records(journal_records, 7)
+        recent_body = f'<section class="section-head"><div><h2>{html_escape(title)}：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>{len(recent)} 篇</p></section>{view_links}{filter_toolbar(recent)}{paper_events(recent)}{FILTER_SCRIPT}'
+        write_page(
+            args.docs_dir / "journals" / journal_id / "recent7" / "index.html",
+            page(f"{title} 最近 7 天", records, recent_body, sidebar_records=latest_journal_records, sidebar_date=latest_journal_date),
+        )
 
     for journal in journals:
         if journal["id"] in by_journal:

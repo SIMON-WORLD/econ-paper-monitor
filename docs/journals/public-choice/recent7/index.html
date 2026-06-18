@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Public Choice 最近 7 天</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-17 涉及期刊</div><a class="side-link" href="../../../daily/2026-06-17/?journal=public-choice"><span class="side-main"><strong>Public Choice</strong><em>公共选择</em></span><span class="count">2</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="../../../">今日</a>
+          <a href="../../../topics/china/">与中国相关</a>
+          <a class="" href="../../../archive/">归档</a>
+          <a href="../../../journals/">监测期刊</a>
+          <a href="../../../feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>Public Choice：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>21 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-17/?journal=public-choice">最新日期 2</a>
+  <a class="control" href="../../../journals/public-choice/recent7/">最近 7 天 21</a>
+  <a class="control" href="../../../journals/public-choice/">全部历史 21</a>
+</div><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="public-choice">Public Choice</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="lobbying and rotating leadership 游说与轮值领导 philippe van gruisen public choice 10.1007/s11127-026-01409-2" data-journal="public-choice" data-fields="macro public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01409-2">Lobbying and rotating leadership</a></h3>
+    <p class="title-zh">游说与轮值领导</p>
+    <p class="authors">Philippe van Gruisen</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-05-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01409-2">10.1007/s11127-026-01409-2</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="duverger’s tilted balance: “two-party system” operationalized 迪韦尔热的倾斜平衡：“两党制”的操作化 rein taagepera public choice 10.1007/s11127-026-01396-4" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01396-4">Duverger’s tilted balance: “Two-party system” operationalized</a></h3>
+    <p class="title-zh">迪韦尔热的倾斜平衡：“两党制”的操作化</p>
+    <p class="authors">Rein Taagepera</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01396-4">10.1007/s11127-026-01396-4</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="political connections, contract imperfections, and firm outsourcing 政治关联、合同不完全性与企业外包 yi zhang, hein roelfsema public choice 10.1007/s11127-026-01421-6" data-journal="public-choice" data-fields="public theory firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01421-6">Political connections, contract imperfections, and firm outsourcing</a></h3>
+    <p class="title-zh">政治关联、合同不完全性与企业外包</p>
+    <p class="authors">Yi Zhang, Hein Roelfsema</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01421-6">10.1007/s11127-026-01421-6</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the promotion club 推广俱乐部 shuo chen, xinyu fan, zhitao zhu public choice 10.1007/s11127-026-01422-5" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01422-5">The promotion club</a></h3>
+    <p class="title-zh">推广俱乐部</p>
+    <p class="authors">Shuo Chen, Xinyu Fan, Zhitao Zhu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01422-5">10.1007/s11127-026-01422-5</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="murder in the marketplace 市场中的谋杀 victoria biagi, alexander cardazzi, zachary porreca public choice 10.1007/s11127-026-01415-4" data-journal="public-choice" data-fields="finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01415-4">Murder in the Marketplace</a></h3>
+    <p class="title-zh">市场中的谋杀</p>
+    <p class="authors">Victoria Biagi, Alexander Cardazzi, Zachary Porreca</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01415-4">10.1007/s11127-026-01415-4</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the inefficiency of moderate political coercion: a cross-country comparison of coercion intensity, state legitimacy, and regime stability 温和政治胁迫的低效性：胁迫强度、国家合法性与政权稳定性的跨国比较 øivind schøyen, espen sirnes, chris rune andersen public choice 10.1007/s11127-026-01416-3" data-journal="public-choice" data-fields="public history" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01416-3">The inefficiency of moderate political coercion: a cross-country comparison of coercion intensity, state legitimacy, and regime stability</a></h3>
+    <p class="title-zh">温和政治胁迫的低效性：胁迫强度、国家合法性与政权稳定性的跨国比较</p>
+    <p class="authors">Øivind Schøyen, Espen Sirnes, Chris Rune Andersen</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01416-3">10.1007/s11127-026-01416-3</a><span class="pill">公共与政治经济学</span><span class="pill">经济史</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="an almost laboratory experiment: john cowperthwaite and hong kong’s economic prosperity 近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣 vincent geloso, jamie bologna pavlik, yang zhou public choice 10.1007/s11127-026-01404-7" data-journal="public-choice" data-fields="china finance macro labor" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01404-7">An almost laboratory experiment: John Cowperthwaite and Hong Kong’s economic prosperity</a></h3>
+    <p class="title-zh">近乎实验室实验：约翰·考珀斯韦特与香港经济繁荣</p>
+    <p class="authors">Vincent Geloso, Jamie Bologna Pavlik, Yang Zhou</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01404-7">10.1007/s11127-026-01404-7</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="political power and wealth distribution: how anti-corruption reforms reshape inequality 政治权力与财富分配：反腐败改革如何重塑不平等 denis ivanov public choice 10.1007/s11127-026-01408-3" data-journal="public-choice" data-fields="development finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01408-3">Political power and wealth distribution: how anti-corruption reforms reshape inequality</a></h3>
+    <p class="title-zh">政治权力与财富分配：反腐败改革如何重塑不平等</p>
+    <p class="authors">Denis Ivanov</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01408-3">10.1007/s11127-026-01408-3</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the economic consequences of cultural diversity in political organizations 政治组织中文化多样性的经济后果 jiale yan public choice 10.1007/s11127-026-01406-5" data-journal="public-choice" data-fields="china labor public theory" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01406-5">The economic consequences of cultural diversity in political organizations</a></h3>
+    <p class="title-zh">政治组织中文化多样性的经济后果</p>
+    <p class="authors">Jiale Yan</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01406-5">10.1007/s11127-026-01406-5</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="imperial japan, civilian control, and democratic reversal 日本帝国、文官统治与民主逆转 jedediah pida-reese public choice 10.1007/s11127-026-01414-5" data-journal="public-choice" data-fields="public firms" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01414-5">Imperial Japan, civilian control, and democratic reversal</a></h3>
+    <p class="title-zh">日本帝国、文官统治与民主逆转</p>
+    <p class="authors">Jedediah Pida-Reese</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01414-5">10.1007/s11127-026-01414-5</a><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="gender bias in competitive music composition evaluation: an experimental study 竞争性音乐创作评估中的性别偏见：一项实验研究 chaowen ting, yating chuang, john chung-en liu public choice 10.1007/s11127-026-01405-6" data-journal="public-choice" data-fields="public inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01405-6">Gender bias in competitive music composition evaluation: an experimental study</a></h3>
+    <p class="title-zh">竞争性音乐创作评估中的性别偏见：一项实验研究</p>
+    <p class="authors">Chaowen Ting, Yating Chuang, John Chung-En Liu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01405-6">10.1007/s11127-026-01405-6</a><span class="pill">公共与政治经济学</span><span class="pill">不平等</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="an interest-group theory of ai-tool governance in science 人工智能工具治理的利益集团理论 niclas berggren public choice 10.1007/s11127-026-01420-7" data-journal="public-choice" data-fields="public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01420-7">An interest-group theory of AI-tool governance in science</a></h3>
+    <p class="title-zh">人工智能工具治理的利益集团理论</p>
+    <p class="authors">Niclas Berggren</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01420-7">10.1007/s11127-026-01420-7</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="aris trantidis, clientelism. shaftesbury road, cambridge: cambridge university press, 2025. iv + 84 pages. usd 23 (paperback) 《庇护主义》 emil panzaru public choice 10.1007/s11127-026-01418-1" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01418-1">Aris Trantidis, Clientelism. Shaftesbury Road, Cambridge: Cambridge University Press, 2025. iv + 84 pages. USD 23 (paperback)</a></h3>
+    <p class="title-zh">《庇护主义》</p>
+    <p class="authors">Emil Panzaru</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01418-1">10.1007/s11127-026-01418-1</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="adam smith and the role of the towns in feudal europe 亚当·斯密与封建欧洲城镇的角色 mark koyama public choice 10.1007/s11127-026-01407-4" data-journal="public-choice" data-fields="development macro public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01407-4">Adam Smith and the role of the towns in feudal Europe</a></h3>
+    <p class="title-zh">亚当·斯密与封建欧洲城镇的角色</p>
+    <p class="authors">Mark Koyama</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01407-4">10.1007/s11127-026-01407-4</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="democratic backsliding as a pigouvian political externality 民主倒退作为庇古式政治外部性 thomas barnebeck andersen public choice 10.1007/s11127-026-01412-7" data-journal="public-choice" data-fields="environment finance public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01412-7">Democratic backsliding as a Pigouvian political externality</a></h3>
+    <p class="title-zh">民主倒退作为庇古式政治外部性</p>
+    <p class="authors">Thomas Barnebeck Andersen</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01412-7">10.1007/s11127-026-01412-7</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="welfare state and natives’ preferences for immigrants’ types 福利国家与本地居民对移民类型的偏好 daiki kishishita, tomoko matsumoto public choice 10.1007/s11127-026-01411-8" data-journal="public-choice" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01411-8">Welfare state and natives’ preferences for immigrants’ types</a></h3>
+    <p class="title-zh">福利国家与本地居民对移民类型的偏好</p>
+    <p class="authors">Daiki Kishishita, Tomoko Matsumoto</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01411-8">10.1007/s11127-026-01411-8</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="downstream centrality and industry lobbying in production networks 生产网络中的下游中心性与行业游说 kwok ping tsang public choice 10.1007/s11127-026-01428-z" data-journal="public-choice" data-fields="public econometrics theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01428-z">Downstream centrality and industry lobbying in production networks</a></h3>
+    <p class="title-zh">生产网络中的下游中心性与行业游说</p>
+    <p class="authors">Kwok Ping Tsang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01428-z">10.1007/s11127-026-01428-z</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="when the money stops: fiscal and political reactions to changing grant eligibility 当资金停止：对拨款资格变化的财政与政治反应 touria jaaidane, sophie larribeau public choice 10.1007/s11127-026-01410-9" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01410-9">When the money stops: fiscal and political reactions to changing grant eligibility</a></h3>
+    <p class="title-zh">当资金停止：对拨款资格变化的财政与政治反应</p>
+    <p class="authors">Touria Jaaidane, Sophie Larribeau</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01410-9">10.1007/s11127-026-01410-9</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="why bloomington is not in virginia: contrasting the social ontologies, methodologies, and governance theories of the ostroms and buchanan 为何布卢明顿不在弗吉尼亚：奥斯特罗姆与布坎南的社会本体论、方法论及治理理论之对比 massimo cervesato public choice 10.1007/s11127-026-01419-0" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01419-0">Why Bloomington is not in Virginia: Contrasting the social ontologies, methodologies, and governance theories of the Ostroms and Buchanan</a></h3>
+    <p class="title-zh">为何布卢明顿不在弗吉尼亚：奥斯特罗姆与布坎南的社会本体论、方法论及治理理论之对比</p>
+    <p class="authors">Massimo Cervesato</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-09 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01419-0">10.1007/s11127-026-01419-0</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="loose bricks in the wall: underground press and political opposition in non-democracies 墙上的松动砖块：非民主国家的地下媒体与政治反对 olga tcaci public choice 10.1007/s11127-026-01401-w" data-journal="public-choice" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01401-w">Loose bricks in the wall: Underground press and political opposition in non-democracies</a></h3>
+    <p class="title-zh">墙上的松动砖块：非民主国家的地下媒体与政治反对</p>
+    <p class="authors">Olga Tcaci</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01401-w">10.1007/s11127-026-01401-w</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="ethnic bias, commitment and public good provisioning 民族偏见、承诺与公共品供给 sukanta bhattacharya, t c shinali public choice 10.1007/s11127-026-01417-2" data-journal="public-choice" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1007/s11127-026-01417-2">Ethnic bias, commitment and public good provisioning</a></h3>
+    <p class="title-zh">民族偏见、承诺与公共品供给</p>
+    <p class="authors">Sukanta Bhattacharya, T C Shinali</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Public Choice</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1007/s11127-026-01417-2">10.1007/s11127-026-01417-2</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
+  let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly || preset === 'china') {
+      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+    } else {
+      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+    }
+  }
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+  applyFilters();
+})();
+</script>
+</main>
+    </div>
+  </div>
+</body>
+</html>

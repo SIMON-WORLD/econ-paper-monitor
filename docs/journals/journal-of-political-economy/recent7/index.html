@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Journal of Political Economy 最近 7 天</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-17 涉及期刊</div><a class="side-link" href="../../../daily/2026-06-17/?journal=journal-of-political-economy"><span class="side-main"><strong>Journal of Political Economy</strong><em>政治经济学杂志</em></span><span class="count">2</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="../../../">今日</a>
+          <a href="../../../topics/china/">与中国相关</a>
+          <a class="" href="../../../archive/">归档</a>
+          <a href="../../../journals/">监测期刊</a>
+          <a href="../../../feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>Journal of Political Economy：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>27 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-17/?journal=journal-of-political-economy">最新日期 2</a>
+  <a class="control" href="../../../journals/journal-of-political-economy/recent7/">最近 7 天 27</a>
+  <a class="control" href="../../../journals/journal-of-political-economy/">全部历史 27</a>
+</div><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="journal-of-political-economy">Journal of Political Economy</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="labor">劳动</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option><option value="issue">来源期次</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="A">A 高：出版社/PDF 明确日期</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="the origin of the state: land productivity or appropriability? comment 国家的起源：土地生产力还是可占有性？评论 nikolai cook, thibaut duprey, anthony heyes, martino pelli journal of political economy 10.1086/740225" data-journal="journal-of-political-economy" data-fields="macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/740225">The Origin of the State: Land Productivity or Appropriability? Comment</a></h3>
+    <p class="title-zh">国家的起源：土地生产力还是可占有性？评论</p>
+    <p class="authors">Nikolai Cook, Thibaut Duprey, Anthony Heyes, Martino Pelli</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-05-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740225">10.1086/740225</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the gas trap: outcompeting coal versus renewables 天然气陷阱：与煤炭和可再生能源的竞争 bård harstad, katinka holtsmark journal of political economy 10.1086/740172" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:15</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/740172">The Gas Trap: Outcompeting Coal versus Renewables</a></h3>
+    <p class="title-zh">天然气陷阱：与煤炭和可再生能源的竞争</p>
+    <p class="authors">Bård Harstad, Katinka Holtsmark</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-05-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740172">10.1086/740172</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="silence to solidarity: how communication about a minority affects discrimination 从沉默到团结：关于少数群体的沟通如何影响歧视 duncan webb journal of political economy 10.1086/742724" data-journal="journal-of-political-economy" data-fields="public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742724">Silence to Solidarity: How Communication About a Minority Affects Discrimination</a></h3>
+    <p class="title-zh">从沉默到团结：关于少数群体的沟通如何影响歧视</p>
+    <p class="authors">Duncan Webb</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742724">10.1086/742724</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the impact of unions on nonunion wage setting: threats and bargaining 工会对非工会工资设定的影响：威胁与谈判 david a. green, ben m. sand, iain g. snoddy, jeanne tschopp journal of political economy 10.1086/742712" data-journal="journal-of-political-economy" data-fields="labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742712">The Impact of Unions on Nonunion Wage Setting: Threats and Bargaining</a></h3>
+    <p class="title-zh">工会对非工会工资设定的影响：威胁与谈判</p>
+    <p class="authors">David A. Green, Ben M. Sand, Iain G. Snoddy, Jeanne Tschopp</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742712">10.1086/742712</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="regulatory competition in the us life insurance industry 美国寿险行业的监管竞争 johnny tang journal of political economy 10.1086/742725" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="A">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742725">Regulatory Competition in the US Life Insurance Industry</a></h3>
+    <p class="title-zh">美国寿险行业的监管竞争</p>
+    <p class="authors">Johnny Tang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742725">10.1086/742725</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="why is intermediating houses so difficult? evidence from ibuyers 为何房屋中介如此困难？来自ibuyers的证据 greg buchak, gregor matvos, tomasz piskorski, amit seru journal of political economy 10.1086/742710" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742710">Why Is Intermediating Houses So Difficult? Evidence from iBuyers</a></h3>
+    <p class="title-zh">为何房屋中介如此困难？来自iBuyers的证据</p>
+    <p class="authors">Greg Buchak, Gregor Matvos, Tomasz Piskorski, Amit Seru</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742710">10.1086/742710</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="environmental consequences of hydrocarbon infrastructure policy 碳氢基础设施政策的环境后果 thomas r covert, ryan kellogg journal of political economy 10.1086/742713" data-journal="journal-of-political-economy" data-fields="environment public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742713">Environmental Consequences of Hydrocarbon Infrastructure Policy</a></h3>
+    <p class="title-zh">碳氢基础设施政策的环境后果</p>
+    <p class="authors">Thomas R Covert, Ryan Kellogg</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742713">10.1086/742713</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="quota mechanisms: finite-sample optimality and robustness 配额机制：有限样本最优性与稳健性 ian schofield ball, deniz kattwinkel journal of political economy 10.1086/742716" data-journal="journal-of-political-economy" data-fields="public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742716">Quota Mechanisms: Finite-Sample Optimality and Robustness</a></h3>
+    <p class="title-zh">配额机制：有限样本最优性与稳健性</p>
+    <p class="authors">Ian Schofield Ball, Deniz Kattwinkel</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742716">10.1086/742716</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="peer effects and rank concerns in the classroom 课堂中的同伴效应与排名关注 michela maria tincani journal of political economy 10.1086/742714" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742714">Peer Effects and Rank Concerns in the Classroom</a></h3>
+    <p class="title-zh">课堂中的同伴效应与排名关注</p>
+    <p class="authors">Michela Maria Tincani</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742714">10.1086/742714</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="online business models, digital ads, and user welfare 在线商业模式、数字广告与用户福利 daron acemoglu, daniel huttenlocher, asuman ozdaglar, james siderius journal of political economy 10.1086/742715" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">05:24</div><div class="date-note">2026-06-16</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742715">Online Business Models, Digital Ads, and User Welfare</a></h3>
+    <p class="title-zh">在线商业模式、数字广告与用户福利</p>
+    <p class="authors">Daron Acemoglu, Daniel Huttenlocher, Asuman Ozdaglar, James Siderius</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742715">10.1086/742715</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="debiasing and t-tests for synthetic control inference on average causal effects 平均因果效应的合成控制推断中的去偏与t检验 victor chernozhukov, kaspar wuthrich, yinchu zhu journal of political economy 10.1086/742424" data-journal="journal-of-political-economy" data-fields="public econometrics" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742424">Debiasing and T-Tests for Synthetic Control Inference on Average Causal Effects</a></h3>
+    <p class="title-zh">平均因果效应的合成控制推断中的去偏与T检验</p>
+    <p class="authors">Victor Chernozhukov, Kaspar Wuthrich, Yinchu Zhu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742424">10.1086/742424</a><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="rent guarantee insurance 租金担保保险 boaz abramson, stijn van nieuwerburgh journal of political economy 10.1086/742422" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742422">Rent Guarantee Insurance</a></h3>
+    <p class="title-zh">租金担保保险</p>
+    <p class="authors">Boaz Abramson, Stijn Van Nieuwerburgh</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742422">10.1086/742422</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="illiquid lemon markets and the macroeconomy 非流动性柠檬市场与宏观经济 aime bierdel, andres drenik, juan herreno, pablo ottonello journal of political economy 10.1086/742435" data-journal="journal-of-political-economy" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742435">Illiquid Lemon Markets and the Macroeconomy</a></h3>
+    <p class="title-zh">非流动性柠檬市场与宏观经济</p>
+    <p class="authors">Aime Bierdel, Andres Drenik, Juan Herreno, Pablo Ottonello</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742435">10.1086/742435</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="revolutionary transition: inheritance change and fertility decline 革命性转型：继承制度变迁与生育率下降 victor gay, paula e. gobbi, marc goñi journal of political economy 10.1086/739821" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/739821">Revolutionary Transition: Inheritance Change and Fertility Decline</a></h3>
+    <p class="title-zh">革命性转型：继承制度变迁与生育率下降</p>
+    <p class="authors">Victor Gay, Paula E. Gobbi, Marc Goñi</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/739821">10.1086/739821</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="health shocks, health insurance, human capital, and the dynamics of earnings and health 健康冲击、医疗保险、人力资本与收入及健康的动态关系 elena capatina, michael keane journal of political economy 10.1086/739831" data-journal="journal-of-political-economy" data-fields="public health" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/739831">Health Shocks, Health Insurance, Human Capital, and the Dynamics of Earnings and Health</a></h3>
+    <p class="title-zh">健康冲击、医疗保险、人力资本与收入及健康的动态关系</p>
+    <p class="authors">Elena Capatina, Michael Keane</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/739831">10.1086/739831</a><span class="pill">公共与政治经济学</span><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="on the nature of entrepreneurship 论创业的本质 anmol bhandari, tobey kass, thomas j. may, ellen r. mcgrattan, evan schulz journal of political economy 10.1086/739823" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/739823">On the Nature of Entrepreneurship</a></h3>
+    <p class="title-zh">论创业的本质</p>
+    <p class="authors">Anmol Bhandari, Tobey Kass, Thomas J. May, Ellen R. McGrattan, Evan Schulz</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/739823">10.1086/739823</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="jpe turnaround times jpe 审稿周期  journal of political economy 10.1086/742160" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742160">JPE Turnaround Times</a></h3>
+    <p class="title-zh">JPE 审稿周期</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742160">10.1086/742160</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="recent referees 近期审稿人  journal of political economy 10.1086/742400" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742400">Recent Referees</a></h3>
+    <p class="title-zh">近期审稿人</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742400">10.1086/742400</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="front matter 前页  journal of political economy 10.1086/742399" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742399">Front Matter</a></h3>
+    <p class="title-zh">前页</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742399">10.1086/742399</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="linking social and personal preferences: theory and experiment 连接社会偏好与个人偏好：理论与实验 william r. zame, bertil tungodden, erik ø. sørensen, shachar kariv, alexander w. cappelen journal of political economy 10.1086/739832" data-journal="journal-of-political-economy" data-fields="public theory behavior" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/739832">Linking Social and Personal Preferences: Theory and Experiment</a></h3>
+    <p class="title-zh">连接社会偏好与个人偏好：理论与实验</p>
+    <p class="authors">William R. Zame, Bertil Tungodden, Erik Ø. Sørensen, Shachar Kariv, Alexander W. Cappelen</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/739832">10.1086/739832</a><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="glass walls: experimental evidence on constraints faced by women in accessing valuable skilling opportunities 玻璃墙：女性获取高价值技能机会所面临限制的实验证据 ali cheema, asim i. khwaja, m. farooq naseer, jacob n. shapiro journal of political economy 10.1086/739830" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/739830">Glass Walls: Experimental Evidence on Constraints Faced by Women in Accessing Valuable Skilling Opportunities</a></h3>
+    <p class="title-zh">玻璃墙：女性获取高价值技能机会所面临限制的实验证据</p>
+    <p class="authors">Ali Cheema, Asim I. Khwaja, M. Farooq Naseer, Jacob N. Shapiro</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/739830">10.1086/739830</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="ever since allais 自阿莱以来 aluma dembo, shachar kariv, matthew polisson, john k.-h. quah journal of political economy 10.1086/739829" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="F">
+  <div><div class="time">03:52</div><div class="date-note">2026-06-15</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/739829">Ever since Allais</a></h3>
+    <p class="title-zh">自阿莱以来</p>
+    <p class="authors">Aluma Dembo, Shachar Kariv, Matthew Polisson, John K.-H. Quah</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>卷期日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/739829">10.1086/739829</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="mis(sed) diagnosis: physician decision making and adhd 误诊：医生决策与注意力缺陷多动障碍 kelli marquardt journal of political economy 10.1086/742421" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742421">Mis(sed) Diagnosis: Physician Decision Making and ADHD</a></h3>
+    <p class="title-zh">误诊：医生决策与注意力缺陷多动障碍</p>
+    <p class="authors">Kelli Marquardt</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742421">10.1086/742421</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="from doubt to devotion: trials and learning-based pricing 从怀疑到忠诚：基于试验与学习的定价策略 tan gan, nicholas wu journal of political economy 10.1086/742434" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742434">From Doubt to Devotion: Trials and Learning-Based Pricing</a></h3>
+    <p class="title-zh">从怀疑到忠诚：基于试验与学习的定价策略</p>
+    <p class="authors">Tan Gan, Nicholas Wu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742434">10.1086/742434</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="markups: a search-theoretic perspective 加成率：一个搜寻理论视角 guido menzio journal of political economy 10.1086/742420" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742420">Markups: A Search-Theoretic Perspective</a></h3>
+    <p class="title-zh">加成率：一个搜寻理论视角</p>
+    <p class="authors">Guido Menzio</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742420">10.1086/742420</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the effect of education policy on crime: an intergenerational perspective 教育政策对犯罪的影响：代际视角 ulrika ahrsjö, costas meghir, marten palme, marieke schnabel journal of political economy 10.1086/742423" data-journal="journal-of-political-economy" data-fields="public education" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742423">The Effect of Education Policy on Crime: An Intergenerational Perspective</a></h3>
+    <p class="title-zh">教育政策对犯罪的影响：代际视角</p>
+    <p class="authors">Ulrika Ahrsjö, Costas Meghir, Marten Palme, Marieke Schnabel</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742423">10.1086/742423</a><span class="pill">公共与政治经济学</span><span class="pill">教育</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="optimal tests following sequential experiments 序贯实验后的最优检验 karun adusumilli journal of political economy 10.1086/742418" data-journal="journal-of-political-economy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:05</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1086/742418">Optimal Tests Following Sequential Experiments</a></h3>
+    <p class="title-zh">序贯实验后的最优检验</p>
+    <p class="authors">Karun Adusumilli</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Journal of Political Economy</span><span>在线日期 2026-06-02 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/742418">10.1086/742418</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
+  let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly || preset === 'china') {
+      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+    } else {
+      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+    }
+  }
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+  applyFilters();
+})();
+</script>
+</main>
+    </div>
+  </div>
+</body>
+</html>

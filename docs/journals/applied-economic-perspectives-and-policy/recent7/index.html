@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Applied Economic Perspectives and Policy 最近 7 天</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 52%,#eaf5ff 100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:190px}.banner-main{padding:34px 36px}.eyebrow{color:var(--blue);font-size:15px;font-weight:800;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.08;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.signal{border-left:1px solid var(--line);padding:30px 24px;background:rgba(255,255,255,.64);display:flex;flex-direction:column;justify-content:center;gap:13px}.signal-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;color:var(--muted);font-size:14px}.signal-row strong{color:var(--ink);font-size:15px;line-height:1.35;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin:20px 0}.stat{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:14px;color:var(--ink)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:block;font-size:26px;line-height:1.1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--line);padding:18px 0}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:var(--ink);font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 9px}.meta-block{display:grid;gap:4px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:600;flex:0 0 72px;line-height:24px}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner{display:block}.banner h1{font-size:36px}.banner p{font-size:17px}.signal{border-left:0;border-top:1px solid var(--line)}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">文章主题</div><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">13</span></a><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">13</span></a><a class="side-link" href="../../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/urban/"><span class="side-main"><strong>城市与区域</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/health/"><span class="side-main"><strong>健康</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-17 涉及期刊</div><a class="side-link" href="../../../daily/2026-06-17/?journal=applied-economic-perspectives-and-policy"><span class="side-main"><strong>Applied Economic Perspectives and Policy</strong><em>应用经济观点与政策</em></span><span class="count">13</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="../../../">今日</a>
+          <a href="../../../topics/china/">与中国相关</a>
+          <a class="" href="../../../archive/">归档</a>
+          <a href="../../../journals/">监测期刊</a>
+          <a href="../../../feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>Applied Economic Perspectives and Policy：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>17 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-17/?journal=applied-economic-perspectives-and-policy">最新日期 13</a>
+  <a class="control" href="../../../journals/applied-economic-perspectives-and-policy/recent7/">最近 7 天 17</a>
+  <a class="control" href="../../../journals/applied-economic-perspectives-and-policy/">全部历史 17</a>
+</div><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="applied-economic-perspectives-and-policy">Applied Economic Perspectives and Policy</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="published_online">发布日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="C">C 低：Crossref 元数据</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="drivers of precision agriculture adoption in italian viticulture 意大利葡萄栽培中精准农业采纳的驱动因素 olimpia fontana, linda arata, margherita muzzillo, paolo sckokai applied economic perspectives and policy 10.1002/aepp.70090" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture environment public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70090">Drivers of Precision Agriculture Adoption in Italian Viticulture</a></h3>
+    <p class="title-zh">意大利葡萄栽培中精准农业采纳的驱动因素</p>
+    <p class="authors">Olimpia Fontana, Linda Arata, Margherita Muzzillo, Paolo Sckokai</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70090">10.1002/aepp.70090</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="crop insurance design and on‐farm risk adaptation 农作物保险设计与农场风险适应 gerald van tassell, alan p. ker applied economic perspectives and policy 10.1002/aepp.70087" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70087">Crop Insurance Design and On‐Farm Risk Adaptation</a></h3>
+    <p class="title-zh">农作物保险设计与农场风险适应</p>
+    <p class="authors">Gerald Van Tassell, Alan P. Ker</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70087">10.1002/aepp.70087</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the label trap: unintended consequences of pesticide labeling and the power of nudges 标签陷阱：农药标签的意外后果与助推的力量 juhui chen, zhipeng he, junfei bai applied economic perspectives and policy 10.1002/aepp.70086" data-journal="applied-economic-perspectives-and-policy" data-fields="china agriculture public health" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70086">The Label Trap: Unintended Consequences of Pesticide Labeling and the Power of Nudges</a></h3>
+    <p class="title-zh">标签陷阱：农药标签的意外后果与助推的力量</p>
+    <p class="authors">Juhui Chen, Zhipeng He, Junfei Bai</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70086">10.1002/aepp.70086</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the cost of a nutritious diet in cafeterias: evidence from us military dining facilities 食堂营养膳食的成本：来自美国军队餐饮设施的证据 linlin fan, yiwen zhao, andrea carlson, parke wilde, joanna reagan 等 applied economic perspectives and policy 10.1002/aepp.70088" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture finance labor public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70088">The Cost of a Nutritious Diet in Cafeterias: Evidence From US Military Dining Facilities</a></h3>
+    <p class="title-zh">食堂营养膳食的成本：来自美国军队餐饮设施的证据</p>
+    <p class="authors">Linlin Fan, Yiwen Zhao, Andrea Carlson, Parke Wilde, Joanna Reagan 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70088">10.1002/aepp.70088</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="on the economics of us agricultural policy 美国农业政策的经济学分析 jean‐paul chavas applied economic perspectives and policy 10.1002/aepp.70089" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture macro public inequality" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70089">On the Economics of US Agricultural Policy</a></h3>
+    <p class="title-zh">美国农业政策的经济学分析</p>
+    <p class="authors">Jean‐Paul Chavas</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-15 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70089">10.1002/aepp.70089</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="correction to “the role of intrinsic motivation and continuous enhancement on the intention to implement animal welfare practices in dairy farming” 更正：“内在动机与持续改进在奶牛养殖中实施动物福利实践意愿中的作用  applied economic perspectives and policy 10.1002/aepp.70078" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70078">Correction to “The Role of Intrinsic Motivation and Continuous Enhancement on the Intention to Implement Animal Welfare Practices in Dairy Farming”</a></h3>
+    <p class="title-zh">更正：“内在动机与持续改进在奶牛养殖中实施动物福利实践意愿中的作用</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-14 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70078">10.1002/aepp.70078</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="unpacking the farmland capitalization effect of ethanol establishment 乙醇设施对农地资本化效应的解析 gabriel s. sampson, jisang yu applied economic perspectives and policy 10.1002/aepp.70085" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture environment public urban" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70085">Unpacking the Farmland Capitalization Effect of Ethanol Establishment</a></h3>
+    <p class="title-zh">乙醇设施对农地资本化效应的解析</p>
+    <p class="authors">Gabriel S. Sampson, Jisang Yu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70085">10.1002/aepp.70085</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="understanding egg price volatility and policy implications in the u.s. with machine learning 美国鸡蛋价格波动理解与机器学习政策启示 xuemei zhao, simon meister, lucie maruejols, xiaohua yu applied economic perspectives and policy 10.1002/aepp.70082" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture environment finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70082">Understanding Egg Price Volatility and Policy Implications in the U.S. With Machine Learning</a></h3>
+    <p class="title-zh">美国鸡蛋价格波动理解与机器学习政策启示</p>
+    <p class="authors">Xuemei Zhao, Simon Meister, Lucie Maruejols, Xiaohua Yu</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70082">10.1002/aepp.70082</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="the biofuels blueprint: understanding the u.s. renewable fuel standard 生物燃料蓝图：理解美国可再生燃料标准 maria gerveni, todd hubbs, scott h. irwin, james h. stock applied economic perspectives and policy 10.1002/aepp.70083" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture finance macro public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70083">The Biofuels Blueprint: Understanding the U.S. Renewable Fuel Standard</a></h3>
+    <p class="title-zh">生物燃料蓝图：理解美国可再生燃料标准</p>
+    <p class="authors">Maria Gerveni, Todd Hubbs, Scott H. Irwin, James H. Stock</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70083">10.1002/aepp.70083</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="assessing household welfare in response to rising food prices in the gambia 评估冈比亚食品价格上涨对家庭福利的影响 roger vorsah, obed quaicoe, fafanyo asiseh, john n. ng&#x27;ombe applied economic perspectives and policy 10.1002/aepp.70084" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture development finance public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70084">Assessing Household Welfare in Response to Rising Food Prices in The Gambia</a></h3>
+    <p class="title-zh">评估冈比亚食品价格上涨对家庭福利的影响</p>
+    <p class="authors">Roger Vorsah, Obed Quaicoe, Fafanyo Asiseh, John N. Ng&#x27;ombe</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-10 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70084">10.1002/aepp.70084</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="why didn&#x27;t i get a payout? understanding farmer choices, index insurance, and basis risk 为什么我没有获得赔付？理解农户选择、指数保险与基差风险 s. lucille blakeley, sean posey, kathy baylis, daniel osgood, stuart sweeney applied economic perspectives and policy 10.1002/aepp.70080" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture development public theory" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70080">Why Didn&#x27;t I Get a Payout? Understanding Farmer Choices, Index Insurance, and Basis Risk</a></h3>
+    <p class="title-zh">为什么我没有获得赔付？理解农户选择、指数保险与基差风险</p>
+    <p class="authors">S. Lucille Blakeley, Sean Posey, Kathy Baylis, Daniel Osgood, Stuart Sweeney</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70080">10.1002/aepp.70080</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="coping with production risk: effects of sown plant diversity on the attractiveness of crop insurance in grasslands 应对生产风险：播种植物多样性对草地作物保险吸引力的影响 nicolas alou, sergei schaub, martin quaas, robert finger applied economic perspectives and policy 10.1002/aepp.70081" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture environment public behavior" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70081">Coping With Production Risk: Effects of Sown Plant Diversity on the Attractiveness of Crop Insurance in Grasslands</a></h3>
+    <p class="title-zh">应对生产风险：播种植物多样性对草地作物保险吸引力的影响</p>
+    <p class="authors">Nicolas Alou, Sergei Schaub, Martin Quaas, Robert Finger</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70081">10.1002/aepp.70081</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="certified and stable? price and yield volatility under voluntary sustainability standards in peru 认证与稳定？秘鲁自愿性可持续标准下的价格与产量波动 eva boonaert, eva‐marie meemken, miet maertens applied economic perspectives and policy 10.1002/aepp.70079" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture public trade" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">02:17</div><div class="date-note">2026-06-17</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70079">Certified and Stable? Price and Yield Volatility Under Voluntary Sustainability Standards in Peru</a></h3>
+    <p class="title-zh">认证与稳定？秘鲁自愿性可持续标准下的价格与产量波动</p>
+    <p class="authors">Eva Boonaert, Eva‐Marie Meemken, Miet Maertens</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-05-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70079">10.1002/aepp.70079</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="outsourcing agricultural services and risk reduction in smallholder rice farming: evidence from china and global implications 农业服务外包与小农户水稻种植中的风险降低：来自中国的证据及全球启示 jian zhang, ashok k. mishra, gaoli zhu, awais jabbar applied economic perspectives and policy 10.1002/aepp.70096" data-journal="applied-economic-perspectives-and-policy" data-fields="china agriculture finance macro" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70096">Outsourcing Agricultural Services and Risk Reduction in Smallholder Rice Farming: Evidence From China and Global Implications</a></h3>
+    <p class="title-zh">农业服务外包与小农户水稻种植中的风险降低：来自中国的证据及全球启示</p>
+    <p class="authors">Jian Zhang, Ashok K. Mishra, Gaoli Zhu, Awais Jabbar</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70096">10.1002/aepp.70096</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="extreme weather events and consumer food responses 极端天气事件与消费者食品反应 ahmad zia wahdat, joseph balagtas applied economic perspectives and policy 10.1002/aepp.70095" data-journal="applied-economic-perspectives-and-policy" data-fields="agriculture environment development finance" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70095">Extreme Weather Events and Consumer Food Responses</a></h3>
+    <p class="title-zh">极端天气事件与消费者食品反应</p>
+    <p class="authors">Ahmad Zia Wahdat, Joseph Balagtas</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-06-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70095">10.1002/aepp.70095</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="issue information 期刊信息  applied economic perspectives and policy 10.1002/aepp.70092" data-journal="applied-economic-perspectives-and-policy" data-fields="public" data-china="false" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70092">Issue Information</a></h3>
+    <p class="title-zh">期刊信息</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70092">10.1002/aepp.70092</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="how video‐based information affects farmers&#x27; willingness to pay for drone services 视频信息如何影响农民对无人机服务支付意愿 hua zhang, lena kuhn, hang xiong, zhanli sun, thomas glauben applied economic perspectives and policy 10.1002/aepp.70094" data-journal="applied-economic-perspectives-and-policy" data-fields="china agriculture finance public" data-china="true" data-online-today="false" data-date-type="published_online" data-confidence="C">
+  <div><div class="time">17:06</div><div class="date-note">2026-06-14</div></div>
+  <div>
+    <h3><a href="https://doi.org/10.1002/aepp.70094">How Video‐Based Information Affects Farmers&#x27; Willingness to Pay for Drone Services</a></h3>
+    <p class="title-zh">视频信息如何影响农民对无人机服务支付意愿</p>
+    <p class="authors">Hua Zhang, Lena Kuhn, Hang Xiong, Zhanli Sun, Thomas Glauben</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span>Applied Economic Perspectives and Policy</span><span>在线日期 2026-06-03 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70094">10.1002/aepp.70094</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
+  let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly || preset === 'china') {
+      counter.innerHTML = `当前已经监测到与中国相关研究 <span class="num">${visible}</span> 篇文章`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前已经监测到在线日期为今日的研究 <span class="num">${visible}</span> 篇文章`;
+    } else {
+      counter.innerHTML = `当前已经监测到 <span class="num">${visible}</span> 篇文章`;
+    }
+  }
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+  applyFilters();
+})();
+</script>
+</main>
+    </div>
+  </div>
+</body>
+</html>
