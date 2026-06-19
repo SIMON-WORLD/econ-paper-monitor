@@ -20,24 +20,35 @@ from common import DATA_DIR, read_json, today_str, write_json
 from status import record_source
 
 
-EXPLICIT_KEYWORDS = [
-    "china",
-    "chinese",
-    "prc",
-    "mainland china",
-    "hong kong",
-    "taiwan",
-    "beijing",
-    "shanghai",
-    "guangdong",
-    "rural china",
-    "china shock",
-    "hukou",
-    "中国",
+EXPLICIT_ENGLISH_PATTERNS = [
+    r"\bchina\b",
+    r"\bchinese\b",
+    r"\bprc\b",
+    r"\bmainland china\b",
+    r"\bhong kong\b",
+    r"\btaiwan\b",
+    r"\bbeijing\b",
+    r"\bshanghai\b",
+    r"\bguangdong\b",
+    r"\brural china\b",
+    r"\bchina shock\b",
+    r"\bhukou\b",
+]
+
+EXPLICIT_CHINESE_KEYWORDS = [
     "中国企业",
     "中国农村",
+    "中国市场",
+    "中国经济",
+    "中国",
     "香港",
     "台湾",
+]
+
+CHINESE_FALSE_POSITIVE_PHRASES = [
+    "发展中国家",
+    "发展中经济体",
+    "最不发达国家",
 ]
 
 WEAK_TOPIC_HINTS = [
@@ -45,6 +56,13 @@ WEAK_TOPIC_HINTS = [
     "pollution",
     "app security",
     "digital era",
+    "electric vehicle",
+    "ev ",
+    "tariff",
+    "tariffs",
+    "trade war",
+    "geoeconomic",
+    "great powers",
     "climate risk",
     "green transformation",
     "corporate green",
@@ -155,6 +173,22 @@ def haystack(record: dict[str, Any]) -> str:
     return " ".join(str(value or "") for value in values).casefold()
 
 
+def chinese_text(record: dict[str, Any]) -> str:
+    values = [record.get("title_zh"), record.get("abstract_zh"), record.get("title"), record.get("abstract")]
+    text = " ".join(str(value or "") for value in values)
+    for phrase in CHINESE_FALSE_POSITIVE_PHRASES:
+        text = text.replace(phrase, "")
+    return text
+
+
+def has_explicit_china_signal(record: dict[str, Any]) -> bool:
+    text = haystack(record)
+    if any(re.search(pattern, text, flags=re.I) for pattern in EXPLICIT_ENGLISH_PATTERNS):
+        return True
+    cn_text = chinese_text(record)
+    return any(keyword in cn_text for keyword in EXPLICIT_CHINESE_KEYWORDS)
+
+
 def surname(name: str) -> str:
     parts = re.findall(r"[A-Za-z]+", name.casefold())
     return parts[-1] if parts else ""
@@ -175,22 +209,32 @@ def classify(record: dict[str, Any]) -> tuple[str, str, str]:
     """Return status, reason, source."""
     manual_reason = str(record.get("china_reason") or "")
     source = str(record.get("china_related_source") or "")
-    if record.get("china_related") is True and (source in {"manual", "ai"} or manual_reason):
-        return "confirmed", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工/上游确认"), "manual"
-    if record.get("china_related") is False and (source in {"manual", "ai"} or manual_reason):
-        return "none", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工排除"), "manual"
+    if record.get("china_related") is True and (source == "manual" or (manual_reason and source != "ai")):
+        return "confirmed", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工确认：中国相关"), "manual"
+    if record.get("china_related") is False and (source == "manual" or (manual_reason and source != "ai")):
+        return "none", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工确认：排除中国相关"), "manual"
     if is_chinese_journal(record):
         return "confirmed", "中文期刊默认与中国相关", "rule"
 
     text = haystack(record)
-    if any(keyword.casefold() in text for keyword in EXPLICIT_KEYWORDS):
+    if record.get("china_related") is True and source == "ai" and not has_explicit_china_signal(record):
+        return "none", "AI 曾判定为中国相关，但题名/摘要/元数据缺少直接中国证据，已按保守规则排除", "rule"
+    if record.get("china_related") is True and source == "ai":
+        return "confirmed", str(record.get("china_relevance_reason") or "AI 确认且存在直接中国证据"), "ai"
+    if record.get("china_related") is False and source == "ai":
+        return "none", str(record.get("china_relevance_reason") or "AI 排除中国相关"), "ai"
+
+    if has_explicit_china_signal(record):
         return "confirmed", "标题、摘要或元数据包含中国相关关键词", "rule"
 
     author_count = chinese_author_count(record)
     has_abstract = bool(record.get("abstract") or record.get("abstract_zh"))
     has_weak_topic = any(hint in text for hint in WEAK_TOPIC_HINTS)
-    if author_count >= 2 and has_weak_topic and has_abstract:
-        return "candidate", f"{author_count} 位疑似中文姓名作者，且摘要/题名含常见中国研究主题词，需要 AI 确认", "rule"
+    if author_count >= 2 and has_weak_topic:
+        evidence = "摘要/题名" if has_abstract else "题名或元数据"
+        return "candidate", f"{author_count} 位疑似中文姓名作者，且{evidence}包含中国研究常见主题词，需要 AI 确认", "rule"
+    if str(record.get("source") or "") == "working_papers" and has_weak_topic and has_abstract:
+        return "candidate", "工作论文摘要包含中国研究常见主题词，需要 AI 确认", "rule"
     return "none", "", "rule"
 
 

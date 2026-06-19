@@ -1,0 +1,183 @@
+# Working paper and policy paper sources.
+# stage:
+#   1 = first-batch priority sources
+#   2 = second-batch priority sources
+# Fetchers only collect public metadata. They do not bulk-download PDFs.
+sources:
+  - id: nber
+    title: NBER Working Papers
+    chinese_name: 美国国家经济研究局工作论文
+    type: working_paper
+    stage: 1
+    homepage: https://www.nber.org/papers
+    url_pattern: "/papers/w\\d+"
+    url_contains:
+      - /papers/w
+    fields:
+      - general
+      - macro
+      - finance
+      - labor
+      - health
+      - trade
+
+  - id: iza
+    title: IZA Discussion Papers
+    chinese_name: IZA 讨论论文
+    type: working_paper
+    stage: 1
+    homepage: https://www.iza.org/publications/dp
+    url_pattern: "/publications/dp/\\d+/"
+    url_contains:
+      - /publications/dp/
+    fields:
+      - labor
+      - education
+      - health
+      - development
+
+  - id: world-bank-prwp
+    title: World Bank Policy Research Working Papers
+    chinese_name: 世界银行政策研究工作论文
+    type: policy_paper
+    stage: 1
+    homepage: https://openknowledge.worldbank.org/collections/8a7a2f5a-73af-5c1f-9f6d-7a60e34d65b5
+    url_pattern: "/entities/publication/"
+    url_contains:
+      - /entities/publication/
+    fields:
+      - development
+      - trade
+      - environment
+      - public
+
+  - id: imf-working-papers
+    title: IMF Working Papers
+    chinese_name: IMF 工作论文
+    type: policy_paper
+    stage: 1
+    homepage: https://ideas.repec.org/s/imf/imfwpa.html
+    official_homepage: https://www.imf.org/en/Publications/WP
+    url_pattern: "/p/imf/imfwpa/"
+    url_contains:
+      - /p/imf/imfwpa/
+    fields:
+      - macro
+      - finance
+      - public
+      - trade
+
+  - id: repec-nep
+    title: RePEc NEP New Economics Papers
+    chinese_name: RePEc NEP 新经济学论文
+    type: aggregator
+    stage: 3
+    homepage: https://nep.repec.org/
+    fields:
+      - general
+
+  - id: ssrn-economics-research-network
+    title: SSRN Economics Research Network
+    chinese_name: SSRN 经济学研究网络
+    type: aggregator
+    stage: 3
+    homepage: https://papers.ssrn.com/sol3/DisplayJournalBrowse.cfm
+    access_note: public pages often return access limits; prefer email/feed integration when available
+    url_pattern: "/sol3/papers\\.cfm\\?abstract_id=\\d+"
+    url_contains:
+      - /sol3/papers.cfm?abstract_id=
+    fields:
+      - general
+      - macro
+      - finance
+      - labor
+      - trade
+
+  - id: ssrn-health-economics-network
+    title: SSRN Health Economics Network
+    chinese_name: SSRN 健康经济学网络
+    type: aggregator
+    stage: 3
+    homepage: https://papers.ssrn.com/sol3/DisplayJournalBrowse.cfm
+    access_note: public pages often return access limits; prefer email/feed integration when available
+    url_pattern: "/sol3/papers\\.cfm\\?abstract_id=\\d+"
+    url_contains:
+      - /sol3/papers.cfm?abstract_id=
+    fields:
+      - health
+      - public
+      - labor
+
+  - id: cepr-dp
+    title: CEPR Discussion Papers
+    chinese_name: CEPR 讨论论文
+    type: working_paper
+    stage: 2
+    homepage: https://cepr.org/publications/discussion-papers
+    url_pattern: "/publications/dp\\d+"
+    url_contains:
+      - /publications/dp
+    fields:
+      - macro
+      - finance
+      - trade
+      - development
+
+  - id: cesifo-working-papers
+    title: CESifo Working Papers
+    chinese_name: CESifo 工作论文
+    type: working_paper
+    stage: 2
+    homepage: https://ideas.repec.org/s/ces/ceswps.html
+    url_pattern: "/p/ces/ceswps/"
+    url_contains:
+      - /p/ces/ceswps/
+    fields:
+      - public
+      - labor
+      - trade
+      - macro
+
+  - id: fed-feds
+    title: Federal Reserve FEDS Working Papers
+    chinese_name: 美联储 FEDS 工作论文
+    type: working_paper
+    stage: 2
+    homepage: https://www.federalreserve.gov/econres/feds/index.htm
+    url_pattern: "/econres/feds/.+\\.htm"
+    url_contains:
+      - /econres/feds/
+    fields:
+      - macro
+      - finance
+      - labor
+
+  - id: bis-working-papers
+    title: BIS Working Papers
+    chinese_name: 国际清算银行工作论文
+    type: working_paper
+    stage: 2
+    homepage: https://www.bis.org/list/wpapers/index.htm
+    feed: https://www.bis.org/doclist/rss_all_categories.rss
+    url_pattern: "/publ/work\\d+"
+    url_contains:
+      - /publ/work
+    fields:
+      - finance
+      - macro
+
+  - id: oecd-working-papers
+    title: OECD Working Papers
+    chinese_name: OECD 工作论文
+    type: policy_paper
+    stage: 2
+    homepage: https://ideas.repec.org/s/oec/ecoaaa.html
+    official_homepage: https://www.oecd-ilibrary.org/economics/oecd-economics-department-working-papers_18151973
+    url_pattern: "/p/oec/ecoaaa/"
+    url_contains:
+      - /p/oec/ecoaaa/
+    fields:
+      - public
+      - macro
+      - labor
+      - environment
