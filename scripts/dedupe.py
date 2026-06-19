@@ -43,7 +43,10 @@ DATE_SOURCE_RANK = {
     "publisher_accepted_date": 4,
     "official_publish_date": 3,
     "rss_published": 4,
-}
+    "world_bank_detail_api": 4,
+    "repec_series_year": 2,
+    "repec_detail_year": 3,
+    }
 
 
 def iter_raw_records(raw_dir: Path) -> list[dict[str, Any]]:
@@ -122,7 +125,12 @@ def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
         existing.pop("title_zh", None)
         existing.pop("translation_status", None)
         changed = True
-    if incoming.get("source_id") == "world-bank-prwp" and existing.get("abstract"):
+    if (
+        incoming.get("source_id") == "world-bank-prwp"
+        and existing.get("abstract")
+        and existing.get("abstract_source") != "world_bank_detail_api"
+        and incoming.get("abstract_source") != "world_bank_detail_api"
+    ):
         existing["abstract"] = None
         changed = True
     if incoming.get("source_id") == "world-bank-prwp" and has_value(incoming.get("authors")) and existing.get("authors") != incoming.get("authors"):

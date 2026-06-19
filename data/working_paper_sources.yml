@@ -56,10 +56,11 @@ sources:
     chinese_name: IMF 工作论文
     type: policy_paper
     stage: 1
-    homepage: https://www.imf.org/en/Publications/WP
-    url_pattern: "/en/Publications/WP/Issues/"
+    homepage: https://ideas.repec.org/s/imf/imfwpa.html
+    official_homepage: https://www.imf.org/en/Publications/WP
+    url_pattern: "/p/imf/imfwpa/"
     url_contains:
-      - /en/Publications/WP/Issues/
+      - /p/imf/imfwpa/
     fields:
       - macro
       - finance
@@ -79,8 +80,9 @@ sources:
     title: SSRN Economics Research Network
     chinese_name: SSRN 经济学研究网络
     type: aggregator
-    stage: 2
+    stage: 3
     homepage: https://papers.ssrn.com/sol3/DisplayJournalBrowse.cfm
+    access_note: public pages often return access limits; prefer email/feed integration when available
     url_pattern: "/sol3/papers\\.cfm\\?abstract_id=\\d+"
     url_contains:
       - /sol3/papers.cfm?abstract_id=
@@ -95,8 +97,9 @@ sources:
     title: SSRN Health Economics Network
     chinese_name: SSRN 健康经济学网络
     type: aggregator
-    stage: 2
+    stage: 3
     homepage: https://papers.ssrn.com/sol3/DisplayJournalBrowse.cfm
+    access_note: public pages often return access limits; prefer email/feed integration when available
     url_pattern: "/sol3/papers\\.cfm\\?abstract_id=\\d+"
     url_contains:
       - /sol3/papers.cfm?abstract_id=
@@ -168,7 +171,11 @@ sources:
     chinese_name: OECD 工作论文
     type: policy_paper
     stage: 2
-    homepage: https://www.oecd-ilibrary.org/economics/oecd-economics-department-working-papers_18151973
+    homepage: https://ideas.repec.org/s/oec/ecoaaa.html
+    official_homepage: https://www.oecd-ilibrary.org/economics/oecd-economics-department-working-papers_18151973
+    url_pattern: "/p/oec/ecoaaa/"
+    url_contains:
+      - /p/oec/ecoaaa/
     fields:
       - public
       - macro

@@ -257,15 +257,15 @@ SOURCE_STATUS = {
     "iza": ("已跑通", "ok", "RSS/页面入口可抓取，已纳入第一批测试。"),
     "cepr-dp": ("已跑通", "ok", "公开页面可抓取，已纳入第二批测试。"),
     "fed-feds": ("已跑通", "ok", "公开页面可抓取，已纳入第二批测试。"),
-    "nber": ("待增强", "todo", "需要专项解析 NBER 列表页和论文详情页。"),
-    "world-bank-prwp": ("待增强", "todo", "需要专项解析 World Bank Open Knowledge 页面。"),
-    "imf-working-papers": ("待增强", "todo", "需要专项解析 IMF 列表页和详情页。"),
-    "bis-working-papers": ("待增强", "todo", "需要专项解析 BIS 列表页和详情页。"),
-    "cesifo-working-papers": ("待增强", "todo", "需要收紧 CESifo 页面过滤规则。"),
-    "oecd-working-papers": ("入口受限", "pause", "当前入口返回访问限制，需要替代源或 API。"),
+    "nber": ("已增强", "ok", "已接入 NBER 列表 API 和论文详情页。"),
+    "world-bank-prwp": ("已增强", "ok", "已接入 World Bank Open Knowledge 详情 API，用详情页校验标题、摘要和日期。"),
+    "imf-working-papers": ("替代源已接入", "ok", "官方页面访问不稳定，当前使用 IDEAS/RePEc 的 IMF Working Papers 公开系列页。"),
+    "bis-working-papers": ("已跑通", "ok", "已接入 BIS 官方 RSS，并过滤 Working Papers。"),
+    "cesifo-working-papers": ("已跑通", "ok", "已接入 IDEAS/RePEc 的 CESifo Working Papers 系列页。"),
+    "oecd-working-papers": ("替代源已接入", "ok", "OECD/iLibrary 页面访问不稳定，当前使用 IDEAS/RePEc 的 OECD Economics Department Working Papers 公开系列页。"),
     "repec-nep": ("暂缓", "pause", "聚合源噪声较高，先放到第三阶段。"),
-    "ssrn-economics-research-network": ("待验证", "todo", "先接入公开浏览页；如遇限制，再切换到替代入口或邮件源。"),
-    "ssrn-health-economics-network": ("待验证", "todo", "先接入公开浏览页；如遇限制，再切换到替代入口或邮件源。"),
+    "ssrn-economics-research-network": ("受限待接邮件/feed", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
+    "ssrn-health-economics-network": ("受限待接邮件/feed", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
 }
 
 
@@ -375,7 +375,7 @@ def working_paper_sources_body(records: list[dict[str, Any]]) -> str:
     total_today = sum(today_by_source.values())
     total_records = len(wp_records)
     return f"""<section class="section-head">
-  <div><h2>工作论文来源</h2><p>当前分支正在接入 NBER、IZA、CEPR、SSRN、央行和国际组织工作论文。这里只抓公开元数据，不批量下载 PDF。</p></div>
+  <div><h2>工作论文来源</h2><p>已接入 NBER、IZA、World Bank、IMF、CEPR、BIS、CESifo、OECD 等公开元数据来源；SSRN 暂以邮件/feed 方案待接入。这里只抓公开元数据，不批量下载 PDF。</p></div>
   <p>{len(sources)} 个来源</p>
 </section>
 <section class="stats">

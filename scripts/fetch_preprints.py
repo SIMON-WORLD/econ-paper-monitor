@@ -262,6 +262,9 @@ def source_record(
 
 
 def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *, timeout: int) -> dict[str, Any]:
+    if source.get("id") == "world-bank-prwp":
+        return enrich_world_bank_from_detail(record, source, timeout=timeout) or record
+
     url = record.get("url")
     if not url:
         return record
@@ -318,6 +321,18 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
         record["available_online"] = parsed_date
         record["date_source"] = "publisher_detail"
         record["date_confidence"] = "B"
+    elif "ideas.repec.org/" in str(url or ""):
+        year_value = (
+            first_match([r'\b(20\d{2})\b'], str(date_value or ""), flags=re.I)
+            or first_match([r'"datePublished"\s*:\s*"(20\d{2})"'], html_text, flags=re.I)
+            or (meta_values(html_text, ["citation_publication_date"]) or [None])[0]
+        )
+        year_match = re.search(r"\b(20\d{2})\b", str(year_value or ""))
+        if year_match:
+            record["published_online"] = f"{year_match.group(1)}-01-01"
+            record["available_online"] = f"{year_match.group(1)}-01-01"
+            record["date_source"] = "repec_detail_year"
+            record["date_confidence"] = "C"
 
     doi = (meta_values(html_text, ["citation_doi", "dc.identifier"]) or [None])[0]
     if doi and "10." in doi:
@@ -328,6 +343,85 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     if pdf:
         record["pdf_url"] = urljoin(str(url), pdf)
     record["paper_number"] = record.get("paper_number") or detect_paper_number(source, str(record.get("title") or ""), str(record.get("url") or ""))
+    return record
+
+
+def world_bank_uuid(record: dict[str, Any]) -> str | None:
+    for value in (record.get("paper_number"), record.get("url")):
+        if not isinstance(value, str):
+            continue
+        match = re.search(r"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})", value, flags=re.I)
+        if match:
+            return match.group(1)
+    return None
+
+
+def first_metadata_value(item: dict[str, Any], keys: list[str]) -> str | None:
+    values = metadata_values(item, keys)
+    return values[0] if values else None
+
+
+def world_bank_pdf_url(detail: dict[str, Any]) -> str | None:
+    for value in nested_values(detail):
+        if not isinstance(value, dict):
+            continue
+        href = value.get("href")
+        if isinstance(href, str) and "/bitstreams/" in href:
+            return href if href.startswith("http") else urljoin("https://openknowledge.worldbank.org", href)
+        uuid = value.get("uuid")
+        if isinstance(uuid, str) and value.get("bundleName") != "LICENSE":
+            name = str(value.get("name") or value.get("uuid") or "")
+            if name.lower().endswith(".pdf") or value.get("format") == "Adobe PDF":
+                return f"https://openknowledge.worldbank.org/bitstreams/{uuid}/download"
+    return None
+
+
+def enrich_world_bank_from_detail(record: dict[str, Any], source: dict[str, Any], *, timeout: int) -> dict[str, Any] | None:
+    uuid = world_bank_uuid(record)
+    if not uuid:
+        return None
+    detail_url = f"https://openknowledge.worldbank.org/server/api/core/items/{uuid}"
+    try:
+        detail = fetch_json(detail_url, timeout=timeout)
+    except Exception:
+        return None
+    if not isinstance(detail, dict):
+        return None
+
+    title = first_metadata_value(detail, ["dc.title", "title"])
+    if title and plausible_title(title):
+        record["title"] = title
+
+    authors = list(dict.fromkeys(metadata_values(detail, ["dc.contributor.author", "contributor.author", "author"])))
+    if authors:
+        record["authors"] = authors[:12]
+
+    abstract = first_metadata_value(detail, ["dc.description.abstract", "description.abstract"])
+    if abstract and not is_boilerplate_text(abstract):
+        record["abstract"] = abstract
+        record["abstract_source"] = "world_bank_detail_api"
+
+    date_value = first_metadata_value(detail, ["dc.date.issued", "date.issued", "issued"])
+    parsed_date = parse_date(date_value)
+    if parsed_date:
+        record["published_online"] = parsed_date
+        record["available_online"] = parsed_date
+        record["date_source"] = "world_bank_detail_api"
+        record["date_confidence"] = "B"
+
+    doi = first_metadata_value(detail, ["dc.identifier.doi", "identifier.doi", "doi"])
+    if doi:
+        record["doi"] = doi
+
+    handle = first_metadata_value(detail, ["dc.identifier.uri", "identifier.uri"])
+    if handle and handle.startswith("http"):
+        record["source_url"] = handle
+
+    pdf = world_bank_pdf_url(detail)
+    if pdf:
+        record["pdf_url"] = pdf
+
+    record["paper_number"] = uuid
     return record
 
 
@@ -513,6 +607,41 @@ def parse_repec_cesifo_list(html_text: str, source: dict[str, Any], limit: int) 
     return records
 
 
+def parse_repec_series_list(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    pattern = (
+        r'<LI[^>]*class=["\'][^"\']*list-group-item[^"\']*["\'][^>]*>\s*'
+        r'(?:<B>\s*)?(?P<number>[^<\s]{1,40})?\s*'
+        r'<A\s+HREF=["\'](?P<href>/p/[^"\']+)["\']>(?P<title>.*?)</A>'
+        r'(?P<tail>.*?)</LI>'
+    )
+    for match in re.finditer(pattern, html_text, flags=re.I | re.S):
+        url = normalize_url(urljoin(str(source.get("homepage")), html.unescape(match.group("href"))))
+        title = clean_text(match.group("title"))
+        if not url or url in seen or not plausible_title(title):
+            continue
+        record = source_record(source, title=title, url=url)
+        number = clean_text(match.group("number") or "")
+        if number and not number.startswith("<"):
+            record["paper_number"] = number
+        tail = match.group("tail")
+        authors = first_match([r'<I>\s*by\s*</I>\s*(.*?)(?:<BR|</LI|<span|$)'], tail)
+        if authors:
+            record["authors"] = [clean_text(part) for part in re.split(r"\s*&\s*|\s+and\s+|;", authors) if clean_text(part)][:12]
+        year = first_match([r'\b(20\d{2})\b'], tail, flags=re.I)
+        if year:
+            record["published_online"] = f"{year}-01-01"
+            record["available_online"] = f"{year}-01-01"
+            record["date_source"] = "repec_series_year"
+            record["date_confidence"] = "C"
+        seen.add(url)
+        records.append(record)
+        if len(records) >= limit:
+            break
+    return records
+
+
 def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
     source_id = str(source.get("id") or "")
     if source_id == "nber":
@@ -525,6 +654,8 @@ def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -
         return parse_world_bank_list(html_text, source, limit)
     if source_id == "cesifo-working-papers":
         return parse_repec_cesifo_list(html_text, source, limit)
+    if "ideas.repec.org/s/" in str(source.get("homepage") or ""):
+        return parse_repec_series_list(html_text, source, limit)
     return []
 
 

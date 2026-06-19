@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026-06-20 归档</title>
+  <style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
+    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
+    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
+    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
+    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">1</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">9</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">8</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">7</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">6</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">4</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">2</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">2</span></a><a class="side-link" href="../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">1</span></a><a class="side-link" href="../../topics/health/"><span class="side-main"><strong>健康</strong></span><span class="count">1</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../daily/2026-06-20/?journal=source-imf-working-papers"><span class="side-main"><strong>IMF Working Papers</strong><em>IMF 工作论文</em></span><span class="count">8</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=source-iza"><span class="side-main"><strong>IZA Discussion Papers</strong><em>IZA 讨论论文</em></span><span class="count">7</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=source-oecd-working-papers"><span class="side-main"><strong>OECD Working Papers</strong><em>OECD 工作论文</em></span><span class="count">1</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <nav class="nav">
+          <a class="" href="../../">今日</a>
+          <a href="../../topics/china/">与中国相关</a>
+          <a class="active" href="../../archive/">归档</a>
+          <a href="../../journals/">监测期刊</a>
+          <a class="" href="../../working-papers/">工作论文</a>
+          <a href="../../feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap"><section class="section-head"><div><h2>2026-06-20 监测记录</h2><p>支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters">
+  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="source-imf-working-papers">IMF Working Papers</option><option value="source-iza">IZA Discussion Papers</option><option value="source-oecd-working-papers">OECD Working Papers</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option><option value="first_seen">首次监测</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="B">B 中：RSS/出版社备选日期</option><option value="F">F 待核：仅首次监测</option></select>
+  <select class="control" id="sourceTypeFilter"><option value="">筛选来源类型</option><option value="policy_paper">政策论文</option><option value="working_paper">工作论文</option></select>
+  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+  
+</div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="quantifying the impact of a personal income tax reform on tax revenues, growth and inequality in hungary 量化匈牙利个人所得税改革对税收收入、经济增长与不平等的影响 michaël sicsic oecd working papers " data-journal="source-oecd-working-papers" data-fields="development finance macro labor" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:50</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/oec/ecoaaa/1868-en.html">Quantifying the impact of a personal income tax reform on tax revenues, growth and inequality in Hungary</a></h3>
+    <p class="title-zh">量化匈牙利个人所得税改革对税收收入、经济增长与不平等的影响</p>
+    <p class="authors">Michaël Sicsic</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">OECD Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-19 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/oec/ecoaaa/1868-en.html">文章链接</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="barriers to a european banking union 欧洲银行业联盟的障碍 mr. damien capelle &amp; adriano fernandes &amp; j.j. kruger &amp; peter mcadam imf working papers " data-journal="source-imf-working-papers" data-fields="finance labor public trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-123.html">Barriers to a European Banking Union</a></h3>
+    <p class="title-zh">欧洲银行业联盟的障碍</p>
+    <p class="authors">Mr. Damien Capelle &amp; Adriano Fernandes &amp; J.J. Kruger &amp; Peter McAdam</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-123.html">文章链接</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="targeting state aid: firm-level evidence from france 定向国家援助：来自法国的企业层面证据 xun li &amp; maryam vaziri imf working papers " data-journal="source-imf-working-papers" data-fields="environment firms" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-122.html">Targeting State Aid: Firm-level Evidence from France</a></h3>
+    <p class="title-zh">定向国家援助：来自法国的企业层面证据</p>
+    <p class="authors">Xun Li &amp; Maryam Vaziri</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-122.html">文章链接</a><span class="pill">环境与气候</span><span class="pill">企业与产业</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="hank-based fiscal consolidation for a high-debt advanced euro area economy 基于hank的高负债欧元区发达经济体财政整固 mr. gee hee hong &amp; naowar mohiuddin &amp; rasmané ouedraogo &amp; danila smirnov &amp; maryam vaziri imf working papers " data-journal="source-imf-working-papers" data-fields="environment development macro labor" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-121.html">HANK-Based Fiscal Consolidation for a High-Debt Advanced Euro Area Economy</a></h3>
+    <p class="title-zh">基于HANK的高负债欧元区发达经济体财政整固</p>
+    <p class="authors">Mr. Gee Hee Hong &amp; Naowar Mohiuddin &amp; Rasmané Ouedraogo &amp; Danila Smirnov &amp; Maryam Vaziri</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-121.html">文章链接</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="wage dynamics in europe: drivers, institutional amplifiers, and policy spillovers 欧洲工资动态：驱动因素、制度放大器与政策溢出效应 kareem ismail &amp; ana lariau &amp; théodore renault imf working papers " data-journal="source-imf-working-papers" data-fields="finance macro labor public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-120.html">Wage Dynamics in Europe: Drivers, Institutional Amplifiers, and Policy Spillovers</a></h3>
+    <p class="title-zh">欧洲工资动态：驱动因素、制度放大器与政策溢出效应</p>
+    <p class="authors">Kareem Ismail &amp; Ana Lariau &amp; Théodore Renault</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-120.html">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="central clearing for government securities repos: a ccp-centric perspective 政府证券回购的中央清算：以中央对手方为中心的视角 ismael boudiaf imf working papers " data-journal="source-imf-working-papers" data-fields="finance public trade firms" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-119.html">Central Clearing for Government Securities Repos: A CCP-Centric Perspective</a></h3>
+    <p class="title-zh">政府证券回购的中央清算：以中央对手方为中心的视角</p>
+    <p class="authors">Ismael Boudiaf</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-119.html">文章链接</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="asean’s trade and investment in a fragmented world 碎片化世界中的东盟贸易与投资 giovanni donato &amp; emmanouil kitsios imf working papers " data-journal="source-imf-working-papers" data-fields="china macro public trade" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-118.html">ASEAN’s Trade and Investment in a Fragmented World</a></h3>
+    <p class="title-zh">碎片化世界中的东盟贸易与投资</p>
+    <p class="authors">Giovanni Donato &amp; Emmanouil Kitsios</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-118.html">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="decoding fiscal messaging: how g7 finance ministries communicate 解码财政信息：七国集团财政部如何沟通 tatiana evdokimova &amp; patrick a. imam imf working papers " data-journal="source-imf-working-papers" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-117.html">Decoding Fiscal Messaging: How G7 Finance Ministries Communicate</a></h3>
+    <p class="title-zh">解码财政信息：七国集团财政部如何沟通</p>
+    <p class="authors">Tatiana Evdokimova &amp; Patrick A. Imam</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-117.html">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="innovation, human capital, and taxation: evidence from a structural model of the canadian economy 创新、人力资本与税收：基于加拿大经济结构模型的证据 sandra valentina lizarazo imf working papers " data-journal="source-imf-working-papers" data-fields="development macro labor public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="policy_paper">
+  <div><div class="time">00:49</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-116.html">Innovation, Human Capital, and Taxation: Evidence from a Structural Model of the Canadian Economy</a></h3>
+    <p class="title-zh">创新、人力资本与税收：基于加拿大经济结构模型的证据</p>
+    <p class="authors">Sandra Valentina Lizarazo</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-12 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-116.html">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="conditional cash transfers on the labor market: evidence from young french jobseekers 劳动力市场中的有条件现金转移：来自法国年轻求职者的证据  iza discussion papers " data-journal="source-iza" data-fields="finance labor" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">00:48</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18717/conditional-cash-transfers-on-the-labor-market-evidence-from-young-french-jobseekers">Conditional Cash Transfers on the Labor Market: Evidence from Young French Jobseekers</a></h3>
+    <p class="title-zh">劳动力市场中的有条件现金转移：来自法国年轻求职者的证据</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18717/conditional-cash-transfers-on-the-labor-market-evidence-from-young-french-jobseekers">文章链接</a><span class="pill">金融</span><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="norms, beliefs, and networks: descriptive findings on women’s political participation in pakistan 规范、信念与网络：巴基斯坦女性政治参与的描述性发现  iza discussion papers " data-journal="source-iza" data-fields="public" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">00:48</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18716/norms-beliefs-and-networks-descriptive-findings-on-womens-political-participation-in-pakistan">Norms, Beliefs, and Networks: Descriptive Findings on Women’s Political Participation in Pakistan</a></h3>
+    <p class="title-zh">规范、信念与网络：巴基斯坦女性政治参与的描述性发现</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18716/norms-beliefs-and-networks-descriptive-findings-on-womens-political-participation-in-pakistan">文章链接</a><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="context and the perception of harm: evidence from online and in-person sexual harassment 情境与伤害感知：来自线上与线下性骚扰的证据  iza discussion papers " data-journal="source-iza" data-fields="econometrics" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">00:48</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18715/context-and-the-perception-of-harm-evidence-from-online-and-in-person-sexual-harassment">Context and the Perception of Harm: Evidence from Online and In-Person Sexual Harassment</a></h3>
+    <p class="title-zh">情境与伤害感知：来自线上与线下性骚扰的证据</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18715/context-and-the-perception-of-harm-evidence-from-online-and-in-person-sexual-harassment">文章链接</a><span class="pill">计量方法</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="cooperation within edi-oriented institutional framing edi导向的制度框架内的合作  iza discussion papers " data-journal="source-iza" data-fields="labor education health" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">00:48</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18714/cooperation-within-edi-oriented-institutional-framing">Cooperation within EDI-oriented Institutional Framing</a></h3>
+    <p class="title-zh">EDI导向的制度框架内的合作</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18714/cooperation-within-edi-oriented-institutional-framing">文章链接</a><span class="pill">劳动</span><span class="pill">教育</span><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="from training to self-employment: evidence from youth agricultural programmes in cameroon and madagascar 从培训到自雇：喀麦隆和马达加斯加青年农业项目的证据  iza discussion papers " data-journal="source-iza" data-fields="agriculture labor public" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">00:48</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18713/from-training-to-self-employment-evidence-from-youth-agricultural-programmes-in-cameroon-and-madagascar">From Training to Self-Employment: Evidence from Youth Agricultural Programmes in Cameroon and Madagascar</a></h3>
+    <p class="title-zh">从培训到自雇：喀麦隆和马达加斯加青年农业项目的证据</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18713/from-training-to-self-employment-evidence-from-youth-agricultural-programmes-in-cameroon-and-madagascar">文章链接</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="income vs. asset tests in the safety net: impacts on access, targeting, and costs in snap 安全网中的收入与资产测试：对snap项目可及性、瞄准效果及成本的影响  iza discussion papers " data-journal="source-iza" data-fields="finance" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">00:48</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18712/income-vs-asset-tests-in-the-safety-net-impacts-on-access-targeting-and-costs-in-snap">Income vs. Asset Tests in the Safety Net: Impacts on Access, Targeting, and Costs in SNAP</a></h3>
+    <p class="title-zh">安全网中的收入与资产测试：对SNAP项目可及性、瞄准效果及成本的影响</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18712/income-vs-asset-tests-in-the-safety-net-impacts-on-access-targeting-and-costs-in-snap">文章链接</a><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="where to build affordable housing? evaluating the tradeoffs of location 经济适用房应建在何处？评估选址的权衡  iza discussion papers " data-journal="source-iza" data-fields="public trade urban inequality" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">00:48</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18711/where-to-build-affordable-housing-evaluating-the-tradeoffs-of-location">Where to Build Affordable Housing? Evaluating the Tradeoffs of Location</a></h3>
+    <p class="title-zh">经济适用房应建在何处？评估选址的权衡</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18711/where-to-build-affordable-housing-evaluating-the-tradeoffs-of-location">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">城市与区域</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const search = document.getElementById('searchInput');
+  const journal = document.getElementById('journalFilter');
+  const field = document.getElementById('fieldFilter');
+  const dateType = document.getElementById('dateTypeFilter');
+  const confidence = document.getElementById('confidenceFilter');
+  const sourceType = document.getElementById('sourceTypeFilter');
+  const china = document.getElementById('chinaToggle');
+  const counter = document.getElementById('flowCounter');
+  const empty = document.getElementById('filterEmpty');
+  const events = Array.from(document.querySelectorAll('.event'));
+  if (!search || !journal || !field || !china) return;
+  const params = new URLSearchParams(window.location.search);
+  let preset = '';
+  if (params.get('q')) search.value = params.get('q');
+  if (params.get('journal')) journal.value = params.get('journal');
+  if (params.get('field')) field.value = params.get('field');
+  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (sourceType && params.get('sourceType')) sourceType.value = params.get('sourceType');
+  if (params.get('china') === '1') {
+    china.setAttribute('aria-pressed', 'true');
+    china.classList.add('active');
+  }
+  if (params.get('onlineToday') === '1') preset = 'online-today';
+  function setCounter(visible, chinaOnly) {
+    if (!counter) return;
+    if (chinaOnly || preset === 'china') {
+      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
+    } else if (preset === 'online-today') {
+      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
+    } else {
+      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
+    }
+  }
+  function applyFilters() {
+    const q = (search.value || '').trim().toLowerCase();
+    const journalValue = journal.value;
+    const fieldValue = field.value;
+    const dateTypeValue = dateType ? dateType.value : '';
+    const confidenceValue = confidence ? confidence.value : '';
+    const sourceTypeValue = sourceType ? sourceType.value : '';
+    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+    let visible = 0;
+    for (const item of events) {
+      const okSearch = !q || item.dataset.search.includes(q);
+      const okJournal = !journalValue || item.dataset.journal === journalValue;
+      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okSourceType = !sourceTypeValue || item.dataset.sourceType === sourceTypeValue;
+      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okSourceType && okChina && okPreset;
+      item.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    setCounter(visible, chinaOnly);
+  }
+  search.addEventListener('input', applyFilters);
+  journal.addEventListener('change', applyFilters);
+  field.addEventListener('change', applyFilters);
+  if (dateType) dateType.addEventListener('change', applyFilters);
+  if (confidence) confidence.addEventListener('change', applyFilters);
+  if (sourceType) sourceType.addEventListener('change', applyFilters);
+  china.addEventListener('click', () => {
+    const active = china.getAttribute('aria-pressed') !== 'true';
+    china.setAttribute('aria-pressed', String(active));
+    china.classList.toggle('active', active);
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      preset = item.dataset.filterPreset || '';
+      if (preset === 'all') {
+        search.value = '';
+        journal.value = '';
+        field.value = '';
+        if (dateType) dateType.value = '';
+        if (confidence) confidence.value = '';
+        if (sourceType) sourceType.value = '';
+        china.setAttribute('aria-pressed', 'false');
+        china.classList.remove('active');
+      }
+      if (preset === 'china') {
+        china.setAttribute('aria-pressed', 'true');
+        china.classList.add('active');
+      }
+      applyFilters();
+      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+  applyFilters();
+})();
+</script>
+</main>
+    </div>
+  </div>
+</body>
+</html>
