@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -36,6 +37,38 @@ def candidate_payload(record: dict[str, Any]) -> str:
         "candidate_reason": record.get("china_relevance_reason"),
     }
     return json.dumps(payload, ensure_ascii=False)
+
+
+def has_direct_china_evidence(record: dict[str, Any]) -> bool:
+    text = " ".join(
+        str(value or "")
+        for value in [
+            record.get("title"),
+            record.get("title_zh"),
+            record.get("abstract"),
+            record.get("abstract_zh"),
+            record.get("journal"),
+            " ".join(record.get("authors") or []),
+        ]
+    ).casefold()
+    for phrase in ["发展中国家", "发展中经济体", "最不发达国家"]:
+        text = text.replace(phrase, "")
+    patterns = [
+        r"\bchina\b",
+        r"\bchinese\b",
+        r"\bprc\b",
+        r"\bmainland china\b",
+        r"\bhong kong\b",
+        r"\btaiwan\b",
+        r"\bbeijing\b",
+        r"\bshanghai\b",
+        r"\bguangdong\b",
+        r"\bchina shock\b",
+        r"\bhukou\b",
+    ]
+    if any(re.search(pattern, text, flags=re.I) for pattern in patterns):
+        return True
+    return any(keyword in text for keyword in ["中国", "香港", "台湾"])
 
 
 def parse_json_response(text: str) -> dict[str, Any]:
@@ -88,12 +121,19 @@ def apply_decision(record: dict[str, Any], decision: dict[str, Any]) -> bool:
     except (TypeError, ValueError):
         confidence = 0
     reason = str(decision.get("reason") or "AI 判定")
-    if verdict == "yes" and confidence >= 0.75:
+    if verdict == "yes" and confidence >= 0.75 and has_direct_china_evidence(record):
         updates = {
             "china_related": True,
             "china_related_source": "ai",
             "china_relevance_status": "confirmed",
             "china_relevance_reason": reason,
+        }
+    elif verdict == "yes" and confidence >= 0.75:
+        updates = {
+            "china_related": False,
+            "china_related_source": "ai",
+            "china_relevance_status": "none",
+            "china_relevance_reason": "AI 倾向判定为中国相关，但题名/摘要/元数据缺少直接中国证据，已按保守规则排除",
         }
     elif verdict == "no" and confidence >= 0.85:
         updates = {

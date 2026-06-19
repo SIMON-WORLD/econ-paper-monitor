@@ -126,6 +126,16 @@ def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
         existing.pop("translation_status", None)
         changed = True
     if (
+        incoming.get("source_id") == "fed-feds"
+        and has_value(incoming.get("title"))
+        and str(existing.get("title") or "").strip().casefold() == "board of governors of the federal reserve system"
+        and str(incoming.get("title") or "").strip().casefold() != "board of governors of the federal reserve system"
+    ):
+        existing["title"] = incoming["title"]
+        existing.pop("title_zh", None)
+        existing.pop("translation_status", None)
+        changed = True
+    if (
         incoming.get("source_id") == "world-bank-prwp"
         and existing.get("abstract")
         and existing.get("abstract_source") != "world_bank_detail_api"

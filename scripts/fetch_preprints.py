@@ -273,11 +273,20 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     except Exception:
         return record
 
-    title = (
-        first_match([r'<h1[^>]*>(.*?)</h1>'], html_text)
-        or (meta_values(html_text, ["citation_title", "dc.title", "og:title"]) or [None])[0]
-        or json_ld_value(html_text, ["headline", "name"])
-    )
+    source_id = str(source.get("id") or "")
+    title_meta_names = ["citation_title", "dc.title", "og:title"]
+    if source_id == "fed-feds":
+        title = (
+            (meta_values(html_text, title_meta_names) or [None])[0]
+            or json_ld_value(html_text, ["headline", "name"])
+            or first_match([r'<h1[^>]*>(.*?)</h1>'], html_text)
+        )
+    else:
+        title = (
+            first_match([r'<h1[^>]*>(.*?)</h1>'], html_text)
+            or (meta_values(html_text, title_meta_names) or [None])[0]
+            or json_ld_value(html_text, ["headline", "name"])
+        )
     if title and plausible_title(title):
         record["title"] = title
 
@@ -287,7 +296,6 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     elif json_authors := json_ld_value(html_text, ["author", "creator"]):
         record["authors"] = [item.strip() for item in json_authors.split(",") if item.strip()][:12]
 
-    source_id = str(source.get("id") or "")
     detail_abstract_patterns = [
         r'<div[^>]+class=["\'][^"\']*page-header__intro[^"\']*["\'][^>]*>\s*<div[^>]*>\s*<p[^>]*>(.*?)</p>',
         r'<h2[^>]*>\s*Abstract\s*</h2>\s*<p[^>]*>(.*?)</p>',

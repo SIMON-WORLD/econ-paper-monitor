@@ -209,14 +209,21 @@ def classify(record: dict[str, Any]) -> tuple[str, str, str]:
     """Return status, reason, source."""
     manual_reason = str(record.get("china_reason") or "")
     source = str(record.get("china_related_source") or "")
-    if record.get("china_related") is True and (source in {"manual", "ai"} or manual_reason):
-        return "confirmed", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工/上游确认"), "manual"
-    if record.get("china_related") is False and (source in {"manual", "ai"} or manual_reason):
-        return "none", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工排除"), "manual"
+    if record.get("china_related") is True and (source == "manual" or (manual_reason and source != "ai")):
+        return "confirmed", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工确认：中国相关"), "manual"
+    if record.get("china_related") is False and (source == "manual" or (manual_reason and source != "ai")):
+        return "none", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工确认：排除中国相关"), "manual"
     if is_chinese_journal(record):
         return "confirmed", "中文期刊默认与中国相关", "rule"
 
     text = haystack(record)
+    if record.get("china_related") is True and source == "ai" and not has_explicit_china_signal(record):
+        return "none", "AI 曾判定为中国相关，但题名/摘要/元数据缺少直接中国证据，已按保守规则排除", "rule"
+    if record.get("china_related") is True and source == "ai":
+        return "confirmed", str(record.get("china_relevance_reason") or "AI 确认且存在直接中国证据"), "ai"
+    if record.get("china_related") is False and source == "ai":
+        return "none", str(record.get("china_relevance_reason") or "AI 排除中国相关"), "ai"
+
     if has_explicit_china_signal(record):
         return "confirmed", "标题、摘要或元数据包含中国相关关键词", "rule"
 
