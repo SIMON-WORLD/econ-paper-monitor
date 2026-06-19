@@ -2,7 +2,7 @@
 # stage:
 #   1 = first-batch priority sources
 #   2 = second-batch priority sources
-# Fetchers must only collect public metadata. Do not bulk-download PDFs.
+# Fetchers only collect public metadata. They do not bulk-download PDFs.
 sources:
   - id: nber
     title: NBER Working Papers
@@ -125,10 +125,10 @@ sources:
     chinese_name: CESifo 工作论文
     type: working_paper
     stage: 2
-    homepage: https://www.cesifo.org/en/publications/cesifo-working-papers
-    url_pattern: "/publications/[0-9-]+/cesifo-working-paper"
+    homepage: https://ideas.repec.org/s/ces/ceswps.html
+    url_pattern: "/p/ces/ceswps/"
     url_contains:
-      - /cesifo-working-paper-
+      - /p/ces/ceswps/
     fields:
       - public
       - labor
@@ -155,6 +155,7 @@ sources:
     type: working_paper
     stage: 2
     homepage: https://www.bis.org/list/wpapers/index.htm
+    feed: https://www.bis.org/doclist/rss_all_categories.rss
     url_pattern: "/publ/work\\d+"
     url_contains:
       - /publ/work

@@ -853,6 +853,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 </section>
 <section class="stats">
   <a class="stat" href="{BASE}/journals/"><strong>{s['flow_journals']}</strong><span>今日涉及期刊</span></a>
+  <a class="stat" href="{BASE}/working-papers/today/"><strong>{sum(1 for record in flow_records if is_working_paper(record))}</strong><span>今日工作论文</span></a>
   <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
 </section>
 {filter_toolbar(flow_records, include_rss=True)}

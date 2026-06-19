@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, read_json, stable_id, today_str, write_json
+from common import DATA_DIR, normalize_doi, read_json, stable_id, today_str, write_json
 from status import record_run, record_source
 
 
@@ -65,7 +65,11 @@ def merge_daily(existing: list[dict[str, Any]], new_records: list[dict[str, Any]
     for record in existing + new_records:
         record_id = record.get("id") or stable_id(record)
         record["id"] = record_id
-        merged[record_id] = record
+        match_id = find_matching_record_id(merged, record) or record_id
+        if match_id in merged:
+            enrich_record(merged[match_id], record)
+        else:
+            merged[record_id] = record
     return sorted(
         merged.values(),
         key=lambda item: (item.get("published_online") or "", item.get("detected_at") or ""),
@@ -77,8 +81,53 @@ def has_value(value: Any) -> bool:
     return value is not None and value != "" and value != []
 
 
+def is_bad_abstract(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    normalized = " ".join(value.split()).casefold()
+    boilerplates = [
+        "founded in 1920, the nber is a private",
+        "the federal reserve board of governors in washington dc",
+    ]
+    return any(fragment in normalized for fragment in boilerplates)
+
+
+def record_match_keys(record: dict[str, Any]) -> set[str]:
+    keys: set[str] = {record.get("id") or stable_id(record)}
+    doi = normalize_doi(record.get("doi"))
+    if doi:
+        keys.add(f"doi:{doi}")
+    url = str(record.get("url") or "").strip().rstrip("/")
+    if url:
+        keys.add(f"url:{url.casefold()}")
+    source_id = str(record.get("source_id") or "")
+    paper_number = str(record.get("paper_number") or "")
+    if source_id and paper_number:
+        keys.add(f"paper:{source_id.casefold()}:{paper_number.casefold()}")
+    return keys
+
+
+def find_matching_record_id(records: dict[str, dict[str, Any]], incoming: dict[str, Any]) -> str | None:
+    incoming_keys = record_match_keys(incoming)
+    for record_id, existing in records.items():
+        if incoming_keys & record_match_keys(existing):
+            return record_id
+    return None
+
+
 def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
     changed = False
+    if incoming.get("source_id") == "world-bank-prwp" and has_value(incoming.get("title")) and existing.get("title") != incoming.get("title"):
+        existing["title"] = incoming["title"]
+        existing.pop("title_zh", None)
+        existing.pop("translation_status", None)
+        changed = True
+    if incoming.get("source_id") == "world-bank-prwp" and existing.get("abstract"):
+        existing["abstract"] = None
+        changed = True
+    if incoming.get("source_id") == "world-bank-prwp" and has_value(incoming.get("authors")) and existing.get("authors") != incoming.get("authors"):
+        existing["authors"] = incoming["authors"]
+        changed = True
     incoming_date_source = incoming.get("date_source")
     existing_date_source = existing.get("date_source")
     if has_value(incoming.get("published_online")) and (
@@ -92,7 +141,17 @@ def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
         if incoming_date_source and existing.get("date_source") != incoming_date_source:
             existing["date_source"] = incoming_date_source
             changed = True
+        if has_value(incoming.get("date_confidence")) and existing.get("date_confidence") != incoming.get("date_confidence"):
+            existing["date_confidence"] = incoming["date_confidence"]
+            changed = True
+    if is_bad_abstract(existing.get("abstract")) and not has_value(incoming.get("abstract")):
+        existing["abstract"] = None
+        changed = True
     for field in ENRICH_FIELDS:
+        if field == "abstract" and is_bad_abstract(existing.get(field)) and has_value(incoming.get(field)) and not is_bad_abstract(incoming.get(field)):
+            existing[field] = incoming[field]
+            changed = True
+            continue
         if not has_value(existing.get(field)) and has_value(incoming.get(field)):
             existing[field] = incoming[field]
             changed = True
@@ -104,12 +163,14 @@ def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
 
 def enrich_existing_daily(daily_dir: Path, record: dict[str, Any]) -> bool:
     record_id = stable_id(record)
+    incoming_keys = record_match_keys(record)
     changed = False
     for path in daily_dir.glob("*.json"):
         records = read_json(path, [])
         path_changed = False
         for existing in records:
-            if (existing.get("id") or stable_id(existing)) == record_id:
+            existing_keys = record_match_keys(existing)
+            if (existing.get("id") or stable_id(existing)) == record_id or incoming_keys & existing_keys:
                 if enrich_record(existing, record):
                     path_changed = True
                     changed = True
@@ -134,8 +195,11 @@ def main() -> None:
     for record in iter_raw_records(args.raw_dir):
         record_id = stable_id(record)
         record["id"] = record_id
-        if record_id in seen_papers:
-            seen_entry = seen_papers[record_id]
+        seen_id = record_id
+        if record_id not in seen_papers:
+            seen_id = find_matching_record_id(seen_papers, record) or record_id
+        if seen_id in seen_papers:
+            seen_entry = seen_papers[seen_id]
             if enrich_record(seen_entry, record):
                 enriched += 1
             if enrich_existing_daily(args.daily_dir, record):

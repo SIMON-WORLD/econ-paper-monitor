@@ -54,8 +54,8 @@ def ask_model(record: dict[str, Any], key: str, base_url: str, model: str, timeo
     prompt = (
         "请判断这篇经济学论文是否与中国研究直接相关。只输出 JSON："
         '{"verdict":"yes/no/uncertain","confidence":0-1,"reason":"简短中文理由"}。\n'
-        "判定标准：如果研究对象、数据、制度背景、政策背景或核心应用是中国、中国企业、"
-        "中国人群、中国地区、香港或台湾，verdict=yes。"
+        "判定标准：如果研究对象、数据、制度背景、政策背景或核心应用是中国、"
+        "中国企业、中国人群、中国地区、香港或台湾，verdict=yes。"
         "如果只是作者姓名像中文但研究主题不明确，verdict=uncertain。"
         "如果明确不是中国研究，verdict=no。\n\n"
         + candidate_payload(record)

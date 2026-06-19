@@ -22,6 +22,8 @@ from status import record_source
 
 
 ATOM = "{http://www.w3.org/2005/Atom}"
+RSS10 = "{http://purl.org/rss/1.0/}"
+DC = "{http://purl.org/dc/elements/1.1/}"
 
 
 def load_sources(path: Path) -> list[dict[str, Any]]:
@@ -71,6 +73,15 @@ def clean_text(value: str | None) -> str:
     value = re.sub(r"\s+", " ", value)
     value = fix_mojibake(value)
     return value.strip()
+
+
+def is_boilerplate_text(value: str | None) -> bool:
+    normalized = " ".join((value or "").split()).casefold()
+    boilerplates = [
+        "founded in 1920, the nber is a private",
+        "the federal reserve board of governors in washington dc",
+    ]
+    return any(fragment in normalized for fragment in boilerplates)
 
 
 def fix_mojibake(value: str) -> str:
@@ -205,6 +216,11 @@ def child_text(node: ElementTree.Element, names: list[str]) -> str | None:
         child = node.find(name)
         if child is not None and child.text:
             return child.text.strip()
+    wanted = {name.split("}")[-1].split(":")[-1] for name in names}
+    for child in list(node):
+        local_name = child.tag.split("}")[-1]
+        if local_name in wanted and child.text:
+            return child.text.strip()
     return None
 
 
@@ -268,19 +284,21 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     elif json_authors := json_ld_value(html_text, ["author", "creator"]):
         record["authors"] = [item.strip() for item in json_authors.split(",") if item.strip()][:12]
 
+    source_id = str(source.get("id") or "")
+    detail_abstract_patterns = [
+        r'<div[^>]+class=["\'][^"\']*page-header__intro[^"\']*["\'][^>]*>\s*<div[^>]*>\s*<p[^>]*>(.*?)</p>',
+        r'<h2[^>]*>\s*Abstract\s*</h2>\s*<p[^>]*>(.*?)</p>',
+        r'<div[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</div>',
+        r'<section[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</section>',
+    ]
+    generic_description = None if source_id == "nber" else (meta_values(html_text, ["description", "og:description"]) or [None])[0]
     abstract = (
-        (meta_values(html_text, ["citation_abstract", "dc.description", "description", "og:description"]) or [None])[0]
+        (meta_values(html_text, ["citation_abstract", "dc.description"]) or [None])[0]
+        or first_match(detail_abstract_patterns, html_text)
+        or generic_description
         or json_ld_value(html_text, ["description", "abstract"])
-        or first_match(
-            [
-                r'<h2[^>]*>\s*Abstract\s*</h2>\s*<p[^>]*>(.*?)</p>',
-                r'<div[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</div>',
-                r'<section[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</section>',
-            ],
-            html_text,
-        )
     )
-    if abstract:
+    if abstract and not is_boilerplate_text(abstract):
         record["abstract"] = clean_text(abstract)
 
     date_value = (
@@ -316,6 +334,16 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
 def parse_feed(xml_text: str, source: dict[str, Any]) -> list[dict[str, Any]]:
     root = ElementTree.fromstring(xml_text)
     records: list[dict[str, Any]] = []
+    if root.tag.endswith("RDF"):
+        for item in root.findall(f".//{RSS10}item") or [node for node in root.iter() if node.tag.endswith("item")]:
+            title = clean_text(child_text(item, ["title"]))
+            link = child_text(item, ["link"])
+            if not title or not allowed_url(source, link):
+                continue
+            published = parse_date(child_text(item, [f"{DC}date", "date", "dc:date"]))
+            abstract = child_text(item, ["description", "summary"])
+            records.append(source_record(source, title=title, url=link, published=published, abstract=abstract))
+        return records
     if root.tag.endswith("rss") or root.find("channel") is not None:
         for item in root.findall("./channel/item"):
             title = clean_text(child_text(item, ["title"]))
@@ -453,6 +481,38 @@ def parse_world_bank_list(html_text: str, source: dict[str, Any], limit: int) ->
     return records
 
 
+def parse_repec_cesifo_list(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    pattern = (
+        r'<LI[^>]*class=["\'][^"\']*list-group-item[^"\']*["\'][^>]*>\s*'
+        r'<B>\s*(?P<number>\d+)\s*<A\s+HREF=["\'](?P<href>/p/ces/ceswps/[^"\']+)["\']>(?P<title>.*?)</A></B>'
+        r'(?P<tail>.*?)</LI>'
+    )
+    for match in re.finditer(pattern, html_text, flags=re.I | re.S):
+        url = normalize_url(urljoin(str(source.get("homepage")), html.unescape(match.group("href"))))
+        title = clean_text(match.group("title"))
+        if not url or url in seen or not plausible_title(title):
+            continue
+        record = source_record(source, title=title, url=url)
+        record["paper_number"] = match.group("number")
+        tail = match.group("tail")
+        authors = first_match([r'<I>\s*by\s*</I>\s*(.*?)(?:<BR|</LI|<span|$)'], tail)
+        if authors:
+            record["authors"] = [clean_text(part) for part in re.split(r"\s*&\s*|\s+and\s+|;", authors) if clean_text(part)][:12]
+        year = first_match([r'\b(20\d{2})\b'], tail, flags=re.I)
+        if year:
+            record["published_online"] = f"{year}-01-01"
+            record["available_online"] = f"{year}-01-01"
+            record["date_source"] = "repec_series_year"
+            record["date_confidence"] = "C"
+        seen.add(url)
+        records.append(record)
+        if len(records) >= limit:
+            break
+    return records
+
+
 def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
     source_id = str(source.get("id") or "")
     if source_id == "nber":
@@ -463,6 +523,8 @@ def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -
         return parse_bis_list(html_text, source, limit)
     if source_id == "world-bank-prwp":
         return parse_world_bank_list(html_text, source, limit)
+    if source_id == "cesifo-working-papers":
+        return parse_repec_cesifo_list(html_text, source, limit)
     return []
 
 
@@ -503,6 +565,24 @@ def first_key_text(item: dict[str, Any], keys: list[str]) -> str | None:
     return None
 
 
+def metadata_values(item: dict[str, Any], keys: list[str]) -> list[str]:
+    metadata = item.get("metadata")
+    if not isinstance(metadata, dict):
+        return []
+    values: list[str] = []
+    for key in keys:
+        variants = [key, key.replace("_", "."), f"dc.{key}", f"dc.{key}.none"]
+        for variant in variants:
+            raw = metadata.get(variant)
+            if isinstance(raw, list):
+                for entry in raw:
+                    if isinstance(entry, dict) and entry.get("value"):
+                        values.append(clean_text(str(entry["value"])))
+                    elif isinstance(entry, str):
+                        values.append(clean_text(entry))
+    return [value for value in values if value]
+
+
 def first_url_text(item: dict[str, Any], source: dict[str, Any]) -> str | None:
     for key in ("url", "href", "link", "path", "canonical_url"):
         value = item.get(key)
@@ -526,7 +606,59 @@ def first_url_text(item: dict[str, Any], source: dict[str, Any]) -> str | None:
     return None
 
 
+def parse_world_bank_json_records(payload: Any, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    candidates: list[dict[str, Any]] = []
+    for value in nested_values(payload):
+        if isinstance(value, dict) and isinstance(value.get("metadata"), dict):
+            candidates.append(value)
+    for item in candidates:
+        title = (metadata_values(item, ["dc.title", "title"]) or [None])[0]
+        if not title or not plausible_title(title):
+            continue
+        uuid = item.get("uuid") or item.get("id")
+        url = f"https://openknowledge.worldbank.org/entities/publication/{uuid}" if isinstance(uuid, str) else first_url_text(item, source)
+        if not url or url in seen or not allowed_url(source, url):
+            continue
+        # World Bank discover metadata sometimes carries repeated or mismatched
+        # abstract values across search objects. Keep the source reliable by
+        # using title/date/DOI here; detail-level abstract validation can be
+        # added later.
+        abstract = None
+        date_value = (metadata_values(item, ["dc.date.issued", "date.issued", "issued"]) or [None])[0]
+        record = source_record(source, title=title, url=url, published=parse_date(date_value), abstract=abstract)
+        authors = list(dict.fromkeys(metadata_values(item, ["dc.contributor.author", "contributor.author", "author"])))
+        if authors:
+            record["authors"] = authors[:12]
+        doi = (metadata_values(item, ["dc.identifier.doi", "identifier.doi", "doi"]) or [None])[0]
+        if doi:
+            record["doi"] = doi
+        uri = (metadata_values(item, ["dc.identifier.uri", "identifier.uri"]) or [None])[0]
+        if uri and uri.startswith("http"):
+            record["source_url"] = uri
+        bitstreams = item.get("bundles")
+        if isinstance(bitstreams, list):
+            for bundle in bitstreams:
+                if not isinstance(bundle, dict):
+                    continue
+                for candidate in nested_values(bundle):
+                    if isinstance(candidate, dict) and isinstance(candidate.get("uuid"), str):
+                        record["pdf_url"] = f"https://openknowledge.worldbank.org/bitstreams/{candidate['uuid']}/download"
+                        break
+                if record.get("pdf_url"):
+                    break
+        record["paper_number"] = str(uuid) if uuid else record.get("paper_number")
+        seen.add(url)
+        records.append(record)
+        if len(records) >= limit:
+            break
+    return records
+
+
 def parse_json_records(payload: Any, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    if source.get("id") == "world-bank-prwp":
+        return parse_world_bank_json_records(payload, source, limit)
     records: list[dict[str, Any]] = []
     seen: set[str] = set()
     for value in nested_values(payload):
@@ -562,6 +694,7 @@ def specialized_api_urls(source: dict[str, Any]) -> list[str]:
     if source_id == "world-bank-prwp":
         collection_id = str(source.get("homepage") or "").rstrip("/").split("/")[-1]
         return [
+            "https://openknowledge.worldbank.org/server/api/discover/search/objects?query=%22Policy%20Research%20Working%20Paper%22&size=50&sort=dc.date.issued,DESC",
             f"https://openknowledge.worldbank.org/server/api/discover/search/objects?scope={collection_id}&size=50&sort=dc.date.issued,DESC",
             f"https://openknowledge.worldbank.org/server/api/core/collections/{collection_id}/items?size=50",
         ]
@@ -675,7 +808,7 @@ def main() -> None:
             if args.detail_limit:
                 enriched: list[dict[str, Any]] = []
                 for index, record in enumerate(records):
-                    if index < args.detail_limit:
+                    if index < args.detail_limit or source_id == "nber":
                         record = enrich_record_from_detail(record, source, timeout=args.timeout)
                     enriched.append(record)
                 records = enriched
