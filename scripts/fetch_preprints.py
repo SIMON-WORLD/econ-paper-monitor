@@ -17,7 +17,7 @@ from typing import Any
 from urllib.parse import urljoin, urlparse
 from xml.etree import ElementTree
 
-from common import DATA_DIR, fetch_text, now_iso, today_str, write_json
+from common import DATA_DIR, fetch_json, fetch_text, now_iso, today_str, write_json
 from status import record_source
 
 
@@ -393,6 +393,12 @@ def parse_imf_list(html_text: str, source: dict[str, Any], limit: int) -> list[d
     for match in re.finditer(pattern, html_text, flags=re.I | re.S):
         url = normalize_url(urljoin("https://www.imf.org", html.unescape(match.group("href"))))
         title = clean_text(match.group("title"))
+        if not plausible_title(title):
+            window = html_text[max(0, match.start() - 900) : min(len(html_text), match.end() + 900)]
+            title = (
+                first_match([r'<h[23][^>]*>(.*?)</h[23]>', r'class=["\'][^"\']*title[^"\']*["\'][^>]*>(.*?)<'], window)
+                or title
+            )
         if not url or url in seen or not plausible_title(title):
             continue
         seen.add(url)
@@ -409,6 +415,19 @@ def parse_bis_list(html_text: str, source: dict[str, Any], limit: int) -> list[d
     for match in re.finditer(pattern, html_text, flags=re.I | re.S):
         url = normalize_url(urljoin("https://www.bis.org", html.unescape(match.group("href"))))
         title = clean_text(match.group("title"))
+        if not plausible_title(title):
+            window = html_text[max(0, match.start() - 700) : min(len(html_text), match.end() + 1200)]
+            title = (
+                first_match(
+                    [
+                        r'<span[^>]+class=["\'][^"\']*title[^"\']*["\'][^>]*>(.*?)</span>',
+                        r'<td[^>]*>\s*<a[^>]+/publ/work\d+[^>]*>.*?</a>\s*</td>\s*<td[^>]*>(.*?)</td>',
+                        r'<a[^>]+/publ/work\d+[^>]*>.*?</a>\s*</[^>]+>\s*<[^>]+>(.*?)</[^>]+>',
+                    ],
+                    window,
+                )
+                or title
+            )
         if not url or url in seen or not plausible_title(title):
             continue
         seen.add(url)
@@ -447,6 +466,120 @@ def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -
     return []
 
 
+def nested_values(value: Any) -> list[Any]:
+    values = [value]
+    if isinstance(value, dict):
+        for child in value.values():
+            values.extend(nested_values(child))
+    elif isinstance(value, list):
+        for child in value:
+            values.extend(nested_values(child))
+    return values
+
+
+def first_key_text(item: dict[str, Any], keys: list[str]) -> str | None:
+    for key in keys:
+        value = item.get(key)
+        if isinstance(value, str) and value.strip():
+            return clean_text(value)
+        if isinstance(value, list) and value:
+            first = value[0]
+            if isinstance(first, str):
+                return clean_text(first)
+            if isinstance(first, dict):
+                for nested_key in ("value", "name", "title"):
+                    if isinstance(first.get(nested_key), str):
+                        return clean_text(first[nested_key])
+    metadata = item.get("metadata")
+    if isinstance(metadata, dict):
+        for key in keys:
+            variants = [key, key.replace("_", "."), f"dc.{key}", f"dc.{key}.none"]
+            for variant in variants:
+                raw = metadata.get(variant)
+                if isinstance(raw, list) and raw:
+                    first = raw[0]
+                    if isinstance(first, dict) and first.get("value"):
+                        return clean_text(str(first["value"]))
+    return None
+
+
+def first_url_text(item: dict[str, Any], source: dict[str, Any]) -> str | None:
+    for key in ("url", "href", "link", "path", "canonical_url"):
+        value = item.get(key)
+        if isinstance(value, str):
+            absolute = normalize_url(urljoin(str(source.get("homepage") or ""), value))
+            if allowed_url(source, absolute):
+                return absolute
+    links = item.get("_links") or item.get("links")
+    if isinstance(links, dict):
+        for child in links.values():
+            if isinstance(child, dict) and isinstance(child.get("href"), str):
+                absolute = normalize_url(child["href"])
+                if allowed_url(source, absolute):
+                    return absolute
+            if isinstance(child, list):
+                for entry in child:
+                    if isinstance(entry, dict) and isinstance(entry.get("href"), str):
+                        absolute = normalize_url(entry["href"])
+                        if allowed_url(source, absolute):
+                            return absolute
+    return None
+
+
+def parse_json_records(payload: Any, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for value in nested_values(payload):
+        if not isinstance(value, dict):
+            continue
+        title = first_key_text(value, ["title", "name", "label", "dc.title"])
+        if not title or not plausible_title(title):
+            continue
+        url = first_url_text(value, source)
+        if not url:
+            # DSpace item UUID pages can be reconstructed from uuid.
+            uuid = value.get("uuid") or value.get("id")
+            if isinstance(uuid, str) and source.get("id") == "world-bank-prwp":
+                url = f"https://openknowledge.worldbank.org/entities/publication/{uuid}"
+        if not url or url in seen or not allowed_url(source, url):
+            continue
+        seen.add(url)
+        date_value = first_key_text(value, ["date", "issued", "dateIssued", "publication_date", "dc.date.issued"])
+        abstract = first_key_text(value, ["abstract", "description", "dc.description.abstract"])
+        records.append(source_record(source, title=title, url=url, published=parse_date(date_value), abstract=abstract))
+        if len(records) >= limit:
+            break
+    return records
+
+
+def specialized_api_urls(source: dict[str, Any]) -> list[str]:
+    source_id = str(source.get("id") or "")
+    if source_id == "nber":
+        return [
+            "https://www.nber.org/api/v1/working_page_listing/contentType/working_paper/_/_/search?page=1&perPage=50",
+            "https://www.nber.org/api/v1/working_paper/working_paper_listing/_/_/search?page=1&perPage=50",
+        ]
+    if source_id == "world-bank-prwp":
+        collection_id = str(source.get("homepage") or "").rstrip("/").split("/")[-1]
+        return [
+            f"https://openknowledge.worldbank.org/server/api/discover/search/objects?scope={collection_id}&size=50&sort=dc.date.issued,DESC",
+            f"https://openknowledge.worldbank.org/server/api/core/collections/{collection_id}/items?size=50",
+        ]
+    return []
+
+
+def fetch_specialized_api(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[list[dict[str, Any]], str] | None:
+    for url in specialized_api_urls(source):
+        try:
+            payload = fetch_json(url, timeout=timeout)
+            records = parse_json_records(payload, source, limit)
+            if records:
+                return records, "specialized-api"
+        except Exception:
+            continue
+    return None
+
+
 def plausible_title(title: str) -> bool:
     bad_fragments = [
         "subscribe",
@@ -481,6 +614,9 @@ def allowed_url(source: dict[str, Any], url: str | None) -> bool:
 
 
 def fetch_source(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[list[dict[str, Any]], str]:
+    api_result = fetch_specialized_api(source, timeout=timeout, limit=limit)
+    if api_result:
+        return api_result
     if source.get("feed"):
         xml_text = fetch_text(str(source["feed"]), timeout=timeout)
         records = parse_feed(xml_text, source)
@@ -553,11 +689,14 @@ def main() -> None:
             record_source(f"working-paper:{source_id}", ok=False, count=0, message=message)
 
     write_json(output, all_records)
+    summary = "; ".join(messages)
+    if failures:
+        summary = f"partial_success failures={failures}; {summary}"
     record_source(
         "working-papers",
-        ok=failures == 0,
+        ok=len(all_records) > 0,
         count=len(all_records),
-        message="; ".join(messages),
+        message=summary,
     )
     print(f"wrote {len(all_records)} working-paper records to {output}; failures={failures}")
     for message in messages:

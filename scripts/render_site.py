@@ -91,10 +91,10 @@ STYLE = """
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
 .banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:32px 40px 28px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:end}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:14px;margin-top:26px;max-width:780px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;text-align:center;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.operator-card img{width:96px;height:96px;border:1px solid var(--line);border-radius:6px;object-fit:cover;margin:0 auto 10px;display:block}.operator-card strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-weight:700;margin-top:6px}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
-.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
-.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
 @media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
 """
@@ -328,12 +328,34 @@ def load_working_paper_sources(path: Path = DATA_DIR / "working_paper_sources.ym
         return sources
 
 
-def working_paper_sources_body() -> str:
+def working_paper_sources_body(records: list[dict[str, Any]]) -> str:
     sources = load_working_paper_sources()
+    status = load_status()
+    source_statuses = status.get("sources") or {}
+    wp_records = working_paper_records(records)
+    by_source = Counter(str(record.get("source_id") or "").removeprefix("source-") for record in wp_records)
+    today_by_source = Counter(str(record.get("source_id") or "").removeprefix("source-") for record in wp_records if detected_date(record) == today_str())
     rows = []
+    stable = partial = failed = 0
     for source in sources:
         source_id = str(source.get("id") or "")
-        label, status_class, note = SOURCE_STATUS.get(source_id, ("待评估", "todo", "已加入配置，等待抓取验证。"))
+        run_status = source_statuses.get(f"working-paper:{source_id}") or {}
+        configured_label, configured_class, note = SOURCE_STATUS.get(source_id, ("待评估", "todo", "已加入配置，等待抓取验证。"))
+        recent_count = int(run_status.get("count") or 0)
+        total_count = by_source.get(source_id, 0)
+        if run_status and not run_status.get("ok"):
+            label, status_class = "失败/受限", "pause"
+            failed += 1
+            note = str(run_status.get("message") or note)
+        elif recent_count > 0 or total_count > 0:
+            label, status_class = "稳定出数据", "ok"
+            stable += 1
+        elif configured_class == "pause":
+            label, status_class = configured_label, configured_class
+            failed += 1
+        else:
+            label, status_class = "待增强", "todo"
+            partial += 1
         chinese_name = SOURCE_CN_NAMES.get(source_id) or str(source.get("chinese_name") or "")
         homepage = str(source.get("homepage") or "")
         homepage_html = f'<a href="{html_escape(homepage)}">{html_escape(homepage)}</a>' if homepage else '<span class="muted">未配置</span>'
@@ -343,15 +365,28 @@ def working_paper_sources_body() -> str:
   <td>{html_escape(SOURCE_TYPE_LABELS.get(str(source.get("type") or ""), str(source.get("type") or "")))}</td>
   <td>{html_escape(str(source.get("stage") or ""))}</td>
   <td><span class="source-status {html_escape(status_class)}">{html_escape(label)}</span><div class="muted">{html_escape(note)}</div></td>
+  <td>{recent_count}</td>
+  <td>{today_by_source.get(source_id, 0)}</td>
+  <td>{total_count}</td>
+  <td>{html_escape(beijing_stamp(run_status.get("updated_at"))) if run_status else '<span class="muted">暂无</span>'}</td>
   <td>{homepage_html}</td>
 </tr>"""
         )
+    total_today = sum(today_by_source.values())
+    total_records = len(wp_records)
     return f"""<section class="section-head">
-  <div><h2>工作论文来源</h2><p>当前分支正在接入 NBER、IZA、CEPR、SSRN 替代入口、央行和国际组织工作论文。这里只展示来源接入状态，不下载 PDF。</p></div>
+  <div><h2>工作论文来源</h2><p>当前分支正在接入 NBER、IZA、CEPR、SSRN、央行和国际组织工作论文。这里只抓公开元数据，不批量下载 PDF。</p></div>
   <p>{len(sources)} 个来源</p>
 </section>
-<div class="empty home-note">目前已经跑通 IZA、CEPR、Federal Reserve FEDS 三个公开元数据入口；NBER、World Bank、IMF、BIS、OECD 需要继续做专项解析或替代入口。工作论文抓取结果会写入 <code>data/raw/working_papers/</code>，后续复用现有去重、翻译和“与中国相关”识别流程。</div>
-<table class="journal-table"><thead><tr><th>来源</th><th>类型</th><th>阶段</th><th>接入状态</th><th>入口</th></tr></thead><tbody>{"".join(rows)}</tbody></table>"""
+<section class="stats">
+  <a class="stat" href="{BASE}/working-papers/"><strong>{total_records}</strong><span>累计工作论文记录</span></a>
+  <a class="stat" href="{BASE}/working-papers/today/"><strong>{total_today}</strong><span>今日新发现</span></a>
+  <span class="stat"><strong>{stable}</strong><span>稳定出数据来源</span></span>
+  <span class="stat"><strong>{partial}</strong><span>待增强来源</span></span>
+  <span class="stat"><strong>{failed}</strong><span>失败/受限来源</span></span>
+</section>
+<div class="empty home-note">抓取结果会写入 <code>data/raw/working_papers/</code>，并复用现有去重、翻译和“与中国相关”识别流程。失败来源不会阻断其他来源更新。</div>
+<table class="journal-table"><thead><tr><th>来源</th><th>类型</th><th>阶段</th><th>状态/下一步</th><th>本轮</th><th>今日新增</th><th>累计</th><th>最近更新</th><th>入口</th></tr></thead><tbody>{"".join(rows)}</tbody></table>"""
 
 
 def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]], flow_records: list[dict[str, Any]]) -> dict[str, Any]:
@@ -574,7 +609,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         field_attr = " ".join(article_topics(record))
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
         chunks.append(
-            f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}">
+            f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(str(record.get('source_type') or ('working_paper' if is_working_paper(record) else 'journal_article')))}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
     <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title'))}</a></h3>
@@ -598,6 +633,7 @@ FILTER_SCRIPT = """
   const field = document.getElementById('fieldFilter');
   const dateType = document.getElementById('dateTypeFilter');
   const confidence = document.getElementById('confidenceFilter');
+  const sourceType = document.getElementById('sourceTypeFilter');
   const china = document.getElementById('chinaToggle');
   const counter = document.getElementById('flowCounter');
   const empty = document.getElementById('filterEmpty');
@@ -610,6 +646,7 @@ FILTER_SCRIPT = """
   if (params.get('field')) field.value = params.get('field');
   if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
   if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+  if (sourceType && params.get('sourceType')) sourceType.value = params.get('sourceType');
   if (params.get('china') === '1') {
     china.setAttribute('aria-pressed', 'true');
     china.classList.add('active');
@@ -631,6 +668,7 @@ FILTER_SCRIPT = """
     const fieldValue = field.value;
     const dateTypeValue = dateType ? dateType.value : '';
     const confidenceValue = confidence ? confidence.value : '';
+    const sourceTypeValue = sourceType ? sourceType.value : '';
     const chinaOnly = china.getAttribute('aria-pressed') === 'true';
     let visible = 0;
     for (const item of events) {
@@ -639,9 +677,10 @@ FILTER_SCRIPT = """
       const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
       const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
       const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+      const okSourceType = !sourceTypeValue || item.dataset.sourceType === sourceTypeValue;
       const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
       const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
-      const show = okSearch && okJournal && okField && okDateType && okConfidence && okChina && okPreset;
+      const show = okSearch && okJournal && okField && okDateType && okConfidence && okSourceType && okChina && okPreset;
       item.hidden = !show;
       if (show) visible += 1;
     }
@@ -653,6 +692,7 @@ FILTER_SCRIPT = """
   field.addEventListener('change', applyFilters);
   if (dateType) dateType.addEventListener('change', applyFilters);
   if (confidence) confidence.addEventListener('change', applyFilters);
+  if (sourceType) sourceType.addEventListener('change', applyFilters);
   china.addEventListener('click', () => {
     const active = china.getAttribute('aria-pressed') !== 'true';
     china.setAttribute('aria-pressed', String(active));
@@ -669,6 +709,7 @@ FILTER_SCRIPT = """
         field.value = '';
         if (dateType) dateType.value = '';
         if (confidence) confidence.value = '';
+        if (sourceType) sourceType.value = '';
         china.setAttribute('aria-pressed', 'false');
         china.classList.remove('active');
       }
@@ -686,24 +727,27 @@ FILTER_SCRIPT = """
 """
 
 
-def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False) -> str:
+def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, source_label: str = "筛选期刊") -> str:
     if not records:
         return ""
     journals = sorted({(record.get("journal_id"), record.get("journal")) for record in records if record.get("journal_id") and record.get("journal")}, key=lambda item: item[1])
     topics = sorted({topic for record in records for topic in article_topics(record)}, key=topic_label)
     date_types = sorted({date_type(record) for record in records}, key=date_type_label)
     confidences = sorted({confidence_value(record) for record in records})
+    source_types = sorted({str(record.get("source_type") or ("working_paper" if is_working_paper(record) else "journal_article")) for record in records})
     journal_options = "".join(f'<option value="{html_escape(jid)}">{html_escape(title)}</option>' for jid, title in journals)
     field_options = "".join(f'<option value="{html_escape(topic)}">{html_escape(topic_label(topic))}</option>' for topic in topics)
     date_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(date_type_label(value))}</option>' for value in date_types)
     confidence_options = "".join(f'<option value="{html_escape(value)}">{html_escape(confidence_label(value))}</option>' for value in confidences)
+    source_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(SOURCE_TYPE_LABELS.get(value, source_type_label({"source_type": value})))}</option>' for value in source_types)
     rss = f'<a class="control primary" href="{BASE}/feed.xml">RSS 订阅</a>' if include_rss else ""
     return f"""<div class="toolbar" id="filters">
   <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
-  <select class="control" id="journalFilter"><option value="">筛选期刊</option>{journal_options}</select>
+  <select class="control" id="journalFilter"><option value="">{html_escape(source_label)}</option>{journal_options}</select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option>{field_options}</select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option>{date_type_options}</select>
   <select class="control" id="confidenceFilter"><option value="">筛选可信度</option>{confidence_options}</select>
+  <select class="control" id="sourceTypeFilter"><option value="">筛选来源类型</option>{source_type_options}</select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   {rss}
 </div>
@@ -819,26 +863,50 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 """
 
 
-def working_papers_body(records: list[dict[str, Any]], *, china_only: bool = False) -> str:
-    wp_records = working_paper_records(records)
-    if china_only:
-        wp_records = [record for record in wp_records if is_china_related(record)]
+def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> str:
+    all_wp_records = working_paper_records(records)
+    wp_records = all_wp_records
+    if view == "today":
+        wp_records = [record for record in all_wp_records if detected_date(record) == today_str()]
+    elif view == "recent7":
+        wp_records = recent_records(all_wp_records, 7)
+    elif view == "china":
+        wp_records = [record for record in all_wp_records if is_china_related(record)]
+    elif view == "china-recent7":
+        wp_records = [record for record in recent_records(all_wp_records, 7) if is_china_related(record)]
     latest_day = detected_date(wp_records[0]) if wp_records else ""
-    today_count = sum(1 for record in wp_records if detected_date(record) == today_str())
-    china_count = sum(1 for record in wp_records if is_china_related(record))
-    title = "与中国相关工作论文" if china_only else "最新工作论文"
-    note = "覆盖工作论文和政策论文来源，按首次监测时间倒序排列。" if not china_only else "从工作论文和政策论文来源中筛选已确认的中国相关研究。"
+    today_count = sum(1 for record in all_wp_records if detected_date(record) == today_str())
+    recent_count = len(recent_records(all_wp_records, 7))
+    china_count = sum(1 for record in all_wp_records if is_china_related(record))
+    title = {
+        "today": "今日工作论文",
+        "recent7": "最近 7 天工作论文",
+        "china": "与中国相关工作论文",
+        "china-recent7": "最近 7 天与中国相关工作论文",
+    }.get(view, "全部工作论文")
+    note = "覆盖工作论文和政策论文来源，按首次监测时间倒序排列；日期字段会区分发布/上线日期与本站首次监测日期。"
+    tabs = [
+        ("today", "今日", f"{BASE}/working-papers/today/", today_count),
+        ("recent7", "最近 7 天", f"{BASE}/working-papers/recent7/", recent_count),
+        ("all", "全部", f"{BASE}/working-papers/", len(all_wp_records)),
+        ("china", "与中国相关", f"{BASE}/working-papers/china/", china_count),
+    ]
+    tabs_html = "".join(
+        f'<a class="view-tab {"active" if key == view else ""}" href="{href}">{label} <strong>{count}</strong></a>'
+        for key, label, href, count in tabs
+    )
     return f"""<section class="section-head">
   <div><h2>{title} <span class="live-count" id="flowCounter"></span></h2><p>{note}</p></div>
   <p>{html_escape(latest_day or today_str())}</p>
 </section>
+<nav class="view-tabs">{tabs_html}</nav>
 <section class="stats">
-  <a class="stat" href="{BASE}/working-papers/"><strong>{len(working_paper_records(records))}</strong><span>累计工作论文记录</span></a>
-  <a class="stat" href="{BASE}/working-papers/?china=1"><strong>{china_count}</strong><span>与中国相关</span></a>
-  <a class="stat" href="{BASE}/working-papers/"><strong>{today_count}</strong><span>今日新发现</span></a>
+  <a class="stat" href="{BASE}/working-papers/"><strong>{len(all_wp_records)}</strong><span>累计工作论文记录</span></a>
+  <a class="stat" href="{BASE}/working-papers/china/"><strong>{china_count}</strong><span>与中国相关</span></a>
+  <a class="stat" href="{BASE}/working-papers/today/"><strong>{today_count}</strong><span>今日新发现</span></a>
   <a class="stat" href="{BASE}/sources/working-papers/"><strong>{len(load_working_paper_sources())}</strong><span>监测来源</span></a>
 </section>
-{filter_toolbar(wp_records)}
+{filter_toolbar(wp_records, source_label="筛选来源")}
 {paper_events(wp_records)}
 {FILTER_SCRIPT}
 """
@@ -872,7 +940,7 @@ def main() -> None:
         page(
             "工作论文来源",
             records,
-            working_paper_sources_body(),
+            working_paper_sources_body(records),
             active="working-papers",
             sidebar_records=home_flow_records,
             sidebar_date=home_flow_date,
@@ -882,7 +950,7 @@ def main() -> None:
     write_page(
         args.docs_dir / "working-papers" / "index.html",
         page(
-            "最新工作论文",
+            "全部工作论文",
             records,
             working_papers_body(records),
             active="working-papers",
@@ -891,11 +959,33 @@ def main() -> None:
         ),
     )
     write_page(
+        args.docs_dir / "working-papers" / "today" / "index.html",
+        page(
+            "今日工作论文",
+            records,
+            working_papers_body(records, view="today"),
+            active="working-papers",
+            sidebar_records=[record for record in wp_records if detected_date(record) == today_str()][:40] or wp_records[:40] or home_flow_records,
+            sidebar_date=today_str(),
+        ),
+    )
+    write_page(
+        args.docs_dir / "working-papers" / "recent7" / "index.html",
+        page(
+            "最近 7 天工作论文",
+            records,
+            working_papers_body(records, view="recent7"),
+            active="working-papers",
+            sidebar_records=recent_records(wp_records, 7)[:40] or wp_records[:40] or home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
+    )
+    write_page(
         args.docs_dir / "working-papers" / "china" / "index.html",
         page(
             "与中国相关工作论文",
             records,
-            working_papers_body(records, china_only=True),
+            working_papers_body(records, view="china"),
             active="working-papers",
             sidebar_records=[record for record in wp_records if is_china_related(record)][:40] or wp_records[:40] or home_flow_records,
             sidebar_date=home_flow_date,
