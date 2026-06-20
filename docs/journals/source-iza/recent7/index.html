@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IZA Discussion Papers 最近 7 天</title>
+  
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
 *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
@@ -16,8 +17,9 @@
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
+.audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -32,9 +34,11 @@
     <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
     <a class="side-link" href="../../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
     <a class="side-link" href="../../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../../quality/china-relevance/"><span class="side-main"><strong>中国相关抽检</strong></span><span class="count">QA</span></a>
+    <a class="side-link" href="../../../admin/status/"><span class="side-main"><strong>线上后台</strong></span><span class="count">Admin</span></a>
   </div>
-  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">6</span></a><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">5</span></a><a class="side-link" href="../../../topics/education/"><span class="side-main"><strong>教育</strong></span><span class="count">5</span></a><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/health/"><span class="side-main"><strong>健康</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/urban/"><span class="side-main"><strong>城市与区域</strong></span><span class="count">1</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../../daily/2026-06-20/?journal=source-iza"><span class="side-main"><strong>IZA Discussion Papers</strong><em>IZA 讨论论文</em></span><span class="count">15</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">8</span></a><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">7</span></a><a class="side-link" href="../../../topics/education/"><span class="side-main"><strong>教育</strong></span><span class="count">7</span></a><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/health/"><span class="side-main"><strong>健康</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../../daily/2026-06-20/?journal=source-iza"><span class="side-main"><strong>IZA Discussion Papers</strong><em>IZA 讨论论文</em></span><span class="count">20</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -45,13 +49,14 @@
           <a class="" href="../../../archive/">归档</a>
           <a href="../../../journals/">监测期刊</a>
           <a class="" href="../../../working-papers/">工作论文</a>
+          <a href="../../../quality/china-relevance/">质量抽检</a>
           <a href="../../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>IZA Discussion Papers：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>15 篇</p></section><div class="toolbar">
-  <a class="control primary" href="../../../daily/2026-06-20/?journal=source-iza">今日 15</a>
-  <a class="control" href="../../../journals/source-iza/recent7/">最近 7 天 15</a>
-  <a class="control" href="../../../journals/source-iza/">全部历史 15</a>
+      <main class="wrap"><section class="section-head"><div><h2>IZA Discussion Papers：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>20 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-20/?journal=source-iza">今日 20</a>
+  <a class="control" href="../../../journals/source-iza/recent7/">最近 7 天 20</a>
+  <a class="control" href="../../../journals/source-iza/">全部历史 20</a>
 </div><div class="toolbar" id="filters">
   <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="source-iza">IZA Discussion Papers</option></select>
@@ -62,7 +67,67 @@
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="blindly discriminating: the gi bill and racial inequality 盲目歧视：gi法案与种族不平等  iza discussion papers " data-journal="source-iza" data-fields="education inequality history" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="china’s one-child exemptions and the spousal age gap 中国独生子女豁免政策与配偶年龄差距  iza discussion papers " data-journal="source-iza" data-fields="china public" data-china="true" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">15:09</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18732/chinas-one-child-exemptions-and-the-spousal-age-gap">China’s One-Child Exemptions and the Spousal Age Gap</a></h3>
+    <p class="title-zh">中国独生子女豁免政策与配偶年龄差距</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18732/chinas-one-child-exemptions-and-the-spousal-age-gap">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="cash transfers, diet quality, and child growth among refugee children: evidence from turkey’s essn program 现金转移、饮食质量与难民儿童成长：来自土耳其essn项目的证据  iza discussion papers " data-journal="source-iza" data-fields="macro" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">15:09</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18731/cash-transfers-diet-quality-and-child-growth-among-refugee-children-evidence-from-turkeys-essn-program">Cash Transfers, Diet Quality, and Child Growth Among Refugee Children: Evidence from Turkey’s ESSN Program</a></h3>
+    <p class="title-zh">现金转移、饮食质量与难民儿童成长：来自土耳其ESSN项目的证据</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18731/cash-transfers-diet-quality-and-child-growth-among-refugee-children-evidence-from-turkeys-essn-program">文章链接</a><span class="pill">宏观与货币</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="imperfect self-knowledge about skills and skill mismatch 技能与技能错配的不完美自我认知  iza discussion papers " data-journal="source-iza" data-fields="labor education health" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">15:09</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18730/imperfect-self-knowledge-about-skills-and-skill-mismatch">Imperfect Self-knowledge about Skills and Skill Mismatch</a></h3>
+    <p class="title-zh">技能与技能错配的不完美自我认知</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18730/imperfect-self-knowledge-about-skills-and-skill-mismatch">文章链接</a><span class="pill">劳动</span><span class="pill">教育</span><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="adult education and political participation: evidence from east german volkshochschulen 成人教育与政治参与：来自东德民众大学的证据  iza discussion papers " data-journal="source-iza" data-fields="public education" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">15:09</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18729/adult-education-and-political-participation-evidence-from-east-german-volkshochschulen">Adult Education and Political Participation: Evidence from East German Volkshochschulen</a></h3>
+    <p class="title-zh">成人教育与政治参与：来自东德民众大学的证据</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18729/adult-education-and-political-participation-evidence-from-east-german-volkshochschulen">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">教育</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="immigrant-native wage gaps over two generations: does the field of study matter? 两代移民与本地人的工资差距：研究领域是否重要？  iza discussion papers " data-journal="source-iza" data-fields="labor" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+  <div><div class="time">15:09</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://www.iza.org/publications/dp/18728/immigrant-native-wage-gaps-over-two-generations-does-the-field-of-study-matter">Immigrant-Native Wage Gaps over Two Generations: Does the Field of Study Matter?</a></h3>
+    <p class="title-zh">两代移民与本地人的工资差距：研究领域是否重要？</p>
+    <p class="authors"></p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18728/immigrant-native-wage-gaps-over-two-generations-does-the-field-of-study-matter">文章链接</a><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="blindly discriminating: the gi bill and racial inequality 盲目歧视：gi法案与种族不平等  iza discussion papers " data-journal="source-iza" data-fields="education inequality history" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
   <div><div class="time">12:52</div><div class="date-note">2026-06-20</div></div>
   <div>
     <h3><a href="https://www.iza.org/publications/dp/18720/blindly-discriminating-the-gi-bill-and-racial-inequality">Blindly Discriminating: The GI Bill and Racial Inequality</a></h3>

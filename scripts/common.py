@@ -52,13 +52,13 @@ def write_text(path: Path, payload: str) -> None:
     tmp = path.with_name(f"{path.name}.tmp")
     tmp.write_text(payload, encoding="utf-8")
     last_error: OSError | None = None
-    for attempt in range(8):
+    for attempt in range(24):
         try:
             tmp.replace(path)
             return
         except OSError as exc:
             last_error = exc
-            time.sleep(0.25 * (attempt + 1))
+            time.sleep(min(1.5, 0.25 * (attempt + 1)))
     if last_error:
         raise last_error
 

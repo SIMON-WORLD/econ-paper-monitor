@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from collections import Counter, defaultdict
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -95,8 +96,9 @@ STYLE = """
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
+.audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 """
 
 
@@ -263,6 +265,14 @@ SOURCE_STATUS = {
     "bis-working-papers": ("已跑通", "ok", "已接入 BIS 官方 RSS，并过滤 Working Papers。"),
     "cesifo-working-papers": ("已跑通", "ok", "已接入 IDEAS/RePEc 的 CESifo Working Papers 系列页。"),
     "oecd-working-papers": ("替代源已接入", "ok", "OECD/iLibrary 页面访问不稳定，当前使用 IDEAS/RePEc 的 OECD Economics Department Working Papers 公开系列页。"),
+    "repec-nep-cna": ("已接入", "ok", "RePEc NEP 中国经济学细分类，优先补充与中国相关工作论文发现。"),
+    "repec-nep-dev": ("已接入", "ok", "RePEc NEP 发展经济学细分类，用于补充机构工作论文源。"),
+    "repec-nep-hea": ("已接入", "ok", "RePEc NEP 健康经济学细分类，作为 SSRN Health Economics 的公开替代入口之一。"),
+    "repec-nep-mac": ("已接入", "ok", "RePEc NEP 宏观经济学细分类，用于补充 RePEc 新稿。"),
+    "repec-nep-ifn": ("已接入", "ok", "RePEc NEP 国际金融细分类，用于补充 IMF/BIS/OECD 之外的宏观金融工作论文。"),
+    "voxeu-cepr-columns": ("评估中", "todo", "政策评论源，不直接混入工作论文主流；后续如需要可单独开栏目。"),
+    "brookings-economic-studies": ("评估中", "todo", "政策研究/评论源，先评估 RSS/API 稳定性。"),
+    "iza-newsroom": ("评估中", "todo", "用于发现 IZA 发布动态，正式论文仍以 IZA Discussion Papers 为准。"),
     "repec-nep": ("暂缓", "pause", "聚合源噪声较高，先放到第三阶段。"),
     "ssrn-economics-research-network": ("受限待接邮件/feed", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
     "ssrn-health-economics-network": ("受限待接邮件/feed", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
@@ -273,6 +283,7 @@ SOURCE_TYPE_LABELS = {
     "working_paper": "工作论文",
     "policy_paper": "政策论文",
     "aggregator": "聚合源",
+    "policy_commentary": "政策评论",
 }
 
 
@@ -289,6 +300,14 @@ SOURCE_CN_NAMES = {
     "fed-feds": "美联储 FEDS 工作论文",
     "bis-working-papers": "国际清算银行工作论文",
     "oecd-working-papers": "OECD 工作论文",
+    "repec-nep-cna": "RePEc NEP 中国经济学论文",
+    "repec-nep-dev": "RePEc NEP 发展经济学论文",
+    "repec-nep-hea": "RePEc NEP 健康经济学论文",
+    "repec-nep-mac": "RePEc NEP 宏观经济学论文",
+    "repec-nep-ifn": "RePEc NEP 国际金融论文",
+    "voxeu-cepr-columns": "VoxEU / CEPR 专栏",
+    "brookings-economic-studies": "Brookings 经济研究",
+    "iza-newsroom": "IZA 新闻室",
 }
 
 
@@ -539,10 +558,43 @@ def sidebar(
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
     <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
     <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="{BASE}/quality/china-relevance/"><span class="side-main"><strong>中国相关抽检</strong></span><span class="count">QA</span></a>
+    <a class="side-link" href="{BASE}/admin/status/"><span class="side-main"><strong>线上后台</strong></span><span class="count">Admin</span></a>
   </div>
   <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
   <div class="side-block"><div class="side-title">{html_escape(journal_title)}</div>{"".join(journal_links)}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>"""
+
+
+def analytics_snippet() -> str:
+    provider = os.environ.get("ANALYTICS_PROVIDER", "none").strip().lower()
+    if provider in {"", "none", "off", "false"}:
+        return ""
+    if provider == "plausible":
+        domain = os.environ.get("PLAUSIBLE_DOMAIN", "").strip()
+        script_url = os.environ.get("PLAUSIBLE_SCRIPT_URL", "https://plausible.io/js/script.js").strip()
+        if not domain:
+            return ""
+        return f'<script defer data-domain="{html_escape(domain)}" src="{html_escape(script_url)}"></script>'
+    if provider == "umami":
+        website_id = os.environ.get("UMAMI_WEBSITE_ID", "").strip()
+        script_url = os.environ.get("UMAMI_SCRIPT_URL", "").strip()
+        if not website_id or not script_url:
+            return ""
+        return f'<script defer src="{html_escape(script_url)}" data-website-id="{html_escape(website_id)}"></script>'
+    if provider in {"google", "ga", "gtag"}:
+        measurement_id = os.environ.get("GA_MEASUREMENT_ID", "").strip()
+        if not measurement_id:
+            return ""
+        escaped_id = html_escape(measurement_id)
+        return f"""<script async src="https://www.googletagmanager.com/gtag/js?id={escaped_id}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){{dataLayer.push(arguments);}}
+gtag('js', new Date());
+gtag('config', '{escaped_id}');
+</script>"""
+    return ""
 
 
 def page(
@@ -560,6 +612,7 @@ def page(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html_escape(title)}</title>
+  {analytics_snippet()}
   <style>{STYLE}</style>
 </head>
 <body>
@@ -574,6 +627,7 @@ def page(
           <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
           <a href="{BASE}/journals/">监测期刊</a>
           <a class="{ 'active' if active == 'working-papers' else '' }" href="{BASE}/working-papers/">工作论文</a>
+          <a href="{BASE}/quality/china-relevance/">质量抽检</a>
           <a href="{BASE}/feed.xml">RSS</a>
         </nav>
       </div></header>
@@ -913,6 +967,118 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
 """
 
 
+def china_quality_body(records: list[dict[str, Any]]) -> str:
+    latest = records[:500]
+    confirmed = [record for record in latest if is_china_related(record)]
+    candidates = [record for record in latest if record.get("china_relevance_status") == "candidate"]
+    rejected = [
+        record
+        for record in latest
+        if str(record.get("china_relevance_status") or "").lower() in {"rejected", "excluded", "none"}
+        or record.get("china_related") is False
+    ]
+    working_confirmed = [record for record in confirmed if is_working_paper(record)]
+
+    def item(record: dict[str, Any]) -> str:
+        title_zh = record.get("title_zh")
+        zh = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh and title_zh != record.get("title") else ""
+        status = str(record.get("china_relevance_status") or ("confirmed" if is_china_related(record) else "none"))
+        reason = record.get("china_relevance_reason") or record.get("china_related_reason") or "暂无判定说明"
+        evidence = record.get("china_relevance_evidence") or record.get("china_related_source") or ""
+        return f"""<article class="audit-item">
+  <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title') or 'Untitled')}</a></h3>
+  {zh}
+  <div class="audit-meta">{html_escape(record.get('journal') or '')} · {html_escape(detected_date(record))} · 状态：{html_escape(status)}</div>
+  <div class="audit-reason"><b>判定理由</b>：{html_escape(reason)}</div>
+  {f'<div class="audit-reason"><b>证据</b>：{html_escape(evidence)}</div>' if evidence else ''}
+</article>"""
+
+    confirmed_html = "".join(item(record) for record in confirmed[:25]) or '<div class="empty">暂无已确认记录。</div>'
+    candidates_html = "".join(item(record) for record in candidates[:25]) or '<div class="empty">暂无候选记录。</div>'
+    rejected_html = "".join(item(record) for record in rejected[:25]) or '<div class="empty">暂无排除样本。</div>'
+    return f"""<section class="section-head">
+  <div><h2>中国相关判定抽检</h2><p>集中查看 AI/规则判定结果，帮助校准“与中国相关”的召回率和误判率。</p></div>
+  <p>最近样本 {len(latest)} 条</p>
+</section>
+<section class="audit-grid">
+  <div class="audit-card"><strong>{len(confirmed)}</strong><span>最近样本中已确认中国相关</span></div>
+  <div class="audit-card"><strong>{len(working_confirmed)}</strong><span>其中工作论文/政策论文</span></div>
+  <div class="audit-card"><strong>{len(candidates)}</strong><span>待校准候选</span></div>
+</section>
+<nav class="view-tabs">
+  <a class="view-tab active" href="#confirmed">已确认</a>
+  <a class="view-tab" href="#candidates">候选</a>
+  <a class="view-tab" href="#rejected">排除样本</a>
+</nav>
+<section id="confirmed" class="section-head"><div><h2>已确认中国相关</h2><p>公开页面只展示已确认结果；有争议样本优先留在候选或排除样本中。</p></div></section>
+<div class="audit-list">{confirmed_html}</div>
+<section id="candidates" class="section-head"><div><h2>候选记录</h2><p>这里用于发现漏判/误判模式，后续可继续接入摘要增强判定。</p></div></section>
+<div class="audit-list">{candidates_html}</div>
+<section id="rejected" class="section-head"><div><h2>排除样本</h2><p>抽查被排除记录，避免规则过严导致中国相关研究漏掉。</p></div></section>
+<div class="audit-list">{rejected_html}</div>"""
+
+
+def admin_status_body(records: list[dict[str, Any]]) -> str:
+    token_hash = os.environ.get("ADMIN_STATUS_TOKEN_HASH", "").strip()
+    status = load_status()
+    workflow = status.get("workflow") or {}
+    sources = status.get("sources") or {}
+    failures = [source_id for source_id, item in sorted(sources.items()) if not item.get("ok")]
+    wp_sources = [source_id for source_id in sources if str(source_id).startswith("working-paper:")]
+    low_confidence = sum(1 for record in records if (record.get("date_confidence") or "F") in {"D", "F", "unknown"})
+    china_count = sum(1 for record in records if is_china_related(record))
+    body = f"""<section class="section-head">
+  <div><h2>线上后台状态</h2><p>GitHub Pages 无法提供真正登录鉴权；这里仅发布公开安全摘要，敏感审核仍使用本地后台。</p></div>
+</section>
+<section class="audit-grid">
+  <div class="audit-card"><strong>{len(records)}</strong><span>累计监测记录</span></div>
+  <div class="audit-card"><strong>{china_count}</strong><span>已确认中国相关</span></div>
+  <div class="audit-card"><strong>{low_confidence}</strong><span>低可信日期样本</span></div>
+  <div class="audit-card"><strong>{len(wp_sources)}</strong><span>工作论文来源状态</span></div>
+  <div class="audit-card"><strong>{len(failures)}</strong><span>失败/受限来源</span></div>
+  <div class="audit-card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
+</section>
+<section class="section-head"><div><h2>后续私有化建议</h2><p>如需知道具体访问者或登录后访问，建议部署到 Cloudflare Access / Vercel + Auth，而不是纯 GitHub Pages。</p></div></section>
+<div class="empty">当前公开页只放聚合状态，不放 API key、审核 token、原始后台操作入口或访问者身份信息。</div>"""
+    if not token_hash:
+        return f"""<section class="section-head">
+  <div><h2>线上后台状态</h2><p>尚未启用线上后台 token。为避免公开未成熟后台，当前只提供本地后台。</p></div>
+</section>
+<div class="gate">
+  <h3>未启用公开后台</h3>
+  <p>请继续使用本地后台：<code>local_admin/status.html</code> 和 <code>http://127.0.0.1:8765/</code>。</p>
+  <p class="gate-note">若以后需要线上查看，可在 GitHub Secrets 设置 <code>ADMIN_STATUS_TOKEN_HASH</code> 后重新运行 workflow。注意：静态页面 token 只能防误点，不等于真正登录鉴权。</p>
+</div>"""
+    return f"""<div id="gate" class="gate">
+  <h3>输入后台访问 token</h3>
+  <p class="gate-note">这是静态页面轻保护，只用于避免普通访客误入；不应放敏感数据。</p>
+  <input id="adminToken" type="password" placeholder="访问 token">
+  <button id="unlockAdmin" type="button">进入</button>
+  <p id="gateError" class="gate-note"></p>
+</div>
+<div id="adminContent" class="hidden">{body}</div>
+<script>
+async function sha256(text) {{
+  const data = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}}
+async function unlock() {{
+  const token = document.getElementById('adminToken').value || localStorage.getItem('epd_admin_token') || '';
+  const hash = await sha256(token);
+  if (hash === '{html_escape(token_hash)}') {{
+    localStorage.setItem('epd_admin_token', token);
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('adminContent').classList.remove('hidden');
+  }} else {{
+    document.getElementById('gateError').textContent = 'token 不正确。';
+  }}
+}}
+document.getElementById('unlockAdmin').addEventListener('click', unlock);
+if (localStorage.getItem('epd_admin_token')) unlock();
+</script>"""
+
+
 def write_page(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     relative_parent = path.parent.relative_to(DOCS_DIR)
@@ -943,6 +1109,26 @@ def main() -> None:
             records,
             working_paper_sources_body(records),
             active="working-papers",
+            sidebar_records=home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
+    )
+    write_page(
+        args.docs_dir / "quality" / "china-relevance" / "index.html",
+        page(
+            "中国相关判定抽检",
+            records,
+            china_quality_body(records),
+            sidebar_records=home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
+    )
+    write_page(
+        args.docs_dir / "admin" / "status" / "index.html",
+        page(
+            "线上后台状态",
+            records,
+            admin_status_body(records),
             sidebar_records=home_flow_records,
             sidebar_date=home_flow_date,
         ),

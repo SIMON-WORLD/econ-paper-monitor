@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>public</title>
+  
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
 *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
@@ -16,8 +17,9 @@
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
+.audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -32,9 +34,11 @@
     <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
     <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
     <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../quality/china-relevance/"><span class="side-main"><strong>中国相关抽检</strong></span><span class="count">QA</span></a>
+    <a class="side-link" href="../../admin/status/"><span class="side-main"><strong>线上后台</strong></span><span class="count">Admin</span></a>
   </div>
-  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">133</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">474</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">364</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">252</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">227</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">217</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">215</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">204</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">189</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">155</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">128</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">120</span></a></div>
-  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-economic-behavior-and-organization"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">52</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=review-of-economics-and-statistics"><span class="side-main"><strong>Review of Economics and Statistics</strong><em>经济学与统计学评论</em></span><span class="count">50</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-environmental-economics-and-management"><span class="side-main"><strong>Journal of Environmental Economics and Management</strong><em>环境经济学与管理杂志</em></span><span class="count">47</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=european-economic-review"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">46</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=applied-economics"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">45</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-development-economics"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">45</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=economics-letters"><span class="side-main"><strong>Economics Letters</strong><em>经济学快报</em></span><span class="count">45</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=land-use-policy"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">42</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=world-development"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">42</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-public-economics"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">42</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">139</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">480</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">371</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">256</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">233</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">216</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">214</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">211</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">191</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">160</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">131</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">120</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-economic-behavior-and-organization"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">52</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=review-of-economics-and-statistics"><span class="side-main"><strong>Review of Economics and Statistics</strong><em>经济学与统计学评论</em></span><span class="count">50</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-environmental-economics-and-management"><span class="side-main"><strong>Journal of Environmental Economics and Management</strong><em>环境经济学与管理杂志</em></span><span class="count">47</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=european-economic-review"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">46</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-development-economics"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">45</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=economics-letters"><span class="side-main"><strong>Economics Letters</strong><em>经济学快报</em></span><span class="count">45</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=applied-economics"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">44</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=land-use-policy"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">42</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=world-development"><span class="side-main"><strong>World Development</strong><em>世界发展</em></span><span class="count">42</span></a><a class="side-link" href="../../daily/2026-06-20/?journal=journal-of-public-economics"><span class="side-main"><strong>Journal of Public Economics</strong><em>公共经济学杂志</em></span><span class="count">42</span></a><a class="side-link" href="../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -45,20 +49,141 @@
           <a class="" href="../../archive/">归档</a>
           <a href="../../journals/">监测期刊</a>
           <a class="" href="../../working-papers/">工作论文</a>
+          <a href="../../quality/china-relevance/">质量抽检</a>
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
       <main class="wrap"><section class="section-head"><div><h2>public</h2><p>该领域历史发现记录。</p></div></section><div class="toolbar" id="filters">
   <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
-  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="source-imf-working-papers">IMF Working Papers</option><option value="source-world-bank-prwp">World Bank Policy Research Working Papers</option></select>
+  <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="source-imf-working-papers">IMF Working Papers</option><option value="source-repec-nep-dev">RePEc NEP Development</option><option value="source-repec-nep-hea">RePEc NEP Health Economics</option><option value="source-world-bank-prwp">World Bank Policy Research Working Papers</option></select>
   <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="finance">金融</option></select>
   <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="A">A 高：出版社/PDF 明确日期</option></select>
-  <select class="control" id="sourceTypeFilter"><option value="">筛选来源类型</option><option value="policy_paper">政策论文</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="A">A 高：出版社/PDF 明确日期</option><option value="B">B 中：RSS/出版社备选日期</option></select>
+  <select class="control" id="sourceTypeFilter"><option value="">筛选来源类型</option><option value="aggregator">聚合源</option><option value="policy_paper">政策论文</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="political fragility: the economic impact of coups d’état 政治脆弱性：政变的经济影响 luc tucker &amp; idrissa aladji aya imf working papers " data-journal="source-imf-working-papers" data-fields="macro public trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="policy_paper">
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="reintegrating older long-term unemployed workers: the impact of temporary job guarantees 重新整合长期失业的年长工人：临时工作保障的影响 ahammer, alexander, halla, martin, heckl, pia, winter-ebmer, rudolf repec nep health economics " data-journal="source-repec-nep-hea" data-fields="labor health" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-hea/2026-06-08#p1">Reintegrating Older Long-Term Unemployed Workers: The Impact of Temporary Job Guarantees</a></h3>
+    <p class="title-zh">重新整合长期失业的年长工人：临时工作保障的影响</p>
+    <p class="authors">Ahammer, Alexander, Halla, Martin, Heckl, Pia, Winter-Ebmer, Rudolf</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-hea/2026-06-08#p1">文章链接</a><span class="pill">劳动</span><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="a meta-analysis to uncover the effects of drinking water pollution on home values 饮用水污染对房产价值影响的元分析 dennis guignet, anna silva repec nep health economics " data-journal="source-repec-nep-hea" data-fields="environment health" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-hea/2026-06-08#p2">A Meta-analysis to Uncover the Effects of Drinking Water Pollution on Home Values</a></h3>
+    <p class="title-zh">饮用水污染对房产价值影响的元分析</p>
+    <p class="authors">Dennis Guignet, Anna Silva</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-hea/2026-06-08#p2">文章链接</a><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="water works: causes and consequences of safe drinking water in america 水之功效：美国安全饮用水的成因与影响 keiser, david a, mazumder, bhashkar, molitor, david, shapiro, joseph s repec nep health economics " data-journal="source-repec-nep-hea" data-fields="health" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-hea/2026-06-08#p3">Water Works: Causes and Consequences of Safe Drinking Water in America</a></h3>
+    <p class="title-zh">水之功效：美国安全饮用水的成因与影响</p>
+    <p class="authors">Keiser, David A, Mazumder, Bhashkar, Molitor, David, Shapiro, Joseph S</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-hea/2026-06-08#p3">文章链接</a><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="private interest in the public good: cholera and the origins of sanitary reform 公共利益中的私人利益：霍乱与卫生改革的起源 daniel gallardo-albarrán, kalle kappner repec nep health economics " data-journal="source-repec-nep-hea" data-fields="public health" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-hea/2026-06-08#p4">Private Interest in the Public Good: Cholera and the Origins of Sanitary Reform</a></h3>
+    <p class="title-zh">公共利益中的私人利益：霍乱与卫生改革的起源</p>
+    <p class="authors">Daniel Gallardo-Albarrán, Kalle Kappner</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-hea/2026-06-08#p4">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="when protection fails: disasters and violence against women 当保护失效：灾害与针对女性的暴力 rafat mahmood, pushkar maitra repec nep health economics " data-journal="source-repec-nep-hea" data-fields="health" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-hea/2026-06-08#p5">When Protection Fails: Disasters and Violence Against Women</a></h3>
+    <p class="title-zh">当保护失效：灾害与针对女性的暴力</p>
+    <p class="authors">Rafat Mahmood, Pushkar Maitra</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-hea/2026-06-08#p5">文章链接</a><span class="pill">健康</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="inclusive food systems and market development: insights from colombia 包容性粮食体系与市场发展：来自哥伦比亚的启示 oecd repec nep development " data-journal="source-repec-nep-dev" data-fields="agriculture development finance" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-dev/2026-06-08#p1">Inclusive food systems and market development: Insights from Colombia</a></h3>
+    <p class="title-zh">包容性粮食体系与市场发展：来自哥伦比亚的启示</p>
+    <p class="authors">OECD</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Development</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-dev/2026-06-08#p1">文章链接</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="digital connectivity and household income: evidence from women-headed households in viet nam 数字连接与家庭收入：来自越南女性户主家庭的证据 pinghan liang, shu tian, yichuan zhang repec nep development " data-journal="source-repec-nep-dev" data-fields="development" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-dev/2026-06-08#p2">Digital Connectivity and Household Income: Evidence from Women-Headed Households in Viet Nam</a></h3>
+    <p class="title-zh">数字连接与家庭收入：来自越南女性户主家庭的证据</p>
+    <p class="authors">Pinghan Liang, Shu Tian, Yichuan Zhang</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Development</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-dev/2026-06-08#p2">文章链接</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="climate change and crop yields in india 气候变化与印度作物产量 shweta gupta, gaurav datt, shreekant gupta repec nep development " data-journal="source-repec-nep-dev" data-fields="agriculture environment development" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-dev/2026-06-08#p3">Climate Change and Crop Yields in India</a></h3>
+    <p class="title-zh">气候变化与印度作物产量</p>
+    <p class="authors">Shweta Gupta, Gaurav Datt, Shreekant Gupta</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Development</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-dev/2026-06-08#p3">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="are the poor more exposed to climate hazards in latin america? 拉丁美洲的穷人是否更容易遭受气候灾害？ brunckhorst, ben james, doan, miki khanh, de la fuente, alejandro, freije-rodriguez, samuel, garcía, catalina 等 repec nep development " data-journal="source-repec-nep-dev" data-fields="environment development" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-dev/2026-06-08#p4">Are the Poor More Exposed to Climate Hazards in Latin America?</a></h3>
+    <p class="title-zh">拉丁美洲的穷人是否更容易遭受气候灾害？</p>
+    <p class="authors">Brunckhorst, Ben James, Doan, Miki Khanh, De la Fuente, Alejandro, Freije-Rodriguez, Samuel, García, Catalina 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Development</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-dev/2026-06-08#p4">文章链接</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="evaluating alternative approaches to small area estimation of poverty with survey and census data 贫困小区域估计中调查与普查数据替代方法的评估 dang, hai-anh h., do, minh, lahiri, partha, gualavisi, melany, newhouse, david 等 repec nep development " data-journal="source-repec-nep-dev" data-fields="development" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="aggregator">
+  <div><div class="time">15:10</div><div class="date-note">2026-06-20</div></div>
+  <div>
+    <h3><a href="https://nep.repec.org/nep-dev/2026-06-08#p5">Evaluating Alternative Approaches to Small Area Estimation of Poverty with Survey and Census Data</a></h3>
+    <p class="title-zh">贫困小区域估计中调查与普查数据替代方法的评估</p>
+    <p class="authors">Dang, Hai-Anh H., Do, Minh, Lahiri, Partha, Gualavisi, Melany, Newhouse, David 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Development</span><span class="pill">聚合源</span><span class="source-chip">在线日期 2026-06-08 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-dev/2026-06-08#p5">文章链接</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-search="political fragility: the economic impact of coups d’état 政治脆弱性：政变的经济影响 luc tucker &amp; idrissa aladji aya imf working papers " data-journal="source-imf-working-papers" data-fields="macro public trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="policy_paper">
   <div><div class="time">02:02</div><div class="date-note">2026-06-20</div></div>
   <div>
     <h3><a href="https://ideas.repec.org/p/imf/imfwpa/2026-111.html">Political Fragility: The Economic Impact of Coups d’État</a></h3>

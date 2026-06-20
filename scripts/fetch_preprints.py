@@ -119,6 +119,50 @@ def parse_date(value: str | None) -> str | None:
     if match:
         year, month, day = match.groups()
         return f"{year}-{int(month):02d}-{int(day):02d}"
+    month_names = {
+        "jan": 1,
+        "january": 1,
+        "feb": 2,
+        "february": 2,
+        "mar": 3,
+        "march": 3,
+        "apr": 4,
+        "april": 4,
+        "may": 5,
+        "jun": 6,
+        "june": 6,
+        "jul": 7,
+        "july": 7,
+        "aug": 8,
+        "august": 8,
+        "sep": 9,
+        "sept": 9,
+        "september": 9,
+        "oct": 10,
+        "october": 10,
+        "nov": 11,
+        "november": 11,
+        "dec": 12,
+        "december": 12,
+    }
+    match = re.search(r"\b([A-Z][a-z]+)\.?\s+(\d{1,2}),?\s+(20\d{2})\b", value)
+    if match:
+        month_text, day, year = match.groups()
+        month = month_names.get(month_text.lower())
+        if month:
+            return f"{year}-{month:02d}-{int(day):02d}"
+    match = re.search(r"\b(\d{1,2})\s+([A-Z][a-z]+)\.?\s+(20\d{2})\b", value)
+    if match:
+        day, month_text, year = match.groups()
+        month = month_names.get(month_text.lower())
+        if month:
+            return f"{year}-{month:02d}-{int(day):02d}"
+    match = re.search(r"\b([A-Z][a-z]+)\.?\s+(20\d{2})\b", value)
+    if match:
+        month_text, year = match.groups()
+        month = month_names.get(month_text.lower())
+        if month:
+            return f"{year}-{month:02d}-01"
     return None
 
 
@@ -299,6 +343,8 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     detail_abstract_patterns = [
         r'<div[^>]+class=["\'][^"\']*page-header__intro[^"\']*["\'][^>]*>\s*<div[^>]*>\s*<p[^>]*>(.*?)</p>',
         r'<h2[^>]*>\s*Abstract\s*</h2>\s*<p[^>]*>(.*?)</p>',
+        r'<(?:strong|b)[^>]*>\s*Abstract\s*:?\s*</(?:strong|b)>\s*(?:</?[^>]+>\s*){0,3}<p[^>]*>(.*?)</p>',
+        r'(?:Abstract|Summary)\s*:?\s*</?[^>]*>\s*(.{160,2500}?)(?:</p>|<h2|<h3|<div[^>]+class=["\'][^"\']*(?:author|download|citation))',
         r'<div[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</div>',
         r'<section[^>]+class=["\'][^"\']*abstract[^"\']*["\'][^>]*>(.*?)</section>',
     ]
@@ -313,12 +359,32 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
         record["abstract"] = clean_text(abstract)
 
     date_value = (
-        (meta_values(html_text, ["citation_publication_date", "citation_online_date", "article:published_time", "dc.date"]) or [None])[0]
+        (
+            meta_values(
+                html_text,
+                [
+                    "citation_publication_date",
+                    "citation_online_date",
+                    "citation_date",
+                    "article:published_time",
+                    "date",
+                    "dc.date",
+                    "dc.date.issued",
+                    "dc.created",
+                    "dcterms.issued",
+                    "dcterms.created",
+                ],
+            )
+            or [None]
+        )[0]
         or json_ld_value(html_text, ["datePublished", "dateCreated", "dateModified"])
         or first_match(
             [
-                r'(?:Published|Posted|Date)\s*:?\s*</?[^>]*>\s*([A-Z][a-z]+\s+\d{1,2},\s+20\d{2})',
-                r'(?:Published|Posted|Date)\s*:?\s*(20\d{2}-\d{1,2}-\d{1,2})',
+                r'(?:Published|Posted|Date|Release\s+Date|Issued|First\s+posted)\s*:?\s*(?:</?[^>]+>\s*){0,4}([A-Z][a-z]+\.?\s+\d{1,2},?\s+20\d{2})',
+                r'(?:Published|Posted|Date|Release\s+Date|Issued|First\s+posted)\s*:?\s*(?:</?[^>]+>\s*){0,4}(\d{1,2}\s+[A-Z][a-z]+\.?\s+20\d{2})',
+                r'(?:Published|Posted|Date|Release\s+Date|Issued|First\s+posted)\s*:?\s*(?:</?[^>]+>\s*){0,4}(20\d{2}-\d{1,2}-\d{1,2})',
+                r'<time[^>]+datetime=["\']([^"\']+)["\']',
+                r'<span[^>]+class=["\'][^"\']*(?:date|published|posted)[^"\']*["\'][^>]*>(.*?)</span>',
             ],
             html_text,
         )
@@ -650,6 +716,72 @@ def parse_repec_series_list(html_text: str, source: dict[str, Any], limit: int) 
     return records
 
 
+def parse_nep_issue_list(
+    html_text: str,
+    source: dict[str, Any],
+    limit: int,
+    *,
+    issue_date: str | None = None,
+    issue_url: str | None = None,
+) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    patterns = [
+        r'<a[^>]+href=["\'](?P<href>https://ideas\.repec\.org/p/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>',
+        r'<a[^>]+href=["\'](?P<href>/p/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>',
+    ]
+    for pattern in patterns:
+        for match in re.finditer(pattern, html_text, flags=re.I | re.S):
+            href = html.unescape(match.group("href"))
+            url = normalize_url(urljoin("https://ideas.repec.org", href))
+            title = clean_text(match.group("title"))
+            if not url or url in seen or not plausible_title(title):
+                window = html_text[max(0, match.start() - 700) : min(len(html_text), match.end() + 900)]
+                title = (
+                    first_match([r'<b[^>]*>(.*?)</b>', r'<strong[^>]*>(.*?)</strong>', r'<h[23][^>]*>(.*?)</h[23]>'], window)
+                    or title
+                )
+            if not url or url in seen or not plausible_title(title):
+                continue
+            record = source_record(source, title=title, url=url, published=issue_date)
+            record["date_source"] = "nep_issue_date" if issue_date else record.get("date_source")
+            record["date_confidence"] = "B" if issue_date else record.get("date_confidence")
+            record["paper_number"] = record.get("paper_number") or first_match([r"/p/([^/.]+/[^/.]+/[^/.]+)"], url)
+            seen.add(url)
+            records.append(record)
+            if len(records) >= limit:
+                return records
+    issue_url = issue_url or str(source.get("homepage") or "")
+    anchor_pattern = (
+        r'<li[^>]+class=["\'][^"\']*liblo_li[^"\']*["\'][^>]*>\s*'
+        r'<a[^>]+class=["\'][^"\']*indoc[^"\']*["\'][^>]+href=["\'](?P<href>#[^"\']+)["\'][^>]*>(?P<title>.*?)</a>'
+        r'(?P<tail>.*?)</li>'
+    )
+    for match in re.finditer(anchor_pattern, html_text, flags=re.I | re.S):
+        href = html.unescape(match.group("href"))
+        title = clean_text(match.group("title"))
+        if not plausible_title(title):
+            continue
+        url = f"{issue_url}{href}"
+        if url in seen:
+            continue
+        record = source_record(source, title=title, url=url, published=issue_date)
+        record["url"] = url
+        record["source_url"] = issue_url
+        record["date_source"] = "nep_issue_date" if issue_date else record.get("date_source")
+        record["date_confidence"] = "B" if issue_date else record.get("date_confidence")
+        record["paper_number"] = href.removeprefix("#")
+        tail = match.group("tail")
+        authors = re.findall(r'aus=([^"&]+)', tail, flags=re.I)
+        if authors:
+            record["authors"] = [clean_text(html.unescape(author).replace("%20", " ")) for author in authors][:12]
+        seen.add(url)
+        records.append(record)
+        if len(records) >= limit:
+            return records
+    return records
+
+
 def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -> list[dict[str, Any]]:
     source_id = str(source.get("id") or "")
     if source_id == "nber":
@@ -662,6 +794,8 @@ def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -
         return parse_world_bank_list(html_text, source, limit)
     if source_id == "cesifo-working-papers":
         return parse_repec_cesifo_list(html_text, source, limit)
+    if source_id.startswith("repec-nep-"):
+        return parse_nep_issue_list(html_text, source, limit)
     if "ideas.repec.org/s/" in str(source.get("homepage") or ""):
         return parse_repec_series_list(html_text, source, limit)
     return []
@@ -894,6 +1028,16 @@ def fetch_source(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[l
         records = parse_feed(xml_text, source)
         return records[:limit], "feed"
     html_text = fetch_text(str(source["homepage"]), timeout=timeout)
+    source_id = str(source.get("id") or "")
+    if source_id.startswith("repec-nep-"):
+        issue_match = re.search(r'href=["\'](?P<href>[^"\']*/' + re.escape(source_id.removeprefix("repec-")) + r'/20\d{2}-\d{2}-\d{2}[^"\']*)["\']', html_text, flags=re.I)
+        if issue_match:
+            issue_url = normalize_url(urljoin(str(source.get("homepage")), html.unescape(issue_match.group("href"))))
+            issue_date = parse_date(issue_url)
+            issue_html = fetch_text(str(issue_url), timeout=timeout)
+            records = parse_nep_issue_list(issue_html, source, limit, issue_date=issue_date, issue_url=issue_url)
+            if records:
+                return records[:limit], "nep-issue"
     specialized = parse_specialized_html(html_text, source, limit)
     if specialized:
         return specialized[:limit], "specialized-html"

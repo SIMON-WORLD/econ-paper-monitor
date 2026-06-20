@@ -76,6 +76,79 @@ sources:
     fields:
       - general
 
+  - id: repec-nep-cna
+    title: RePEc NEP China
+    chinese_name: RePEc NEP 中国经济学论文
+    type: aggregator
+    stage: 2
+    homepage: https://nep.repec.org/nep-cna.html
+    access_note: NEP 聚合源，优先用于发现与中国相关的工作论文；发布日期以 NEP issue 或 RePEc 页面为准
+    url_pattern: "https://ideas\\.repec\\.org/p/"
+    url_contains:
+      - https://ideas.repec.org/p/
+    fields:
+      - general
+      - development
+      - trade
+
+  - id: repec-nep-dev
+    title: RePEc NEP Development
+    chinese_name: RePEc NEP 发展经济学论文
+    type: aggregator
+    stage: 2
+    homepage: https://nep.repec.org/nep-dev.html
+    access_note: NEP 发展经济学细分类，噪声低于全量 NEP
+    url_pattern: "https://ideas\\.repec\\.org/p/"
+    url_contains:
+      - https://ideas.repec.org/p/
+    fields:
+      - development
+      - public
+
+  - id: repec-nep-hea
+    title: RePEc NEP Health Economics
+    chinese_name: RePEc NEP 健康经济学论文
+    type: aggregator
+    stage: 2
+    homepage: https://nep.repec.org/nep-hea.html
+    access_note: NEP 健康经济学细分类，作为 SSRN Health Economics Network 的公开替代入口之一
+    url_pattern: "https://ideas\\.repec\\.org/p/"
+    url_contains:
+      - https://ideas.repec.org/p/
+    fields:
+      - health
+      - labor
+      - public
+
+  - id: repec-nep-mac
+    title: RePEc NEP Macroeconomics
+    chinese_name: RePEc NEP 宏观经济学论文
+    type: aggregator
+    stage: 2
+    homepage: https://nep.repec.org/nep-mac.html
+    access_note: NEP 宏观经济学细分类，覆盖部分未进机构工作论文页的 RePEc 新稿
+    url_pattern: "https://ideas\\.repec\\.org/p/"
+    url_contains:
+      - https://ideas.repec.org/p/
+    fields:
+      - macro
+      - finance
+
+  - id: repec-nep-ifn
+    title: RePEc NEP International Finance
+    chinese_name: RePEc NEP 国际金融论文
+    type: aggregator
+    stage: 2
+    homepage: https://nep.repec.org/nep-ifn.html
+    access_note: NEP 国际金融细分类，用于补充 IMF/BIS/OECD 之外的宏观金融工作论文
+    url_pattern: "https://ideas\\.repec\\.org/p/"
+    url_contains:
+      - https://ideas.repec.org/p/
+    fields:
+      - finance
+      - macro
+      - trade
+
   - id: ssrn-economics-research-network
     title: SSRN Economics Research Network
     chinese_name: SSRN 经济学研究网络
@@ -181,3 +254,38 @@ sources:
       - macro
       - labor
       - environment
+
+  - id: voxeu-cepr-columns
+    title: VoxEU / CEPR Columns
+    chinese_name: VoxEU / CEPR 专栏
+    type: policy_commentary
+    stage: 3
+    homepage: https://cepr.org/voxeu
+    access_note: 不是严格工作论文，先列入评估池；若后续需要追踪政策评论，可单独建栏目
+    fields:
+      - macro
+      - trade
+      - development
+
+  - id: brookings-economic-studies
+    title: Brookings Economic Studies
+    chinese_name: Brookings 经济研究
+    type: policy_commentary
+    stage: 3
+    homepage: https://www.brookings.edu/center/economic-studies/
+    access_note: 政策研究/评论源，先评估 RSS/API 稳定性，不混入工作论文主流
+    fields:
+      - macro
+      - public
+      - labor
+
+  - id: iza-newsroom
+    title: IZA Newsroom
+    chinese_name: IZA 新闻室
+    type: policy_commentary
+    stage: 3
+    homepage: https://www.iza.org/newsroom
+    access_note: 用于发现 IZA 新发布动态；正式论文仍以 IZA Discussion Papers 为准
+    fields:
+      - labor
+      - education

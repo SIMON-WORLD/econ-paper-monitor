@@ -25,8 +25,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: paper-monitor-update
-  cancel-in-progress: false
+  group: paper-monitor-update-${{ github.event.inputs.mode || (github.event.schedule == '30 0 * * *' && 'full' || 'light') }}
+  cancel-in-progress: true
 
 jobs:
   update:
@@ -184,6 +184,14 @@ jobs:
       - name: Render static site
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/render_site.py
+        env:
+          ANALYTICS_PROVIDER: ${{ vars.ANALYTICS_PROVIDER }}
+          PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
+          PLAUSIBLE_SCRIPT_URL: ${{ vars.PLAUSIBLE_SCRIPT_URL }}
+          UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
+          UMAMI_SCRIPT_URL: ${{ vars.UMAMI_SCRIPT_URL }}
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
+          ADMIN_STATUS_TOKEN_HASH: ${{ secrets.ADMIN_STATUS_TOKEN_HASH }}
       - name: Build RSS feed
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_feed.py --site-url https://simon-world.github.io/econ-paper-monitor/
