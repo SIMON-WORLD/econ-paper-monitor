@@ -691,7 +691,7 @@ FILTER_SCRIPT = """
   const china = document.getElementById('chinaToggle');
   const counter = document.getElementById('flowCounter');
   const empty = document.getElementById('filterEmpty');
-  const events = Array.from(document.querySelectorAll('.event'));
+  const events = Array.from(document.querySelectorAll('.event:not(.home-wp-preview)'));
   if (!search || !journal || !field || !china) return;
   const params = new URLSearchParams(window.location.search);
   let preset = '';
@@ -857,25 +857,16 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     latest_day = detected_date(records[0]) if records else ""
     latest_records = [record for record in records if detected_date(record) == latest_day] if latest_day else []
     flow_records = today_records or latest_records
+    journal_flow_records = [record for record in flow_records if not is_working_paper(record)]
+    working_flow_records = [record for record in flow_records if is_working_paper(record)]
+    all_working = working_paper_records(records)
     s = stats(records, today_records, flow_records)
-    if today_records:
-        events_html = paper_events(flow_records)
-        flow_title = "今日论文流"
-        flow_date = today_str()
-        flow_note = "按本站监测时间倒序排列，可筛选期刊、主题、日期可信度和“中国相关”。"
-    elif latest_day:
-        events_html = paper_events(flow_records)
-        flow_title = "最新论文流"
-        flow_date = latest_day
-        flow_note = f'今日暂无新发现，首页先展示最近有记录的 <a href="{BASE}/daily/{html_escape(latest_day)}/">{html_escape(latest_day)} 监测记录</a>。'
-    else:
-        events_html = paper_events(flow_records)
-        flow_title = "最新论文流"
-        flow_date = today_str()
-        flow_note = "暂无论文记录。"
+    flow_date = today_str() if today_records else (latest_day or today_str())
+    journal_note = "仅展示 TOP 经济学期刊论文，不混入工作论文；可继续筛选期刊、主题、日期可信度和“中国相关”。"
+    working_note = "试运行工作论文与政策论文来源，包括 NBER、IZA、World Bank、IMF、Fed、BIS、OECD、CEPR、CESifo 与 RePEc NEP。"
     note = (
         '<div class="empty home-note">说明：“今日新发现”指今天首次被本站监测到的记录；'
-        '“在线日期为今日”只统计 online/published online 日期为今天的记录。前台显示简洁来源，完整证据链保留在本地后台。</div>'
+        '“在线日期为今日”只统计 online/published online 日期为今天的记录。工作论文中的 RePEc NEP 属于聚合源，会单独标识。</div>'
     )
     return f"""<section class="banner">
   <div class="banner-main">
@@ -885,9 +876,12 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         <h1>{SITE_NAME}</h1>
         <p>{SITE_SUBTITLE}</p>
         <div class="hero-stats">
-          <a class="hero-stat" href="#filters" data-filter-preset="all"><strong>{s['today']}</strong><span>今日新发现</span></a>
-          <a class="hero-stat china" href="#filters" data-filter-preset="china"><strong>{s['china_flow']}</strong><span>当前流中与中国相关</span></a>
-          <a class="hero-stat" href="#filters" data-filter-preset="online-today"><strong>{s['online_today_flow']}</strong><span>在线日期为今日</span></a>
+          <a class="hero-stat" href="#journal-flow"><strong>{len(journal_flow_records)}</strong><span>今日期刊论文新发现</span></a>
+          <a class="hero-stat china" href="#journal-flow" data-filter-preset="china"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
+          <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
+          <a class="hero-stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>今日工作论文新发现</span></a>
+          <a class="hero-stat china" href="{BASE}/working-papers/china/"><strong>{sum(1 for record in working_flow_records if is_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
+          <a class="hero-stat" href="{BASE}/sources/working-papers/"><strong>{len(load_working_paper_sources())}</strong><span>工作论文来源</span></a>
         </div>
       </div>
       <div class="operator-card">
@@ -906,14 +900,16 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   <span>下次全量 <strong>{html_escape(s['next_full_run'])}</strong></span>
 </section>
 <section class="stats">
-  <a class="stat" href="{BASE}/journals/"><strong>{s['flow_journals']}</strong><span>今日涉及期刊</span></a>
-  <a class="stat" href="{BASE}/working-papers/today/"><strong>{sum(1 for record in flow_records if is_working_paper(record))}</strong><span>今日工作论文</span></a>
+  <a class="stat" href="{BASE}/journals/"><strong>{len({record.get('journal_id') for record in journal_flow_records if record.get('journal_id')})}</strong><span>今日涉及期刊</span></a>
+  <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>今日工作论文/政策论文</span></a>
   <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
 </section>
-{filter_toolbar(flow_records, include_rss=True)}
-<section class="section-head"><div><h2>{flow_title} <span class="live-count" id="flowCounter"></span></h2><p>{flow_note}</p></div><p>{html_escape(flow_date)}</p></section>
+<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" id="flowCounter"></span></h2><p>{journal_note}</p></div><p>{html_escape(flow_date)}</p></section>
+{filter_toolbar(journal_flow_records, include_rss=True)}
 {note}
-{events_html}
+{paper_events(journal_flow_records)}
+<section class="section-head"><div><h2>今日工作论文/政策论文</h2><p>{working_note}</p></div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
+{paper_events(working_flow_records, limit=12).replace('class="event"', 'class="event home-wp-preview"')}
 {FILTER_SCRIPT}
 """
 

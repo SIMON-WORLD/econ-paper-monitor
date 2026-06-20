@@ -282,7 +282,7 @@
   const china = document.getElementById('chinaToggle');
   const counter = document.getElementById('flowCounter');
   const empty = document.getElementById('filterEmpty');
-  const events = Array.from(document.querySelectorAll('.event'));
+  const events = Array.from(document.querySelectorAll('.event:not(.home-wp-preview)'));
   if (!search || !journal || !field || !china) return;
   const params = new URLSearchParams(window.location.search);
   let preset = '';

@@ -801,7 +801,7 @@ def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[d
         return records, "ajcass-api" if records else "ajcass-api-empty"
     if journal_id == "journal-379b4022ce":
         records = fetch_glsj(journal, limit)
-        return records, "glsj-ajax" if records else "glsj-ajax-empty"
+        return records, "glsj-ajax" if records else "glsj-captcha-or-empty"
 
     html_text = fetch_text_partial(url, timeout=25)
     if journal_id == "journal-679eaa2a0c":
@@ -863,14 +863,19 @@ def main() -> None:
                     mode = f"{mode}, {note}"
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
+            source_ok = not (journal_id == "journal-379b4022ce" and not fetched)
             journal_summaries.append(
                 {
                     "journal_id": journal_id,
                     "journal": journal.get("title") or journal_id,
-                    "ok": True,
+                    "ok": source_ok,
                     "count": len(fetched),
                     "mode": mode,
-                    "message": f"{len(fetched)} via {mode}",
+                    "message": (
+                        "CBPT/CNKI returned captcha or no current-year issue list; needs authenticated or alternate source"
+                        if not source_ok
+                        else f"{len(fetched)} via {mode}"
+                    ),
                 }
             )
         except Exception as exc:  # noqa: BLE001

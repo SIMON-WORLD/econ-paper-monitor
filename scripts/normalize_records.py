@@ -24,6 +24,24 @@ def has_chinese(value: str | None) -> bool:
     return any("\u4e00" <= ch <= "\u9fff" for ch in value or "")
 
 
+def looks_like_abstract(value: str | None) -> bool:
+    text = " ".join(str(value or "").split())
+    if not text:
+        return False
+    lowered = text.casefold()
+    starts = (
+        "this paper ",
+        "this study ",
+        "we analyze ",
+        "we analyse ",
+        "we examine ",
+        "we investigate ",
+        "using data ",
+        "based on ",
+    )
+    return len(text) > 260 or any(lowered.startswith(prefix) for prefix in starts)
+
+
 def confidence_from_record(record: dict[str, Any]) -> str:
     if record.get("date_confidence"):
         return str(record["date_confidence"])
@@ -49,6 +67,18 @@ def is_chinese_journal(record: dict[str, Any]) -> bool:
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
     title = str(record.get("title") or "")
+    if str(record.get("source_id") or "").startswith("repec-nep-") and looks_like_abstract(title):
+        if not record.get("abstract"):
+            record["abstract"] = title
+        paper_number = record.get("paper_number") or str(record.get("url") or "").split("#")[-1]
+        fallback_title = f"{record.get('journal') or 'RePEc NEP'} item {paper_number} (题名待解析)"
+        record["title"] = fallback_title
+        title = fallback_title
+        if looks_like_abstract(record.get("title_zh")):
+            record["abstract_zh"] = record.get("title_zh")
+            record["title_zh"] = "题名待解析"
+        record["title_parse_status"] = "needs_repec_detail_title"
+        changed = True
     if has_chinese(title):
         if record.get("title_zh") != title:
             record["title_zh"] = title

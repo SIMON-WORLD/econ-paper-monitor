@@ -735,15 +735,21 @@ def parse_nep_issue_list(
             href = html.unescape(match.group("href"))
             url = normalize_url(urljoin("https://ideas.repec.org", href))
             title = clean_text(match.group("title"))
+            abstract = title if looks_like_abstract(title) else None
+            if abstract:
+                title = ""
             if not url or url in seen or not plausible_title(title):
                 window = html_text[max(0, match.start() - 700) : min(len(html_text), match.end() + 900)]
                 title = (
                     first_match([r'<b[^>]*>(.*?)</b>', r'<strong[^>]*>(.*?)</strong>', r'<h[23][^>]*>(.*?)</h[23]>'], window)
                     or title
                 )
+                if looks_like_abstract(title):
+                    abstract = abstract or title
+                    title = ""
             if not url or url in seen or not plausible_title(title):
                 continue
-            record = source_record(source, title=title, url=url, published=issue_date)
+            record = source_record(source, title=title, url=url, published=issue_date, abstract=abstract)
             record["date_source"] = "nep_issue_date" if issue_date else record.get("date_source")
             record["date_confidence"] = "B" if issue_date else record.get("date_confidence")
             record["paper_number"] = record.get("paper_number") or first_match([r"/p/([^/.]+/[^/.]+/[^/.]+)"], url)
@@ -760,12 +766,15 @@ def parse_nep_issue_list(
     for match in re.finditer(anchor_pattern, html_text, flags=re.I | re.S):
         href = html.unescape(match.group("href"))
         title = clean_text(match.group("title"))
+        abstract = title if looks_like_abstract(title) else None
+        if abstract:
+            title = ""
         if not plausible_title(title):
-            continue
+            title = f"{source.get('title') or 'RePEc NEP'} item {href.removeprefix('#')}"
         url = f"{issue_url}{href}"
         if url in seen:
             continue
-        record = source_record(source, title=title, url=url, published=issue_date)
+        record = source_record(source, title=title, url=url, published=issue_date, abstract=abstract)
         record["url"] = url
         record["source_url"] = issue_url
         record["date_source"] = "nep_issue_date" if issue_date else record.get("date_source")
@@ -1002,6 +1011,25 @@ def plausible_title(title: str) -> bool:
         return False
     lowered = title.lower()
     return not any(fragment in lowered for fragment in bad_fragments)
+
+
+def looks_like_abstract(value: str | None) -> bool:
+    text = clean_text(value)
+    if not text:
+        return False
+    lowered = text.casefold()
+    abstract_starts = (
+        "this paper ",
+        "this study ",
+        "we analyze ",
+        "we analyse ",
+        "we examine ",
+        "we investigate ",
+        "we find ",
+        "using data ",
+        "based on ",
+    )
+    return len(text) > 260 or any(lowered.startswith(prefix) for prefix in abstract_starts)
 
 
 def allowed_url(source: dict[str, Any], url: str | None) -> bool:
