@@ -116,6 +116,38 @@ def normalize_record(record: dict[str, Any]) -> bool:
     return changed
 
 
+def record_key(record: dict[str, Any]) -> str | None:
+    for key in ("doi", "id", "url"):
+        value = record.get(key)
+        if value:
+            return f"{key}:{str(value).casefold()}"
+    title = " ".join(str(record.get("title") or "").casefold().split())
+    journal = str(record.get("journal_id") or record.get("journal") or "").casefold()
+    return f"title:{journal}:{title}" if title else None
+
+
+def remove_cross_day_duplicates(paths: list[Path]) -> tuple[int, int]:
+    seen: set[str] = set()
+    removed = touched = 0
+    for path in sorted(paths):
+        records = read_json(path, [])
+        kept = []
+        path_removed = 0
+        for record in records:
+            key = record_key(record)
+            if key and key in seen:
+                path_removed += 1
+                continue
+            if key:
+                seen.add(key)
+            kept.append(record)
+        if path_removed:
+            write_json(path, kept)
+            removed += path_removed
+            touched += 1
+    return removed, touched
+
+
 def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
     if date_filter:
         path = daily_dir / f"{date_filter}.json"
@@ -129,8 +161,9 @@ def main() -> None:
     parser.add_argument("--date", default=None)
     args = parser.parse_args()
 
+    paths = daily_paths(args.daily_dir, args.date)
     changed = touched = 0
-    for path in daily_paths(args.daily_dir, args.date):
+    for path in paths:
         records = read_json(path, [])
         path_changed = False
         for record in records:
@@ -140,8 +173,11 @@ def main() -> None:
         if path_changed:
             write_json(path, records)
             touched += 1
-    record_source("normalize-records", ok=True, count=changed, message=f"files={touched}")
-    print(f"normalize records changed={changed} files={touched}")
+    duplicate_removed = duplicate_files = 0
+    if not args.date:
+        duplicate_removed, duplicate_files = remove_cross_day_duplicates(paths)
+    record_source("normalize-records", ok=True, count=changed + duplicate_removed, message=f"files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files}")
+    print(f"normalize records changed={changed} files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files}")
 
 
 if __name__ == "__main__":

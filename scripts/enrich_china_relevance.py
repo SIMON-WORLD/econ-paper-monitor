@@ -166,7 +166,6 @@ def haystack(record: dict[str, Any]) -> str:
         record.get("title_zh"),
         record.get("abstract"),
         record.get("abstract_zh"),
-        record.get("journal"),
         record.get("source_issue"),
         " ".join(record.get("authors") or []),
     ]
