@@ -1000,15 +1000,13 @@ def topic_view_links(topic: str, topic_records: list[dict[str, Any]], today_reco
 
 
 def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
-    latest_day = detected_date(records[0]) if records else ""
-    latest_records = [record for record in records if detected_date(record) == latest_day] if latest_day else []
-    flow_records = today_records or latest_records
+    flow_records = today_records
     journal_flow_records = [record for record in flow_records if not is_working_paper(record)]
     working_flow_records = [record for record in flow_records if is_working_paper(record)]
     all_working = working_paper_records(records)
     all_journal_count = sum(1 for record in records if not is_working_paper(record) and has_public_title(record))
     s = stats(records, today_records, flow_records)
-    flow_date = today_str() if today_records else (latest_day or today_str())
+    flow_date = today_str()
     journal_note = ""
     working_note = ""
     journal_note_html = f"<p>{journal_note}</p>" if journal_note else ""
@@ -1277,9 +1275,8 @@ def main() -> None:
 
     records = load_all_daily(args.daily_dir)
     today_records = [record for record in records if detected_date(record) == today_str()]
-    latest_day = detected_date(records[0]) if records else today_str()
-    home_flow_records = today_records or ([record for record in records if detected_date(record) == latest_day] if latest_day else [])
-    home_flow_date = today_str() if today_records else latest_day
+    home_flow_records = today_records
+    home_flow_date = today_str()
     write_page(
         args.docs_dir / "index.html",
         page(SITE_NAME, records, home_body(records, today_records), active="home", sidebar_records=home_flow_records, sidebar_date=home_flow_date),
@@ -1334,7 +1331,7 @@ def main() -> None:
             records,
             working_papers_body(records, view="today"),
             active="working-papers",
-            sidebar_records=[record for record in wp_records if detected_date(record) == today_str()][:40] or wp_records[:40] or home_flow_records,
+            sidebar_records=[record for record in wp_records if detected_date(record) == today_str()][:40],
             sidebar_date=today_str(),
         ),
     )
@@ -1373,6 +1370,8 @@ def main() -> None:
             by_field[field].append(record)
         for topic in article_topics(record):
             by_topic[topic].append(record)
+    for path in sorted(args.daily_dir.glob("*.json")):
+        by_date.setdefault(path.stem, [])
 
     archive_links = []
     archive_rows = []
@@ -1481,7 +1480,10 @@ def main() -> None:
         + "\n".join(archive_rows)
         + "</tbody></table>"
     )
-    write_page(args.docs_dir / "archive" / "index.html", page("历史归档", records, archive_body, active="archive"))
+    write_page(
+        args.docs_dir / "archive" / "index.html",
+        page("历史归档", records, archive_body, active="archive", sidebar_records=today_records, sidebar_date=today_str()),
+    )
     print(f"rendered {len(records)} records into {args.docs_dir}")
 
 
