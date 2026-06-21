@@ -90,10 +90,10 @@ STYLE = """
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:start}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--muted);font-style:normal;font-size:12px;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
@@ -668,7 +668,7 @@ def page(
 """
 
 
-def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str:
+def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, scope: str = "default", extra_class: str = "") -> str:
     selected = records[:limit] if limit else records
     if not selected:
         return '<div class="empty">暂无符合条件的论文记录。</div>'
@@ -691,8 +691,9 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
         field_attr = " ".join(article_topics(record))
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
+        classes = "event" + (f" {extra_class}" if extra_class else "")
         chunks.append(
-            f"""<article class="event" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(str(record.get('source_type') or ('working_paper' if is_working_paper(record) else 'journal_article')))}">
+            f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(str(record.get('source_type') or ('working_paper' if is_working_paper(record) else 'journal_article')))}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
     <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title'))}</a></h3>
@@ -711,106 +712,120 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None) -> str
 FILTER_SCRIPT = """
 <script>
 (() => {
-  const search = document.getElementById('searchInput');
-  const journal = document.getElementById('journalFilter');
-  const field = document.getElementById('fieldFilter');
-  const dateType = document.getElementById('dateTypeFilter');
-  const confidence = document.getElementById('confidenceFilter');
-  const sourceType = document.getElementById('sourceTypeFilter');
-  const china = document.getElementById('chinaToggle');
-  const counter = document.getElementById('flowCounter');
-  const empty = document.getElementById('filterEmpty');
-  const events = Array.from(document.querySelectorAll('.event:not(.home-wp-preview)'));
-  if (!search || !journal || !field || !china) return;
   const params = new URLSearchParams(window.location.search);
-  let preset = '';
-  if (params.get('q')) search.value = params.get('q');
-  if (params.get('journal')) journal.value = params.get('journal');
-  if (params.get('field')) field.value = params.get('field');
-  if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
-  if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
-  if (sourceType && params.get('sourceType')) sourceType.value = params.get('sourceType');
-  if (params.get('china') === '1') {
-    china.setAttribute('aria-pressed', 'true');
-    china.classList.add('active');
-  }
-  if (params.get('onlineToday') === '1') preset = 'online-today';
-  function setCounter(visible, chinaOnly) {
-    if (!counter) return;
-    if (chinaOnly || preset === 'china') {
-      counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
-    } else if (preset === 'online-today') {
-      counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
-    } else {
-      counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
+  document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
+    const scope = toolbar.dataset.filterScope || 'default';
+    const search = toolbar.querySelector('[data-filter-role="search"]');
+    const journal = toolbar.querySelector('[data-filter-role="journal"]');
+    const field = toolbar.querySelector('[data-filter-role="field"]');
+    const dateType = toolbar.querySelector('[data-filter-role="dateType"]');
+    const confidence = toolbar.querySelector('[data-filter-role="confidence"]');
+    const sourceType = toolbar.querySelector('[data-filter-role="sourceType"]');
+    const china = toolbar.querySelector('[data-filter-role="china"]');
+    const counter = document.querySelector(`[data-filter-counter="${scope}"]`);
+    const empty = document.querySelector(`[data-filter-empty="${scope}"]`);
+    const events = Array.from(document.querySelectorAll(`.event[data-event-scope="${scope}"]`));
+    if (!search || !journal || !field || !china) return;
+    let preset = '';
+    if (params.get('q')) search.value = params.get('q');
+    if (params.get('journal')) journal.value = params.get('journal');
+    if (params.get('field')) field.value = params.get('field');
+    if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+    if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+    if (sourceType && params.get('sourceType')) sourceType.value = params.get('sourceType');
+    if (params.get('china') === '1') {
+      china.setAttribute('aria-pressed', 'true');
+      china.classList.add('active');
     }
-  }
-  function applyFilters() {
-    const q = (search.value || '').trim().toLowerCase();
-    const journalValue = journal.value;
-    const fieldValue = field.value;
-    const dateTypeValue = dateType ? dateType.value : '';
-    const confidenceValue = confidence ? confidence.value : '';
-    const sourceTypeValue = sourceType ? sourceType.value : '';
-    const chinaOnly = china.getAttribute('aria-pressed') === 'true';
-    let visible = 0;
-    for (const item of events) {
-      const okSearch = !q || item.dataset.search.includes(q);
-      const okJournal = !journalValue || item.dataset.journal === journalValue;
-      const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
-      const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
-      const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
-      const okSourceType = !sourceTypeValue || item.dataset.sourceType === sourceTypeValue;
-      const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
-      const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
-      const show = okSearch && okJournal && okField && okDateType && okConfidence && okSourceType && okChina && okPreset;
-      item.hidden = !show;
-      if (show) visible += 1;
+    if (params.get('onlineToday') === '1') preset = 'online-today';
+    function setCounter(visible, chinaOnly) {
+      if (!counter) return;
+      if (chinaOnly || preset === 'china') {
+        counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
+      } else if (preset === 'online-today') {
+        counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
+      } else {
+        counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
+      }
     }
-    if (empty) empty.hidden = visible !== 0;
-    setCounter(visible, chinaOnly);
-  }
-  search.addEventListener('input', applyFilters);
-  journal.addEventListener('change', applyFilters);
-  field.addEventListener('change', applyFilters);
-  if (dateType) dateType.addEventListener('change', applyFilters);
-  if (confidence) confidence.addEventListener('change', applyFilters);
-  if (sourceType) sourceType.addEventListener('change', applyFilters);
-  china.addEventListener('click', () => {
-    const active = china.getAttribute('aria-pressed') !== 'true';
-    china.setAttribute('aria-pressed', String(active));
-    china.classList.toggle('active', active);
+    function applyFilters() {
+      const q = (search.value || '').trim().toLowerCase();
+      const journalValue = journal.value;
+      const fieldValue = field.value;
+      const dateTypeValue = dateType ? dateType.value : '';
+      const confidenceValue = confidence ? confidence.value : '';
+      const sourceTypeValue = sourceType ? sourceType.value : '';
+      const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+      let visible = 0;
+      for (const item of events) {
+        const okSearch = !q || item.dataset.search.includes(q);
+        const okJournal = !journalValue || item.dataset.journal === journalValue;
+        const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+        const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+        const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+        const okSourceType = !sourceTypeValue || item.dataset.sourceType === sourceTypeValue;
+        const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+        const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+        const show = okSearch && okJournal && okField && okDateType && okConfidence && okSourceType && okChina && okPreset;
+        item.hidden = !show;
+        if (show) visible += 1;
+      }
+      if (empty) empty.hidden = visible !== 0;
+      setCounter(visible, chinaOnly);
+    }
+    search.addEventListener('input', applyFilters);
+    journal.addEventListener('change', applyFilters);
+    field.addEventListener('change', applyFilters);
+    if (dateType) dateType.addEventListener('change', applyFilters);
+    if (confidence) confidence.addEventListener('change', applyFilters);
+    if (sourceType) sourceType.addEventListener('change', applyFilters);
+    china.addEventListener('click', () => {
+      const active = china.getAttribute('aria-pressed') !== 'true';
+      china.setAttribute('aria-pressed', String(active));
+      china.classList.toggle('active', active);
+      applyFilters();
+    });
+    document.querySelectorAll(`[data-filter-preset][data-filter-scope-target="${scope}"]`).forEach((item) => {
+      item.addEventListener('click', (event) => {
+        event.preventDefault();
+        preset = item.dataset.filterPreset || '';
+        if (preset === 'all') {
+          search.value = '';
+          journal.value = '';
+          field.value = '';
+          if (dateType) dateType.value = '';
+          if (confidence) confidence.value = '';
+          if (sourceType) sourceType.value = '';
+          china.setAttribute('aria-pressed', 'false');
+          china.classList.remove('active');
+        }
+        if (preset === 'china') {
+          china.setAttribute('aria-pressed', 'true');
+          china.classList.add('active');
+        }
+        applyFilters();
+        toolbar.scrollIntoView({behavior: 'smooth', block: 'start'});
+      });
+    });
     applyFilters();
   });
-  document.querySelectorAll('[data-filter-preset]').forEach((item) => {
-    item.addEventListener('click', (event) => {
-      event.preventDefault();
-      preset = item.dataset.filterPreset || '';
-      if (preset === 'all') {
-        search.value = '';
-        journal.value = '';
-        field.value = '';
-        if (dateType) dateType.value = '';
-        if (confidence) confidence.value = '';
-        if (sourceType) sourceType.value = '';
-        china.setAttribute('aria-pressed', 'false');
-        china.classList.remove('active');
-      }
-      if (preset === 'china') {
-        china.setAttribute('aria-pressed', 'true');
-        china.classList.add('active');
-      }
-      applyFilters();
-      document.getElementById('filters')?.scrollIntoView({behavior: 'smooth', block: 'start'});
-    });
+  document.querySelectorAll('[data-filter-preset]:not([data-filter-scope-target])').forEach((item) => {
+    item.setAttribute('data-filter-scope-target', 'default');
   });
-  applyFilters();
+  for (const item of document.querySelectorAll('[data-filter-preset]')) {
+    if (!item.dataset.boundScopeFallback) {
+      item.dataset.boundScopeFallback = '1';
+      if (!item.dataset.filterScopeTarget) {
+        item.dataset.filterScopeTarget = 'default';
+      }
+    }
+  }
 })();
 </script>
 """
 
 
-def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, source_label: str = "筛选期刊") -> str:
+def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, source_label: str = "筛选期刊", scope: str = "default") -> str:
     if not records:
         return ""
     journals = sorted({(record.get("journal_id"), record.get("journal")) for record in records if record.get("journal_id") and record.get("journal")}, key=lambda item: item[1])
@@ -824,17 +839,17 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, 
     confidence_options = "".join(f'<option value="{html_escape(value)}">{html_escape(confidence_label(value))}</option>' for value in confidences)
     source_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(SOURCE_TYPE_LABELS.get(value, source_type_label({"source_type": value})))}</option>' for value in source_types)
     rss = f'<a class="control primary" href="{BASE}/feed.xml">RSS 订阅</a>' if include_rss else ""
-    return f"""<div class="toolbar" id="filters">
-  <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
-  <select class="control" id="journalFilter"><option value="">{html_escape(source_label)}</option>{journal_options}</select>
-  <select class="control" id="fieldFilter"><option value="">筛选主题</option>{field_options}</select>
-  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option>{date_type_options}</select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option>{confidence_options}</select>
-  <select class="control" id="sourceTypeFilter"><option value="">筛选来源类型</option>{source_type_options}</select>
-  <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
+    return f"""<div class="toolbar" id="filters-{html_escape(scope)}" data-filter-scope="{html_escape(scope)}">
+  <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" data-filter-role="journal"><option value="">{html_escape(source_label)}</option>{journal_options}</select>
+  <select class="control" data-filter-role="field"><option value="">筛选主题</option>{field_options}</select>
+  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option>{date_type_options}</select>
+  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option>{confidence_options}</select>
+  <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option>{source_type_options}</select>
+  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
   {rss}
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div>"""
+<div class="empty" data-filter-empty="{html_escape(scope)}" hidden>没有符合当前筛选条件的论文。</div>"""
 
 
 def date_from_record(record: dict[str, Any]) -> datetime | None:
@@ -904,9 +919,9 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         <h1>{SITE_NAME}</h1>
         <p>{SITE_SUBTITLE}</p>
         <div class="hero-stats">
-          <a class="hero-stat" href="#journal-flow"><strong>{len(journal_flow_records)}</strong><span>今日期刊论文新发现</span></a>
-          <a class="hero-stat china" href="#journal-flow" data-filter-preset="china"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
-          <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
+          <a class="hero-stat" href="#journal-flow" data-filter-preset="all" data-filter-scope-target="journal"><strong>{len(journal_flow_records)}</strong><span>今日期刊论文新发现</span></a>
+          <a class="hero-stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
+          <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
           <a class="hero-stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
           <a class="hero-stat china" href="{BASE}/working-papers/china/"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
           <a class="hero-stat" href="{BASE}/sources/working-papers/"><strong>{len(load_working_paper_sources())}</strong><span>工作论文来源</span></a>
@@ -934,12 +949,13 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
   <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
 </section>
-<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" id="flowCounter"></span></h2>{journal_note_html}</div><p>{html_escape(flow_date)}</p></section>
-{filter_toolbar(journal_flow_records, include_rss=True)}
+<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" data-filter-counter="journal"></span></h2>{journal_note_html}</div><p>{html_escape(flow_date)}</p></section>
+{filter_toolbar(journal_flow_records, include_rss=True, scope="journal")}
 {note}
-{paper_events(journal_flow_records)}
-<section class="section-head"><div><h2>今日工作论文</h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
-{paper_events(working_flow_records, limit=12).replace('class="event"', 'class="event home-wp-preview"')}
+{paper_events(journal_flow_records, scope="journal")}
+<section class="section-head split-section"><div><h2>今日工作论文 <span class="live-count" data-filter-counter="working"></span></h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
+{filter_toolbar(working_flow_records, source_label="筛选来源", scope="working")}
+{paper_events(working_flow_records, limit=12, scope="working", extra_class="home-wp-preview")}
 {FILTER_SCRIPT}
 """
 
