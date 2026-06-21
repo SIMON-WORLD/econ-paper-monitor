@@ -932,7 +932,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         <div>
           <strong>学术传送门</strong>
           <span>本站由学术传送门运营</span>
-          <em>读好文献，用好论文</em>
+          <em>读好文献，用好文献</em>
         </div>
       </aside>
       </div>
