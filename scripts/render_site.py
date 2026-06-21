@@ -591,6 +591,11 @@ def sidebar(
     journal_target_date = context_date or today_str()
     is_today_context = journal_target_date == today_str()
     topic_title = "今日文章主题" if is_today_context else f"{journal_target_date} 文章主题"
+    journal_source_title = "今日期刊论文来源" if is_today_context else f"{journal_target_date} 期刊论文来源"
+    working_source_title = "今日工作论文来源" if is_today_context else f"{journal_target_date} 工作论文来源"
+    journal_footer_label = "查看今日期刊论文" if is_today_context else f"查看 {journal_target_date} 期刊论文"
+    working_footer_label = "查看今日工作论文" if is_today_context else f"查看 {journal_target_date} 工作论文"
+    working_footer_href = f"{BASE}/working-papers/today/" if is_today_context else f"{BASE}/daily/{html_escape(journal_target_date)}/?sourceType=working_paper"
 
     def source_links(counts: Counter, *, working: bool) -> str:
         links = []
@@ -621,8 +626,8 @@ def sidebar(
     <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
   </div>
   <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
-  <div class="side-block"><div class="side-title">期刊论文来源</div>{journal_links}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整期刊名单</strong></span><span class="count">All</span></a></div>
-  <div class="side-block"><div class="side-title">工作论文来源</div>{working_links}<a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>查看工作论文来源</strong></span><span class="count">All</span></a></div>
+  <div class="side-block"><div class="side-title">{html_escape(journal_source_title)}</div>{journal_links}<a class="side-link" href="{BASE}/daily/{html_escape(journal_target_date)}/"><span class="side-main"><strong>{html_escape(journal_footer_label)}</strong></span><span class="count">Today</span></a></div>
+  <div class="side-block"><div class="side-title">{html_escape(working_source_title)}</div>{working_links}<a class="side-link" href="{working_footer_href}"><span class="side-main"><strong>{html_escape(working_footer_label)}</strong></span><span class="count">Today</span></a></div>
 </aside>"""
 
 
@@ -950,6 +955,14 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         <p class="eyebrow">TOP economics journals, updated daily</p>
         <h1>{SITE_NAME}</h1>
         <p>{SITE_SUBTITLE}</p>
+        <div class="hero-stats">
+          <a class="hero-stat" href="#journal-flow" data-filter-preset="all" data-filter-scope-target="journal"><strong>{len(journal_flow_records)}</strong><span>今日期刊论文新发现</span></a>
+          <a class="hero-stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
+          <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
+          <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>{len(working_flow_records)}</strong><span>今日工作论文新发现</span></a>
+          <a class="hero-stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
+          <a class="hero-stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
+        </div>
       </div>
       <aside class="operator-card">
         <img src="{BASE}/assets/academic-portal-qr.jpg" alt="学术传送门二维码">
@@ -978,7 +991,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 {filter_toolbar(journal_flow_records, include_rss=True, scope="journal")}
 {note}
 {paper_events(journal_flow_records, scope="journal")}
-<section class="section-head split-section"><div><h2>今日工作论文 <span class="live-count" data-filter-counter="working"></span></h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
+<section id="working-flow" class="section-head split-section"><div><h2>今日工作论文 <span class="live-count" data-filter-counter="working"></span></h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
 <section class="stats">
   <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
   <a class="stat china" href="{BASE}/working-papers/china/"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
