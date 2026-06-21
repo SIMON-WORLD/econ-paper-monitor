@@ -78,6 +78,7 @@ def normalize_record(record: dict[str, Any]) -> bool:
             record["abstract_zh"] = record.get("title_zh")
             record["title_zh"] = "题名待解析"
         record["title_parse_status"] = "needs_repec_detail_title"
+        record["public_visible"] = False
         changed = True
     if has_chinese(title):
         if record.get("title_zh") != title:

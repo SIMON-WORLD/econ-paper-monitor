@@ -90,7 +90,7 @@ STYLE = """
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
@@ -195,7 +195,24 @@ def is_china_related(record: dict[str, Any]) -> bool:
 
 def has_public_title(record: dict[str, Any]) -> bool:
     title = str(record.get("title") or "").strip()
-    return bool(title) and "题名待解析" not in title and not title.lower().startswith("untitled")
+    lowered = title.casefold()
+    abstract_starts = (
+        "this paper ",
+        "this study ",
+        "we analyze ",
+        "we analyse ",
+        "we examine ",
+        "we investigate ",
+        "using data ",
+        "based on ",
+    )
+    if not title or "题名待解析" in title or lowered.startswith("untitled"):
+        return False
+    if len(title) > 260 or any(lowered.startswith(prefix) for prefix in abstract_starts):
+        return False
+    if record.get("public_visible") is False or record.get("title_parse_status") == "needs_repec_detail_title":
+        return False
+    return True
 
 
 def is_public_china_related(record: dict[str, Any]) -> bool:
@@ -268,7 +285,11 @@ def article_topics(record: dict[str, Any]) -> list[str]:
 
 
 def working_paper_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return unique_records([record for record in records if is_working_paper(record)])
+    return unique_records([record for record in records if is_working_paper(record) and has_public_title(record)])
+
+
+def public_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [record for record in records if has_public_title(record)]
 
 
 def journal_lookup() -> dict[str, dict[str, Any]]:
@@ -557,29 +578,37 @@ def sidebar(
     context_records: list[dict[str, Any]] | None = None,
     context_date: str | None = None,
 ) -> str:
-    side_records = context_records if context_records is not None else records
-    journal_counts = Counter(record.get("journal_id") for record in side_records if record.get("journal_id"))
+    side_records = public_records(context_records if context_records is not None else records)
+    journal_side_records = [record for record in side_records if not is_working_paper(record)]
+    working_side_records = [record for record in side_records if is_working_paper(record)]
+    journal_counts = Counter(record.get("journal_id") for record in journal_side_records if record.get("journal_id"))
+    working_counts = Counter(record.get("journal_id") for record in working_side_records if record.get("journal_id"))
     journals_by_id = journal_lookup()
     topics = "".join(
         f'<a class="side-link" href="{BASE}/topics/{html_escape(topic)}/"><span class="side-main"><strong>{html_escape(topic_label(topic))}</strong></span><span class="count">{count}</span></a>'
         for topic, count in ordered_topic_counts(side_records)[:12]
     )
-    journal_links = []
     journal_target_date = context_date or today_str()
-    for journal_id, count in journal_counts.most_common(10):
-        journal = journals_by_id.get(journal_id, {})
-        title = journal.get("title") or journal_id
-        chinese_name = journal.get("chinese_name") or ""
-        journal_links.append(
-            f'<a class="side-link" href="{BASE}/daily/{html_escape(journal_target_date)}/?journal={html_escape(journal_id)}"><span class="side-main"><strong>{html_escape(title)}</strong><em>{html_escape(chinese_name)}</em></span><span class="count">{count}</span></a>'
-        )
     is_today_context = journal_target_date == today_str()
     topic_title = "今日文章主题" if is_today_context else f"{journal_target_date} 文章主题"
-    has_wp_source = any(is_working_paper(record) for record in side_records)
-    source_word = "来源" if has_wp_source else "期刊"
-    journal_title = f"今日涉及{source_word}" if is_today_context else f"{journal_target_date} 涉及{source_word}"
-    if not journal_links:
-        journal_links.append(f'<div class="side-link"><span class="side-main"><strong>暂无{html_escape(source_word)}更新</strong></span><span class="count">0</span></div>')
+
+    def source_links(counts: Counter, *, working: bool) -> str:
+        links = []
+        for journal_id, count in counts.most_common(10):
+            journal = journals_by_id.get(journal_id, {})
+            title = journal.get("title") or journal_id
+            chinese_name = journal.get("chinese_name") or ""
+            target = f"{BASE}/working-papers/today/?journal={html_escape(journal_id)}" if working else f"{BASE}/daily/{html_escape(journal_target_date)}/?journal={html_escape(journal_id)}"
+            links.append(
+                f'<a class="side-link" href="{target}"><span class="side-main"><strong>{html_escape(title)}</strong><em>{html_escape(chinese_name)}</em></span><span class="count">{count}</span></a>'
+            )
+        if not links:
+            label = "工作论文来源" if working else "期刊更新"
+            links.append(f'<div class="side-link"><span class="side-main"><strong>暂无{html_escape(label)}</strong></span><span class="count">0</span></div>')
+        return "".join(links)
+
+    journal_links = source_links(journal_counts, working=False)
+    working_links = source_links(working_counts, working=True)
     return f"""<aside class="sidebar">
   <h1 class="brand">{SITE_NAME}</h1>
   <div class="subtitle">{SITE_SUBTITLE}</div>
@@ -592,7 +621,8 @@ def sidebar(
     <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
   </div>
   <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
-  <div class="side-block"><div class="side-title">{html_escape(journal_title)}</div>{"".join(journal_links)}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+  <div class="side-block"><div class="side-title">期刊论文来源</div>{journal_links}<a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>查看完整期刊名单</strong></span><span class="count">All</span></a></div>
+  <div class="side-block"><div class="side-title">工作论文来源</div>{working_links}<a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>查看工作论文来源</strong></span><span class="count">All</span></a></div>
 </aside>"""
 
 
@@ -669,7 +699,8 @@ def page(
 
 
 def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, scope: str = "default", extra_class: str = "") -> str:
-    selected = records[:limit] if limit else records
+    public = public_records(records)
+    selected = public[:limit] if limit else public
     if not selected:
         return '<div class="empty">暂无符合条件的论文记录。</div>'
     chunks = []
@@ -904,6 +935,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     journal_flow_records = [record for record in flow_records if not is_working_paper(record)]
     working_flow_records = [record for record in flow_records if is_working_paper(record)]
     all_working = working_paper_records(records)
+    all_journal_count = sum(1 for record in records if not is_working_paper(record) and has_public_title(record))
     s = stats(records, today_records, flow_records)
     flow_date = today_str() if today_records else (latest_day or today_str())
     journal_note = ""
@@ -918,14 +950,6 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         <p class="eyebrow">TOP economics journals, updated daily</p>
         <h1>{SITE_NAME}</h1>
         <p>{SITE_SUBTITLE}</p>
-        <div class="hero-stats">
-          <a class="hero-stat" href="#journal-flow" data-filter-preset="all" data-filter-scope-target="journal"><strong>{len(journal_flow_records)}</strong><span>今日期刊论文新发现</span></a>
-          <a class="hero-stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
-          <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
-          <a class="hero-stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
-          <a class="hero-stat china" href="{BASE}/working-papers/china/"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
-          <a class="hero-stat" href="{BASE}/sources/working-papers/"><strong>{len(load_working_paper_sources())}</strong><span>工作论文来源</span></a>
-        </div>
       </div>
       <aside class="operator-card">
         <img src="{BASE}/assets/academic-portal-qr.jpg" alt="学术传送门二维码">
@@ -944,18 +968,25 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   <span>下次快速 <strong>{html_escape(s['next_light_run'])}</strong></span>
   <span>下次全量 <strong>{html_escape(s['next_full_run'])}</strong></span>
 </section>
+<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" data-filter-counter="journal"></span></h2>{journal_note_html}</div><p>{html_escape(flow_date)}</p></section>
 <section class="stats">
   <a class="stat" href="{BASE}/journals/"><strong>{len({record.get('journal_id') for record in journal_flow_records if record.get('journal_id')})}</strong><span>今日涉及期刊</span></a>
-  <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
-  <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
+  <a class="stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
+  <a class="stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
+  <a class="stat" href="{BASE}/archive/"><strong>{all_journal_count}</strong><span>累计期刊论文记录</span></a>
 </section>
-<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" data-filter-counter="journal"></span></h2>{journal_note_html}</div><p>{html_escape(flow_date)}</p></section>
 {filter_toolbar(journal_flow_records, include_rss=True, scope="journal")}
 {note}
 {paper_events(journal_flow_records, scope="journal")}
 <section class="section-head split-section"><div><h2>今日工作论文 <span class="live-count" data-filter-counter="working"></span></h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
+<section class="stats">
+  <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
+  <a class="stat china" href="{BASE}/working-papers/china/"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
+  <a class="stat" href="{BASE}/sources/working-papers/"><strong>{len({record.get('journal_id') for record in working_flow_records if record.get('journal_id')})}</strong><span>今日涉及来源</span></a>
+  <a class="stat" href="{BASE}/working-papers/"><strong>{len(all_working)}</strong><span>累计工作论文记录</span></a>
+</section>
 {filter_toolbar(working_flow_records, source_label="筛选来源", scope="working")}
-{paper_events(working_flow_records, limit=12, scope="working", extra_class="home-wp-preview")}
+{paper_events(working_flow_records, scope="working", extra_class="home-wp-preview")}
 {FILTER_SCRIPT}
 """
 
@@ -1009,8 +1040,36 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
 """
 
 
+def china_topic_body(records: list[dict[str, Any]], topic_records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
+    public_topic_records = public_records(topic_records)
+    journal_records = [record for record in public_topic_records if not is_working_paper(record)]
+    wp_records = [record for record in public_topic_records if is_working_paper(record)]
+    today_journals = [record for record in journal_records if detected_date(record) == today_str()]
+    today_wp = [record for record in wp_records if detected_date(record) == today_str()]
+    recent_journals = recent_records(journal_records, 7)
+    recent_wp = recent_records(wp_records, 7)
+    return f"""<section class="section-head">
+  <div><h2>与中国相关</h2><p>期刊论文和工作论文分开浏览。</p></div>
+  <p>{len(public_topic_records)} 篇</p>
+</section>
+<section class="stats">
+  <a class="stat" href="#china-journals"><strong>{len(journal_records)}</strong><span>期刊论文</span></a>
+  <a class="stat" href="#china-working"><strong>{len(wp_records)}</strong><span>工作论文</span></a>
+  <a class="stat" href="{BASE}/daily/{today_str()}/?field=china"><strong>{len(today_journals)}</strong><span>今日期刊论文</span></a>
+  <a class="stat" href="{BASE}/working-papers/china/"><strong>{len(today_wp)}</strong><span>今日工作论文</span></a>
+</section>
+<section id="china-journals" class="section-head"><div><h2>与中国相关：期刊论文 <span class="live-count" data-filter-counter="china-journal"></span></h2></div><p>最近 7 天 {len(recent_journals)} 篇</p></section>
+{filter_toolbar(journal_records, include_rss=True, scope="china-journal")}
+{paper_events(journal_records, scope="china-journal")}
+<section id="china-working" class="section-head split-section"><div><h2>与中国相关：工作论文 <span class="live-count" data-filter-counter="china-working"></span></h2></div><p>最近 7 天 {len(recent_wp)} 篇</p></section>
+{filter_toolbar(wp_records, source_label="筛选来源", scope="china-working")}
+{paper_events(wp_records, scope="china-working")}
+{FILTER_SCRIPT}
+"""
+
+
 def china_quality_body(records: list[dict[str, Any]]) -> str:
-    latest = records[:500]
+    latest = public_records(records[:500])
     confirmed = [record for record in latest if is_china_related(record)]
     candidates = [record for record in latest if record.get("china_relevance_status") == "candidate"]
     rejected = [
@@ -1227,7 +1286,8 @@ def main() -> None:
     by_topic: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
         by_date[detected_date(record) or record.get("_daily_date") or "unknown"].append(record)
-        by_journal[record.get("journal_id") or "unknown"].append(record)
+        if not is_working_paper(record):
+            by_journal[record.get("journal_id") or "unknown"].append(record)
         for field in record.get("fields", []) or ["unknown"]:
             by_field[field].append(record)
         for topic in article_topics(record):
@@ -1301,13 +1361,21 @@ def main() -> None:
         topic_links = topic_view_links(topic, topic_records, today_records)
         latest_topic_date = detected_date(topic_records[0]) if topic_records else None
         latest_topic_records = [record for record in topic_records if detected_date(record) == latest_topic_date] if latest_topic_date else []
-        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>{html_escape(note)}</p></div><p>{len(topic_records)} 篇</p></section>{topic_links}{filter_toolbar(topic_records)}{paper_events(topic_records)}{FILTER_SCRIPT}'
+        body = (
+            china_topic_body(records, topic_records, today_records)
+            if topic == "china"
+            else f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>{html_escape(note)}</p></div><p>{len(topic_records)} 篇</p></section>{topic_links}{filter_toolbar(topic_records)}{paper_events(topic_records)}{FILTER_SCRIPT}'
+        )
         write_page(
             args.docs_dir / "topics" / topic / "index.html",
             page(title, records, body, sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
         )
         recent = recent_records(topic_records, 7)
-        recent_body = f'<section class="section-head"><div><h2>{html_escape(title)}：最近 7 天</h2><p>{html_escape(note)}</p></div><p>{len(recent)} 篇</p></section>{topic_links}{filter_toolbar(recent)}{paper_events(recent)}{FILTER_SCRIPT}'
+        recent_body = (
+            china_topic_body(records, recent, today_records)
+            if topic == "china"
+            else f'<section class="section-head"><div><h2>{html_escape(title)}：最近 7 天</h2><p>{html_escape(note)}</p></div><p>{len(recent)} 篇</p></section>{topic_links}{filter_toolbar(recent)}{paper_events(recent)}{FILTER_SCRIPT}'
+        )
         write_page(
             args.docs_dir / "topics" / topic / "recent7" / "index.html",
             page(f"{title} 最近 7 天", records, recent_body, sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
