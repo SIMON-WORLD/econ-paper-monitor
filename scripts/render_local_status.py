@@ -237,6 +237,7 @@ def main() -> None:
     workflow = status.get("workflow") or {}
     sources = status.get("sources") or {}
     cn_group = (status.get("source_groups") or {}).get("cn-journals") or {}
+    publisher_group = (status.get("source_groups") or {}).get("publisher-detail") or {}
 
     english_titles = sum(1 for record in records if record.get("title") and not has_chinese(str(record.get("title"))))
     english_translated = sum(
@@ -302,8 +303,17 @@ def main() -> None:
     cn_rows = [
         f"<tr class='{'warn' if item.get('ok') and int(item.get('count') or 0) == 0 else ''}'><td>{html_escape(item.get('journal'))}</td><td>{'OK' if item.get('ok') else 'FAIL'}</td>"
         f"<td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td>"
-        f"<td>{html_escape('抓取成功但 0 条，可能是暂无新内容或页面结构需继续适配' if item.get('ok') and int(item.get('count') or 0) == 0 else item.get('message'))}</td></tr>"
+        f"<td>{html_escape(item.get('message') if item.get('message') and item.get('message') != 'ok' else ('抓取成功但 0 条，可能是暂无新内容或页面结构需继续适配' if item.get('ok') and int(item.get('count') or 0) == 0 else item.get('message')))}</td></tr>"
         for item in cn_group.get("journals", [])
+    ]
+    publisher_rows = [
+        f"<tr><td>{html_escape(item.get('publisher'))}</td>"
+        f"<td>{html_escape(item.get('attempted'))}</td>"
+        f"<td>{html_escape(item.get('ab_dates'))} / {html_escape(item.get('attempted'))} ({float(item.get('success_rate') or 0):.1%})</td>"
+        f"<td>{html_escape(item.get('changed'))}</td>"
+        f"<td>{html_escape(item.get('failures'))}</td>"
+        f"<td>{html_escape(item.get('message'))}</td></tr>"
+        for item in publisher_group.get("publishers", [])
     ]
     candidate_rows = [
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
@@ -427,6 +437,9 @@ def main() -> None:
   <h2>日期可信度</h2>
   <ul>{confidence_counts}</ul>
   {table(date_evidence_rows, ["日期", "论文", "期刊", "前台显示", "完整证据链"])}
+  <h2>出版社在线日期解析</h2>
+  <p class="muted">按出版社统计详情页解析结果；A/B 日期覆盖率越高，说明 online date/accepted date 越稳定。</p>
+  {table(publisher_rows, ["出版社", "尝试", "A/B 日期覆盖", "本轮更新", "失败/受限", "最近状态"])}
   </section>
 
   <section class="section">

@@ -10,12 +10,13 @@ from __future__ import annotations
 import argparse
 import html as html_lib
 import re
+from collections import Counter
 from datetime import date
 from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, fetch_text, read_json, today_str, write_json
-from status import record_source
+from status import load_status, now, record_source, save_status
 
 
 MONTHS = {
@@ -141,6 +142,9 @@ def extract_page_metadata(html: str) -> dict[str, str]:
 
 
 def should_enrich(record: dict[str, Any]) -> bool:
+    source_type = str(record.get("source_type") or "")
+    if str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}:
+        return False
     if record.get("date_confidence") == "A" and record.get("accepted_date"):
         return False
     url = record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else None)
@@ -164,6 +168,29 @@ def candidate_urls(record: dict[str, Any]) -> list[str]:
         if doi.startswith("10.1111/") or doi.startswith("10.1002/"):
             urls.append(f"https://onlinelibrary.wiley.com/doi/full/{doi}")
     return list(dict.fromkeys(urls))
+
+
+def publisher_bucket(record: dict[str, Any]) -> str:
+    doi = str(record.get("doi") or "").strip().lower()
+    url = " ".join(str(record.get(key) or "").lower() for key in ("url", "source_url"))
+    journal = str(record.get("journal") or "").lower()
+    haystack = f"{doi} {url} {journal}"
+    if doi.startswith("10.1016/") or "sciencedirect.com" in haystack or "elsevier" in haystack:
+        return "Elsevier"
+    if doi.startswith("10.1080/") or "tandfonline.com" in haystack or "taylor" in haystack:
+        return "Taylor & Francis"
+    if doi.startswith(("10.1111/", "10.1002/")) or "onlinelibrary.wiley.com" in haystack or "wiley" in haystack:
+        return "Wiley"
+    if doi.startswith("10.1093/") or "academic.oup.com" in haystack or "oxford" in haystack:
+        return "OUP"
+    return "Other"
+
+
+def has_ab_date(record: dict[str, Any]) -> bool:
+    confidence = str(record.get("date_confidence") or "")
+    return confidence in {"A", "B"} and bool(
+        record.get("available_online") or record.get("published_online") or record.get("accepted_date")
+    )
 
 
 def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
@@ -190,7 +217,40 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
             record[field] = value
             changed = True
     changed = correct_tandf_date(record) or changed
-    return changed, "updated" if changed else "unchanged"
+    return changed, "updated" if changed else "metadata-unchanged"
+
+
+def record_publisher_group(stats: dict[str, dict[str, Any]]) -> None:
+    status = load_status()
+    publishers = []
+    for core_publisher in ("Elsevier", "Taylor & Francis", "Wiley", "OUP"):
+        stats.setdefault(
+            core_publisher,
+            {"attempted": 0, "changed": 0, "ab_dates": 0, "failures": 0, "status_counts": Counter()},
+        )
+    for publisher, item in sorted(stats.items()):
+        attempted = int(item.get("attempted") or 0)
+        ab_dates = int(item.get("ab_dates") or 0)
+        failures = int(item.get("failures") or 0)
+        status_counts = item.get("status_counts") or {}
+        top_status = ", ".join(f"{key}:{value}" for key, value in Counter(status_counts).most_common(4))
+        publishers.append(
+            {
+                "publisher": publisher,
+                "attempted": attempted,
+                "changed": int(item.get("changed") or 0),
+                "ab_dates": ab_dates,
+                "success_rate": round(ab_dates / attempted, 4) if attempted else 0,
+                "failures": failures,
+                "statuses": dict(sorted(status_counts.items())),
+                "message": top_status,
+            }
+        )
+    status.setdefault("source_groups", {})["publisher-detail"] = {
+        "updated_at": now(),
+        "publishers": publishers,
+    }
+    save_status(status)
 
 
 def correct_tandf_date(record: dict[str, Any]) -> bool:
@@ -231,24 +291,42 @@ def main() -> None:
     records = read_json(path, [])
     attempted = changed = 0
     messages: list[str] = []
+    publisher_stats: dict[str, dict[str, Any]] = {}
     for record in records:
         if attempted >= args.limit:
             break
         if not should_enrich(record):
             continue
         attempted += 1
+        bucket = publisher_bucket(record)
+        stats = publisher_stats.setdefault(
+            bucket,
+            {"attempted": 0, "changed": 0, "ab_dates": 0, "failures": 0, "status_counts": Counter()},
+        )
+        stats["attempted"] += 1
         try:
             did_change, status = enrich_record(record, args.timeout)
             changed += int(did_change)
+            stats["changed"] += int(did_change)
+            stats["status_counts"][status] += 1
+            record_has_ab_date = has_ab_date(record)
+            if record_has_ab_date:
+                stats["ab_dates"] += 1
+            if not record_has_ab_date and status not in {"updated", "metadata-unchanged", "tandf-date-corrected"}:
+                stats["failures"] += 1
             if status not in {"no-dates", "no-metadata"}:
                 messages.append(f"{record.get('journal')}: {status}")
         except Exception as exc:  # noqa: BLE001
-            messages.append(f"{record.get('journal')}: {type(exc).__name__}")
+            error_name = type(exc).__name__
+            stats["failures"] += 1
+            stats["status_counts"][error_name] += 1
+            messages.append(f"{record.get('journal')}: {error_name}")
             continue
 
     if changed:
         write_json(path, records)
     record_source("publisher-detail", ok=True, count=changed, message=f"attempted={attempted}; " + "; ".join(messages[-20:]))
+    record_publisher_group(publisher_stats)
     print(f"publisher detail attempted={attempted} changed={changed}")
 
 

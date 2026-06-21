@@ -31,6 +31,7 @@ from status import load_status, now, record_source, save_status
 
 DETAIL_LIMIT = 0
 DETAIL_ATTEMPTED = 0
+GLSJ_LAST_NOTE = ""
 
 CN_HOME_URLS = {
     "journal-f69300dae2": "https://zgncjj.ajcass.com/#/",
@@ -38,7 +39,7 @@ CN_HOME_URLS = {
     "journal-ba9f46c919": "https://erj.ajcass.com/#/",
     "journal-379b4022ce": "https://glsj.chinajournal.net.cn/WKB/WebPublication/index.aspx?mid=glsj",
     "journal-bf2aa9381f": "http://ciejournal.ajcass.com/?jumpnotice=201606280001",
-    "journal-edcb877d78": "https://www.jqte.net/sljjjsjjyj/ch/index.aspx",
+    "journal-edcb877d78": "http://www.jqte.net/sljjjsjjyj/ch/index.aspx",
 }
 
 AJCASS_JOURNAL_IDS = {
@@ -105,14 +106,14 @@ def fetch_text_partial(url: str, timeout: int = 25, max_bytes: int = 300_000) ->
     if url.startswith("https://"):
         contexts.append(ssl._create_unverified_context())
     last_error: Exception | None = None
-    for context in contexts:
+    def read_with(open_func: Any, context: Any = None) -> str | None:
         payload = bytearray()
         charset = None
         try:
             open_kwargs = {"timeout": timeout}
             if context is not None:
                 open_kwargs["context"] = context
-            with urllib.request.urlopen(request, **open_kwargs) as response:  # type: ignore[arg-type]
+            with open_func(request, **open_kwargs) as response:  # type: ignore[arg-type]
                 charset = response.headers.get_content_charset()
                 while len(payload) < max_bytes:
                     try:
@@ -125,9 +126,24 @@ def fetch_text_partial(url: str, timeout: int = 25, max_bytes: int = 300_000) ->
             if payload:
                 return decode_payload(bytes(payload), charset)
         except Exception as exc:  # noqa: BLE001
+            nonlocal last_error
             last_error = exc
             if payload:
                 return decode_payload(bytes(payload), charset)
+        return None
+
+    for context in contexts:
+        result = read_with(urllib.request.urlopen, context)
+        if result is not None:
+            return result
+    for context in contexts:
+        handlers: list[Any] = [urllib.request.ProxyHandler({})]
+        if context is not None:
+            handlers.append(urllib.request.HTTPSHandler(context=context))
+        opener = urllib.request.build_opener(*handlers)
+        result = read_with(opener.open)
+        if result is not None:
+            return result
     if last_error:
         raise last_error
     return ""
@@ -568,10 +584,16 @@ def parse_ajcass_api(journal: dict[str, Any], limit: int) -> list[dict[str, Any]
 
 
 def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
-    base = "https://glsj.chinajournal.net.cn/WKB/WebPublication/"
+    base = "https://glsj.cbpt.cnki.net/WKB2/WebPublication/"
     cookie_jar = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
-    headers = {"User-Agent": "Mozilla/5.0", "Referer": base + "index.aspx?mid=glsj"}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/125 Safari/537.36",
+        "Referer": base + "index.aspx?mid=glsj",
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    }
     opener.open(urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers), timeout=20).read()
     records: list[dict[str, Any]] = []
     latest_page = ""
@@ -711,10 +733,18 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
     The CNKI/CBPT site often returns a validation page. In that case we fail
     fast instead of looping over old issues and slowing every monitor run.
     """
-    base = "https://glsj.chinajournal.net.cn/WKB/WebPublication/"
+    global GLSJ_LAST_NOTE
+    GLSJ_LAST_NOTE = ""
+    base = "https://glsj.cbpt.cnki.net/WKB2/WebPublication/"
     cookie_jar = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
-    headers = {"User-Agent": "Mozilla/5.0", "Referer": base + "index.aspx?mid=glsj"}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/125 Safari/537.36",
+        "Referer": base + "index.aspx?mid=glsj",
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    }
     records: list[dict[str, Any]] = []
     try:
         opener.open(urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers), timeout=8).read()
@@ -735,6 +765,21 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
         latest_endpoint = endpoint
         break
     if not latest_page:
+        previous_year = current_year - 1
+        for issue in range(12, 0, -1):
+            endpoint = f"getThisIssuePaperInfo.ashx?y={previous_year}&i={issue}"
+            try:
+                page = opener.open(urllib.request.Request(base + endpoint, headers=headers), timeout=4).read().decode("utf-8", errors="replace")
+            except Exception:
+                continue
+            if "showValidateCode.aspx" in page or "login.css" in page:
+                GLSJ_LAST_NOTE = "captcha-or-validation"
+                return records
+            count = page.count("paperDigest.aspx")
+            if count:
+                GLSJ_LAST_NOTE = f"current-year-empty; previous-latest {previous_year}-{issue:02d} has {count} papers excluded"
+                return records
+        GLSJ_LAST_NOTE = "current-year-empty"
         return records
     blocks = re.findall(r"<li>\s*<h3>[\s\S]*?</li>", latest_page, flags=re.I)
     for block in blocks:
@@ -801,7 +846,11 @@ def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[d
         return records, "ajcass-api" if records else "ajcass-api-empty"
     if journal_id == "journal-379b4022ce":
         records = fetch_glsj(journal, limit)
-        return records, "glsj-ajax" if records else "glsj-captcha-or-empty"
+        if records:
+            return records, "glsj-ajax"
+        if GLSJ_LAST_NOTE:
+            return records, f"glsj-current-year-empty, {GLSJ_LAST_NOTE}"
+        return records, "glsj-captcha-or-empty"
 
     html_text = fetch_text_partial(url, timeout=25)
     if journal_id == "journal-679eaa2a0c":
@@ -863,7 +912,7 @@ def main() -> None:
                     mode = f"{mode}, {note}"
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
-            source_ok = not (journal_id == "journal-379b4022ce" and not fetched)
+            source_ok = not (journal_id == "journal-379b4022ce" and not fetched and "current-year-empty" not in mode)
             journal_summaries.append(
                 {
                     "journal_id": journal_id,
@@ -872,7 +921,7 @@ def main() -> None:
                     "count": len(fetched),
                     "mode": mode,
                     "message": (
-                        "CBPT/CNKI returned captcha or no current-year issue list; needs authenticated or alternate source"
+                        "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source"
                         if not source_ok
                         else f"{len(fetched)} via {mode}"
                     ),
@@ -892,7 +941,8 @@ def main() -> None:
             )
 
     write_json(output, records)
-    ok = any(not msg.endswith("empty") for msg in messages) and bool(records)
+    write_json(output.with_suffix(".status.json"), journal_summaries)
+    ok = any(item.get("ok") for item in journal_summaries)
     if DETAIL_LIMIT:
         messages.append(f"detail-attempted={DETAIL_ATTEMPTED}/{DETAIL_LIMIT}")
     record_source("cn-journals", ok=ok, count=len(records), message="; ".join(messages))

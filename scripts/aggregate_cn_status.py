@@ -34,19 +34,21 @@ def main() -> None:
         journal = journals.get(journal_id, {})
         path = args.raw_dir / f"{args.date}-{journal_id}.json"
         payload = read_json(path, None)
+        status_payload = read_json(path.with_suffix(".status.json"), [])
         exists = isinstance(payload, list)
         if exists:
             found_outputs += 1
         count = len(payload) if exists else 0
         total += count
+        status_item = status_payload[0] if isinstance(status_payload, list) and status_payload else {}
         rows.append(
             {
                 "journal_id": journal_id,
                 "journal": journal.get("title") or journal_id,
-                "ok": exists,
+                "ok": bool(status_item.get("ok")) if status_item else exists,
                 "count": count,
-                "mode": "official-source",
-                "message": "ok" if exists else "missing output",
+                "mode": status_item.get("mode") or "official-source",
+                "message": status_item.get("message") or ("ok" if exists else "missing output"),
             }
         )
 
