@@ -434,7 +434,7 @@ def working_paper_sources_body(records: list[dict[str, Any]]) -> str:
   <span class="stat"><strong>{partial}</strong><span>待增强来源</span></span>
   <span class="stat"><strong>{failed}</strong><span>失败/受限来源</span></span>
 </section>
-<div class="empty home-note">抓取结果会写入 <code>data/raw/working_papers/</code>，并复用现有去重、翻译和“与中国相关”识别流程。失败来源不会阻断其他来源更新。</div>
+<div class="empty home-note">优先接入公开元数据稳定的工作论文与政策研究来源。</div>
 <table class="journal-table"><thead><tr><th>来源</th><th>类型</th><th>阶段</th><th>状态/下一步</th><th>本轮</th><th>今日新增</th><th>累计</th><th>最近更新</th><th>入口</th></tr></thead><tbody>{"".join(rows)}</tbody></table>"""
 
 
@@ -891,9 +891,11 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     all_working = working_paper_records(records)
     s = stats(records, today_records, flow_records)
     flow_date = today_str() if today_records else (latest_day or today_str())
-    journal_note = "来自 TOP 经济学期刊监测清单的今日新发现。"
-    working_note = "覆盖 NBER、IZA、World Bank、IMF、Fed、BIS、OECD、CEPR、CESifo 与 RePEc NEP 等来源。"
-    note = '<div class="empty home-note">日期口径：今日新发现按本站首次监测时间统计；在线日期以出版社或来源页显示为准。</div>'
+    journal_note = ""
+    working_note = ""
+    journal_note_html = f"<p>{journal_note}</p>" if journal_note else ""
+    working_note_html = f"<p>{working_note}</p>" if working_note else ""
+    note = ""
     return f"""<section class="banner">
   <div class="banner-main">
       <div class="hero-layout">
@@ -909,14 +911,13 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
           <a class="hero-stat china" href="{BASE}/working-papers/china/"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
           <a class="hero-stat" href="{BASE}/sources/working-papers/"><strong>{len(load_working_paper_sources())}</strong><span>工作论文来源</span></a>
         </div>
-        <div class="operator-line">期刊论文与工作论文分开统计；由 <strong>学术传送门</strong> 维护。</div>
       </div>
       <aside class="operator-card">
         <img src="{BASE}/assets/academic-portal-qr.jpg" alt="学术传送门二维码">
         <div>
           <strong>学术传送门</strong>
-          <span>读好文献，用好论文</span>
-          <em>扫码关注公众号</em>
+          <span>本站由学术传送门运营</span>
+          <em>读好文献，用好论文</em>
         </div>
       </aside>
       </div>
@@ -933,11 +934,11 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
   <a class="stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
 </section>
-<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" id="flowCounter"></span></h2><p>{journal_note}</p></div><p>{html_escape(flow_date)}</p></section>
+<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" id="flowCounter"></span></h2>{journal_note_html}</div><p>{html_escape(flow_date)}</p></section>
 {filter_toolbar(journal_flow_records, include_rss=True)}
 {note}
 {paper_events(journal_flow_records)}
-<section class="section-head"><div><h2>今日工作论文</h2><p>{working_note} 不含上方 TOP 期刊论文。</p></div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
+<section class="section-head"><div><h2>今日工作论文</h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
 {paper_events(working_flow_records, limit=12).replace('class="event"', 'class="event home-wp-preview"')}
 {FILTER_SCRIPT}
 """
