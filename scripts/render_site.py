@@ -90,7 +90,7 @@ STYLE = """
 .shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
 .content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:26px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
@@ -572,6 +572,72 @@ def public_date_line(record: dict[str, Any]) -> str:
     return f"{public_date_label(record)} {official_date(record)} · 来源：{date_source_label(record)}"
 
 
+def archive_official_date_summary(records: list[dict[str, Any]]) -> str:
+    dates = sorted(
+        {
+            str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("issue_date") or "")
+            for record in records
+            if str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("issue_date") or "").count("-") == 2
+        }
+    )
+    if not dates:
+        return "待解析"
+    if len(dates) == 1:
+        return dates[0]
+    return f"{dates[0]} 至 {dates[-1]}"
+
+
+def hourly_journal_count() -> int:
+    path = DATA_DIR / "monitor_tiers.yml"
+    if not path.exists():
+        return 0
+    count = 0
+    in_hourly = False
+    for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = raw_line.rstrip()
+        stripped = line.strip()
+        if stripped == "hourly:":
+            in_hourly = True
+            continue
+        if in_hourly and stripped and not stripped.startswith("- "):
+            break
+        if in_hourly and stripped.startswith("- "):
+            count += 1
+    return count
+
+
+def working_source_stage_count(max_stage: int) -> int:
+    count = 0
+    for source in load_working_paper_sources():
+        try:
+            stage = int(source.get("stage") or 99)
+        except (TypeError, ValueError):
+            stage = 99
+        if stage <= max_stage and str(source.get("status") or "active") != "paused":
+            count += 1
+    return count
+
+
+def monitor_summary_cards(records: list[dict[str, Any]], today_records: list[dict[str, Any]] | None = None) -> str:
+    status = load_status()
+    workflow = status.get("workflow") or {}
+    journals = load_journals(DATA_DIR / "journals.yml")
+    today_total = len(today_records if today_records is not None else [record for record in records if detected_date(record) == today_str()])
+    light_journals = hourly_journal_count()
+    light_sources = working_source_stage_count(1)
+    full_journals = len(journals)
+    full_sources = working_source_stage_count(2)
+    return f"""<section class="audit-grid">
+  <div class="audit-card"><strong>快速监测</strong><span>最近运行：{html_escape(beijing_stamp(workflow.get('last_light_finished_at')))}</span></div>
+  <div class="audit-card"><strong>{light_journals}</strong><span>快速监测期刊</span></div>
+  <div class="audit-card"><strong>{light_sources}</strong><span>快速监测工作论文源</span></div>
+  <div class="audit-card"><strong>全量监测</strong><span>最近运行：{html_escape(beijing_stamp(workflow.get('last_full_finished_at')))}</span></div>
+  <div class="audit-card"><strong>{full_journals}</strong><span>全量监测期刊</span></div>
+  <div class="audit-card"><strong>{full_sources}</strong><span>全量监测工作论文源</span></div>
+  <div class="audit-card"><strong>{today_total}</strong><span>今日新发现记录</span></div>
+</section>"""
+
+
 def sidebar(
     records: list[dict[str, Any]],
     *,
@@ -961,7 +1027,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
           <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
           <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>{len(working_flow_records)}</strong><span>今日工作论文新发现</span></a>
           <a class="hero-stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
-          <a class="hero-stat" href="{BASE}/archive/"><strong>{s['all_records']}</strong><span>累计监测记录</span></a>
+          <a class="hero-stat duo" href="{BASE}/archive/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>{all_journal_count}</strong><em>期刊论文</em></div><div><strong>{len(all_working)}</strong><em>工作论文</em></div></div></a>
         </div>
       </div>
       <aside class="operator-card">
@@ -1141,9 +1207,11 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     wp_sources = [source_id for source_id in sources if str(source_id).startswith("working-paper:")]
     low_confidence = sum(1 for record in records if (record.get("date_confidence") or "F") in {"D", "F", "unknown"})
     china_count = sum(1 for record in records if is_china_related(record))
+    today_records = [record for record in records if detected_date(record) == today_str()]
     body = f"""<section class="section-head">
   <div><h2>线上后台状态</h2><p>GitHub Pages 无法提供真正登录鉴权；这里仅发布公开安全摘要，敏感审核仍使用本地后台。</p></div>
 </section>
+{monitor_summary_cards(records, today_records)}
 <section class="audit-grid">
   <div class="audit-card"><strong>{len(records)}</strong><span>累计监测记录</span></div>
   <div class="audit-card"><strong>{china_count}</strong><span>已确认中国相关</span></div>
@@ -1307,10 +1375,14 @@ def main() -> None:
             by_topic[topic].append(record)
 
     archive_links = []
+    archive_rows = []
     for daily_date, daily_records in sorted(by_date.items(), reverse=True):
+        journal_count = sum(1 for record in daily_records if not is_working_paper(record))
+        working_count = sum(1 for record in daily_records if is_working_paper(record))
+        official_summary = archive_official_date_summary(daily_records)
         body = (
             f'<section class="section-head"><div><h2>{html_escape(daily_date)} 监测记录</h2>'
-            f'<p>支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section>'
+            f'<p>本站首次监测日期：{html_escape(daily_date)}；官方/在线日期范围：{html_escape(official_summary)}。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section>'
             f'{filter_toolbar(daily_records)}{paper_events(daily_records)}{FILTER_SCRIPT}'
         )
         write_page(
@@ -1318,6 +1390,15 @@ def main() -> None:
             page(f"{daily_date} 归档", records, body, active="archive", sidebar_records=daily_records, sidebar_date=daily_date),
         )
         archive_links.append(f'<li><a href="{BASE}/daily/{html_escape(daily_date)}/">{html_escape(daily_date)}</a> ({len(daily_records)})</li>')
+        archive_rows.append(
+            f"""<tr>
+  <td><a href="{BASE}/daily/{html_escape(daily_date)}/">{html_escape(daily_date)}</a></td>
+  <td>{html_escape(official_summary)}</td>
+  <td>{journal_count}</td>
+  <td>{working_count}</td>
+  <td>{len(daily_records)}</td>
+</tr>"""
+        )
 
     journals = load_journals(DATA_DIR / "journals.yml")
     journals_by_id = {journal["id"]: journal for journal in journals}
@@ -1394,7 +1475,12 @@ def main() -> None:
             page(f"{title} 最近 7 天", records, recent_body, sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
         )
 
-    archive_body = '<section class="section-head"><div><h2>历史归档</h2><p>按本站首次监测日期整理。</p></div></section><ul class="archive-list">' + "\n".join(archive_links) + "</ul>"
+    archive_body = (
+        '<section class="section-head"><div><h2>历史归档</h2><p>按本站首次监测日期整理，同时展示当日记录中的官方/在线日期范围。</p></div></section>'
+        '<table class="journal-table"><thead><tr><th>首次监测日期</th><th>官方/在线日期范围</th><th>期刊论文</th><th>工作论文</th><th>合计</th></tr></thead><tbody>'
+        + "\n".join(archive_rows)
+        + "</tbody></table>"
+    )
     write_page(args.docs_dir / "archive" / "index.html", page("历史归档", records, archive_body, active="archive"))
     print(f"rendered {len(records)} records into {args.docs_dir}")
 

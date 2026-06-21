@@ -9,7 +9,7 @@ from collections import Counter
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, ROOT, html_escape, read_json, write_text
+from common import BEIJING_TZ, DATA_DIR, ROOT, html_escape, load_journals, read_json, write_text
 from status import load_status
 
 
@@ -80,6 +80,50 @@ def daily_counts() -> list[tuple[str, int]]:
         payload = read_json(path, [])
         rows.append((path.stem, len(payload) if isinstance(payload, list) else 0))
     return rows
+
+
+def hourly_journal_count() -> int:
+    path = DATA_DIR / "monitor_tiers.yml"
+    if not path.exists():
+        return 0
+    count = 0
+    in_hourly = False
+    for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        stripped = raw_line.strip()
+        if stripped == "hourly:":
+            in_hourly = True
+            continue
+        if in_hourly and stripped and not stripped.startswith("- "):
+            break
+        if in_hourly and stripped.startswith("- "):
+            count += 1
+    return count
+
+
+def working_source_stage_count(max_stage: int) -> int:
+    path = DATA_DIR / "working_paper_sources.yml"
+    if not path.exists():
+        return 0
+    count = 0
+    current_stage: int | None = None
+    current_status = "active"
+    for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        stripped = raw_line.strip()
+        if stripped.startswith("- id:"):
+            if current_stage is not None and current_stage <= max_stage and current_status != "paused":
+                count += 1
+            current_stage = None
+            current_status = "active"
+        elif stripped.startswith("stage:"):
+            try:
+                current_stage = int(stripped.split(":", 1)[1].strip())
+            except ValueError:
+                current_stage = None
+        elif stripped.startswith("status:"):
+            current_status = stripped.split(":", 1)[1].strip().strip('"').strip("'")
+    if current_stage is not None and current_stage <= max_stage and current_status != "paused":
+        count += 1
+    return count
 
 
 def has_chinese(value: str | None) -> bool:
@@ -218,6 +262,11 @@ def main() -> None:
     )
     by_source = Counter(record.get("source") or "unknown" for record in records)
     by_confidence = Counter(record.get("date_confidence") or "unknown" for record in records)
+    today_total = sum(1 for record in records if record.get("_daily_date") == datetime.now(BEIJING_TZ).date().isoformat())
+    light_journal_count = hourly_journal_count()
+    light_working_source_count = working_source_stage_count(1)
+    full_journal_count = len(load_journals(DATA_DIR / "journals.yml"))
+    full_working_source_count = working_source_stage_count(2)
 
     health: list[str] = []
     failures = [key for key, item in sources.items() if not item.get("ok")]
@@ -330,6 +379,11 @@ def main() -> None:
     <div class="card"><strong>{html_escape(cn_group.get('count', 0))}</strong><span>中文期刊本轮抓取</span></div>
     <div class="card"><strong>{html_escape(workflow.get('mode_label') or '暂无')}</strong><span>最近监测类型</span></div>
     <div class="card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
+    <div class="card"><strong>{html_escape(beijing_stamp(workflow.get('last_light_finished_at')))}</strong><span>快速监测最近完成</span></div>
+    <div class="card"><strong>{light_journal_count} / {light_working_source_count}</strong><span>快速监测覆盖：期刊 / 工作论文源</span></div>
+    <div class="card"><strong>{html_escape(beijing_stamp(workflow.get('last_full_finished_at')))}</strong><span>全量监测最近完成</span></div>
+    <div class="card"><strong>{full_journal_count} / {full_working_source_count}</strong><span>全量监测覆盖：期刊 / 工作论文源</span></div>
+    <div class="card"><strong>{today_total}</strong><span>今日新发现记录</span></div>
   </div>
 
   <section class="section">

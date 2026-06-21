@@ -279,9 +279,8 @@ def main() -> None:
                     "china_related": None,
                     "china_related_source": None,
                     "china_relevance_status": "none",
+                    "china_relevance_reason": reason or None,
                 }
-                if reason:
-                    updates["china_relevance_reason"] = reason
             for key, value in updates.items():
                 if value is None:
                     if key in record:
