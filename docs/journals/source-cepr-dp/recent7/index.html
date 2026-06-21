@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CEPR Discussion Papers 最近 7 天</title>
+  
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
 *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
@@ -16,8 +17,9 @@
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
 .event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
+.audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{display:block}.operator-card{margin-top:18px;max-width:220px}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -32,9 +34,11 @@
     <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
     <a class="side-link" href="../../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
     <a class="side-link" href="../../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../../quality/china-relevance/"><span class="side-main"><strong>中国相关抽检</strong></span><span class="count">QA</span></a>
+    <a class="side-link" href="../../../admin/status/"><span class="side-main"><strong>线上后台</strong></span><span class="count">Admin</span></a>
   </div>
-  <div class="side-block"><div class="side-title">2026-06-19 文章主题</div><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">9</span></a><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">7</span></a><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">5</span></a><a class="side-link" href="../../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">3</span></a><a class="side-link" href="../../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">3</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/econometrics/"><span class="side-main"><strong>计量方法</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/urban/"><span class="side-main"><strong>城市与区域</strong></span><span class="count">1</span></a></div>
-  <div class="side-block"><div class="side-title">2026-06-19 涉及期刊</div><a class="side-link" href="../../../daily/2026-06-19/?journal=source-cepr-dp"><span class="side-main"><strong>CEPR Discussion Papers</strong><em>CEPR 讨论论文</em></span><span class="count">14</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
+  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/health/"><span class="side-main"><strong>健康</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">今日涉及期刊</div><a class="side-link" href="../../../daily/2026-06-21/?journal=source-cepr-dp"><span class="side-main"><strong>CEPR Discussion Papers</strong><em>CEPR 讨论论文</em></span><span class="count">1</span></a><a class="side-link" href="../../../journals/"><span class="side-main"><strong>查看完整监测名单</strong></span><span class="count">All</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -45,188 +49,33 @@
           <a class="" href="../../../archive/">归档</a>
           <a href="../../../journals/">监测期刊</a>
           <a class="" href="../../../working-papers/">工作论文</a>
+          <a href="../../../quality/china-relevance/">质量抽检</a>
           <a href="../../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>CEPR Discussion Papers：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>14 篇</p></section><div class="toolbar">
-  <a class="control primary" href="../../../daily/2026-06-19/?journal=source-cepr-dp">最新日期 14</a>
-  <a class="control" href="../../../journals/source-cepr-dp/recent7/">最近 7 天 14</a>
-  <a class="control" href="../../../journals/source-cepr-dp/">全部历史 14</a>
+      <main class="wrap"><section class="section-head"><div><h2>CEPR Discussion Papers：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>1 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-06-21/?journal=source-cepr-dp">今日 1</a>
+  <a class="control" href="../../../journals/source-cepr-dp/recent7/">最近 7 天 1</a>
+  <a class="control" href="../../../journals/source-cepr-dp/">全部历史 1</a>
 </div><div class="toolbar" id="filters">
   <input class="control" id="searchInput" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" id="journalFilter"><option value="">筛选期刊</option><option value="source-cepr-dp">CEPR Discussion Papers</option></select>
-  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
-  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option><option value="first_seen">首次监测</option></select>
-  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="B">B 中：RSS/出版社备选日期</option><option value="F">F 待核：仅首次监测</option></select>
+  <select class="control" id="fieldFilter"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="health">健康</option><option value="development">发展经济学</option></select>
+  <select class="control" id="dateTypeFilter"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option></select>
+  <select class="control" id="confidenceFilter"><option value="">筛选可信度</option><option value="A">A 高：出版社/PDF 明确日期</option></select>
   <select class="control" id="sourceTypeFilter"><option value="">筛选来源类型</option><option value="working_paper">工作论文</option></select>
   <button class="control toggle" id="chinaToggle" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
-<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="dp21645 pension income and post-retirement labor supply dp21645 养老金收入与退休后劳动供给 fabian kindermann, sebastian kunz, manuel pannier, karoline ströhlein, fabian kindermann; sebastian kunz; manuel pannier; karoline ströhlein cepr discussion papers " data-journal="source-cepr-dp" data-fields="finance labor econometrics" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">16:50</div><div class="date-note">2026-06-19</div></div>
+<div class="empty" id="filterEmpty" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-search="dp21646 new evidence on the health-status gradient from imperial china dp21646 来自中华帝国关于健康状况梯度的新证据 wolfgang keller, carol shiue, karen eggleston, wolfgang keller; carol shiue; karen eggleston cepr discussion papers " data-journal="source-cepr-dp" data-fields="china development health inequality" data-china="true" data-online-today="false" data-date-type="available_online" data-confidence="A" data-source-type="working_paper">
+  <div><div class="time">13:28</div><div class="date-note">2026-06-21</div></div>
   <div>
-    <h3><a href="https://cepr.org/publications/dp21645">DP21645 Pension Income and Post-Retirement Labor Supply</a></h3>
-    <p class="title-zh">DP21645 养老金收入与退休后劳动供给</p>
-    <p class="authors">Fabian Kindermann, Sebastian Kunz, Manuel Pannier, Karoline Ströhlein, Fabian Kindermann; Sebastian Kunz; Manuel Pannier; Karoline Ströhlein</p>
+    <h3><a href="https://cepr.org/publications/dp21646">DP21646 New Evidence on the Health-Status Gradient from Imperial China</a></h3>
+    <p class="title-zh">DP21646 来自中华帝国关于健康状况梯度的新证据</p>
+    <p class="authors">Wolfgang Keller, Carol Shiue, Karen Eggleston, Wolfgang Keller; Carol Shiue; Karen Eggleston</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-19 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21645">文章链接</a><span class="pill">金融</span><span class="pill">劳动</span><span class="pill">计量方法</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21642 does global financial transparency improve tax compliance in developing countries? dp21642 全球金融透明度是否提升了发展中国家的税收遵从度？ niels johannesen, nadine riedel, niels johannesen; nadine riedel cepr discussion papers " data-journal="source-cepr-dp" data-fields="finance public trade theory" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">16:34</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21642">DP21642 Does global financial transparency improve tax compliance in developing countries?</a></h3>
-    <p class="title-zh">DP21642 全球金融透明度是否提升了发展中国家的税收遵从度？</p>
-    <p class="authors">Niels Johannesen, Nadine Riedel, Niels Johannesen; Nadine Riedel</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-19 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21642">文章链接</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21641 households’ macroeconomic beliefs: the role of education dp21641 家庭宏观经济信念：教育的作用 jessica piccolo, alessia russo, eleonora granziera, efrem castelnuovo, jessica piccolo; alessia russo; eleonora granziera; efrem castelnuovo cepr discussion papers " data-journal="source-cepr-dp" data-fields="development finance macro labor" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">13:50</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/index%2Ephp/publications/dp21641">DP21641 Households’ Macroeconomic Beliefs: The Role of Education</a></h3>
-    <p class="title-zh">DP21641 家庭宏观经济信念：教育的作用</p>
-    <p class="authors">Jessica Piccolo, Alessia Russo, Eleonora Granziera, Efrem Castelnuovo, Jessica Piccolo; Alessia Russo; Eleonora Granziera; Efrem Castelnuovo</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-18 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/index%2Ephp/publications/dp21641">文章链接</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21633 u.s. monetary spillovers to emerging markets: both policy drivers and vulnerabilities matter dp21633 美国货币政策对新兴市场的溢出效应：政策驱动因素与脆弱性均至关重要  cepr discussion papers " data-journal="source-cepr-dp" data-fields="finance macro public" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
-  <div><div class="time">13:50</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21633">DP21633 U.S. Monetary Spillovers to Emerging Markets: Both Policy Drivers and Vulnerabilities Matter</a></h3>
-    <p class="title-zh">DP21633 美国货币政策对新兴市场的溢出效应：政策驱动因素与脆弱性均至关重要</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21633">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21632 seemingly anchored inflation expectations dp21632 看似锚定的通胀预期  cepr discussion papers " data-journal="source-cepr-dp" data-fields="macro" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
-  <div><div class="time">13:50</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21632">DP21632 Seemingly Anchored Inflation Expectations</a></h3>
-    <p class="title-zh">DP21632 看似锚定的通胀预期</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21632">文章链接</a><span class="pill">宏观与货币</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21631 anchors aweigh? the effect of communicating forecast uncertainty dp21631 锚定效应？沟通预测不确定性的影响  cepr discussion papers " data-journal="source-cepr-dp" data-fields="macro finance trade" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
-  <div><div class="time">13:50</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21631">DP21631 Anchors aweigh? The effect of communicating forecast uncertainty</a></h3>
-    <p class="title-zh">DP21631 锚定效应？沟通预测不确定性的影响</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21631">文章链接</a><span class="pill">宏观与货币</span><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21630 publication bias and p-hacking in the effect of covid-19 on learning dp21630 新冠疫情对学习影响的发表偏倚与p值操纵  cepr discussion papers " data-journal="source-cepr-dp" data-fields="public" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
-  <div><div class="time">13:50</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21630">DP21630 Publication Bias and P-Hacking in the Effect of COVID-19 on Learning</a></h3>
-    <p class="title-zh">DP21630 新冠疫情对学习影响的发表偏倚与P值操纵</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21630">文章链接</a><span class="pill">公共与政治经济学</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21640 monetary and fiscal policy when people have finite lives dp21640 人在有限生命期限内的货币与财政政策 roger farmer, pawel zabczyk, roger farmer; pawel zabczyk cepr discussion papers " data-journal="source-cepr-dp" data-fields="macro public behavior" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">04:31</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21640">DP21640 Monetary and Fiscal Policy when People Have Finite Lives</a></h3>
-    <p class="title-zh">DP21640 人在有限生命期限内的货币与财政政策</p>
-    <p class="authors">Roger Farmer, Pawel Zabczyk, Roger Farmer; Pawel Zabczyk</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-18 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21640">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21639 sanctions, financial frictions, and the organization of conflict dp21639 制裁、金融摩擦与冲突的组织 nicola limodio, lucas mariani, nicola limodio; lucas mariani cepr discussion papers " data-journal="source-cepr-dp" data-fields="finance public behavior" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">04:31</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21639">DP21639 Sanctions, Financial Frictions, and the Organization of Conflict</a></h3>
-    <p class="title-zh">DP21639 制裁、金融摩擦与冲突的组织</p>
-    <p class="authors">Nicola Limodio, Lucas Mariani, Nicola Limodio; Lucas Mariani</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-18 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21639">文章链接</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21638 the economic costs of religious riots in india dp21638 印度宗教骚乱的经济成本 sriya iyer, dmitrii petrukhin, anand shrivastava, sriya iyer; dmitrii petrukhin; anand shrivastava cepr discussion papers " data-journal="source-cepr-dp" data-fields="agriculture development finance labor" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">04:31</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21638">DP21638 The Economic Costs of Religious Riots in India</a></h3>
-    <p class="title-zh">DP21638 印度宗教骚乱的经济成本</p>
-    <p class="authors">Sriya Iyer, Dmitrii Petrukhin, Anand Shrivastava, Sriya Iyer; Dmitrii Petrukhin; Anand Shrivastava</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-18 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21638">文章链接</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21637 platform-controlled search and distortions in attention allocation dp21637 平台控制的搜索与注意力分配中的扭曲 xiaoming cai, pieter gautier, ronald wolthoff, xiaoming cai; pieter gautier; ronald wolthoff cepr discussion papers " data-journal="source-cepr-dp" data-fields="agriculture finance urban" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">04:31</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21637">DP21637 Platform-Controlled Search and Distortions in Attention Allocation</a></h3>
-    <p class="title-zh">DP21637 平台控制的搜索与注意力分配中的扭曲</p>
-    <p class="authors">Xiaoming Cai, Pieter Gautier, Ronald Wolthoff, Xiaoming Cai; Pieter Gautier; Ronald Wolthoff</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-17 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21637">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21636 the geography of market power: firm location, spatial rents, and their social costs dp21636 市场势力的地理分布：企业区位、空间租金及其社会成本 marleen marra, florian oswald, marleen marra; florian oswald cepr discussion papers " data-journal="source-cepr-dp" data-fields="finance public econometrics theory" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">04:31</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21636">DP21636 The Geography of Market Power: Firm Location, Spatial Rents, and Their Social Costs</a></h3>
-    <p class="title-zh">DP21636 市场势力的地理分布：企业区位、空间租金及其社会成本</p>
-    <p class="authors">Marleen Marra, Florian Oswald, Marleen Marra; Florian Oswald</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-17 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21636">文章链接</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21635 the commission paradox: evidence from prison telecommunications dp21635 委员会悖论：来自监狱电信的证据 marleen marra, nathan miller, gretchen sileo, marleen marra; nathan miller; gretchen sileo cepr discussion papers " data-journal="source-cepr-dp" data-fields="agriculture public theory firms" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="working_paper">
-  <div><div class="time">04:31</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21635">DP21635 The Commission Paradox: Evidence from Prison Telecommunications</a></h3>
-    <p class="title-zh">DP21635 委员会悖论：来自监狱电信的证据</p>
-    <p class="authors">Marleen Marra, Nathan Miller, Gretchen Sileo, Marleen Marra; Nathan Miller; Gretchen Sileo</p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-16 · 来源：出版社网页</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21635">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
-    </div>
-  </div>
-</article>
-<article class="event" data-search="dp21634 trapped at home: weather shocks, income, and international migration dp21634 困于家中：天气冲击、收入与国际移民  cepr discussion papers " data-journal="source-cepr-dp" data-fields="environment labor" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
-  <div><div class="time">04:31</div><div class="date-note">2026-06-19</div></div>
-  <div>
-    <h3><a href="https://cepr.org/publications/dp21634">DP21634 Trapped at Home: Weather Shocks, Income, and International Migration</a></h3>
-    <p class="title-zh">DP21634 困于家中：天气冲击、收入与国际移民</p>
-    <p class="authors"></p>
-    <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 待解析 · 来源：文章页面</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21634">文章链接</a><span class="pill">环境与气候</span><span class="pill">劳动</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-20 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21646">文章链接</a><span class="pill">发展经济学</span><span class="pill">健康</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
