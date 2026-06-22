@@ -10,12 +10,14 @@ from __future__ import annotations
 import argparse
 import html as html_lib
 import re
+import urllib.parse
+import urllib.request
 from collections import Counter
 from datetime import date
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, fetch_text, read_json, today_str, write_json
+from common import DATA_DIR, date_from_parts, fetch_json, fetch_text, read_json, today_str, write_json
 from status import load_status, now, record_source, save_status
 
 
@@ -90,6 +92,32 @@ def parse_meta(html: str) -> dict[str, str]:
     return meta
 
 
+def fetch_text_and_url(url: str, timeout: int) -> tuple[str, str]:
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/125 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    }
+    request = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        payload = response.read()
+        charset = response.headers.get_content_charset() or "utf-8"
+        final_url = response.geturl()
+    for encoding in (charset, "utf-8", "gb18030"):
+        try:
+            return payload.decode(encoding), final_url
+        except Exception:
+            continue
+    return payload.decode("utf-8", errors="replace"), final_url
+
+
+def extract_elsevier_pii(*values: str | None) -> str | None:
+    haystack = " ".join(value or "" for value in values)
+    haystack = urllib.parse.unquote(html_lib.unescape(haystack))
+    match = re.search(r"\b(S\d{14,18}[0-9X])\b", haystack, flags=re.I)
+    return match.group(1).upper() if match else None
+
+
 def extract_page_metadata(html: str) -> dict[str, str]:
     meta = parse_meta(html)
     text = clean_text(html)
@@ -141,6 +169,42 @@ def extract_page_metadata(html: str) -> dict[str, str]:
     return result
 
 
+def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
+    try:
+        payload = fetch_json(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}", timeout=timeout)
+        item = payload.get("message") or {}
+    except Exception:
+        return {}
+    published_online = date_from_parts(item.get("published-online"))
+    published = date_from_parts(item.get("published"))
+    published_print = date_from_parts(item.get("published-print"))
+    issued = date_from_parts(item.get("issued"))
+    created = date_from_parts(item.get("created"))
+    result: dict[str, str] = {}
+    if published_online:
+        result["available_online"] = published_online
+        result["published_online"] = published_online
+        result["date_source"] = "crossref_doi_published_online"
+        result["date_confidence"] = "C"
+    elif published:
+        result["issue_date"] = published
+        result["date_source"] = "crossref_doi_published"
+        result["date_confidence"] = "C"
+    elif published_print or issued:
+        result["issue_date"] = published_print or issued or ""
+        result["date_source"] = "crossref_doi_issue"
+        result["date_confidence"] = "D"
+    elif created:
+        result["issue_date"] = created
+        result["date_source"] = "crossref_doi_created"
+        result["date_confidence"] = "D"
+    abstract = item.get("abstract")
+    if abstract and len(clean_text(str(abstract))) > 80:
+        result["abstract"] = clean_text(str(abstract))
+        result["abstract_source"] = "crossref_doi"
+    return {key: value for key, value in result.items() if value}
+
+
 def should_enrich(record: dict[str, Any]) -> bool:
     source_type = str(record.get("source_type") or "")
     if str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}:
@@ -162,7 +226,9 @@ def candidate_urls(record: dict[str, Any]) -> list[str]:
         if doi.startswith("10.1080/"):
             urls.append(f"https://www.tandfonline.com/doi/full/{doi}")
         if doi.startswith("10.1016/"):
-            urls.append(f"https://www.sciencedirect.com/science/article/pii/{doi.rsplit('.', 1)[-1]}")
+            pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+            if pii:
+                urls.append(f"https://www.sciencedirect.com/science/article/pii/{pii}")
         if doi.startswith("10.1093/"):
             urls.append(f"https://academic.oup.com/search-results?page=1&q={doi}")
         if doi.startswith("10.1111/") or doi.startswith("10.1002/"):
@@ -199,9 +265,15 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
         return False, "missing-url"
     metadata: dict[str, str] = {}
     last_status = "no-metadata"
+    doi = str(record.get("doi") or "").strip()
+    resolved_elsevier_pii = False
     for url in urls:
         try:
-            html = fetch_text(str(url), timeout=timeout)
+            html, final_url = fetch_text_and_url(str(url), timeout)
+            pii = extract_elsevier_pii(final_url, html) if doi.startswith("10.1016/") else None
+            if pii and record.get("pii") != pii:
+                record["pii"] = pii
+                resolved_elsevier_pii = True
             metadata = extract_page_metadata(html)
             if metadata:
                 break
@@ -210,13 +282,26 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
             continue
     changed = False
     if not metadata:
-        changed = correct_tandf_date(record)
-        return changed, "tandf-date-corrected" if changed else last_status
+        if doi:
+            metadata = crossref_doi_metadata(doi, timeout)
+            if metadata:
+                last_status = "crossref-doi-fallback"
+        if resolved_elsevier_pii:
+            changed = True
+        if not metadata:
+            changed = correct_tandf_date(record) or changed
+            if changed and resolved_elsevier_pii:
+                return changed, "elsevier-pii-only"
+            return changed, "tandf-date-corrected" if changed else last_status
     for field, value in metadata.items():
         if value and record.get(field) != value:
             record[field] = value
             changed = True
     changed = correct_tandf_date(record) or changed
+    if resolved_elsevier_pii and not changed:
+        changed = True
+    if last_status == "crossref-doi-fallback":
+        return changed, "crossref-doi-fallback"
     return changed, "updated" if changed else "metadata-unchanged"
 
 

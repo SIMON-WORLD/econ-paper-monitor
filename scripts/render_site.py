@@ -594,6 +594,9 @@ def archive_official_date_summary(records: list[dict[str, Any]]) -> str:
         }
     )
     if not dates:
+        issues = sorted({str(record.get("source_issue") or "") for record in records if record.get("source_issue")})
+        if issues:
+            return "来源期次：" + ("、".join(issues[:3]) + (" 等" if len(issues) > 3 else ""))
         return "待解析"
     if len(dates) == 1:
         return dates[0]
