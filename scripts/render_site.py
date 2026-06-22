@@ -224,6 +224,19 @@ def is_working_paper(record: dict[str, Any]) -> bool:
     return str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}
 
 
+def is_today_home_flow_record(record: dict[str, Any]) -> bool:
+    """Keep the homepage focused on fresh signals, not low-confidence issue backfill."""
+    if detected_date(record) != today_str():
+        return False
+    if (
+        str(record.get("source") or "") == "cn-official"
+        and str(record.get("date_source") or "") == "issue_only"
+        and str(record.get("date_confidence") or "") in {"D", "F", "unknown", ""}
+    ):
+        return False
+    return True
+
+
 def display_key(record: dict[str, Any]) -> str:
     for key in ("doi", "id", "url"):
         value = record.get(key)
@@ -1000,7 +1013,7 @@ def topic_view_links(topic: str, topic_records: list[dict[str, Any]], today_reco
 
 
 def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
-    flow_records = today_records
+    flow_records = [record for record in today_records if is_today_home_flow_record(record)]
     journal_flow_records = [record for record in flow_records if not is_working_paper(record)]
     working_flow_records = [record for record in flow_records if is_working_paper(record)]
     all_working = working_paper_records(records)
@@ -1275,7 +1288,7 @@ def main() -> None:
 
     records = load_all_daily(args.daily_dir)
     today_records = [record for record in records if detected_date(record) == today_str()]
-    home_flow_records = today_records
+    home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
     home_flow_date = today_str()
     write_page(
         args.docs_dir / "index.html",
