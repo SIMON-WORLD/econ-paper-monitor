@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import html as html_lib
+import os
 import re
 import urllib.parse
 import urllib.request
@@ -205,6 +206,115 @@ def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
     return {key: value for key, value in result.items() if value}
 
 
+def openalex_abstract(index: Any) -> str | None:
+    if not isinstance(index, dict):
+        return None
+    positions: list[tuple[int, str]] = []
+    for word, indexes in index.items():
+        if not isinstance(indexes, list):
+            continue
+        for pos in indexes:
+            try:
+                positions.append((int(pos), str(word)))
+            except Exception:
+                continue
+    if not positions:
+        return None
+    return " ".join(word for _, word in sorted(positions))
+
+
+def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
+    try:
+        payload = fetch_json(f"https://api.openalex.org/works/https://doi.org/{urllib.parse.quote(doi)}", timeout=timeout)
+    except Exception:
+        return {}
+    published = payload.get("publication_date")
+    result: dict[str, str] = {}
+    parsed = parse_date(str(published)) if published else None
+    if parsed:
+        result["available_online"] = parsed
+        result["published_online"] = parsed
+        result["date_source"] = "openalex_publication_date"
+        result["date_confidence"] = "C"
+    abstract = openalex_abstract(payload.get("abstract_inverted_index"))
+    if abstract and len(clean_text(abstract)) > 80:
+        result["abstract"] = clean_text(abstract)
+        result["abstract_source"] = "openalex"
+    return result
+
+
+def unpaywall_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
+    email = os.environ.get("UNPAYWALL_EMAIL") or os.environ.get("CROSSREF_MAILTO") or "econ-paper-monitor@example.com"
+    url = f"https://api.unpaywall.org/v2/{urllib.parse.quote(doi)}?email={urllib.parse.quote(email)}"
+    try:
+        payload = fetch_json(url, timeout=timeout)
+    except Exception:
+        return {}
+    result: dict[str, str] = {}
+    parsed = parse_date(str(payload.get("published_date") or "")) if payload.get("published_date") else None
+    if parsed:
+        result["available_online"] = parsed
+        result["published_online"] = parsed
+        result["date_source"] = "unpaywall_published_date"
+        result["date_confidence"] = "C"
+    return result
+
+
+def append_date_evidence(record: dict[str, Any], source: str, metadata: dict[str, str]) -> bool:
+    if not metadata:
+        return False
+    raw_data = record.setdefault("raw_data", {})
+    if not isinstance(raw_data, dict):
+        raw_data = {}
+        record["raw_data"] = raw_data
+    evidence = raw_data.setdefault("date_evidence", [])
+    if not isinstance(evidence, list):
+        evidence = []
+        raw_data["date_evidence"] = evidence
+    item = {
+        "source": source,
+        "date_source": metadata.get("date_source"),
+        "published_online": metadata.get("published_online"),
+        "available_online": metadata.get("available_online"),
+        "issue_date": metadata.get("issue_date"),
+        "accepted_date": metadata.get("accepted_date"),
+        "date_confidence": metadata.get("date_confidence"),
+    }
+    signature = (item["source"], item["date_source"], item["published_online"], item["issue_date"], item["accepted_date"])
+    existing = {
+        (entry.get("source"), entry.get("date_source"), entry.get("published_online"), entry.get("issue_date"), entry.get("accepted_date"))
+        for entry in evidence
+        if isinstance(entry, dict)
+    }
+    if signature not in existing:
+        evidence.append({key: value for key, value in item.items() if value})
+        return True
+    return False
+
+
+def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tuple[dict[str, str], str]:
+    providers = [
+        ("crossref-doi", crossref_doi_metadata),
+        ("openalex", openalex_doi_metadata),
+        ("unpaywall", unpaywall_doi_metadata),
+    ]
+    first: dict[str, str] = {}
+    first_source = "api-fallback-empty"
+    evidence_changed = False
+    for source, getter in providers:
+        metadata = getter(doi, timeout)
+        evidence_changed = append_date_evidence(record, source, metadata) or evidence_changed
+        if metadata and not first:
+            first = metadata
+            first_source = f"{source}-fallback"
+        elif metadata and "abstract" in metadata and "abstract" not in first:
+            first["abstract"] = metadata["abstract"]
+            first["abstract_source"] = metadata.get("abstract_source", source)
+    if evidence_changed:
+        first["_evidence_changed"] = "true"
+    return first, first_source
+
+
 def should_enrich(record: dict[str, Any]) -> bool:
     source_type = str(record.get("source_type") or "")
     if str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}:
@@ -283,9 +393,9 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     changed = False
     if not metadata:
         if doi:
-            metadata = crossref_doi_metadata(doi, timeout)
+            metadata, api_status = api_fallback_metadata(record, doi, timeout)
             if metadata:
-                last_status = "crossref-doi-fallback"
+                last_status = api_status
         if resolved_elsevier_pii:
             changed = True
         if not metadata:
@@ -294,14 +404,17 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
                 return changed, "elsevier-pii-only"
             return changed, "tandf-date-corrected" if changed else last_status
     for field, value in metadata.items():
+        if field == "_evidence_changed":
+            changed = True
+            continue
         if value and record.get(field) != value:
             record[field] = value
             changed = True
     changed = correct_tandf_date(record) or changed
     if resolved_elsevier_pii and not changed:
         changed = True
-    if last_status == "crossref-doi-fallback":
-        return changed, "crossref-doi-fallback"
+    if last_status.endswith("-fallback"):
+        return changed, last_status
     return changed, "updated" if changed else "metadata-unchanged"
 
 

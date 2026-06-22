@@ -8,7 +8,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, fetch_text, read_json, write_json
+from common import DATA_DIR, fetch_json, fetch_text, read_json, write_json
 
 
 REGISTRY_PATH = DATA_DIR / "source_registry.json"
@@ -67,6 +67,105 @@ def configured_rss_urls(journal: dict[str, Any]) -> list[dict[str, str]]:
     return feeds
 
 
+def compact_issn(value: str | None) -> str | None:
+    if not value:
+        return None
+    compact = re.sub(r"[^0-9Xx]", "", value).upper()
+    return compact if len(compact) == 8 else None
+
+
+def crossref_issn_candidates(
+    journal: dict[str, Any],
+    registry: dict[str, Any],
+    registry_entry: dict[str, Any],
+) -> list[str]:
+    """Return ISSNs with electronic ISSN first, caching Crossref lookup."""
+    cached = registry_entry.get("crossref_issn_candidates")
+    if isinstance(cached, list) and cached:
+        return [value for value in (compact_issn(str(item)) for item in cached) if value]
+
+    issn = str(journal.get("issn") or registry_entry.get("issn") or "").strip()
+    compact = compact_issn(issn)
+    if not compact:
+        return []
+    candidates = [compact]
+    try:
+        payload = fetch_json(f"https://api.crossref.org/journals/{issn}", timeout=12)
+        item = payload.get("message") or {}
+        typed = item.get("issn-type") or []
+        electronic = [compact_issn(entry.get("value")) for entry in typed if entry.get("type") == "electronic"]
+        other = [compact_issn(value) for value in item.get("ISSN", [])]
+        candidates = [value for value in electronic + other + [compact] if value]
+        candidates = list(dict.fromkeys(candidates))
+        registry_entry["crossref_issn_candidates"] = candidates
+        if electronic:
+            registry_entry["online_issn"] = f"{electronic[0][:4]}-{electronic[0][4:]}"
+        save_registry(registry)
+    except Exception:
+        pass
+    return candidates
+
+
+TANDF_JOURNAL_CODES = {
+    # Taylor & Francis journal codes are not derivable from ISSN.
+    # Keep explicit, tested mappings here.
+    "applied-economics": "raec20",
+}
+
+
+def generated_official_rss_urls(journal: dict[str, Any]) -> list[dict[str, str]]:
+    """Return official publisher RSS URLs that can be built from known rules."""
+    journal_id = str(journal.get("id") or "")
+
+    registry = load_registry()
+    registry_entry = registry.get("journals", {}).get(journal_id, {})
+    publisher = " ".join(
+        str(value or "")
+        for value in (
+            journal.get("publisher"),
+            registry_entry.get("publisher"),
+            registry_entry.get("platform"),
+        )
+    ).casefold()
+    issn = compact_issn(str(journal.get("issn") or registry_entry.get("issn") or ""))
+    feeds: list[dict[str, str]] = []
+
+    if issn and ("elsevier" in publisher or registry_entry.get("platform") == "elsevier"):
+        candidates = [
+            compact_issn(str(registry_entry.get("print_issn") or "")),
+            compact_issn(str(journal.get("print_issn") or "")),
+            issn,
+            *crossref_issn_candidates(journal, registry, registry_entry),
+        ]
+        for candidate in [value for value in dict.fromkeys(candidates) if value]:
+            feeds.append(
+                {
+                    "url": f"https://rss.sciencedirect.com/publication/science/{candidate}",
+                    "label": "ScienceDirect RSS",
+                    "type": "official",
+                }
+            )
+    if issn and ("wiley" in publisher or registry_entry.get("platform") == "wiley"):
+        for candidate in crossref_issn_candidates(journal, registry, registry_entry):
+            feeds.append(
+                {
+                    "url": f"https://onlinelibrary.wiley.com/action/showFeed?jc={candidate}&type=etoc&feed=rss",
+                    "label": "Wiley Online Library RSS",
+                    "type": "official",
+                }
+            )
+    tandf_code = TANDF_JOURNAL_CODES.get(journal_id) or registry_entry.get("tandf_code")
+    if tandf_code:
+        feeds.append(
+            {
+                "url": f"https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc={tandf_code}",
+                "label": "Taylor & Francis RSS",
+                "type": "official",
+            }
+        )
+    return feeds
+
+
 def candidate_pages(journal: dict[str, Any]) -> list[str]:
     pages = []
     for key in ("homepage_url", "rss_page_url"):
@@ -98,6 +197,8 @@ def feeds_for_journal(journal: dict[str, Any], *, discover: bool = False) -> tup
     registry = load_registry()
     journal_entry = registry.setdefault("journals", {}).setdefault(journal["id"], {})
     feeds = configured_rss_urls(journal)
+    generated_feeds = generated_official_rss_urls(journal)
+    feeds.extend(generated_feeds)
     feeds.extend(journal_entry.get("rss", []))
 
     if discover and not feeds:
@@ -114,5 +215,10 @@ def feeds_for_journal(journal: dict[str, Any], *, discover: bool = False) -> tup
             feeds.extend(discovered)
 
     deduped = list({feed["url"]: feed for feed in feeds if feed.get("url")}.values())
-    status = "configured" if configured_rss_urls(journal) else journal_entry.get("rss_status", "none")
+    if configured_rss_urls(journal):
+        status = "configured"
+    elif generated_feeds:
+        status = "official-generated"
+    else:
+        status = journal_entry.get("rss_status", "none")
     return deduped, status
