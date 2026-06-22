@@ -184,7 +184,7 @@ def load_all_daily(daily_dir: Path) -> list[dict[str, Any]]:
 
 
 def detected_date(record: dict[str, Any]) -> str:
-    return beijing_date(record.get("detected_at")) or record.get("_daily_date") or ""
+    return str(record.get("_daily_date") or "") or beijing_date(record.get("detected_at")) or ""
 
 
 def detected_time(record: dict[str, Any]) -> str:
@@ -644,7 +644,10 @@ def date_source_label(record: dict[str, Any]) -> str:
 
 
 def public_date_line(record: dict[str, Any]) -> str:
-    return f"{public_date_label(record)} {official_date(record)} · 来源：{date_source_label(record)}"
+    date_value = official_date(record)
+    if date_value in {"待解析", "寰呰В鏋?", ""}:
+        return f"日期待解析 · 来源：{date_source_label(record)}"
+    return f"{public_date_label(record)} {date_value} · 来源：{date_source_label(record)}"
 
 
 def archive_official_date_summary(records: list[dict[str, Any]]) -> str:

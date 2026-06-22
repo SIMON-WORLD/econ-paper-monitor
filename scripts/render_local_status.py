@@ -195,10 +195,17 @@ def date_source_label(record: dict[str, Any]) -> str:
     return "待解析"
 
 
+def public_date_line(record: dict[str, Any]) -> str:
+    value = public_date(record)
+    if value in {"待解析", "寰呰В鏋?", ""}:
+        return f"日期待解析 · 来源：{date_source_label(record)}"
+    return f"{public_date_label(record)} {value} · 来源：{date_source_label(record)}"
+
+
 def date_evidence_cell(record: dict[str, Any]) -> str:
     raw = record.get("raw_data") if isinstance(record.get("raw_data"), dict) else {}
     items = [
-        ("前台日期", f"{public_date_label(record)} {public_date(record)}"),
+        ("前台日期", public_date_line(record)),
         ("前台来源", date_source_label(record)),
         ("date_source", record.get("date_source")),
         ("date_confidence", record.get("date_confidence")),
@@ -334,13 +341,13 @@ def main() -> None:
     ]
     date_evidence_rows = [
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
-        f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(public_date_label(record))} {html_escape(public_date(record))} · 来源：{html_escape(date_source_label(record))}</td>"
+        f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(public_date_line(record))}</td>"
         f"<td>{date_evidence_cell(record)}</td></tr>"
         for record in date_evidence_records
     ]
     latest_wp_rows = [
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
-        f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(public_date_label(record))} {html_escape(public_date(record))}</td>"
+        f"<td>{html_escape(record.get('journal'))}</td><td>{html_escape(public_date_line(record))}</td>"
         f"<td>{html_escape(record.get('paper_number') or '')}</td></tr>"
         for record in latest_working_papers
     ]

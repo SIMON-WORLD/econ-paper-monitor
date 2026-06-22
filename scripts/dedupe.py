@@ -6,6 +6,8 @@ import argparse
 from pathlib import Path
 from typing import Any
 
+import re
+
 from common import DATA_DIR, normalize_doi, read_json, stable_id, today_str, write_json
 from status import record_run, record_source
 
@@ -78,6 +80,29 @@ def merge_daily(existing: list[dict[str, Any]], new_records: list[dict[str, Any]
         key=lambda item: (item.get("published_online") or "", item.get("detected_at") or ""),
         reverse=True,
     )
+
+
+def valid_iso_date(value: Any) -> str | None:
+    text = str(value or "").strip()
+    if re.fullmatch(r"20\d{2}-\d{2}-\d{2}", text):
+        return text
+    return None
+
+
+def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | None:
+    """Decide which daily archive should receive a newly seen record.
+
+    RSS feeds often expose a long back catalog. On the first day a feed is
+    enabled, those historical items are newly seen by the system but are not
+    today's papers. Put dated RSS records under their source date and suppress
+    undated RSS records from public daily archives.
+    """
+    if str(record.get("source") or "") != "rss":
+        return run_date
+    official = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
+    if not official:
+        return None
+    return official
 
 
 def has_value(value: Any) -> bool:
@@ -207,8 +232,9 @@ def main() -> None:
 
     seen = read_json(args.seen, {"papers": {}})
     seen_papers = seen.setdefault("papers", {})
-    new_records: list[dict[str, Any]] = []
+    new_records_by_date: dict[str, list[dict[str, Any]]] = {}
     enriched = 0
+    suppressed = 0
 
     for record in iter_raw_records(args.raw_dir):
         record_id = stable_id(record)
@@ -232,17 +258,29 @@ def main() -> None:
         }
         enrich_record(seen_papers[record_id], record)
         record.pop("_raw_file", None)
-        new_records.append(record)
+        archive_date = archive_date_for_new_record(record, args.date)
+        if archive_date:
+            new_records_by_date.setdefault(archive_date, []).append(record)
+        else:
+            suppressed += 1
 
-    daily_path = args.daily_dir / f"{args.date}.json"
-    existing_daily = read_json(daily_path, [])
-    daily_records = merge_daily(existing_daily, new_records)
+    daily_total = 0
+    for archive_date, dated_records in sorted(new_records_by_date.items()):
+        daily_path = args.daily_dir / f"{archive_date}.json"
+        existing_daily = read_json(daily_path, [])
+        daily_records = merge_daily(existing_daily, dated_records)
+        write_json(daily_path, daily_records)
+        if archive_date == args.date:
+            daily_total = len(daily_records)
+    if args.date not in new_records_by_date:
+        daily_path = args.daily_dir / f"{args.date}.json"
+        daily_total = len(read_json(daily_path, []))
 
     write_json(args.seen, seen)
-    write_json(daily_path, daily_records)
-    record_source("dedupe", ok=True, count=len(new_records), message=f"daily_total={len(daily_records)} seen={len(seen_papers)} enriched={enriched}")
-    record_run({"new": len(new_records), "daily_total": len(daily_records), "seen": len(seen_papers), "enriched": enriched})
-    print(f"new={len(new_records)} daily_total={len(daily_records)} seen={len(seen_papers)} enriched={enriched}")
+    new_total = sum(len(items) for items in new_records_by_date.values())
+    record_source("dedupe", ok=True, count=new_total, message=f"daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed}")
+    record_run({"new": new_total, "daily_total": daily_total, "seen": len(seen_papers), "enriched": enriched, "suppressed": suppressed})
+    print(f"new={new_total} daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed}")
 
 
 if __name__ == "__main__":
