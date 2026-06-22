@@ -750,6 +750,42 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
         opener.open(urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers), timeout=8).read()
     except Exception:
         return records
+    try:
+        first_endpoint = "getFirstPublishPaperInfo.ashx"
+        first_page = opener.open(urllib.request.Request(base + first_endpoint, headers=headers), timeout=5).read().decode("utf-8", errors="replace")
+    except Exception:
+        first_page = ""
+    if first_page and ("showValidateCode.aspx" in first_page or "login.css" in first_page):
+        GLSJ_LAST_NOTE = "first-publish-validation"
+        return records
+    if first_page and "暂无内容" not in first_page and "鏆傛棤鍐呭" not in first_page and "paperDigest.aspx" in first_page:
+        blocks = re.findall(r"<li>\s*<h3>[\s\S]*?</li>", first_page, flags=re.I)
+        for block in blocks:
+            title_match = re.search(r'<a[^>]+href=["\']([^"\']*paperDigest\.aspx\?paperID=[^"\']+)["\'][^>]*>([\s\S]*?)</a>', block, flags=re.I)
+            if not title_match:
+                continue
+            href, title_html = title_match.groups()
+            authors_match = re.search(r"<samp>([\s\S]*?)</samp>", block, flags=re.I)
+            date_value = extract_date(clean_text(block))
+            record = make_record(
+                journal,
+                title_html,
+                normalize_url(href, base),
+                authors=split_authors(authors_match.group(1) if authors_match else None),
+                source_issue="网络首发",
+                date_source="official_first_publish",
+                source_url=base + first_endpoint,
+            )
+            if record:
+                if date_value:
+                    record["available_online"] = date_value
+                    record["date_confidence"] = "B"
+                enrich_cn_detail(record)
+                records.append(record)
+            if len(records) >= limit:
+                return records
+        if records:
+            return records
     current_year = int(today_str()[:4])
     latest_page = ""
     latest_endpoint = ""
