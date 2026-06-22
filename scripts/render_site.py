@@ -157,13 +157,15 @@ def beijing_stamp(value: str | None) -> str:
 
 
 def next_hourly_run(value: str | None) -> str:
-    dt = beijing_datetime(value) or datetime.now(CN_TZ)
+    now = datetime.now(CN_TZ)
+    dt = max(beijing_datetime(value) or now, now)
     next_dt = dt.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
     return next_dt.strftime("%Y-%m-%d %H:%M 北京时间")
 
 
 def next_daily_full_run(value: str | None) -> str:
-    dt = beijing_datetime(value) or datetime.now(CN_TZ)
+    now = datetime.now(CN_TZ)
+    dt = max(beijing_datetime(value) or now, now)
     candidate = dt.replace(hour=8, minute=30, second=0, microsecond=0)
     if candidate <= dt:
         candidate += timedelta(days=1)
@@ -586,6 +588,8 @@ def public_date_line(record: dict[str, Any]) -> str:
 
 
 def archive_official_date_summary(records: list[dict[str, Any]]) -> str:
+    if not records:
+        return "暂无记录"
     dates = sorted(
         {
             str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("issue_date") or "")
@@ -1386,6 +1390,7 @@ def main() -> None:
             by_field[field].append(record)
         for topic in article_topics(record):
             by_topic[topic].append(record)
+    by_date.setdefault(today_str(), [])
     for path in sorted(args.daily_dir.glob("*.json")):
         by_date.setdefault(path.stem, [])
 

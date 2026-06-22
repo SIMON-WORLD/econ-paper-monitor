@@ -18,6 +18,8 @@ on:
   schedule:
     # 快速监测：每小时整点触发；脚本仍会跳过过近的重复运行。
     - cron: "0 * * * *"
+    # 日期翻页：北京时间 00:05 强制渲染当天页面，避免凌晨继续展示昨天为“今日”。
+    - cron: "5 16 * * *"
     # 完整监测：每天北京时间 08:30 触发。
     - cron: "30 0 * * *"
 
@@ -38,6 +40,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Ensure Beijing today file exists
+        run: python scripts/ensure_today_daily.py
       - name: Resolve run mode
         id: mode
         shell: bash
@@ -82,7 +86,11 @@ jobs:
         if: github.event_name == 'schedule' && github.event.schedule != '30 0 * * *'
         shell: bash
         run: |
-          DECISION="$(python scripts/should_run_monitor.py --min-minutes 50)"
+          if [ "${{ github.event.schedule }}" = "5 16 * * *" ]; then
+            DECISION="run"
+          else
+            DECISION="$(python scripts/should_run_monitor.py --min-minutes 50)"
+          fi
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Scheduled light watchdog: $DECISION"
       - name: Skip recent scheduled light run
