@@ -90,6 +90,30 @@ def translate_title(title: str, key: str, base_url: str, model: str, timeout: in
     return translated.strip("\"'“”")
 
 
+def translate_title(title: str, key: str, base_url: str, model: str, timeout: int) -> str:  # type: ignore[no-redef]
+    payload = {
+        "model": model,
+        "messages": [
+            {
+                "role": "system",
+                "content": "你是经济学论文标题翻译助手。只输出一个忠实、简洁、学术风格的中文标题，不要解释。",
+            },
+            {"role": "user", "content": title},
+        ],
+        "temperature": 0.1,
+    }
+    request = urllib.request.Request(
+        f"{base_url}/chat/completions",
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        data = json.loads(response.read().decode("utf-8"))
+    translated = data["choices"][0]["message"]["content"].strip()
+    return translated.strip("\"'“”")
+
+
 def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
     if date_filter:
         path = daily_dir / f"{date_filter}.json"

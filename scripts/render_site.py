@@ -377,6 +377,66 @@ SOURCE_CN_NAMES = {
 }
 
 
+SOURCE_STATUS.update(
+    {
+        "iza": ("已跑通", "ok", "公开页面可抓取，已纳入第一批来源。"),
+        "cepr-dp": ("已跑通", "ok", "公开页面可抓取，已纳入第二批来源。"),
+        "fed-feds": ("已跑通", "ok", "公开页面可抓取，继续补强标题和日期解析。"),
+        "nber": ("已增强", "ok", "已接入 NBER 列表 API 和论文详情页。"),
+        "world-bank-prwp": ("已增强", "ok", "已接入 World Bank Open Knowledge 详情 API。"),
+        "imf-working-papers": ("替代源已接入", "ok", "官方页面访问不稳定，当前使用 IDEAS/RePEc 的 IMF Working Papers 系列页。"),
+        "bis-working-papers": ("已跑通", "ok", "已接入 BIS 官方 RSS，并过滤 Working Papers。"),
+        "cesifo-working-papers": ("已跑通", "ok", "已接入 IDEAS/RePEc 的 CESifo Working Papers 系列页。"),
+        "oecd-working-papers": ("替代源已接入", "ok", "OECD/iLibrary 页面访问不稳定，当前使用 IDEAS/RePEc 公开系列页。"),
+        "repec-nep-cna": ("已接入", "ok", "RePEc NEP 中国经济学细分类，优先补充中国相关工作论文。"),
+        "repec-nep-dev": ("已接入", "ok", "RePEc NEP 发展经济学细分类，用于补充机构工作论文源。"),
+        "repec-nep-hea": ("已接入", "ok", "RePEc NEP 健康经济学细分类，作为 SSRN Health Economics 的公开替代入口之一。"),
+        "repec-nep-mac": ("已接入", "ok", "RePEc NEP 宏观经济学细分类，用于补充 RePEc 新稿。"),
+        "repec-nep-ifn": ("已接入", "ok", "RePEc NEP 国际金融细分类，用于补充宏观金融工作论文。"),
+        "voxeu-cepr-columns": ("评估中", "todo", "政策评论源，不混入工作论文主流；后续如需要可单独建栏目。"),
+        "brookings-economic-studies": ("评估中", "todo", "政策研究/评论源，先评估 RSS/API 稳定性。"),
+        "iza-newsroom": ("评估中", "todo", "用于发现 IZA 发布动态；正式论文仍以 IZA Discussion Papers 为准。"),
+        "repec-nep": ("暂缓", "pause", "全量聚合源噪声较高，先放到第三阶段。"),
+        "ssrn-economics-research-network": ("受限，暂缓", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
+        "ssrn-health-economics-network": ("受限，暂缓", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
+    }
+)
+
+SOURCE_TYPE_LABELS.update(
+    {
+        "working_paper": "工作论文",
+        "policy_paper": "政策论文",
+        "aggregator": "聚合源",
+        "policy_commentary": "政策评论",
+    }
+)
+
+SOURCE_CN_NAMES.update(
+    {
+        "nber": "美国国家经济研究局工作论文",
+        "iza": "IZA 讨论论文",
+        "world-bank-prwp": "世界银行政策研究工作论文",
+        "imf-working-papers": "IMF 工作论文",
+        "repec-nep": "RePEc NEP 新经济学论文",
+        "ssrn-economics-research-network": "SSRN 经济学研究网络",
+        "ssrn-health-economics-network": "SSRN 健康经济学网络",
+        "cepr-dp": "CEPR 讨论论文",
+        "cesifo-working-papers": "CESifo 工作论文",
+        "fed-feds": "美联储 FEDS 工作论文",
+        "bis-working-papers": "国际清算银行工作论文",
+        "oecd-working-papers": "OECD 工作论文",
+        "repec-nep-cna": "RePEc NEP 中国经济学论文",
+        "repec-nep-dev": "RePEc NEP 发展经济学论文",
+        "repec-nep-hea": "RePEc NEP 健康经济学论文",
+        "repec-nep-mac": "RePEc NEP 宏观经济学论文",
+        "repec-nep-ifn": "RePEc NEP 国际金融论文",
+        "voxeu-cepr-columns": "VoxEU / CEPR 专栏",
+        "brookings-economic-studies": "Brookings 经济研究",
+        "iza-newsroom": "IZA 新闻室",
+    }
+)
+
+
 def load_working_paper_sources(path: Path = DATA_DIR / "working_paper_sources.yml") -> list[dict[str, Any]]:
     if not path.exists():
         return []
@@ -1252,6 +1312,111 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     return f"""<div id="gate" class="gate">
   <h3>输入后台访问 token</h3>
   <p class="gate-note">这是静态页面轻保护，只用于避免普通访客误入；不应放敏感数据。</p>
+  <input id="adminToken" type="password" placeholder="访问 token">
+  <button id="unlockAdmin" type="button">进入</button>
+  <p id="gateError" class="gate-note"></p>
+</div>
+<div id="adminContent" class="hidden">{body}</div>
+<script>
+async function sha256(text) {{
+  const data = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}}
+async function unlock() {{
+  const token = document.getElementById('adminToken').value || localStorage.getItem('epd_admin_token') || '';
+  const hash = await sha256(token);
+  if (hash === '{html_escape(token_hash)}') {{
+    localStorage.setItem('epd_admin_token', token);
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('adminContent').classList.remove('hidden');
+  }} else {{
+    document.getElementById('gateError').textContent = 'token 不正确。';
+  }}
+}}
+document.getElementById('unlockAdmin').addEventListener('click', unlock);
+if (localStorage.getItem('epd_admin_token')) unlock();
+</script>"""
+
+
+def admin_status_body(records: list[dict[str, Any]]) -> str:
+    """Render a concise product-health dashboard for the protected status page."""
+    token_hash = os.environ.get("ADMIN_STATUS_TOKEN_HASH", "").strip()
+    status = load_status()
+    workflow = status.get("workflow") or {}
+    sources = status.get("sources") or {}
+    source_groups = status.get("source_groups") or {}
+    failures = [source_id for source_id, item in sorted(sources.items()) if not item.get("ok")]
+    wp_sources = [source_id for source_id in sources if str(source_id).startswith("working-paper:")]
+    confidence_counts = Counter(str(record.get("date_confidence") or "unknown") for record in records)
+    date_source_counts = Counter(str(record.get("date_source") or "unknown") for record in records)
+    low_confidence = sum(1 for record in records if str(record.get("date_confidence") or "F") in {"D", "F", "unknown"})
+    china_count = sum(1 for record in records if is_china_related(record))
+    today_records = [record for record in records if detected_date(record) == today_str()]
+    today_journals = sum(1 for record in today_records if not is_working_paper(record))
+    today_wp = sum(1 for record in today_records if is_working_paper(record))
+    cn_group = source_groups.get("cn-journals") or {}
+    publisher_group = source_groups.get("publisher-detail") or {}
+    journals_by_id = journal_lookup()
+
+    cn_rows = "".join(
+        f"""<tr><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
+        for item in cn_group.get("journals", [])
+    ) or '<tr><td colspan="4">暂无中文期刊状态</td></tr>'
+    publisher_rows = "".join(
+        f"""<tr><td>{html_escape(item.get('publisher'))}</td><td>{html_escape(item.get('attempted'))}</td><td>{html_escape(item.get('changed'))}</td><td>{html_escape(item.get('ab_dates'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
+        for item in publisher_group.get("publishers", [])
+    ) or '<tr><td colspan="5">暂无出版社详情页状态</td></tr>'
+    confidence_rows = "".join(
+        f"<tr><td>{html_escape(confidence_label(key))}</td><td>{value}</td></tr>"
+        for key, value in sorted(confidence_counts.items())
+    )
+    date_source_rows = "".join(
+        f"<tr><td>{html_escape(key)}</td><td>{value}</td></tr>"
+        for key, value in date_source_counts.most_common(12)
+    )
+    failure_rows = "".join(
+        f"<tr><td>{html_escape(source_id)}</td><td>{html_escape((sources.get(source_id) or {}).get('message'))}</td></tr>"
+        for source_id in failures[:20]
+    ) or '<tr><td colspan="2">暂无失败来源</td></tr>'
+
+    body = f"""<section class="section-head">
+  <div><h2>线上后台状态</h2><p>公开安全摘要。敏感审核与人工确认仍使用本地后台。</p></div>
+</section>
+{monitor_summary_cards(records, today_records)}
+<section class="audit-grid">
+  <div class="audit-card"><strong>{len(records)}</strong><span>累计监测记录</span></div>
+  <div class="audit-card"><strong>{today_journals}</strong><span>今日期刊论文</span></div>
+  <div class="audit-card"><strong>{today_wp}</strong><span>今日工作论文</span></div>
+  <div class="audit-card"><strong>{china_count}</strong><span>已确认中国相关</span></div>
+  <div class="audit-card"><strong>{low_confidence}</strong><span>低可信日期样本</span></div>
+  <div class="audit-card"><strong>{len(wp_sources)}</strong><span>工作论文来源状态</span></div>
+  <div class="audit-card"><strong>{len(failures)}</strong><span>失败/受限来源</span></div>
+  <div class="audit-card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
+</section>
+<section class="section-head"><div><h2>日期可信度</h2><p>A/B 越多，说明越接近出版社或来源页面的明确日期；C/D/F 需要继续补强。</p></div></section>
+<table class="journal-table"><thead><tr><th>可信度</th><th>数量</th></tr></thead><tbody>{confidence_rows}</tbody></table>
+<section class="section-head"><div><h2>日期来源</h2><p>用于判断“今日新发现”和“官方/在线日期”的证据链。</p></div></section>
+<table class="journal-table"><thead><tr><th>来源</th><th>数量</th></tr></thead><tbody>{date_source_rows}</tbody></table>
+<section class="section-head"><div><h2>中文期刊状态</h2><p>旧期次只进入归档，不进入首页今日流。</p></div></section>
+<table class="journal-table"><thead><tr><th>期刊</th><th>数量</th><th>模式</th><th>说明</th></tr></thead><tbody>{cn_rows}</tbody></table>
+<section class="section-head"><div><h2>出版社日期解析</h2><p>统计详情页、RSS、Crossref fallback 对 online date 的贡献。</p></div></section>
+<table class="journal-table"><thead><tr><th>出版社</th><th>尝试</th><th>更新</th><th>A/B 日期</th><th>状态</th></tr></thead><tbody>{publisher_rows}</tbody></table>
+<section class="section-head"><div><h2>失败/受限来源</h2><p>只显示聚合原因，不展示密钥或敏感信息。</p></div></section>
+<table class="journal-table"><thead><tr><th>来源</th><th>原因</th></tr></thead><tbody>{failure_rows}</tbody></table>"""
+
+    if not token_hash:
+        return """<section class="section-head">
+  <div><h2>线上后台状态</h2><p>尚未启用线上后台 token。当前继续使用本地后台。</p></div>
+</section>
+<div class="gate">
+  <h3>未启用公开后台</h3>
+  <p>请继续使用本地后台：<code>local_admin/status.html</code> 和 <code>http://127.0.0.1:8765/</code>。</p>
+  <p class="gate-note">如需线上查看，可设置 <code>ADMIN_STATUS_TOKEN_HASH</code> 后重新运行 workflow。静态页面 token 只适合轻保护，不等于真正登录鉴权。</p>
+</div>"""
+    return f"""<div id="gate" class="gate">
+  <h3>输入后台访问 token</h3>
+  <p class="gate-note">这是静态页面轻保护，只用于避免普通访客误入；不放敏感数据。</p>
   <input id="adminToken" type="password" placeholder="访问 token">
   <button id="unlockAdmin" type="button">进入</button>
   <p id="gateError" class="gate-note"></p>

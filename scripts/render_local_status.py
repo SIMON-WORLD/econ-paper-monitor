@@ -50,13 +50,15 @@ def beijing_dt(value: str | None) -> datetime | None:
 
 
 def next_hourly_run(value: str | None) -> str:
-    dt = beijing_dt(value) or datetime.now(BEIJING_TZ)
+    now_dt = datetime.now(BEIJING_TZ)
+    dt = max(beijing_dt(value) or now_dt, now_dt)
     next_dt = dt.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
     return next_dt.strftime("%Y-%m-%d %H:%M 北京时间")
 
 
 def next_daily_full_run(value: str | None) -> str:
-    dt = beijing_dt(value) or datetime.now(BEIJING_TZ)
+    now_dt = datetime.now(BEIJING_TZ)
+    dt = max(beijing_dt(value) or now_dt, now_dt)
     candidate = dt.replace(hour=8, minute=30, second=0, microsecond=0)
     if candidate <= dt:
         candidate += timedelta(days=1)
