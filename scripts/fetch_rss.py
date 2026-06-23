@@ -17,6 +17,33 @@ from status import record_source
 
 ATOM = "{http://www.w3.org/2005/Atom}"
 
+MONTHS = {
+    "jan": 1,
+    "january": 1,
+    "feb": 2,
+    "february": 2,
+    "mar": 3,
+    "march": 3,
+    "apr": 4,
+    "april": 4,
+    "may": 5,
+    "jun": 6,
+    "june": 6,
+    "jul": 7,
+    "july": 7,
+    "aug": 8,
+    "august": 8,
+    "sep": 9,
+    "sept": 9,
+    "september": 9,
+    "oct": 10,
+    "october": 10,
+    "nov": 11,
+    "november": 11,
+    "dec": 12,
+    "december": 12,
+}
+
 
 def local_name(tag: str) -> str:
     return tag.rsplit("}", 1)[-1].casefold()
@@ -61,7 +88,49 @@ def parse_date(value: str | None) -> str | None:
         if match:
             parts = re.split(r"[-/.]", match.group(0))
             return f"{int(parts[0]):04d}-{int(parts[1]):02d}-{int(parts[2]):02d}"
+        match = re.search(r"(\d{1,2})\s+([A-Za-z]{3,9})\s+(20\d{2})", value)
+        if match:
+            month = MONTHS.get(match.group(2).casefold())
+            if month:
+                return f"{int(match.group(3)):04d}-{month:02d}-{int(match.group(1)):02d}"
+        match = re.search(r"([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(20\d{2})", value)
+        if match:
+            month = MONTHS.get(match.group(1).casefold())
+            if month:
+                return f"{int(match.group(3)):04d}-{month:02d}-{int(match.group(2)):02d}"
         return value[:10] if len(value) >= 10 else None
+
+
+def clean_text(value: str | None) -> str:
+    if not value:
+        return ""
+    value = re.sub(r"<script[\s\S]*?</script>", " ", value, flags=re.I)
+    value = re.sub(r"<style[\s\S]*?</style>", " ", value, flags=re.I)
+    value = re.sub(r"<[^>]+>", " ", value)
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def metadata_from_description(description: str | None) -> dict[str, Any]:
+    text = clean_text(description)
+    result: dict[str, Any] = {}
+    if not text:
+        return result
+    date_match = re.search(r"Publication date:\s*(?:Available online\s*)?(.+?20\d{2})", text, flags=re.I)
+    parsed_date = parse_date(date_match.group(1)) if date_match else None
+    if parsed_date:
+        result["published_online"] = parsed_date
+        result["available_online"] = parsed_date
+        result["date_source"] = "rss_description_online"
+        result["date_confidence"] = "B"
+    source_match = re.search(r"Source:\s*(.*?)(?:Author\(s\):|$)", text, flags=re.I)
+    if source_match:
+        result["source_issue"] = clean_text(source_match.group(1))
+    authors_match = re.search(r"Author\(s\):\s*(.*)$", text, flags=re.I)
+    if authors_match:
+        authors = [clean_text(part) for part in re.split(r"\s*,\s*|\s+and\s+", authors_match.group(1)) if clean_text(part)]
+        if authors:
+            result["authors"] = authors[:12]
+    return result
 
 
 def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[dict[str, Any]]:
@@ -76,7 +145,8 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
             title = child_text_any(item, ["title"])
             link = child_link_any(item)
             published = parse_date(child_text_any(item, ["pubDate", "date", "dc:date", "updated", "published"]))
-            records.append(make_record(title, link, published, journal, feed_url))
+            description = child_text_any(item, ["description", "summary", "content"])
+            records.append(make_record(title, link, published, journal, feed_url, description=description))
         return [record for record in records if record["title"]]
 
     entries = root.findall(f".//{ATOM}entry")
@@ -87,7 +157,8 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
         if link_node is not None:
             link = link_node.attrib.get("href")
         published = parse_date(child_text(entry, [f"{ATOM}published", f"{ATOM}updated"]))
-        records.append(make_record(title, link, published, journal, feed_url))
+        description = child_text(entry, [f"{ATOM}summary", f"{ATOM}content"])
+        records.append(make_record(title, link, published, journal, feed_url, description=description))
     if entries:
         return [record for record in records if record["title"]]
 
@@ -99,7 +170,8 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
         title = child_text_any(item, ["title"])
         link = child_link_any(item)
         published = parse_date(child_text_any(item, ["date", "pubDate", "updated", "published"]))
-        records.append(make_record(title, link, published, journal, feed_url))
+        description = child_text_any(item, ["description", "summary", "content"])
+        records.append(make_record(title, link, published, journal, feed_url, description=description))
     return [record for record in records if record["title"]]
 
 
@@ -109,21 +181,26 @@ def make_record(
     published: str | None,
     journal: dict[str, Any],
     feed_url: str,
+    description: str | None = None,
 ) -> dict[str, Any]:
-    return {
+    description_metadata = metadata_from_description(description)
+    record = {
         **article_record(
             journal,
-            title=title or "",
+            title=clean_text(title),
             url=link,
             source="rss",
             source_url=feed_url,
-            published_online=published,
-            available_online=published,
-            date_source="rss_published" if published else None,
-            date_confidence="B" if published else "F",
+            authors=description_metadata.get("authors"),
+            published_online=published or description_metadata.get("published_online"),
+            available_online=published or description_metadata.get("available_online"),
+            source_issue=description_metadata.get("source_issue"),
+            date_source="rss_published" if published else description_metadata.get("date_source"),
+            date_confidence="B" if published else description_metadata.get("date_confidence", "F"),
             raw_data={"rss_feed_url": feed_url},
         )
     }
+    return record
 
 
 def main() -> None:

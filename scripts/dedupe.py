@@ -45,9 +45,11 @@ DATE_SOURCE_RANK = {
     "publisher_accepted_date": 4,
     "official_publish_date": 3,
     "rss_published": 4,
+    "rss_description_online": 4,
     "world_bank_detail_api": 4,
     "repec_series_year": 2,
     "repec_detail_year": 3,
+    "nep_issue_date": 3,
     }
 
 
@@ -98,6 +100,9 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
     undated RSS records from public daily archives.
     """
     if str(record.get("source") or "") != "rss":
+        source_id = str(record.get("source_id") or "")
+        if source_id.startswith("repec-nep-"):
+            return valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online")) or run_date
         return run_date
     official = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
     if not official:
@@ -118,6 +123,32 @@ def is_bad_abstract(value: Any) -> bool:
         "the federal reserve board of governors in washington dc",
     ]
     return any(fragment in normalized for fragment in boilerplates)
+
+
+def looks_like_abstract_title(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    text = " ".join(value.split())
+    if not text:
+        return False
+    lowered = text.casefold()
+    return len(text) > 260 or lowered.startswith(
+        (
+            "this paper ",
+            "this study ",
+            "we analyze ",
+            "we analyse ",
+            "we examine ",
+            "we investigate ",
+            "using data ",
+            "based on ",
+        )
+    )
+
+
+def is_repec_placeholder(value: Any) -> bool:
+    text = str(value or "")
+    return "RePEc NEP" in text and " item p" in text
 
 
 def record_match_keys(record: dict[str, Any]) -> set[str]:
@@ -167,6 +198,19 @@ def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
         and incoming.get("abstract_source") != "world_bank_detail_api"
     ):
         existing["abstract"] = None
+        changed = True
+    if (
+        str(incoming.get("source_id") or "").startswith("repec-nep-")
+        and has_value(incoming.get("title"))
+        and not looks_like_abstract_title(incoming.get("title"))
+        and (is_repec_placeholder(existing.get("title")) or looks_like_abstract_title(existing.get("title")))
+    ):
+        existing["title"] = incoming["title"]
+        existing["url"] = incoming.get("url") or existing.get("url")
+        existing.pop("title_zh", None)
+        existing.pop("translation_status", None)
+        existing.pop("title_parse_status", None)
+        existing.pop("public_visible", None)
         changed = True
     if incoming.get("source_id") == "world-bank-prwp" and has_value(incoming.get("authors")) and existing.get("authors") != incoming.get("authors"):
         existing["authors"] = incoming["authors"]
@@ -222,6 +266,32 @@ def enrich_existing_daily(daily_dir: Path, record: dict[str, Any]) -> bool:
     return changed
 
 
+def exists_in_daily(daily_dir: Path, record: dict[str, Any]) -> bool:
+    record_id = record.get("id") or stable_id(record)
+    incoming_keys = record_match_keys(record)
+    for path in daily_dir.glob("*.json"):
+        records = read_json(path, [])
+        for existing in records:
+            existing_keys = record_match_keys(existing)
+            if (existing.get("id") or stable_id(existing)) == record_id or incoming_keys & existing_keys:
+                return True
+    return False
+
+
+def ensure_daily_archive(daily_dir: Path, record: dict[str, Any], run_date: str) -> bool:
+    source = str(record.get("source") or "")
+    source_id = str(record.get("source_id") or "")
+    if source != "rss" and not source_id.startswith("repec-nep-"):
+        return False
+    archive_date = archive_date_for_new_record(record, run_date)
+    if not archive_date or exists_in_daily(daily_dir, record):
+        return False
+    daily_path = daily_dir / f"{archive_date}.json"
+    existing_daily = read_json(daily_path, [])
+    write_json(daily_path, merge_daily(existing_daily, [record]))
+    return True
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--raw-dir", type=Path, default=DATA_DIR / "raw")
@@ -247,6 +317,8 @@ def main() -> None:
             if enrich_record(seen_entry, record):
                 enriched += 1
             if enrich_existing_daily(args.daily_dir, record):
+                enriched += 1
+            if ensure_daily_archive(args.daily_dir, record, args.date):
                 enriched += 1
             continue
         seen_papers[record_id] = {

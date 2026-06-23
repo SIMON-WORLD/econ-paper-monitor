@@ -277,9 +277,16 @@ def source_record(
     abstract: str | None = None,
 ) -> dict[str, Any]:
     source_type = str(source.get("type") or "working_paper")
+    source_id = str(source.get("id") or "")
     source_title = str(source.get("title") or source.get("id") or "Working Paper")
     clean_url = normalize_url(url)
     clean_title = clean_text(title)
+    detected_number = detect_paper_number(source, clean_title, clean_url)
+    if source_id == "cepr-dp":
+        match = re.match(r"^(DP\s*\d{4,})\s*[:：.-]?\s+(.+)$", clean_title, flags=re.I)
+        if match:
+            detected_number = detected_number or match.group(1).replace(" ", "").upper()
+            clean_title = clean_text(match.group(2))
     return {
         "title": clean_title,
         "authors": [],
@@ -292,7 +299,7 @@ def source_record(
         "source_id": source.get("id"),
         "source_name": source_title,
         "series": source_title,
-        "paper_number": detect_paper_number(source, clean_title, clean_url),
+        "paper_number": detected_number,
         "source_url": source.get("feed") or source.get("homepage"),
         "url": clean_url,
         "doi": None,
@@ -726,6 +733,33 @@ def parse_nep_issue_list(
 ) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     seen: set[str] = set()
+    issue_url = issue_url or str(source.get("homepage") or "")
+    detail_pattern = (
+        r'<li[^>]+class=["\'][^"\']*coblo_li[^"\']*["\'][^>]*>\s*'
+        r'<div[^>]+id=["\'](?P<paper>p\d+)["\'][^>]*>\s*'
+        r'<a[^>]+href=["\'](?P<href>[^"\']+)["\'][^>]*>(?P<title>.*?)</a>\s*</div>'
+        r'(?P<body>.*?)</li>'
+    )
+    for match in re.finditer(detail_pattern, html_text, flags=re.I | re.S):
+        paper_number = clean_text(match.group("paper"))
+        href = html.unescape(match.group("href"))
+        url = normalize_url(urljoin(issue_url, href))
+        title = clean_text(match.group("title"))
+        if not url or url in seen or not plausible_nep_title(title):
+            continue
+        body = match.group("body")
+        record = source_record(source, title=title, url=url, published=issue_date, abstract=nep_field(body, "Abstract"))
+        record["source_url"] = issue_url
+        record["date_source"] = "nep_issue_date" if issue_date else record.get("date_source")
+        record["date_confidence"] = "B" if issue_date else record.get("date_confidence")
+        record["paper_number"] = paper_number
+        authors = nep_authors(body)
+        if authors:
+            record["authors"] = authors
+        seen.add(url)
+        records.append(record)
+        if len(records) >= limit:
+            return records
     patterns = [
         r'<a[^>]+href=["\'](?P<href>https://ideas\.repec\.org/p/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>',
         r'<a[^>]+href=["\'](?P<href>/p/[^"\']+)["\'][^>]*>(?P<title>.*?)</a>',
@@ -757,7 +791,6 @@ def parse_nep_issue_list(
             records.append(record)
             if len(records) >= limit:
                 return records
-    issue_url = issue_url or str(source.get("homepage") or "")
     anchor_pattern = (
         r'<li[^>]+class=["\'][^"\']*liblo_li[^"\']*["\'][^>]*>\s*'
         r'<a[^>]+class=["\'][^"\']*indoc[^"\']*["\'][^>]+href=["\'](?P<href>#[^"\']+)["\'][^>]*>(?P<title>.*?)</a>'
@@ -769,7 +802,7 @@ def parse_nep_issue_list(
         abstract = title if looks_like_abstract(title) else None
         if abstract:
             title = ""
-        if not plausible_title(title):
+        if not plausible_nep_title(title):
             title = f"{source.get('title') or 'RePEc NEP'} item {href.removeprefix('#')}"
         url = f"{issue_url}{href}"
         if url in seen:
@@ -1013,6 +1046,38 @@ def plausible_title(title: str) -> bool:
     return not any(fragment in lowered for fragment in bad_fragments)
 
 
+def plausible_nep_title(title: str) -> bool:
+    title = clean_text(title)
+    if len(title) < 6:
+        return False
+    lowered = title.lower()
+    bad_fragments = (
+        "subscribe",
+        "sign in",
+        "login",
+        "privacy",
+        "cookie",
+        "download",
+    )
+    return not any(fragment in lowered for fragment in bad_fragments)
+
+
+def nep_field(html_text: str, label: str) -> str | None:
+    pattern = (
+        rf'<td[^>]*class=["\']fina["\'][^>]*>\s*{re.escape(label)}:\s*</td>\s*'
+        r'<td[^>]*class=["\']fiva["\'][^>]*>(?P<value>.*?)</td>'
+    )
+    match = re.search(pattern, html_text, flags=re.I | re.S)
+    return clean_text(match.group("value")) if match else None
+
+
+def nep_authors(html_text: str) -> list[str]:
+    by_value = nep_field(html_text, "By")
+    if not by_value:
+        return []
+    return [clean_text(part) for part in re.split(r"\s*;\s*", by_value) if clean_text(part)][:12]
+
+
 def looks_like_abstract(value: str | None) -> bool:
     text = clean_text(value)
     if not text:
@@ -1105,10 +1170,14 @@ def main() -> None:
     parser.add_argument("--limit-per-source", type=int, default=20)
     parser.add_argument("--detail-limit", type=int, default=10)
     parser.add_argument("--timeout", type=int, default=20)
+    parser.add_argument("--only", action="append", default=[], help="Fetch only the given source id. Repeatable.")
     args = parser.parse_args()
 
     output = args.output or DATA_DIR / "raw" / "working_papers" / f"{today_str()}.json"
     sources = [source for source in load_sources(args.sources) if int(source.get("stage") or 99) <= args.stage]
+    if args.only:
+        selected = set(args.only)
+        sources = [source for source in sources if str(source.get("id") or "") in selected]
     all_records: list[dict[str, Any]] = []
     messages: list[str] = []
     failures = 0

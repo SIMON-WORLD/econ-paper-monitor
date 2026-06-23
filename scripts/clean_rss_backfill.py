@@ -1,8 +1,11 @@
-"""Move RSS backfill out of the current-day archive.
+"""Move source-dated backfill out of the current-day archive.
 
 Official publisher RSS feeds often contain a long back catalog. The first
 monitor run after enabling a feed can therefore discover hundreds of old items.
 Those are useful for enrichment, but they should not appear as today's papers.
+
+RePEc NEP is also source-dated by issue. Newly discovered records should live
+under the NEP issue date rather than the day our system first saw them.
 """
 
 from __future__ import annotations
@@ -24,8 +27,10 @@ def valid_iso_date(value: Any) -> str | None:
     return None
 
 
-def rss_archive_date(record: dict[str, Any]) -> str | None:
-    if str(record.get("source") or "") != "rss":
+def source_archive_date(record: dict[str, Any]) -> str | None:
+    source = str(record.get("source") or "")
+    source_id = str(record.get("source_id") or "")
+    if source != "rss" and not source_id.startswith("repec-nep-"):
         return None
     return valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
 
@@ -38,7 +43,7 @@ def clean_date(daily_dir: Path, date_value: str) -> tuple[int, int, int]:
     suppressed = 0
 
     for record in records:
-        target_date = rss_archive_date(record)
+        target_date = source_archive_date(record)
         if not target_date:
             if str(record.get("source") or "") == "rss":
                 suppressed += 1

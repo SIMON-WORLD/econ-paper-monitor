@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import html
+import re
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +24,12 @@ CN_JOURNAL_IDS = {
 
 def has_chinese(value: str | None) -> bool:
     return any("\u4e00" <= ch <= "\u9fff" for ch in value or "")
+
+
+def clean_inline_html(value: Any) -> str:
+    text = str(value or "")
+    text = re.sub(r"<[^>]+>", "", text)
+    return html.unescape(text).strip()
 
 
 def looks_like_abstract(value: str | None) -> bool:
@@ -67,6 +75,13 @@ def is_chinese_journal(record: dict[str, Any]) -> bool:
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
     title = str(record.get("title") or "")
+    cleaned_title = clean_inline_html(title)
+    if cleaned_title and cleaned_title != title:
+        record["title"] = cleaned_title
+        title = cleaned_title
+        record.pop("title_zh", None)
+        record.pop("translation_status", None)
+        changed = True
     if str(record.get("source_id") or "").startswith("repec-nep-") and looks_like_abstract(title):
         if not record.get("abstract"):
             record["abstract"] = title
