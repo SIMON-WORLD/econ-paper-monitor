@@ -27,7 +27,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: paper-monitor-update-${{ github.event.inputs.mode || (github.event.schedule == '30 0 * * *' && 'full' || 'light') }}
+  group: paper-monitor-update
   cancel-in-progress: true
 
 jobs:
@@ -195,6 +195,9 @@ jobs:
       - name: Record workflow context
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/record_run_context.py --mode "${{ steps.mode.outputs.mode }}" --event "${{ github.event_name }}" --schedule "${{ github.event.schedule }}" --run-id "${{ github.run_id }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      - name: Repair workflow status
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/repair_workflow_status.py
       - name: Render static site
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/render_site.py

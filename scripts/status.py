@@ -54,20 +54,10 @@ def record_workflow_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> No
     """Store the latest end-to-end workflow context for dashboards."""
     status = load_status(path)
     workflow = status.setdefault("workflow", {})
-    previous = dict(workflow)
     workflow.update(summary)
     workflow["updated_at"] = summary.get("updated_at") or now()
     mode = summary.get("mode")
     finished_at = summary.get("finished_at") or workflow.get("updated_at") or now()
-    if mode == "full":
-        workflow["last_full_finished_at"] = finished_at
-    elif mode == "light":
-        workflow["last_light_finished_at"] = finished_at
-    elif mode == "single":
-        workflow["last_single_finished_at"] = finished_at
-    for key in ("last_full_finished_at", "last_light_finished_at", "last_single_finished_at"):
-        if key not in workflow and previous.get(key):
-            workflow[key] = previous[key]
 
     history = workflow.setdefault("history", [])
     history.insert(
@@ -83,4 +73,18 @@ def record_workflow_run(summary: dict[str, Any], path: Path = STATUS_PATH) -> No
         },
     )
     del history[30:]
+
+    last_by_mode: dict[str, str] = {}
+    for entry in history:
+        entry_mode = str(entry.get("mode") or "")
+        entry_finished_at = str(entry.get("finished_at") or "")
+        if entry_mode and entry_finished_at and entry_mode not in last_by_mode:
+            last_by_mode[entry_mode] = entry_finished_at
+    for entry_mode, key in (
+        ("full", "last_full_finished_at"),
+        ("light", "last_light_finished_at"),
+        ("single", "last_single_finished_at"),
+    ):
+        if last_by_mode.get(entry_mode):
+            workflow[key] = last_by_mode[entry_mode]
     save_status(status, path)
