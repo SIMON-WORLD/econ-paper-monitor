@@ -158,7 +158,20 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
         keys.add(f"doi:{doi}")
     url = str(record.get("url") or "").strip().rstrip("/")
     if url:
-        keys.add(f"url:{url.casefold()}")
+        normalized_url = url.casefold()
+        keys.add(f"url:{normalized_url}")
+        keys.add(f"url:{normalized_url.split('?', 1)[0]}")
+        for pattern in (
+            r"nber\.org/papers/(w\d+)",
+            r"iza\.org/publications/dp/(\d+)",
+            r"cepr\.org/publications/(dp\d+)",
+            r"federalreserve\.gov/econres/feds/([^/.?#]+)",
+            r"econpapers\.repec\.org/repec:([^?#]+)",
+            r"ideas\.repec\.org/p/([^?#]+)",
+        ):
+            match = re.search(pattern, normalized_url, flags=re.I)
+            if match:
+                keys.add(f"urlpaper:{match.group(1).strip('/').casefold()}")
     source_id = str(record.get("source_id") or "")
     paper_number = str(record.get("paper_number") or "")
     if source_id and paper_number:
@@ -172,6 +185,71 @@ def find_matching_record_id(records: dict[str, dict[str, Any]], incoming: dict[s
         if incoming_keys & record_match_keys(existing):
             return record_id
     return None
+
+
+def build_seen_index(seen_papers: dict[str, dict[str, Any]]) -> dict[str, str]:
+    index: dict[str, str] = {}
+    for record_id, record in seen_papers.items():
+        record.setdefault("id", record_id)
+        for key in record_match_keys(record):
+            index.setdefault(key, record_id)
+    return index
+
+
+def find_matching_seen_id(index: dict[str, str], incoming: dict[str, Any]) -> str | None:
+    for key in record_match_keys(incoming):
+        if key in index:
+            return index[key]
+    return None
+
+
+def add_seen_index(index: dict[str, str], record_id: str, record: dict[str, Any]) -> None:
+    record.setdefault("id", record_id)
+    for key in record_match_keys(record):
+        index.setdefault(key, record_id)
+
+
+def build_daily_index(daily_dir: Path) -> tuple[dict[Path, list[dict[str, Any]]], dict[str, list[tuple[Path, dict[str, Any]]]]]:
+    path_records: dict[Path, list[dict[str, Any]]] = {}
+    index: dict[str, list[tuple[Path, dict[str, Any]]]] = {}
+    for path in daily_dir.glob("*.json"):
+        records = read_json(path, [])
+        if not isinstance(records, list):
+            continue
+        path_records[path] = records
+        for record in records:
+            for key in record_match_keys(record):
+                index.setdefault(key, []).append((path, record))
+    return path_records, index
+
+
+def seed_seen_from_daily_match(record: dict[str, Any], existing: dict[str, Any]) -> dict[str, Any]:
+    seed = {
+        "title": existing.get("title") or record.get("title"),
+        "journal": existing.get("journal") or record.get("journal"),
+        "doi": existing.get("doi") or record.get("doi"),
+        "url": existing.get("url") or record.get("url"),
+        "first_seen": existing.get("detected_at") or record.get("detected_at"),
+    }
+    enrich_record(seed, existing)
+    enrich_record(seed, record)
+    return seed
+
+
+def matching_daily_records(
+    index: dict[str, list[tuple[Path, dict[str, Any]]]],
+    record: dict[str, Any],
+) -> list[tuple[Path, dict[str, Any]]]:
+    matches: list[tuple[Path, dict[str, Any]]] = []
+    seen: set[tuple[Path, int]] = set()
+    for key in record_match_keys(record):
+        for path, existing in index.get(key, []):
+            marker = (path, id(existing))
+            if marker in seen:
+                continue
+            seen.add(marker)
+            matches.append((path, existing))
+    return matches
 
 
 def enrich_record(existing: dict[str, Any], incoming: dict[str, Any]) -> bool:
@@ -302,6 +380,9 @@ def main() -> None:
 
     seen = read_json(args.seen, {"papers": {}})
     seen_papers = seen.setdefault("papers", {})
+    seen_index = build_seen_index(seen_papers)
+    daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
+    touched_daily_paths: set[Path] = set()
     new_records_by_date: dict[str, list[dict[str, Any]]] = {}
     enriched = 0
     suppressed = 0
@@ -311,15 +392,25 @@ def main() -> None:
         record["id"] = record_id
         seen_id = record_id
         if record_id not in seen_papers:
-            seen_id = find_matching_record_id(seen_papers, record) or record_id
+            seen_id = find_matching_seen_id(seen_index, record) or record_id
+        daily_matches = matching_daily_records(daily_index, record)
+        if seen_id not in seen_papers and daily_matches:
+            _, first_existing = daily_matches[0]
+            seen_papers[seen_id] = seed_seen_from_daily_match(record, first_existing)
+            add_seen_index(seen_index, seen_id, seen_papers[seen_id])
         if seen_id in seen_papers:
             seen_entry = seen_papers[seen_id]
             if enrich_record(seen_entry, record):
                 enriched += 1
-            if enrich_existing_daily(args.daily_dir, record):
+                add_seen_index(seen_index, seen_id, seen_entry)
+            if daily_matches:
+                for path, existing in daily_matches:
+                    if enrich_record(existing, record):
+                        enriched += 1
+                        touched_daily_paths.add(path)
+            elif ensure_daily_archive(args.daily_dir, record, args.date):
                 enriched += 1
-            if ensure_daily_archive(args.daily_dir, record, args.date):
-                enriched += 1
+                daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
             continue
         seen_papers[record_id] = {
             "title": record.get("title"),
@@ -329,12 +420,16 @@ def main() -> None:
             "first_seen": record.get("detected_at"),
         }
         enrich_record(seen_papers[record_id], record)
+        add_seen_index(seen_index, record_id, seen_papers[record_id])
         record.pop("_raw_file", None)
         archive_date = archive_date_for_new_record(record, args.date)
         if archive_date:
             new_records_by_date.setdefault(archive_date, []).append(record)
         else:
             suppressed += 1
+
+    for path in sorted(touched_daily_paths):
+        write_json(path, daily_records_by_path[path])
 
     daily_total = 0
     for archive_date, dated_records in sorted(new_records_by_date.items()):
