@@ -32,6 +32,45 @@ def clean_inline_html(value: Any) -> str:
     return html.unescape(text).strip()
 
 
+def canonical_title_text(value: Any) -> str:
+    text = clean_inline_html(value).casefold()
+    replacements = {
+        "\u2018": "'",
+        "\u2019": "'",
+        "\u201c": '"',
+        "\u201d": '"',
+        "\u2010": "-",
+        "\u2011": "-",
+        "\u2012": "-",
+        "\u2013": "-",
+        "\u2014": "-",
+        "\u2212": "-",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
+def strip_cepr_paper_number(record: dict[str, Any], title: str) -> tuple[str, bool]:
+    if str(record.get("source_id") or "") != "cepr-dp":
+        return title, False
+    match = re.match(r"^(DP\d{4,6})\s+(.+)$", title.strip(), flags=re.IGNORECASE)
+    if not match:
+        return title, False
+    paper_number, clean_title = match.groups()
+    changed = False
+    if record.get("paper_number") != paper_number.upper():
+        record["paper_number"] = paper_number.upper()
+        changed = True
+    if clean_title and clean_title != title:
+        record["title"] = clean_title
+        record.pop("title_zh", None)
+        record.pop("translation_status", None)
+        changed = True
+    return clean_title, changed
+
+
 def looks_like_abstract(value: str | None) -> bool:
     text = " ".join(str(value or "").split())
     if not text:
@@ -81,6 +120,9 @@ def normalize_record(record: dict[str, Any]) -> bool:
         title = cleaned_title
         record.pop("title_zh", None)
         record.pop("translation_status", None)
+        changed = True
+    title, cepr_changed = strip_cepr_paper_number(record, title)
+    if cepr_changed:
         changed = True
     if str(record.get("source_id") or "").startswith("repec-nep-") and looks_like_abstract(title):
         if not record.get("abstract"):
@@ -132,14 +174,23 @@ def normalize_record(record: dict[str, Any]) -> bool:
     return changed
 
 
-def record_key(record: dict[str, Any]) -> str | None:
+def normalized_title(value: Any) -> str:
+    return " ".join(canonical_title_text(value).split())
+
+
+def record_keys(record: dict[str, Any]) -> set[str]:
+    keys: set[str] = set()
     for key in ("doi", "id", "url"):
         value = record.get(key)
         if value:
-            return f"{key}:{str(value).casefold()}"
-    title = " ".join(str(record.get("title") or "").casefold().split())
+            keys.add(f"{key}:{str(value).casefold()}")
+    title = normalized_title(record.get("title"))
     journal = str(record.get("journal_id") or record.get("journal") or "").casefold()
-    return f"title:{journal}:{title}" if title else None
+    if title and len(title) > 24:
+        authors = record.get("authors") or []
+        first_author = str(authors[0]).casefold() if isinstance(authors, list) and authors else ""
+        keys.add(f"title:{journal}:{title}:{first_author}")
+    return keys
 
 
 def remove_cross_day_duplicates(paths: list[Path]) -> tuple[int, int]:
@@ -150,12 +201,11 @@ def remove_cross_day_duplicates(paths: list[Path]) -> tuple[int, int]:
         kept = []
         path_removed = 0
         for record in records:
-            key = record_key(record)
-            if key and key in seen:
+            keys = record_keys(record)
+            if keys and keys & seen:
                 path_removed += 1
                 continue
-            if key:
-                seen.add(key)
+            seen.update(keys)
             kept.append(record)
         if path_removed:
             write_json(path, kept)
