@@ -47,3 +47,7 @@ written under:
 - `local_admin\logs\local-cnki-update.log`
 - `local_admin\status.html`
 - `local_admin\cnki_status.html`
+
+The local runner prunes temporary runtime files older than 14 days and CNKI raw
+cache files older than 60 days. The main log is automatically trimmed after it
+exceeds 2 MB.

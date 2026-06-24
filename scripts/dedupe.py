@@ -158,6 +158,7 @@ def is_repec_placeholder(value: Any) -> bool:
 
 def record_match_keys(record: dict[str, Any]) -> set[str]:
     keys: set[str] = {record.get("id") or stable_id(record)}
+    source = str(record.get("source") or "").casefold()
     doi = normalize_doi(record.get("doi"))
     if doi:
         keys.add(f"doi:{doi}")
@@ -165,7 +166,10 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
     if url:
         normalized_url = url.casefold()
         keys.add(f"url:{normalized_url}")
-        keys.add(f"url:{normalized_url.split('?', 1)[0]}")
+        # CNKI article URLs often share the same path and only differ by query
+        # parameters. Dropping the query collapses unrelated papers into one.
+        if "kns.cnki.net/kcms2/article/abstract" not in normalized_url:
+            keys.add(f"url:{normalized_url.split('?', 1)[0]}")
         for pattern in (
             r"nber\.org/papers/(w\d+)",
             r"iza\.org/publications/dp/(\d+)",
@@ -181,6 +185,11 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
     paper_number = str(record.get("paper_number") or "")
     if source_id and paper_number:
         keys.add(f"paper:{source_id.casefold()}:{paper_number.casefold()}")
+    if source == "cnki-rss":
+        title = " ".join(str(record.get("title") or "").casefold().split())
+        journal = " ".join(str(record.get("journal") or "").casefold().split())
+        if title and journal:
+            keys.add(f"cnki-title:{journal}:{title}")
     return keys
 
 

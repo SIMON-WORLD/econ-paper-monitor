@@ -21,14 +21,36 @@ from status import record_source
 LOG_DIR = ROOT / "local_admin" / "logs"
 LOG_PATH = LOG_DIR / "local-cnki-update.log"
 RUNTIME_DIR = ROOT / "local_admin" / "runtime"
+MAX_LOG_BYTES = 2_000_000
+KEEP_LOG_BYTES = 400_000
 
 
 def log(message: str) -> None:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
+    rotate_log(LOG_PATH)
     stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with LOG_PATH.open("a", encoding="utf-8") as handle:
         handle.write(f"[{stamp}] {message}\n")
     print(message)
+
+
+def rotate_log(path: Path) -> None:
+    if not path.exists() or path.stat().st_size <= MAX_LOG_BYTES:
+        return
+    payload = path.read_bytes()[-KEEP_LOG_BYTES:]
+    path.write_bytes(payload)
+
+
+def prune_old_files(directory: Path, *, older_than_days: int) -> int:
+    if not directory.exists():
+        return 0
+    cutoff = datetime.now().timestamp() - older_than_days * 24 * 60 * 60
+    removed = 0
+    for path in directory.rglob("*"):
+        if path.is_file() and path.stat().st_mtime < cutoff:
+            path.unlink()
+            removed += 1
+    return removed
 
 
 def run_step(command: list[str], *, allow_failure: bool = False) -> int:
@@ -97,6 +119,10 @@ def main() -> None:
     start = datetime.now().isoformat(timespec="seconds")
     log("=" * 72)
     log(f"Local CNKI update started at {start}")
+    removed_runtime = prune_old_files(RUNTIME_DIR, older_than_days=14)
+    removed_raw = prune_old_files(ROOT / "data" / "raw" / "cnki-rss", older_than_days=60)
+    if removed_runtime or removed_raw:
+        log(f"Pruned old local artifacts: runtime={removed_runtime}, cnki_raw={removed_raw}")
     record_source("local-cnki-run", ok=False, count=0, message="running")
 
     try:
