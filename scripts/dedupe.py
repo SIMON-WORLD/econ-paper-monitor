@@ -46,6 +46,7 @@ DATE_SOURCE_RANK = {
     "official_publish_date": 3,
     "rss_published": 4,
     "rss_description_online": 4,
+    "cnki_rss_pubdate": 3,
     "world_bank_detail_api": 4,
     "repec_series_year": 2,
     "repec_detail_year": 3,
@@ -99,7 +100,11 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
     today's papers. Put dated RSS records under their source date and suppress
     undated RSS records from public daily archives.
     """
-    if str(record.get("source") or "") != "rss":
+    source = str(record.get("source") or "")
+    if source == "cnki-rss":
+        source_date = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
+        return source_date or None
+    if source != "rss":
         source_id = str(record.get("source_id") or "")
         if source_id.startswith("repec-nep-"):
             return valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online")) or run_date
@@ -359,7 +364,7 @@ def exists_in_daily(daily_dir: Path, record: dict[str, Any]) -> bool:
 def ensure_daily_archive(daily_dir: Path, record: dict[str, Any], run_date: str) -> bool:
     source = str(record.get("source") or "")
     source_id = str(record.get("source_id") or "")
-    if source != "rss" and not source_id.startswith("repec-nep-"):
+    if source not in {"rss", "cnki-rss"} and not source_id.startswith("repec-nep-"):
         return False
     archive_date = archive_date_for_new_record(record, run_date)
     if not archive_date or exists_in_daily(daily_dir, record):

@@ -607,6 +607,8 @@ def confidence_label(value: str) -> str:
 
 
 def public_date_label(record: dict[str, Any]) -> str:
+    if str(record.get("date_source") or "").casefold().startswith("cnki_rss"):
+        return "CNKI RSS 日期"
     if record.get("available_online") or record.get("published_online"):
         return "在线日期"
     if record.get("accepted_date"):
@@ -630,6 +632,8 @@ def date_source_label(record: dict[str, Any]) -> str:
         return "PDF"
     if date_source == "tandf_issue_date_fallback":
         return "T&F 备选日期"
+    if source == "cnki-rss" or date_source.startswith("cnki_rss"):
+        return "CNKI RSS"
     if "publisher" in date_source or "detail" in date_source:
         return "出版社网页"
     if "rss" in source or "rss" in date_source:
@@ -1359,12 +1363,13 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     today_journals = sum(1 for record in today_records if not is_working_paper(record))
     today_wp = sum(1 for record in today_records if is_working_paper(record))
     cn_group = source_groups.get("cn-journals") or {}
+    cnki_group = source_groups.get("cnki-rss") or {}
     publisher_group = source_groups.get("publisher-detail") or {}
     journals_by_id = journal_lookup()
 
     cn_rows = "".join(
         f"""<tr><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
-        for item in cn_group.get("journals", [])
+        for item in list(cn_group.get("journals", [])) + list(cnki_group.get("journals", []))
     ) or '<tr><td colspan="4">暂无中文期刊状态</td></tr>'
     publisher_rows = "".join(
         f"""<tr><td>{html_escape(item.get('publisher'))}</td><td>{html_escape(item.get('attempted'))}</td><td>{html_escape(item.get('changed'))}</td><td>{html_escape(item.get('ab_dates'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""

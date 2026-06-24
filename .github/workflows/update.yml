@@ -136,6 +136,9 @@ jobs:
               --detail-limit ${{ steps.mode.outputs.cn_detail_limit }} \
               || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
           done
+      - name: Fetch CNKI RSS feeds
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/fetch_cnki_rss.py
       - name: Fetch working paper sources
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         shell: bash

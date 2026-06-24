@@ -103,7 +103,7 @@ def confidence_from_record(record: dict[str, Any]) -> str:
     source = str(record.get("date_source") or "")
     if record.get("accepted_date") or record.get("available_online"):
         return "A"
-    if source.startswith("publisher_") or source in {"official_publish_date", "file_upload_date", "rss_published"}:
+    if source.startswith("publisher_") or source in {"official_publish_date", "file_upload_date", "rss_published", "cnki_rss_pubdate"}:
         return "B"
     if source.startswith("crossref_"):
         return "C"
