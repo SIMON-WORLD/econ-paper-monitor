@@ -167,6 +167,9 @@ def fetch_for_journal(journal: dict[str, Any], args: argparse.Namespace) -> list
             if item.get("type") not in {None, "journal-article"}:
                 continue
             record = parse_item(item, journal)
+            title_key = " ".join(str(record.get("title") or "").split()).casefold()
+            if title_key in {"front matter", "back matter", "cover", "contents"}:
+                continue
             key = (record.get("doi") or record.get("url") or record.get("title") or "").casefold()
             if not key or key in seen:
                 continue

@@ -21,6 +21,14 @@ CN_JOURNAL_IDS = {
     "journal-ba9f46c919",
 }
 
+NON_ARTICLE_TITLES = {
+    "front matter",
+    "back matter",
+    "cover",
+    "contents",
+    "table of contents",
+}
+
 
 def has_chinese(value: str | None) -> bool:
     return any("\u4e00" <= ch <= "\u9fff" for ch in value or "")
@@ -178,6 +186,10 @@ def normalized_title(value: Any) -> str:
     return " ".join(canonical_title_text(value).split())
 
 
+def is_non_article_record(record: dict[str, Any]) -> bool:
+    return normalized_title(record.get("title")) in NON_ARTICLE_TITLES
+
+
 def record_keys(record: dict[str, Any]) -> set[str]:
     keys: set[str] = set()
     for key in ("doi", "id", "url"):
@@ -232,6 +244,11 @@ def main() -> None:
     for path in paths:
         records = read_json(path, [])
         path_changed = False
+        before = len(records)
+        records = [record for record in records if not is_non_article_record(record)]
+        if len(records) != before:
+            changed += before - len(records)
+            path_changed = True
         for record in records:
             if normalize_record(record):
                 changed += 1
