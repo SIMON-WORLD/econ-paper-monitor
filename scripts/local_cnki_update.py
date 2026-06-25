@@ -80,6 +80,20 @@ def git_has_staged_changes() -> bool:
     return completed.returncode != 0
 
 
+def push_with_retries(attempts: int = 4) -> None:
+    last_code = 0
+    for attempt in range(1, attempts + 1):
+        last_code = run_step(["git", "push"], allow_failure=True)
+        if last_code == 0:
+            return
+        wait_seconds = min(120, attempt * 30)
+        log(f"git push failed; retrying in {wait_seconds} seconds ({attempt}/{attempts}).")
+        import time
+
+        time.sleep(wait_seconds)
+    raise RuntimeError(f"git push failed after {attempts} attempts; last exit code={last_code}")
+
+
 def prepare_cnki_raw_input(temp_output: Path) -> tuple[Path, int]:
     input_dir = RUNTIME_DIR / "raw-input"
     input_feed_dir = input_dir / "cnki-rss"
@@ -161,7 +175,7 @@ def main() -> None:
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
                 run_step(["git", "pull", "--rebase", "-X", "theirs", "origin", "main"], allow_failure=True)
-                run_step(["git", "push"])
+                push_with_retries()
             else:
                 log("No generated changes to commit.")
 
