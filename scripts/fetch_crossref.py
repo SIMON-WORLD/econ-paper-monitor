@@ -136,46 +136,51 @@ def fetch_for_journal(journal: dict[str, Any], args: argparse.Namespace) -> list
     records = []
     seen: set[str] = set()
     for issn in issns:
-        params = {
-            "filter": f"from-pub-date:{recent_cutoff(args.days)}",
-            "sort": "published",
-            "order": "desc",
-            "rows": args.rows,
-            "select": "DOI,URL,title,container-title,author,publisher,published,published-online,published-print,issued,created,abstract,type",
-        }
-        try:
-            payload = crossref_get(
-                f"https://api.crossref.org/journals/{urllib.parse.quote(issn)}/works",
-                params=params,
-                timeout=args.timeout,
-                retries=args.retries,
-                sleep=args.sleep,
-            )
-        except urllib.error.HTTPError as exc:
-            if exc.code != 404:
-                raise
-            fallback_params = dict(params)
-            fallback_params["filter"] = f"issn:{issn},from-pub-date:{recent_cutoff(args.days)}"
-            payload = crossref_get(
-                "https://api.crossref.org/works",
-                params=fallback_params,
-                timeout=args.timeout,
-                retries=args.retries,
-                sleep=args.sleep,
-            )
-        for item in payload.get("message", {}).get("items", []):
-            if item.get("type") not in {None, "journal-article"}:
-                continue
-            record = parse_item(item, journal)
-            title_key = " ".join(str(record.get("title") or "").split()).casefold()
-            if title_key in {"front matter", "back matter", "cover", "contents"}:
-                continue
-            key = (record.get("doi") or record.get("url") or record.get("title") or "").casefold()
-            if not key or key in seen:
-                continue
-            seen.add(key)
-            if record["title"]:
-                records.append(record)
+        query_specs = [
+            {"filter": f"from-pub-date:{recent_cutoff(args.days)}", "sort": "published"},
+            {"filter": f"from-created-date:{recent_cutoff(args.created_days)}", "sort": "created"},
+        ]
+        for spec in query_specs:
+            params = {
+                "filter": spec["filter"],
+                "sort": spec["sort"],
+                "order": "desc",
+                "rows": args.rows,
+                "select": "DOI,URL,title,container-title,author,publisher,published,published-online,published-print,issued,created,abstract,type",
+            }
+            try:
+                payload = crossref_get(
+                    f"https://api.crossref.org/journals/{urllib.parse.quote(issn)}/works",
+                    params=params,
+                    timeout=args.timeout,
+                    retries=args.retries,
+                    sleep=args.sleep,
+                )
+            except urllib.error.HTTPError as exc:
+                if exc.code != 404:
+                    raise
+                fallback_params = dict(params)
+                fallback_params["filter"] = f"issn:{issn},{spec['filter']}"
+                payload = crossref_get(
+                    "https://api.crossref.org/works",
+                    params=fallback_params,
+                    timeout=args.timeout,
+                    retries=args.retries,
+                    sleep=args.sleep,
+                )
+            for item in payload.get("message", {}).get("items", []):
+                if item.get("type") not in {None, "journal-article"}:
+                    continue
+                record = parse_item(item, journal)
+                title_key = " ".join(str(record.get("title") or "").split()).casefold()
+                if title_key in {"front matter", "back matter", "cover", "contents"}:
+                    continue
+                key = (record.get("doi") or record.get("url") or record.get("title") or "").casefold()
+                if not key or key in seen:
+                    continue
+                seen.add(key)
+                if record["title"]:
+                    records.append(record)
     return records
 
 
@@ -184,6 +189,7 @@ def main() -> None:
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--days", type=int, default=14)
+    parser.add_argument("--created-days", type=int, default=7)
     parser.add_argument("--rows", type=int, default=20)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--only", action="append", default=[])
