@@ -162,6 +162,8 @@ def title_cell(record: dict[str, Any]) -> str:
 
 
 def public_date_label(record: dict[str, Any]) -> str:
+    if record.get("date_precision") == "month" and (record.get("available_online") or record.get("published_online")):
+        return "在线月份"
     if record.get("available_online") or record.get("published_online"):
         return "在线日期"
     if record.get("accepted_date"):
@@ -207,6 +209,8 @@ def date_source_label(record: dict[str, Any]) -> str:
 
 def public_date_line(record: dict[str, Any]) -> str:
     value = public_date(record)
+    if record.get("date_precision") == "month" and value and value.count("-") == 2:
+        value = value[:7]
     if value in {"待解析", "寰呰В鏋?", ""}:
         return f"日期待解析 · 来源：{date_source_label(record)}"
     return f"{public_date_label(record)} {value} · 来源：{date_source_label(record)}"

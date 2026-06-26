@@ -180,7 +180,7 @@ def load_all_daily(daily_dir: Path) -> list[dict[str, Any]]:
         for record in read_json(path, []):
             record["_daily_date"] = path.stem
             records.append(record)
-    return sorted(records, key=lambda item: item.get("detected_at") or "", reverse=True)
+    return sort_records(records)
 
 
 def detected_date(record: dict[str, Any]) -> str:
@@ -189,6 +189,24 @@ def detected_date(record: dict[str, Any]) -> str:
 
 def detected_time(record: dict[str, Any]) -> str:
     return beijing_time(record.get("detected_at"))
+
+
+def sortable_official_date(record: dict[str, Any]) -> str:
+    return str(
+        record.get("available_online")
+        or record.get("published_online")
+        or record.get("accepted_date")
+        or record.get("issue_date")
+        or ""
+    )
+
+
+def sort_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Newest daily buckets first; metadata backfills must not reorder days."""
+    ordered = sorted(records, key=lambda item: str(item.get("title") or "").casefold())
+    ordered = sorted(ordered, key=sortable_official_date, reverse=True)
+    ordered = sorted(ordered, key=lambda item: str(item.get("detected_at") or ""), reverse=True)
+    return sorted(ordered, key=detected_date, reverse=True)
 
 
 def is_china_related(record: dict[str, Any]) -> bool:
@@ -300,11 +318,11 @@ def article_topics(record: dict[str, Any]) -> list[str]:
 
 
 def working_paper_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return unique_records([record for record in records if is_working_paper(record) and has_public_title(record)])
+    return sort_records(unique_records([record for record in records if is_working_paper(record) and has_public_title(record)]))
 
 
 def public_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return [record for record in records if has_public_title(record)]
+    return sort_records([record for record in records if has_public_title(record)])
 
 
 def journal_lookup() -> dict[str, dict[str, Any]]:
@@ -609,6 +627,8 @@ def confidence_label(value: str) -> str:
 def public_date_label(record: dict[str, Any]) -> str:
     if str(record.get("date_source") or "").casefold().startswith("cnki_rss"):
         return "CNKI RSS 日期"
+    if record.get("date_precision") == "month" and (record.get("available_online") or record.get("published_online")):
+        return "在线月份"
     if record.get("available_online") or record.get("published_online"):
         return "在线日期"
     if record.get("accepted_date"):
@@ -649,6 +669,8 @@ def date_source_label(record: dict[str, Any]) -> str:
 
 def public_date_line(record: dict[str, Any]) -> str:
     date_value = official_date(record)
+    if record.get("date_precision") == "month" and date_value and date_value.count("-") == 2:
+        date_value = date_value[:7]
     if date_value in {"待解析", "寰呰В鏋?", ""}:
         return f"日期待解析 · 来源：{date_source_label(record)}"
     return f"{public_date_label(record)} {date_value} · 来源：{date_source_label(record)}"

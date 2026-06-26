@@ -166,6 +166,48 @@ def parse_date(value: str | None) -> str | None:
     return None
 
 
+def month_year_date(value: str | None) -> str | None:
+    if not value:
+        return None
+    month_names = {
+        "jan": 1,
+        "january": 1,
+        "feb": 2,
+        "february": 2,
+        "mar": 3,
+        "march": 3,
+        "apr": 4,
+        "april": 4,
+        "may": 5,
+        "jun": 6,
+        "june": 6,
+        "jul": 7,
+        "july": 7,
+        "aug": 8,
+        "august": 8,
+        "sep": 9,
+        "sept": 9,
+        "september": 9,
+        "oct": 10,
+        "october": 10,
+        "nov": 11,
+        "november": 11,
+        "dec": 12,
+        "december": 12,
+    }
+    match = re.search(
+        r"\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?|tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+(20\d{2})\b",
+        clean_text(value),
+        flags=re.I,
+    )
+    if not match:
+        return None
+    month = month_names.get(match.group(1).casefold().rstrip("."))
+    if not month:
+        return None
+    return f"{match.group(2)}-{month:02d}-01"
+
+
 def normalize_url(url: str | None) -> str | None:
     if not url:
         return None
@@ -402,6 +444,22 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
         record["available_online"] = parsed_date
         record["date_source"] = "publisher_detail"
         record["date_confidence"] = "B"
+    elif source_id == "iza":
+        month_date = month_year_date(
+            first_match(
+                [
+                    r">\s*((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?|tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+20\d{2})\s*<",
+                    r"\b((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?|tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+20\d{2})\b",
+                ],
+                html_text,
+            )
+        )
+        if month_date:
+            record["published_online"] = month_date
+            record["available_online"] = month_date
+            record["date_precision"] = "month"
+            record["date_source"] = "iza_detail_month"
+            record["date_confidence"] = "C"
     elif "ideas.repec.org/" in str(url or ""):
         year_value = (
             first_match([r'\b(20\d{2})\b'], str(date_value or ""), flags=re.I)
