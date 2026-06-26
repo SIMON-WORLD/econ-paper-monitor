@@ -774,6 +774,7 @@ def sidebar(
     <a class="side-link" href="{BASE}/"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
     <a class="side-link" href="{BASE}/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
     <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
+    <a class="side-link" href="{BASE}/search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
     <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
     <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
@@ -843,6 +844,7 @@ def page(
           <a class="{ 'active' if active == 'home' else '' }" href="{BASE}/">今日</a>
           <a href="{BASE}/topics/china/">与中国相关</a>
           <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
+          <a class="{ 'active' if active == 'search' else '' }" href="{BASE}/search/">检索</a>
           <a href="{BASE}/journals/">监测期刊</a>
           <a class="{ 'active' if active == 'working-papers' else '' }" href="{BASE}/working-papers/">工作论文</a>
           <a href="{BASE}/feed.xml">RSS</a>
@@ -1283,6 +1285,26 @@ def china_quality_body(records: list[dict[str, Any]]) -> str:
 <div class="audit-list">{rejected_html}</div>"""
 
 
+def search_body(records: list[dict[str, Any]]) -> str:
+    searchable = public_records(records)
+    journal_records = [record for record in searchable if not is_working_paper(record)]
+    wp_records = [record for record in searchable if is_working_paper(record)]
+    return f"""<section class="section-head">
+  <div><h2>全站检索</h2><p>搜索全部历史记录；首页搜索只筛选当天论文流。</p></div>
+  <p>{len(searchable)} 条</p>
+</section>
+<section class="stats">
+  <span class="stat"><strong>{len(journal_records)}</strong><span>期刊论文</span></span>
+  <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文/政策论文</span></span>
+  <a class="stat" href="{BASE}/archive/"><strong>{len({detected_date(record) for record in searchable})}</strong><span>归档日期</span></a>
+  <a class="stat china" href="{BASE}/topics/china/"><strong>{sum(1 for record in searchable if is_public_china_related(record))}</strong><span>与中国相关</span></a>
+</section>
+<div class="empty home-note">可以按标题、中文标题、作者、DOI、期刊/来源检索；也可以继续组合期刊、主题、日期类型、可信度和来源类型筛选。</div>
+{filter_toolbar(searchable, include_rss=True, source_label="筛选期刊/来源", scope="search")}
+{paper_events(searchable, scope="search")}
+{FILTER_SCRIPT}"""
+
+
 def admin_status_body(records: list[dict[str, Any]]) -> str:
     token_hash = os.environ.get("ADMIN_STATUS_TOKEN_HASH", "").strip()
     status = load_status()
@@ -1362,15 +1384,27 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     today_records = [record for record in records if detected_date(record) == today_str()]
     today_journals = sum(1 for record in today_records if not is_working_paper(record))
     today_wp = sum(1 for record in today_records if is_working_paper(record))
+    crossref_new_deposits = sum(
+        1
+        for record in today_records
+        if "created" in str(record.get("date_source") or "").casefold()
+        or "created" in str((record.get("raw_data") or {}).get("crossref_date_source") or "").casefold()
+    )
+    crossref_fallback_today = sum(1 for record in today_records if "crossref" in str(record.get("date_source") or "").casefold())
     cn_group = source_groups.get("cn-journals") or {}
     cnki_group = source_groups.get("cnki-rss") or {}
     publisher_group = source_groups.get("publisher-detail") or {}
     journals_by_id = journal_lookup()
 
     cn_rows = "".join(
-        f"""<tr><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
-        for item in list(cn_group.get("journals", [])) + list(cnki_group.get("journals", []))
-    ) or '<tr><td colspan="4">暂无中文期刊状态</td></tr>'
+        f"""<tr><td>期刊官网</td><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
+        for item in cn_group.get("journals", [])
+    )
+    cnki_rows = "".join(
+        f"""<tr><td>CNKI RSS</td><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
+        for item in cnki_group.get("journals", [])
+    )
+    cn_status_rows = cn_rows + cnki_rows or '<tr><td colspan="5">暂无中文期刊状态</td></tr>'
     publisher_rows = "".join(
         f"""<tr><td>{html_escape(item.get('publisher'))}</td><td>{html_escape(item.get('attempted'))}</td><td>{html_escape(item.get('changed'))}</td><td>{html_escape(item.get('ab_dates'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
         for item in publisher_group.get("publishers", [])
@@ -1398,6 +1432,8 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
   <div class="audit-card"><strong>{today_wp}</strong><span>今日工作论文</span></div>
   <div class="audit-card"><strong>{china_count}</strong><span>已确认中国相关</span></div>
   <div class="audit-card"><strong>{low_confidence}</strong><span>低可信日期样本</span></div>
+  <div class="audit-card"><strong>{crossref_new_deposits}</strong><span>今日 Crossref 新入库</span></div>
+  <div class="audit-card"><strong>{crossref_fallback_today}</strong><span>今日 Crossref/备用日期</span></div>
   <div class="audit-card"><strong>{len(wp_sources)}</strong><span>工作论文来源状态</span></div>
   <div class="audit-card"><strong>{len(failures)}</strong><span>失败/受限来源</span></div>
   <div class="audit-card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
@@ -1406,8 +1442,15 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
 <table class="journal-table"><thead><tr><th>可信度</th><th>数量</th></tr></thead><tbody>{confidence_rows}</tbody></table>
 <section class="section-head"><div><h2>日期来源</h2><p>用于判断“今日新发现”和“官方/在线日期”的证据链。</p></div></section>
 <table class="journal-table"><thead><tr><th>来源</th><th>数量</th></tr></thead><tbody>{date_source_rows}</tbody></table>
-<section class="section-head"><div><h2>中文期刊状态</h2><p>旧期次只进入归档，不进入首页今日流。</p></div></section>
-<table class="journal-table"><thead><tr><th>期刊</th><th>数量</th><th>模式</th><th>说明</th></tr></thead><tbody>{cn_rows}</tbody></table>
+<section class="section-head"><div><h2>中文期刊状态</h2><p>官网抓取、CNKI RSS 和本地补充分开看；旧期次只进入归档，不进入首页今日流。</p></div></section>
+<table class="journal-table"><thead><tr><th>来源链路</th><th>期刊</th><th>数量</th><th>模式</th><th>说明</th></tr></thead><tbody>{cn_status_rows}</tbody></table>
+<section class="section-head"><div><h2>漏抓风险提示</h2><p>用于判断当天是否可能因为上游入库延迟、出版社限制或中文源滞后造成少抓。</p></div></section>
+<table class="journal-table"><thead><tr><th>风险项</th><th>当前值</th><th>说明</th></tr></thead><tbody>
+<tr><td>今日归档记录</td><td>{len(today_records)}</td><td>为 0 时需要检查上游是否延迟或任务是否被取消。</td></tr>
+<tr><td>Crossref newly deposited</td><td>{crossref_new_deposits}</td><td>按 Crossref 入库时间补抓的新 DOI。</td></tr>
+<tr><td>Crossref/备用日期</td><td>{crossref_fallback_today}</td><td>出版社详情页受限时，日期主要依赖 Crossref 元数据。</td></tr>
+<tr><td>CNKI RSS 接受量</td><td>{html_escape(cnki_group.get('count', 0))}</td><td>可补中文期刊，但部分期刊可能滞后于官网。</td></tr>
+</tbody></table>
 <section class="section-head"><div><h2>出版社日期解析</h2><p>统计详情页、RSS、Crossref fallback 对 online date 的贡献。</p></div></section>
 <table class="journal-table"><thead><tr><th>出版社</th><th>尝试</th><th>更新</th><th>A/B 日期</th><th>状态</th></tr></thead><tbody>{publisher_rows}</tbody></table>
 <section class="section-head"><div><h2>失败/受限来源</h2><p>只显示聚合原因，不展示密钥或敏感信息。</p></div></section>
@@ -1501,6 +1544,17 @@ def main() -> None:
             "线上后台状态",
             records,
             admin_status_body(records),
+            sidebar_records=home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
+    )
+    write_page(
+        args.docs_dir / "search" / "index.html",
+        page(
+            "全站检索",
+            records,
+            search_body(records),
+            active="search",
             sidebar_records=home_flow_records,
             sidebar_date=home_flow_date,
         ),

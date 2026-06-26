@@ -84,6 +84,16 @@ def daily_counts() -> list[tuple[str, int]]:
     return rows
 
 
+def latest_daily_count() -> tuple[str, int]:
+    today = datetime.now(BEIJING_TZ).date().isoformat()
+    today_path = DATA_DIR / "daily" / f"{today}.json"
+    if today_path.exists():
+        payload = read_json(today_path, [])
+        return today, len(payload) if isinstance(payload, list) else 0
+    rows = daily_counts()
+    return rows[0] if rows else (today, 0)
+
+
 def hourly_journal_count() -> int:
     path = DATA_DIR / "monitor_tiers.yml"
     if not path.exists():
@@ -246,6 +256,7 @@ def main() -> None:
     workflow = status.get("workflow") or {}
     sources = status.get("sources") or {}
     cn_group = (status.get("source_groups") or {}).get("cn-journals") or {}
+    cnki_group = (status.get("source_groups") or {}).get("cnki-rss") or {}
     publisher_group = (status.get("source_groups") or {}).get("publisher-detail") or {}
 
     english_titles = sum(1 for record in records if record.get("title") and not has_chinese(str(record.get("title"))))
@@ -272,7 +283,19 @@ def main() -> None:
     )
     by_source = Counter(record.get("source") or "unknown" for record in records)
     by_confidence = Counter(record.get("date_confidence") or "unknown" for record in records)
-    today_total = sum(1 for record in records if record.get("_daily_date") == datetime.now(BEIJING_TZ).date().isoformat())
+    today_date, today_total = latest_daily_count()
+    today_records = [record for record in records if record.get("_daily_date") == today_date]
+    today_journal_total = sum(1 for record in today_records if not is_working_paper(record))
+    today_working_total = sum(1 for record in today_records if is_working_paper(record))
+    latest_dedupe = sources.get("dedupe") or {}
+    latest_dedupe_message = str(latest_dedupe.get("message") or "")
+    crossref_new_deposits = sum(
+        1
+        for record in today_records
+        if "created" in str(record.get("date_source") or "").casefold()
+        or "created" in str((record.get("raw_data") or {}).get("crossref_date_source") or "").casefold()
+    )
+    fallback_today = sum(1 for record in today_records if "crossref" in str(record.get("date_source") or "").casefold())
     light_journal_count = hourly_journal_count()
     light_working_source_count = working_source_stage_count(1)
     full_journal_count = len(load_journals(DATA_DIR / "journals.yml"))
@@ -293,6 +316,14 @@ def main() -> None:
     ]
     if zero_cn:
         health.append("中文期刊抓取成功但返回 0 条，需持续观察页面结构或检索入口：" + "、".join(zero_cn))
+    if today_total == 0:
+        health.append("今日归档目前为 0 条：这可能是当天确实暂无新记录，也可能是上游延迟；请重点查看 Crossref newly deposited、CNKI RSS 和本地补充状态。")
+    if latest_dedupe_message and "daily_total=0" in latest_dedupe_message and today_total > 0:
+        health.append("最近一次任务本身没有新增，但今日归档已有记录；后台已将“本次新增”和“今日累计”分开显示。")
+    if fallback_today:
+        health.append(f"今日有 {fallback_today} 条记录依赖 Crossref/备用元数据；出版社详情页若受限，online date 可能仍需后续增强。")
+    if crossref_new_deposits:
+        health.append(f"今日有 {crossref_new_deposits} 条 Crossref newly deposited 记录；这是为减少刚入库 DOI 漏抓而新增的监测口径。")
     if not health:
         health.append("暂无需要立即处理的来源异常。")
 
@@ -314,6 +345,13 @@ def main() -> None:
         f"<td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td>"
         f"<td>{html_escape(item.get('message') if item.get('message') and item.get('message') != 'ok' else ('抓取成功但 0 条，可能是暂无新内容或页面结构需继续适配' if item.get('ok') and int(item.get('count') or 0) == 0 else item.get('message')))}</td></tr>"
         for item in cn_group.get("journals", [])
+    ]
+    cnki_rows = [
+        f"<tr class='{'warn' if not item.get('ok') else ''}'><td>{html_escape(item.get('journal'))}</td><td>{'OK' if item.get('ok') else 'FAIL'}</td>"
+        f"<td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('filtered'))}</td>"
+        f"<td>{html_escape(item.get('channel_updated_at'))}</td><td>{html_escape(item.get('latest_research_date') or item.get('latest_research'))}</td>"
+        f"<td>{html_escape(item.get('message'))}</td></tr>"
+        for item in cnki_group.get("journals", [])
     ]
     publisher_rows = [
         f"<tr><td>{html_escape(item.get('publisher'))}</td>"
@@ -402,7 +440,9 @@ def main() -> None:
     <div class="card"><strong>{light_journal_count} / {light_working_source_count}</strong><span>快速监测覆盖：期刊 / 工作论文源</span></div>
     <div class="card"><strong>{html_escape(beijing_stamp(workflow.get('last_full_finished_at')))}</strong><span>全量监测最近完成</span></div>
     <div class="card"><strong>{full_journal_count} / {full_working_source_count}</strong><span>全量监测覆盖：期刊 / 工作论文源</span></div>
-    <div class="card"><strong>{today_total}</strong><span>今日新发现记录</span></div>
+    <div class="card"><strong>{today_total}</strong><span>{html_escape(today_date)} 今日累计记录</span></div>
+    <div class="card"><strong>{today_journal_total} / {today_working_total}</strong><span>今日期刊 / 工作论文</span></div>
+    <div class="card"><strong>{html_escape(latest_dedupe.get('count', 0))}</strong><span>最近一次跨日期新增</span></div>
   </div>
 
   <section class="section">
@@ -439,7 +479,10 @@ def main() -> None:
 
   <section class="section">
   <h2>中文期刊状态</h2>
+  <h3>期刊官网</h3>
   {table(cn_rows, ["期刊", "状态", "数量", "抓取方式", "信息"])}
+  <h3>CNKI RSS 补充</h3>
+  {table(cnki_rows, ["期刊", "状态", "接受", "过滤", "频道日期", "最新研究日期", "信息"])}
   </section>
 
   <section class="section">

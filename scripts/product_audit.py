@@ -129,6 +129,21 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
     ]
     china_candidates = [record for record in records if record.get("china_relevance_status") == "candidate"]
     china_public = [record for record in records if record.get("china_related") is True or record.get("china_relevance_status") == "confirmed"]
+    crossref_created_today = [
+        record
+        for record in today_records
+        if "created" in str(record.get("date_source") or "").casefold()
+        or "created" in str((record.get("raw_data") or {}).get("crossref_date_source") or "").casefold()
+    ]
+    crossref_fallback_today = [
+        record for record in today_records if "crossref" in str(record.get("date_source") or "").casefold()
+    ]
+    cnki_rss_today = [
+        record
+        for record in today_records
+        if str(record.get("source") or "").casefold() == "cnki-rss"
+        or str(record.get("date_source") or "").casefold().startswith("cnki_rss")
+    ]
 
     return {
         "generated_for": today,
@@ -140,6 +155,9 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
             "china_related_public": len(china_public),
             "china_candidates": len(china_candidates),
             "duplicates_by_url_or_doi": len(duplicates),
+            "crossref_created_today": len(crossref_created_today),
+            "crossref_fallback_today": len(crossref_fallback_today),
+            "cnki_rss_today": len(cnki_rss_today),
         },
         "date_confidence": dict(confidence),
         "date_source_top": dict(date_source.most_common(20)),
@@ -150,6 +168,11 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
             "abstract_as_title": [record_label(record) for record in abstract_titles[:50]],
             "untranslated_recent": [record_label(record) for record in untranslated_recent[:50]],
             "duplicate_examples": [[record_label(record) for record in group[:5]] for group in duplicates[:20]],
+        },
+        "risk_signals": {
+            "crossref_created_today": [record_label(record) for record in crossref_created_today[:50]],
+            "crossref_fallback_today": [record_label(record) for record in crossref_fallback_today[:50]],
+            "cnki_rss_today": [record_label(record) for record in cnki_rss_today[:50]],
         },
     }
 
