@@ -40,9 +40,18 @@ def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
     published_print = date_from_parts(item.get("published-print"))
     issued = date_from_parts(item.get("issued"))
     created = date_from_parts(item.get("created"))
+    doi = str(item.get("DOI") or "")
     issue_date = published_print or published or issued
     if published_online:
         date_source = "crossref_published_online"
+        confidence = "C"
+    elif doi.startswith("10.1016/") and created:
+        # Elsevier often omits published-online from Crossref while the DOI
+        # registration date matches ScienceDirect's "Available online" date.
+        # Keep the issue/print date separately, but surface created as
+        # a provisional online date until publisher-page parsing succeeds.
+        published_online = created
+        date_source = "crossref_elsevier_created_online"
         confidence = "C"
     elif published:
         date_source = "crossref_published"
@@ -66,6 +75,7 @@ def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
         authors=[author_name(author) for author in item.get("author", [])],
         abstract=item.get("abstract"),
         published_online=published_online,
+        available_online=published_online,
         issue_date=issue_date or created,
         date_source=date_source,
         date_confidence=confidence,

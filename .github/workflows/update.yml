@@ -172,7 +172,7 @@ jobs:
         run: python scripts/normalize_records.py
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/enrich_metadata.py --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
+        run: python scripts/enrich_metadata.py --latest-days 7 --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all

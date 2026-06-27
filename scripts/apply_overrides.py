@@ -19,6 +19,9 @@ def record_key(record: dict[str, Any]) -> str | None:
 
 def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
     changed = False
+    china_related_value = override.get("china_related")
+    if isinstance(china_related_value, str):
+        china_related_value = china_related_value.strip().casefold() == "true"
     field_map = {
         "title_zh": "title_zh",
         "china_related": "china_related",
@@ -40,9 +43,25 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
     if override.get("title_zh") and record.get("translation_status") != "manual_title":
         record["translation_status"] = "manual_title"
         changed = True
-    if override.get("china_related") is True and record.get("china_related_source") != "manual":
+    if china_related_value is True and record.get("china_related_source") != "manual":
         record["china_related_source"] = "manual"
         changed = True
+    if china_related_value is True:
+        if record.get("china_relevance_status") != "confirmed":
+            record["china_relevance_status"] = "confirmed"
+            changed = True
+        reason = override.get("china_reason")
+        if reason and record.get("china_relevance_reason") != reason:
+            record["china_relevance_reason"] = reason
+            changed = True
+    elif china_related_value is False:
+        if record.get("china_relevance_status") != "none":
+            record["china_relevance_status"] = "none"
+            changed = True
+        reason = override.get("china_reason")
+        if reason and record.get("china_relevance_reason") != reason:
+            record["china_relevance_reason"] = reason
+            changed = True
     return changed
 
 

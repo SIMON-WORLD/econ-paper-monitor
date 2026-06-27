@@ -14,7 +14,7 @@ import re
 import urllib.parse
 import urllib.request
 from collections import Counter
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -181,11 +181,19 @@ def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
     published_print = date_from_parts(item.get("published-print"))
     issued = date_from_parts(item.get("issued"))
     created = date_from_parts(item.get("created"))
+    issue_date = published_print or published or issued
     result: dict[str, str] = {}
     if published_online:
         result["available_online"] = published_online
         result["published_online"] = published_online
         result["date_source"] = "crossref_doi_published_online"
+        result["date_confidence"] = "C"
+    elif doi.startswith("10.1016/") and created:
+        result["available_online"] = created
+        result["published_online"] = created
+        if issue_date:
+            result["issue_date"] = issue_date
+        result["date_source"] = "crossref_doi_elsevier_created_online"
         result["date_confidence"] = "C"
     elif published:
         result["issue_date"] = published
@@ -369,6 +377,14 @@ def has_ab_date(record: dict[str, Any]) -> bool:
     )
 
 
+def enrich_priority(record: dict[str, Any]) -> tuple[int, int, str]:
+    bucket = publisher_bucket(record)
+    core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
+    confidence = str(record.get("date_confidence") or "F")
+    weak_date = 0 if not has_ab_date(record) or confidence in {"C", "D", "F", "unknown"} else 1
+    return (weak_date, core_rank, str(record.get("detected_at") or ""))
+
+
 def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     urls = candidate_urls(record)
     if not urls:
@@ -377,6 +393,18 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     last_status = "no-metadata"
     doi = str(record.get("doi") or "").strip()
     resolved_elsevier_pii = False
+    if doi.startswith("10.1016/") and not has_ab_date(record):
+        metadata = crossref_doi_metadata(doi, timeout)
+        evidence_changed = append_date_evidence(record, "crossref-doi", metadata)
+        if metadata:
+            changed = evidence_changed
+            for field, value in metadata.items():
+                if value and record.get(field) != value:
+                    record[field] = value
+                    changed = True
+            return changed, "crossref-doi-fallback"
+        if evidence_changed:
+            return True, "crossref-doi-evidence"
     for url in urls:
         try:
             html, final_url = fetch_text_and_url(str(url), timeout)
@@ -384,6 +412,9 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
             if pii and record.get("pii") != pii:
                 record["pii"] = pii
                 resolved_elsevier_pii = True
+                pii_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+                if pii_url not in urls:
+                    urls.append(pii_url)
             metadata = extract_page_metadata(html)
             if metadata:
                 break
@@ -481,20 +512,34 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--date", default=today_str())
+    parser.add_argument("--latest-days", type=int, default=1)
     parser.add_argument("--limit", type=int, default=60)
     parser.add_argument("--timeout", type=int, default=15)
     args = parser.parse_args()
 
-    path = args.daily_dir / f"{args.date}.json"
-    records = read_json(path, [])
+    try:
+        anchor = date.fromisoformat(args.date)
+    except ValueError:
+        anchor = date.fromisoformat(today_str())
+    paths = [
+        args.daily_dir / f"{(anchor - timedelta(days=offset)).isoformat()}.json"
+        for offset in range(max(1, args.latest_days))
+    ]
     attempted = changed = 0
     messages: list[str] = []
     publisher_stats: dict[str, dict[str, Any]] = {}
-    for record in records:
+    records_by_path: dict[Path, list[dict[str, Any]]] = {}
+    candidates: list[tuple[Path, dict[str, Any]]] = []
+    for path in paths:
+        records = read_json(path, [])
+        records_by_path[path] = records
+        candidates.extend((path, record) for record in records if should_enrich(record))
+    candidates.sort(key=lambda item: enrich_priority(item[1]))
+
+    changed_paths: set[Path] = set()
+    for path, record in candidates:
         if attempted >= args.limit:
             break
-        if not should_enrich(record):
-            continue
         attempted += 1
         bucket = publisher_bucket(record)
         stats = publisher_stats.setdefault(
@@ -505,6 +550,8 @@ def main() -> None:
         try:
             did_change, status = enrich_record(record, args.timeout)
             changed += int(did_change)
+            if did_change:
+                changed_paths.add(path)
             stats["changed"] += int(did_change)
             stats["status_counts"][status] += 1
             record_has_ab_date = has_ab_date(record)
@@ -513,16 +560,16 @@ def main() -> None:
             if not record_has_ab_date and status not in {"updated", "metadata-unchanged", "tandf-date-corrected"}:
                 stats["failures"] += 1
             if status not in {"no-dates", "no-metadata"}:
-                messages.append(f"{record.get('journal')}: {status}")
+                messages.append(f"{path.stem} {record.get('journal')}: {status}")
         except Exception as exc:  # noqa: BLE001
             error_name = type(exc).__name__
             stats["failures"] += 1
             stats["status_counts"][error_name] += 1
-            messages.append(f"{record.get('journal')}: {error_name}")
+            messages.append(f"{path.stem} {record.get('journal')}: {error_name}")
             continue
 
-    if changed:
-        write_json(path, records)
+    for path in sorted(changed_paths):
+        write_json(path, records_by_path[path])
     record_source("publisher-detail", ok=True, count=changed, message=f"attempted={attempted}; " + "; ".join(messages[-20:]))
     record_publisher_group(publisher_stats)
     print(f"publisher detail attempted={attempted} changed={changed}")
