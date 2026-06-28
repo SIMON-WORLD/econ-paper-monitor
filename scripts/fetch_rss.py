@@ -101,6 +101,21 @@ def parse_date(value: str | None) -> str | None:
         return value[:10] if len(value) >= 10 else None
 
 
+def parse_month_date(value: str | None) -> str | None:
+    if not value:
+        return None
+    text = value.strip()
+    match = re.search(r"([A-Za-z]{3,9})\s+(20\d{2})", text)
+    if match:
+        month = MONTHS.get(match.group(1).casefold())
+        if month:
+            return f"{int(match.group(2)):04d}-{month:02d}-01"
+    match = re.search(r"(20\d{2})\s*[-/年]\s*(\d{1,2})", text)
+    if match:
+        return f"{int(match.group(1)):04d}-{int(match.group(2)):02d}-01"
+    return None
+
+
 def clean_text(value: str | None) -> str:
     if not value:
         return ""
@@ -115,13 +130,20 @@ def metadata_from_description(description: str | None) -> dict[str, Any]:
     result: dict[str, Any] = {}
     if not text:
         return result
-    date_match = re.search(r"Publication date:\s*(?:Available online\s*)?(.+?20\d{2})", text, flags=re.I)
-    parsed_date = parse_date(date_match.group(1)) if date_match else None
+    available_match = re.search(r"(?:Available online|Online available|Article available online)\s*:?\s*(.+?20\d{2})", text, flags=re.I)
+    parsed_date = parse_date(available_match.group(1)) if available_match else None
     if parsed_date:
         result["published_online"] = parsed_date
         result["available_online"] = parsed_date
         result["date_source"] = "rss_description_online"
         result["date_confidence"] = "B"
+    publication_match = re.search(r"Publication date:\s*(.+?20\d{2})", text, flags=re.I)
+    publication_value = publication_match.group(1) if publication_match else None
+    issue_date = parse_date(publication_value) or parse_month_date(publication_value)
+    if issue_date:
+        result["issue_date"] = issue_date
+        if issue_date.endswith("-01") and publication_value and not re.search(r"\d{1,2}\s+[A-Za-z]{3,9}|[A-Za-z]{3,9}\s+\d{1,2}", publication_value):
+            result["date_precision"] = "month"
     source_match = re.search(r"Source:\s*(.*?)(?:Author\(s\):|$)", text, flags=re.I)
     if source_match:
         result["source_issue"] = clean_text(source_match.group(1))
@@ -131,6 +153,18 @@ def metadata_from_description(description: str | None) -> dict[str, Any]:
         if authors:
             result["authors"] = authors[:12]
     return result
+
+
+def extract_pii(*values: str | None) -> str | None:
+    for value in values:
+        text = str(value or "")
+        match = re.search(r"/pii/(S[0-9A-Z]+)", text, flags=re.I)
+        if match:
+            return match.group(1).upper()
+        match = re.search(r"\b(S\d{15,}[A-Z0-9]*)\b", text, flags=re.I)
+        if match:
+            return match.group(1).upper()
+    return None
 
 
 def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[dict[str, Any]]:
@@ -144,9 +178,10 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
         for item in items:
             title = child_text_any(item, ["title"])
             link = child_link_any(item)
+            guid = child_text_any(item, ["guid", "identifier"])
             published = parse_date(child_text_any(item, ["pubDate", "date", "dc:date", "updated", "published"]))
             description = child_text_any(item, ["description", "summary", "content"])
-            records.append(make_record(title, link, published, journal, feed_url, description=description))
+            records.append(make_record(title, link, published, journal, feed_url, description=description, guid=guid))
         return [record for record in records if record["title"]]
 
     entries = root.findall(f".//{ATOM}entry")
@@ -182,8 +217,10 @@ def make_record(
     journal: dict[str, Any],
     feed_url: str,
     description: str | None = None,
+    guid: str | None = None,
 ) -> dict[str, Any]:
     description_metadata = metadata_from_description(description)
+    pii = extract_pii(link, guid, description)
     record = {
         **article_record(
             journal,
@@ -194,12 +231,15 @@ def make_record(
             authors=description_metadata.get("authors"),
             published_online=published or description_metadata.get("published_online"),
             available_online=published or description_metadata.get("available_online"),
+            issue_date=description_metadata.get("issue_date"),
             source_issue=description_metadata.get("source_issue"),
             date_source="rss_published" if published else description_metadata.get("date_source"),
             date_confidence="B" if published else description_metadata.get("date_confidence", "F"),
-            raw_data={"rss_feed_url": feed_url},
+            raw_data={"rss_feed_url": feed_url, "rss_guid": guid, "pii": pii},
         )
     }
+    if description_metadata.get("date_precision"):
+        record["date_precision"] = description_metadata["date_precision"]
     return record
 
 

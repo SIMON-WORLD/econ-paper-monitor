@@ -169,6 +169,10 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
     doi = normalize_doi(record.get("doi"))
     if doi:
         keys.add(f"doi:{doi}")
+    raw = record.get("raw_data") if isinstance(record.get("raw_data"), dict) else {}
+    pii = str(raw.get("pii") or record.get("pii") or "").strip().casefold()
+    if pii and re.fullmatch(r"s[0-9a-z]+", pii):
+        keys.add(f"pii:{pii}")
     url = str(record.get("url") or "").strip().rstrip("/")
     if url:
         normalized_url = url.casefold()
@@ -188,13 +192,15 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
             match = re.search(pattern, normalized_url, flags=re.I)
             if match:
                 keys.add(f"urlpaper:{match.group(1).strip('/').casefold()}")
+    title = " ".join(str(record.get("title") or "").casefold().split())
+    journal = " ".join(str(record.get("journal") or "").casefold().split())
+    if record.get("source_type") == "journal" and title and journal and len(title) > 20:
+        keys.add(f"journal-title:{journal}:{title}")
     source_id = str(record.get("source_id") or "")
     paper_number = str(record.get("paper_number") or "")
     if source_id and paper_number:
         keys.add(f"paper:{source_id.casefold()}:{paper_number.casefold()}")
     if source == "cnki-rss":
-        title = " ".join(str(record.get("title") or "").casefold().split())
-        journal = " ".join(str(record.get("journal") or "").casefold().split())
         if title and journal:
             keys.add(f"cnki-title:{journal}:{title}")
     return keys

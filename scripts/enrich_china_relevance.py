@@ -159,6 +159,10 @@ CN_JOURNAL_IDS = {
     "journal-ba9f46c919",  # 经济研究
 }
 
+CHINA_SCOPE_JOURNAL_IDS = {
+    "china-economic-review",
+}
+
 
 def haystack(record: dict[str, Any]) -> str:
     values = [
@@ -204,6 +208,14 @@ def is_chinese_journal(record: dict[str, Any]) -> bool:
     return "chinese" in fields or source == "cn-official" or journal_id in CN_JOURNAL_IDS
 
 
+def is_china_scope_journal(record: dict[str, Any]) -> bool:
+    return str(record.get("journal_id") or "") in CHINA_SCOPE_JOURNAL_IDS
+
+
+def has_china_topic(record: dict[str, Any]) -> bool:
+    return "china" in {str(field) for field in (record.get("fields") or [])}
+
+
 def classify(record: dict[str, Any]) -> tuple[str, str, str]:
     """Return status, reason, source."""
     manual_reason = str(record.get("china_reason") or "")
@@ -214,6 +226,8 @@ def classify(record: dict[str, Any]) -> tuple[str, str, str]:
         return "none", str(record.get("china_reason") or record.get("china_relevance_reason") or "人工确认：排除中国相关"), "manual"
     if is_chinese_journal(record):
         return "confirmed", "中文期刊默认与中国相关", "rule"
+    if is_china_scope_journal(record) or has_china_topic(record):
+        return "confirmed", "journal or topic scope is China economy", "rule"
 
     text = haystack(record)
     if record.get("china_related") is True and source == "ai" and not has_explicit_china_signal(record):
