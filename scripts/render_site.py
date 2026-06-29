@@ -96,7 +96,7 @@ STYLE = """
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
@@ -303,7 +303,7 @@ def source_type_label(record: dict[str, Any]) -> str:
     source_type = str(record.get("source_type") or "")
     return {
         "working_paper": "工作论文",
-        "policy_paper": "政策论文",
+        "policy_paper": "机构研究",
         "aggregator": "聚合源",
         "journal_article": "期刊论文",
     }.get(source_type, "工作论文" if is_working_paper(record) else "期刊论文")
@@ -386,9 +386,9 @@ SOURCE_STATUS = {
 
 SOURCE_TYPE_LABELS = {
     "working_paper": "工作论文",
-    "policy_paper": "政策论文",
+    "policy_paper": "机构研究",
     "aggregator": "聚合源",
-    "policy_commentary": "政策评论",
+    "policy_commentary": "研究评论",
 }
 
 
@@ -444,9 +444,9 @@ SOURCE_STATUS.update(
 SOURCE_TYPE_LABELS.update(
     {
         "working_paper": "工作论文",
-        "policy_paper": "政策论文",
+        "policy_paper": "机构研究",
         "aggregator": "聚合源",
-        "policy_commentary": "政策评论",
+        "policy_commentary": "研究评论",
     }
 )
 
@@ -521,6 +521,27 @@ def working_paper_sources_body(records: list[dict[str, Any]]) -> str:
     today_by_source = Counter(str(record.get("source_id") or "").removeprefix("source-") for record in wp_records if detected_date(record) == today_str())
     rows = []
     stable = partial = failed = 0
+
+    def public_source_group(source: dict[str, Any]) -> str:
+        try:
+            stage = int(source.get("stage") or 99)
+        except (TypeError, ValueError):
+            stage = 99
+        if stage <= 1:
+            return "核心"
+        if stage == 2:
+            return "扩展"
+        return "候选"
+
+    def public_source_note(source_id: str, status_class: str, default_note: str) -> str:
+        if status_class == "ok":
+            return "已纳入日常监测。"
+        if source_id.startswith("ssrn-"):
+            return "暂未纳入公开监测，等待稳定 feed 或邮件来源。"
+        if status_class == "pause":
+            return "暂未纳入公开监测，等待稳定公开入口。"
+        return "继续校验公开入口和日期字段。"
+
     for source in sources:
         source_id = str(source.get("id") or "")
         run_status = source_statuses.get(f"working-paper:{source_id}") or {}
@@ -528,27 +549,27 @@ def working_paper_sources_body(records: list[dict[str, Any]]) -> str:
         recent_count = int(run_status.get("count") or 0)
         total_count = by_source.get(source_id, 0)
         if run_status and not run_status.get("ok"):
-            label, status_class = "失败/受限", "pause"
+            label, status_class = "暂未收录", "pause"
             failed += 1
-            note = str(run_status.get("message") or note)
         elif recent_count > 0 or total_count > 0:
             label, status_class = "稳定出数据", "ok"
             stable += 1
         elif configured_class == "pause":
-            label, status_class = configured_label, configured_class
+            label, status_class = "暂未收录", configured_class
             failed += 1
         else:
-            label, status_class = "待增强", "todo"
+            label, status_class = "继续校验", "todo"
             partial += 1
         chinese_name = SOURCE_CN_NAMES.get(source_id) or str(source.get("chinese_name") or "")
         homepage = str(source.get("homepage") or "")
         homepage_html = f'<a href="{html_escape(homepage)}">{html_escape(homepage)}</a>' if homepage else '<span class="muted">未配置</span>'
+        public_note = public_source_note(source_id, status_class, note)
         rows.append(
             f"""<tr>
   <td><strong>{html_escape(str(source.get("title") or source_id))}</strong><div class="muted">{html_escape(chinese_name)}</div></td>
   <td>{html_escape(SOURCE_TYPE_LABELS.get(str(source.get("type") or ""), str(source.get("type") or "")))}</td>
-  <td>{html_escape(str(source.get("stage") or ""))}</td>
-  <td><span class="source-status {html_escape(status_class)}">{html_escape(label)}</span><div class="muted">{html_escape(note)}</div></td>
+  <td>{html_escape(public_source_group(source))}</td>
+  <td><span class="source-status {html_escape(status_class)}">{html_escape(label)}</span><div class="muted">{html_escape(public_note)}</div></td>
   <td>{recent_count}</td>
   <td>{today_by_source.get(source_id, 0)}</td>
   <td>{total_count}</td>
@@ -559,18 +580,17 @@ def working_paper_sources_body(records: list[dict[str, Any]]) -> str:
     total_today = sum(today_by_source.values())
     total_records = len(wp_records)
     return f"""<section class="section-head">
-  <div><h2>工作论文来源</h2><p>已接入 NBER、IZA、World Bank、IMF、CEPR、BIS、CESifo、OECD 等公开元数据来源；SSRN 暂以邮件/feed 方案待接入。这里只抓公开元数据，不批量下载 PDF。</p></div>
+  <div><h2>工作论文来源</h2><p>覆盖 NBER、IZA、World Bank、IMF、CEPR、BIS、CESifo、OECD 与 RePEc NEP 等公开元数据来源。</p></div>
   <p>{len(sources)} 个来源</p>
 </section>
 <section class="stats">
   <a class="stat" href="{BASE}/working-papers/"><strong>{total_records}</strong><span>累计工作论文记录</span></a>
   <a class="stat" href="{BASE}/working-papers/today/"><strong>{total_today}</strong><span>今日新发现</span></a>
-  <span class="stat"><strong>{stable}</strong><span>稳定出数据来源</span></span>
-  <span class="stat"><strong>{partial}</strong><span>待增强来源</span></span>
-  <span class="stat"><strong>{failed}</strong><span>失败/受限来源</span></span>
+  <span class="stat"><strong>{stable}</strong><span>稳定来源</span></span>
+  <span class="stat"><strong>{partial}</strong><span>继续校验来源</span></span>
+  <span class="stat"><strong>{failed}</strong><span>暂未收录来源</span></span>
 </section>
-<div class="empty home-note">优先接入公开元数据稳定的工作论文与政策研究来源。</div>
-<table class="journal-table"><thead><tr><th>来源</th><th>类型</th><th>阶段</th><th>状态/下一步</th><th>本轮</th><th>今日新增</th><th>累计</th><th>最近更新</th><th>入口</th></tr></thead><tbody>{"".join(rows)}</tbody></table>"""
+<table class="journal-table"><thead><tr><th>来源</th><th>类型</th><th>分组</th><th>状态</th><th>本轮</th><th>今日</th><th>累计</th><th>最近更新</th><th>入口</th></tr></thead><tbody>{"".join(rows)}</tbody></table>"""
 
 
 def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]], flow_records: list[dict[str, Any]]) -> dict[str, Any]:
@@ -622,8 +642,8 @@ def date_type(record: dict[str, Any]) -> str:
 def date_type_label(value: str) -> str:
     return {
         "accepted": "接受日期",
-        "available_online": "Online 日期",
-        "published_online": "发布日期",
+        "available_online": "官方在线",
+        "published_online": "官方发布",
         "issue": "来源期次",
         "first_seen": "首次监测",
     }.get(value, value)
@@ -637,32 +657,34 @@ def confidence_value(record: dict[str, Any]) -> str:
 
 def confidence_label(value: str) -> str:
     return {
-        "A": "A 高：出版社/PDF 明确日期",
-        "B": "B 中：RSS/出版社备选日期",
-        "C": "C 低：Crossref 元数据",
-        "D": "D 低：卷期/印刷日期",
-        "F": "F 待核：仅首次监测",
+        "A": "A：出版社/PDF 明确日期",
+        "B": "B：RSS/出版社备选日期",
+        "C": "C：Crossref 元数据",
+        "D": "D：卷期/印刷日期",
+        "F": "F：仅首次监测",
     }.get(value, value)
 
 
 def public_date_label(record: dict[str, Any]) -> str:
     if str(record.get("date_source") or "").casefold().startswith("cnki_rss"):
-        return "CNKI RSS 日期"
+        return "官方发布"
     if record.get("date_precision") == "month" and (record.get("available_online") or record.get("published_online")):
-        return "在线月份"
-    if record.get("available_online") or record.get("published_online"):
-        return "在线日期"
+        return "官方在线月份"
+    if record.get("available_online"):
+        return "官方在线"
+    if record.get("published_online"):
+        return "官方发布"
     if record.get("accepted_date"):
         return "接受日期"
     if record.get("source_issue"):
         return "来源期次"
     if record.get("issue_date"):
         return "卷期日期"
-    return "日期待解析"
+    return "官方日期待补"
 
 
 def official_date(record: dict[str, Any]) -> str:
-    return str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("source_issue") or record.get("issue_date") or "待解析")
+    return str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("source_issue") or record.get("issue_date") or "")
 
 
 def date_source_label(record: dict[str, Any]) -> str:
@@ -685,7 +707,7 @@ def date_source_label(record: dict[str, Any]) -> str:
         return "期刊官网"
     if record.get("url"):
         return "文章页面"
-    return "待解析"
+    return "待补"
 
 
 def public_date_line(record: dict[str, Any]) -> str:
@@ -693,7 +715,7 @@ def public_date_line(record: dict[str, Any]) -> str:
     if record.get("date_precision") == "month" and date_value and date_value.count("-") == 2:
         date_value = date_value[:7]
     if date_value in {"待解析", "寰呰В鏋?", ""}:
-        return f"日期待解析 · 来源：{date_source_label(record)}"
+        return f"官方日期待补 · 来源：{date_source_label(record)}"
     return f"{public_date_label(record)} {date_value} · 来源：{date_source_label(record)}"
 
 
@@ -819,8 +841,8 @@ def sidebar(
     <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
     <a class="side-link" href="{BASE}/search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
-    <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
-    <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">WP</span></a>
+    <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Sources</span></a>
   </div>
   <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
   <div class="side-block"><div class="side-title">{html_escape(journal_source_title)}</div>{journal_links}<a class="side-link" href="{BASE}/daily/{html_escape(journal_target_date)}/"><span class="side-main"><strong>{html_escape(journal_footer_label)}</strong></span><span class="count">Today</span></a></div>
@@ -922,6 +944,10 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
         china_related = is_china_related(record)
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
+        official_line = public_date_line(record)
+        official_class = "pending" if official_line.startswith("官方日期待补") else ("issue" if public_date_label(record) in {"来源期次", "卷期日期"} else "")
+        official_chip = f'<span class="date-chip {official_class}">{html_escape(official_line)}</span>'
+        detected_chip = f'<span class="pill">首次监测 {html_escape(detected_date(record))}</span>'
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
         field_attr = " ".join(article_topics(record))
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
@@ -934,7 +960,8 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
     {title_zh_html}
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}<span class="source-chip">{html_escape(public_date_line(record))}</span></span></div>
+      <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}{detected_chip}</span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">{official_chip}</span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">{link_or_doi}{fields}{china_tag}</span></div>
     </div>
   </div>
@@ -1155,7 +1182,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
           <a class="hero-stat" href="#journal-flow" data-filter-preset="all" data-filter-scope-target="journal"><strong>{len(journal_flow_records)}</strong><span>今日期刊论文新发现</span></a>
           <a class="hero-stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
           <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
-          <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>{len(working_flow_records)}</strong><span>今日工作论文新发现</span></a>
+          <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>{len(working_flow_records)}</strong><span>今日工作论文</span></a>
           <a class="hero-stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
           <a class="hero-stat duo" href="{BASE}/archive/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>{all_journal_count}</strong><em>期刊论文</em></div><div><strong>{len(all_working)}</strong><em>工作论文</em></div></div></a>
         </div>
@@ -1189,7 +1216,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 {paper_events(journal_flow_records, scope="journal")}
 <section id="working-flow" class="section-head split-section"><div><h2>今日工作论文 <span class="live-count" data-filter-counter="working"></span></h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
 <section class="stats">
-  <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
+  <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>今日工作论文</span></a>
   <a class="stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
   <a class="stat" href="{BASE}/sources/working-papers/"><strong>{len({record.get('journal_id') for record in working_flow_records if record.get('journal_id')})}</strong><span>今日涉及来源</span></a>
   <a class="stat" href="{BASE}/working-papers/"><strong>{len(all_working)}</strong><span>累计工作论文记录</span></a>
@@ -1221,7 +1248,7 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
         "china": "与中国相关工作论文",
         "china-recent7": "最近 7 天与中国相关工作论文",
     }.get(view, "全部工作论文")
-    note = "覆盖工作论文和政策论文来源，按首次监测时间倒序排列；日期字段会区分发布/上线日期与本站首次监测日期。"
+    note = "覆盖工作论文与机构研究来源，按首次监测时间倒序排列；官方日期与本站首次监测日期分开显示。"
     tabs = [
         ("today", "今日", f"{BASE}/working-papers/today/", today_count),
         ("recent7", "最近 7 天", f"{BASE}/working-papers/recent7/", recent_count),
@@ -1258,7 +1285,7 @@ def china_topic_body(records: list[dict[str, Any]], topic_records: list[dict[str
     recent_journals = recent_records(journal_records, 7)
     recent_wp = recent_records(wp_records, 7)
     return f"""<section class="section-head">
-  <div><h2>与中国相关</h2><p>期刊论文和工作论文分开浏览。</p></div>
+  <div><h2>与中国相关</h2><p>期刊论文和工作论文分开浏览，优先展示明确涉及中国数据、制度、市场或研究对象的记录。</p></div>
   <p>{len(public_topic_records)} 篇</p>
 </section>
 <section class="stats">
@@ -1312,7 +1339,7 @@ def china_quality_body(records: list[dict[str, Any]]) -> str:
 </section>
 <section class="audit-grid">
   <div class="audit-card"><strong>{len(confirmed)}</strong><span>最近样本中已确认中国相关</span></div>
-  <div class="audit-card"><strong>{len(working_confirmed)}</strong><span>其中工作论文/政策论文</span></div>
+  <div class="audit-card"><strong>{len(working_confirmed)}</strong><span>其中工作论文/机构研究</span></div>
   <div class="audit-card"><strong>{len(candidates)}</strong><span>待校准候选</span></div>
 </section>
 <nav class="view-tabs">
@@ -1338,7 +1365,7 @@ def search_body(records: list[dict[str, Any]]) -> str:
 </section>
 <section class="stats">
   <span class="stat"><strong>{len(journal_records)}</strong><span>期刊论文</span></span>
-  <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文/政策论文</span></span>
+  <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文/机构研究</span></span>
   <a class="stat" href="{BASE}/archive/"><strong>{len({detected_date(record) for record in searchable})}</strong><span>归档日期</span></a>
   <a class="stat china" href="{BASE}/topics/china/"><strong>{sum(1 for record in searchable if is_public_china_related(record))}</strong><span>与中国相关</span></a>
 </section>
