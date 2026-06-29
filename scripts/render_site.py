@@ -88,11 +88,11 @@ TOPIC_RULES = {
 
 STYLE = """
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
-*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1180px);width:100%;max-width:1520px;margin:0 auto;min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
+.shell{display:grid;grid-template-columns:320px minmax(0,1120px);width:min(100% - 32px,1440px);margin:0 auto;min-height:100vh;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0 auto;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0 auto;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:26px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0;background:var(--page)}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:26px 28px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 36px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:19px;max-width:720px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin-top:24px;max-width:860px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:12px 13px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:27px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:25px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.status-strip .warn strong{color:#7d4e00}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
@@ -100,7 +100,7 @@ STYLE = """
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 """
 
 
@@ -156,6 +156,47 @@ def beijing_time(value: str | None) -> str:
 def beijing_stamp(value: str | None) -> str:
     dt = beijing_datetime(value)
     return dt.strftime("%Y-%m-%d %H:%M 北京时间") if dt else "暂无"
+
+
+def latest_status_timestamp(status: dict[str, Any], records: list[dict[str, Any]]) -> str:
+    candidates: list[str] = []
+    workflow = status.get("workflow") or {}
+    for key in (
+        "finished_at",
+        "updated_at",
+        "last_light_finished_at",
+        "last_full_finished_at",
+        "last_single_finished_at",
+    ):
+        value = workflow.get(key)
+        if value:
+            candidates.append(str(value))
+    for entry in workflow.get("history") or []:
+        if isinstance(entry, dict) and entry.get("finished_at"):
+            candidates.append(str(entry.get("finished_at")))
+    for run in status.get("runs") or []:
+        if isinstance(run, dict) and run.get("updated_at"):
+            candidates.append(str(run.get("updated_at")))
+    for item in (status.get("sources") or {}).values():
+        if isinstance(item, dict) and item.get("updated_at"):
+            candidates.append(str(item.get("updated_at")))
+    for record in records:
+        if record.get("detected_at"):
+            candidates.append(str(record.get("detected_at")))
+    valid = [value for value in candidates if beijing_datetime(value)]
+    return max(valid, default="")
+
+
+def monitor_freshness_label(value: str | None) -> str:
+    dt = beijing_datetime(value)
+    if not dt:
+        return "状态待确认"
+    hours = (datetime.now(CN_TZ) - dt).total_seconds() / 3600
+    if hours <= 2.25:
+        return "状态正常"
+    if hours <= 6:
+        return "超过 2 小时未刷新"
+    return "超过 6 小时未刷新"
 
 
 def next_hourly_run(value: str | None) -> str:
@@ -248,6 +289,8 @@ def has_public_title(record: dict[str, Any]) -> bool:
         "based on ",
     )
     if not title or "题名待解析" in title or lowered.startswith("untitled"):
+        return False
+    if "repec nep" in lowered and " item p" in lowered:
         return False
     if len(title) > 260 or any(lowered.startswith(prefix) for prefix in abstract_starts):
         return False
@@ -599,13 +642,8 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]], fl
     all_journals = {record.get("journal_id") for record in records if record.get("journal_id")}
     status = load_status()
     workflow = status.get("workflow") or {}
-    latest_run = workflow.get("finished_at") or (status.get("runs") or [{}])[0].get("updated_at") or ""
-    latest_source = max(
-        (str(item.get("updated_at") or "") for item in (status.get("sources") or {}).values()),
-        default="",
-    )
     last_record_seen = max((record.get("detected_at") or "" for record in records), default="")
-    last_run = latest_run or latest_source or last_record_seen
+    last_run = latest_status_timestamp(status, records) or last_record_seen
     return {
         "today": len(today_records),
         "china_today": sum(1 for record in today_records if is_china_related(record)),
@@ -618,6 +656,7 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]], fl
         "all_records": len(records),
         "all_journals": len(all_journals),
         "last_run": beijing_stamp(last_run),
+        "last_run_freshness": monitor_freshness_label(last_run),
         "last_run_label": workflow.get("mode_label") or "自动监测",
         "last_full_run": beijing_stamp(workflow.get("last_full_finished_at")),
         "last_light_run": beijing_stamp(workflow.get("last_light_finished_at")),
@@ -836,17 +875,17 @@ def sidebar(
   <h1 class="brand">{SITE_NAME}</h1>
   <div class="subtitle">{SITE_SUBTITLE}</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="{BASE}/"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
-    <a class="side-link" href="{BASE}/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
-    <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
-    <a class="side-link" href="{BASE}/search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
-    <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
-    <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">WP</span></a>
-    <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Sources</span></a>
+    <a class="side-link" href="{BASE}/"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="{BASE}/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
+    <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
+    <a class="side-link" href="{BASE}/search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
+    <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
+    <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
+    <a class="side-link" href="{BASE}/sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
   </div>
   <div class="side-block"><div class="side-title">{html_escape(topic_title)}</div>{topics}</div>
-  <div class="side-block"><div class="side-title">{html_escape(journal_source_title)}</div>{journal_links}<a class="side-link" href="{BASE}/daily/{html_escape(journal_target_date)}/"><span class="side-main"><strong>{html_escape(journal_footer_label)}</strong></span><span class="count">Today</span></a></div>
-  <div class="side-block"><div class="side-title">{html_escape(working_source_title)}</div>{working_links}<a class="side-link" href="{working_footer_href}"><span class="side-main"><strong>{html_escape(working_footer_label)}</strong></span><span class="count">Today</span></a></div>
+  <div class="side-block"><div class="side-title">{html_escape(journal_source_title)}</div>{journal_links}<a class="side-link" href="{BASE}/daily/{html_escape(journal_target_date)}/"><span class="side-main"><strong>{html_escape(journal_footer_label)}</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">{html_escape(working_source_title)}</div>{working_links}<a class="side-link" href="{working_footer_href}"><span class="side-main"><strong>{html_escape(working_footer_label)}</strong></span><span class="count">今日</span></a></div>
 </aside>"""
 
 
@@ -900,6 +939,7 @@ def page(
   <style>{STYLE}</style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
   <div class="shell">
     {sidebar(records, context_records=sidebar_records, context_date=sidebar_date)}
     <div class="content">
@@ -915,7 +955,7 @@ def page(
           <a href="{BASE}/feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap">{body}</main>
+      <main class="wrap" id="main-content">{body}</main>
     </div>
   </div>
 </body>
@@ -1165,6 +1205,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     all_working = working_paper_records(records)
     all_journal_count = sum(1 for record in records if not is_working_paper(record) and has_public_title(record))
     s = stats(records, today_records, flow_records)
+    freshness_class = "warn" if s["last_run_freshness"] != "状态正常" else ""
     flow_date = today_str()
     journal_note = ""
     working_note = ""
@@ -1200,6 +1241,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 </section>
 <section class="status-strip">
   <span>最近监测 <strong>{html_escape(s['last_run'])}</strong></span>
+  <span class="{freshness_class}">监测状态 <strong>{html_escape(s['last_run_freshness'])}</strong></span>
   <span>监测类型 <strong>{html_escape(s['last_run_label'])}</strong></span>
   <span>下次快速 <strong>{html_escape(s['next_light_run'])}</strong></span>
   <span>下次全量 <strong>{html_escape(s['next_full_run'])}</strong></span>
