@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str, write_text
+from dedupe import record_match_keys
 from status import load_status
 
 
@@ -177,10 +178,29 @@ def load_all_daily(daily_dir: Path) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     if not daily_dir.exists():
         return records
+    daily_keys: set[str] = set()
     for path in sorted(daily_dir.glob("*.json"), reverse=True):
         for record in read_json(path, []):
             record["_daily_date"] = path.stem
             records.append(record)
+            daily_keys.update(record_match_keys(record))
+    seen = read_json(DATA_DIR / "seen.json", {"papers": {}})
+    seen_papers = seen.get("papers") if isinstance(seen, dict) else {}
+    if isinstance(seen_papers, dict):
+        for record_id, record in seen_papers.items():
+            if not isinstance(record, dict):
+                continue
+            if record_match_keys(record) & daily_keys:
+                continue
+            first_seen = beijing_date(record.get("first_seen")) or str(record.get("first_seen") or "")[:10]
+            if not first_seen:
+                continue
+            restored = dict(record)
+            restored["id"] = restored.get("id") or record_id
+            restored["_daily_date"] = first_seen
+            restored["_from_seen_only"] = True
+            records.append(restored)
+            daily_keys.update(record_match_keys(restored))
     return sort_records(records)
 
 
@@ -1170,7 +1190,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
 <section id="working-flow" class="section-head split-section"><div><h2>今日工作论文 <span class="live-count" data-filter-counter="working"></span></h2>{working_note_html}</div><p><a href="{BASE}/working-papers/today/">查看全部 {len(working_flow_records)} 篇</a></p></section>
 <section class="stats">
   <a class="stat" href="{BASE}/working-papers/today/"><strong>{len(working_flow_records)}</strong><span>工作论文新发现</span></a>
-  <a class="stat china" href="{BASE}/working-papers/china/"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
+  <a class="stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
   <a class="stat" href="{BASE}/sources/working-papers/"><strong>{len({record.get('journal_id') for record in working_flow_records if record.get('journal_id')})}</strong><span>今日涉及来源</span></a>
   <a class="stat" href="{BASE}/working-papers/"><strong>{len(all_working)}</strong><span>累计工作论文记录</span></a>
 </section>
@@ -1696,9 +1716,9 @@ def main() -> None:
     by_topic: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
         by_date[detected_date(record) or record.get("_daily_date") or "unknown"].append(record)
-        if not is_working_paper(record):
-            by_journal[record.get("journal_id") or "unknown"].append(record)
-        for field in record.get("fields", []) or ["unknown"]:
+        if not is_working_paper(record) and record.get("journal_id"):
+            by_journal[str(record.get("journal_id"))].append(record)
+        for field in record.get("fields", []) or []:
             by_field[field].append(record)
         for topic in article_topics(record):
             by_topic[topic].append(record)

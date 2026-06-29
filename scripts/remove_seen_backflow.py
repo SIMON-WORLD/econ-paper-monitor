@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
-from dedupe import build_seen_index, find_matching_seen_id
+from dedupe import build_seen_index, find_matching_seen_id, merge_daily
 from status import record_source
 
 
@@ -46,6 +46,7 @@ def main() -> None:
 
     kept: list[dict[str, Any]] = []
     removed: list[dict[str, Any]] = []
+    restore_by_date: dict[str, list[dict[str, Any]]] = {}
     for record in records:
         seen_id = find_matching_seen_id(seen_index, record)
         seen_entry = seen_papers.get(seen_id) if seen_id else None
@@ -54,24 +55,43 @@ def main() -> None:
         # daily page. This preserves true first discoveries and prevents RSS
         # re-publishes or TOC reshuffles from polluting "today".
         if first_date and first_date < args.date:
+            restored = dict(record)
+            if isinstance(seen_entry, dict):
+                for key, value in seen_entry.items():
+                    if key not in restored or restored.get(key) in (None, "", []):
+                        restored[key] = value
+            restored["_restored_from_backflow"] = args.date
+            restore_by_date.setdefault(first_date, []).append(restored)
             removed.append(record)
             continue
         # Some historical records were inserted into seen without first_seen;
         # fall back to the record's own detected_at if it clearly predates today.
-        if detected_date(record, args.date) < args.date:
+        fallback_date = detected_date(record, args.date)
+        if fallback_date < args.date:
+            restored = dict(record)
+            restored["_restored_from_backflow"] = args.date
+            restore_by_date.setdefault(fallback_date, []).append(restored)
             removed.append(record)
             continue
         kept.append(record)
 
     if removed:
         write_json(daily_path, kept)
+    restored_count = 0
+    for restore_date, restore_records in sorted(restore_by_date.items()):
+        restore_path = args.daily_dir / f"{restore_date}.json"
+        existing = read_json(restore_path, [])
+        if not isinstance(existing, list):
+            existing = []
+        write_json(restore_path, merge_daily(existing, restore_records))
+        restored_count += len(restore_records)
     record_source(
         "remove-seen-backflow",
         ok=True,
         count=len(removed),
-        message=f"date={args.date} kept={len(kept)} removed={len(removed)}",
+        message=f"date={args.date} kept={len(kept)} removed={len(removed)} restored={restored_count}",
     )
-    print(f"seen backflow cleaned date={args.date} kept={len(kept)} removed={len(removed)}")
+    print(f"seen backflow cleaned date={args.date} kept={len(kept)} removed={len(removed)} restored={restored_count}")
 
 
 if __name__ == "__main__":
