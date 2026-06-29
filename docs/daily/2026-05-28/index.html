@@ -7,38 +7,39 @@
   
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
-*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
+.shell{display:grid;grid-template-columns:320px minmax(0,1120px);width:min(100% - 32px,1440px);margin:0 auto;min-height:100vh;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:26px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0;background:var(--page)}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:26px 28px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 36px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:19px;max-width:720px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin-top:24px;max-width:860px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:12px 13px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:27px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:25px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.status-strip .warn strong{color:#7d4e00}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
   <div class="shell">
     <aside class="sidebar">
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
-    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
-    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
-    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
-    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
-    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
-    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
+    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
+    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
+    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
+    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
+    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
   </div>
   <div class="side-block"><div class="side-title">2026-05-28 文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">2</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">35</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">8</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">6</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">5</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">4</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/econometrics/"><span class="side-main"><strong>计量方法</strong></span><span class="count">2</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">1</span></a></div>
-  <div class="side-block"><div class="side-title">2026-05-28 期刊论文来源</div><a class="side-link" href="../../daily/2026-05-28/?journal=journal-of-agricultural-economics"><span class="side-main"><strong>Journal of Agricultural Economics</strong><em>农业经济学杂志</em></span><span class="count">33</span></a><a class="side-link" href="../../daily/2026-05-28/?journal=journal-of-comparative-economics"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-05-28/?journal=australian-journal-of-agricultural-and-resource-economics"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-05-28/?journal=agricultural-economics"><span class="side-main"><strong>Agricultural Economics</strong><em>农业经济学</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-05-28/"><span class="side-main"><strong>查看 2026-05-28 期刊论文</strong></span><span class="count">Today</span></a></div>
-  <div class="side-block"><div class="side-title">2026-05-28 工作论文来源</div><div class="side-link"><span class="side-main"><strong>暂无工作论文来源</strong></span><span class="count">0</span></div><a class="side-link" href="../../daily/2026-05-28/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-05-28 工作论文</strong></span><span class="count">Today</span></a></div>
+  <div class="side-block"><div class="side-title">2026-05-28 期刊论文来源</div><a class="side-link" href="../../daily/2026-05-28/?journal=journal-of-agricultural-economics"><span class="side-main"><strong>Journal of Agricultural Economics</strong><em>农业经济学杂志</em></span><span class="count">33</span></a><a class="side-link" href="../../daily/2026-05-28/?journal=journal-of-comparative-economics"><span class="side-main"><strong>Journal of Comparative Economics</strong><em>比较经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-05-28/?journal=australian-journal-of-agricultural-and-resource-economics"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-05-28/?journal=agricultural-economics"><span class="side-main"><strong>Agricultural Economics</strong><em>农业经济学</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-05-28/"><span class="side-main"><strong>查看 2026-05-28 期刊论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">2026-05-28 工作论文来源</div><div class="side-link"><span class="side-main"><strong>暂无工作论文来源</strong></span><span class="count">0</span></div><a class="side-link" href="../../daily/2026-05-28/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-05-28 工作论文</strong></span><span class="count">今日</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -53,12 +54,12 @@
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>2026-05-28 监测记录</h2><p>本站首次监测日期：2026-05-28；官方/在线日期范围：2026-05-28。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
+      <main class="wrap" id="main-content"><section class="section-head"><div><h2>2026-05-28 监测记录</h2><p>本站首次监测日期：2026-05-28；官方/在线日期范围：2026-05-28。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">筛选期刊</option><option value="agricultural-economics">Agricultural Economics</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option><option value="journal-of-agricultural-economics">Journal of Agricultural Economics</option><option value="journal-of-comparative-economics">Journal of Comparative Economics</option></select>
   <select class="control" data-filter-role="field"><option value="">筛选主题</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="trade">国际贸易</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
-  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option></select>
-  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B 中：RSS/出版社备选日期</option></select>
+  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">官方在线</option></select>
+  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B：RSS/出版社备选日期</option></select>
   <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal">期刊论文</option></select>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
   
@@ -70,7 +71,8 @@
     <p class="title-zh">非洲劳动力市场中的民族职业隔离</p>
     <p class="authors">Björn Nilsson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S014759672600048X?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -82,7 +84,8 @@
     <p class="title-zh">2025年AARES杰出终身会员</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70122?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -94,7 +97,8 @@
     <p class="title-zh">更有效的农业环境政策的定向奖励</p>
     <p class="authors">Matteo Zavalloni, Katherine Simpson, Nick Hanley</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/agec.70122">10.1111/agec.70122</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -106,7 +110,8 @@
     <p class="title-zh">拉丁美洲农业新实践的采纳：畜牧技术与系统</p>
     <p class="authors">David J. Pannell</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70051?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -118,7 +123,8 @@
     <p class="title-zh">采纳可持续畜牧业创新：来自拉丁美洲的证据</p>
     <p class="authors">Allen Blackman, Gonzalo Muñoz, Lina Salazar, Paul Winters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70049?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -130,7 +136,8 @@
     <p class="title-zh">面对干旱风险的农户能否从粗放式草地管理中获益？基于累积前景理论的分析</p>
     <p class="authors">Julia Kunkel, Jürgen Groeneveld, Robert Finger, Birgit Müller</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70037?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -142,7 +149,8 @@
     <p class="title-zh">净化空气：细颗粒物法规如何重塑美国玉米和大豆产区的农田价值</p>
     <p class="authors">Cécile Couharde, Rémi Generoso</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70018?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -154,7 +162,8 @@
     <p class="title-zh">结果导向型农业环境支付中集体合同作为风险分担机制：实验证据</p>
     <p class="authors">Thomas Rellensmann, Stefanie Engel, Jens Rommel, Fabian Thomas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70034?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -166,7 +175,8 @@
     <p class="title-zh">合同工、工作质量与离职意向——来自尼日利亚的证据</p>
     <p class="authors">Olayinka Aremu, Patrick Illien, Adeola Oluwafunmiso Olajide, Eva‐Marie Meemken</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70028?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -178,7 +188,8 @@
     <p class="title-zh">更正：《保护地与农业生物多样性保护——公园是否促进了农业环境计划的采纳？》</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70055?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -190,7 +201,8 @@
     <p class="title-zh">作物保护策略选择标准：农民、顾问与研究人员的比较视角</p>
     <p class="authors">Marianne Lefebvre, Laure Latruffe, Maxime Colin, Adeline Alonso Ugaglia, Julie Borg 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70023?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -202,7 +214,8 @@
     <p class="title-zh">环境信息还是社会规范？迈向环境可持续食品选择的阶梯</p>
     <p class="authors">Ryosuke Inoue, Kentaro Kawasaki</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70043?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -214,7 +227,8 @@
     <p class="title-zh">前沿分析框架下的环境绩效评估：农场层面的系统综述与元分析</p>
     <p class="authors">Fissha Asmare, Bethan Thompson, Tarek Soliman, Thomas Donovan, Klaus Glenk 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70027?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -226,7 +240,8 @@
     <p class="title-zh">利用观测数据估计因果效应：农业与应用经济学家的指南</p>
     <p class="authors">Arne Henningsen, Guy Low, David Wuepper, Tobias Dalhaus, Hugo Storm 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70019?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -238,7 +253,8 @@
     <p class="title-zh">农民对气候行动的信念：来自信息实验的证据</p>
     <p class="authors">Felipe Aguiar‐Noury, Doris Läpple, Cathal Buckley</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70039?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -250,7 +266,8 @@
     <p class="title-zh">聚合生长季温度指标如何导致高温对作物产量影响的高估：来自中国的证据</p>
     <p class="authors">Kaixing Huang, Peng Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70032?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -262,7 +279,8 @@
     <p class="title-zh">食品偏好与技术的变迁如何重塑食品市场</p>
     <p class="authors">Jill J. McCluskey, Jillian Hyink</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70044?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -274,7 +292,8 @@
     <p class="title-zh">信息如何影响消费者对生物强化食品的评价？一项元回归分析</p>
     <p class="authors">Fuli Tan, Jingjing Wang, Yixuan Guo, Joshua Wesana, Taian Deng 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70031?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">计量方法</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -286,7 +305,8 @@
     <p class="title-zh">信息、信念与对美国农产品报复性关税的支持：来自中国随机对照试验的证据</p>
     <p class="authors">Guiwang Ling, Xi Tian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70020?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -298,7 +318,8 @@
     <p class="title-zh">技术异质性是可持续咖啡生产效率的关键吗？：哥伦比亚传统咖啡产区的潜在类别前沿分析</p>
     <p class="authors">Orlando Rodríguez, Maria Vrachioli, Johannes Sauer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70022?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -310,7 +331,8 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70058?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -322,7 +344,8 @@
     <p class="title-zh">JAE 2025：主编报告</p>
     <p class="authors">Jonathan Brooks</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70056?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -334,7 +357,8 @@
     <p class="title-zh">土地所有者参与临时性和永久性农业环境计划的意愿</p>
     <p class="authors">Jakob Vesterlund Olsen, Thomas Lundhede, Kahsay Haile Zemo, Martin Hvarregaard Thorsøe, Mette Balslev Greve 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70035?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -346,7 +370,8 @@
     <p class="title-zh">乌拉圭可持续畜牧业公共支持计划的效果：来自实证研究的证据</p>
     <p class="authors">Emilio Aguirre, Juan Baraldo, Marcelo Caffera, Hugo Laguna</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70033?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -358,7 +383,8 @@
     <p class="title-zh">可可价格沿供应链的传导：科特迪瓦农民还剩多少？</p>
     <p class="authors">Kathrin Kaestner, Gunther Bensch, Colin Vance</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70021?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -370,7 +396,8 @@
     <p class="title-zh">无调查数据下的政策评估：基于卫星数据的定制化边界设计</p>
     <p class="authors">Muddasir Ahmad Akhoon, Abhishek Shaw, Vidya Vemireddy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70030?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -382,7 +409,8 @@
     <p class="title-zh">乌拉圭粗放型畜牧系统中可持续生产实践的偏好</p>
     <p class="authors">Santiago Guerrero, Laure Kuhfuss, José Ignacio Rivero‐Wildemauwe, Patricia Correa, Miguel Carriquiry, Francisco Rosas, José Velazco</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70045?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -394,7 +422,8 @@
     <p class="title-zh">通过行为助推与信息增强促进甲烷减排：日本水稻种植中的实地选择实验</p>
     <p class="authors">Shengyi Du, Katsuya Tanaka, Hiroki Sasaki, Tetsuya Horie, Shinya Horie</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70038?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -406,7 +435,8 @@
     <p class="title-zh">涨潮与歉收：盐分入侵对越南湄公河三角洲水稻生产的影响研究</p>
     <p class="authors">Huong Nguyen, Bradford Mills, Chi Ta, Shamar L. Stewart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70042?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -418,7 +448,8 @@
     <p class="title-zh">小种子包，大潜力？种子包对改良作物品种认知与采纳的影响</p>
     <p class="authors">Kelvin Mulungu, Mitelo Subakanya, Peter Setimela, Akpo Essegbemon, Walter Chivasa 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70040?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -430,7 +461,8 @@
     <p class="title-zh">农民调查综述：荷兰、斯洛文尼亚与瑞典的研究实践综合</p>
     <p class="authors">Thomas Slijper, Julia Höhler, Tanja Šumrada, Jens Rommel, Živa Alif, Jesus Barreiro‐Hurle 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70024?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -442,7 +474,8 @@
     <p class="title-zh">可持续性与畜牧系统中放牧模式间生产的重新配置：来自墨西哥的证据</p>
     <p class="authors">Saúl Basurto‐Hernández, Allan Beltrán, Luis Peña‐Lévano</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70050?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -454,7 +487,8 @@
     <p class="title-zh">后冲突前沿地区的可持续畜牧业决策：来自哥伦比亚奥里诺基亚地区的证据</p>
     <p class="authors">Hernando Flórez‐Díaz, Emiliano Lopez Barrera, Adriana María Molina‐Romero, Diana Elisa Correa‐Pinilla, Carlos Fontanilla‐Díaz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70047?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -466,7 +500,8 @@
     <p class="title-zh">享乐产品属性下生产者合作社的元定价效率：以德国葡萄酒为例</p>
     <p class="authors">Rebecca Hansen, Sebastian Hess</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70036?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -478,7 +513,8 @@
     <p class="title-zh">贸易打击，粮食损失：美国关税上调对农产品贸易与福利的全球影响</p>
     <p class="authors">Carlos Zurita, Dongin Kim, Sandro Steinbach</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70048?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -490,7 +526,8 @@
     <p class="title-zh">非洲农村女性非农就业与膳食质量</p>
     <p class="authors">Chrispinus Mutsami, Martin C. Parlasca, Matin Qaim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="source-chip">在线日期 2026-05-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Agricultural Economics</span><span class="pill">首次监测 2026-05-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1477-9552.70026?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">劳动</span></span></div>
     </div>
   </div>

@@ -7,38 +7,39 @@
   
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
-*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
+.shell{display:grid;grid-template-columns:320px minmax(0,1120px);width:min(100% - 32px,1440px);margin:0 auto;min-height:100vh;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:26px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0;background:var(--page)}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:26px 28px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 36px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:19px;max-width:720px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin-top:24px;max-width:860px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:12px 13px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:27px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:25px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.status-strip .warn strong{color:#7d4e00}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
   <div class="shell">
     <aside class="sidebar">
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
-    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
-    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
-    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
-    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
-    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
-    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
+    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
+    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
+    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
+    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
+    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
   </div>
-  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">439</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">1169</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">971</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">770</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">746</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">583</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">493</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">490</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">440</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">434</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">377</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">334</span></a></div>
-  <div class="side-block"><div class="side-title">今日期刊论文来源</div><a class="side-link" href="../../daily/2026-06-30/?journal=applied-economics"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">187</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=land-use-policy"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">99</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-development-economics"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">93</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=economic-history-review"><span class="side-main"><strong>Economic History Review</strong><em>经济史评论</em></span><span class="count">78</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-money-credit-and-banking"><span class="side-main"><strong>Journal of Money, Credit and Banking</strong><em>货币、信贷与银行杂志</em></span><span class="count">76</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=american-journal-of-agricultural-economics"><span class="side-main"><strong>American Journal of Agricultural Economics</strong><em>美国农业经济学杂志</em></span><span class="count">72</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-environmental-economics-and-management"><span class="side-main"><strong>Journal of Environmental Economics and Management</strong><em>环境经济学与管理杂志</em></span><span class="count">71</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=european-economic-review"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">65</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-economic-behavior-and-organization"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">62</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=games-and-economic-behavior"><span class="side-main"><strong>Games and Economic Behavior</strong><em>博弈与经济行为</em></span><span class="count">60</span></a><a class="side-link" href="../../daily/2026-06-30/"><span class="side-main"><strong>查看今日期刊论文</strong></span><span class="count">Today</span></a></div>
-  <div class="side-block"><div class="side-title">今日工作论文来源</div><a class="side-link" href="../../working-papers/today/?journal=source-nber"><span class="side-main"><strong>NBER Working Papers</strong><em>美国国家经济研究局工作论文</em></span><span class="count">55</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-hea"><span class="side-main"><strong>RePEc NEP Health Economics</strong><em>RePEc NEP 健康经济学论文</em></span><span class="count">50</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-mac"><span class="side-main"><strong>RePEc NEP Macroeconomics</strong><em>RePEc NEP 宏观经济学论文</em></span><span class="count">45</span></a><a class="side-link" href="../../working-papers/today/?journal=source-iza"><span class="side-main"><strong>IZA Discussion Papers</strong><em>IZA 讨论论文</em></span><span class="count">35</span></a><a class="side-link" href="../../working-papers/today/?journal=source-cepr-dp"><span class="side-main"><strong>CEPR Discussion Papers</strong><em>CEPR 讨论论文</em></span><span class="count">30</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-dev"><span class="side-main"><strong>RePEc NEP Development</strong><em>RePEc NEP 发展经济学论文</em></span><span class="count">28</span></a><a class="side-link" href="../../working-papers/today/?journal=source-imf-working-papers"><span class="side-main"><strong>IMF Working Papers</strong><em>IMF 工作论文</em></span><span class="count">23</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-ifn"><span class="side-main"><strong>RePEc NEP International Finance</strong><em>RePEc NEP 国际金融论文</em></span><span class="count">19</span></a><a class="side-link" href="../../working-papers/today/?journal=source-fed-feds"><span class="side-main"><strong>Federal Reserve FEDS Working Papers</strong><em>美联储 FEDS 工作论文</em></span><span class="count">18</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-cna"><span class="side-main"><strong>RePEc NEP China</strong><em>RePEc NEP 中国经济学论文</em></span><span class="count">15</span></a><a class="side-link" href="../../working-papers/today/"><span class="side-main"><strong>查看今日工作论文</strong></span><span class="count">Today</span></a></div>
+  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">439</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">1168</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">970</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">770</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">746</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">582</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">493</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">490</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">440</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">433</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">377</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">334</span></a></div>
+  <div class="side-block"><div class="side-title">今日期刊论文来源</div><a class="side-link" href="../../daily/2026-06-30/?journal=applied-economics"><span class="side-main"><strong>Applied Economics</strong><em>应用经济学</em></span><span class="count">187</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=land-use-policy"><span class="side-main"><strong>Land Use Policy</strong><em>土地利用政策</em></span><span class="count">99</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-development-economics"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">93</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=economic-history-review"><span class="side-main"><strong>Economic History Review</strong><em>经济史评论</em></span><span class="count">78</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-money-credit-and-banking"><span class="side-main"><strong>Journal of Money, Credit and Banking</strong><em>货币、信贷与银行杂志</em></span><span class="count">76</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=american-journal-of-agricultural-economics"><span class="side-main"><strong>American Journal of Agricultural Economics</strong><em>美国农业经济学杂志</em></span><span class="count">72</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-environmental-economics-and-management"><span class="side-main"><strong>Journal of Environmental Economics and Management</strong><em>环境经济学与管理杂志</em></span><span class="count">71</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=european-economic-review"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">65</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=journal-of-economic-behavior-and-organization"><span class="side-main"><strong>Journal of Economic Behavior and Organization</strong><em>经济行为与组织杂志</em></span><span class="count">62</span></a><a class="side-link" href="../../daily/2026-06-30/?journal=games-and-economic-behavior"><span class="side-main"><strong>Games and Economic Behavior</strong><em>博弈与经济行为</em></span><span class="count">60</span></a><a class="side-link" href="../../daily/2026-06-30/"><span class="side-main"><strong>查看今日期刊论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">今日工作论文来源</div><a class="side-link" href="../../working-papers/today/?journal=source-nber"><span class="side-main"><strong>NBER Working Papers</strong><em>美国国家经济研究局工作论文</em></span><span class="count">55</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-hea"><span class="side-main"><strong>RePEc NEP Health Economics</strong><em>RePEc NEP 健康经济学论文</em></span><span class="count">50</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-mac"><span class="side-main"><strong>RePEc NEP Macroeconomics</strong><em>RePEc NEP 宏观经济学论文</em></span><span class="count">45</span></a><a class="side-link" href="../../working-papers/today/?journal=source-iza"><span class="side-main"><strong>IZA Discussion Papers</strong><em>IZA 讨论论文</em></span><span class="count">35</span></a><a class="side-link" href="../../working-papers/today/?journal=source-cepr-dp"><span class="side-main"><strong>CEPR Discussion Papers</strong><em>CEPR 讨论论文</em></span><span class="count">30</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-dev"><span class="side-main"><strong>RePEc NEP Development</strong><em>RePEc NEP 发展经济学论文</em></span><span class="count">28</span></a><a class="side-link" href="../../working-papers/today/?journal=source-imf-working-papers"><span class="side-main"><strong>IMF Working Papers</strong><em>IMF 工作论文</em></span><span class="count">23</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-ifn"><span class="side-main"><strong>RePEc NEP International Finance</strong><em>RePEc NEP 国际金融论文</em></span><span class="count">19</span></a><a class="side-link" href="../../working-papers/today/?journal=source-fed-feds"><span class="side-main"><strong>Federal Reserve FEDS Working Papers</strong><em>美联储 FEDS 工作论文</em></span><span class="count">18</span></a><a class="side-link" href="../../working-papers/today/?journal=source-repec-nep-cna"><span class="side-main"><strong>RePEc NEP China</strong><em>RePEc NEP 中国经济学论文</em></span><span class="count">15</span></a><a class="side-link" href="../../working-papers/today/"><span class="side-main"><strong>查看今日工作论文</strong></span><span class="count">今日</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -53,12 +54,12 @@
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>环境经济学</h2><p>该领域历史发现记录。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
+      <main class="wrap" id="main-content"><section class="section-head"><div><h2>环境经济学</h2><p>该领域历史发现记录。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">筛选期刊</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option></select>
   <select class="control" data-filter-role="field"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
-  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option><option value="issue">来源期次</option></select>
-  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B 中：RSS/出版社备选日期</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
+  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">官方在线</option><option value="issue">来源期次</option></select>
+  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B：RSS/出版社备选日期</option><option value="C">C：Crossref 元数据</option><option value="F">F：仅首次监测</option></select>
   <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal">期刊论文</option></select>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
   
@@ -70,7 +71,8 @@
     <p class="title-zh">技术、执法资源配置与环境绩效</p>
     <p class="authors">Shuying Mi, Mengdi Liu, Bing Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103388">10.1016/j.jeem.2026.103388</a><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -82,7 +84,8 @@
     <p class="title-zh">碳税与食品标签对食品需求福利影响的评估</p>
     <p class="authors">Marco Tomasi, Michela Faccioli, Carlo Fezzi, Ian J. Bateman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-25</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103387">10.1016/j.jeem.2026.103387</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -94,7 +97,8 @@
     <p class="title-zh">合规、环境规制与配额市场</p>
     <p class="authors">Florian Diekert, Yuanhao Li, Linda Nøstbakken, Andries Richter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000653?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -106,7 +110,8 @@
     <p class="title-zh">森林砍伐、市场关联与健康：来自哥伦比亚屠宰场关闭的证据</p>
     <p class="authors">Santiago Saavedra, Fanny Moffette</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000471?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -118,7 +123,8 @@
     <p class="title-zh">解析劳动力市场的绿色化：职业变迁与工人流动的作用</p>
     <p class="authors">Ronald Bachmann, Markus Janser, Florian Lehmer, Christina Vonnahme</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000495?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -130,7 +136,8 @@
     <p class="title-zh">媒体是否回应政治信息？来自地方报纸气候变化报道的证据</p>
     <p class="authors">Graham Beattie, Andrew Meyer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000690?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -142,7 +149,8 @@
     <p class="title-zh">能源基础设施的生态成本：来自候鸟追踪的证据</p>
     <p class="authors">Qiangyuan Chen, Jianmin Li, Yuanning Liang, Weiping Zhao, Yunqian Cheng 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000720?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -154,7 +162,8 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000902?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -166,7 +175,8 @@
     <p class="title-zh">个人薪酬与集体绩效：来自巴西森林砍伐的证据</p>
     <p class="authors">Po Yin Wong, Karlygash Kuralbayeva, Liana O. Anderson, Ana C.M. Pessøa, Torfinn Harding</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000288?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -178,7 +188,8 @@
     <p class="title-zh">限额交易市场中的期权定价：来自新西兰渔业的证据</p>
     <p class="authors">Cameron Birchall, Thomas M. Anderson, James N. Sanchirico</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S009506962600046X?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -190,7 +201,8 @@
     <p class="title-zh">烟雾信号：理解野火暴露对健康与教育的时间动态影响</p>
     <p class="authors">Rubí Arrizaga, Damian Clarke, Pedro Cubillos, J.Cristóbal Ruiz-Tagle</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000422?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">健康</span><span class="pill">教育</span></span></div>
     </div>
   </div>
@@ -202,7 +214,8 @@
     <p class="title-zh">求解公共池资源非线性微分博弈中的纳什均衡</p>
     <p class="authors">Yongyang Cai, Anastasios Xepapadeas, Aart de Zeeuw</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000525?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -214,7 +227,8 @@
     <p class="title-zh">害虫防治中的策略性搭便车：有机-常规混合景观中的理论与证据</p>
     <p class="authors">François Bareille, Vincent Martinet, Jean-Sauveur Ay</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000665?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -226,7 +240,8 @@
     <p class="title-zh">保护管理计划对伊利诺伊河流域环境水质的影响</p>
     <p class="authors">Hsin-Chieh Hsieh, Benjamin M. Gramig</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000483?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -238,7 +253,8 @@
     <p class="title-zh">个性化数字信息对发展中国家车辆选择的影响</p>
     <p class="authors">Massimo Filippini, Nilkanth Kumar, Suchita Srinivasan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000434?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -250,7 +266,8 @@
     <p class="title-zh">清洁能源补贴的宏观经济学</p>
     <p class="authors">Gregory Casey, Woongchan Jeon, Christian Traeger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000318?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -262,7 +279,8 @@
     <p class="title-zh">隐形伤害：山火、婴幼儿健康与早期儿童发展</p>
     <p class="authors">Yinjunjie Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000628?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -274,7 +292,8 @@
     <p class="title-zh">上游度、外国环境规制与印度制造业企业的二氧化碳排放</p>
     <p class="authors">Finn Ole Semrau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000446?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -286,7 +305,8 @@
     <p class="title-zh">水资源压力与工业企业生产率</p>
     <p class="authors">Xiaojun Yu, Russell Smyth, Yao Yao, Quanda Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S009506962600029X?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -298,7 +318,8 @@
     <p class="title-zh">国家运河对接地方管道：清洁水供应、地方基础设施与健康效益</p>
     <p class="authors">Yazhen Gong, Yinan Liu, Hao Zhao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000677?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -310,7 +331,8 @@
     <p class="title-zh">昨日重现：环境规制对跨国公司在华再投资配置的影响</p>
     <p class="authors">Bing Yan, Shaoyu Guo, Xiaojing Jiang, Wei Jin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000574?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -322,7 +344,8 @@
     <p class="title-zh">动态优化的序贯支付意愿诱导：年龄与统计生命价值关系的应用</p>
     <p class="authors">Yohei Mitani, Ao Liu, Henrik Lindhjem</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103375">10.1016/j.jeem.2026.103375</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -334,7 +357,8 @@
     <p class="title-zh">工作场所电动汽车充电：激励与环境助推的实验证据</p>
     <p class="authors">Teevrat Garg, Ryan Hanna, Jeffrey Myers, Sebastian Tebbe, David G. Victor</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103383">10.1016/j.jeem.2026.103383</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -346,7 +370,8 @@
     <p class="title-zh">水质监管对中国农业经济的影响</p>
     <p class="authors">Ding Li, Ziran Li, Shuai Shao, Chenxi Yu, Wendong Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-19 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-19</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-19 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103380">10.1016/j.jeem.2026.103380</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -358,7 +383,8 @@
     <p class="title-zh">农业用水安全保障的价值</p>
     <p class="authors">Shahin Bahrami, Mani Rouhi Rad, Aaron Hrozencik, Gabriela Perez-Quesada, Rodolfo M. Nayga Jr</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-19 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-19</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-19 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103385">10.1016/j.jeem.2026.103385</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -370,7 +396,8 @@
     <p class="title-zh">造林激励的额外性：来自保护储备计划的证据</p>
     <p class="authors">Andrew B. Rosenberg, Benjamin M. Gramig, Peter Beeson, Rich Iovanna</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-17 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-19</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-17 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103381">10.1016/j.jeem.2026.103381</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -382,7 +409,8 @@
     <p class="title-zh">共同冲击是否驱动了总排放强度的变化？</p>
     <p class="authors">Xiyu Ren, Fulvia Marotta, François Lafond</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-18 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-18</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-18 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S009506962600104X?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -394,7 +422,8 @@
     <p class="title-zh">眼前逆风？风力涡轮机可见性溢出效应对可再生能源政策支持的影响</p>
     <p class="authors">Vincent F. Stegmaier, Melanie Krause</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-18 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-18</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-18 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103386">10.1016/j.jeem.2026.103386</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -406,7 +435,8 @@
     <p class="title-zh">增强全球南方韧性：来自巴西分散式水政策的证据</p>
     <p class="authors">Marcelo S.O. Goncalves</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-11 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-18</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-11 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103350">10.1016/j.jeem.2026.103350</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -418,7 +448,8 @@
     <p class="title-zh">气候政策对家庭异质性影响的证据：来自88个国家的分析</p>
     <p class="authors">Leonard Missbach, Jan Christoph Steckel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-17 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-17 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103382">10.1016/j.jeem.2026.103382</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -430,7 +461,8 @@
     <p class="title-zh">野火烟雾对当地鸟类生物多样性的影响</p>
     <p class="authors">Sarah Meier, Eric Strobl</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-13 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-13 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103379">10.1016/j.jeem.2026.103379</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -442,7 +474,8 @@
     <p class="title-zh">评估移动排放标准有效性：来自加州低排放车辆项目的证据</p>
     <p class="authors">Yuxian Xiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103356">10.1016/j.jeem.2026.103356</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -454,7 +487,8 @@
     <p class="title-zh">自然资源可追溯计划的影响：来自美国海产品进口监测项目的证据</p>
     <p class="authors">Kaitlyn L. Malakoff, Kailin Kroetz, Benjamin E. Fissel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103331">10.1016/j.jeem.2026.103331</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -466,7 +500,8 @@
     <p class="title-zh">跨环保行为领域的行为干预互动：一项自然田野实验</p>
     <p class="authors">Maoliang Ling, Yiming Liu, Lin Xu, Juntao He</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103339">10.1016/j.jeem.2026.103339</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -478,7 +513,8 @@
     <p class="title-zh">黑暗之后的光明：评估停电对后续太阳能安装的影响</p>
     <p class="authors">Chihiro Yagi, Kenji Takeuchi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103341">10.1016/j.jeem.2026.103341</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -490,7 +526,8 @@
     <p class="title-zh">认知暂时下降的负外部性：来自颗粒物污染与致命车祸的证据</p>
     <p class="authors">Anne M. Burton, Travis Roach</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103310">10.1016/j.jeem.2026.103310</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -502,7 +539,8 @@
     <p class="title-zh">丛林中的权力博弈：哥伦比亚的政治联盟与环境退化</p>
     <p class="authors">Juan Miguel Jimenez, Lizeth Melissa Molina Alvarez, Santiago Saavedra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103335">10.1016/j.jeem.2026.103335</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -514,7 +552,8 @@
     <p class="title-zh">涨水与减税：飓风桑迪对纽约市房产税评估的影响</p>
     <p class="authors">Wei Guo, Qing Miao, Yusun Kim, Yilin Hou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103313">10.1016/j.jeem.2026.103313</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -526,7 +565,8 @@
     <p class="title-zh">小农户对信息的支付意愿：个体购买决策与俱乐部物品贡献的比较——来自印度尼西亚稻农的证据</p>
     <p class="authors">Michael Grimm, Nathalie Luck, Alia Bihrajihant Raya, Udit Sawhney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103343">10.1016/j.jeem.2026.103343</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -538,7 +578,8 @@
     <p class="title-zh">印度热应激对心理健康的损害</p>
     <p class="authors">Manuela Fritz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103348">10.1016/j.jeem.2026.103348</a><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -550,7 +591,8 @@
     <p class="title-zh">酷热难行？温度对卡车司机劳动力供给与工作绩效的影响</p>
     <p class="authors">Wenzhi Dave Ding, Xincheng Wang, Yucheng Wang, Zhenxuan Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Environmental Economics and Management, Volume 138 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103338">10.1016/j.jeem.2026.103338</a><span class="pill">环境与气候</span><span class="pill">劳动</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -562,7 +604,8 @@
     <p class="title-zh">编辑委员会</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/s0095-0696(26)00090-2">10.1016/s0095-0696(26)00090-2</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -574,7 +617,8 @@
     <p class="title-zh">时机、不确定性与机会成本：科罗拉多河生态系统改造的启示</p>
     <p class="authors">Pierce Donovan, Lucas S. Bair, Matthew N. Reimer, Michael R. Springborn, Charles B. Yackulic</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103358">10.1016/j.jeem.2026.103358</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -586,7 +630,8 @@
     <p class="title-zh">减少食物浪费培训：库斯科酒店业微型和小型企业随机对照试验的证据</p>
     <p class="authors">Cesar E. Del Pozo Loayza, José D. López-Rivas, Francisco Alpízar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-05 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-05 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103355">10.1016/j.jeem.2026.103355</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -598,7 +643,8 @@
     <p class="title-zh">受偏见利益相关者影响的环境规制</p>
     <p class="authors">Stefan Ambec, Jessica Coria</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-04-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103334">10.1016/j.jeem.2026.103334</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -610,7 +656,8 @@
     <p class="title-zh">湿地干涸：巴西潘塔纳尔的水资源短缺</p>
     <p class="authors">Vinícius Hector, Rafael Araujo, Francisco Costa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-03-28 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-28 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103333">10.1016/j.jeem.2026.103333</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -622,7 +669,8 @@
     <p class="title-zh">非自愿知情：第三方告知者的亲社会影响</p>
     <p class="authors">Zachary Grossman, Tony Hua, Jo Thori Lind, Karine Nyborg</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-03-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103330">10.1016/j.jeem.2026.103330</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -634,7 +682,8 @@
     <p class="title-zh">雾还是霾？无审查污染报道对个人环境偏好的影响</p>
     <p class="authors">Sven A. Hartmann</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-03-06 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-06 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103325">10.1016/j.jeem.2026.103325</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -646,7 +695,8 @@
     <p class="title-zh">消费者对环境标准的反应：来自中国汽油管制的证据</p>
     <p class="authors">Yucheng Wang, Lei Zhang, Liyang Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-02-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-02-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103314">10.1016/j.jeem.2026.103314</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -658,7 +708,8 @@
     <p class="title-zh">免费电力的幻觉：新加坡家庭对太阳能板项目的反应</p>
     <p class="authors">Jinze Cao, Mingxuan Fan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-02-19 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-02-19 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103312">10.1016/j.jeem.2026.103312</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -670,7 +721,8 @@
     <p class="title-zh">全民道路收费的公众支持度</p>
     <p class="authors">Alberto Antonioni, Alice Ciccone, Cloé Garnache, Sara Ghivarello, Askill H. Halse 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-08 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-08 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103377">10.1016/j.jeem.2026.103377</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -682,7 +734,8 @@
     <p class="title-zh">巴西税制改革对家庭消费的环境影响</p>
     <p class="authors">Samuel Bícego, Paula Carvalho Pereda</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103376">10.1016/j.jeem.2026.103376</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -694,7 +747,8 @@
     <p class="title-zh">空气污染与消费者规避行为：来自中国高频支付数据的证据</p>
     <p class="authors">Haiqiang Chen, Shihe Fu, Zhuoyang Lyu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103374">10.1016/j.jeem.2026.103374</a><span class="pill">环境与气候</span><span class="pill">行为与组织</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -706,7 +760,8 @@
     <p class="title-zh">更绿色的邻居？论保护主义气候政策的福利效应</p>
     <p class="authors">Saumya Deojain, David Lindequist</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-22 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-22 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103366">10.1016/j.jeem.2026.103366</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -718,7 +773,8 @@
     <p class="title-zh">热浪的隐性健康影响：印度贫血症的加剧</p>
     <p class="authors">Claire Lepault, Philippe Quirion, Pierre Uginet</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103365">10.1016/j.jeem.2026.103365</a><span class="pill">环境与气候</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -730,7 +786,8 @@
     <p class="title-zh">可再生能源的环境效益：来自煤炭开采导致森林砍伐和空气污染排放的证据</p>
     <p class="authors">Lin Yang, Wenjie Luo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103363">10.1016/j.jeem.2026.103363</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -742,7 +799,8 @@
     <p class="title-zh">气候风险显现时：住房市场风险认知的自然实验</p>
     <p class="authors">Anders Dugstad, Dag Einar Sommervoll</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103364">10.1016/j.jeem.2026.103364</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -754,7 +812,8 @@
     <p class="title-zh">考虑缺失富裕人群时，排放与不平等协同减排的加剧挑战</p>
     <p class="authors">Markus Nabernegg, Stefan Nabernegg, Thomas Kopp</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-18 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103353">10.1016/j.jeem.2026.103353</a><span class="pill">环境与气候</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -766,7 +825,8 @@
     <p class="title-zh">空气污染对出生结果的影响：来自印度的因果证据</p>
     <p class="authors">Shashank Misra, Shobhit Kulshreshtha</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-16 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-16 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103360">10.1016/j.jeem.2026.103360</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -778,7 +838,8 @@
     <p class="title-zh">气候变化背景下的比特币增长：政策与投资启示</p>
     <p class="authors">Mohammadhossein Lashkaripour, Seyedmehdi Hosseini, Rizwan Ahmed</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103351">10.1016/j.jeem.2026.103351</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -790,7 +851,8 @@
     <p class="title-zh">通过电网电价降低电动汽车峰值负荷：来自随机现场实验的证据</p>
     <p class="authors">Floris van Montfoort, Peter T. Dijkstra, Machiel Mulder, Dávid Kopányi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103354">10.1016/j.jeem.2026.103354</a><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -802,7 +864,8 @@
     <p class="title-zh">激励电动汽车属性资本投资以刺激需求</p>
     <p class="authors">Minsu Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-04-21 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103344">10.1016/j.jeem.2026.103344</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -814,7 +877,8 @@
     <p class="title-zh">全球变暖对林业的影响：基于年龄结构的李嘉图方法</p>
     <p class="authors">François Bareille, Philippe Delacote, Abdoul Latif Sokoundou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-04-12 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-12 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103336">10.1016/j.jeem.2026.103336</a><span class="pill">环境与气候</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -826,7 +890,8 @@
     <p class="title-zh">上游度、外国环境规制与印度制造业企业的二氧化碳排放</p>
     <p class="authors">Finn Ole Semrau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-03-07 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-07 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103324">10.1016/j.jeem.2026.103324</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -838,7 +903,8 @@
     <p class="title-zh">离散选择建模与陈述偏好研究中的多层次回归与事后分层</p>
     <p class="authors">Patrick Lloyd-Smith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-02-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-02-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103315">10.1016/j.jeem.2026.103315</a><span class="pill">环境与气候</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -850,7 +916,8 @@
     <p class="title-zh">谁从产能削减计划中受益？来自美国太平洋沿岸底栖鱼类渔业的启示</p>
     <p class="authors">Frederik Strabo, Matthew N. Reimer, James N. Sanchirico</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-28 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-28 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103362">10.1016/j.jeem.2026.103362</a><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -862,7 +929,8 @@
     <p class="title-zh">小农户如何适应水资源短缺？来自三峡大坝的证据</p>
     <p class="authors">Ting Chen, Chong Liu, Sen Ma</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103357">10.1016/j.jeem.2026.103357</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -874,7 +942,8 @@
     <p class="title-zh">早期热浪暴露对气候治理的持久影响</p>
     <p class="authors">Jingbo Cui, Chunhua Wang, Zhenxuan Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103359">10.1016/j.jeem.2026.103359</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -886,7 +955,8 @@
     <p class="title-zh">职业归属与环境规制的发生率</p>
     <p class="authors">Alex L. Marten, Andrew Schreiber, Ann Wolverton</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-05-16 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-16 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103361">10.1016/j.jeem.2026.103361</a><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -898,7 +968,8 @@
     <p class="title-zh">成本效益与公平导向的矫正性补贴：新旧住宅差异化绿色补贴</p>
     <p class="authors">Takahiko Kiso</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-04-20 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103340">10.1016/j.jeem.2026.103340</a><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -910,7 +981,8 @@
     <p class="title-zh">贸易与污染范围：来自中国融入世界市场的证据</p>
     <p class="authors">Stefano Carattini, Hanwei Huang, Frank Pisch, Tejendra Pratap Singh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 2026-06-09 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-09</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-09 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeem.2026.103378">10.1016/j.jeem.2026.103378</a><span class="pill">环境与气候</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>

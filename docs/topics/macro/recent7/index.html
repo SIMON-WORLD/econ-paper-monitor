@@ -7,38 +7,39 @@
   
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
-*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
+.shell{display:grid;grid-template-columns:320px minmax(0,1120px);width:min(100% - 32px,1440px);margin:0 auto;min-height:100vh;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:26px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0;background:var(--page)}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:26px 28px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 36px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:19px;max-width:720px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin-top:24px;max-width:860px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:12px 13px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:27px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:25px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.status-strip .warn strong{color:#7d4e00}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
   <div class="shell">
     <aside class="sidebar">
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
-    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
-    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
-    <a class="side-link" href="../../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
-    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
-    <a class="side-link" href="../../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
-    <a class="side-link" href="../../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
+    <a class="side-link" href="../../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
+    <a class="side-link" href="../../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
+    <a class="side-link" href="../../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
+    <a class="side-link" href="../../../working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
+    <a class="side-link" href="../../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
   </div>
   <div class="side-block"><div class="side-title">2026-06-29 文章主题</div><a class="side-link" href="../../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">1</span></a><a class="side-link" href="../../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">25</span></a><a class="side-link" href="../../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">16</span></a><a class="side-link" href="../../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">12</span></a><a class="side-link" href="../../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">9</span></a><a class="side-link" href="../../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">6</span></a><a class="side-link" href="../../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">4</span></a><a class="side-link" href="../../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">3</span></a><a class="side-link" href="../../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">3</span></a><a class="side-link" href="../../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/health/"><span class="side-main"><strong>健康</strong></span><span class="count">2</span></a><a class="side-link" href="../../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">1</span></a></div>
-  <div class="side-block"><div class="side-title">2026-06-29 期刊论文来源</div><a class="side-link" href="../../../daily/2026-06-29/?journal=american-economic-journal-macroeconomics"><span class="side-main"><strong>American Economic Journal: Macroeconomics</strong><em>AEJ 宏观经济学</em></span><span class="count">11</span></a><a class="side-link" href="../../../daily/2026-06-29/?journal=journal-of-financial-economics"><span class="side-main"><strong>Journal of Financial Economics</strong><em>金融经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../../daily/2026-06-29/"><span class="side-main"><strong>查看 2026-06-29 期刊论文</strong></span><span class="count">Today</span></a></div>
-  <div class="side-block"><div class="side-title">2026-06-29 工作论文来源</div><a class="side-link" href="../../../working-papers/today/?journal=source-nber"><span class="side-main"><strong>NBER Working Papers</strong><em>美国国家经济研究局工作论文</em></span><span class="count">11</span></a><a class="side-link" href="../../../working-papers/today/?journal=source-bis-working-papers"><span class="side-main"><strong>BIS Working Papers</strong><em>国际清算银行工作论文</em></span><span class="count">2</span></a><a class="side-link" href="../../../daily/2026-06-29/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-06-29 工作论文</strong></span><span class="count">Today</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-29 期刊论文来源</div><a class="side-link" href="../../../daily/2026-06-29/?journal=american-economic-journal-macroeconomics"><span class="side-main"><strong>American Economic Journal: Macroeconomics</strong><em>AEJ 宏观经济学</em></span><span class="count">11</span></a><a class="side-link" href="../../../daily/2026-06-29/?journal=journal-of-financial-economics"><span class="side-main"><strong>Journal of Financial Economics</strong><em>金融经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../../daily/2026-06-29/"><span class="side-main"><strong>查看 2026-06-29 期刊论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-29 工作论文来源</div><a class="side-link" href="../../../working-papers/today/?journal=source-nber"><span class="side-main"><strong>NBER Working Papers</strong><em>美国国家经济研究局工作论文</em></span><span class="count">11</span></a><a class="side-link" href="../../../working-papers/today/?journal=source-bis-working-papers"><span class="side-main"><strong>BIS Working Papers</strong><em>国际清算银行工作论文</em></span><span class="count">2</span></a><a class="side-link" href="../../../daily/2026-06-29/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-06-29 工作论文</strong></span><span class="count">今日</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -53,7 +54,7 @@
           <a href="../../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>宏观与货币：最近 7 天</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>147 篇</p></section><div class="toolbar">
+      <main class="wrap" id="main-content"><section class="section-head"><div><h2>宏观与货币：最近 7 天</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>147 篇</p></section><div class="toolbar">
   <a class="control primary" href="../../../daily/2026-06-29/?field=macro">最新日期 25</a>
   <a class="control" href="../../../topics/macro/recent7/">最近 7 天 147</a>
   <a class="control" href="../../../topics/macro/">全部历史 583</a>
@@ -61,9 +62,9 @@
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">筛选期刊</option><option value="american-economic-journal-applied-economics">American Economic Journal: Applied Economics</option><option value="american-economic-journal-macroeconomics">American Economic Journal: Macroeconomics</option><option value="applied-economics">Applied Economics</option><option value="source-bis-working-papers">BIS Working Papers</option><option value="source-cepr-dp">CEPR Discussion Papers</option><option value="canadian-journal-of-economics">Canadian Journal of Economics</option><option value="economic-journal">Economic Journal</option><option value="economics-letters">Economics Letters</option><option value="european-economic-review">European Economic Review</option><option value="source-fed-feds">Federal Reserve FEDS Working Papers</option><option value="source-imf-working-papers">IMF Working Papers</option><option value="source-iza">IZA Discussion Papers</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-financial-economics">Journal of Financial Economics</option><option value="journal-of-monetary-economics">Journal of Monetary Economics</option><option value="journal-of-political-economy">Journal of Political Economy</option><option value="source-nber">NBER Working Papers</option><option value="scandinavian-journal-of-economics">Scandinavian Journal of Economics</option><option value="source-world-bank-prwp">World Bank Policy Research Working Papers</option></select>
   <select class="control" data-filter-role="field"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
-  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option><option value="issue">来源期次</option><option value="first_seen">首次监测</option></select>
-  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B 中：RSS/出版社备选日期</option><option value="C">C 低：Crossref 元数据</option><option value="F">F 待核：仅首次监测</option></select>
-  <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal">期刊论文</option><option value="journal_article">期刊论文</option><option value="policy_paper">政策论文</option><option value="working_paper">工作论文</option></select>
+  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">官方在线</option><option value="issue">来源期次</option><option value="first_seen">首次监测</option></select>
+  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B：RSS/出版社备选日期</option><option value="C">C：Crossref 元数据</option><option value="F">F：仅首次监测</option></select>
+  <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal">期刊论文</option><option value="journal_article">期刊论文</option><option value="policy_paper">机构研究</option><option value="working_paper">工作论文</option></select>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
   
 </div>
@@ -74,7 +75,8 @@
     <p class="title-zh">跨期限预测偏差：通胀预期与国债收益率</p>
     <p class="authors">Hao Pang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">在线日期 2026-06-29 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104327">10.1016/j.jfineco.2026.104327</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -86,7 +88,8 @@
     <p class="title-zh">流行病中行为与政策的分析模型</p>
     <p class="authors">Lukasz Rachel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20230299">10.1257/mac.20230299</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -98,7 +101,8 @@
     <p class="title-zh">中央银行作为美元最后贷款人：对监管与储备持有的影响</p>
     <p class="authors">Mitali Das, Gita Gopinath, Helene Hall, Taehoon Kim, Jeremy C. Stein</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20240107">10.1257/mac.20240107</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -110,7 +114,8 @@
     <p class="title-zh">通过替代性FOMC声明的文本分析解读美联储沟通</p>
     <p class="authors">Taeyoung Doh, Dongho Song, Shu-Kuei Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20220312">10.1257/mac.20220312</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -122,7 +127,8 @@
     <p class="title-zh">预期洪水：企业进入、就业与总体影响</p>
     <p class="authors">Ruixue Jia, Xiao Ma, Victoria Wenxin Xie</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20230356">10.1257/mac.20230356</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -134,7 +140,8 @@
     <p class="title-zh">进口自由化是出口破坏吗？来自美国的证据</p>
     <p class="authors">Holger Breinlich, Elsa Leromain, Dennis Novy, Thomas Sampson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20230213">10.1257/mac.20230213</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -146,7 +153,8 @@
     <p class="title-zh">欧洲企业资源错配：约束、企业特征与管理决策的作用</p>
     <p class="authors">Yuriy Gorodnichenko, Debora Revoltella, Jan Svejnar, Christoph T. Weiss</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20210220">10.1257/mac.20210220</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -158,7 +166,8 @@
     <p class="title-zh">选择、结构转型与服务业成本病</p>
     <p class="authors">Martin Shu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20230241">10.1257/mac.20230241</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -170,7 +179,8 @@
     <p class="title-zh">TFPR：离散性与周期性</p>
     <p class="authors">Russell Cooper, Ozgen Ozturk</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20220264">10.1257/mac.20220264</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -182,7 +192,8 @@
     <p class="title-zh">有效碳税的经济后果</p>
     <p class="authors">Felix Kapfhammer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20230083">10.1257/mac.20230083</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -194,7 +205,8 @@
     <p class="title-zh">临时雇佣合同的生命周期影响</p>
     <p class="authors">Rosemary Kaiser</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20230376">10.1257/mac.20230376</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -206,7 +218,8 @@
     <p class="title-zh">大学研究与高等教育市场</p>
     <p class="authors">Titan Alon, Damien Capelle, Kazushige Matsuda</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Macroeconomics</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mac.20240057">10.1257/mac.20240057</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -218,7 +231,8 @@
     <p class="title-zh">财政风险的金融与实际效应</p>
     <p class="authors">Denis Gorea, Ding Xuan Ng, Fabrizio Zampolli</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">BIS Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-28 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">BIS Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-28 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.bis.org/publ/work1364.htm">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -230,7 +244,8 @@
     <p class="title-zh">公共债务与货币政策传导：来自发达与新兴欧洲的证据</p>
     <p class="authors">Christopher Johns, Aaron Mehrotra, Fabrizio Zampolli</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">BIS Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-28 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">BIS Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-28 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.bis.org/publ/work1365.htm">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -242,7 +257,8 @@
     <p class="title-zh">GLP-1诱导的体重减轻与女性肥胖惩罚</p>
     <p class="authors">Rebecca Diamond</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35387">10.3386/w35387</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -254,7 +270,8 @@
     <p class="title-zh">移民、创新与增长的地理分布</p>
     <p class="authors">Costas Arkolakis, Sun Kyoung Lee, Michael Peters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35392">10.3386/w35392</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -266,7 +283,8 @@
     <p class="title-zh">开放、一体化与国际货币秩序</p>
     <p class="authors">Tarek Alexander Hassan, Thomas M. Mertens, Jingye Wang, Tony Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35386">10.3386/w35386</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -278,7 +296,8 @@
     <p class="title-zh">无形之手缺失下的定价与生产</p>
     <p class="authors">Joel P. Flynn, George Nikolakoudis, Karthik Sastry</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35390">10.3386/w35390</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -290,7 +309,8 @@
     <p class="title-zh">半流动性私募信贷基金的脆弱性</p>
     <p class="authors">Chuck Fang, Itay Goldstein, Yao Zeng</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35385">10.3386/w35385</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -302,7 +322,8 @@
     <p class="title-zh">财富不平等与安全资产需求</p>
     <p class="authors">Xuning Ding, Zhengyang Jiang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35393">10.3386/w35393</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -314,7 +335,8 @@
     <p class="title-zh">动态个体，静态社区：贫困社区的迁移与收入变化</p>
     <p class="authors">Andrew Garin, Ethan Jenkins, Evan E. Mast, Bryan A. Stuart</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35381">10.3386/w35381</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -326,7 +348,8 @@
     <p class="title-zh">金融抑制下的政府融资成本</p>
     <p class="authors">Roberto Gómez-Cram, Howard Kung, Hanno Lustig, David Zeke</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35391">10.3386/w35391</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -338,7 +361,8 @@
     <p class="title-zh">对抗通胀的经验</p>
     <p class="authors">Stefan Nagel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35379">10.3386/w35379</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -350,7 +374,8 @@
     <p class="title-zh">当GDP误导：从统计生命价值推断生活水平</p>
     <p class="authors">Philip Trammell, Charles I. Jones</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35382">10.3386/w35382</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -362,7 +387,8 @@
     <p class="title-zh">当医疗补助支付账单：双重资格医疗保险参保者的常规视力福利、眼科护理使用与眼镜支出</p>
     <p class="authors">Michel H. Boudreaux, Brandy Lipton, Melissa McInerney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">NBER Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-29 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.3386/w35384">10.3386/w35384</a><span class="pill">宏观与货币</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -374,7 +400,8 @@
     <p class="title-zh">婴儿潮衰退与增长繁荣：人口变迁与宏观经济</p>
     <p class="authors">Daron Acemoglu, David Autor, Keelan Beirne, Andrew Scott, Daron Acemoglu; David Autor; Keelan Beirne; Andrew Scott</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-27 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-27 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21673">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -386,7 +413,8 @@
     <p class="title-zh">儿童数量与质量权衡的出现——来自近代早期学术界的洞见</p>
     <p class="authors">Thomas Baudin, David de la Croix</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-06-27 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="pill">首次监测 2026-06-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-27 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag080">10.1093/ej/ueag080</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -398,7 +426,8 @@
     <p class="title-zh">周期性波动、金融摩擦与企业间生产率差异</p>
     <p class="authors">Luca Guerrieri, Jinill Kim, Arsenii Mishin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip pending">官方日期待补 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.federalreserve.gov/econres/feds/cyclical-fluctuations-financial-frictions-and-productivity-differences-across-firms.htm">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -410,7 +439,8 @@
     <p class="title-zh">气候目标与行业风险溢价</p>
     <p class="authors">Eric Jondeau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-26 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21667">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -422,7 +452,8 @@
     <p class="title-zh">就业稳定性、收入动态与生命周期储蓄</p>
     <p class="authors">Moritz Kuhn, Leanne Nam, Gasper Ploj, Moritz Kuhn; Leanne Nam; Gasper Ploj</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-26 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21669">文章链接</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -434,7 +465,8 @@
     <p class="title-zh">移民、创新与增长的地理分布</p>
     <p class="authors">Costas Arkolakis, SUN KYOUNG LEE, Michael Peters, Costas Arkolakis; SUN KYOUNG LEE; Michael Peters</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-26 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">CEPR Discussion Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/publications/dp21668">文章链接</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -446,7 +478,8 @@
     <p class="title-zh">投资动态与货币政策冲击：来自欧洲货币联盟家族企业的证据</p>
     <p class="authors">Paolo Canofari, Alessandro Piergallini, Matteo Renghini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">在线日期 2026-06-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113110">10.1016/j.econlet.2026.113110</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -458,7 +491,8 @@
     <p class="title-zh">早期儿童发展政策的宏观经济后果</p>
     <p class="authors">Diego Daruich</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Political Economy</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Political Economy</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1086/740224">10.1086/740224</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -472,7 +506,8 @@
     <p class="title-zh">货币经济学30年：无现金极限货币经济中货币相关性的再审视</p>
     <p class="authors">Ricardo Lagos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="source-chip">在线日期 2026-06-26 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic Journal</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/ej/ueag079">10.1093/ej/ueag079</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -484,7 +519,8 @@
     <p class="title-zh">城市政治地理学</p>
     <p class="authors">Richard Bluhm, Christian Lessmann, Paul Schaudt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Applied Economics</span><span class="source-chip">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Applied Economics</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">卷期日期 2026-07-01 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/app.20230301">10.1257/app.20230301</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -496,7 +532,8 @@
     <p class="title-zh">中西部人力资本：人才流失的证据</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="source-chip">在线月份 2026-06 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IZA Discussion Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线月份 2026-06 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.iza.org/publications/dp/18752/human-capital-in-the-heartland-evidence-on-brain-drain">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -508,7 +545,8 @@
     <p class="title-zh">生产网络中的异质性通胀波动：生产者价格与消费者价格</p>
     <p class="authors">Kohei Hasui, Teruyoshi Kobayashi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">在线日期 2026-06-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jedc.2026.105373">10.1016/j.jedc.2026.105373</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -520,7 +558,8 @@
     <p class="title-zh">各国如何从参与全球价值链中获益？GVC影响异质性的综合面板分析</p>
     <p class="authors">Jiarui Liu, Takuji Kinkyo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2693164">10.1080/00036846.2026.2693164</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -532,7 +571,8 @@
     <p class="title-zh">中国外汇市场中的央行口头沟通：一种非线性协调渠道方法</p>
     <p class="authors">Xiaoping Li, Bin Tong, Haoyuan Chen, Jing Huang, Zheng Xi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-24 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-24 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2691239">10.1080/00036846.2026.2691239</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -544,7 +584,8 @@
     <p class="title-zh">党派通胀差距的脆弱性：来自英国的证据</p>
     <p class="authors">Amr Saber Algarhi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">在线日期 2026-06-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.econlet.2026.113106">10.1016/j.econlet.2026.113106</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -556,7 +597,8 @@
     <p class="title-zh">稳定币与宏观经济稳定性：一项DSGE研究</p>
     <p class="authors">Hui He &amp; Yao Zhao &amp; Dayong Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-26 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">机构研究</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-129.html">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -568,7 +610,8 @@
     <p class="title-zh">最低工资与非正规约束</p>
     <p class="authors">Nils H. Lehr &amp; Johanna Schauer &amp; Hugo Tuesta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-19 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">IMF Working Papers</span><span class="pill">机构研究</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-19 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://ideas.repec.org/p/imf/imfwpa/2026-126.html">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -580,7 +623,8 @@
     <p class="title-zh">手术机器人技术的发展</p>
     <p class="authors">Albert N Link, Md Zubab Ibne Moid</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">在线日期 2026-06-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.euroecorev.2026.105417">10.1016/j.euroecorev.2026.105417</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -592,7 +636,8 @@
     <p class="title-zh">撒哈拉以南非洲的农业性别差距：规模、驱动因素与政策方向</p>
     <p class="authors">Donald, Aletheia, Tafere, Kibrom</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">World Bank Policy Research Working Papers</span><span class="pill">政策论文</span><span class="source-chip">在线日期 2026-06-24 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">World Bank Policy Research Working Papers</span><span class="pill">机构研究</span><span class="pill">首次监测 2026-06-25</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-24 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1596/1813-9450-11414">10.1596/1813-9450-11414</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -604,7 +649,8 @@
     <p class="title-zh">劳动力市场制度、财政乘数与宏观经济波动</p>
     <p class="authors">Maximilian Boeck, Jesús Crespo Cuaresma, Christian Glocker</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-06-24 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-24 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/jae.70078">10.1002/jae.70078</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -616,7 +662,8 @@
     <p class="title-zh">股权收益率对长期冲击的反应</p>
     <p class="authors">Martijn Boons, Anthony M. Diercks, Petra Sinagl, Andrea Tamoni</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip pending">官方日期待补 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.federalreserve.gov/econres/feds/the-response-of-equity-yields-to-a-long-run-shock.htm">文章链接</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -628,7 +675,8 @@
     <p class="title-zh">稳定币的宏观经济学</p>
     <p class="authors">Boris Hofmann, Matthias Kaldorf, Matthias Rottner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">BIS Working Papers</span><span class="pill">工作论文</span><span class="source-chip">在线日期 2026-06-23 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">BIS Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-23 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.bis.org/publ/work1363.htm">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -640,7 +688,8 @@
     <p class="title-zh">评估非对称性下的宏观经济结果：预期至关重要</p>
     <p class="authors">Brent Bundick, Isabel Cairó, Nicolas Petrosky-Nadeau</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">在线日期 2026-06-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103961">10.1016/j.jmoneco.2026.103961</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -652,7 +701,8 @@
     <p class="title-zh">非常规货币政策溢出效应与国债的（不）便利性</p>
     <p class="authors">Karlye Dilts Stedman, Andrew Hanson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">在线日期 2026-06-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jmoneco.2026.103956">10.1016/j.jmoneco.2026.103956</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -664,7 +714,8 @@
     <p class="title-zh">危机期间商品市场通胀的国际传导：基于多层局部高斯相关网络的证据</p>
     <p class="authors">Yixiong Xu, Feipeng Zhang, Di Yuan, Yun Hong, Xu Liu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="source-chip">在线日期 2026-06-23 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-23 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2026.2692030">10.1080/00036846.2026.2692030</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -676,7 +727,8 @@
     
     <p class="authors">Mateo Hoyos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="source-chip">在线日期 March 2026 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Comparative Economics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 March 2026 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0147596725000745?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -688,7 +740,8 @@
     
     <p class="authors">Antoine Camous, Natalia Garcia Soto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0165176526002880?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -700,7 +753,8 @@
     
     <p class="authors">André Grimaud, Gilles Lafforgue, Luc Rouge</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0165176526002648?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -712,7 +766,8 @@
     
     <p class="authors">Subhrasil Chingri, Debasis Mondal, Klaus Prettner</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0165176526002168?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -724,7 +779,8 @@
     
     <p class="authors">Leandro Lyra Braga Dognini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Mathematical Economics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304406826000431?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -736,7 +792,8 @@
     
     <p class="authors">Andrea De Polis, Álvaro Fernández-Gallardo, José Nicolás Rosas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0165176526002909?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -748,7 +805,8 @@
     
     <p class="authors">João Tovar Jalles</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S016517652600265X?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -760,7 +818,8 @@
     
     <p class="authors">Paola D’Orazio, Anh-Duy Pham, Son Hong Nguyen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Dynamics and Control</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0165188926001016?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -772,7 +831,8 @@
     
     <p class="authors">Riccardo Bianchi-Vimercati, Giampaolo Lecce, Matteo Magnaricotte</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="source-chip">在线日期 April 2026 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 April 2026 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014498325000865?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -784,7 +844,8 @@
     
     <p class="authors">Lukasz A. Drozd, Marcin Kolasa, Jaromir B. Nosal</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">在线日期 April 2026 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 April 2026 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S1094202526000128?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -796,7 +857,8 @@
     
     <p class="authors">Donggyu Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="source-chip">在线日期 April 2026 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Review of Economic Dynamics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 April 2026 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S109420252600013X?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -808,7 +870,8 @@
     
     <p class="authors">Runzhuo Zhai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="source-chip">来源期次 Explorations in Economic History, Volume 101 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Explorations in Economic History, Volume 101 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014498326000240?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -820,7 +883,8 @@
     
     <p class="authors">Gabriel Chimoy, Romina Garibay, Ricardo Quineche</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="source-chip">来源期次 Explorations in Economic History, Volume 101 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Explorations in Economic History</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Explorations in Economic History, Volume 101 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014498326000306?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">经济史</span></span></div>
     </div>
   </div>
@@ -832,7 +896,8 @@
     
     <p class="authors">Byun, Sung Je, Loudis, Johnathan, Schmidt, Lawrence, Schmidt, Lawrence David Warren</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:nbr:nberwo:35243">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -844,7 +909,8 @@
     
     <p class="authors">Golden, Dana, Balasubramanian, Aruna, Balasubramanian, Niranjan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:arx:papers:2606.00811">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -856,7 +922,8 @@
     
     <p class="authors">Reichel, Felix</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-mac/2026-06-22#p10">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -868,7 +935,8 @@
     
     <p class="authors">Valverde-Ambriz, Ismael D.</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:pra:mprapa:129329">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -880,7 +948,8 @@
     
     <p class="authors">te Kaat, Daniel, Raabe, Alexander, te Kaat, Daniel Marcel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:een:camaaa:2026-41">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -892,7 +961,8 @@
     
     <p class="authors">Brockmeyer, Anne, Gerard, François, Ulyssea, Gabriel, Wu, Linda, Bergolo, Marcelo 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Development</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Development</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:crm:wpaper:26154">文章链接</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -904,7 +974,8 @@
     
     <p class="authors">Zhang, Yong, Wu, Xinxiao, Jia, Yunde, Sun, Che</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:arx:papers:2605.23953">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -916,7 +987,8 @@
     
     <p class="authors">Andersen, Asger Lau, Johannesen, Niels, Petersen, Jens Brøndum, Settele, Sonja, Wohlfart, Johannes</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:ajk:ajkdps:418">文章链接</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -928,7 +1000,8 @@
     
     <p class="authors">Drechsel, Thomas, McLeay, Michael, Tenreyro, Silvana, Turri, Enrico D.</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP International Finance</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP International Finance</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:nbr:nberwo:35164">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -940,7 +1013,8 @@
     
     <p class="authors">Ahern, Kenneth, Ahern, Kenneth R.</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:nbr:nberwo:35228">文章链接</a><span class="pill">宏观与货币</span><span class="pill">城市与区域</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -952,7 +1026,8 @@
     
     <p class="authors">Chen, Yujiao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:arx:papers:2606.00970">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -964,7 +1039,8 @@
     
     <p class="authors">Horn, Sebastian, Reinhart, Carmen, Trebesch, Christoph, Reinhart, Carmen M.</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP International Finance</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP International Finance</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:nbr:nberwo:35225">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -976,7 +1052,8 @@
     
     <p class="authors">Folke, Olle, Hanson, Torbjørn, Johnsen, Åshild, Kotsadam, Andreas, Rickne, Johanna 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:crm:wpaper:26138">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -988,7 +1065,8 @@
     
     <p class="authors">Wachs, Johannes, Feng, Xiangnan, Daniotti, Simone, Neffke, Frank</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:arx:papers:2606.09463">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -1000,7 +1078,8 @@
     
     <p class="authors">Kleifgen, Eva, Roth, Duncan, Stepanok, Ignat</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:iza:izadps:dp18669">文章链接</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1012,7 +1091,8 @@
     
     <p class="authors">Crawford, Ian, Tian, Longye</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:arx:papers:2605.29361">文章链接</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -1024,7 +1104,8 @@
     
     <p class="authors">Wagner, Leandro</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://nep.repec.org/nep-mac/2026-06-22#p11">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1036,7 +1117,8 @@
     
     <p class="authors">Clayton, Christopher, Coppola, Antonio</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP International Finance</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP International Finance</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:nbr:nberwo:35227">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1048,7 +1130,8 @@
     
     <p class="authors">Schäfer, Jan Lukas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:cmf:wpaper:wp2026_2606">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1060,7 +1143,8 @@
     
     <p class="authors">Kapuściński, Mariusz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="source-chip">在线日期 2026-06-22 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Macroeconomics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:nbp:nbpmis:388">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1072,7 +1156,8 @@
     
     <p class="authors">Deshpande, ManasI, Kellogg, Maxwell, Mogstad, Magne, Tseng, Kuan-Ju, Kellogg, Maxwell Dylan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="source-chip">在线日期 2026-06-15 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-15 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:nbr:nberwo:35300">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -1084,7 +1169,8 @@
     
     <p class="authors">Daxing He</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">来源期次 Economics Letters, Volume 266 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Economics Letters, Volume 266 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0165176526002260?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1096,7 +1182,8 @@
     
     <p class="authors">Christina Anderl, Alessandro Nava</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="source-chip">来源期次 Economics Letters, Volume 266 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economics Letters</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Economics Letters, Volume 266 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0165176526002259?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1108,7 +1195,8 @@
     <p class="title-zh">加拿大与澳大利亚艺术市场的比较康替龙效应</p>
     <p class="authors">Douglas J. Hodgson, Cameron M. Weber, Bronwyn Coate</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="source-chip">在线日期 2026-06-23 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Canadian Journal of Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-23 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/caje.70060">10.1111/caje.70060</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1120,7 +1208,8 @@
     <p class="title-zh">国家财富增长与不平等的引擎</p>
     <p class="authors">Oded Galor</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Scandinavian Journal of Economics</span><span class="source-chip">在线日期 2026-06-23 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Scandinavian Journal of Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-23 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/sjoe.70031">10.1111/sjoe.70031</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1132,7 +1221,8 @@
     <p class="title-zh">超越储备：美联储资产负债表与回购市场</p>
     <p class="authors">Sriya Anbil, Alyssa Anderson, Ethan Cohen, Romina Ruprecht</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip pending">官方日期待补 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.federalreserve.gov/econres/feds/beyond-reserves-the-federal-reserves-balance-sheet-and-the-repo-market.htm">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1144,7 +1234,8 @@
     <p class="title-zh">美国新设企业：激增还是停滞？</p>
     <p class="authors">Dan Cao, Henry Hyatt, Toshihiko Mukoyama, Erick Sager</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="source-chip">日期待解析 · 来源：文章页面</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">Federal Reserve FEDS Working Papers</span><span class="pill">工作论文</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip pending">官方日期待补 · 来源：文章页面</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.federalreserve.gov/econres/feds/new-us-business-establishments-surging-or-stalling.htm">文章链接</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1156,7 +1247,8 @@
     
     <p class="authors">Bernard Hoekman, Marco Sanfilippo, Filippo Santi, Rohit Ticku</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">在线日期 September  · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 September  · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S030438782600115X?dgcid=rss_sd_all">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1168,7 +1260,8 @@
     
     <p class="authors">Workineh Asmare Kassie, Yeshwas Admasu, Dagim Belay, Solomon Zena Walelign, Jipeng Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">在线日期 September  · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 September  · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304387826001197?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -1180,7 +1273,8 @@
     
     <p class="authors">Melanie Schweikart, Leonardo R. Ramírez, Ina Säumel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">在线日期 October 20 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 October 20 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0264837726001948?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1192,7 +1286,8 @@
     
     <p class="authors">Ahmed Racine Yago, Samba Diop, Cheikh Tidiane Ndiaye, Simplice A. Asongu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="source-chip">在线日期 October 20 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 October 20 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0305750X26001506?dgcid=rss_sd_all">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1204,7 +1299,8 @@
     
     <p class="authors">Tafesse W. Gezahegn, Tewodros Tadesse, Bouali Guesmi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="source-chip">在线日期 October 20 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 October 20 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0264837726002462?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1216,7 +1312,8 @@
     
     <p class="authors">Yangming Bao, Jie Li</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0022199626000607?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1228,7 +1325,8 @@
     
     <p class="authors">Mohammadhossein Lashkaripour, Seyedmehdi Hosseini, Rizwan Ahmed</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Environmental Economics and Management</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0095069626000719?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1240,7 +1338,8 @@
     
     <p class="authors">Ayushi Bajaj, Sephorah Mangin</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001182?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1252,7 +1351,8 @@
     
     <p class="authors">Jyotsana Kala, Lucie Lebeau, Lu Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001248?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1264,7 +1364,8 @@
     
     <p class="authors">Sauhard Srivastava</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0022199626000723?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1276,7 +1377,8 @@
     
     <p class="authors">Guido Ascari, Dennis Bonam, Lorenzo Mori, Andra Smadu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0022199626000711?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1288,7 +1390,8 @@
     
     <p class="authors">Shawn Xiaoguang Chen, Pei Li, Saijie Sun</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0094119026000562?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1300,7 +1403,8 @@
     
     <p class="authors">William McWilliams, Shamar L. Stewart, Olga Isengildina Massa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0306919226000825?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1312,7 +1416,8 @@
     
     <p class="authors">Lukas Schmid, Vytautas Valaitis, Alessandro T. Villa</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304405X26000644?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1324,7 +1429,8 @@
     
     <p class="authors">Okan Akarsu, Emrehan Aktuğ, Müşerref Küçükbayrak</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001455?dgcid=rss_sd_all">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1336,7 +1442,8 @@
     
     <p class="authors">Mariana García-Schmidt</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0022199626000875?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1348,7 +1455,8 @@
     
     <p class="authors">Christopher L. Foote, Lara Loewenstein, Paul S. Willen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Urban Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0094119026000574?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1360,7 +1468,8 @@
     
     <p class="authors">Junhyong Kim, Annie Soyean Lee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S002219962600084X?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1372,7 +1481,8 @@
     
     <p class="authors">Stephen J. Cole, Enrique Martínez García, Eric Sims</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001297?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1384,7 +1494,8 @@
     
     <p class="authors">Tianxiang Li, Yuanyi Liao, Tomas Baležentis, Zhiyang Shen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0306919226000965?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1396,7 +1507,8 @@
     
     <p class="authors">Erik Loualiche, Alexandre R. Pecora, Fabricius Somogyi, Colin Ward</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304405X26000760?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1408,7 +1520,8 @@
     
     <p class="authors">Tina L. Saitone, K. Aleks Schaefer, Daniel P. Scheitrum, Shawn Arita, Vince Breneman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0306919226000473?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -1420,7 +1533,8 @@
     
     <p class="authors">Shaghil Ahmed, Özge Akıncı, Albert Queralto</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0022199626000784?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1432,7 +1546,8 @@
     
     <p class="authors">Jiri Kukacka, Eric Zila</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">在线日期 August 202 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 August 202 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0167268126002441?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1444,7 +1559,8 @@
     
     <p class="authors">Laurent Ferrara, Aikaterini Karadimitropoulou, Athanasios Triantafyllou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126000838?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1456,7 +1572,8 @@
     
     <p class="authors">Lingran Yuan, Qizheng Zhang, Binlei Gong</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0167268126001927?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1468,7 +1585,8 @@
     
     <p class="authors">Andreas Hornstein, Marios Karabarbounis, André Kurmann, Etienne Lalé, Lien Ta</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 161 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 161 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000735?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -1480,7 +1598,8 @@
     
     <p class="authors">Lorenzo Mori</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001285?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1492,7 +1611,8 @@
     
     <p class="authors">Bastián Castro Nofal, Ignacio Flores, Pablo Gutiérrez Cubillos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="source-chip">来源期次 Journal of Public Economics, Volume 259 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Public Economics, Volume 259 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0047272726001015?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -1504,7 +1624,8 @@
     
     <p class="authors">Francesco Corsello, Marianna Riggi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126000425?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1516,7 +1637,8 @@
     
     <p class="authors">Hippolyte Balima, Alexandru Minea, Cezara Vinturis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0167268125004652?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -1528,7 +1650,8 @@
     
     <p class="authors">Georgios Chortareas, Anastasios Evgenidis, Apostolos Fasianos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001030?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -1540,7 +1663,8 @@
     
     <p class="authors">Zeno Enders, Stefan T. Trautmann, Dmitri V. Vinogradov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0167268126002064?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1552,7 +1676,8 @@
     
     <p class="authors">Nicolò Bandera, Jacob Stevens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001042?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1564,7 +1689,8 @@
     
     <p class="authors">Ismail Baydur, Toshihiko Mukoyama</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126000929?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1576,7 +1702,8 @@
     
     <p class="authors">Michalis Drouvelis, Zeyu Qiu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001236?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1588,7 +1715,8 @@
     
     <p class="authors">Kee-Youn Kang, Zijian Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 161 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 161 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000723?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1600,7 +1728,8 @@
     
     <p class="authors">Jean-Paul L’Huillier, Raphael Schoenle</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126000760?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1612,7 +1741,8 @@
     
     <p class="authors">Domenico Delli Gatti, Jakob Grazzini, Domenico Massaro, Fabrizio Panebianco</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="source-chip">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economic Behavior and Organization</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Economic Behavior &amp; Organization, Volume 247 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0167268126001897?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -1624,7 +1754,8 @@
     
     <p class="authors">Nicoletta Batini, Luigi Durand</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126000954?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -1636,7 +1767,8 @@
     
     <p class="authors">Mengheng Li, Ivan Mendieta-Muñoz</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="source-chip">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">European Economic Review</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 European Economic Review, Volume 187 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0014292126001212?dgcid=rss_sd_all">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1648,7 +1780,8 @@
     
     <p class="authors">Zhonghui Zhang, Fushu Luan, Chihwa Kao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 161 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 161 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S030439322600070X?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1660,7 +1793,8 @@
     
     <p class="authors">Lei Ye</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000619?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1672,7 +1806,8 @@
     
     <p class="authors">Alan Finkelstein Shapiro, Victoria Nuguer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">来源期次 Journal of Development Economics, Volume 182 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Development Economics, Volume 182 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304387826000659?dgcid=rss_sd_all">文章链接</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -1684,7 +1819,8 @@
     
     <p class="authors">Daniel Rock</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000620?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1696,7 +1832,8 @@
     
     <p class="authors">Miao Ben Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000413?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1708,7 +1845,8 @@
     
     <p class="authors">Andrea Chiavari</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000504?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1720,7 +1858,8 @@
     
     <p class="authors">Joel P. Flynn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000589?dgcid=rss_sd_all">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -1732,7 +1871,8 @@
     
     <p class="authors">Luis G. Hernández-Román</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000498?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1744,7 +1884,8 @@
     
     <p class="authors">Ayşe İmrohoroğlu, Çağrı S. Kumru, Jiu Lian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000577?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -1756,7 +1897,8 @@
     
     <p class="authors">Margaret E. Brehm, Paul A. Brehm, Alecia Cassidy, Traviss Cassidy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">来源期次 Journal of Development Economics, Volume 182 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Development Economics, Volume 182 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304387826000945?dgcid=rss_sd_all">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1768,7 +1910,8 @@
     
     <p class="authors">Agneta Berge, Ann-Sofie Kolm, Per Krusell</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000590?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1780,7 +1923,8 @@
     
     <p class="authors">Martin Abel, Tomoko Harigaya, Michael Kremer, Jessica Zhu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="source-chip">来源期次 Journal of Development Economics, Volume 182 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Development Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Development Economics, Volume 182 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304387826001057?dgcid=rss_sd_all">文章链接</a><span class="pill">发展经济学</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1792,7 +1936,8 @@
     
     <p class="authors">Enrique G. Mendoza, Vincenzo Quadrini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="source-chip">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Monetary Economics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Monetary Economics, Volume 160 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304393226000607?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -1804,7 +1949,8 @@
     
     <p class="authors">Kurt G. Lunsford, Kenneth D. West</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">来源期次 Journal of Econometrics, Volume 255 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Econometrics, Volume 255 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304407626000424?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1816,7 +1962,8 @@
     
     <p class="authors">Valentina Corradi, Jordi Llorens-Terrazas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">来源期次 Journal of Econometrics, Volume 255 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Econometrics, Volume 255 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304407626000588?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -1828,7 +1975,8 @@
     
     <p class="authors">Tobias Adrian, Yuya Sasaki, Yulong Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="source-chip">来源期次 Journal of Econometrics, Volume 255 · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="pill">首次监测 2026-06-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 Journal of Econometrics, Volume 255 · 来源：期刊官网</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.sciencedirect.com/science/article/pii/S0304407626000564?dgcid=rss_sd_all">文章链接</a><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>

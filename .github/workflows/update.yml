@@ -33,6 +33,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - name: Sync latest main
@@ -110,10 +111,22 @@ jobs:
         run: python scripts/fetch_rss.py --discover
       - name: Fetch Crossref metadata
         if: steps.mode.outputs.mode != 'single' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/fetch_crossref.py --tier "${{ steps.mode.outputs.tier }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
+        shell: bash
+        run: |
+          if timeout 20m python scripts/fetch_crossref.py --tier "${{ steps.mode.outputs.tier }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2; then
+            echo "Crossref metadata fetch completed."
+          else
+            echo "::warning::Crossref metadata fetch timed out or failed; continuing with RSS, publisher pages, Chinese journals, and working paper sources."
+          fi
       - name: Fetch Crossref metadata for one journal
         if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != '' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2
+        shell: bash
+        run: |
+          if timeout 15m python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2; then
+            echo "Single-journal Crossref fetch completed."
+          else
+            echo "::warning::Single-journal Crossref fetch timed out or failed; continuing with the rest of the monitor."
+          fi
       - name: Fetch Chinese journal pages
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         shell: bash

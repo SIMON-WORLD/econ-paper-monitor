@@ -7,38 +7,39 @@
   
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
-*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
+.shell{display:grid;grid-template-columns:320px minmax(0,1120px);width:min(100% - 32px,1440px);margin:0 auto;min-height:100vh;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:26px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0;background:var(--page)}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:26px 28px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 36px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:19px;max-width:720px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin-top:24px;max-width:860px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:12px 13px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:27px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:25px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.status-strip .warn strong{color:#7d4e00}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
   <div class="shell">
     <aside class="sidebar">
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
-    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
-    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
-    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
-    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
-    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
-    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
+    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
+    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
+    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
+    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
+    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
   </div>
   <div class="side-block"><div class="side-title">2026-04-28 文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">21</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">7</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">5</span></a><a class="side-link" href="../../topics/urban/"><span class="side-main"><strong>城市与区域</strong></span><span class="count">4</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/environment/"><span class="side-main"><strong>环境与气候</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/inequality/"><span class="side-main"><strong>不平等</strong></span><span class="count">2</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">2</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">2</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">2</span></a></div>
-  <div class="side-block"><div class="side-title">2026-04-28 期刊论文来源</div><a class="side-link" href="../../daily/2026-04-28/?journal=australian-journal-of-agricultural-and-resource-economics"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../daily/2026-04-28/?journal=journal-of-economics-and-management-strategy"><span class="side-main"><strong>Journal of Economics &amp; Management Strategy</strong><em>经济学与管理战略杂志</em></span><span class="count">11</span></a><a class="side-link" href="../../daily/2026-04-28/?journal=economica"><span class="side-main"><strong>Economica</strong><em>Economica</em></span><span class="count">2</span></a><a class="side-link" href="../../daily/2026-04-28/?journal=journal-of-applied-econometrics"><span class="side-main"><strong>Journal of Applied Econometrics</strong><em>应用计量经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-04-28/"><span class="side-main"><strong>查看 2026-04-28 期刊论文</strong></span><span class="count">Today</span></a></div>
-  <div class="side-block"><div class="side-title">2026-04-28 工作论文来源</div><div class="side-link"><span class="side-main"><strong>暂无工作论文来源</strong></span><span class="count">0</span></div><a class="side-link" href="../../daily/2026-04-28/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-04-28 工作论文</strong></span><span class="count">Today</span></a></div>
+  <div class="side-block"><div class="side-title">2026-04-28 期刊论文来源</div><a class="side-link" href="../../daily/2026-04-28/?journal=australian-journal-of-agricultural-and-resource-economics"><span class="side-main"><strong>Australian Journal of Agricultural and Resource Economics</strong><em>澳大利亚农业与资源经济学杂志</em></span><span class="count">21</span></a><a class="side-link" href="../../daily/2026-04-28/?journal=journal-of-economics-and-management-strategy"><span class="side-main"><strong>Journal of Economics &amp; Management Strategy</strong><em>经济学与管理战略杂志</em></span><span class="count">11</span></a><a class="side-link" href="../../daily/2026-04-28/?journal=economica"><span class="side-main"><strong>Economica</strong><em>Economica</em></span><span class="count">2</span></a><a class="side-link" href="../../daily/2026-04-28/?journal=journal-of-applied-econometrics"><span class="side-main"><strong>Journal of Applied Econometrics</strong><em>应用计量经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-04-28/"><span class="side-main"><strong>查看 2026-04-28 期刊论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">2026-04-28 工作论文来源</div><div class="side-link"><span class="side-main"><strong>暂无工作论文来源</strong></span><span class="count">0</span></div><a class="side-link" href="../../daily/2026-04-28/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-04-28 工作论文</strong></span><span class="count">今日</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -53,12 +54,12 @@
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>2026-04-28 监测记录</h2><p>本站首次监测日期：2026-04-28；官方/在线日期范围：2026-04-28。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
+      <main class="wrap" id="main-content"><section class="section-head"><div><h2>2026-04-28 监测记录</h2><p>本站首次监测日期：2026-04-28；官方/在线日期范围：2026-04-28。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">筛选期刊</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option><option value="economica">Economica</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-economics-and-management-strategy">Journal of Economics &amp; Management Strategy</option></select>
   <select class="control" data-filter-role="field"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="behavior">行为与组织</option><option value="finance">金融</option></select>
-  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option></select>
-  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B 中：RSS/出版社备选日期</option></select>
+  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">官方在线</option></select>
+  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B：RSS/出版社备选日期</option></select>
   <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal">期刊论文</option></select>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
   
@@ -70,7 +71,8 @@
     <p class="title-zh">迈向循环生物经济的小举措：采纳种养结合系统及其对化肥使用的影响</p>
     <p class="authors">Hongyun Zheng, Wanglin Ma, Dil Bahadur Rahut, Liangang Zhang, Xiaoshi Zhou</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70094?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -82,7 +84,8 @@
     <p class="title-zh">桥接与分化：数字普惠金融对中国收入不平等的双重效应</p>
     <p class="authors">Dan Liu, Yanhong Jin, Haiyan Deng, Carl E. Pray</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70098?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -94,7 +97,8 @@
     <p class="title-zh">女性能否从家庭土地所有权中受益？来自尼日利亚的证据</p>
     <p class="authors">Fang Xia, Klaus Deininger, Xuwen Gao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70104?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -106,7 +110,8 @@
     <p class="title-zh">循环生物经济促进可持续农业与食品系统：编辑导言</p>
     <p class="authors">Wanglin Ma, Johannes Sauer, Dil Bahadur Rahut, Tetsushi Sonobe</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70110?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -118,7 +123,8 @@
     <p class="title-zh">发展农业食品系统循环生物经济可持续性指标：来自东南亚的证据</p>
     <p class="authors">Novlloyd E. Celeste, Anthony B. Halog</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70101?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -130,7 +136,8 @@
     <p class="title-zh">政府投入支持对越南水稻生产影响的实证研究</p>
     <p class="authors">Keo Sa Rate Thach, Ji Yong Lee, My Trang Ha, Minh Tuan Cao, Duyen Thi Le Chau 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70109?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -142,7 +149,8 @@
     <p class="title-zh">从农田到未来：集中搬迁对非农就业转型的影响</p>
     <p class="authors">Xuebo Hou, Xinxiong Wu, Bangbang Zhang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70096?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -154,7 +162,8 @@
     <p class="title-zh">中国地面臭氧与农业生产力</p>
     <p class="authors">Xiaoli Wang, Qian Li, Jing Gao, Xiaoguang Chen</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70106?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -166,7 +175,8 @@
     <p class="title-zh">利用印度尼西亚的循环生物经济：整合土地、海洋、森林和水资源以实现粮食系统可持续性</p>
     <p class="authors">Umi Karomah Yaumidin, Atien Priyanti, Muhammad Indra Al Irsyad, Abdul Muis Hasibuan, Didit Okta Pribadi 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70088?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span></span></div>
     </div>
   </div>
@@ -178,7 +188,8 @@
     <p class="title-zh">工厂产能如何影响农产品加工企业的绩效？——基于国际糖价冲击的准实验设计</p>
     <p class="authors">Yetian Cai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70103?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -190,7 +201,8 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70111?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -202,7 +214,8 @@
     <p class="title-zh">农作物废弃物生物能源生产中循环生物经济的知识与能力障碍：一项比较MCDM分析</p>
     <p class="authors">Sarmistha Mishra, Dukhabandhu Sahoo, Souryabrata Mohapatra</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70091?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -214,7 +227,8 @@
     <p class="title-zh">农业区域大规模太阳能利用的土地与经济权衡：边际国家影响与显著区域差异</p>
     <p class="authors">Raymundo Marcos‐Martinez, Stephen Snow, Tim Capon, Quoc Anh Nguyen, Andrea Walton 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70093?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -226,7 +240,8 @@
     <p class="title-zh">印度奥里萨邦废弃蘑菇基质的管理：决定因素、影响与循环生物经济前景</p>
     <p class="authors">Dibyajyoti Samantaray, Hemanta Das, N. B. Singh</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70087?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -238,7 +253,8 @@
     <p class="title-zh">农业食品系统中循环生物经济研究的图谱：来自澳大利亚和新西兰的视角</p>
     <p class="authors">Maja Arsic, Tiffany McIntyre</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70107?af=R">文章链接</a><span class="pill">农业与食品</span></span></div>
     </div>
   </div>
@@ -250,7 +266,8 @@
     <p class="title-zh">驾驭通胀：食品价值观在日本消费者价格搜索意向中的作用</p>
     <p class="authors">Nobuhiro Ito, Tomoaki Murakami</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70100?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -262,7 +279,8 @@
     <p class="title-zh">数字修复：克服农业环境监管中的监测约束</p>
     <p class="authors">Kai Zhao, Chenyang Liu, Yu Zhang, Lu Fan, Lingyun Duan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70099?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -274,7 +292,8 @@
     <p class="title-zh">信贷与培训对农户效率的影响：基于半参数元前沿分析</p>
     <p class="authors">Anthony Baffoe‐Bonnie, Genti Kostandini</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70095?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -286,7 +305,8 @@
     <p class="title-zh">贸易自由化与农产品出口：来自阿富汗加入WTO的证据</p>
     <p class="authors">Yuping Deng, Abdul Ahmad Pooya, Shah Mir Mowahed</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70092?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -298,7 +318,8 @@
     <p class="title-zh">节水政策的非预期效应：土耳其灌溉玉米扩张</p>
     <p class="authors">Alper Demirdogen, Yener Ataseven, Emine Olhan, Mehmet Hasdemir</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70090?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -310,7 +331,8 @@
     <p class="title-zh">城市用水需求：收入与价格弹性</p>
     <p class="authors">Alemken Jegnie, Atakelty Hailu, Md Sayed Iftekhar, James Fogarty</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Australian Journal of Agricultural and Resource Economics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/1467-8489.70097?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -322,7 +344,8 @@
     <p class="title-zh">中国“太子党”真的破产了吗？——中国土地市场交易折扣评估</p>
     <p class="authors">Julia Manso</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Applied Econometrics</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/jae.70060?af=R">文章链接</a><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -334,7 +357,8 @@
     <p class="title-zh">银行资本与不当行为激励</p>
     <p class="authors">Jacob Seifert</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.12644?af=R">文章链接</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -346,7 +370,8 @@
     <p class="title-zh">买方势力与纵向一体化对创新的影响</p>
     <p class="authors">Claire Chambolle, Morgane Guignard</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70002?af=R">文章链接</a><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -358,7 +383,8 @@
     <p class="title-zh">产品差异化下的交叉持股与并购</p>
     <p class="authors">Arijit Mukherjee</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70000?af=R">文章链接</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -370,7 +396,8 @@
     <p class="title-zh">数字平台间的数据可携性与互操作性</p>
     <p class="authors">Jeong‐Yoo Kim</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.12643?af=R">文章链接</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -382,7 +409,8 @@
     <p class="title-zh">基于案例决策者中的创新扩散</p>
     <p class="authors">Benson Tsz Kin Leung</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70004?af=R">文章链接</a><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -394,7 +422,8 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70033?af=R">文章链接</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -406,7 +435,8 @@
     <p class="title-zh">本地网络与新企业形成</p>
     <p class="authors">Lena Füner, Marius Berger, Johannes Bersch, Hanna Hottenrott</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70003?af=R">文章链接</a><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -418,7 +448,8 @@
     <p class="title-zh">市场份额作为合谋标志：来自欧洲卡车行业的证据</p>
     <p class="authors">Andreas Bovin, Iwan Bos</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.12645?af=R">文章链接</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -430,7 +461,8 @@
     <p class="title-zh">单向与双向并购后整合努力：理论与证据</p>
     <p class="authors">Albert Banal‐Estañol, Joseph A. Clougherty, Jo Seldeslachts, Florian Szücs</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70006?af=R">文章链接</a><span class="pill">理论与博弈</span></span></div>
     </div>
   </div>
@@ -442,7 +474,8 @@
     <p class="title-zh">当创意稀缺时保护中间创新：专利还是保密？</p>
     <p class="authors">Bonwoo Koo, Jangho Yang, Brian D. Wright</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70001?af=R">文章链接</a><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
@@ -454,7 +487,8 @@
     <p class="title-zh">未知竞争市场中的序列投资与战略承诺</p>
     <p class="authors">Naveen Khanna, Richmond Mathews</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/jems.70005?af=R">文章链接</a><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -466,7 +500,8 @@
     <p class="title-zh">应要求透明：薪酬知情权与性别薪酬差距</p>
     <p class="authors">Katharina Brütt, Huaiping Yuan</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economica</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economica</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/ecca.70051?af=R">文章链接</a><span class="pill">不平等</span></span></div>
     </div>
   </div>
@@ -478,7 +513,8 @@
     <p class="title-zh">短期销售变化下的工资保险</p>
     <p class="authors">Róbert Károlyi</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economica</span><span class="source-chip">在线日期 2026-04-28 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economica</span><span class="pill">首次监测 2026-04-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1111/ecca.70052?af=R">文章链接</a><span class="pill">劳动</span></span></div>
     </div>
   </div>

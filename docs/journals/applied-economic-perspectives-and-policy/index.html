@@ -7,38 +7,39 @@
   
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
-*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-.shell{display:grid;grid-template-columns:340px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
+.shell{display:grid;grid-template-columns:320px minmax(0,1120px);width:min(100% - 32px,1440px);margin:0 auto;min-height:100vh;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
 .side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
-.content{min-width:0}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1180px;margin:0;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1180px;margin:0;padding:26px 30px 48px}
-.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 40px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:20px;max-width:760px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-top:26px;max-width:900px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:13px 14px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:28px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:26px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.content{min-width:0;background:var(--page)}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:26px 28px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 36px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:19px;max-width:720px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin-top:24px;max-width:860px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:12px 13px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:27px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:25px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.status-strip .warn strong{color:#7d4e00}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
   <div class="shell">
     <aside class="sidebar">
   <h1 class="brand">Econ Papers Daily</h1>
   <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
   <div class="side-block"><div class="side-title">导航</div>
-    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">Today</span></a>
-    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">Topic</span></a>
-    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">Archive</span></a>
-    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">Search</span></a>
-    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">List</span></a>
-    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>最新工作论文</strong></span><span class="count">WP</span></a>
-    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">Beta</span></a>
+    <a class="side-link" href="../../"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
+    <a class="side-link" href="../../archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
+    <a class="side-link" href="../../search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
+    <a class="side-link" href="../../journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
+    <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
+    <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
   </div>
   <div class="side-block"><div class="side-title">2026-06-27 文章主题</div><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">1</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">1</span></a></div>
-  <div class="side-block"><div class="side-title">2026-06-27 期刊论文来源</div><a class="side-link" href="../../daily/2026-06-27/?journal=applied-economic-perspectives-and-policy"><span class="side-main"><strong>Applied Economic Perspectives and Policy</strong><em>应用经济观点与政策</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-06-27/"><span class="side-main"><strong>查看 2026-06-27 期刊论文</strong></span><span class="count">Today</span></a></div>
-  <div class="side-block"><div class="side-title">2026-06-27 工作论文来源</div><div class="side-link"><span class="side-main"><strong>暂无工作论文来源</strong></span><span class="count">0</span></div><a class="side-link" href="../../daily/2026-06-27/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-06-27 工作论文</strong></span><span class="count">Today</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-27 期刊论文来源</div><a class="side-link" href="../../daily/2026-06-27/?journal=applied-economic-perspectives-and-policy"><span class="side-main"><strong>Applied Economic Perspectives and Policy</strong><em>应用经济观点与政策</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-06-27/"><span class="side-main"><strong>查看 2026-06-27 期刊论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">2026-06-27 工作论文来源</div><div class="side-link"><span class="side-main"><strong>暂无工作论文来源</strong></span><span class="count">0</span></div><a class="side-link" href="../../daily/2026-06-27/?sourceType=working_paper"><span class="side-main"><strong>查看 2026-06-27 工作论文</strong></span><span class="count">今日</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
@@ -53,7 +54,7 @@
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap"><section class="section-head"><div><h2>Applied Economic Perspectives and Policy</h2><p>该期刊历史发现记录。</p></div></section><div class="toolbar">
+      <main class="wrap" id="main-content"><section class="section-head"><div><h2>Applied Economic Perspectives and Policy</h2><p>该期刊历史发现记录。</p></div></section><div class="toolbar">
   <a class="control primary" href="../../daily/2026-06-27/?journal=applied-economic-perspectives-and-policy">最新日期 1</a>
   <a class="control" href="../../journals/applied-economic-perspectives-and-policy/recent7/">最近 7 天 6</a>
   <a class="control" href="../../journals/applied-economic-perspectives-and-policy/">全部历史 57</a>
@@ -61,8 +62,8 @@
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">筛选期刊</option><option value="applied-economic-perspectives-and-policy">Applied Economic Perspectives and Policy</option></select>
   <select class="control" data-filter-role="field"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="environment">环境与气候</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
-  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">Online 日期</option></select>
-  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B 中：RSS/出版社备选日期</option><option value="C">C 低：Crossref 元数据</option></select>
+  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">官方在线</option></select>
+  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B：RSS/出版社备选日期</option><option value="C">C：Crossref 元数据</option></select>
   <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal">期刊论文</option></select>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
   
@@ -74,7 +75,8 @@
     <p class="title-zh">临时项目，持久问题：美国农业安全网中的临时援助</p>
     <p class="authors">Alejandro Plastina, Oranuch Wongpiyabovorn</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-26 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-26 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70103">10.1002/aepp.70103</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -86,7 +88,8 @@
     <p class="title-zh">食品价格上涨时饮食质量如何变化？基于2015–2018年全国家庭扫描数据的显示性偏好分析</p>
     <p class="authors">Kate Schneider Lecy, Bangyao Sun, Sean B. Cash, Wenhui Feng, Andrew Thorne‐Lyman 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-25 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-25</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-25 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70101">10.1002/aepp.70101</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -98,7 +101,8 @@
     <p class="title-zh">促进健康饮酒：情境与信息因素对无醇葡萄酒选择影响的场景实验证据</p>
     <p class="authors">Giovanna Piracci, Giulia Maesano, Leonardo Casini, Maurizio Canavari, Marija Cerjak</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-24 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-24 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70098">10.1002/aepp.70098</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -110,7 +114,8 @@
     <p class="title-zh">中国贸易竞争与墨西哥农村移民</p>
     <p class="authors">Zachariah Rutledge, Joaquin Mayorga</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-22 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70102">10.1002/aepp.70102</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -122,7 +127,8 @@
     <p class="title-zh">贷款资金成本与市场结构如何塑造农业贷款利率</p>
     <p class="authors">Noah Miller, Chad Fiechter, Jennifer Ifft, Blaine Nelson, Francisco Scott</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-22 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70091">10.1002/aepp.70091</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
@@ -134,7 +140,8 @@
     <p class="title-zh">保持同步还是落后？拉丁美洲贸易协定的深度</p>
     <p class="authors">Raphael Gomes da Silva, Fernanda Aparecida Silva, Lia Nogueira</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-22 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-22 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70100">10.1002/aepp.70100</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -146,7 +153,8 @@
     <p class="title-zh">大麻种植与作物多样化：对肯塔基州生态系统服务的影响</p>
     <p class="authors">Yunsun Park, Seong D. Yun, Brandy E. Phipps, Tyler Mark, Craig Schluttenhofer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-19 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-19</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-19 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70099">10.1002/aepp.70099</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -158,7 +166,8 @@
     <p class="title-zh">合作社成员身份对中国玉米收获损失的影响</p>
     <p class="authors">Yi Luo, Xue Qu, Haimin Miao, Laping Wu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-17 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-17 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70093">10.1002/aepp.70093</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -170,7 +179,8 @@
     <p class="title-zh">认证与稳定？秘鲁自愿性可持续标准下的价格与产量波动</p>
     <p class="authors">Eva Boonaert, Eva‐Marie Meemken, Miet Maertens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-03 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-17</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-03 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70079">10.1002/aepp.70079</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -182,7 +192,8 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-14</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70092">10.1002/aepp.70092</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -194,7 +205,8 @@
     <p class="title-zh">农业服务外包与小农户水稻种植中的风险降低：来自中国的证据及全球启示</p>
     <p class="authors">Jian Zhang, Ashok K. Mishra, Gaoli Zhu, Awais Jabbar</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-12 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-12</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-12 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70096">10.1002/aepp.70096</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -206,7 +218,8 @@
     <p class="title-zh">极端天气事件与消费者食品反应</p>
     <p class="authors">Ahmad Zia Wahdat, Joseph Balagtas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-11 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-11 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70095">10.1002/aepp.70095</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
@@ -218,7 +231,8 @@
     <p class="title-zh">超越禁令——揭示印尼棕榈油行业小农户的价格脆弱性</p>
     <p class="authors">Charlotte‐Elena Reich, Tim Ölkers, Vanessa Bonke, Oliver Musshoff</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70040?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -230,7 +244,8 @@
     <p class="title-zh">拜登政府时期的竞争政策与农业综合企业</p>
     <p class="authors">James M. MacDonald</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70066?af=R">文章链接</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -242,7 +257,8 @@
     <p class="title-zh">消费者对牛奶与植物基奶替代品的健康认知</p>
     <p class="authors">Danielle M. Kaminski, Wei Yang, Rodolfo M. Nayga Jr.</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70074?af=R">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span><span class="pill">健康</span></span></div>
     </div>
   </div>
@@ -254,7 +270,8 @@
     <p class="title-zh">肉类替代品的消费者估值与标签政策：比较视角</p>
     <p class="authors">Daniele Asioli, Wei Yang, Jia Han, Quoc Cuong Nguyen, Massimiliano Petracci 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70068?af=R">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -266,7 +283,8 @@
     <p class="title-zh">更正：“内在动机与持续改进在奶牛养殖中实施动物福利实践意愿中的作用</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70078?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -278,7 +296,8 @@
     <p class="title-zh">印度绿色革命是否改变了农场规模与生产率的关系？</p>
     <p class="authors">Rabail Chandio, Leah E. M. Bevis</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70045?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -290,7 +309,8 @@
     <p class="title-zh">农场还是财富？继承人意愿与税收政策在农田继承规划中的作用</p>
     <p class="authors">Alan Hinds</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70061?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -302,7 +322,8 @@
     <p class="title-zh">期刊信息</p>
     <p class="authors"></p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70092?af=R">文章链接</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -314,7 +335,8 @@
     <p class="title-zh">牲畜探戈：美国与拉丁美洲共舞，但谁领舞？</p>
     <p class="authors">Taís C. Menezes, Amanda M. Countryman, Dustin L. Pendell</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70047?af=R">文章链接</a><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -326,7 +348,8 @@
     <p class="title-zh">市场缓解能源作物对土地利用的竞争并提高农场收入</p>
     <p class="authors">Daniel G. De La Torre Ugarte, Matthew H. Langholtz, Chad M. Hellwinckel</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70051?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">金融</span></span></div>
     </div>
   </div>
@@ -338,7 +361,8 @@
     <p class="title-zh">粮食、能源与土地安全的微观经济关联：来自埃塞俄比亚的启示</p>
     <p class="authors">Tinne Sauer, Dalia Fadly, Miet Maertens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70053?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -350,7 +374,8 @@
     <p class="title-zh">精算常规调整降低补贴型农业保险的纳税人成本</p>
     <p class="authors">Francis Tsiboe</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70052?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -362,7 +387,8 @@
     <p class="title-zh">农业生物多样性保护中的协同效应：自然公园与农业环境计划交互作用的分解</p>
     <p class="authors">Yanbing Wang, Christian Ritzel, Antonia Kaiser, Gabriele Mack</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70049?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -374,7 +400,8 @@
     <p class="title-zh">税收政策与农业组织</p>
     <p class="authors">Tia M. McDonald, Katherine Lacy</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70062?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -386,7 +413,8 @@
     <p class="title-zh">生物燃料蓝图：理解美国可再生燃料标准</p>
     <p class="authors">Maria Gerveni, Todd Hubbs, Scott H. Irwin, James H. Stock</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70083?af=R">文章链接</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -398,7 +426,8 @@
     <p class="title-zh">供需变化对非房地产农业贷款的影响</p>
     <p class="authors">Francisco Scott, Todd H. Kuethe, Ty Kreitman, David Oppedahl</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70050?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -410,7 +439,8 @@
     <p class="title-zh">社会食品基础设施在解决SNAP参与差距中的作用：来自关联行政与实地数据的证据</p>
     <p class="authors">Michael Lotspeich‐Yadao, Caitlin Kownacki, Jennifer McCaffrey, Craig Wesley Carpenter</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-04 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-04</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-04 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70072?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -422,7 +452,8 @@
     <p class="title-zh">视频信息如何影响农民对无人机服务支付意愿</p>
     <p class="authors">Hua Zhang, Lena Kuhn, Hang Xiong, Zhanli Sun, Thomas Glauben</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-06-03 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-06-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-06-03 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70094">10.1002/aepp.70094</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -434,7 +465,8 @@
     <p class="title-zh">农作物保险设计与农场风险适应</p>
     <p class="authors">Gerald Van Tassell, Alan P. Ker</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-24 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-24 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70087">10.1002/aepp.70087</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">城市与区域</span></span></div>
     </div>
   </div>
@@ -446,7 +478,8 @@
     <p class="title-zh">意大利葡萄栽培中精准农业采纳的驱动因素</p>
     <p class="authors">Olimpia Fontana, Linda Arata, Margherita Muzzillo, Paolo Sckokai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-24 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-24 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70090">10.1002/aepp.70090</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -458,7 +491,8 @@
     <p class="title-zh">标签陷阱：农药标签的意外后果与助推的力量</p>
     <p class="authors">Juhui Chen, Zhipeng He, Junfei Bai</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-20 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-20 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70086">10.1002/aepp.70086</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
@@ -470,7 +504,8 @@
     <p class="title-zh">食堂营养膳食的成本：来自美国军队餐饮设施的证据</p>
     <p class="authors">Linlin Fan, Yiwen Zhao, Andrea Carlson, Parke Wilde, Joanna Reagan 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-18 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-18</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-18 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70088">10.1002/aepp.70088</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">劳动</span></span></div>
     </div>
   </div>
@@ -482,7 +517,8 @@
     <p class="title-zh">美国农业政策经济学研究</p>
     <p class="authors">Jean‐Paul Chavas</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-15 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-15 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1002/aepp.70089">10.1002/aepp.70089</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -494,7 +530,8 @@
     <p class="title-zh">乙醇设施对农地资本化效应的解析</p>
     <p class="authors">Gabriel S. Sampson, Jisang Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-11 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-11</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-11 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70085?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -506,7 +543,8 @@
     <p class="title-zh">评估冈比亚食品价格上涨对家庭福利的影响</p>
     <p class="authors">Roger Vorsah, Obed Quaicoe, Fafanyo Asiseh, John N. Ng&#x27;ombe</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-10 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-10 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70084?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -518,7 +556,8 @@
     <p class="title-zh">美国鸡蛋价格波动及其政策含义的机器学习分析</p>
     <p class="authors">Xuemei Zhao, Simon Meister, Lucie Maruejols, Xiaohua Yu</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-10 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-10</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-10 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70082?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">计量方法</span></span></div>
     </div>
   </div>
@@ -530,7 +569,8 @@
     <p class="title-zh">为什么我没有获得赔付？理解农户选择、指数保险与基差风险</p>
     <p class="authors">S. Lucille Blakeley, Sean Posey, Kathy Baylis, Daniel Osgood, Stuart Sweeney</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-07 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-07</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-07 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70080?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -542,7 +582,8 @@
     <p class="title-zh">认证与稳定？秘鲁自愿性可持续标准下的价格与产量波动</p>
     <p class="authors">Eva Boonaert, Eva‐Marie Meemken, Miet Maertens</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-03 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-03 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70079?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -554,7 +595,8 @@
     <p class="title-zh">应对生产风险：播种植物多样性对草地作物保险吸引力的影响</p>
     <p class="authors">Nicolas Alou, Sergei Schaub, Martin Quaas, Robert Finger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-05-03 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-05-03</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-05-03 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70081?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -566,7 +608,8 @@
     <p class="title-zh">使用消费者食品数据系统数据集衡量营养安全</p>
     <p class="authors">Vibha Bhargava, Jung Sun Lee, Travis A. Smith</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-04-29 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-04-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-29 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70076?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -578,7 +621,8 @@
     <p class="title-zh">标签质量还是数量？地理标志对土耳其农产品出口绩效的差异化影响</p>
     <p class="authors">Ihlas Sovbetov, Muge Burcu Ozdemir</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-04-27 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-04-27</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-27 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70077?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -590,7 +634,8 @@
     <p class="title-zh">农业用地租赁税收优惠是否增加了农业供给？来自爱荷华州初创农民税收抵免的证据</p>
     <p class="authors">Justin M. Ross, Wesley M. Zebrowski, Julia C. D. Valliant</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-04-24 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-04-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-24 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70075?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -602,7 +647,8 @@
     <p class="title-zh">禁用草甘膦——是否影响瑞典农民种植覆盖作物的意愿？</p>
     <p class="authors">Vivian Wei Huang, Anna Kristina Edenbrandt, Elin Röös</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-04-23 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-04-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-23 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70073?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -614,7 +660,8 @@
     <p class="title-zh">生物燃料增长：乙醇热潮对农田价值的非预期影响</p>
     <p class="authors">Hoanh Le, Oscar Galvez‐Soriano</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-04-21 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-04-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-21 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70071?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -626,7 +673,8 @@
     <p class="title-zh">谷物产量的温度敏感性与适应性：来自意大利的经验证据</p>
     <p class="authors">Paolo Nota, Giacomo Coughlan, Alessandro Olper</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-04-13 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-04-13</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-13 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70070?af=R">文章链接</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -638,7 +686,8 @@
     <p class="title-zh">农业可持续生产率增长：研发投资与技术变迁的作用</p>
     <p class="authors">Zuzana Smeets Křístková, Michiel van Dijk, Robert M&#x27;Barek, Hans van Meijl, Tomas Ratinger</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-04-07 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-04-07</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-04-07 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70069?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -650,7 +699,8 @@
     <p class="title-zh">精准农业采纳差异研究：新入行农民、初创农民与资深农民</p>
     <p class="authors">Whoi Cho, Oscar Sarasty, Tong Wang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-30 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-30</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-30 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70067?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -662,7 +712,8 @@
     <p class="title-zh">投资农业研究以维持美国农业的增长与竞争力</p>
     <p class="authors">Keith O. Fuglie</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-30 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-30</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-30 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70065?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -674,7 +725,8 @@
     <p class="title-zh">信息是否改变了消费者对散养鸡蛋系统的信念和估值？来自人工实地实验的证据</p>
     <p class="authors">Kofi Britwum, Kelly A. Davidson, John C. Bernard, Michelle Segovia, Christopher R. Gustafson</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-25 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-25</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-25 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70060?af=R">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">行为与组织</span></span></div>
     </div>
   </div>
@@ -686,7 +738,8 @@
     <p class="title-zh">扩散新鲜度：国际技术转移与新鲜果蔬贸易</p>
     <p class="authors">Xiangwen Kong, Yuxi Liao</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-24 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-24</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-24 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70063?af=R">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span></span></div>
     </div>
   </div>
@@ -698,7 +751,8 @@
     <p class="title-zh">考虑替代效应：改进基于牛肉产品需求变化的温室气体减排估算</p>
     <p class="authors">Brandon R. McFadden, Sara Gardner Hedgecock, Lawton L. Nalley, Alvaro Durand‐Morat, Aaron Shew 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-16 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-16</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-16 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70059?af=R">文章链接</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -710,7 +764,8 @@
     <p class="title-zh">冲击、农业生产力、自助小组与坦桑尼亚的粮食安全</p>
     <p class="authors">Francisco M. P. Mugizi, Rayner Tabetando, Djomo Choumbou Raoul Fani</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-15 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-15 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70058?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">宏观与货币</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -722,7 +777,8 @@
     <p class="title-zh">新冠疫情期间医疗补助扩展州与非扩展州的失业关联食品困境</p>
     <p class="authors">Joseph Benitez, Katherine Yewell, Katie Fitzpatrick, Huang Huang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-08 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-08</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-08 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70056?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -734,7 +790,8 @@
     <p class="title-zh">适应降雨变化与发展非农就业：对水稻生产采用直播种植的影响</p>
     <p class="authors">Manh Hung Do</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-03-05 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-03-05</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-05 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70057?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
@@ -746,7 +803,8 @@
     <p class="title-zh">经济危机与稳定时期肯尼亚农民的政策优先序：基于最优最劣标度实验的洞见</p>
     <p class="authors">Mywish K. Maredia, John Olwande, Jacob Ricker‐Gilbert, David L. Mather, Nicole M. Mason</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="source-chip">在线日期 2026-02-20 · 来源：RSS</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economic Perspectives and Policy</span><span class="pill">首次监测 2026-02-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-02-20 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://onlinelibrary.wiley.com/doi/10.1002/aepp.70055?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
   </div>
