@@ -27,12 +27,15 @@ def valid_iso_date(value: Any) -> str | None:
     return None
 
 
-def source_archive_date(record: dict[str, Any]) -> str | None:
+def source_archive_date(record: dict[str, Any], current_date: str) -> str | None:
     source = str(record.get("source") or "")
     source_id = str(record.get("source_id") or "")
     if source != "rss" and not source_id.startswith("repec-nep-"):
         return None
-    return valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
+    date_source = str(record.get("date_source") or (record.get("raw_data") or {}).get("crossref_date_source") or "")
+    if "issue" in date_source or date_source in {"crossref_published", "crossref_created"}:
+        return current_date
+    return valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online")) or current_date
 
 
 def clean_date(daily_dir: Path, date_value: str) -> tuple[int, int, int]:
@@ -43,11 +46,8 @@ def clean_date(daily_dir: Path, date_value: str) -> tuple[int, int, int]:
     suppressed = 0
 
     for record in records:
-        target_date = source_archive_date(record)
+        target_date = source_archive_date(record, date_value)
         if not target_date:
-            if str(record.get("source") or "") == "rss":
-                suppressed += 1
-                continue
             kept.append(record)
             continue
         if target_date == date_value:

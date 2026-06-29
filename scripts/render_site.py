@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 from collections import Counter, defaultdict
 from datetime import UTC, datetime, timedelta
@@ -1416,6 +1417,7 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     cn_group = source_groups.get("cn-journals") or {}
     cnki_group = source_groups.get("cnki-rss") or {}
     publisher_group = source_groups.get("publisher-detail") or {}
+    ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
     journals_by_id = journal_lookup()
 
     cn_rows = "".join(
@@ -1460,6 +1462,14 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
   <div class="audit-card"><strong>{len(failures)}</strong><span>失败/受限来源</span></div>
   <div class="audit-card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
 </section>
+<section class="section-head"><div><h2>入库诊断</h2><p>对比今日原始候选和最终展示记录，用于判断是否存在“抓到但未入库”。</p></div></section>
+<table class="journal-table"><thead><tr><th>指标</th><th>当前值</th><th>说明</th></tr></thead><tbody>
+<tr><td>诊断日期</td><td>{html_escape(ingestion.get('date') or today_str())}</td><td>与今日页使用同一个北京时间日期。</td></tr>
+<tr><td>原始候选</td><td>{html_escape(ingestion.get('raw_candidates', '未生成'))}</td><td>RSS、Crossref、中文官网、工作论文等原始抓取候选总数。</td></tr>
+<tr><td>今日展示记录</td><td>{html_escape(ingestion.get('daily_records', len(today_records)))}</td><td>去重和清理后进入今日页面的记录。</td></tr>
+<tr><td>RSS 无精确日期候选</td><td>{html_escape(ingestion.get('rss_without_precise_date_candidates', '未生成'))}</td><td>已抓到但只有卷期或待解析日期的 RSS 记录。</td></tr>
+<tr><td>RSS 无精确日期入库</td><td>{html_escape(ingestion.get('rss_without_precise_date_daily', '未生成'))}</td><td>作为“今日新发现”展示，但不等同于今日 online。</td></tr>
+</tbody></table>
 <section class="section-head"><div><h2>日期可信度</h2><p>A/B 越多，说明越接近出版社或来源页面的明确日期；C/D/F 需要继续补强。</p></div></section>
 <table class="journal-table"><thead><tr><th>可信度</th><th>数量</th></tr></thead><tbody>{confidence_rows}</tbody></table>
 <section class="section-head"><div><h2>日期来源</h2><p>用于判断“今日新发现”和“官方/在线日期”的证据链。</p></div></section>
@@ -1525,12 +1535,64 @@ def write_page(path: Path, content: str) -> None:
     write_text(path, content.replace(BASE, page_base))
 
 
+def ensure_today_archive(daily_dir: Path) -> None:
+    """Keep the static site from carrying yesterday as "today" after midnight."""
+    path = daily_dir / f"{today_str()}.json"
+    records = read_json(path, [])
+    if not isinstance(records, list):
+        raise SystemExit(f"{path} is not a daily record list")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    write_text(path, json.dumps(records, ensure_ascii=False, indent=2) + "\n")
+
+
+def markdown_table_to_html(lines: list[str]) -> str:
+    header = [cell.strip() for cell in lines[0].strip("|").split("|")]
+    body_rows = lines[2:]
+    head = "".join(f"<th>{html_escape(cell)}</th>" for cell in header)
+    rows = []
+    for line in body_rows:
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        rows.append("<tr>" + "".join(f"<td>{html_escape(cell)}</td>" for cell in cells) + "</tr>")
+    return f'<table class="journal-table"><thead><tr>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table>'
+
+
+def markdown_to_body(markdown: str) -> str:
+    blocks: list[str] = []
+    lines = markdown.splitlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line:
+            i += 1
+            continue
+        if line.startswith("# "):
+            blocks.append(f'<section class="section-head"><div><h2>{html_escape(line[2:].strip())}</h2><p>按研究领域整理经济学重点期刊，便于跟踪最新论文与安排阅读优先级。</p></div></section>')
+            i += 1
+            continue
+        if line.startswith("## "):
+            blocks.append(f'<section class="section-head"><div><h2>{html_escape(line[3:].strip())}</h2></div></section>')
+            i += 1
+            continue
+        if line.startswith("|") and i + 1 < len(lines) and set(lines[i + 1].replace("|", "").replace("-", "").replace(" ", "")) <= {":"}:
+            table_lines = [line, lines[i + 1]]
+            i += 2
+            while i < len(lines) and lines[i].strip().startswith("|"):
+                table_lines.append(lines[i].strip())
+                i += 1
+            blocks.append(markdown_table_to_html(table_lines))
+            continue
+        blocks.append(f"<p>{html_escape(line)}</p>")
+        i += 1
+    return "\n".join(blocks)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
     args = parser.parse_args()
 
+    ensure_today_archive(args.daily_dir)
     records = load_all_daily(args.daily_dir)
     today_records = [record for record in records if detected_date(record) == today_str()]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]

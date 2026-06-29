@@ -116,9 +116,11 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
         if source_id.startswith("repec-nep-"):
             return valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online")) or run_date
         return run_date
-    official = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
+    date_source = str(record.get("date_source") or (record.get("raw_data") or {}).get("crossref_date_source") or "")
+    issue_only = "issue" in date_source or date_source in {"issue_only", "crossref_published", "crossref_created"}
+    official = None if issue_only else valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
     if not official:
-        return None
+        return run_date
     return official
 
 
