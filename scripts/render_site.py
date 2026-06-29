@@ -1469,6 +1469,7 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
 <tr><td>今日展示记录</td><td>{html_escape(ingestion.get('daily_records', len(today_records)))}</td><td>去重和清理后进入今日页面的记录。</td></tr>
 <tr><td>RSS 无精确日期候选</td><td>{html_escape(ingestion.get('rss_without_precise_date_candidates', '未生成'))}</td><td>已抓到但只有卷期或待解析日期的 RSS 记录。</td></tr>
 <tr><td>RSS 无精确日期入库</td><td>{html_escape(ingestion.get('rss_without_precise_date_daily', '未生成'))}</td><td>作为“今日新发现”展示，但不等同于今日 online。</td></tr>
+<tr><td>历史回流清理</td><td>{html_escape(ingestion.get('seen_backflow_removed', 0))}</td><td>已在 seen 中存在、但因 RSS/目录回流再次出现的旧记录；不进入今日首次发现。</td></tr>
 </tbody></table>
 <section class="section-head"><div><h2>日期可信度</h2><p>A/B 越多，说明越接近出版社或来源页面的明确日期；C/D/F 需要继续补强。</p></div></section>
 <table class="journal-table"><thead><tr><th>可信度</th><th>数量</th></tr></thead><tbody>{confidence_rows}</tbody></table>

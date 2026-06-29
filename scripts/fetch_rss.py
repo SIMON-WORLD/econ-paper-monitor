@@ -65,6 +65,17 @@ def child_text_any(node: ElementTree.Element, names: list[str]) -> str | None:
     return None
 
 
+def child_texts_any(node: ElementTree.Element, names: list[str]) -> list[str]:
+    wanted = {name.casefold() for name in names}
+    values: list[str] = []
+    for child in list(node):
+        if local_name(child.tag) in wanted and child.text:
+            cleaned = clean_text(child.text)
+            if cleaned:
+                values.append(cleaned)
+    return values
+
+
 def child_link_any(node: ElementTree.Element) -> str | None:
     for child in list(node):
         if local_name(child.tag) != "link":
@@ -155,6 +166,16 @@ def metadata_from_description(description: str | None) -> dict[str, Any]:
     return result
 
 
+def normalize_authors(values: list[str]) -> list[str]:
+    authors: list[str] = []
+    for value in values:
+        for part in re.split(r"\s*;\s*|\s+ and\s+|\s*,\s*(?=[A-Z][A-Za-z'.-]+(?:\s|$))", value):
+            cleaned = clean_text(part)
+            if cleaned and cleaned not in authors:
+                authors.append(cleaned)
+    return authors[:12]
+
+
 def extract_pii(*values: str | None) -> str | None:
     for value in values:
         text = str(value or "")
@@ -181,7 +202,8 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
             guid = child_text_any(item, ["guid", "identifier"])
             published = parse_date(child_text_any(item, ["pubDate", "date", "dc:date", "updated", "published"]))
             description = child_text_any(item, ["description", "summary", "content"])
-            records.append(make_record(title, link, published, journal, feed_url, description=description, guid=guid))
+            authors = child_texts_any(item, ["creator", "author", "dc:creator"])
+            records.append(make_record(title, link, published, journal, feed_url, description=description, guid=guid, authors=authors))
         return [record for record in records if record["title"]]
 
     entries = root.findall(f".//{ATOM}entry")
@@ -193,7 +215,13 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
             link = link_node.attrib.get("href")
         published = parse_date(child_text(entry, [f"{ATOM}published", f"{ATOM}updated"]))
         description = child_text(entry, [f"{ATOM}summary", f"{ATOM}content"])
-        records.append(make_record(title, link, published, journal, feed_url, description=description))
+        authors = [
+            clean_text(name.text)
+            for author in entry.findall(f"{ATOM}author")
+            for name in [author.find(f"{ATOM}name")]
+            if name is not None and name.text
+        ]
+        records.append(make_record(title, link, published, journal, feed_url, description=description, authors=authors))
     if entries:
         return [record for record in records if record["title"]]
 
@@ -206,7 +234,8 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
         link = child_link_any(item)
         published = parse_date(child_text_any(item, ["date", "pubDate", "updated", "published"]))
         description = child_text_any(item, ["description", "summary", "content"])
-        records.append(make_record(title, link, published, journal, feed_url, description=description))
+        authors = child_texts_any(item, ["creator", "author", "dc:creator"])
+        records.append(make_record(title, link, published, journal, feed_url, description=description, authors=authors))
     return [record for record in records if record["title"]]
 
 
@@ -218,8 +247,10 @@ def make_record(
     feed_url: str,
     description: str | None = None,
     guid: str | None = None,
+    authors: list[str] | None = None,
 ) -> dict[str, Any]:
     description_metadata = metadata_from_description(description)
+    parsed_authors = normalize_authors(authors or []) or description_metadata.get("authors")
     pii = extract_pii(link, guid, description)
     record = {
         **article_record(
@@ -228,7 +259,7 @@ def make_record(
             url=link,
             source="rss",
             source_url=feed_url,
-            authors=description_metadata.get("authors"),
+            authors=parsed_authors,
             published_online=published or description_metadata.get("published_online"),
             available_online=published or description_metadata.get("available_online"),
             issue_date=description_metadata.get("issue_date"),

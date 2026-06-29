@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
-from status import record_source
+from status import load_status, record_source
 
 
 def load_json_records(path: Path) -> list[dict[str, Any]]:
@@ -64,6 +64,8 @@ def main() -> None:
     daily_by_journal = Counter(str(record.get("journal") or record.get("source_id") or "unknown") for record in daily_records)
     rss_no_precise_date = [record for record in raw_records if source_key(record) == "rss" and not has_precise_date(record)]
     daily_no_precise_date = [record for record in daily_records if source_key(record) == "rss" and not has_precise_date(record)]
+    status = load_status()
+    backflow_status = ((status.get("sources") or {}).get("remove-seen-backflow") or {}) if isinstance(status, dict) else {}
 
     report = {
         "date": args.date,
@@ -75,6 +77,8 @@ def main() -> None:
         "daily_by_journal_top": dict(daily_by_journal.most_common(30)),
         "rss_without_precise_date_candidates": len(rss_no_precise_date),
         "rss_without_precise_date_daily": len(daily_no_precise_date),
+        "seen_backflow_removed": int(backflow_status.get("count") or 0),
+        "seen_backflow_message": backflow_status.get("message") or "",
     }
     write_json(args.output, report)
     message = (

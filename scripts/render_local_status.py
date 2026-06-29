@@ -474,6 +474,7 @@ def main() -> None:
     <tr><td>今日展示记录</td><td>{html_escape(ingestion.get('daily_records', today_total))}</td><td>去重、清理和归一化后进入今日页面的记录。</td></tr>
     <tr><td>RSS 无精确日期候选</td><td>{html_escape(ingestion.get('rss_without_precise_date_candidates', '未生成'))}</td><td>已抓到但只有卷期、月份或待解析日期的 RSS 记录。</td></tr>
     <tr><td>RSS 无精确日期入库</td><td>{html_escape(ingestion.get('rss_without_precise_date_daily', '未生成'))}</td><td>进入今日新发现，但前台会标为日期待解析或较低可信度。</td></tr>
+    <tr><td>历史回流清理</td><td>{html_escape(ingestion.get('seen_backflow_removed', 0))}</td><td>已经在 seen 中存在、但因 RSS/目录回流再次出现的旧记录；不进入今日首次发现。</td></tr>
   </tbody></table>
   </section>
 

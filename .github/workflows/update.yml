@@ -170,6 +170,9 @@ jobs:
       - name: Normalize daily records
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py
+      - name: Remove already-seen RSS backflow
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/remove_seen_backflow.py
       - name: Audit ingestion health
         if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_ingestion.py
