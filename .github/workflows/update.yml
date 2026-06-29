@@ -17,7 +17,7 @@ on:
         default: "14"
   schedule:
     # 快速监测：每小时整点触发；脚本仍会跳过过近的重复运行。
-    - cron: "0 * * * *"
+    - cron: "*/15 * * * *"
     # 日期翻页：北京时间 00:05 强制渲染当天页面，避免凌晨继续展示昨天为“今日”。
     - cron: "5 16 * * *"
     # 完整监测：每天北京时间 08:30 触发。
@@ -53,12 +53,18 @@ jobs:
             MODE="full"
             DAYS="45"
           fi
-          ROWS="12"
+          ROWS="8"
           DETAIL_LIMIT="0"
           CN_DETAIL_LIMIT="0"
           TRANSLATE_LIMIT="80"
           TRANSLATE_SECONDS="180"
           TIER="hourly"
+          CROSSREF_WALL_TIMEOUT="8m"
+          CROSSREF_REQUEST_TIMEOUT="8"
+          CROSSREF_RETRIES="1"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$MODE" = "light" ]; then
+            DAYS="10"
+          fi
           if [ "$MODE" = "full" ]; then
             ROWS="40"
             DETAIL_LIMIT="120"
@@ -66,6 +72,9 @@ jobs:
             TRANSLATE_LIMIT="160"
             TRANSLATE_SECONDS="240"
             TIER=""
+            CROSSREF_WALL_TIMEOUT="25m"
+            CROSSREF_REQUEST_TIMEOUT="12"
+            CROSSREF_RETRIES="2"
           fi
           if [ "$MODE" = "single" ]; then
             ROWS="60"
@@ -73,6 +82,9 @@ jobs:
             TRANSLATE_LIMIT="80"
             TRANSLATE_SECONDS="180"
             TIER=""
+            CROSSREF_WALL_TIMEOUT="15m"
+            CROSSREF_REQUEST_TIMEOUT="12"
+            CROSSREF_RETRIES="2"
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "days=$DAYS" >> "$GITHUB_OUTPUT"
@@ -82,6 +94,9 @@ jobs:
           echo "translate_limit=$TRANSLATE_LIMIT" >> "$GITHUB_OUTPUT"
           echo "translate_seconds=$TRANSLATE_SECONDS" >> "$GITHUB_OUTPUT"
           echo "tier=$TIER" >> "$GITHUB_OUTPUT"
+          echo "crossref_wall_timeout=$CROSSREF_WALL_TIMEOUT" >> "$GITHUB_OUTPUT"
+          echo "crossref_request_timeout=$CROSSREF_REQUEST_TIMEOUT" >> "$GITHUB_OUTPUT"
+          echo "crossref_retries=$CROSSREF_RETRIES" >> "$GITHUB_OUTPUT"
       - name: Scheduled light watchdog
         id: watchdog
         if: github.event_name == 'schedule' && github.event.schedule != '30 0 * * *'
@@ -109,20 +124,29 @@ jobs:
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
-      - name: Fetch Crossref metadata
-        if: steps.mode.outputs.mode != 'single' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+      - name: Fetch Crossref fast metadata
+        if: steps.mode.outputs.mode == 'light' && (github.event_name != 'schedule' || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
-          if timeout 20m python scripts/fetch_crossref.py --tier "${{ steps.mode.outputs.tier }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2; then
-            echo "Crossref metadata fetch completed."
+          if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --tier "${{ steps.mode.outputs.tier }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
+            echo "Crossref fast metadata fetch completed."
           else
-            echo "::warning::Crossref metadata fetch timed out or failed; continuing with RSS, publisher pages, Chinese journals, and working paper sources."
+            echo "::warning::Crossref fast metadata fetch timed out or failed; continuing with RSS, publisher pages, Chinese journals, and working paper sources."
+          fi
+      - name: Fetch Crossref full metadata
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
+            echo "Crossref full metadata fetch completed."
+          else
+            echo "::warning::Crossref full metadata fetch timed out or failed; continuing with the rest of the monitor."
           fi
       - name: Fetch Crossref metadata for one journal
         if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != '' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
-          if timeout 15m python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout 12 --retries 2; then
+          if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
             echo "Single-journal Crossref fetch completed."
           else
             echo "::warning::Single-journal Crossref fetch timed out or failed; continuing with the rest of the monitor."
