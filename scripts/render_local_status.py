@@ -262,6 +262,7 @@ def main() -> None:
     cn_group = (status.get("source_groups") or {}).get("cn-journals") or {}
     cnki_group = (status.get("source_groups") or {}).get("cnki-rss") or {}
     publisher_group = (status.get("source_groups") or {}).get("publisher-detail") or {}
+    ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
 
     english_titles = sum(1 for record in records if record.get("title") and not has_chinese(str(record.get("title"))))
     english_translated = sum(
@@ -462,6 +463,18 @@ def main() -> None:
 
   <h2>健康提醒</h2>
   <ul>{health_rows}</ul>
+  </section>
+
+  <section class="section">
+  <h2>入库诊断</h2>
+  <p class="muted">对比今日原始候选和最终展示记录，用于判断是否存在“抓到但未入库”。RSS 无精确日期记录会作为“今日新发现”展示，但不会被当作“在线日期为今日”。</p>
+  <table><thead><tr><th>指标</th><th>当前值</th><th>说明</th></tr></thead><tbody>
+    <tr><td>诊断日期</td><td>{html_escape(ingestion.get('date') or today_date)}</td><td>与今日页使用同一个北京时间日期。</td></tr>
+    <tr><td>原始候选</td><td>{html_escape(ingestion.get('raw_candidates', '未生成'))}</td><td>RSS、Crossref、中文官网、工作论文等原始抓取候选总数。</td></tr>
+    <tr><td>今日展示记录</td><td>{html_escape(ingestion.get('daily_records', today_total))}</td><td>去重、清理和归一化后进入今日页面的记录。</td></tr>
+    <tr><td>RSS 无精确日期候选</td><td>{html_escape(ingestion.get('rss_without_precise_date_candidates', '未生成'))}</td><td>已抓到但只有卷期、月份或待解析日期的 RSS 记录。</td></tr>
+    <tr><td>RSS 无精确日期入库</td><td>{html_escape(ingestion.get('rss_without_precise_date_daily', '未生成'))}</td><td>进入今日新发现，但前台会标为日期待解析或较低可信度。</td></tr>
+  </tbody></table>
   </section>
 
   <section class="section">
