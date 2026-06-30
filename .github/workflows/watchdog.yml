@@ -25,11 +25,11 @@ jobs:
         id: freshness
         shell: bash
         run: |
-          DECISION="$(python scripts/should_run_monitor.py --min-minutes 50)"
+          DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 50 --full-after-hour 8 --full-after-minute 30)"
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Monitor freshness: $DECISION"
       - name: Dispatch monitor update
-        if: steps.freshness.outputs.decision == 'run'
+        if: steps.freshness.outputs.decision == 'light'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -37,6 +37,15 @@ jobs:
             --repo "${{ github.repository }}" \
             -f mode=light \
             -f days=14
+      - name: Dispatch full monitor update
+        if: steps.freshness.outputs.decision == 'full'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run update.yml \
+            --repo "${{ github.repository }}" \
+            -f mode=full \
+            -f days=45
       - name: Skip fresh monitor
         if: startsWith(steps.freshness.outputs.decision, 'skip:')
         run: echo "Recent light monitor exists; watchdog dispatch skipped."
