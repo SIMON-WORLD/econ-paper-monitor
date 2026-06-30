@@ -121,6 +121,9 @@ jobs:
       - name: Fetch RSS feeds
         if: steps.mode.outputs.mode != 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --tier "${{ steps.mode.outputs.tier }}"
+      - name: Fetch AEA journal TOCs
+        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/fetch_aea.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit 10 --max-items-per-journal 30
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
