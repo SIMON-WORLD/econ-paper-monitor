@@ -28,8 +28,21 @@ jobs:
           DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 50 --full-after-hour 8 --full-after-minute 30)"
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Monitor freshness: $DECISION"
+      - name: Check active monitor run
+        id: active
+        if: steps.freshness.outputs.decision == 'light' || steps.freshness.outputs.decision == 'full'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          IN_PROGRESS="$(gh run list --repo "${{ github.repository }}" --workflow update.yml --status in_progress --json databaseId --jq 'length')"
+          QUEUED="$(gh run list --repo "${{ github.repository }}" --workflow update.yml --status queued --json databaseId --jq 'length')"
+          WAITING="$(gh run list --repo "${{ github.repository }}" --workflow update.yml --status waiting --json databaseId --jq 'length')"
+          ACTIVE=$((IN_PROGRESS + QUEUED + WAITING))
+          echo "count=$ACTIVE" >> "$GITHUB_OUTPUT"
+          echo "Active Update Paper Monitor runs: $ACTIVE"
       - name: Dispatch monitor update
-        if: steps.freshness.outputs.decision == 'light'
+        if: steps.freshness.outputs.decision == 'light' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -38,7 +51,7 @@ jobs:
             -f mode=light \
             -f days=14
       - name: Dispatch full monitor update
-        if: steps.freshness.outputs.decision == 'full'
+        if: steps.freshness.outputs.decision == 'full' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -46,6 +59,9 @@ jobs:
             --repo "${{ github.repository }}" \
             -f mode=full \
             -f days=45
+      - name: Skip active monitor
+        if: (steps.freshness.outputs.decision == 'light' || steps.freshness.outputs.decision == 'full') && steps.active.outputs.count != '0'
+        run: echo "An update workflow is already active; watchdog dispatch skipped."
       - name: Skip fresh monitor
         if: startsWith(steps.freshness.outputs.decision, 'skip:')
         run: echo "Recent light monitor exists; watchdog dispatch skipped."
