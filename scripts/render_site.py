@@ -876,6 +876,7 @@ def sidebar(
   <div class="subtitle">{SITE_SUBTITLE}</div>
   <div class="side-block"><div class="side-title">导航</div>
     <a class="side-link" href="{BASE}/"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="{BASE}/recent72/"><span class="side-main"><strong>最近72小时</strong></span><span class="count">近3天</span></a>
     <a class="side-link" href="{BASE}/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
     <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
     <a class="side-link" href="{BASE}/search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
@@ -947,6 +948,7 @@ def page(
         <div><strong>{SITE_NAME}</strong> <span class="subtitle">{SITE_SUBTITLE}</span></div>
         <nav class="nav">
           <a class="{ 'active' if active == 'home' else '' }" href="{BASE}/">今日</a>
+          <a class="{ 'active' if active == 'recent72' else '' }" href="{BASE}/recent72/">最近72小时</a>
           <a href="{BASE}/topics/china/">与中国相关</a>
           <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
           <a class="{ 'active' if active == 'search' else '' }" href="{BASE}/search/">检索</a>
@@ -1170,6 +1172,24 @@ def recent_records(records: list[dict[str, Any]], days: int = 7) -> list[dict[st
     return [record for record in records if (date_from_record(record) or datetime.min) >= cutoff]
 
 
+def recent_detected_records(records: list[dict[str, Any]], days: int = 3) -> list[dict[str, Any]]:
+    """Records first detected from today back to the prior N-1 Beijing dates."""
+    try:
+        today = datetime.fromisoformat(today_str()).date()
+    except ValueError:
+        return []
+    cutoff = today - timedelta(days=max(days, 1) - 1)
+    selected: list[dict[str, Any]] = []
+    for record in records:
+        try:
+            detected = datetime.fromisoformat(detected_date(record)).date()
+        except ValueError:
+            continue
+        if cutoff <= detected <= today:
+            selected.append(record)
+    return sort_records(selected)
+
+
 def journal_view_links(journal_id: str, journal_records: list[dict[str, Any]], today_records: list[dict[str, Any]]) -> str:
     latest_day = detected_date(journal_records[0]) if journal_records else today_str()
     today_count = len([record for record in today_records if record.get("journal_id") == journal_id])
@@ -1204,6 +1224,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
     working_flow_records = [record for record in flow_records if is_working_paper(record)]
     all_working = working_paper_records(records)
     all_journal_count = sum(1 for record in records if not is_working_paper(record) and has_public_title(record))
+    recent72_records = recent_detected_records(records, 3)
     s = stats(records, today_records, flow_records)
     freshness_class = "warn" if s["last_run_freshness"] != "状态正常" else ""
     flow_date = today_str()
@@ -1222,7 +1243,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
         <div class="hero-stats">
           <a class="hero-stat" href="#journal-flow" data-filter-preset="all" data-filter-scope-target="journal"><strong>{len(journal_flow_records)}</strong><span>今日期刊论文新发现</span></a>
           <a class="hero-stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
-          <a class="hero-stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
+          <a class="hero-stat" href="{BASE}/recent72/"><strong>{len(recent72_records)}</strong><span>最近72小时</span></a>
           <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>{len(working_flow_records)}</strong><span>今日工作论文</span></a>
           <a class="hero-stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
           <a class="hero-stat duo" href="{BASE}/archive/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>{all_journal_count}</strong><em>期刊论文</em></div><div><strong>{len(all_working)}</strong><em>工作论文</em></div></div></a>
@@ -1414,6 +1435,28 @@ def search_body(records: list[dict[str, Any]]) -> str:
 <div class="empty home-note">可以按标题、中文标题、作者、DOI、期刊/来源检索；也可以继续组合期刊、主题、日期类型、可信度和来源类型筛选。</div>
 {filter_toolbar(searchable, include_rss=True, source_label="筛选期刊/来源", scope="search")}
 {paper_events(searchable, scope="search")}
+{FILTER_SCRIPT}"""
+
+
+def recent72_body(records: list[dict[str, Any]]) -> str:
+    recent = recent_detected_records(public_records(records), 3)
+    journal_records = [record for record in recent if not is_working_paper(record)]
+    wp_records = [record for record in recent if is_working_paper(record)]
+    china_count = sum(1 for record in recent if is_public_china_related(record))
+    dates = sorted({detected_date(record) for record in recent if detected_date(record)}, reverse=True)
+    date_label = " / ".join(dates) if dates else "暂无记录"
+    return f"""<section class="section-head">
+  <div><h2>最近72小时</h2><p>按本站首次监测日期展示今天及前两天记录，适合连续查看近 3 天选题池。</p></div>
+  <p>{html_escape(date_label)}</p>
+</section>
+<section class="stats">
+  <span class="stat"><strong>{len(recent)}</strong><span>近3天新发现</span></span>
+  <span class="stat"><strong>{len(journal_records)}</strong><span>期刊论文</span></span>
+  <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文</span></span>
+  <a class="stat china" href="{BASE}/topics/china/"><strong>{china_count}</strong><span>与中国相关</span></a>
+</section>
+{filter_toolbar(recent, include_rss=True, source_label="筛选期刊/来源", scope="recent72")}
+{paper_events(recent, scope="recent72")}
 {FILTER_SCRIPT}"""
 
 
@@ -1690,6 +1733,18 @@ def main() -> None:
     write_page(
         args.docs_dir / "index.html",
         page(SITE_NAME, records, home_body(records, today_records), active="home", sidebar_records=home_flow_records, sidebar_date=home_flow_date),
+    )
+    recent72_records = recent_detected_records(records, 3)
+    write_page(
+        args.docs_dir / "recent72" / "index.html",
+        page(
+            "最近72小时",
+            records,
+            recent72_body(records),
+            active="recent72",
+            sidebar_records=recent72_records[:40] or home_flow_records,
+            sidebar_date=home_flow_date,
+        ),
     )
     write_page(
         args.docs_dir / "sources" / "working-papers" / "index.html",
