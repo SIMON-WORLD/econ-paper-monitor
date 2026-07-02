@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 from collections import Counter, defaultdict
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -19,6 +20,18 @@ SITE_NAME = "Econ Papers Daily"
 SITE_SUBTITLE = "每日追踪 TOP 经济学期刊论文"
 BASE = "__BASE__"
 CN_TZ = BEIJING_TZ
+
+CHINA_TITLE_PATTERNS = [
+    r"\bchina\b",
+    r"\bchinese\b",
+    r"\bmainland china\b",
+    r"\bhong kong\b",
+    r"\btaiwan\b",
+    r"\bbeijing\b",
+    r"\bshanghai\b",
+    r"\bguangdong\b",
+    r"\bhukou\b",
+]
 
 FIELD_LABELS = {
     "general": "综合",
@@ -209,7 +222,7 @@ def next_hourly_run(value: str | None) -> str:
 def next_daily_full_run(value: str | None) -> str:
     now = datetime.now(CN_TZ)
     dt = max(beijing_datetime(value) or now, now)
-    windows = [(8, 30), (12, 30), (16, 30), (20, 30)]
+    windows = [(2, 30), (8, 30), (14, 30), (20, 30)]
     candidates = [dt.replace(hour=hour, minute=minute, second=0, microsecond=0) for hour, minute in windows]
     future = [candidate for candidate in candidates if candidate > dt]
     candidate = future[0] if future else candidates[0] + timedelta(days=1)
@@ -273,7 +286,16 @@ def sort_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def is_china_related(record: dict[str, Any]) -> bool:
-    return record.get("china_related") is True or record.get("china_relevance_status") == "confirmed"
+    if record.get("china_related") is False and str(record.get("china_related_source") or "") == "manual":
+        return False
+    title_text = " ".join(str(record.get(key) or "") for key in ("title", "title_zh")).casefold()
+    has_title_signal = any(re.search(pattern, title_text, flags=re.I) for pattern in CHINA_TITLE_PATTERNS)
+    return (
+        record.get("china_related") is True
+        or record.get("china_relevance_status") == "confirmed"
+        or "china" in {str(field) for field in record.get("fields", []) or []}
+        or has_title_signal
+    )
 
 
 def has_public_title(record: dict[str, Any]) -> bool:
@@ -359,7 +381,8 @@ def article_topics(record: dict[str, Any]) -> list[str]:
         for value in [record.get("title"), record.get("title_zh"), record.get("abstract"), record.get("abstract_zh"), record.get("journal")]
     ).casefold()
     topics: list[str] = []
-    if is_china_related(record):
+    fields = [str(field) for field in record.get("fields", []) or []]
+    if is_china_related(record) or "china" in fields:
         topics.append("china")
     for topic, keywords in TOPIC_RULES.items():
         if any(keyword in haystack for keyword in keywords):
@@ -367,7 +390,7 @@ def article_topics(record: dict[str, Any]) -> list[str]:
     if topics:
         return list(dict.fromkeys(topics))[:4]
     fallback: list[str] = []
-    for field in record.get("fields", []):
+    for field in fields:
         fallback.extend(
             {
                 "agriculture_environment_resource": ["agriculture", "environment"],
@@ -980,19 +1003,20 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
             link_or_doi = f'<a class="doi" href="{html_escape(record.get("url"))}">文章链接</a>'
         else:
             link_or_doi = '<span class="doi">暂无 DOI</span>'
-        fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in article_topics(record)[:3] if topic != "china")
+        topics = article_topics(record)
+        fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in topics[:3] if topic != "china")
         title_zh = record.get("title_zh")
         if title_zh and str(title_zh).strip() == str(record.get("title") or "").strip():
             title_zh = None
         title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
-        china_related = is_china_related(record)
+        china_related = is_china_related(record) or "china" in topics
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
         official_line = public_date_line(record)
         official_class = "pending" if official_line.startswith("官方日期待补") else ("issue" if public_date_label(record) in {"来源期次", "卷期日期"} else "")
         official_chip = f'<span class="date-chip {official_class}">{html_escape(official_line)}</span>'
         detected_chip = f'<span class="pill">首次监测 {html_escape(detected_date(record))}</span>'
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
-        field_attr = " ".join(article_topics(record))
+        field_attr = " ".join(topics)
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
         classes = "event" + (f" {extra_class}" if extra_class else "")
         chunks.append(

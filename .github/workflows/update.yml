@@ -20,17 +20,17 @@ on:
     - cron: "*/15 * * * *"
     # Date rollover: Beijing 00:05, force-render the new today page.
     - cron: "5 16 * * *"
-    # Full monitor: Beijing 08:30, 12:30, 16:30, and 20:30.
+    # Full monitor: Beijing 02:30, 08:30, 14:30, and 20:30.
+    - cron: "30 18 * * *"
     - cron: "30 0 * * *"
-    - cron: "30 4 * * *"
-    - cron: "30 8 * * *"
+    - cron: "30 6 * * *"
     - cron: "30 12 * * *"
 
 permissions:
   contents: write
 
 env:
-  FULL_SCHEDULES: "30 0 * * *|30 4 * * *|30 8 * * *|30 12 * * *"
+  FULL_SCHEDULES: "30 18 * * *|30 0 * * *|30 6 * * *|30 12 * * *"
 
 concurrency:
   group: paper-monitor-update
@@ -57,7 +57,7 @@ jobs:
           DAYS="${{ github.event.inputs.days || '14' }}"
           if [ "${{ github.event_name }}" = "schedule" ]; then
             case "${{ github.event.schedule }}" in
-              "30 0 * * *"|"30 4 * * *"|"30 8 * * *"|"30 12 * * *")
+              "30 18 * * *"|"30 0 * * *"|"30 6 * * *"|"30 12 * * *")
                 MODE="full"
                 DAYS="45"
                 ;;
