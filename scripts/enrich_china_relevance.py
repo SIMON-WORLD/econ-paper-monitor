@@ -258,9 +258,77 @@ def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
     return sorted(daily_dir.glob("*.json"))
 
 
+def classification_updates(record: dict[str, Any]) -> tuple[dict[str, Any | None], str]:
+    status, reason, source = classify(record)
+    if status == "confirmed":
+        return (
+            {
+                "china_related": True,
+                "china_related_source": record.get("china_related_source") or source,
+                "china_relevance_status": "confirmed",
+                "china_relevance_reason": reason,
+            },
+            status,
+        )
+    if status == "candidate":
+        return (
+            {
+                "china_related": None,
+                "china_related_source": None,
+                "china_relevance_status": "candidate",
+                "china_relevance_reason": reason,
+            },
+            status,
+        )
+    return (
+        {
+            "china_related": None,
+            "china_related_source": None,
+            "china_relevance_status": "none",
+            "china_relevance_reason": reason or None,
+        },
+        status,
+    )
+
+
+def apply_updates(record: dict[str, Any], updates: dict[str, Any | None]) -> int:
+    changed = 0
+    for key, value in updates.items():
+        if value is None:
+            if key in record:
+                record.pop(key, None)
+                changed += 1
+            continue
+        if record.get(key) != value:
+            record[key] = value
+            changed += 1
+    return changed
+
+
+def process_seen(path: Path) -> tuple[int, int, int]:
+    payload = read_json(path, {"papers": {}})
+    papers = payload.get("papers") if isinstance(payload, dict) else {}
+    if not isinstance(papers, dict):
+        return 0, 0, 0
+    changed = confirmed = candidates = 0
+    for record in papers.values():
+        if not isinstance(record, dict):
+            continue
+        updates, status = classification_updates(record)
+        changed += apply_updates(record, updates)
+        if status == "confirmed":
+            confirmed += 1
+        elif status == "candidate":
+            candidates += 1
+    if changed:
+        write_json(path, payload)
+    return changed, confirmed, candidates
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
+    parser.add_argument("--seen", type=Path, default=DATA_DIR / "seen.json")
     parser.add_argument("--date", default=today_str())
     parser.add_argument("--all", action="store_true", help="Process all daily archives.")
     args = parser.parse_args()
@@ -271,43 +339,21 @@ def main() -> None:
         records = read_json(path, [])
         path_changed = False
         for record in records:
-            status, reason, source = classify(record)
+            updates, status = classification_updates(record)
+            record_changed = apply_updates(record, updates)
+            if record_changed:
+                path_changed = True
+                changed += record_changed
             if status == "confirmed":
                 confirmed += 1
-                updates = {
-                    "china_related": True,
-                    "china_related_source": record.get("china_related_source") or source,
-                    "china_relevance_status": "confirmed",
-                    "china_relevance_reason": reason,
-                }
             elif status == "candidate":
                 candidates += 1
-                updates = {
-                    "china_related": None,
-                    "china_related_source": None,
-                    "china_relevance_status": "candidate",
-                    "china_relevance_reason": reason,
-                }
-            else:
-                updates = {
-                    "china_related": None,
-                    "china_related_source": None,
-                    "china_relevance_status": "none",
-                    "china_relevance_reason": reason or None,
-                }
-            for key, value in updates.items():
-                if value is None:
-                    if key in record:
-                        record.pop(key, None)
-                        path_changed = True
-                        changed += 1
-                    continue
-                if record.get(key) != value:
-                    record[key] = value
-                    path_changed = True
-                    changed += 1
         if path_changed:
             write_json(path, records)
+    seen_changed, seen_confirmed, seen_candidates = process_seen(args.seen)
+    changed += seen_changed
+    confirmed += seen_confirmed
+    candidates += seen_candidates
     record_source("china-relevance", ok=True, count=confirmed, message=f"candidates={candidates} changed={changed}")
     print(f"china relevance confirmed={confirmed} candidates={candidates} changed={changed}")
 

@@ -64,6 +64,19 @@ def main() -> None:
     daily_by_journal = Counter(str(record.get("journal") or record.get("source_id") or "unknown") for record in daily_records)
     rss_no_precise_date = [record for record in raw_records if source_key(record) == "rss" and not has_precise_date(record)]
     daily_no_precise_date = [record for record in daily_records if source_key(record) == "rss" and not has_precise_date(record)]
+    suspected_missed = []
+    for name, raw_count in raw_by_journal.most_common():
+        if raw_count > 0 and daily_by_journal.get(name, 0) == 0:
+            suspected_missed.append(
+                {
+                    "source": name,
+                    "raw_count": raw_count,
+                    "daily_count": 0,
+                    "reason": "raw candidates present but no same-source record reached today's public archive",
+                }
+            )
+        if len(suspected_missed) >= 20:
+            break
     status = load_status()
     backflow_status = ((status.get("sources") or {}).get("remove-seen-backflow") or {}) if isinstance(status, dict) else {}
 
@@ -77,6 +90,7 @@ def main() -> None:
         "daily_by_journal_top": dict(daily_by_journal.most_common(30)),
         "rss_without_precise_date_candidates": len(rss_no_precise_date),
         "rss_without_precise_date_daily": len(daily_no_precise_date),
+        "suspected_missed_sources": suspected_missed,
         "seen_backflow_removed": int(backflow_status.get("count") or 0),
         "seen_backflow_message": backflow_status.get("message") or "",
     }

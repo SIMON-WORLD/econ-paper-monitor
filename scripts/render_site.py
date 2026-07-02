@@ -109,7 +109,7 @@ STYLE = """
 .live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
 .toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
-.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.fresh{background:#dafbe1;border-color:#aceebb;color:#116329}.pill.lag{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
@@ -782,6 +782,86 @@ def public_date_line(record: dict[str, Any]) -> str:
     return f"{public_date_label(record)} {date_value} · 来源：{date_source_label(record)}"
 
 
+def parse_date(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    text = str(value).strip()
+    if text.count("-") != 2:
+        return None
+    try:
+        return datetime.fromisoformat(text[:10])
+    except ValueError:
+        return None
+
+
+def detection_lag_days(record: dict[str, Any]) -> int | None:
+    official = parse_date(
+        str(
+            record.get("available_online")
+            or record.get("published_online")
+            or record.get("accepted_date")
+            or ""
+        )
+    )
+    detected = parse_date(detected_date(record))
+    if not official or not detected:
+        return None
+    return (detected.date() - official.date()).days
+
+
+def detection_lag_chip(record: dict[str, Any]) -> str:
+    lag = detection_lag_days(record)
+    if lag is None:
+        return '<span class="pill">延迟待判定</span>'
+    if lag <= 0:
+        return '<span class="pill fresh">同日发现</span>'
+    return f'<span class="pill lag">滞后 {lag} 天</span>'
+
+
+def publisher_family(record: dict[str, Any]) -> str | None:
+    text = " ".join(
+        str(value or "")
+        for value in [
+            record.get("doi"),
+            record.get("url"),
+            record.get("source_url"),
+            record.get("journal"),
+            record.get("publisher"),
+        ]
+    ).casefold()
+    if "10.1016/" in text or "sciencedirect.com" in text or "elsevier" in text:
+        return "Elsevier / ScienceDirect"
+    if "10.1080/" in text or "tandfonline.com" in text or "taylor" in text:
+        return "Taylor & Francis"
+    if "10.1111/" in text or "onlinelibrary.wiley.com" in text or "wiley" in text:
+        return "Wiley"
+    if "10.1093/" in text or "academic.oup.com" in text or "oxford university press" in text:
+        return "OUP"
+    return None
+
+
+def source_delay_rows(records: list[dict[str, Any]], days: int = 14) -> str:
+    recent = recent_detected_records(public_records(records), days)
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for record in recent:
+        family = publisher_family(record)
+        if family:
+            grouped[family].append(record)
+    rows = []
+    for family in ["Elsevier / ScienceDirect", "Taylor & Francis", "Wiley", "OUP"]:
+        items = grouped.get(family, [])
+        lags = [lag for record in items if (lag := detection_lag_days(record)) is not None]
+        precise = [record for record in items if parse_date(str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or ""))]
+        rss_count = sum(1 for record in items if "rss" in str(record.get("source") or "").casefold() or "rss" in str(record.get("date_source") or "").casefold())
+        crossref_count = sum(1 for record in items if "crossref" in str(record.get("date_source") or "").casefold())
+        avg_lag = "待判定" if not lags else f"{sum(lags) / len(lags):.1f} 天"
+        max_lag = "待判定" if not lags else f"{max(lags)} 天"
+        rows.append(
+            f"<tr><td>{html_escape(family)}</td><td>{len(items)}</td><td>{len(precise)}</td><td>{avg_lag}</td><td>{max_lag}</td><td>{rss_count}</td><td>{crossref_count}</td></tr>"
+        )
+    return "".join(rows)
+
+
 def archive_official_date_summary(records: list[dict[str, Any]]) -> str:
     if not records:
         return "暂无记录"
@@ -1014,6 +1094,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         official_line = public_date_line(record)
         official_class = "pending" if official_line.startswith("官方日期待补") else ("issue" if public_date_label(record) in {"来源期次", "卷期日期"} else "")
         official_chip = f'<span class="date-chip {official_class}">{html_escape(official_line)}</span>'
+        lag_chip = detection_lag_chip(record)
         detected_chip = f'<span class="pill">首次监测 {html_escape(detected_date(record))}</span>'
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
         field_attr = " ".join(topics)
@@ -1028,7 +1109,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}{detected_chip}</span></div>
-      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">{official_chip}</span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">{official_chip}{lag_chip}</span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">{link_or_doi}{fields}{china_tag}</span></div>
     </div>
   </div>
@@ -1479,6 +1560,8 @@ def recent72_body(records: list[dict[str, Any]]) -> str:
   <span class="stat"><strong>{len(journal_records)}</strong><span>期刊论文</span></span>
   <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文</span></span>
   <a class="stat china" href="{BASE}/topics/china/"><strong>{china_count}</strong><span>与中国相关</span></a>
+  <a class="stat" href="{BASE}/export/recent72.ris"><strong>RIS</strong><span>Zotero 导入</span></a>
+  <a class="stat" href="{BASE}/export/recent72.bib"><strong>BibTeX</strong><span>文献导出</span></a>
 </section>
 {filter_toolbar(recent, include_rss=True, source_label="筛选期刊/来源", scope="recent72")}
 {paper_events(recent, scope="recent72")}
@@ -1576,6 +1659,12 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     publisher_group = source_groups.get("publisher-detail") or {}
     ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
     journals_by_id = journal_lookup()
+    delay_rows = source_delay_rows(records, 14)
+    suspected_rows = "".join(
+        f"<tr><td>{html_escape(item.get('source'))}</td><td>{html_escape(item.get('raw_count'))}</td><td>{html_escape(item.get('reason'))}</td></tr>"
+        for item in ingestion.get("suspected_missed_sources", [])[:20]
+        if isinstance(item, dict)
+    ) or '<tr><td colspan="3">暂无明显风险</td></tr>'
 
     cn_rows = "".join(
         f"""<tr><td>期刊官网</td><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
@@ -1619,6 +1708,8 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
   <div class="audit-card"><strong>{len(failures)}</strong><span>失败/受限来源</span></div>
   <div class="audit-card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
 </section>
+<section class="section-head"><div><h2>重点出版社延迟对比</h2><p>最近 14 天内，比较 RSS/TOC 与 Crossref 备用日期对第一时间发现的贡献。</p></div></section>
+<table class="journal-table"><thead><tr><th>出版社</th><th>记录</th><th>有官方日期</th><th>平均滞后</th><th>最大滞后</th><th>RSS/TOC</th><th>Crossref fallback</th></tr></thead><tbody>{delay_rows}</tbody></table>
 <section class="section-head"><div><h2>入库诊断</h2><p>对比今日原始候选和最终展示记录，用于判断是否存在“抓到但未入库”。</p></div></section>
 <table class="journal-table"><thead><tr><th>指标</th><th>当前值</th><th>说明</th></tr></thead><tbody>
 <tr><td>诊断日期</td><td>{html_escape(ingestion.get('date') or today_str())}</td><td>与今日页使用同一个北京时间日期。</td></tr>
@@ -1628,6 +1719,8 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
 <tr><td>RSS 无精确日期入库</td><td>{html_escape(ingestion.get('rss_without_precise_date_daily', '未生成'))}</td><td>作为“今日新发现”展示，但不等同于今日 online。</td></tr>
 <tr><td>历史回流清理</td><td>{html_escape(ingestion.get('seen_backflow_removed', 0))}</td><td>已在 seen 中存在、但因 RSS/目录回流再次出现的旧记录；不进入今日首次发现。</td></tr>
 </tbody></table>
+<section class="section-head"><div><h2>今日疑似漏抓源</h2><p>原始候选里出现、但同名来源没有进入今日公开归档的来源。可能是已去重旧文、日期不合格或上游元数据不完整。</p></div></section>
+<table class="journal-table"><thead><tr><th>来源</th><th>原始候选</th><th>说明</th></tr></thead><tbody>{suspected_rows}</tbody></table>
 <section class="section-head"><div><h2>日期可信度</h2><p>A/B 越多，说明越接近出版社或来源页面的明确日期；C/D/F 需要继续补强。</p></div></section>
 <table class="journal-table"><thead><tr><th>可信度</th><th>数量</th></tr></thead><tbody>{confidence_rows}</tbody></table>
 <section class="section-head"><div><h2>日期来源</h2><p>用于判断“今日新发现”和“官方/在线日期”的证据链。</p></div></section>
@@ -1744,6 +1837,76 @@ def markdown_to_body(markdown: str) -> str:
     return "\n".join(blocks)
 
 
+def export_year(record: dict[str, Any]) -> str:
+    date_value = str(record.get("available_online") or record.get("published_online") or record.get("issue_date") or detected_date(record) or "")
+    return date_value[:4] if len(date_value) >= 4 else ""
+
+
+def bibtex_key(record: dict[str, Any]) -> str:
+    first_author = "paper"
+    author_text = authors(record)
+    if author_text and author_text != "Unknown Authors":
+        first_author = re.sub(r"[^A-Za-z0-9]+", "", author_text.split(",")[0].split()[-1]) or "paper"
+    title_word = re.sub(r"[^A-Za-z0-9]+", "", str(record.get("title") or "").split()[0] if record.get("title") else "item")
+    return f"{first_author}{export_year(record) or 'nd'}{title_word}"
+
+
+def ris_text(records: list[dict[str, Any]]) -> str:
+    chunks = []
+    for record in public_records(records):
+        ty = "WORK" if is_working_paper(record) else "JOUR"
+        lines = [f"TY  - {ty}", f"TI  - {record.get('title') or ''}"]
+        if record.get("title_zh") and record.get("title_zh") != record.get("title"):
+            lines.append(f"T2  - {record.get('title_zh')}")
+        for name in record.get("authors") or []:
+            lines.append(f"AU  - {name}")
+        if record.get("journal"):
+            lines.append(f"JO  - {record.get('journal')}")
+        if record.get("doi"):
+            lines.append(f"DO  - {record.get('doi')}")
+        lines.append(f"UR  - {record_url(record)}")
+        if export_year(record):
+            lines.append(f"PY  - {export_year(record)}")
+        if official_date(record):
+            lines.append(f"Y2  - {official_date(record)}")
+        lines.append("ER  - ")
+        chunks.append("\n".join(lines))
+    return "\n\n".join(chunks) + "\n"
+
+
+def bibtex_escape(value: Any) -> str:
+    return str(value or "").replace("{", "\\{").replace("}", "\\}")
+
+
+def bibtex_text(records: list[dict[str, Any]]) -> str:
+    chunks = []
+    used: Counter[str] = Counter()
+    for record in public_records(records):
+        entry_type = "techreport" if is_working_paper(record) else "article"
+        base_key = bibtex_key(record)
+        used[base_key] += 1
+        key = base_key if used[base_key] == 1 else f"{base_key}{used[base_key]}"
+        fields = {
+            "title": record.get("title"),
+            "author": " and ".join(record.get("authors") or []),
+            "journal": record.get("journal"),
+            "year": export_year(record),
+            "doi": record.get("doi"),
+            "url": record_url(record),
+            "note": public_date_line(record),
+        }
+        body = ",\n".join(f"  {name} = {{{bibtex_escape(value)}}}" for name, value in fields.items() if value)
+        chunks.append(f"@{entry_type}{{{key},\n{body}\n}}")
+    return "\n\n".join(chunks) + "\n"
+
+
+def write_exports(docs_dir: Path, records: list[dict[str, Any]]) -> None:
+    export_dir = docs_dir / "export"
+    export_dir.mkdir(parents=True, exist_ok=True)
+    write_text(export_dir / "recent72.ris", ris_text(records))
+    write_text(export_dir / "recent72.bib", bibtex_text(records))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
@@ -1760,6 +1923,7 @@ def main() -> None:
         page(SITE_NAME, records, home_body(records, today_records), active="home", sidebar_records=home_flow_records, sidebar_date=home_flow_date),
     )
     recent72_records = recent_detected_records(records, 3)
+    write_exports(args.docs_dir, recent72_records)
     write_page(
         args.docs_dir / "recent72" / "index.html",
         page(
