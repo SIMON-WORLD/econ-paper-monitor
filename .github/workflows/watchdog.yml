@@ -25,7 +25,7 @@ jobs:
         id: freshness
         shell: bash
         run: |
-          DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 50 --full-after-hour 8 --full-after-minute 30)"
+          DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 50 --full-times 08:30,12:30,16:30,20:30)"
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Monitor freshness: $DECISION"
       - name: Check active monitor run

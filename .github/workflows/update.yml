@@ -16,15 +16,21 @@ on:
         required: false
         default: "14"
   schedule:
-    # 快速监测：每小时整点触发；脚本仍会跳过过近的重复运行。
+    # Fast monitor wakeup: every 15 minutes; the script skips recent duplicate runs.
     - cron: "*/15 * * * *"
-    # 日期翻页：北京时间 00:05 强制渲染当天页面，避免凌晨继续展示昨天为“今日”。
+    # Date rollover: Beijing 00:05, force-render the new today page.
     - cron: "5 16 * * *"
-    # 完整监测：每天北京时间 08:30 触发。
+    # Full monitor: Beijing 08:30, 12:30, 16:30, and 20:30.
     - cron: "30 0 * * *"
+    - cron: "30 4 * * *"
+    - cron: "30 8 * * *"
+    - cron: "30 12 * * *"
 
 permissions:
   contents: write
+
+env:
+  FULL_SCHEDULES: "30 0 * * *|30 4 * * *|30 8 * * *|30 12 * * *"
 
 concurrency:
   group: paper-monitor-update
@@ -49,9 +55,13 @@ jobs:
         run: |
           MODE="${{ github.event.inputs.mode || 'light' }}"
           DAYS="${{ github.event.inputs.days || '14' }}"
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "30 0 * * *" ]; then
-            MODE="full"
-            DAYS="45"
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            case "${{ github.event.schedule }}" in
+              "30 0 * * *"|"30 4 * * *"|"30 8 * * *"|"30 12 * * *")
+                MODE="full"
+                DAYS="45"
+                ;;
+            esac
           fi
           ROWS="8"
           DETAIL_LIMIT="0"
@@ -99,7 +109,7 @@ jobs:
           echo "crossref_retries=$CROSSREF_RETRIES" >> "$GITHUB_OUTPUT"
       - name: Scheduled light watchdog
         id: watchdog
-        if: github.event_name == 'schedule' && github.event.schedule != '30 0 * * *'
+        if: github.event_name == 'schedule' && !contains(env.FULL_SCHEDULES, github.event.schedule)
         shell: bash
         run: |
           if [ "${{ github.event.schedule }}" = "5 16 * * *" ]; then
@@ -110,22 +120,22 @@ jobs:
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Scheduled light watchdog: $DECISION"
       - name: Skip recent scheduled light run
-        if: github.event_name == 'schedule' && github.event.schedule != '30 0 * * *' && startsWith(steps.watchdog.outputs.decision, 'skip:')
+        if: github.event_name == 'schedule' && !contains(env.FULL_SCHEDULES, github.event.schedule) && startsWith(steps.watchdog.outputs.decision, 'skip:')
         run: echo "Recent light monitor exists; skipping this watchdog wakeup."
       - name: Build source registry
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_source_registry.py
       - name: Enrich journals
-        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_journals.py --rows 3 --timeout 8 --sleep 0.05
       - name: Fetch RSS feeds
-        if: steps.mode.outputs.mode != 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+        if: steps.mode.outputs.mode != 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --tier "${{ steps.mode.outputs.tier }}"
       - name: Fetch AEA journal TOCs
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/fetch_aea.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit 10 --max-items-per-journal 30
       - name: Discover and fetch RSS feeds
-        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
       - name: Fetch Crossref fast metadata
         if: steps.mode.outputs.mode == 'light' && (github.event_name != 'schedule' || steps.watchdog.outputs.decision == 'run')
@@ -137,7 +147,7 @@ jobs:
             echo "::warning::Crossref fast metadata fetch timed out or failed; continuing with RSS, publisher pages, Chinese journals, and working paper sources."
           fi
       - name: Fetch Crossref full metadata
-        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
           if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
@@ -146,7 +156,7 @@ jobs:
             echo "::warning::Crossref full metadata fetch timed out or failed; continuing with the rest of the monitor."
           fi
       - name: Fetch Crossref metadata for one journal
-        if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != '' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+        if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != '' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
           if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
@@ -155,7 +165,7 @@ jobs:
             echo "::warning::Single-journal Crossref fetch timed out or failed; continuing with the rest of the monitor."
           fi
       - name: Fetch Chinese journal pages
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
         run: |
           DATE="$(TZ=Asia/Shanghai date +%F)"
@@ -177,10 +187,10 @@ jobs:
               || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
           done
       - name: Fetch CNKI RSS feeds
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/fetch_cnki_rss.py
       - name: Fetch working paper sources
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
         run: |
           STAGE="1"
@@ -193,37 +203,37 @@ jobs:
           fi
           python scripts/fetch_preprints.py --stage "$STAGE" --limit-per-source "$LIMIT" --detail-limit "$PREPRINT_DETAIL_LIMIT" --timeout 20
       - name: Aggregate Chinese journal status
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/aggregate_cn_status.py
       - name: Dedupe new papers
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/dedupe.py
       - name: Clean RSS backfill
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_rss_backfill.py
       - name: Clean Chinese journal noise
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_cn_noise.py
       - name: Apply manual overrides
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/apply_overrides.py
       - name: Normalize daily records
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py
       - name: Remove already-seen RSS backflow
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/remove_seen_backflow.py
       - name: Audit ingestion health
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_ingestion.py
       - name: Enrich publisher detail pages
-        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run')
+        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_metadata.py --latest-days 7 --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
       - name: Enrich China relevance
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all
       - name: Resolve China relevance candidates with AI
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/ai_china_relevance.py --all --latest-days 14 --limit 80
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -231,7 +241,7 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
       - name: Translate paper titles
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -239,16 +249,16 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
       - name: Audit product quality
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/product_audit.py
       - name: Record workflow context
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/record_run_context.py --mode "${{ steps.mode.outputs.mode }}" --event "${{ github.event_name }}" --schedule "${{ github.event.schedule }}" --run-id "${{ github.run_id }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
       - name: Repair workflow status
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/repair_workflow_status.py
       - name: Render static site
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/render_site.py
         env:
           ANALYTICS_PROVIDER: ${{ vars.ANALYTICS_PROVIDER }}
@@ -259,16 +269,16 @@ jobs:
           GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
           ADMIN_STATUS_TOKEN_HASH: ${{ secrets.ADMIN_STATUS_TOKEN_HASH }}
       - name: Build RSS feed
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_feed.py --site-url https://simon-world.github.io/econ-paper-monitor/
       - name: Render local/admin status artifact
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/render_local_status.py
       - name: Write run summary
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/action_summary.py
       - name: Commit generated updates
-        if: github.event_name != 'schedule' || github.event.schedule == '30 0 * * *' || steps.watchdog.outputs.decision == 'run'
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

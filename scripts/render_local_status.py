@@ -59,9 +59,10 @@ def next_hourly_run(value: str | None) -> str:
 def next_daily_full_run(value: str | None) -> str:
     now_dt = datetime.now(BEIJING_TZ)
     dt = max(beijing_dt(value) or now_dt, now_dt)
-    candidate = dt.replace(hour=8, minute=30, second=0, microsecond=0)
-    if candidate <= dt:
-        candidate += timedelta(days=1)
+    windows = [(8, 30), (12, 30), (16, 30), (20, 30)]
+    candidates = [dt.replace(hour=hour, minute=minute, second=0, microsecond=0) for hour, minute in windows]
+    future = [candidate for candidate in candidates if candidate > dt]
+    candidate = future[0] if future else candidates[0] + timedelta(days=1)
     return candidate.strftime("%Y-%m-%d %H:%M 北京时间")
 
 
@@ -313,7 +314,7 @@ def main() -> None:
     if not workflow.get("finished_at"):
         health.append("尚未记录端到端 workflow 完成时间，下一次监测后会自动补齐。")
     if not workflow.get("last_full_finished_at"):
-        health.append("尚未记录成功完成的全量监测；请关注下一次北京时间 08:30 的自动任务，或在 Actions 手动运行 full。")
+        health.append("尚未记录成功完成的全量监测；请关注下一次北京时间 08:30 / 12:30 / 16:30 / 20:30 的自动任务，或在 Actions 手动运行 full。")
     zero_cn = [
         str(item.get("journal") or item.get("journal_id"))
         for item in cn_group.get("journals", [])
@@ -457,7 +458,7 @@ def main() -> None:
     <tr><td>最近全量监测</td><td>{html_escape(beijing_stamp(workflow.get('last_full_finished_at')))}</td></tr>
     <tr><td>最近快速监测</td><td>{html_escape(beijing_stamp(workflow.get('last_light_finished_at')))}</td></tr>
     <tr><td>下次快速监测</td><td>每小时整点，预计 {html_escape(next_hourly_run(workflow.get('last_light_finished_at') or workflow.get('finished_at')))}</td></tr>
-    <tr><td>下次全量监测</td><td>每天北京时间 08:30，预计 {html_escape(next_daily_full_run(workflow.get('last_full_finished_at') or workflow.get('finished_at')))}</td></tr>
+    <tr><td>下次全量监测</td><td>每天北京时间 08:30 / 12:30 / 16:30 / 20:30，预计 {html_escape(next_daily_full_run(workflow.get('last_full_finished_at') or workflow.get('finished_at')))}</td></tr>
     <tr><td>GitHub Actions</td><td><a href="{html_escape(workflow.get('run_url') or '#')}" target="_blank" rel="noreferrer">{html_escape(workflow.get('run_id') or '暂无')}</a></td></tr>
   </tbody></table>
 

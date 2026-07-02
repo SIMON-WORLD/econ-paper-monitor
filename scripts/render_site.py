@@ -209,9 +209,10 @@ def next_hourly_run(value: str | None) -> str:
 def next_daily_full_run(value: str | None) -> str:
     now = datetime.now(CN_TZ)
     dt = max(beijing_datetime(value) or now, now)
-    candidate = dt.replace(hour=8, minute=30, second=0, microsecond=0)
-    if candidate <= dt:
-        candidate += timedelta(days=1)
+    windows = [(8, 30), (12, 30), (16, 30), (20, 30)]
+    candidates = [dt.replace(hour=hour, minute=minute, second=0, microsecond=0) for hour, minute in windows]
+    future = [candidate for candidate in candidates if candidate > dt]
+    candidate = future[0] if future else candidates[0] + timedelta(days=1)
     return candidate.strftime("%Y-%m-%d %H:%M 北京时间")
 
 
