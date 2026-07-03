@@ -137,6 +137,17 @@ jobs:
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
+      - name: Fetch Crossref priority metadata
+        if: steps.mode.outputs.mode == 'light' && (github.event_name != 'schedule' || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          mkdir -p data/raw/crossref-priority
+          TODAY=$(python -c "from scripts.common import today_str; print(today_str())")
+          if timeout 8m python scripts/fetch_crossref.py --tier hourly_crossref_priority --days ${{ steps.mode.outputs.days }} --created-days 7 --rows 12 --sleep 0.1 --timeout 20 --retries 2 --output data/raw/crossref-priority/${TODAY}.json; then
+            echo "Crossref priority metadata fetch completed."
+          else
+            echo "::warning::Crossref priority metadata fetch timed out or failed; continuing with the broader fast pass."
+          fi
       - name: Fetch Crossref fast metadata
         if: steps.mode.outputs.mode == 'light' && (github.event_name != 'schedule' || steps.watchdog.outputs.decision == 'run')
         shell: bash

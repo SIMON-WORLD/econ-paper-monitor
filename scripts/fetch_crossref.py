@@ -10,8 +10,10 @@ from typing import Any
 import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import datetime
 
 from common import (
+    BEIJING_TZ,
     DATA_DIR,
     USER_AGENT,
     date_from_parts,
@@ -34,12 +36,26 @@ def author_name(author: dict[str, Any]) -> str:
     return name or str(author.get("name") or "")
 
 
+def crossref_created_date(item: dict[str, Any]) -> str | None:
+    created = item.get("created")
+    if not isinstance(created, dict):
+        return None
+    date_time = created.get("date-time")
+    if isinstance(date_time, str) and date_time:
+        try:
+            parsed = datetime.fromisoformat(date_time.replace("Z", "+00:00"))
+            return parsed.astimezone(BEIJING_TZ).date().isoformat()
+        except ValueError:
+            pass
+    return date_from_parts(created)
+
+
 def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
     published_online = date_from_parts(item.get("published-online"))
     published = date_from_parts(item.get("published"))
     published_print = date_from_parts(item.get("published-print"))
     issued = date_from_parts(item.get("issued"))
-    created = date_from_parts(item.get("created"))
+    created = crossref_created_date(item)
     doi = str(item.get("DOI") or "")
     issue_date = published_print or published or issued
     if published_online:

@@ -14,11 +14,11 @@ import re
 import urllib.parse
 import urllib.request
 from collections import Counter
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, date_from_parts, fetch_json, fetch_text, read_json, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, date_from_parts, fetch_json, fetch_text, read_json, today_str, write_json
 from status import load_status, now, record_source, save_status
 
 
@@ -81,6 +81,20 @@ def parse_date(value: str | None) -> str | None:
         if month:
             return f"{int(match.group(3)):04d}-{month:02d}-{int(match.group(1)):02d}"
     return None
+
+
+def crossref_created_date(item: dict[str, Any]) -> str | None:
+    created = item.get("created")
+    if not isinstance(created, dict):
+        return None
+    date_time = created.get("date-time")
+    if isinstance(date_time, str) and date_time:
+        try:
+            parsed = datetime.fromisoformat(date_time.replace("Z", "+00:00"))
+            return parsed.astimezone(BEIJING_TZ).date().isoformat()
+        except ValueError:
+            pass
+    return date_from_parts(created)
 
 
 def parse_meta(html: str) -> dict[str, str]:
@@ -180,7 +194,7 @@ def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
     published = date_from_parts(item.get("published"))
     published_print = date_from_parts(item.get("published-print"))
     issued = date_from_parts(item.get("issued"))
-    created = date_from_parts(item.get("created"))
+    created = crossref_created_date(item)
     issue_date = published_print or published or issued
     result: dict[str, str] = {}
     if published_online:
