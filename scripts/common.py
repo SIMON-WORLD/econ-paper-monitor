@@ -308,11 +308,11 @@ def date_from_parts(parts: Any) -> str | None:
         values = parts["date-parts"][0]
     except (KeyError, IndexError, TypeError):
         return None
-    if not values:
+    if len(values) < 3:
         return None
     year = int(values[0])
-    month = int(values[1]) if len(values) > 1 else 1
-    day = int(values[2]) if len(values) > 2 else 1
+    month = int(values[1])
+    day = int(values[2])
     return date(year, month, day).isoformat()
 
 
