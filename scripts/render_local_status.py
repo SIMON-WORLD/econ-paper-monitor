@@ -264,6 +264,17 @@ def main() -> None:
     cnki_group = (status.get("source_groups") or {}).get("cnki-rss") or {}
     publisher_group = (status.get("source_groups") or {}).get("publisher-detail") or {}
     ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
+    missed_rows = [
+        "<tr>"
+        f"<td>{html_escape(item.get('source'))}</td>"
+        f"<td>{html_escape(item.get('new_candidate_count', item.get('raw_count', 0)))}</td>"
+        f"<td>{html_escape(item.get('daily_count', 0))}</td>"
+        f"<td>{html_escape('; '.join(str(value) for value in item.get('examples', [])[:3]))}</td>"
+        f"<td>{html_escape(item.get('reason'))}</td>"
+        "</tr>"
+        for item in ingestion.get("suspected_missed_sources", [])[:20]
+        if isinstance(item, dict)
+    ]
 
     english_titles = sum(1 for record in records if record.get("title") and not has_chinese(str(record.get("title"))))
     english_translated = sum(
@@ -473,10 +484,18 @@ def main() -> None:
     <tr><td>诊断日期</td><td>{html_escape(ingestion.get('date') or today_date)}</td><td>与今日页使用同一个北京时间日期。</td></tr>
     <tr><td>原始候选</td><td>{html_escape(ingestion.get('raw_candidates', '未生成'))}</td><td>RSS、Crossref、中文官网、工作论文等原始抓取候选总数。</td></tr>
     <tr><td>今日展示记录</td><td>{html_escape(ingestion.get('daily_records', today_total))}</td><td>去重、清理和归一化后进入今日页面的记录。</td></tr>
+    <tr><td>已见过候选</td><td>{html_escape(ingestion.get('already_seen_candidates', '未生成'))}</td><td>raw 中已在 seen/历史归档出现的记录，不再算今日首次发现。</td></tr>
+    <tr><td>今日新候选</td><td>{html_escape(ingestion.get('new_today_candidates', '未生成'))}</td><td>去重后仍符合“今日首次发现”归档日期的候选。</td></tr>
+    <tr><td>归入其他日期</td><td>{html_escape(ingestion.get('new_other_date_candidates', '未生成'))}</td><td>首次抓到但官方日期指向其他日期，因此进入对应日期归档。</td></tr>
+    <tr><td>被压制候选</td><td>{html_escape(ingestion.get('suppressed_candidates', '未生成'))}</td><td>多为 RSS/目录回流、无精确日期或不适合作为今日新发现的记录。</td></tr>
+    <tr><td>疑似漏入库</td><td>{html_escape(ingestion.get('new_today_missing_candidates', '未生成'))}</td><td>看起来应进入今日页、但未在今日公开文件中找到的候选。</td></tr>
     <tr><td>RSS 无精确日期候选</td><td>{html_escape(ingestion.get('rss_without_precise_date_candidates', '未生成'))}</td><td>已抓到但只有卷期、月份或待解析日期的 RSS 记录。</td></tr>
     <tr><td>RSS 无精确日期入库</td><td>{html_escape(ingestion.get('rss_without_precise_date_daily', '未生成'))}</td><td>进入今日新发现，但前台会标为日期待解析或较低可信度。</td></tr>
     <tr><td>历史回流清理</td><td>{html_escape(ingestion.get('seen_backflow_removed', 0))}</td><td>已经在 seen 中存在、但因 RSS/目录回流再次出现的旧记录；不进入今日首次发现。</td></tr>
   </tbody></table>
+  <h3>今日疑似漏抓源</h3>
+  <p class="muted">只统计“未在历史 seen 中出现、且看起来应进入今日归档”的新候选；已见过旧文和日期不合格记录不再作为漏抓报警。</p>
+  {table(missed_rows, ["来源", "新候选", "今日入库", "样例", "说明"])}
   </section>
 
   <section class="section">
