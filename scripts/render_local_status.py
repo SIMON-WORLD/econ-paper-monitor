@@ -264,6 +264,7 @@ def main() -> None:
     cnki_group = (status.get("source_groups") or {}).get("cnki-rss") or {}
     publisher_group = (status.get("source_groups") or {}).get("publisher-detail") or {}
     ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
+    recent72_audit = read_json(DATA_DIR / "recent72_coverage_audit.json", {})
     missed_rows = [
         "<tr>"
         f"<td>{html_escape(item.get('source'))}</td>"
@@ -366,7 +367,7 @@ def main() -> None:
     cnki_rows = [
         f"<tr class='{'warn' if not item.get('ok') else ''}'><td>{html_escape(item.get('journal'))}</td><td>{'OK' if item.get('ok') else 'FAIL'}</td>"
         f"<td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('filtered'))}</td>"
-        f"<td>{html_escape(item.get('channel_updated_at'))}</td><td>{html_escape(item.get('latest_research_date') or item.get('latest_research'))}</td>"
+        f"<td>{html_escape(item.get('stale'))}</td><td>{html_escape(item.get('channel_updated_at'))}</td><td>{html_escape(item.get('latest_research_date') or item.get('latest_research'))}</td>"
         f"<td>{html_escape(item.get('message'))}</td></tr>"
         for item in cnki_group.get("journals", [])
     ]
@@ -378,6 +379,16 @@ def main() -> None:
         f"<td>{html_escape(item.get('failures'))}</td>"
         f"<td>{html_escape(item.get('message'))}</td></tr>"
         for item in publisher_group.get("publishers", [])
+    ]
+    recent72_missing_rows = [
+        "<tr>"
+        f"<td>{html_escape(item.get('source'))}</td>"
+        f"<td>{html_escape(item.get('count'))}</td>"
+        f"<td>{html_escape('; '.join(str(value) for value in item.get('examples', [])[:5]))}</td>"
+        f"<td>{html_escape(item.get('reason'))}</td>"
+        "</tr>"
+        for item in recent72_audit.get("missing_by_source", [])[:20]
+        if isinstance(item, dict)
     ]
     candidate_rows = [
         f"<tr><td>{html_escape(record.get('_daily_date'))}</td><td>{title_cell(record)}</td>"
@@ -492,10 +503,15 @@ def main() -> None:
     <tr><td>RSS 无精确日期候选</td><td>{html_escape(ingestion.get('rss_without_precise_date_candidates', '未生成'))}</td><td>已抓到但只有卷期、月份或待解析日期的 RSS 记录。</td></tr>
     <tr><td>RSS 无精确日期入库</td><td>{html_escape(ingestion.get('rss_without_precise_date_daily', '未生成'))}</td><td>进入今日新发现，但前台会标为日期待解析或较低可信度。</td></tr>
     <tr><td>历史回流清理</td><td>{html_escape(ingestion.get('seen_backflow_removed', 0))}</td><td>已经在 seen 中存在、但因 RSS/目录回流再次出现的旧记录；不进入今日首次发现。</td></tr>
+    <tr><td>最近72小时原始候选</td><td>{html_escape(recent72_audit.get('raw_candidates', '未生成'))}</td><td>最近 3 天 raw 候选总数，用于判断外部源是否有候选输入。</td></tr>
+    <tr><td>最近72小时疑似遗漏</td><td>{html_escape(recent72_audit.get('eligible_missing_candidates', '未生成'))}</td><td>raw 中未见过、应进入最近 72 小时但不在公开归档中的候选。</td></tr>
   </tbody></table>
   <h3>今日疑似漏抓源</h3>
   <p class="muted">只统计“未在历史 seen 中出现、且看起来应进入今日归档”的新候选；已见过旧文和日期不合格记录不再作为漏抓报警。</p>
   {table(missed_rows, ["来源", "新候选", "今日入库", "样例", "说明"])}
+  <h3>最近72小时覆盖审计</h3>
+  <p class="muted">对照 raw 候选、历史 seen 和公开 daily 文件，检查抓到但未展示的风险。</p>
+  {table(recent72_missing_rows, ["来源", "疑似遗漏", "样例", "说明"])}
   </section>
 
   <section class="section">
@@ -520,7 +536,7 @@ def main() -> None:
   <h3>期刊官网</h3>
   {table(cn_rows, ["期刊", "状态", "数量", "抓取方式", "信息"])}
   <h3>CNKI RSS 补充</h3>
-  {table(cnki_rows, ["期刊", "状态", "接受", "过滤", "频道日期", "最新研究日期", "信息"])}
+  {table(cnki_rows, ["期刊", "状态", "接受", "过滤", "滞后/旧项", "频道日期", "最新研究日期", "信息"])}
   </section>
 
   <section class="section">

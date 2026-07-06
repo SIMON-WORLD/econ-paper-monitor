@@ -860,10 +860,13 @@ def source_delay_rows(records: list[dict[str, Any]], days: int = 14) -> str:
         precise = [record for record in items if parse_date(str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or ""))]
         rss_count = sum(1 for record in items if "rss" in str(record.get("source") or "").casefold() or "rss" in str(record.get("date_source") or "").casefold())
         crossref_count = sum(1 for record in items if "crossref" in str(record.get("date_source") or "").casefold())
+        detail_count = sum(1 for record in items if "publisher" in str(record.get("date_source") or "").casefold() or "detail" in str(record.get("date_source") or "").casefold())
+        delayed_count = sum(1 for lag in lags if lag > 2)
+        no_precise_count = len(items) - len(precise)
         avg_lag = "待判定" if not lags else f"{sum(lags) / len(lags):.1f} 天"
         max_lag = "待判定" if not lags else f"{max(lags)} 天"
         rows.append(
-            f"<tr><td>{html_escape(family)}</td><td>{len(items)}</td><td>{len(precise)}</td><td>{avg_lag}</td><td>{max_lag}</td><td>{rss_count}</td><td>{crossref_count}</td></tr>"
+            f"<tr><td>{html_escape(family)}</td><td>{len(items)}</td><td>{len(precise)}</td><td>{no_precise_count}</td><td>{delayed_count}</td><td>{avg_lag}</td><td>{max_lag}</td><td>{rss_count}</td><td>{detail_count}</td><td>{crossref_count}</td></tr>"
         )
     return "".join(rows)
 
@@ -1664,6 +1667,7 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     cnki_group = source_groups.get("cnki-rss") or {}
     publisher_group = source_groups.get("publisher-detail") or {}
     ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
+    recent72_audit = read_json(DATA_DIR / "recent72_coverage_audit.json", {})
     journals_by_id = journal_lookup()
     delay_rows = source_delay_rows(records, 14)
     suspected_rows = "".join(
@@ -1679,14 +1683,14 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     ) or '<tr><td colspan="5">暂无明显风险</td></tr>'
 
     cn_rows = "".join(
-        f"""<tr><td>期刊官网</td><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
+        f"""<tr><td>期刊官网</td><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td></td><td></td><td></td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
         for item in cn_group.get("journals", [])
     )
     cnki_rows = "".join(
-        f"""<tr><td>CNKI RSS</td><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
+        f"""<tr><td>CNKI RSS</td><td>{html_escape((journals_by_id.get(str(item.get('journal_id') or '')) or {}).get('title') or item.get('journal'))}</td><td>{html_escape(item.get('count'))}</td><td>{html_escape(item.get('filtered'))}</td><td>{html_escape(item.get('stale'))}</td><td>{html_escape(item.get('latest_research_date') or item.get('latest_research'))}</td><td>{html_escape(item.get('mode'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
         for item in cnki_group.get("journals", [])
     )
-    cn_status_rows = cn_rows + cnki_rows or '<tr><td colspan="5">暂无中文期刊状态</td></tr>'
+    cn_status_rows = cn_rows + cnki_rows or '<tr><td colspan="8">暂无中文期刊状态</td></tr>'
     publisher_rows = "".join(
         f"""<tr><td>{html_escape(item.get('publisher'))}</td><td>{html_escape(item.get('attempted'))}</td><td>{html_escape(item.get('changed'))}</td><td>{html_escape(item.get('ab_dates'))}</td><td>{html_escape(item.get('message'))}</td></tr>"""
         for item in publisher_group.get("publishers", [])
@@ -1703,6 +1707,16 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
         f"<tr><td>{html_escape(source_id)}</td><td>{html_escape((sources.get(source_id) or {}).get('message'))}</td></tr>"
         for source_id in failures[:20]
     ) or '<tr><td colspan="2">暂无失败来源</td></tr>'
+    recent72_missing_rows = "".join(
+        "<tr>"
+        f"<td>{html_escape(item.get('source'))}</td>"
+        f"<td>{html_escape(item.get('count'))}</td>"
+        f"<td>{html_escape('; '.join(str(value) for value in item.get('examples', [])[:3]))}</td>"
+        f"<td>{html_escape(item.get('reason'))}</td>"
+        "</tr>"
+        for item in recent72_audit.get("missing_by_source", [])[:20]
+        if isinstance(item, dict)
+    ) or '<tr><td colspan="4">暂无疑似遗漏</td></tr>'
 
     body = f"""<section class="section-head">
   <div><h2>线上后台状态</h2><p>公开安全摘要。敏感审核与人工确认仍使用本地后台。</p></div>
@@ -1720,8 +1734,8 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
   <div class="audit-card"><strong>{len(failures)}</strong><span>失败/受限来源</span></div>
   <div class="audit-card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
 </section>
-<section class="section-head"><div><h2>重点出版社延迟对比</h2><p>最近 14 天内，比较 RSS/TOC 与 Crossref 备用日期对第一时间发现的贡献。</p></div></section>
-<table class="journal-table"><thead><tr><th>出版社</th><th>记录</th><th>有官方日期</th><th>平均滞后</th><th>最大滞后</th><th>RSS/TOC</th><th>Crossref fallback</th></tr></thead><tbody>{delay_rows}</tbody></table>
+<section class="section-head"><div><h2>重点出版社延迟对比</h2><p>最近 14 天内，比较 RSS/TOC、出版社详情页与 Crossref 备用日期对第一时间发现的贡献。</p></div></section>
+<table class="journal-table"><thead><tr><th>出版社</th><th>记录</th><th>有官方日期</th><th>无精确日期</th><th>延迟&gt;2天</th><th>平均滞后</th><th>最大滞后</th><th>RSS/TOC</th><th>详情页</th><th>Crossref fallback</th></tr></thead><tbody>{delay_rows}</tbody></table>
 <section class="section-head"><div><h2>入库诊断</h2><p>对比今日原始候选和最终展示记录，用于判断是否存在“抓到但未入库”。</p></div></section>
 <table class="journal-table"><thead><tr><th>指标</th><th>当前值</th><th>说明</th></tr></thead><tbody>
 <tr><td>诊断日期</td><td>{html_escape(ingestion.get('date') or today_str())}</td><td>与今日页使用同一个北京时间日期。</td></tr>
@@ -1743,14 +1757,18 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
 <section class="section-head"><div><h2>日期来源</h2><p>用于判断“今日新发现”和“官方/在线日期”的证据链。</p></div></section>
 <table class="journal-table"><thead><tr><th>来源</th><th>数量</th></tr></thead><tbody>{date_source_rows}</tbody></table>
 <section class="section-head"><div><h2>中文期刊状态</h2><p>官网抓取、CNKI RSS 和本地补充分开看；旧期次只进入归档，不进入首页今日流。</p></div></section>
-<table class="journal-table"><thead><tr><th>来源链路</th><th>期刊</th><th>数量</th><th>模式</th><th>说明</th></tr></thead><tbody>{cn_status_rows}</tbody></table>
+<table class="journal-table"><thead><tr><th>来源链路</th><th>期刊</th><th>接受/数量</th><th>过滤</th><th>滞后/旧项</th><th>最新研究日期</th><th>模式</th><th>说明</th></tr></thead><tbody>{cn_status_rows}</tbody></table>
 <section class="section-head"><div><h2>漏抓风险提示</h2><p>用于判断当天是否可能因为上游入库延迟、出版社限制或中文源滞后造成少抓。</p></div></section>
 <table class="journal-table"><thead><tr><th>风险项</th><th>当前值</th><th>说明</th></tr></thead><tbody>
 <tr><td>今日归档记录</td><td>{len(today_records)}</td><td>为 0 时需要检查上游是否延迟或任务是否被取消。</td></tr>
 <tr><td>Crossref newly deposited</td><td>{crossref_new_deposits}</td><td>按 Crossref 入库时间补抓的新 DOI。</td></tr>
 <tr><td>Crossref/备用日期</td><td>{crossref_fallback_today}</td><td>出版社详情页受限时，日期主要依赖 Crossref 元数据。</td></tr>
 <tr><td>CNKI RSS 接受量</td><td>{html_escape(cnki_group.get('count', 0))}</td><td>可补中文期刊，但部分期刊可能滞后于官网。</td></tr>
+<tr><td>最近72小时原始候选</td><td>{html_escape(recent72_audit.get('raw_candidates', '未生成'))}</td><td>最近 3 天 raw 候选总数，用于判断外部源是否有候选输入。</td></tr>
+<tr><td>最近72小时疑似遗漏</td><td>{html_escape(recent72_audit.get('eligible_missing_candidates', '未生成'))}</td><td>raw 中未见过、应进入最近 72 小时但不在公开归档中的候选。</td></tr>
 </tbody></table>
+<section class="section-head"><div><h2>最近72小时覆盖审计</h2><p>对照 raw 候选、历史 seen 和公开 daily 文件，检查抓到但未展示的风险。</p></div></section>
+<table class="journal-table"><thead><tr><th>来源</th><th>疑似遗漏</th><th>样例</th><th>说明</th></tr></thead><tbody>{recent72_missing_rows}</tbody></table>
 <section class="section-head"><div><h2>出版社日期解析</h2><p>统计详情页、RSS、Crossref fallback 对 online date 的贡献。</p></div></section>
 <table class="journal-table"><thead><tr><th>出版社</th><th>尝试</th><th>更新</th><th>A/B 日期</th><th>状态</th></tr></thead><tbody>{publisher_rows}</tbody></table>
 <section class="section-head"><div><h2>失败/受限来源</h2><p>只显示聚合原因，不展示密钥或敏感信息。</p></div></section>

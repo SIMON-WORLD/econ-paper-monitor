@@ -138,6 +138,7 @@ def main() -> None:
     if removed_runtime or removed_raw:
         log(f"Pruned old local artifacts: runtime={removed_runtime}, cnki_raw={removed_raw}")
     record_source("local-cnki-run", ok=False, count=0, message="running")
+    final_status_recorded = False
 
     try:
         if not args.no_push:
@@ -165,6 +166,9 @@ def main() -> None:
         run_step([python, "scripts/normalize_records.py"])
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
+        run_step([python, "scripts/audit_recent72_coverage.py"])
+        record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={LOG_PATH}")
+        final_status_recorded = True
         run_step([python, "scripts/render_site.py"])
         run_step([python, "scripts/build_feed.py", "--site-url", "https://simon-world.github.io/econ-paper-monitor/"])
         run_step([python, "scripts/render_local_status.py"])
@@ -179,10 +183,10 @@ def main() -> None:
             else:
                 log("No generated changes to commit.")
 
-        record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={LOG_PATH}")
         log("Local CNKI update finished successfully.")
     except Exception as exc:  # noqa: BLE001
-        record_source("local-cnki-run", ok=False, count=0, message=f"{type(exc).__name__}: {exc}; log={LOG_PATH}")
+        if not final_status_recorded:
+            record_source("local-cnki-run", ok=False, count=0, message=f"{type(exc).__name__}: {exc}; log={LOG_PATH}")
         log(f"FAILED: {type(exc).__name__}: {exc}")
         raise
 
