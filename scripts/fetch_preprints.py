@@ -1057,6 +1057,109 @@ def parse_json_records(payload: Any, source: dict[str, Any], limit: int) -> list
     return records
 
 
+def nber_number_from_text(text: object) -> int | None:
+    match = re.search(r"\bw(\d{4,})\b", str(text or ""), flags=re.I)
+    if not match:
+        return None
+    try:
+        return int(match.group(1))
+    except ValueError:
+        return None
+
+
+def latest_nber_seen_number() -> int:
+    max_number = 0
+    candidates: list[str] = []
+    seen_path = DATA_DIR / "seen.json"
+    if seen_path.exists():
+        try:
+            seen = json.loads(seen_path.read_text(encoding="utf-8"))
+        except Exception:
+            seen = {}
+        if isinstance(seen, dict):
+            candidates.extend(str(key) for key in seen.keys())
+            candidates.extend(json.dumps(value, ensure_ascii=False) for value in seen.values())
+        elif isinstance(seen, list):
+            candidates.extend(json.dumps(value, ensure_ascii=False) for value in seen)
+    for folder in [DATA_DIR / "daily", DATA_DIR / "raw" / "working_papers"]:
+        if not folder.exists():
+            continue
+        for path in folder.glob("*.json"):
+            try:
+                candidates.append(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+    for text in candidates:
+        for match in re.finditer(r"\bw(\d{4,})\b", text, flags=re.I):
+            try:
+                max_number = max(max_number, int(match.group(1)))
+            except ValueError:
+                continue
+    return max_number
+
+
+def parse_nber_api_result(result: dict[str, Any], source: dict[str, Any]) -> dict[str, Any] | None:
+    url = first_url_text(result, source) or first_key_text(result, ["url", "path"])
+    number = nber_number_from_text(url) or nber_number_from_text(result.get("title"))
+    if not number:
+        return None
+    url = f"https://www.nber.org/papers/w{number}"
+    title = first_key_text(result, ["title", "name", "label", "dc.title"])
+    if not title or not plausible_title(title):
+        return None
+    date_value = first_key_text(result, ["displaydate", "date", "issued", "dateIssued", "publication_date", "dc.date.issued"])
+    abstract = first_key_text(result, ["abstract", "description", "dc.description.abstract"])
+    record = source_record(source, title=title, url=url, published=parse_date(date_value), abstract=abstract)
+    record["paper_number"] = f"w{number}"
+    record["doi"] = f"10.3386/w{number}"
+    if authors := result.get("authors"):
+        if isinstance(authors, list):
+            record["authors"] = [clean_text(author) for author in authors if clean_text(author)][:12]
+        elif isinstance(authors, str):
+            record["authors"] = [item.strip() for item in clean_text(authors).split(",") if item.strip()][:12]
+    return record
+
+
+def fetch_nber_search_result(number: int, source: dict[str, Any], *, timeout: int) -> dict[str, Any] | None:
+    query = f"page=1&perPage=20&q=w{number}"
+    url = f"https://www.nber.org/api/v1/working_page_listing/contentType/working_paper/_/_/search?{query}"
+    payload = fetch_json(url, timeout=timeout)
+    for value in nested_values(payload):
+        if not isinstance(value, dict):
+            continue
+        result_url = first_url_text(value, source) or first_key_text(value, ["url", "path"])
+        if nber_number_from_text(result_url) == number:
+            return value
+    return None
+
+
+def fetch_nber_number_scan(source: dict[str, Any], *, timeout: int, limit: int) -> list[dict[str, Any]]:
+    previous = latest_nber_seen_number()
+    if previous <= 1:
+        return []
+    found: list[dict[str, Any]] = []
+    misses_after_found = 0
+    max_scan = max(120, limit * 6)
+    stop_after_misses = 30
+    for number in range(previous + 1, previous + max_scan + 1):
+        try:
+            result = fetch_nber_search_result(number, source, timeout=timeout)
+        except Exception:
+            continue
+        if result:
+            record = parse_nber_api_result(result, source)
+            if record:
+                found.append(record)
+                misses_after_found = 0
+                continue
+        if found:
+            misses_after_found += 1
+            if misses_after_found >= stop_after_misses:
+                break
+    found.sort(key=lambda item: nber_number_from_text(item.get("paper_number") or item.get("url")) or 0, reverse=True)
+    return found
+
+
 def specialized_api_urls(source: dict[str, Any]) -> list[str]:
     source_id = str(source.get("id") or "")
     if source_id == "nber":
@@ -1075,6 +1178,10 @@ def specialized_api_urls(source: dict[str, Any]) -> list[str]:
 
 
 def fetch_specialized_api(source: dict[str, Any], *, timeout: int, limit: int) -> tuple[list[dict[str, Any]], str] | None:
+    if str(source.get("id") or "") == "nber":
+        scanned = fetch_nber_number_scan(source, timeout=timeout, limit=limit)
+        if scanned:
+            return scanned, "nber-number-scan"
     for url in specialized_api_urls(source):
         try:
             payload = fetch_json(url, timeout=timeout)
