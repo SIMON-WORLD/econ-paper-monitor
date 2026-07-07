@@ -245,6 +245,157 @@ def table(rows: list[str], headers: list[str]) -> str:
     return f"<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>"
 
 
+def source_risk_rows(
+    sources: dict[str, Any],
+    cn_group: dict[str, Any],
+    cnki_group: dict[str, Any],
+    publisher_group: dict[str, Any],
+) -> list[str]:
+    """Summarize source risks into an operator-friendly checklist."""
+    risks: list[dict[str, Any]] = []
+
+    def short_text(value: Any, limit: int = 420) -> str:
+        text = str(value or "")
+        if len(text) <= limit:
+            return text
+        return text[:limit].rstrip() + "..."
+
+    def add(level: str, area: str, impact: str, evidence: str, action: str) -> None:
+        order = {"高": 0, "中": 1, "低": 2}.get(level, 3)
+        risks.append(
+            {
+                "order": order,
+                "level": level,
+                "area": area,
+                "impact": impact,
+                "evidence": evidence,
+                "action": action,
+            }
+        )
+
+    for source_id, item in sorted(sources.items()):
+        if not isinstance(item, dict) or item.get("ok", True):
+            continue
+        if source_id == "cnki-rss":
+            continue
+        add(
+            "高",
+            str(source_id),
+            "该来源本轮失败，可能造成漏抓或日期补充缺口。",
+            short_text(item.get("message") or "未记录失败原因"),
+            "优先查看对应抓取脚本和 GitHub Actions 日志；若是访问限制，切换到 RSS/TOC/本地补充或备用 API。",
+        )
+
+    cnki_items = [item for item in cnki_group.get("journals", []) if isinstance(item, dict)]
+    cnki_failures = [item for item in cnki_items if not item.get("ok")]
+    if cnki_failures:
+        messages = "; ".join(
+            f"{item.get('journal')}: {item.get('message')}" for item in cnki_failures[:6]
+        )
+        add(
+            "高",
+            "CNKI RSS 补充",
+            "CNKI 补充源不可用时，中文期刊只能依赖官网解析，滞后/漏抓风险上升。",
+            short_text(messages),
+            "GitHub 端继续官网优先；本地或国内 runner 每天静默跑 CNKI RSS，并在后台对比官网/CNKI 命中数量。",
+        )
+
+    cn_items = [item for item in cn_group.get("journals", []) if isinstance(item, dict)]
+    cn_failed = [item for item in cn_items if not item.get("ok")]
+    if cn_failed:
+        add(
+            "高",
+            "中文期刊官网",
+            "官网抓取失败会直接影响中文重点期刊的及时性。",
+            short_text("; ".join(f"{item.get('journal')}: {item.get('message')}" for item in cn_failed)),
+            "优先修复对应期刊解析器；如果官网持续失败，用 CNKI RSS、本地 Zotero/RSS 或手动 seed 作为临时补充。",
+        )
+
+    cn_zero = [item for item in cn_items if item.get("ok") and int(item.get("count") or 0) == 0]
+    if cn_zero:
+        add(
+            "中",
+            "中文期刊官网",
+            "抓取成功但 0 条，需要区分“确实暂无新期”和“入口/年份/脚本变化”。",
+            short_text("; ".join(f"{item.get('journal')}: {item.get('message')}" for item in cn_zero)),
+            "检查官网当前期目录、年份入口和历史最新期；避免把旧期次当今日，也避免新期未识别。",
+        )
+
+    publisher_items = [item for item in publisher_group.get("publishers", []) if isinstance(item, dict)]
+    blocked_publishers: list[str] = []
+    for item in publisher_items:
+        attempted = int(item.get("attempted") or 0)
+        success_rate = float(item.get("success_rate") or 0)
+        if attempted >= 5 and success_rate < 0.2:
+            blocked_publishers.append(
+                f"{item.get('publisher')}: {item.get('ab_dates')}/{attempted} ({success_rate:.0%}); {item.get('message')}"
+            )
+    if blocked_publishers:
+        add(
+            "中",
+            "出版社详情页日期",
+            "online date/accepted date 覆盖不足，前台会更多退回 Crossref 或卷期日期。",
+            short_text("; ".join(blocked_publishers)),
+            "为 Elsevier、Wiley、T&F、OUP 等重点出版社继续接入 RSS/TOC/邮件 alert/Crossref DOI 链路，后台保留覆盖率对比。",
+        )
+
+    rss_item = sources.get("rss") or {}
+    rss_message = str(rss_item.get("message") or "")
+    if "HTTPError" in rss_message:
+        add(
+            "中",
+            "英文期刊 RSS/TOC",
+            "部分期刊 RSS 或生成 feed 失败，会削弱第一时间发现能力。",
+            short_text(rss_message),
+            "把失败期刊加入重点源清单，逐本补官方 TOC、出版社 alert 或 Crossref newly deposited 兜底。",
+        )
+
+    crossref_item = sources.get("crossref") or {}
+    crossref_message = str(crossref_item.get("message") or "")
+    if "429" in crossref_message or "error" in crossref_message.casefold():
+        add(
+            "中",
+            "Crossref 补充源",
+            "Crossref 限流或单刊错误会影响全量补充和 DOI 入库检查。",
+            short_text(crossref_message),
+            "保留分批请求和重试；重点期刊优先走 RSS/TOC，不把 Crossref 当唯一第一时间来源。",
+        )
+
+    important_zero_wp = []
+    for source_id, item in sorted(sources.items()):
+        if not str(source_id).startswith("working-paper:") or not isinstance(item, dict):
+            continue
+        if item.get("ok") and int(item.get("count") or 0) == 0:
+            important_zero_wp.append(str(source_id).removeprefix("working-paper:"))
+    if important_zero_wp:
+        add(
+            "低",
+            "工作论文来源",
+            "这些来源本轮返回 0 条，可能是确实暂无更新，也可能需要阶段性抽检。",
+            "、".join(important_zero_wp),
+            "每周与源站列表抽查一次；NBER、CEPR、IZA、World Bank 继续作为高优先级稳定源。",
+        )
+
+    if not risks:
+        return [
+            "<tr><td class='ok'>低</td><td>全部重点来源</td><td>暂无明显异常</td>"
+            "<td>当前 status 未发现失败源或低覆盖风险。</td><td>维持现有监测频率，继续观察下一轮任务。</td></tr>"
+        ]
+
+    rows: list[str] = []
+    for item in sorted(risks, key=lambda row: (row["order"], row["area"])):
+        css = "warn" if item["level"] in {"高", "中"} else ""
+        level_class = "bad" if item["level"] == "高" else ""
+        rows.append(
+            f"<tr class='{css}'><td class='{level_class}'>{html_escape(item['level'])}</td>"
+            f"<td>{html_escape(item['area'])}</td>"
+            f"<td>{html_escape(item['impact'])}</td>"
+            f"<td>{html_escape(item['evidence'])}</td>"
+            f"<td>{html_escape(item['action'])}</td></tr>"
+        )
+    return rows
+
+
 def latest_records(records: list[dict[str, Any]], predicate, limit: int = 20) -> list[dict[str, Any]]:
     selected = [record for record in records if predicate(record)]
     return sorted(selected, key=lambda item: item.get("detected_at") or item.get("_daily_date") or "", reverse=True)[:limit]
@@ -430,6 +581,7 @@ def main() -> None:
         for key, value in sorted(by_confidence.items())
     )
     health_rows = "".join(f"<li>{html_escape(item)}</li>" for item in health)
+    risk_rows = source_risk_rows(sources, cn_group, cnki_group, publisher_group)
 
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -486,6 +638,10 @@ def main() -> None:
 
   <h2>健康提醒</h2>
   <ul>{health_rows}</ul>
+
+  <h2>源稳定性雷达</h2>
+  <p class="muted">把失败源、低覆盖源和需要抽检的来源集中到一张表；前台保持简洁，后台用于判断是否存在漏抓风险。</p>
+  {table(risk_rows, ["风险", "来源", "影响", "证据", "下一步动作"])}
   </section>
 
   <section class="section">
