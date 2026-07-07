@@ -1133,29 +1133,59 @@ def fetch_nber_search_result(number: int, source: dict[str, Any], *, timeout: in
     return None
 
 
+def fetch_nber_direct_record(number: int, source: dict[str, Any], *, timeout: int) -> dict[str, Any] | None:
+    url = f"https://www.nber.org/papers/w{number}"
+    try:
+        html_text = fetch_text(url, timeout=timeout)
+    except Exception:
+        return None
+    title = (
+        first_match([r'<h1[^>]*>(.*?)</h1>'], html_text)
+        or (meta_values(html_text, ["citation_title", "dc.title", "og:title"]) or [None])[0]
+        or first_match([r"<title>(.*?)</title>"], html_text)
+    )
+    title = clean_text(str(title or "").replace("| NBER", ""))
+    if len(title) < 8 or title.casefold() in {"working paper", "nber working paper"}:
+        return None
+    record = source_record(source, title=title, url=url)
+    record["paper_number"] = f"w{number}"
+    record["doi"] = f"10.3386/w{number}"
+    return record
+
+
 def fetch_nber_number_scan(source: dict[str, Any], *, timeout: int, limit: int) -> list[dict[str, Any]]:
     previous = latest_nber_seen_number()
     if previous <= 1:
         return []
-    found: list[dict[str, Any]] = []
-    misses_after_found = 0
+    found_by_number: dict[int, dict[str, Any]] = {}
+    api_misses: list[int] = []
+    consecutive_misses = 0
     max_scan = max(120, limit * 6)
     stop_after_misses = 30
     for number in range(previous + 1, previous + max_scan + 1):
         try:
             result = fetch_nber_search_result(number, source, timeout=timeout)
         except Exception:
-            continue
+            result = None
         if result:
             record = parse_nber_api_result(result, source)
             if record:
-                found.append(record)
-                misses_after_found = 0
+                found_by_number[number] = record
+                consecutive_misses = 0
                 continue
-        if found:
-            misses_after_found += 1
-            if misses_after_found >= stop_after_misses:
-                break
+        api_misses.append(number)
+        consecutive_misses += 1
+        if consecutive_misses >= stop_after_misses:
+            break
+    if found_by_number:
+        max_found = max(found_by_number)
+        # The search API can skip valid papers inside the weekly range. Probe only
+        # internal gaps by direct paper URL so the post-range 404 tail stays fast.
+        for number in [item for item in api_misses if previous < item < max_found]:
+            record = fetch_nber_direct_record(number, source, timeout=timeout)
+            if record:
+                found_by_number[number] = record
+    found = list(found_by_number.values())
     found.sort(key=lambda item: nber_number_from_text(item.get("paper_number") or item.get("url")) or 0, reverse=True)
     return found
 
