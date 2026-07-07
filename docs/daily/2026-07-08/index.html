@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>线上后台状态</title>
+  <title>2026-07-08 归档</title>
   
   <style>
 :root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
@@ -49,21 +49,127 @@
           <a class="" href="../../">今日</a>
           <a class="" href="../../recent72/">最近72小时</a>
           <a href="../../topics/china/">与中国相关</a>
-          <a class="" href="../../archive/">归档</a>
+          <a class="active" href="../../archive/">归档</a>
           <a class="" href="../../search/">检索</a>
           <a href="../../journals/">监测期刊</a>
           <a class="" href="../../working-papers/">工作论文</a>
           <a href="../../feed.xml">RSS</a>
         </nav>
       </div></header>
-      <main class="wrap" id="main-content"><section class="section-head">
-  <div><h2>线上后台状态</h2><p>尚未启用线上后台 token。当前继续使用本地后台。</p></div>
-</section>
-<div class="gate">
-  <h3>未启用公开后台</h3>
-  <p>请继续使用本地后台：<code>local_admin/status.html</code> 和 <code>http://127.0.0.1:8765/</code>。</p>
-  <p class="gate-note">如需线上查看，可设置 <code>ADMIN_STATUS_TOKEN_HASH</code> 后重新运行 workflow。静态页面 token 只适合轻保护，不等于真正登录鉴权。</p>
-</div></main>
+      <main class="wrap" id="main-content"><section class="section-head"><div><h2>2026-07-08 监测记录</h2><p>本站首次监测日期：2026-07-08；官方/在线日期范围：暂无记录。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="empty">暂无符合条件的论文记录。</div>
+<script>
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
+    const scope = toolbar.dataset.filterScope || 'default';
+    const search = toolbar.querySelector('[data-filter-role="search"]');
+    const journal = toolbar.querySelector('[data-filter-role="journal"]');
+    const field = toolbar.querySelector('[data-filter-role="field"]');
+    const dateType = toolbar.querySelector('[data-filter-role="dateType"]');
+    const confidence = toolbar.querySelector('[data-filter-role="confidence"]');
+    const sourceType = toolbar.querySelector('[data-filter-role="sourceType"]');
+    const china = toolbar.querySelector('[data-filter-role="china"]');
+    const counter = document.querySelector(`[data-filter-counter="${scope}"]`);
+    const empty = document.querySelector(`[data-filter-empty="${scope}"]`);
+    const events = Array.from(document.querySelectorAll(`.event[data-event-scope="${scope}"]`));
+    if (!search || !journal || !field || !china) return;
+    let preset = '';
+    if (params.get('q')) search.value = params.get('q');
+    if (params.get('journal')) journal.value = params.get('journal');
+    if (params.get('field')) field.value = params.get('field');
+    if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+    if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+    if (sourceType && params.get('sourceType')) sourceType.value = params.get('sourceType');
+    if (params.get('china') === '1') {
+      china.setAttribute('aria-pressed', 'true');
+      china.classList.add('active');
+    }
+    if (params.get('onlineToday') === '1') preset = 'online-today';
+    function setCounter(visible, chinaOnly) {
+      if (!counter) return;
+      if (chinaOnly || preset === 'china') {
+        counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
+      } else if (preset === 'online-today') {
+        counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
+      } else {
+        counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
+      }
+    }
+    function applyFilters() {
+      const q = (search.value || '').trim().toLowerCase();
+      const journalValue = journal.value;
+      const fieldValue = field.value;
+      const dateTypeValue = dateType ? dateType.value : '';
+      const confidenceValue = confidence ? confidence.value : '';
+      const sourceTypeValue = sourceType ? sourceType.value : '';
+      const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+      let visible = 0;
+      for (const item of events) {
+        const okSearch = !q || item.dataset.search.includes(q);
+        const okJournal = !journalValue || item.dataset.journal === journalValue;
+        const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+        const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+        const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+        const okSourceType = !sourceTypeValue || item.dataset.sourceType === sourceTypeValue;
+        const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+        const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+        const show = okSearch && okJournal && okField && okDateType && okConfidence && okSourceType && okChina && okPreset;
+        item.hidden = !show;
+        if (show) visible += 1;
+      }
+      if (empty) empty.hidden = visible !== 0;
+      setCounter(visible, chinaOnly);
+    }
+    search.addEventListener('input', applyFilters);
+    journal.addEventListener('change', applyFilters);
+    field.addEventListener('change', applyFilters);
+    if (dateType) dateType.addEventListener('change', applyFilters);
+    if (confidence) confidence.addEventListener('change', applyFilters);
+    if (sourceType) sourceType.addEventListener('change', applyFilters);
+    china.addEventListener('click', () => {
+      const active = china.getAttribute('aria-pressed') !== 'true';
+      china.setAttribute('aria-pressed', String(active));
+      china.classList.toggle('active', active);
+      applyFilters();
+    });
+    document.querySelectorAll(`[data-filter-preset][data-filter-scope-target="${scope}"]`).forEach((item) => {
+      item.addEventListener('click', (event) => {
+        event.preventDefault();
+        preset = item.dataset.filterPreset || '';
+        if (preset === 'all') {
+          search.value = '';
+          journal.value = '';
+          field.value = '';
+          if (dateType) dateType.value = '';
+          if (confidence) confidence.value = '';
+          if (sourceType) sourceType.value = '';
+          china.setAttribute('aria-pressed', 'false');
+          china.classList.remove('active');
+        }
+        if (preset === 'china') {
+          china.setAttribute('aria-pressed', 'true');
+          china.classList.add('active');
+        }
+        applyFilters();
+        toolbar.scrollIntoView({behavior: 'smooth', block: 'start'});
+      });
+    });
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]:not([data-filter-scope-target])').forEach((item) => {
+    item.setAttribute('data-filter-scope-target', 'default');
+  });
+  for (const item of document.querySelectorAll('[data-filter-preset]')) {
+    if (!item.dataset.boundScopeFallback) {
+      item.dataset.boundScopeFallback = '1';
+      if (!item.dataset.filterScopeTarget) {
+        item.dataset.filterScopeTarget = 'default';
+      }
+    }
+  }
+})();
+</script>
+</main>
     </div>
   </div>
 </body>
