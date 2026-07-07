@@ -9,7 +9,7 @@ from collections import Counter
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, ROOT, html_escape, load_journals, read_json, write_text
+from common import BEIJING_TZ, DATA_DIR, ROOT, html_escape, load_journals, read_json, write_json, write_text
 from status import load_status
 
 
@@ -245,12 +245,12 @@ def table(rows: list[str], headers: list[str]) -> str:
     return f"<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>"
 
 
-def source_risk_rows(
+def source_risks(
     sources: dict[str, Any],
     cn_group: dict[str, Any],
     cnki_group: dict[str, Any],
     publisher_group: dict[str, Any],
-) -> list[str]:
+) -> list[dict[str, Any]]:
     """Summarize source risks into an operator-friendly checklist."""
     risks: list[dict[str, Any]] = []
 
@@ -376,6 +376,10 @@ def source_risk_rows(
             "每周与源站列表抽查一次；NBER、CEPR、IZA、World Bank 继续作为高优先级稳定源。",
         )
 
+    return sorted(risks, key=lambda row: (row["order"], row["area"]))
+
+
+def source_risk_rows(risks: list[dict[str, Any]]) -> list[str]:
     if not risks:
         return [
             "<tr><td class='ok'>低</td><td>全部重点来源</td><td>暂无明显异常</td>"
@@ -383,7 +387,7 @@ def source_risk_rows(
         ]
 
     rows: list[str] = []
-    for item in sorted(risks, key=lambda row: (row["order"], row["area"])):
+    for item in risks:
         css = "warn" if item["level"] in {"高", "中"} else ""
         level_class = "bad" if item["level"] == "高" else ""
         rows.append(
@@ -394,6 +398,31 @@ def source_risk_rows(
             f"<td>{html_escape(item['action'])}</td></tr>"
         )
     return rows
+
+
+def write_source_risk_json(risks: list[dict[str, Any]], workflow: dict[str, Any]) -> None:
+    level_counts = Counter(str(item.get("level") or "unknown") for item in risks)
+    payload = {
+        "updated_at": datetime.now(UTC).replace(microsecond=0).isoformat(),
+        "workflow_finished_at": workflow.get("finished_at"),
+        "workflow_mode": workflow.get("mode"),
+        "workflow_mode_label": workflow.get("mode_label"),
+        "risk_count": len(risks),
+        "high_count": level_counts.get("高", 0),
+        "medium_count": level_counts.get("中", 0),
+        "low_count": level_counts.get("低", 0),
+        "risks": [
+            {
+                "level": item.get("level"),
+                "area": item.get("area"),
+                "impact": item.get("impact"),
+                "evidence": item.get("evidence"),
+                "action": item.get("action"),
+            }
+            for item in risks
+        ],
+    }
+    write_json(ROOT / "local_admin" / "source_risks.json", payload)
 
 
 def latest_records(records: list[dict[str, Any]], predicate, limit: int = 20) -> list[dict[str, Any]]:
@@ -581,7 +610,9 @@ def main() -> None:
         for key, value in sorted(by_confidence.items())
     )
     health_rows = "".join(f"<li>{html_escape(item)}</li>" for item in health)
-    risk_rows = source_risk_rows(sources, cn_group, cnki_group, publisher_group)
+    risks = source_risks(sources, cn_group, cnki_group, publisher_group)
+    write_source_risk_json(risks, workflow)
+    risk_rows = source_risk_rows(risks)
 
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -641,6 +672,7 @@ def main() -> None:
 
   <h2>源稳定性雷达</h2>
   <p class="muted">把失败源、低覆盖源和需要抽检的来源集中到一张表；前台保持简洁，后台用于判断是否存在漏抓风险。</p>
+  <p class="muted">机器诊断：<a href="source_risks.json">local_admin/source_risks.json</a></p>
   {table(risk_rows, ["风险", "来源", "影响", "证据", "下一步动作"])}
   </section>
 
