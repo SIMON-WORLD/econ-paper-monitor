@@ -574,7 +574,9 @@ def main() -> None:
     ]
     alohomora_in_scope_rows = [
         "<tr>"
-        f"<td>{html_escape(item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('external_first_seen_date') or item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('official_date'))}</td>"
+        f"<td>{html_escape(item.get('lag_days'))}</td>"
         f"<td>{html_escape(item.get('journal'))}</td>"
         f"<td>{html_escape(item.get('mapped_journal'))}</td>"
         f"<td>{html_escape(item.get('title'))}</td>"
@@ -585,13 +587,37 @@ def main() -> None:
     ]
     alohomora_china_rows = [
         "<tr>"
-        f"<td>{html_escape(item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('external_first_seen_date') or item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('official_date'))}</td>"
+        f"<td>{html_escape(item.get('lag_days'))}</td>"
         f"<td>{html_escape(item.get('scope_bucket'))}</td>"
         f"<td>{html_escape(item.get('mapped_journal'))}</td>"
         f"<td><a href='{html_escape(item.get('link') or '#')}' target='_blank' rel='noreferrer'>{html_escape(item.get('title'))}</a></td>"
         f"<td>{html_escape(item.get('journal'))}</td>"
         "</tr>"
         for item in missing_china_like.get("items", [])[:30]
+        if isinstance(item, dict)
+    ]
+    alohomora_old_rows = [
+        "<tr>"
+        f"<td>{html_escape(item.get('external_first_seen_date') or item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('official_date'))}</td>"
+        f"<td>{html_escape(item.get('lag_days'))}</td>"
+        f"<td>{html_escape(item.get('mapped_journal'))}</td>"
+        f"<td><a href='{html_escape(item.get('link') or '#')}' target='_blank' rel='noreferrer'>{html_escape(item.get('title'))}</a></td>"
+        "</tr>"
+        for item in alohomora.get("old_backflow", [])[:30]
+        if isinstance(item, dict)
+    ]
+    alohomora_local_rows = [
+        "<tr>"
+        f"<td>{html_escape(item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('official_date'))}</td>"
+        f"<td>{html_escape(item.get('mapped_journal'))}</td>"
+        f"<td><a href='{html_escape(item.get('link') or '#')}' target='_blank' rel='noreferrer'>{html_escape(item.get('title'))}</a></td>"
+        f"<td>{html_escape(item.get('reason'))}</td>"
+        "</tr>"
+        for item in alohomora.get("local_not_in_external", [])[:80]
         if isinstance(item, dict)
     ]
     candidate_rows = [
@@ -727,20 +753,27 @@ def main() -> None:
   </section>
 
   <section class="section">
-  <h2>外部哨兵：Alohomora 覆盖对比</h2>
-  <p class="muted">只作为漏抓雷达，不作为正式入库源。Alohomora 覆盖更广；这里优先看“我们清单内疑似漏抓”和“标题疑似中国相关”。</p>
+  <h2>外部哨兵：对比雷达</h2>
+  <p class="muted">只作为漏抓雷达，不作为正式入库源。这里同时展示外部疑似漏抓、旧文回流和我方领先，避免把第三方网站当作唯一标准答案。</p>
   <table><thead><tr><th>指标</th><th>数量</th></tr></thead><tbody>
     <tr><td>Alohomora 返回</td><td>{html_escape(alohomora.get('alo_count', '未生成'))}</td></tr>
     <tr><td>本地已匹配</td><td>{html_escape(alohomora.get('matched_local_daily', '未生成'))}</td></tr>
     <tr><td>未匹配候选</td><td>{html_escape(alohomora.get('possible_missing_count', '未生成'))}</td></tr>
+    <tr><td>当前疑似遗漏</td><td>{html_escape(alohomora.get('current_possible_missing_count', '未生成'))}</td></tr>
+    <tr><td>旧文回流</td><td>{html_escape(alohomora.get('old_backflow_count', '未生成'))}</td></tr>
     <tr><td>我们清单内疑似漏抓</td><td>{html_escape(alohomora.get('missing_in_monitor_list_count', '未生成'))}</td></tr>
     <tr><td>标题疑似中国相关</td><td>{html_escape(missing_china_like.get('count', alohomora.get('missing_china_like_count', '未生成')))}</td></tr>
     <tr><td>高优先级 China-like 清单</td><td>{html_escape(missing_china_like.get('high_priority_count', '未生成'))}</td></tr>
+    <tr><td>我方领先/对方未覆盖样本</td><td>{html_escape(alohomora.get('local_not_in_external_count', '未生成'))}</td></tr>
   </tbody></table>
   <h3>我们清单内疑似漏抓</h3>
-  {table(alohomora_in_scope_rows, ["日期", "对方来源标签", "映射期刊", "论文", "可能原因"])}
+  {table(alohomora_in_scope_rows, ["外部发现", "官方日期", "滞后天数", "对方来源标签", "映射期刊", "论文", "可能原因"])}
+  <h3>旧文回流</h3>
+  {table(alohomora_old_rows, ["外部发现", "官方日期", "滞后天数", "映射期刊", "论文"])}
+  <h3>我方领先：本地已监测，对方未匹配</h3>
+  {table(alohomora_local_rows, ["我方发现", "官方日期", "期刊", "论文", "说明"])}
   <h3>高优先级 China-like 漏抓检查</h3>
-  {table(alohomora_china_rows, ["日期", "范围", "映射期刊", "论文", "对方来源标签"])}
+  {table(alohomora_china_rows, ["外部发现", "官方日期", "滞后天数", "范围", "映射期刊", "论文", "对方来源标签"])}
   <p class="muted">完整机器清单：<a href="../data/external_sentinel_alohomora.json">data/external_sentinel_alohomora.json</a>；本地 Markdown：<a href="alohomora_coverage.md">local_admin/alohomora_coverage.md</a></p>
   </section>
 

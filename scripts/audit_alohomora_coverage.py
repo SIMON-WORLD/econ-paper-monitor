@@ -13,10 +13,11 @@ import ssl
 import sys
 import urllib.request
 from collections import Counter
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, ROOT, read_json, write_json
+from common import DATA_DIR, ROOT, normalize_doi, read_json, write_json
 from status import record_source
 
 
@@ -25,6 +26,10 @@ OUT_PATH = ROOT / "local_admin" / "alohomora_coverage.json"
 MD_OUT_PATH = ROOT / "local_admin" / "alohomora_coverage.md"
 DATA_OUT_PATH = DATA_DIR / "external_sentinel_alohomora.json"
 MISSING_CHINA_OUT_PATH = DATA_DIR / "missing_china_like.json"
+SCOPE_POLICY_OUT_PATH = DATA_DIR / "journal_scope_policy.json"
+CROSSREF_CACHE_PATH = DATA_DIR / "external_sentinel_crossref_cache.json"
+OLD_BACKFLOW_DAYS = 14
+CROSSREF_LOOKUP_LIMIT = 20
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -116,10 +121,26 @@ BROADER_BUT_RELEVANT_HINTS = {
 }
 
 
-def fetch_json(url: str) -> Any:
+def fetch_json(url: str, timeout: int = 30) -> Any:
     request = urllib.request.Request(url, headers={"User-Agent": "econ-paper-monitor-audit/1.0"})
-    with urllib.request.urlopen(request, timeout=30, context=ssl.create_default_context()) as response:
+    with urllib.request.urlopen(request, timeout=timeout, context=ssl.create_default_context()) as response:
         return json.loads(response.read().decode("utf-8"))
+
+
+def fetch_crossref_doi(doi: str, cache: dict[str, Any]) -> dict[str, Any]:
+    doi = normalize_doi(doi) or ""
+    if not doi:
+        return {}
+    if doi in cache:
+        return cache[doi] if isinstance(cache[doi], dict) else {}
+    url = f"https://api.crossref.org/works/{doi}"
+    try:
+        payload = fetch_json(url, timeout=5)
+        message = payload.get("message") if isinstance(payload, dict) else {}
+        cache[doi] = message if isinstance(message, dict) else {}
+    except Exception as exc:  # noqa: BLE001 - external sentinel must not break the monitor.
+        cache[doi] = {"_error": f"{type(exc).__name__}: {exc}"}
+    return cache[doi] if isinstance(cache[doi], dict) else {}
 
 
 def norm_title(value: str | None) -> str:
@@ -131,22 +152,104 @@ def doi_from_url(value: str | None) -> str:
     return match.group(1).lower().rstrip(").,;") if match else ""
 
 
+def parse_date_parts(value: Any) -> str | None:
+    if not isinstance(value, dict):
+        return None
+    parts = value.get("date-parts")
+    if not isinstance(parts, list) or not parts or not isinstance(parts[0], list) or not parts[0]:
+        return None
+    year = int(parts[0][0])
+    month = int(parts[0][1]) if len(parts[0]) > 1 else 1
+    day = int(parts[0][2]) if len(parts[0]) > 2 else 1
+    return f"{year:04d}-{month:02d}-{day:02d}"
+
+
+def crossref_official_date(work: dict[str, Any]) -> tuple[str | None, str | None]:
+    for key in ("published-online", "published-print", "published", "created", "deposited"):
+        parsed = parse_date_parts(work.get(key))
+        if parsed:
+            return parsed, f"crossref_{key}"
+    return None, None
+
+
+def parse_any_date(value: Any) -> str | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    match = re.search(r"(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})", text)
+    if match:
+        return f"{int(match.group(1)):04d}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+    months = {
+        "jan": 1,
+        "january": 1,
+        "feb": 2,
+        "february": 2,
+        "mar": 3,
+        "march": 3,
+        "apr": 4,
+        "april": 4,
+        "may": 5,
+        "jun": 6,
+        "june": 6,
+        "jul": 7,
+        "july": 7,
+        "aug": 8,
+        "august": 8,
+        "sep": 9,
+        "sept": 9,
+        "september": 9,
+        "oct": 10,
+        "october": 10,
+        "nov": 11,
+        "november": 11,
+        "dec": 12,
+        "december": 12,
+    }
+    match = re.search(r"(\d{1,2})\s+([A-Za-z]{3,9})\s+(20\d{2})", text)
+    if match and match.group(2).casefold() in months:
+        return f"{int(match.group(3)):04d}-{months[match.group(2).casefold()]:02d}-{int(match.group(1)):02d}"
+    match = re.search(r"([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(20\d{2})", text)
+    if match and match.group(1).casefold() in months:
+        return f"{int(match.group(3)):04d}-{months[match.group(1).casefold()]:02d}-{int(match.group(2)):02d}"
+    return None
+
+
+def day_delta(later: str | None, earlier: str | None) -> int | None:
+    if not later or not earlier:
+        return None
+    try:
+        return (date.fromisoformat(later) - date.fromisoformat(earlier)).days
+    except ValueError:
+        return None
+
+
+def public_date(record: dict[str, Any]) -> str | None:
+    for key in ("available_online", "published_online", "accepted_date", "issue_date", "_daily_date"):
+        parsed = parse_any_date(record.get(key))
+        if parsed:
+            return parsed
+    return None
+
+
 def local_records() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for path in sorted((DATA_DIR / "daily").glob("*.json")):
         payload = read_json(path, [])
         if isinstance(payload, list):
-            records.extend(record for record in payload if isinstance(record, dict))
+            for record in payload:
+                if isinstance(record, dict):
+                    record["_daily_date"] = path.stem
+                    records.append(record)
     return records
 
 
-def local_keys(records: list[dict[str, Any]]) -> tuple[set[str], set[str]]:
-    titles = {norm_title(str(record.get("title") or "")) for record in records if record.get("title")}
-    dois = {str(record.get("doi") or "").lower() for record in records if record.get("doi")}
+def local_indexes(records: list[dict[str, Any]]) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    titles = {norm_title(str(record.get("title") or "")): record for record in records if record.get("title")}
+    dois = {normalize_doi(str(record.get("doi") or "")): record for record in records if normalize_doi(str(record.get("doi") or ""))}
     for record in records:
-        doi = doi_from_url(str(record.get("url") or ""))
+        doi = normalize_doi(doi_from_url(str(record.get("url") or "")))
         if doi:
-            dois.add(doi)
+            dois[doi] = record
     return titles, dois
 
 
@@ -185,14 +288,60 @@ def scope_bucket(mapped_journal: str, in_monitor_list: bool) -> str:
 
 
 def monitor_names() -> set[str]:
-    text = ""
-    for path in (DATA_DIR / "journals.yml", DATA_DIR / "working_paper_sources.yml"):
-        if path.exists():
-            text += "\n" + path.read_text(encoding="utf-8")
+    path = DATA_DIR / "journals.yml"
+    text = path.read_text(encoding="utf-8") if path.exists() else ""
     names = set()
     for match in re.finditer(r"(?m)^\s*(?:-\s*)?(?:name|journal|title):\s*[\"']?([^\"'\n#]+)", text):
-        names.add(norm_title(match.group(1).strip()))
+        name = norm_title(match.group(1).strip())
+        if name:
+            names.add(name)
     return names
+
+
+def source_type(record: dict[str, Any]) -> str:
+    if str(record.get("source_type") or "") == "journal":
+        return "journal"
+    source = str(record.get("source") or "").casefold()
+    if source == "working_papers":
+        return "working_paper"
+    return str(record.get("source_type") or "unknown")
+
+
+def recent_local_not_in_external(
+    records: list[dict[str, Any]],
+    remote_titles: set[str],
+    remote_dois: set[str],
+    known_names: set[str],
+    limit: int = 80,
+) -> list[dict[str, Any]]:
+    local_only: list[dict[str, Any]] = []
+    for record in sorted(records, key=lambda item: item.get("_daily_date") or "", reverse=True):
+        if source_type(record) != "journal":
+            continue
+        title_key = norm_title(str(record.get("title") or ""))
+        doi_key = normalize_doi(str(record.get("doi") or "")) or normalize_doi(doi_from_url(str(record.get("url") or ""))) or ""
+        if (title_key and title_key in remote_titles) or (doi_key and doi_key in remote_dois):
+            continue
+        mapped = str(record.get("journal") or "")
+        local_only.append(
+            {
+                "date": record.get("_daily_date"),
+                "official_date": public_date(record),
+                "journal": mapped,
+                "mapped_journal": mapped,
+                "in_monitor_list": norm_title(mapped) in known_names,
+                "scope_bucket": scope_bucket(mapped, norm_title(mapped) in known_names),
+                "title": record.get("title"),
+                "author": ", ".join(record.get("authors") or []) if isinstance(record.get("authors"), list) else record.get("authors"),
+                "link": record.get("url") or (f"https://doi.org/{record.get('doi')}" if record.get("doi") else None),
+                "doi": record.get("doi"),
+                "date_source": record.get("date_source"),
+                "reason": "我方已监测到，但 Alohomora 当前返回列表未匹配；说明对方不是完整标准答案。",
+            }
+        )
+        if len(local_only) >= limit:
+            break
+    return local_only
 
 
 def md_link(item: dict[str, Any]) -> str:
@@ -212,23 +361,44 @@ def render_markdown(summary: dict[str, Any]) -> str:
         f"- Alohomora 当前返回：{summary['alo_count']} 篇",
         f"- 本地已匹配：{summary['matched_local_daily']} 篇",
         f"- 未匹配候选：{summary['possible_missing_count']} 篇",
+        f"- 旧文回流：{summary['old_backflow_count']} 篇",
         f"- 我们当前清单内疑似漏抓：{summary['missing_in_monitor_list_count']} 篇",
         f"- 经济学扩展候选：{summary['missing_econ_expand_count']} 篇",
         f"- 更广但可能相关候选：{summary['missing_broader_relevant_count']} 篇",
         f"- 标题疑似中国相关：{summary['missing_china_like_count']} 篇",
+        f"- 我方领先/对方未覆盖样本：{summary['local_not_in_external_count']} 篇",
         "",
-        "## 我们清单内疑似漏抓",
+        "## 外部发现：我们清单内疑似漏抓",
         "",
-        "| 日期 | 来源标签 | 映射期刊 | 论文 | 可能原因 |",
-        "|---|---|---|---|---|",
+        "| 外部发现 | 官方日期 | 滞后天数 | 来源标签 | 映射期刊 | 论文 | 可能原因 |",
+        "|---|---|---:|---|---|---|---|",
     ]
     for item in summary["missing_in_monitor_list"][:80]:
         lines.append(
-            f"| {item.get('date') or ''} | {item.get('journal') or ''} | "
+            f"| {item.get('external_first_seen_date') or item.get('date') or ''} | {item.get('official_date') or ''} | "
+            f"{item.get('lag_days') if item.get('lag_days') is not None else ''} | {item.get('journal') or ''} | "
             f"{item.get('mapped_journal') or ''} | {md_link(item)} | {item.get('reason') or ''} |"
         )
     if not summary["missing_in_monitor_list"]:
-        lines.append("|  |  |  | 暂无 |  |")
+        lines.append("|  |  |  |  |  | 暂无 |  |")
+
+    lines += [
+        "",
+        "## 外部发现：旧文回流",
+        "",
+        f"官方日期比外部发现日期早超过 {OLD_BACKFLOW_DAYS} 天的记录，不作为对方更快或我方漏抓。",
+        "",
+        "| 外部发现 | 官方日期 | 滞后天数 | 来源标签 | 映射期刊 | 论文 |",
+        "|---|---|---:|---|---|---|",
+    ]
+    for item in summary["old_backflow"][:80]:
+        lines.append(
+            f"| {item.get('external_first_seen_date') or item.get('date') or ''} | {item.get('official_date') or ''} | "
+            f"{item.get('lag_days') if item.get('lag_days') is not None else ''} | {item.get('journal') or ''} | "
+            f"{item.get('mapped_journal') or ''} | {md_link(item)} |"
+        )
+    if not summary["old_backflow"]:
+        lines.append("|  |  |  |  |  | 暂无 |")
 
     lines += [
         "",
@@ -278,18 +448,34 @@ def render_markdown(summary: dict[str, Any]) -> str:
 
     lines += [
         "",
+        "## 我方领先：本地已监测，对方当前未匹配",
+        "",
+        "| 日期 | 官方日期 | 期刊 | 论文 | 说明 |",
+        "|---|---|---|---|---|",
+    ]
+    for item in summary["local_not_in_external"][:80]:
+        lines.append(
+            f"| {item.get('date') or ''} | {item.get('official_date') or ''} | "
+            f"{item.get('mapped_journal') or ''} | {md_link(item)} | {item.get('reason') or ''} |"
+        )
+    if not summary["local_not_in_external"]:
+        lines.append("|  |  |  | 暂无 |  |")
+
+    lines += [
+        "",
         "## 标题疑似中国相关但未匹配",
         "",
-        "| 日期 | 来源标签 | 映射期刊 | 论文 | 范围 |",
-        "|---|---|---|---|---|",
+        "| 外部发现 | 官方日期 | 滞后天数 | 来源标签 | 映射期刊 | 论文 | 范围 |",
+        "|---|---|---:|---|---|---|---|",
     ]
     for item in summary["missing_china_like"][:50]:
         lines.append(
-            f"| {item.get('date') or ''} | {item.get('journal') or ''} | "
+            f"| {item.get('external_first_seen_date') or item.get('date') or ''} | {item.get('official_date') or ''} | "
+            f"{item.get('lag_days') if item.get('lag_days') is not None else ''} | {item.get('journal') or ''} | "
             f"{item.get('mapped_journal') or ''} | {md_link(item)} | {item.get('scope_bucket') or ''} |"
         )
     if not summary["missing_china_like"]:
-        lines.append("|  |  |  | 暂无 |  |")
+        lines.append("|  |  |  |  |  | 暂无 |  |")
 
     return "\n".join(lines) + "\n"
 
@@ -297,27 +483,70 @@ def render_markdown(summary: dict[str, Any]) -> str:
 def main() -> None:
     remote_payload = fetch_json(ALO_API)
     papers = [item for item in remote_payload.get("papers", []) if isinstance(item, dict)]
-    titles, dois = local_keys(local_records())
+    records = local_records()
+    titles, dois = local_indexes(records)
     known_names = monitor_names()
+    remote_titles = {norm_title(str(paper.get("title") or "")) for paper in papers if paper.get("title")}
+    remote_dois = {normalize_doi(doi_from_url(str(paper.get("link") or ""))) for paper in papers if doi_from_url(str(paper.get("link") or ""))}
+    remote_dois = {doi for doi in remote_dois if doi}
+    crossref_cache = read_json(CROSSREF_CACHE_PATH, {})
+    if not isinstance(crossref_cache, dict):
+        crossref_cache = {}
 
     missing: list[dict[str, Any]] = []
     matched = 0
+    matched_items: list[dict[str, Any]] = []
+    crossref_lookups = 0
     for paper in papers:
         title = norm_title(str(paper.get("title") or ""))
-        doi = doi_from_url(str(paper.get("link") or ""))
-        if title in titles or (doi and doi in dois):
+        doi = normalize_doi(doi_from_url(str(paper.get("link") or ""))) or ""
+        local_match = titles.get(title) or (dois.get(doi) if doi else None)
+        if local_match:
             matched += 1
+            local_date = public_date(local_match)
+            external_first_seen_date = parse_any_date(paper.get("fdate")) or parse_any_date(paper.get("date"))
+            matched_items.append(
+                {
+                    "title": paper.get("title"),
+                    "link": paper.get("link"),
+                    "journal": paper.get("journal"),
+                    "mapped_journal": ALIASES.get(str(paper.get("journal") or ""), str(paper.get("journal") or "")),
+                    "external_first_seen_date": external_first_seen_date,
+                    "local_first_seen_date": local_match.get("_daily_date"),
+                    "official_date": local_date,
+                    "lead_days_local_minus_external": day_delta(str(local_match.get("_daily_date") or ""), external_first_seen_date),
+                }
+            )
             continue
         journal_label = str(paper.get("journal") or "")
         mapped = ALIASES.get(journal_label, journal_label)
+        bucket = scope_bucket(mapped, norm_title(mapped) in known_names)
+        external_first_seen_date = parse_any_date(paper.get("fdate")) or parse_any_date(paper.get("date"))
+        official_date = None
+        official_date_source = None
+        should_lookup_date = is_china_like(paper) or bucket in {
+            "our_scope",
+            "econ_expand_candidate",
+            "broader_relevant_candidate",
+        }
+        if doi and should_lookup_date and crossref_lookups < CROSSREF_LOOKUP_LIMIT:
+            crossref_lookups += 1
+            official_date, official_date_source = crossref_official_date(fetch_crossref_doi(doi, crossref_cache))
+        lag_days = day_delta(external_first_seen_date, official_date)
+        timeliness_bucket = "old_backflow" if lag_days is not None and lag_days > OLD_BACKFLOW_DAYS else "current_or_unknown"
         missing.append(
             {
                 "date": paper.get("date"),
                 "first_seen_at": paper.get("fdate"),
+                "external_first_seen_date": external_first_seen_date,
+                "official_date": official_date,
+                "official_date_source": official_date_source,
+                "lag_days": lag_days,
+                "timeliness_bucket": timeliness_bucket,
                 "journal": journal_label,
                 "mapped_journal": mapped,
                 "in_monitor_list": norm_title(mapped) in known_names,
-                "scope_bucket": scope_bucket(mapped, norm_title(mapped) in known_names),
+                "scope_bucket": bucket,
                 "china_like": is_china_like(paper),
                 "title": paper.get("title"),
                 "author": paper.get("author"),
@@ -327,30 +556,52 @@ def main() -> None:
             }
         )
 
-    missing_in_monitor = [item for item in missing if item["scope_bucket"] == "our_scope"]
-    missing_econ_expand = [item for item in missing if item["scope_bucket"] == "econ_expand_candidate"]
-    missing_broader_relevant = [item for item in missing if item["scope_bucket"] == "broader_relevant_candidate"]
+    current_missing = [item for item in missing if item["timeliness_bucket"] != "old_backflow"]
+    old_backflow = [item for item in missing if item["timeliness_bucket"] == "old_backflow"]
+    missing_in_monitor = [item for item in current_missing if item["scope_bucket"] == "our_scope"]
+    missing_econ_expand = [item for item in current_missing if item["scope_bucket"] == "econ_expand_candidate"]
+    missing_broader_relevant = [item for item in current_missing if item["scope_bucket"] == "broader_relevant_candidate"]
     broader_out = [item for item in missing if item["scope_bucket"] == "broader_out_of_scope"]
+    local_not_in_external = recent_local_not_in_external(records, remote_titles, remote_dois, known_names)
+    scope_policy = {
+        "formal_monitor_count": len(known_names),
+        "formal_monitor_names": sorted(known_names),
+        "econ_expand_candidate_names": sorted(ECON_SCOPE_EXTRA),
+        "broader_relevant_candidate_names": sorted(BROADER_BUT_RELEVANT_HINTS),
+        "reference_only_names": sorted(OUT_OF_SCOPE_HINTS),
+        "old_backflow_days": OLD_BACKFLOW_DAYS,
+    }
     summary = {
         "source": ALO_API,
         "alo_count": len(papers),
         "matched_local_daily": matched,
         "possible_missing_count": len(missing),
-        "missing_china_like_count": sum(1 for item in missing if item["china_like"]),
+        "current_possible_missing_count": len(current_missing),
+        "old_backflow_count": len(old_backflow),
+        "missing_china_like_count": sum(1 for item in current_missing if item["china_like"]),
         "missing_in_monitor_list_count": len(missing_in_monitor),
         "missing_econ_expand_count": len(missing_econ_expand),
         "missing_broader_relevant_count": len(missing_broader_relevant),
         "broader_out_of_scope_count": len(broader_out),
+        "local_not_in_external_count": len(local_not_in_external),
         "missing_by_journal": Counter(item["journal"] for item in missing).most_common(50),
-        "missing_china_like": [item for item in missing if item["china_like"]][:50],
+        "missing_china_like": [item for item in current_missing if item["china_like"]][:50],
         "missing_in_monitor_list": missing_in_monitor[:120],
         "missing_econ_expand": missing_econ_expand[:120],
         "missing_broader_relevant": missing_broader_relevant[:120],
+        "old_backflow": old_backflow[:120],
+        "local_not_in_external": local_not_in_external[:120],
+        "matched_sample": matched_items[:80],
+        "scope_policy": scope_policy,
+        "crossref_lookup_limit": CROSSREF_LOOKUP_LIMIT,
+        "crossref_lookups": crossref_lookups,
         "broader_out_of_scope_by_journal": Counter(item["journal"] for item in broader_out).most_common(50),
         "missing_sample": missing[:50],
     }
     write_json(OUT_PATH, summary)
     write_json(DATA_OUT_PATH, summary)
+    write_json(SCOPE_POLICY_OUT_PATH, scope_policy)
+    write_json(CROSSREF_CACHE_PATH, crossref_cache)
     write_json(
         MISSING_CHINA_OUT_PATH,
         {
@@ -372,7 +623,8 @@ def main() -> None:
         message=(
             f"alo={summary['alo_count']} matched={summary['matched_local_daily']} "
             f"in_monitor={summary['missing_in_monitor_list_count']} "
-            f"china_like={summary['missing_china_like_count']}"
+            f"china_like={summary['missing_china_like_count']} "
+            f"old_backflow={summary['old_backflow_count']} local_only={summary['local_not_in_external_count']}"
         ),
     )
     print(
