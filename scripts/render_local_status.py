@@ -445,6 +445,8 @@ def main() -> None:
     publisher_group = (status.get("source_groups") or {}).get("publisher-detail") or {}
     ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
     recent72_audit = read_json(DATA_DIR / "recent72_coverage_audit.json", {})
+    alohomora = read_json(DATA_DIR / "external_sentinel_alohomora.json", {})
+    missing_china_like = read_json(DATA_DIR / "missing_china_like.json", {})
     missed_rows = [
         "<tr>"
         f"<td>{html_escape(item.get('source'))}</td>"
@@ -568,6 +570,28 @@ def main() -> None:
         f"<td>{html_escape(item.get('reason'))}</td>"
         "</tr>"
         for item in recent72_audit.get("missing_by_source", [])[:20]
+        if isinstance(item, dict)
+    ]
+    alohomora_in_scope_rows = [
+        "<tr>"
+        f"<td>{html_escape(item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('journal'))}</td>"
+        f"<td>{html_escape(item.get('mapped_journal'))}</td>"
+        f"<td>{html_escape(item.get('title'))}</td>"
+        f"<td>{html_escape(item.get('reason'))}</td>"
+        "</tr>"
+        for item in alohomora.get("missing_in_monitor_list", [])[:30]
+        if isinstance(item, dict)
+    ]
+    alohomora_china_rows = [
+        "<tr>"
+        f"<td>{html_escape(item.get('date'))}</td>"
+        f"<td>{html_escape(item.get('scope_bucket'))}</td>"
+        f"<td>{html_escape(item.get('mapped_journal'))}</td>"
+        f"<td><a href='{html_escape(item.get('link') or '#')}' target='_blank' rel='noreferrer'>{html_escape(item.get('title'))}</a></td>"
+        f"<td>{html_escape(item.get('journal'))}</td>"
+        "</tr>"
+        for item in missing_china_like.get("items", [])[:30]
         if isinstance(item, dict)
     ]
     candidate_rows = [
@@ -700,6 +724,24 @@ def main() -> None:
   <h3>最近72小时覆盖审计</h3>
   <p class="muted">对照 raw 候选、历史 seen 和公开 daily 文件，检查抓到但未展示的风险。</p>
   {table(recent72_missing_rows, ["来源", "疑似遗漏", "样例", "说明"])}
+  </section>
+
+  <section class="section">
+  <h2>外部哨兵：Alohomora 覆盖对比</h2>
+  <p class="muted">只作为漏抓雷达，不作为正式入库源。Alohomora 覆盖更广；这里优先看“我们清单内疑似漏抓”和“标题疑似中国相关”。</p>
+  <table><thead><tr><th>指标</th><th>数量</th></tr></thead><tbody>
+    <tr><td>Alohomora 返回</td><td>{html_escape(alohomora.get('alo_count', '未生成'))}</td></tr>
+    <tr><td>本地已匹配</td><td>{html_escape(alohomora.get('matched_local_daily', '未生成'))}</td></tr>
+    <tr><td>未匹配候选</td><td>{html_escape(alohomora.get('possible_missing_count', '未生成'))}</td></tr>
+    <tr><td>我们清单内疑似漏抓</td><td>{html_escape(alohomora.get('missing_in_monitor_list_count', '未生成'))}</td></tr>
+    <tr><td>标题疑似中国相关</td><td>{html_escape(missing_china_like.get('count', alohomora.get('missing_china_like_count', '未生成')))}</td></tr>
+    <tr><td>高优先级 China-like 清单</td><td>{html_escape(missing_china_like.get('high_priority_count', '未生成'))}</td></tr>
+  </tbody></table>
+  <h3>我们清单内疑似漏抓</h3>
+  {table(alohomora_in_scope_rows, ["日期", "对方来源标签", "映射期刊", "论文", "可能原因"])}
+  <h3>高优先级 China-like 漏抓检查</h3>
+  {table(alohomora_china_rows, ["日期", "范围", "映射期刊", "论文", "对方来源标签"])}
+  <p class="muted">完整机器清单：<a href="../data/external_sentinel_alohomora.json">data/external_sentinel_alohomora.json</a>；本地 Markdown：<a href="alohomora_coverage.md">local_admin/alohomora_coverage.md</a></p>
   </section>
 
   <section class="section">

@@ -17,11 +17,14 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, ROOT, read_json, write_json
+from status import record_source
 
 
 ALO_API = "https://api3.alohomora.live"
 OUT_PATH = ROOT / "local_admin" / "alohomora_coverage.json"
 MD_OUT_PATH = ROOT / "local_admin" / "alohomora_coverage.md"
+DATA_OUT_PATH = DATA_DIR / "external_sentinel_alohomora.json"
+MISSING_CHINA_OUT_PATH = DATA_DIR / "missing_china_like.json"
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -202,7 +205,7 @@ def render_markdown(summary: dict[str, Any]) -> str:
     lines = [
         "# Alohomora 覆盖对比清单",
         "",
-        "这份清单用于外部哨兵审计，不把 Alohomora 当作正式入库源。",
+        "这份清单用于外部哨兵审计，不把 Alohomora 当作正式入库源。Alohomora 覆盖范围更广；我们的判断以经济学监测清单为准。",
         "",
         "## 总览",
         "",
@@ -347,7 +350,31 @@ def main() -> None:
         "missing_sample": missing[:50],
     }
     write_json(OUT_PATH, summary)
+    write_json(DATA_OUT_PATH, summary)
+    write_json(
+        MISSING_CHINA_OUT_PATH,
+        {
+            "source": ALO_API,
+            "count": summary["missing_china_like_count"],
+            "high_priority_count": sum(
+                1
+                for item in summary["missing_china_like"]
+                if item.get("scope_bucket") in {"our_scope", "econ_expand_candidate", "broader_relevant_candidate"}
+            ),
+            "items": summary["missing_china_like"],
+        },
+    )
     MD_OUT_PATH.write_text(render_markdown(summary), encoding="utf-8")
+    record_source(
+        "external-sentinel:alohomora",
+        ok=True,
+        count=summary["possible_missing_count"],
+        message=(
+            f"alo={summary['alo_count']} matched={summary['matched_local_daily']} "
+            f"in_monitor={summary['missing_in_monitor_list_count']} "
+            f"china_like={summary['missing_china_like_count']}"
+        ),
+    )
     print(
         "alohomora coverage: "
         f"alo={summary['alo_count']} matched={summary['matched_local_daily']} "
