@@ -70,9 +70,43 @@ def iter_raw_records(raw_dir: Path) -> list[dict[str, Any]]:
         if isinstance(payload, list):
             for item in payload:
                 if isinstance(item, dict):
+                    if is_source_navigation_noise(item):
+                        continue
                     item["_raw_file"] = str(path)
                     records.append(item)
     return records
+
+
+def is_source_navigation_noise(record: dict[str, Any]) -> bool:
+    """Reject publisher navigation pages accidentally parsed as articles."""
+    title = " ".join(str(record.get("title") or "").split()).casefold()
+    navigation_titles = {
+        "supplemental appendix",
+        "subscriptions",
+        "annual reports",
+        "editorial procedures and policies",
+        "reviewer guidelines",
+        "submission guidelines",
+        "editorial board",
+        "forthcoming papers",
+        "about econometrica",
+        "about the journal",
+        "contact us",
+        "issue information",
+        "front matter",
+        "back matter",
+        "cover",
+        "contents",
+    }
+    navigation_fragments = (
+        "frontmatter of ",
+        "backmatter of ",
+        "recent referees",
+        "turnaround times",
+        "outstanding doctoral dissertation award",
+        "issue information",
+    )
+    return title in navigation_titles or any(fragment in title for fragment in navigation_fragments)
 
 
 def merge_daily(existing: list[dict[str, Any]], new_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -111,6 +145,14 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
     if source == "cnki-rss":
         source_date = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
         return source_date or None
+    if source in {"crossref", "priority_toc", "aea_toc"}:
+        official_date = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
+        if official_date:
+            return official_date if official_date <= run_date else None
+        issue_date = valid_iso_date(record.get("issue_date"))
+        if issue_date:
+            return issue_date if issue_date <= run_date else None
+        return None
     if source != "rss":
         source_id = str(record.get("source_id") or "")
         if source_id.startswith("repec-nep-"):

@@ -154,7 +154,12 @@ def meta_values(html_text: str, name: str) -> list[str]:
 
 
 def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
-    """Return article links from OUP/MIT pages with broad but safe patterns."""
+    """Return article-detail links and reject publisher navigation links.
+
+    OUP, MIT Press, and the Econometric Society reuse journal paths for
+    navigation, policy, and submission pages. A link is an article candidate
+    only when it carries the journal DOI pattern or an article-detail path.
+    """
     links: list[tuple[str, str]] = []
     seen: set[str] = set()
     for match in re.finditer(r'<a[^>]+href=["\'](?P<href>[^"\']+)["\'][^>]*>(?P<title>.*?)</a>', html_text, flags=re.I | re.S):
@@ -162,15 +167,21 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
         title = clean_text(match.group("title"))
         if not title or len(title) < 8:
             continue
-        if not (
-            "/restud/" in href
-            or "/rest/" in href
-            or "/econometrica/" in href.lower()
-            or "doi/10." in href
-            or "10.1093/restud/" in href
-            or "10.1162/rest" in href.lower()
-            or "10.3982/ecta" in href.lower()
-        ):
+        href_lower = href.lower()
+        base_lower = base_url.lower()
+        is_doi_article = bool(re.search(r"10\.\d{4,9}/", href_lower))
+        is_restud_article = "10.1093/restud/" in href_lower or "/restud/article/" in href_lower
+        is_restat_article = "10.1162/rest" in href_lower or "/rest/article/" in href_lower
+        is_econometrica_article = "10.3982/ecta" in href_lower
+        if "econometricsociety.org/publications/econometrica" in base_lower:
+            valid_article = is_econometrica_article
+        elif "academic.oup.com/restud" in base_lower:
+            valid_article = is_restud_article or (is_doi_article and "restud" in href_lower)
+        elif "direct.mit.edu/rest" in base_lower:
+            valid_article = is_restat_article
+        else:
+            valid_article = is_doi_article
+        if not valid_article:
             continue
         if any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary", "view metrics")):
             continue
