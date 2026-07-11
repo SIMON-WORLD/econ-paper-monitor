@@ -2,7 +2,8 @@
 
 This adapter is intentionally narrow.  It covers sources that matter for the
 project's economics-journal scope and that external sentinels often see before
-Crossref catches up: REStud advance articles and REStat current/advance pages.
+Crossref catches up: REStud advance articles, REStat current/advance pages,
+and Econometrica forthcoming papers.
 """
 
 from __future__ import annotations
@@ -42,6 +43,14 @@ TARGETS = {
             "date_source": "mitpress_advance_articles",
             "date_confidence": "B",
         },
+    ],
+    "econometrica": [
+        {
+            "kind": "econometrica_forthcoming",
+            "url": "https://www.econometricsociety.org/publications/econometrica/forthcoming-papers",
+            "date_source": "econometric_society_forthcoming",
+            "date_confidence": "B",
+        }
     ],
 }
 
@@ -156,9 +165,11 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
         if not (
             "/restud/" in href
             or "/rest/" in href
+            or "/econometrica/" in href.lower()
             or "doi/10." in href
             or "10.1093/restud/" in href
             or "10.1162/rest" in href.lower()
+            or "10.3982/ecta" in href.lower()
         ):
             continue
         if any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary", "view metrics")):

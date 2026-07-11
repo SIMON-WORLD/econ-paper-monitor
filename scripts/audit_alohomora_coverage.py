@@ -17,7 +17,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, ROOT, normalize_doi, read_json, write_json
+from common import DATA_DIR, ROOT, normalize_doi, read_json, write_json, write_text
 from status import record_source
 
 
@@ -94,7 +94,6 @@ ECON_SCOPE_EXTRA = {
     "Energy Policy",
     "Oxford Bulletin of Economics and Statistics",
     "Review of International Economics",
-    "The World Economy",
 }
 
 OUT_OF_SCOPE_HINTS = {
@@ -615,7 +614,7 @@ def main() -> None:
             "items": summary["missing_china_like"],
         },
     )
-    MD_OUT_PATH.write_text(render_markdown(summary), encoding="utf-8")
+    write_text(MD_OUT_PATH, render_markdown(summary))
     record_source(
         "external-sentinel:alohomora",
         ok=True,

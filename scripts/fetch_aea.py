@@ -106,8 +106,9 @@ def enrich_article(url: str, fallback_title: str, timeout: int) -> dict[str, obj
     }
 
 
-def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, max_items: int) -> list[dict]:
+def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, max_items: int) -> tuple[list[dict], list[str]]:
     records: list[dict] = []
+    errors: list[str] = []
     pages = [
         ("current-issue", f"{BASE}/journals/{code}/current-issue"),
         ("forthcoming", f"{BASE}/journals/{code}/forthcoming"),
@@ -115,7 +116,8 @@ def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, 
     for page_kind, page_url in pages:
         try:
             html_text = fetch_text(page_url, timeout=timeout)
-        except Exception:
+        except Exception as exc:
+            errors.append(f"{page_kind}: {type(exc).__name__}: {exc}")
             continue
         for url, title in article_links(html_text):
             detail = enrich_article(url, title, timeout) if len(records) < detail_limit else {"title": title}
@@ -137,8 +139,8 @@ def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, 
                 )
             )
             if len(records) >= max_items:
-                return records
-    return records
+                return records, errors
+    return records, errors
 
 
 def main() -> None:
@@ -154,12 +156,13 @@ def main() -> None:
     output = args.output or DATA_DIR / "raw" / "aea" / f"{today_str()}.json"
     records: list[dict] = []
     messages: list[str] = []
+    failures = 0
     journals = filter_journals_by_tier(load_journals(args.journals), args.tier)
     for journal in journals:
         code = AEA_CODES.get(str(journal.get("id") or ""))
         if not code:
             continue
-        fetched = fetch_journal(
+        fetched, errors = fetch_journal(
             journal,
             code,
             timeout=args.timeout,
@@ -167,10 +170,14 @@ def main() -> None:
             max_items=args.max_items_per_journal,
         )
         records.extend(fetched)
-        messages.append(f"{journal.get('id')}: {len(fetched)}")
+        if errors:
+            failures += len(errors)
+            messages.append(f"{journal.get('id')}: {len(fetched)} ({'; '.join(errors)})")
+        else:
+            messages.append(f"{journal.get('id')}: {len(fetched)}")
 
     write_json(output, records)
-    record_source("aea-toc", ok=True, count=len(records), message="; ".join(messages) or str(output))
+    record_source("aea-toc", ok=failures == 0, count=len(records), message="; ".join(messages) or str(output))
     print(f"wrote {len(records)} AEA records to {output}")
     for message in messages:
         print(message)

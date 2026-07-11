@@ -133,7 +133,7 @@ jobs:
         run: python scripts/fetch_rss.py --tier "${{ steps.mode.outputs.tier }}"
       - name: Fetch AEA journal TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/fetch_aea.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit 10 --max-items-per-journal 30
+        run: timeout 5m python scripts/fetch_aea.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit 10 --max-items-per-journal 30
       - name: Fetch priority publisher TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/fetch_priority_toc.py --detail-limit 12 --max-items-per-source 40
