@@ -216,6 +216,9 @@ jobs:
             PREPRINT_DETAIL_LIMIT="18"
           fi
           python scripts/fetch_preprints.py --stage "$STAGE" --limit-per-source "$LIMIT" --detail-limit "$PREPRINT_DETAIL_LIMIT" --timeout 20
+      - name: Backfill missing IZA authors
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: timeout 4m python scripts/backfill_iza_authors.py --days 7 --limit 20 --timeout 10
       - name: Aggregate Chinese journal status
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/aggregate_cn_status.py

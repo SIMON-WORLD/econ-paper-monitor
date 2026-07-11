@@ -277,6 +277,26 @@ def json_ld_value(html_text: str, keys: list[str]) -> str | None:
     return None
 
 
+def iza_detail_authors(html_text: str) -> list[str]:
+    """Extract authors from the current IZA detail-page author bar.
+
+    The redesigned IZA site no longer emits citation_author or JSON-LD
+    author metadata. Authors are rendered as links in the text block directly
+    below the title, so keep this fallback deliberately scoped to IZA markup.
+    """
+    match = re.search(
+        r'<div[^>]+class=["\'][^"\']*text-\[#000\][^"\']*["\'][^>]*>(?P<body>.*?)</div>',
+        html_text,
+        flags=re.I | re.S,
+    )
+    if not match:
+        return []
+    body = match.group("body")
+    text = clean_text(body)
+    authors = [clean_text(part) for part in re.split(r"\s*,\s*|\s+and\s+", text) if clean_text(part)]
+    return list(dict.fromkeys(authors))[:12]
+
+
 def detect_paper_number(source: dict[str, Any], title: str, url: str | None) -> str | None:
     source_id = str(source.get("id") or "")
     text = f"{title} {url or ''}"
@@ -388,6 +408,10 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
         record["authors"] = list(dict.fromkeys(authors))[:12]
     elif json_authors := json_ld_value(html_text, ["author", "creator"]):
         record["authors"] = [item.strip() for item in json_authors.split(",") if item.strip()][:12]
+    elif source_id == "iza":
+        detail_authors = iza_detail_authors(html_text)
+        if detail_authors:
+            record["authors"] = detail_authors
 
     detail_abstract_patterns = [
         r'<div[^>]+class=["\'][^"\']*page-header__intro[^"\']*["\'][^>]*>\s*<div[^>]*>\s*<p[^>]*>(.*?)</p>',
