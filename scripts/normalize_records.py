@@ -202,6 +202,12 @@ def record_keys(record: dict[str, Any]) -> set[str]:
         authors = record.get("authors") or []
         first_author = str(authors[0]).casefold() if isinstance(authors, list) and authors else ""
         keys.add(f"title:{journal}:{title}:{first_author}")
+        source_id = str(record.get("source_id") or "").casefold()
+        if source_id.startswith("repec-nep-"):
+            keys.add(f"repec-title:{source_id}:{title}")
+        source_type = str(record.get("source_type") or "").casefold()
+        if source_type in {"working_paper", "aggregator", "policy_commentary"}:
+            keys.add(f"working-title:{title}")
     return keys
 
 

@@ -280,6 +280,16 @@ def classification_updates(record: dict[str, Any]) -> tuple[dict[str, Any | None
             },
             status,
         )
+    if source == "manual":
+        return (
+            {
+                "china_related": False,
+                "china_related_source": "manual",
+                "china_relevance_status": "none",
+                "china_relevance_reason": reason or "人工确认：排除中国相关",
+            },
+            status,
+        )
     return (
         {
             "china_related": None,
