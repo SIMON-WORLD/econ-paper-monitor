@@ -1216,14 +1216,6 @@ FILTER_SCRIPT = """
       if (sourceType && saved.sourceType) sourceType.value = saved.sourceType;
       if (saved.china === '1') { china.setAttribute('aria-pressed', 'true'); china.classList.add('active'); }
     }
-    const saveButton = toolbar.querySelector('[data-filter-save]');
-    const clearButton = toolbar.querySelector('[data-filter-clear]');
-    function saveFilters() {
-      localStorage.setItem(storageKey, JSON.stringify({q: search.value, journal: journal.value, field: field.value, dateType: dateType ? dateType.value : '', confidence: confidence ? confidence.value : '', sourceType: sourceType ? sourceType.value : '', china: china.getAttribute('aria-pressed') === 'true' ? '1' : ''}));
-      if (saveButton) { saveButton.textContent = '已保存'; setTimeout(() => saveButton.textContent = '保存筛选', 1200); }
-    }
-    if (saveButton) saveButton.addEventListener('click', saveFilters);
-    if (clearButton) clearButton.addEventListener('click', () => { localStorage.removeItem(storageKey); search.value=''; journal.value=''; field.value=''; if(dateType)dateType.value=''; if(confidence)confidence.value=''; if(sourceType)sourceType.value=''; china.setAttribute('aria-pressed','false'); china.classList.remove('active'); preset=''; applyFilters(); });
     function setCounter(visible, chinaOnly) {
       if (!counter) return;
       if (chinaOnly || preset === 'china') {
