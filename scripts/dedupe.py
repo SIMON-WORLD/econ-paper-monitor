@@ -82,7 +82,7 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
     title = " ".join(str(record.get("title") or "").split()).casefold()
     source_id = str(record.get("source_id") or "")
     url = str(record.get("url") or "").casefold()
-    if source_id == "brookings-economic-studies" and "/articles/" not in url:
+    if (source_id == "brookings-economic-studies" or "brookings.edu/" in url) and "/articles/" not in url:
         return True
     navigation_titles = {
         "supplemental appendix",
