@@ -24,7 +24,7 @@ export default {
     if (!/^[a-zA-Z0-9_-]{16,80}$/.test(clientId)) {
       return new Response(JSON.stringify({ error: "invalid_client_id" }), { status: 400, headers: corsHeaders(origin) });
     }
-    const roomId = env.PRESENCE_ROOM.idFromName("public");
+    const roomId = env.PRESENCE_ROOM.idFromName(origin);
     const room = env.PRESENCE_ROOM.get(roomId);
     return room.fetch(new Request("https://presence.internal/heartbeat", {
       method: "POST",
