@@ -20,6 +20,9 @@
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
 @media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+
+.nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
+.presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}.reader-panel{position:fixed;right:20px;top:64px;z-index:20;display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.reader-panel button{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;color:var(--ink);cursor:pointer}.reader-panel button:hover{border-color:var(--blue);color:var(--blue)}body.reader-large .wrap{font-size:18px}body.reader-large .event h3{font-size:22px}body.reader-large .event p,body.reader-large .event .meta-block{font-size:16px}body.reader-large .event{padding-top:20px;padding-bottom:20px}body.reader-compact .wrap{font-size:14px}body.reader-compact .event h3{font-size:16px}body.reader-compact .event{padding-top:11px;padding-bottom:11px}
 </style>
 </head>
 <body>
@@ -45,6 +48,7 @@
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
         <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <span class="presence" data-presence-count></span>
         <nav class="nav">
           <a class="" href="../../../">今日</a>
           <a class="" href="../../../recent72/">最近72小时</a>
@@ -67,7 +71,7 @@
   <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">官方在线</option></select>
   <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option><option value="C">C：Crossref 元数据</option></select>
   <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal">期刊论文</option></select>
-  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
+  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button><button class="control" data-filter-save type="button">保存筛选</button><button class="control" data-filter-clear type="button" title="清除本页已保存的筛选">清除</button>
   
 </div>
 <div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-event-scope="default" data-search="haircut, interest rate, and collateral quality in the tri-party repo market: evidence and theory 三方回购市场中的折扣率、利率与抵押品质量：证据与理论 sangyup choi, inkee jang, kee-youn kang, hyunpyung kim review of economic dynamics 10.1016/j.red.2026.101351" data-journal="review-of-economic-dynamics" data-fields="finance theory" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal">
@@ -100,6 +104,8 @@
     const events = Array.from(document.querySelectorAll(`.event[data-event-scope="${scope}"]`));
     if (!search || !journal || !field || !china) return;
     let preset = '';
+    const storageKey = `epd_filters_${scope}`;
+    const saved = (() => { try { return JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (error) { return {}; } })();
     if (params.get('q')) search.value = params.get('q');
     if (params.get('journal')) journal.value = params.get('journal');
     if (params.get('field')) field.value = params.get('field');
@@ -111,6 +117,23 @@
       china.classList.add('active');
     }
     if (params.get('onlineToday') === '1') preset = 'online-today';
+    if (!params.toString()) {
+      if (saved.q) search.value = saved.q;
+      if (saved.journal) journal.value = saved.journal;
+      if (saved.field) field.value = saved.field;
+      if (dateType && saved.dateType) dateType.value = saved.dateType;
+      if (confidence && saved.confidence) confidence.value = saved.confidence;
+      if (sourceType && saved.sourceType) sourceType.value = saved.sourceType;
+      if (saved.china === '1') { china.setAttribute('aria-pressed', 'true'); china.classList.add('active'); }
+    }
+    const saveButton = toolbar.querySelector('[data-filter-save]');
+    const clearButton = toolbar.querySelector('[data-filter-clear]');
+    function saveFilters() {
+      localStorage.setItem(storageKey, JSON.stringify({q: search.value, journal: journal.value, field: field.value, dateType: dateType ? dateType.value : '', confidence: confidence ? confidence.value : '', sourceType: sourceType ? sourceType.value : '', china: china.getAttribute('aria-pressed') === 'true' ? '1' : ''}));
+      if (saveButton) { saveButton.textContent = '已保存'; setTimeout(() => saveButton.textContent = '保存筛选', 1200); }
+    }
+    if (saveButton) saveButton.addEventListener('click', saveFilters);
+    if (clearButton) clearButton.addEventListener('click', () => { localStorage.removeItem(storageKey); search.value=''; journal.value=''; field.value=''; if(dateType)dateType.value=''; if(confidence)confidence.value=''; if(sourceType)sourceType.value=''; china.setAttribute('aria-pressed','false'); china.classList.remove('active'); preset=''; applyFilters(); });
     function setCounter(visible, chinaOnly) {
       if (!counter) return;
       if (chinaOnly || preset === 'china') {

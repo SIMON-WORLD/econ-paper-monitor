@@ -20,6 +20,9 @@
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
 @media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+
+.nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
+.presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}.reader-panel{position:fixed;right:20px;top:64px;z-index:20;display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.reader-panel button{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;color:var(--ink);cursor:pointer}.reader-panel button:hover{border-color:var(--blue);color:var(--blue)}body.reader-large .wrap{font-size:18px}body.reader-large .event h3{font-size:22px}body.reader-large .event p,body.reader-large .event .meta-block{font-size:16px}body.reader-large .event{padding-top:20px;padding-bottom:20px}body.reader-compact .wrap{font-size:14px}body.reader-compact .event h3{font-size:16px}body.reader-compact .event{padding-top:11px;padding-bottom:11px}
 </style>
 </head>
 <body>
@@ -38,13 +41,14 @@
     <a class="side-link" href="../../working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
     <a class="side-link" href="../../sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
   </div>
-  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">22</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">16</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">13</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">11</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">10</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">9</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">7</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">7</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">5</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">5</span></a><a class="side-link" href="../../topics/health/"><span class="side-main"><strong>健康</strong></span><span class="count">3</span></a></div>
-  <div class="side-block"><div class="side-title">今日期刊论文来源</div><div class="side-link"><span class="side-main"><strong>暂无期刊更新</strong></span><span class="count">0</span></div><a class="side-link" href="../../daily/2026-07-13/"><span class="side-main"><strong>查看今日期刊论文</strong></span><span class="count">今日</span></a></div>
-  <div class="side-block"><div class="side-title">今日工作论文来源</div><a class="side-link" href="../../working-papers/today/?journal=source-nber"><span class="side-main"><strong>NBER Working Papers</strong><em>美国国家经济研究局工作论文</em></span><span class="count">38</span></a><a class="side-link" href="../../working-papers/today/"><span class="side-main"><strong>查看今日工作论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="../../topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">3</span></a><a class="side-link" href="../../topics/finance/"><span class="side-main"><strong>金融</strong></span><span class="count">24</span></a><a class="side-link" href="../../topics/public/"><span class="side-main"><strong>公共与政治经济学</strong></span><span class="count">18</span></a><a class="side-link" href="../../topics/labor/"><span class="side-main"><strong>劳动</strong></span><span class="count">15</span></a><a class="side-link" href="../../topics/development/"><span class="side-main"><strong>发展经济学</strong></span><span class="count">12</span></a><a class="side-link" href="../../topics/macro/"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">11</span></a><a class="side-link" href="../../topics/trade/"><span class="side-main"><strong>国际贸易</strong></span><span class="count">10</span></a><a class="side-link" href="../../topics/behavior/"><span class="side-main"><strong>行为与组织</strong></span><span class="count">8</span></a><a class="side-link" href="../../topics/agriculture/"><span class="side-main"><strong>农业与食品</strong></span><span class="count">7</span></a><a class="side-link" href="../../topics/firms/"><span class="side-main"><strong>企业与产业</strong></span><span class="count">6</span></a><a class="side-link" href="../../topics/education/"><span class="side-main"><strong>教育</strong></span><span class="count">5</span></a><a class="side-link" href="../../topics/theory/"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">5</span></a></div>
+  <div class="side-block"><div class="side-title">今日期刊论文来源</div><a class="side-link" href="../../daily/2026-07-13/?journal=journal-of-development-economics"><span class="side-main"><strong>Journal of Development Economics</strong><em>发展经济学杂志</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-07-13/?journal=european-economic-review"><span class="side-main"><strong>European Economic Review</strong><em>欧洲经济评论</em></span><span class="count">1</span></a><a class="side-link" href="../../daily/2026-07-13/"><span class="side-main"><strong>查看今日期刊论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">今日工作论文来源</div><a class="side-link" href="../../working-papers/today/?journal=source-nber"><span class="side-main"><strong>NBER Working Papers</strong><em>美国国家经济研究局工作论文</em></span><span class="count">40</span></a><a class="side-link" href="../../working-papers/today/?journal=source-cepr-dp"><span class="side-main"><strong>CEPR Discussion Papers</strong><em>CEPR 讨论论文</em></span><span class="count">1</span></a><a class="side-link" href="../../working-papers/today/"><span class="side-main"><strong>查看今日工作论文</strong></span><span class="count">今日</span></a></div>
 </aside>
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
         <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <span class="presence" data-presence-count></span>
         <nav class="nav">
           <a class="" href="../../">今日</a>
           <a class="" href="../../recent72/">最近72小时</a>
@@ -61,8 +65,8 @@
   <p>20 个来源</p>
 </section>
 <section class="stats">
-  <a class="stat" href="../../working-papers/"><strong>547</strong><span>累计工作论文记录</span></a>
-  <a class="stat" href="../../working-papers/today/"><strong>38</strong><span>今日新发现</span></a>
+  <a class="stat" href="../../working-papers/"><strong>548</strong><span>累计工作论文记录</span></a>
+  <a class="stat" href="../../working-papers/today/"><strong>41</strong><span>今日新发现</span></a>
   <span class="stat"><strong>14</strong><span>稳定来源</span></span>
   <span class="stat"><strong>3</strong><span>继续校验来源</span></span>
   <span class="stat"><strong>3</strong><span>暂未收录来源</span></span>
@@ -72,10 +76,10 @@
   <td>工作论文</td>
   <td>核心</td>
   <td><span class="source-status ok">稳定出数据</span><div class="muted">已纳入日常监测。</div></td>
-  <td>38</td>
-  <td>38</td>
+  <td>12</td>
+  <td>40</td>
   <td>129</td>
-  <td>2026-07-13 13:10 北京时间</td>
+  <td>2026-07-13 15:15 北京时间</td>
   <td><a href="https://www.nber.org/papers">https://www.nber.org/papers</a></td>
 </tr><tr>
   <td><strong>IZA Discussion Papers</strong><div class="muted">IZA 讨论论文</div></td>
@@ -85,7 +89,7 @@
   <td>12</td>
   <td>0</td>
   <td>77</td>
-  <td>2026-07-13 13:10 北京时间</td>
+  <td>2026-07-13 15:15 北京时间</td>
   <td><a href="https://www.iza.org/publications/dp">https://www.iza.org/publications/dp</a></td>
 </tr><tr>
   <td><strong>World Bank Policy Research Working Papers</strong><div class="muted">世界银行政策研究工作论文</div></td>
@@ -95,7 +99,7 @@
   <td>12</td>
   <td>0</td>
   <td>23</td>
-  <td>2026-07-13 13:10 北京时间</td>
+  <td>2026-07-13 15:15 北京时间</td>
   <td><a href="https://openknowledge.worldbank.org/collections/8a7a2f5a-73af-5c1f-9f6d-7a60e34d65b5">https://openknowledge.worldbank.org/collections/8a7a2f5a-73af-5c1f-9f6d-7a60e34d65b5</a></td>
 </tr><tr>
   <td><strong>IMF Working Papers</strong><div class="muted">IMF 工作论文</div></td>
@@ -105,7 +109,7 @@
   <td>12</td>
   <td>0</td>
   <td>37</td>
-  <td>2026-07-13 13:10 北京时间</td>
+  <td>2026-07-13 15:15 北京时间</td>
   <td><a href="https://ideas.repec.org/s/imf/imfwpa.html">https://ideas.repec.org/s/imf/imfwpa.html</a></td>
 </tr><tr>
   <td><strong>RePEc NEP New Economics Papers</strong><div class="muted">RePEc NEP 新经济学论文</div></td>
@@ -193,9 +197,9 @@
   <td>核心</td>
   <td><span class="source-status ok">稳定出数据</span><div class="muted">已纳入日常监测。</div></td>
   <td>12</td>
-  <td>0</td>
-  <td>90</td>
-  <td>2026-07-13 13:10 北京时间</td>
+  <td>1</td>
+  <td>91</td>
+  <td>2026-07-13 15:15 北京时间</td>
   <td><a href="https://cepr.org/publications/discussion-papers">https://cepr.org/publications/discussion-papers</a></td>
 </tr><tr>
   <td><strong>CESifo Working Papers</strong><div class="muted">CESifo 工作论文</div></td>
