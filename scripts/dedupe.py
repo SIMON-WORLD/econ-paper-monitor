@@ -298,6 +298,29 @@ def build_daily_index(daily_dir: Path) -> tuple[dict[Path, list[dict[str, Any]]]
     return path_records, index
 
 
+def prune_navigation_noise_from_seen(seen_papers: dict[str, dict[str, Any]]) -> int:
+    removed = 0
+    for record_id, record in list(seen_papers.items()):
+        if is_source_navigation_noise(record):
+            seen_papers.pop(record_id, None)
+            removed += 1
+    return removed
+
+
+def prune_navigation_noise_from_daily(daily_dir: Path) -> int:
+    removed = 0
+    for path in daily_dir.glob("*.json"):
+        records = read_json(path, [])
+        if not isinstance(records, list):
+            continue
+        filtered = [record for record in records if not is_source_navigation_noise(record)]
+        if len(filtered) == len(records):
+            continue
+        removed += len(records) - len(filtered)
+        write_json(path, filtered)
+    return removed
+
+
 def seed_seen_from_daily_match(record: dict[str, Any], existing: dict[str, Any]) -> dict[str, Any]:
     seed = {
         "title": existing.get("title") or record.get("title"),
@@ -455,6 +478,8 @@ def main() -> None:
 
     seen = read_json(args.seen, {"papers": {}})
     seen_papers = seen.setdefault("papers", {})
+    pruned = prune_navigation_noise_from_seen(seen_papers)
+    pruned += prune_navigation_noise_from_daily(args.daily_dir)
     seen_index = build_seen_index(seen_papers)
     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
     touched_daily_paths: set[Path] = set()
@@ -520,9 +545,9 @@ def main() -> None:
 
     write_json(args.seen, seen)
     new_total = sum(len(items) for items in new_records_by_date.values())
-    record_source("dedupe", ok=True, count=new_total, message=f"daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed}")
-    record_run({"new": new_total, "daily_total": daily_total, "seen": len(seen_papers), "enriched": enriched, "suppressed": suppressed})
-    print(f"new={new_total} daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed}")
+    record_source("dedupe", ok=True, count=new_total, message=f"daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed} pruned={pruned}")
+    record_run({"new": new_total, "daily_total": daily_total, "seen": len(seen_papers), "enriched": enriched, "suppressed": suppressed, "pruned": pruned})
+    print(f"new={new_total} daily_total={daily_total} seen={len(seen_papers)} enriched={enriched} suppressed={suppressed} pruned={pruned}")
 
 
 if __name__ == "__main__":
