@@ -29,6 +29,32 @@ NON_ARTICLE_TITLES = {
     "table of contents",
 }
 
+# The source registry is authoritative for the public paper/journal split.
+# A malformed upstream item must not be able to turn an NBER or other working
+# paper record into a journal article merely by carrying a bad source_type.
+WORKING_SOURCE_TYPES = {
+    "nber": "working_paper",
+    "iza": "working_paper",
+    "cepr-dp": "working_paper",
+    "bis-working-papers": "working_paper",
+    "oecd-working-papers": "policy_paper",
+    "cesifo-working-papers": "working_paper",
+    "fed-feds": "working_paper",
+    "imf-working-papers": "policy_paper",
+    "world-bank-prwp": "policy_paper",
+    "repec-nep": "aggregator",
+    "repec-nep-cna": "aggregator",
+    "repec-nep-dev": "aggregator",
+    "repec-nep-hea": "aggregator",
+    "repec-nep-ifn": "aggregator",
+    "repec-nep-mac": "aggregator",
+    "ssrn-economics-research-network": "aggregator",
+    "ssrn-health-economics-network": "aggregator",
+    "voxeu-cepr-columns": "policy_commentary",
+    "brookings-economic-studies": "policy_commentary",
+    "iza-newsroom": "policy_commentary",
+}
+
 
 def has_chinese(value: str | None) -> bool:
     return any("\u4e00" <= ch <= "\u9fff" for ch in value or "")
@@ -119,8 +145,75 @@ def is_chinese_journal(record: dict[str, Any]) -> bool:
     return "chinese" in fields or source == "cn-official" or journal_id in CN_JOURNAL_IDS
 
 
+def infer_registered_source_id(record: dict[str, Any]) -> str:
+    """Recover a source id from sparse historical ``seen`` records."""
+    for value in (record.get("source_id"), record.get("journal_id")):
+        candidate = str(value or "").casefold().removeprefix("source-")
+        if candidate in WORKING_SOURCE_TYPES:
+            return candidate
+    journal = " ".join(str(record.get(key) or "").casefold() for key in ("journal", "publisher", "series"))
+    url = " ".join(str(record.get(key) or "").casefold() for key in ("url", "source_url"))
+    signatures = {
+        "nber": (("nber working papers",), ("nber.org/papers/w",)),
+        "iza": (("iza discussion papers",), ("iza.org/publications/dp/",)),
+        "cepr-dp": (("cepr discussion papers",), ("cepr.org/publications/dp",)),
+        "world-bank-prwp": (("world bank policy research working papers",), ("openknowledge.worldbank.org/entities/publication/",)),
+        "imf-working-papers": (("imf working papers",), ("imf.org/en/publications/wp",)),
+        "voxeu-cepr-columns": (("voxeu / cepr columns", "voxeu/cepr columns"), ("cepr.org/voxeu/",)),
+        "brookings-economic-studies": (("brookings economic studies",), ("brookings.edu/",)),
+        "iza-newsroom": (("iza newsroom",), ("newsroom.iza.org/",)),
+        "cesifo-working-papers": (("cesifo working papers",), ("cesifo.org/",)),
+        "fed-feds": (("federal reserve feds working papers",), ("federalreserve.gov/econres/feds",)),
+        "bis-working-papers": (("bis working papers",), ("bis.org/publ/work",)),
+        "oecd-working-papers": (("oecd working papers",), ("oecd.org/",)),
+        "repec-nep-cna": (("repec nep china",), ("nep.repec.org/nep-cna",)),
+        "repec-nep-dev": (("repec nep development",), ("nep.repec.org/nep-dev",)),
+        "repec-nep-hea": (("repec nep health",), ("nep.repec.org/nep-hea",)),
+        "repec-nep-ifn": (("repec nep international finance",), ("nep.repec.org/nep-ifn",)),
+        "repec-nep-mac": (("repec nep macroeconomics",), ("nep.repec.org/nep-mac",)),
+        "repec-nep": (("repec nep",), ("nep.repec.org/",)),
+    }
+    for source_id, (journal_tokens, url_tokens) in signatures.items():
+        if any(token in journal for token in journal_tokens) or any(token in url for token in url_tokens):
+            return source_id
+    return ""
+
+
+def canonicalize_source_type(record: dict[str, Any]) -> bool:
+    """Apply the registered source class before any public rendering.
+
+    Working-paper records normally arrive with ``source=working_papers`` and
+    a source-specific id. The fallback also repairs records where only the
+    ``source-nber`` style journal id survived an interrupted fetch.
+    """
+    source_id = infer_registered_source_id(record)
+    registered_type = WORKING_SOURCE_TYPES.get(source_id)
+    is_registered_working = registered_type is not None
+    is_working_namespace = str(record.get("source") or "") == "working_papers"
+    if not is_registered_working and not is_working_namespace:
+        return False
+
+    changed = False
+    if record.get("source") != "working_papers":
+        record["source"] = "working_papers"
+        changed = True
+    if source_id and not record.get("source_id"):
+        record["source_id"] = source_id
+        changed = True
+    if source_id and not str(record.get("journal_id") or "").casefold().startswith("source-"):
+        record["journal_id"] = f"source-{source_id}"
+        changed = True
+    expected_type = registered_type or str(record.get("source_type") or "working_paper")
+    if record.get("source_type") != expected_type:
+        record["source_type"] = expected_type
+        changed = True
+    return changed
+
+
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
+    if canonicalize_source_type(record):
+        changed = True
     title = str(record.get("title") or "")
     cleaned_title = clean_inline_html(title)
     if cleaned_title and cleaned_title != title:
@@ -239,6 +332,22 @@ def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
     return sorted(daily_dir.glob("*.json"))
 
 
+def normalize_seen_source_types() -> int:
+    """Persist source classes for sparse historical records restored by the site."""
+    path = DATA_DIR / "seen.json"
+    payload = read_json(path, {"papers": {}})
+    papers = payload.get("papers") if isinstance(payload, dict) else None
+    if not isinstance(papers, dict):
+        return 0
+    changed = 0
+    for record in papers.values():
+        if isinstance(record, dict) and canonicalize_source_type(record):
+            changed += 1
+    if changed:
+        write_json(path, payload)
+    return changed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
@@ -265,8 +374,9 @@ def main() -> None:
     duplicate_removed = duplicate_files = 0
     if not args.date:
         duplicate_removed, duplicate_files = remove_cross_day_duplicates(paths)
-    record_source("normalize-records", ok=True, count=changed + duplicate_removed, message=f"files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files}")
-    print(f"normalize records changed={changed} files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files}")
+    seen_changed = normalize_seen_source_types() if not args.date else 0
+    record_source("normalize-records", ok=True, count=changed + duplicate_removed + seen_changed, message=f"files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed}")
+    print(f"normalize records changed={changed} files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed}")
 
 
 if __name__ == "__main__":

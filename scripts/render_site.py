@@ -13,6 +13,7 @@ from typing import Any
 
 from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str, write_text
 from dedupe import record_match_keys
+from normalize_records import canonicalize_source_type
 from status import load_status
 
 
@@ -257,6 +258,7 @@ def load_all_daily(daily_dir: Path) -> list[dict[str, Any]]:
                 continue
             restored = dict(record)
             restored["id"] = restored.get("id") or record_id
+            canonicalize_source_type(restored)
             restored["_daily_date"] = first_seen
             restored["_from_seen_only"] = True
             records.append(restored)
@@ -386,6 +388,10 @@ def unique_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def source_type_label(record: dict[str, Any]) -> str:
     source_type = str(record.get("source_type") or "")
+    # Keep the public label consistent with the section even if a stale or
+    # malformed record predates source-type normalization.
+    if is_working_paper(record) and source_type in {"journal", "journal_article"}:
+        return "工作论文"
     return {
         "working_paper": "工作论文",
         "policy_paper": "机构研究",
@@ -397,6 +403,8 @@ def source_type_label(record: dict[str, Any]) -> str:
 
 def source_type_value(record: dict[str, Any]) -> str:
     source_type = str(record.get("source_type") or ("working_paper" if is_working_paper(record) else "journal_article"))
+    if is_working_paper(record) and source_type in {"journal", "journal_article"}:
+        return "working_paper"
     return "journal_article" if source_type in {"journal", "journal_article"} else source_type
 
 

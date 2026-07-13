@@ -164,6 +164,7 @@ def main() -> None:
         run_step([python, "scripts/clean_cn_noise.py"])
         run_step([python, "scripts/apply_overrides.py"])
         run_step([python, "scripts/normalize_records.py"])
+        run_step([python, "scripts/audit_source_types.py"])
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
