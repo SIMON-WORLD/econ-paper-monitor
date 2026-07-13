@@ -467,9 +467,9 @@ SOURCE_STATUS = {
     "repec-nep-hea": ("已接入", "ok", "RePEc NEP 健康经济学细分类，作为 SSRN Health Economics 的公开替代入口之一。"),
     "repec-nep-mac": ("已接入", "ok", "RePEc NEP 宏观经济学细分类，用于补充 RePEc 新稿。"),
     "repec-nep-ifn": ("已接入", "ok", "RePEc NEP 国际金融细分类，用于补充 IMF/BIS/OECD 之外的宏观金融工作论文。"),
-    "voxeu-cepr-columns": ("评估中", "todo", "政策评论源，不直接混入工作论文主流；后续如需要可单独开栏目。"),
-    "brookings-economic-studies": ("评估中", "todo", "政策研究/评论源，先评估 RSS/API 稳定性。"),
-    "iza-newsroom": ("评估中", "todo", "用于发现 IZA 发布动态，正式论文仍以 IZA Discussion Papers 为准。"),
+    "voxeu-cepr-columns": ("试运行", "ok", "已接入 CEPR 官方 Vox 内容 RSS；作为研究评论单独展示，不混入工作论文主列表。"),
+    "brookings-economic-studies": ("试运行", "ok", "已接入 Brookings Economic Studies 官方栏目页；文章日期和内容类型继续校验。"),
+    "iza-newsroom": ("受限暂缓", "pause", "官方站点当前返回登录页，暂不使用非官方转载源；正式论文仍以 IZA Discussion Papers 为准。"),
     "repec-nep": ("暂缓", "pause", "聚合源噪声较高，先放到第三阶段。"),
     "ssrn-economics-research-network": ("受限待接邮件/feed", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
     "ssrn-health-economics-network": ("受限待接邮件/feed", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
@@ -524,9 +524,9 @@ SOURCE_STATUS.update(
         "repec-nep-hea": ("已接入", "ok", "RePEc NEP 健康经济学细分类，作为 SSRN Health Economics 的公开替代入口之一。"),
         "repec-nep-mac": ("已接入", "ok", "RePEc NEP 宏观经济学细分类，用于补充 RePEc 新稿。"),
         "repec-nep-ifn": ("已接入", "ok", "RePEc NEP 国际金融细分类，用于补充宏观金融工作论文。"),
-        "voxeu-cepr-columns": ("评估中", "todo", "政策评论源，不混入工作论文主流；后续如需要可单独建栏目。"),
-        "brookings-economic-studies": ("评估中", "todo", "政策研究/评论源，先评估 RSS/API 稳定性。"),
-        "iza-newsroom": ("评估中", "todo", "用于发现 IZA 发布动态；正式论文仍以 IZA Discussion Papers 为准。"),
+        "voxeu-cepr-columns": ("试运行", "ok", "已接入 CEPR 官方 Vox 内容 RSS，作为研究评论单独展示。"),
+        "brookings-economic-studies": ("试运行", "ok", "已接入 Brookings Economic Studies 官方栏目页，继续校验日期字段。"),
+        "iza-newsroom": ("受限暂缓", "pause", "官方站点当前返回登录页，暂不使用非官方转载源。"),
         "repec-nep": ("暂缓", "pause", "全量聚合源噪声较高，先放到第三阶段。"),
         "ssrn-economics-research-network": ("受限，暂缓", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
         "ssrn-health-economics-network": ("受限，暂缓", "pause", "SSRN 公开页面常返回访问限制；后续优先接邮件订阅或具体 eJournal feed。"),
@@ -980,7 +980,7 @@ def sidebar(
     working_counts = Counter(record.get("journal_id") for record in working_side_records if record.get("journal_id"))
     journals_by_id = journal_lookup()
     topics = "".join(
-        f'<a class="side-link" href="{BASE}/topics/{html_escape(topic)}/"><span class="side-main"><strong>{html_escape(topic_label(topic))}</strong></span><span class="count">{count}</span></a>'
+        f'<a class="side-link" href="{BASE}/daily/{html_escape(context_date or today_str())}/?field={html_escape(topic)}"><span class="side-main"><strong>{html_escape(topic_label(topic))}</strong></span><span class="count">{count}</span></a>'
         for topic, count in ordered_topic_counts(side_records)[:12]
     )
     journal_target_date = context_date or today_str()
@@ -1324,16 +1324,15 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, 
     date_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(date_type_label(value))}</option>' for value in date_types)
     confidence_options = "".join(f'<option value="{html_escape(value)}">{html_escape(confidence_label(value))}</option>' for value in confidences)
     source_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(SOURCE_TYPE_LABELS.get(value, source_type_label({"source_type": value})))}</option>' for value in source_types)
-    rss = f'<a class="control rss-link" href="{BASE}/feed.xml">RSS 订阅</a>' if include_rss else ""
+    source_type_control = f'<select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option>{source_type_options}</select>' if len(source_types) > 1 else ""
     return f"""<div class="toolbar" id="filters-{html_escape(scope)}" data-filter-scope="{html_escape(scope)}">
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">{html_escape(source_label)}</option>{journal_options}</select>
   <select class="control" data-filter-role="field"><option value="">筛选主题</option>{field_options}</select>
   <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option>{date_type_options}</select>
   <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option>{confidence_options}</select>
-  <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option>{source_type_options}</select>
-  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button><button class="control" data-filter-save type="button">保存筛选</button><button class="control" data-filter-clear type="button" title="清除本页已保存的筛选">清除</button>
-  {rss}
+  {source_type_control}
+  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
 </div>
 <div class="empty" data-filter-empty="{html_escape(scope)}" hidden>没有符合当前筛选条件的论文。</div>"""
 
