@@ -45,13 +45,15 @@ export class PresenceRoom {
     const entries = await this.state.storage.list({ prefix: "client:" });
     const stale = [];
     let online = 0;
+    const clientKey = `client:${payload.clientId}`;
     for (const [key, timestamp] of entries) {
       if (now - Number(timestamp) > ACTIVE_WINDOW_MS) stale.push(key);
       else online += 1;
     }
     if (stale.length) await this.state.storage.delete(stale);
-    await this.state.storage.put(`client:${payload.clientId}`, now);
-    online += 1;
+    const isNewClient = !entries.has(clientKey) || stale.includes(clientKey);
+    await this.state.storage.put(clientKey, now);
+    if (isNewClient) online += 1;
     const origin = request.headers.get("x-origin") || "*";
     return new Response(JSON.stringify({ online }), {
       headers: corsHeaders(origin),
