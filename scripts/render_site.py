@@ -116,6 +116,11 @@ STYLE = """
 @media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 """
 
+EXTRA_STYLE = """
+.nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
+.presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}.reader-panel{position:fixed;right:20px;top:64px;z-index:20;display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.reader-panel button{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;color:var(--ink);cursor:pointer}.reader-panel button:hover{border-color:var(--blue);color:var(--blue)}body.reader-large .wrap{font-size:18px}body.reader-large .event h3{font-size:22px}body.reader-large .event p,body.reader-large .event .meta-block{font-size:16px}body.reader-large .event{padding-top:20px;padding-bottom:20px}body.reader-compact .wrap{font-size:14px}body.reader-compact .event h3{font-size:16px}body.reader-compact .event{padding-top:11px;padding-bottom:11px}
+"""
+
 
 def field_label(field: str) -> str:
     return FIELD_LABELS.get(field, field.replace("_", " "))
@@ -263,6 +268,14 @@ def detected_date(record: dict[str, Any]) -> str:
     return str(record.get("_daily_date") or "") or beijing_date(record.get("detected_at")) or ""
 
 
+def record_is_on_date(record: dict[str, Any], target_date: str) -> bool:
+    """A paper belongs to a day's view when it was found or officially online that day."""
+    return detected_date(record) == target_date or target_date in {
+        str(record.get("available_online") or "").strip(),
+        str(record.get("published_online") or "").strip(),
+    }
+
+
 def detected_time(record: dict[str, Any]) -> str:
     return beijing_time(record.get("detected_at"))
 
@@ -333,7 +346,7 @@ def is_working_paper(record: dict[str, Any]) -> bool:
 
 def is_today_home_flow_record(record: dict[str, Any]) -> bool:
     """Keep the homepage focused on fresh signals, not low-confidence issue backfill."""
-    if detected_date(record) != today_str():
+    if not record_is_on_date(record, today_str()):
         return False
     if (
         str(record.get("source") or "") == "cn-official"
@@ -585,7 +598,7 @@ def working_paper_sources_body(records: list[dict[str, Any]]) -> str:
     source_statuses = status.get("sources") or {}
     wp_records = working_paper_records(records)
     by_source = Counter(str(record.get("source_id") or "").removeprefix("source-") for record in wp_records)
-    today_by_source = Counter(str(record.get("source_id") or "").removeprefix("source-") for record in wp_records if detected_date(record) == today_str())
+    today_by_source = Counter(str(record.get("source_id") or "").removeprefix("source-") for record in wp_records if record_is_on_date(record, today_str()))
     rows = []
     stable = partial = failed = 0
 
@@ -926,7 +939,7 @@ def monitor_summary_cards(records: list[dict[str, Any]], today_records: list[dic
     status = load_status()
     workflow = status.get("workflow") or {}
     journals = load_journals(DATA_DIR / "journals.yml")
-    today_total = len(today_records if today_records is not None else [record for record in records if detected_date(record) == today_str()])
+    today_total = len(today_records if today_records is not None else [record for record in records if record_is_on_date(record, today_str())])
     light_journals = hourly_journal_count()
     light_sources = working_source_stage_count(1)
     full_journals = len(journals)
@@ -1034,6 +1047,29 @@ gtag('config', '{escaped_id}');
     return ""
 
 
+def presence_snippet() -> str:
+    endpoint = os.environ.get("PRESENCE_ENDPOINT", "").strip()
+    if not endpoint:
+        return ""
+    endpoint_js = json.dumps(endpoint)
+    return f"""<script>
+(() => {{
+  const endpoint = {endpoint_js};
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {{headers: {{'Accept': 'application/json'}}}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => {{ if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class=\"presence-dot\">●</span> ' + data.online + ' 人在线'; }})
+    .catch(() => {{}});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+}})();
+</script>"""
+
+
 def page(
     title: str,
     records: list[dict[str, Any]],
@@ -1050,7 +1086,7 @@ def page(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html_escape(title)}</title>
   {analytics_snippet()}
-  <style>{STYLE}</style>
+  <style>{STYLE}{EXTRA_STYLE}</style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳到正文</a>
@@ -1059,6 +1095,7 @@ def page(
     <div class="content">
       <header class="topbar"><div class="topbar-inner">
         <div><strong>{SITE_NAME}</strong> <span class="subtitle">{SITE_SUBTITLE}</span></div>
+        <span class="presence" data-presence-count></span>
         <nav class="nav">
           <a class="{ 'active' if active == 'home' else '' }" href="{BASE}/">今日</a>
           <a class="{ 'active' if active == 'recent72' else '' }" href="{BASE}/recent72/">最近72小时</a>
@@ -1075,7 +1112,7 @@ def page(
   </div>
 </body>
 </html>
-"""
+""" + presence_snippet()
 
 
 def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, scope: str = "default", extra_class: str = "") -> str:
@@ -1145,6 +1182,8 @@ FILTER_SCRIPT = """
     const events = Array.from(document.querySelectorAll(`.event[data-event-scope="${scope}"]`));
     if (!search || !journal || !field || !china) return;
     let preset = '';
+    const storageKey = `epd_filters_${scope}`;
+    const saved = (() => { try { return JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (error) { return {}; } })();
     if (params.get('q')) search.value = params.get('q');
     if (params.get('journal')) journal.value = params.get('journal');
     if (params.get('field')) field.value = params.get('field');
@@ -1156,6 +1195,23 @@ FILTER_SCRIPT = """
       china.classList.add('active');
     }
     if (params.get('onlineToday') === '1') preset = 'online-today';
+    if (!params.toString()) {
+      if (saved.q) search.value = saved.q;
+      if (saved.journal) journal.value = saved.journal;
+      if (saved.field) field.value = saved.field;
+      if (dateType && saved.dateType) dateType.value = saved.dateType;
+      if (confidence && saved.confidence) confidence.value = saved.confidence;
+      if (sourceType && saved.sourceType) sourceType.value = saved.sourceType;
+      if (saved.china === '1') { china.setAttribute('aria-pressed', 'true'); china.classList.add('active'); }
+    }
+    const saveButton = toolbar.querySelector('[data-filter-save]');
+    const clearButton = toolbar.querySelector('[data-filter-clear]');
+    function saveFilters() {
+      localStorage.setItem(storageKey, JSON.stringify({q: search.value, journal: journal.value, field: field.value, dateType: dateType ? dateType.value : '', confidence: confidence ? confidence.value : '', sourceType: sourceType ? sourceType.value : '', china: china.getAttribute('aria-pressed') === 'true' ? '1' : ''}));
+      if (saveButton) { saveButton.textContent = '已保存'; setTimeout(() => saveButton.textContent = '保存筛选', 1200); }
+    }
+    if (saveButton) saveButton.addEventListener('click', saveFilters);
+    if (clearButton) clearButton.addEventListener('click', () => { localStorage.removeItem(storageKey); search.value=''; journal.value=''; field.value=''; if(dateType)dateType.value=''; if(confidence)confidence.value=''; if(sourceType)sourceType.value=''; china.setAttribute('aria-pressed','false'); china.classList.remove('active'); preset=''; applyFilters(); });
     function setCounter(visible, chinaOnly) {
       if (!counter) return;
       if (chinaOnly || preset === 'china') {
@@ -1264,7 +1320,7 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, 
   <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option>{date_type_options}</select>
   <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option>{confidence_options}</select>
   <select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option>{source_type_options}</select>
-  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
+  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button><button class="control" data-filter-save type="button">保存筛选</button><button class="control" data-filter-clear type="button" title="清除本页已保存的筛选">清除</button>
   {rss}
 </div>
 <div class="empty" data-filter-empty="{html_escape(scope)}" hidden>没有符合当前筛选条件的论文。</div>"""
@@ -1409,7 +1465,7 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
     all_wp_records = working_paper_records(records)
     wp_records = all_wp_records
     if view == "today":
-        wp_records = [record for record in all_wp_records if detected_date(record) == today_str()]
+        wp_records = [record for record in all_wp_records if record_is_on_date(record, today_str())]
     elif view == "recent7":
         wp_records = recent_records(all_wp_records, 7)
     elif view == "china":
@@ -1417,7 +1473,7 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
     elif view == "china-recent7":
         wp_records = [record for record in recent_records(all_wp_records, 7) if is_public_china_related(record)]
     latest_day = detected_date(wp_records[0]) if wp_records else ""
-    today_count = sum(1 for record in all_wp_records if detected_date(record) == today_str())
+    today_count = sum(1 for record in all_wp_records if record_is_on_date(record, today_str()))
     recent_count = len(recent_records(all_wp_records, 7))
     china_count = sum(1 for record in all_wp_records if is_public_china_related(record))
     title = {
@@ -1458,8 +1514,8 @@ def china_topic_body(records: list[dict[str, Any]], topic_records: list[dict[str
     public_topic_records = public_records(topic_records)
     journal_records = [record for record in public_topic_records if not is_working_paper(record)]
     wp_records = [record for record in public_topic_records if is_working_paper(record)]
-    today_journals = [record for record in journal_records if detected_date(record) == today_str()]
-    today_wp = [record for record in wp_records if detected_date(record) == today_str()]
+    today_journals = [record for record in journal_records if record_is_on_date(record, today_str())]
+    today_wp = [record for record in wp_records if record_is_on_date(record, today_str())]
     recent_journals = recent_records(journal_records, 7)
     recent_wp = recent_records(wp_records, 7)
     return f"""<section class="section-head">
@@ -1586,7 +1642,7 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     wp_sources = [source_id for source_id in sources if str(source_id).startswith("working-paper:")]
     low_confidence = sum(1 for record in records if (record.get("date_confidence") or "F") in {"D", "F", "unknown"})
     china_count = sum(1 for record in records if is_china_related(record))
-    today_records = [record for record in records if detected_date(record) == today_str()]
+    today_records = [record for record in records if record_is_on_date(record, today_str())]
     body = f"""<section class="section-head">
   <div><h2>线上后台状态</h2><p>GitHub Pages 无法提供真正登录鉴权；这里仅发布公开安全摘要，敏感审核仍使用本地后台。</p></div>
 </section>
@@ -1653,7 +1709,7 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     date_source_counts = Counter(str(record.get("date_source") or "unknown") for record in records)
     low_confidence = sum(1 for record in records if str(record.get("date_confidence") or "F") in {"D", "F", "unknown"})
     china_count = sum(1 for record in records if is_china_related(record))
-    today_records = [record for record in records if detected_date(record) == today_str()]
+    today_records = [record for record in records if record_is_on_date(record, today_str())]
     today_journals = sum(1 for record in today_records if not is_working_paper(record))
     today_wp = sum(1 for record in today_records if is_working_paper(record))
     crossref_new_deposits = sum(
@@ -1950,7 +2006,7 @@ def main() -> None:
 
     ensure_today_archive(args.daily_dir)
     records = load_all_daily(args.daily_dir)
-    today_records = [record for record in records if detected_date(record) == today_str()]
+    today_records = [record for record in records if record_is_on_date(record, today_str())]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
     home_flow_date = today_str()
     write_page(
@@ -2031,7 +2087,7 @@ def main() -> None:
             records,
             working_papers_body(records, view="today"),
             active="working-papers",
-            sidebar_records=[record for record in wp_records if detected_date(record) == today_str()][:40],
+            sidebar_records=[record for record in wp_records if record_is_on_date(record, today_str())][:40],
             sidebar_date=today_str(),
         ),
     )

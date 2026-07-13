@@ -1,0 +1,11 @@
+name = "econ-paper-monitor-presence"
+main = "presence-worker.js"
+compatibility_date = "2026-07-11"
+
+[[durable_objects.bindings]]
+name = "PRESENCE_ROOM"
+class_name = "PresenceRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["PresenceRoom"]
