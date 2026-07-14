@@ -138,6 +138,14 @@ def cnki_proxy_url(base: str, source_url: str) -> str:
     return f"{base}{separator}url={urllib.parse.quote(source_url, safe='')}"
 
 
+def cnki_official_alias(source_url: str) -> str | None:
+    """Return CNKI's certificate-valid RSS alias when applicable."""
+    parsed = urllib.parse.urlsplit(source_url)
+    if parsed.hostname != "rss.cnki.net":
+        return None
+    return urllib.parse.urlunsplit((parsed.scheme, "navi.cnki.net", parsed.path, parsed.query, parsed.fragment))
+
+
 def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
     """Fetch CNKI RSS through direct and optional controlled relay paths.
 
@@ -146,10 +154,12 @@ def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
     the feed remains supplemental evidence, while official journal pages stay
     the primary source.
     """
-    urls = [str(source.get("url") or "")]
+    primary_url = str(source.get("url") or "")
+    urls = [alias for alias in [cnki_official_alias(primary_url), primary_url] if alias]
     fallback_url = str(source.get("fallback_url") or "")
-    if fallback_url and fallback_url not in urls:
-        urls.append(fallback_url)
+    for candidate in [cnki_official_alias(fallback_url), fallback_url]:
+        if candidate and candidate not in urls:
+            urls.append(candidate)
     code = str(source.get("code") or "")
     profiles = [
         {
