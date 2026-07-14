@@ -337,6 +337,18 @@ def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tup
     return first, first_source
 
 
+def merge_metadata(record: dict[str, Any], metadata: dict[str, str]) -> bool:
+    changed = False
+    for field, value in metadata.items():
+        if field == "_evidence_changed":
+            changed = True
+            continue
+        if value and record.get(field) != value:
+            record[field] = value
+            changed = True
+    return changed
+
+
 def should_enrich(record: dict[str, Any]) -> bool:
     source_type = str(record.get("source_type") or "")
     if str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}:
@@ -407,15 +419,12 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     last_status = "no-metadata"
     doi = str(record.get("doi") or "").strip()
     resolved_elsevier_pii = False
+    missing_abstract = not str(record.get("abstract") or "").strip()
     if doi.startswith("10.1016/") and not has_ab_date(record):
         metadata = crossref_doi_metadata(doi, timeout)
         evidence_changed = append_date_evidence(record, "crossref-doi", metadata)
         if metadata:
-            changed = evidence_changed
-            for field, value in metadata.items():
-                if value and record.get(field) != value:
-                    record[field] = value
-                    changed = True
+            changed = evidence_changed or merge_metadata(record, metadata)
             return changed, "crossref-doi-fallback"
         if evidence_changed:
             return True, "crossref-doi-evidence"
@@ -448,13 +457,18 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
             if changed and resolved_elsevier_pii:
                 return changed, "elsevier-pii-only"
             return changed, "tandf-date-corrected" if changed else last_status
-    for field, value in metadata.items():
-        if field == "_evidence_changed":
+    changed = merge_metadata(record, metadata) or changed
+    if missing_abstract and doi and not str(record.get("abstract") or "").strip():
+        api_metadata, api_status = api_fallback_metadata(record, doi, timeout)
+        abstract = api_metadata.get("abstract")
+        if abstract:
+            record["abstract"] = abstract
+            record["abstract_source"] = api_metadata.get("abstract_source", api_status)
             changed = True
-            continue
-        if value and record.get(field) != value:
-            record[field] = value
+            last_status = "abstract-api-fallback"
+        elif api_metadata.get("_evidence_changed"):
             changed = True
+            last_status = "abstract-api-no-abstract"
     changed = correct_tandf_date(record) or changed
     if resolved_elsevier_pii and not changed:
         changed = True

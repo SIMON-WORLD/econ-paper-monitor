@@ -101,6 +101,10 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
     confidence = Counter(str(record.get("date_confidence") or "unknown") for record in records)
     date_source = Counter(str(record.get("date_source") or "unknown") for record in records)
     by_source = Counter(str(record.get("source") or record.get("source_id") or "unknown") for record in records)
+    missing_abstract = [record for record in records if not str(record.get("abstract") or "").strip()]
+    missing_abstract_today = [record for record in today_records if not str(record.get("abstract") or "").strip()]
+    missing_abstract_recent = [record for record in records[:500] if not str(record.get("abstract") or "").strip()]
+    missing_abstract_by_journal = Counter(str(record.get("journal") or record.get("source_id") or "unknown") for record in missing_abstract)
 
     duplicate_keys: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
@@ -158,6 +162,8 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
             "crossref_created_today": len(crossref_created_today),
             "crossref_fallback_today": len(crossref_fallback_today),
             "cnki_rss_today": len(cnki_rss_today),
+            "missing_abstract": len(missing_abstract),
+            "missing_abstract_today": len(missing_abstract_today),
         },
         "date_confidence": dict(confidence),
         "date_source_top": dict(date_source.most_common(20)),
@@ -167,7 +173,17 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
             "today_cn_issue_only": [record_label(record) for record in cn_issue_only_today[:50]],
             "abstract_as_title": [record_label(record) for record in abstract_titles[:50]],
             "untranslated_recent": [record_label(record) for record in untranslated_recent[:50]],
+            "missing_abstract_today": [record_label(record) for record in missing_abstract_today[:50]],
+            "missing_abstract_recent": [record_label(record) for record in missing_abstract_recent[:50]],
             "duplicate_examples": [[record_label(record) for record in group[:5]] for group in duplicates[:20]],
+        },
+        "abstracts": {
+            "total": len(records),
+            "missing": len(missing_abstract),
+            "available": len(records) - len(missing_abstract),
+            "missing_rate": round(len(missing_abstract) / len(records), 4) if records else 0,
+            "missing_today": len(missing_abstract_today),
+            "missing_by_journal_top": dict(missing_abstract_by_journal.most_common(30)),
         },
         "risk_signals": {
             "crossref_created_today": [record_label(record) for record in crossref_created_today[:50]],
