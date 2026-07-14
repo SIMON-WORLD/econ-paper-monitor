@@ -727,6 +727,66 @@ def enrich_cn_detail(record: dict[str, Any]) -> None:
             record["abstract_zh"] = clean_text(abstract)
 
 
+def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+    """Read Management World's public archive TOC when the AJAX endpoint is blocked.
+
+    The public chinajournal host exposes the 2026 issue pages reliably even
+    when the older CBPT ``.ashx`` endpoint returns an empty/validation page.
+    """
+    current_year = int(today_str()[:4])
+    bases = (
+        "https://glsj.chinajournal.net.cn/WKB2/WebPublication/",
+        "https://glsj.chinajournal.net.cn/WKB/WebPublication/",
+    )
+    for base in bases:
+        for issue in range(12, 0, -1):
+            url = f"{base}wkTextContent.aspx?colType=4&yt={current_year}&st={issue:02d}"
+            try:
+                page = fetch_text_partial(url, timeout=15, max_bytes=900_000)
+            except Exception:
+                continue
+            if "paperDigest.aspx" not in page:
+                continue
+            page_issue_match = re.search(r"(20\d{2})年\s*(\d{1,2})期(?:目次)?", clean_text(page))
+            page_issue = (
+                f"{page_issue_match.group(1)}年第{int(page_issue_match.group(2))}期"
+                if page_issue_match
+                else f"{current_year}年第{issue}期"
+            )
+            blocks = [
+                block
+                for block in re.findall(r"<li\b[\s\S]*?</li>", page, flags=re.I)
+                if "paperDigest.aspx" in block
+            ]
+            records: list[dict[str, Any]] = []
+            for block in blocks:
+                title_match = re.search(
+                    r'<a[^>]+href=["\']([^"\']*paperDigest\.aspx\?paperID=[^"\']+)["\'][^>]*>([\s\S]*?)</a>',
+                    block,
+                    flags=re.I,
+                )
+                if not title_match:
+                    continue
+                href, title_html = title_match.groups()
+                authors_match = re.search(r"<samp>([\s\S]*?)</samp>", block, flags=re.I)
+                record = make_record(
+                    journal,
+                    title_html,
+                    normalize_url(href, base),
+                    authors=split_authors(authors_match.group(1) if authors_match else None),
+                    source_issue=page_issue,
+                    date_source="issue_only",
+                    source_url=url,
+                )
+                if record:
+                    records.append(record)
+                if len(records) >= limit:
+                    return records
+            if records:
+                return records
+    return []
+
+
 def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # type: ignore[no-redef]
     """Fetch Management World current-year issue data when CBPT allows it.
 
@@ -749,7 +809,7 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
     try:
         opener.open(urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers), timeout=8).read()
     except Exception:
-        return records
+        GLSJ_LAST_NOTE = "cbpt-index-unavailable; trying-public-archive"
     try:
         first_endpoint = "getFirstPublishPaperInfo.ashx"
         first_page = opener.open(urllib.request.Request(base + first_endpoint, headers=headers), timeout=5).read().decode("utf-8", errors="replace")
@@ -795,12 +855,19 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
             page = opener.open(urllib.request.Request(base + endpoint, headers=headers), timeout=4).read().decode("utf-8", errors="replace")
         except Exception:
             continue
-        if "暂无内容" in page or "showValidateCode.aspx" in page or "login.css" in page or len(page) < 200:
+        if "暂无内容" in page or "showValidateCode.aspx" in page or "login.css" in page or "paperDigest.aspx" not in page or len(page) < 200:
             continue
         latest_page = page
         latest_endpoint = endpoint
         break
     if not latest_page:
+        archive_records = fetch_glsj_archive_issue(journal, limit)
+        if archive_records:
+            issue_text = str(archive_records[0].get("source_issue") or "")
+            issue_match = re.search(r"第(\d+)期", issue_text)
+            issue_number = issue_match.group(1) if issue_match else "?"
+            GLSJ_LAST_NOTE = f"archive-toc {current_year}年第{issue_number}期"
+            return archive_records
         previous_year = current_year - 1
         for issue in range(12, 0, -1):
             endpoint = f"getThisIssuePaperInfo.ashx?y={previous_year}&i={issue}"
@@ -883,7 +950,7 @@ def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[d
     if journal_id == "journal-379b4022ce":
         records = fetch_glsj(journal, limit)
         if records:
-            return records, "glsj-ajax"
+            return records, "glsj-archive-toc" if GLSJ_LAST_NOTE.startswith("archive-toc") else "glsj-ajax"
         if GLSJ_LAST_NOTE:
             return records, f"glsj-current-year-empty, {GLSJ_LAST_NOTE}"
         return records, "glsj-captcha-or-empty"
