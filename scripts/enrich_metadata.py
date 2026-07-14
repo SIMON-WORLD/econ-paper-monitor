@@ -181,6 +181,18 @@ def extract_page_metadata(html: str) -> dict[str, str]:
             result.setdefault("abstract", clean_text(abstract))
             result.setdefault("abstract_source", f"publisher_meta:{key}")
             break
+    if "abstract" not in result:
+        abstract_patterns = (
+            r'<div\b[^>]*class=["\'][^"\']*\babstract\b[^"\']*["\'][^>]*>[\s\S]*?<h[1-6]\b[^>]*>\s*Abstract\s*</h[1-6]>([\s\S]*?)</div>\s*</div>',
+            r'<section\b[^>]*class=["\'][^"\']*\babstract\b[^"\']*["\'][^>]*>[\s\S]*?<h[1-6]\b[^>]*>\s*Abstract\s*</h[1-6]>([\s\S]*?)</section>',
+        )
+        for pattern in abstract_patterns:
+            match = re.search(pattern, html, flags=re.I)
+            abstract = clean_text(match.group(1)) if match else ""
+            if len(abstract) > 80:
+                result["abstract"] = abstract
+                result["abstract_source"] = "publisher_body:abstract"
+                break
     return result
 
 

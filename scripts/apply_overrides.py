@@ -24,6 +24,9 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
         china_related_value = china_related_value.strip().casefold() == "true"
     field_map = {
         "title_zh": "title_zh",
+        "abstract": "abstract",
+        "abstract_zh": "abstract_zh",
+        "abstract_source": "abstract_source",
         "china_related": "china_related",
         "china_reason": "china_reason",
         "date_confidence": "date_confidence",
