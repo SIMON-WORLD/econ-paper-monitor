@@ -25,15 +25,17 @@ export default {
       return new Response(JSON.stringify({ error: "invalid_client_id" }), { status: 400, headers: corsHeaders(origin) });
     }
     const site = (url.searchParams.get("site") || "default").trim();
-    if (!/^[a-z0-9-]{1,40}$/.test(site)) {
-      return new Response(JSON.stringify({ error: "invalid_site" }), { status: 400, headers: corsHeaders(origin) });
+    const windowMode = (url.searchParams.get("window") || "active").trim();
+    if (!/^[a-z0-9-]{1,40}$/.test(site) || !["active", "day"].includes(windowMode)) {
+      return new Response(JSON.stringify({ error: "invalid_scope" }), { status: 400, headers: corsHeaders(origin) });
     }
-    const roomId = env.PRESENCE_ROOM.idFromName(`${origin}:${site}`);
+    const activeWindowMs = windowMode === "day" ? 86400000 : ACTIVE_WINDOW_MS;
+    const roomId = env.PRESENCE_ROOM.idFromName(`${origin}:${site}:${windowMode}`);
     const room = env.PRESENCE_ROOM.get(roomId);
     return room.fetch(new Request("https://presence.internal/heartbeat", {
       method: "POST",
       headers: { "content-type": "application/json", "x-origin": origin },
-      body: JSON.stringify({ clientId }),
+      body: JSON.stringify({ clientId, activeWindowMs }),
     }));
   },
 };
@@ -51,7 +53,7 @@ export class PresenceRoom {
     let online = 0;
     const clientKey = `client:${payload.clientId}`;
     for (const [key, timestamp] of entries) {
-      if (now - Number(timestamp) > ACTIVE_WINDOW_MS) stale.push(key);
+      if (now - Number(timestamp) > Number(payload.activeWindowMs || ACTIVE_WINDOW_MS)) stale.push(key);
       else online += 1;
     }
     if (stale.length) await this.state.storage.delete(stale);
