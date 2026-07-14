@@ -29,6 +29,10 @@ from sources.record import article_record
 from status import load_status, now, record_source, save_status
 
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+
 NOISE_TITLE_PATTERNS = (
     "欢迎订阅",
     "征稿",

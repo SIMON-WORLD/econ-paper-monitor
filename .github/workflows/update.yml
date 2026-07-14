@@ -67,6 +67,7 @@ jobs:
           DETAIL_LIMIT="0"
           CN_DETAIL_LIMIT="0"
           TRANSLATE_LIMIT="80"
+          ABSTRACT_TRANSLATE_LIMIT="8"
           TRANSLATE_SECONDS="180"
           TIER="hourly"
           CROSSREF_WALL_TIMEOUT="8m"
@@ -80,6 +81,7 @@ jobs:
             DETAIL_LIMIT="120"
             CN_DETAIL_LIMIT="0"
             TRANSLATE_LIMIT="160"
+            ABSTRACT_TRANSLATE_LIMIT="24"
             TRANSLATE_SECONDS="240"
             TIER=""
             CROSSREF_WALL_TIMEOUT="25m"
@@ -90,6 +92,7 @@ jobs:
             ROWS="60"
             DETAIL_LIMIT="25"
             TRANSLATE_LIMIT="80"
+            ABSTRACT_TRANSLATE_LIMIT="8"
             TRANSLATE_SECONDS="180"
             TIER=""
             CROSSREF_WALL_TIMEOUT="15m"
@@ -102,6 +105,7 @@ jobs:
           echo "detail_limit=$DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
           echo "cn_detail_limit=$CN_DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
           echo "translate_limit=$TRANSLATE_LIMIT" >> "$GITHUB_OUTPUT"
+          echo "abstract_translate_limit=$ABSTRACT_TRANSLATE_LIMIT" >> "$GITHUB_OUTPUT"
           echo "translate_seconds=$TRANSLATE_SECONDS" >> "$GITHUB_OUTPUT"
           echo "tier=$TIER" >> "$GITHUB_OUTPUT"
           echo "crossref_wall_timeout=$CROSSREF_WALL_TIMEOUT" >> "$GITHUB_OUTPUT"
@@ -274,9 +278,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-      - name: Translate paper titles
+      - name: Translate paper titles and abstracts
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
+        run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --abstract-limit ${{ steps.mode.outputs.abstract_translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

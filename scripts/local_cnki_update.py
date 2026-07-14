@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -55,12 +56,18 @@ def prune_old_files(directory: Path, *, older_than_days: int) -> int:
 
 def run_step(command: list[str], *, allow_failure: bool = False) -> int:
     log("$ " + " ".join(command))
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["PYTHONUTF8"] = "1"
     completed = subprocess.run(
         command,
         cwd=ROOT,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+        env=env,
     )
     if completed.stdout:
         for line in completed.stdout.splitlines():

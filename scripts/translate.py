@@ -90,15 +90,18 @@ def translate_title(title: str, key: str, base_url: str, model: str, timeout: in
     return translated.strip("\"'“”")
 
 
-def translate_title(title: str, key: str, base_url: str, model: str, timeout: int) -> str:  # type: ignore[no-redef]
+def translate_abstract(abstract: str, key: str, base_url: str, model: str, timeout: int) -> str:
     payload = {
         "model": model,
         "messages": [
             {
                 "role": "system",
-                "content": "你是经济学论文标题翻译助手。只输出一个忠实、简洁、学术风格的中文标题，不要解释。",
+                "content": (
+                    "你是经济学论文摘要翻译助手。请忠实翻译为流畅、严谨的学术中文，保留专有名词、"
+                    "缩写、模型名称和因果语义，不增加原文没有的信息。只输出中文摘要，不要解释。"
+                ),
             },
-            {"role": "user", "content": title},
+            {"role": "user", "content": abstract},
         ],
         "temperature": 0.1,
     }
@@ -128,53 +131,87 @@ def translate_daily_file(
     base_url: str,
     model: str,
     cache_records: dict[str, Any],
-) -> tuple[int, int, int]:
+    *,
+    title_limit: int,
+    abstract_limit: int,
+    deadline: float | None,
+) -> tuple[int, int, int, int, int]:
     records = read_json(path, [])
     records_to_translate = sorted(records, key=lambda record: str(record.get("detected_at") or ""), reverse=True)
-    changed = attempted = cached = 0
-    started_at = time.monotonic()
+    changed = title_attempted = abstract_attempted = title_cached = abstract_cached = 0
     for record in records_to_translate:
-        if args.max_seconds and time.monotonic() - started_at >= args.max_seconds:
+        if deadline and time.monotonic() >= deadline:
             break
-        if args.limit and attempted >= args.limit:
+        if title_attempted >= title_limit and abstract_attempted >= abstract_limit:
             break
         title = str(record.get("title") or "").strip()
-        if not title:
-            continue
-        if has_chinese(title):
+        key_id = cache_key(record)
+        cached_value = cache_records.get(key_id)
+        if not isinstance(cached_value, dict):
+            cached_value = {}
+
+        if title and has_chinese(title):
             if record.get("title_zh") != title or record.get("translation_status") != "native_chinese":
                 record["title_zh"] = title
                 record["translation_status"] = "native_chinese"
                 changed += 1
-            continue
-        if record.get("title_zh"):
-            continue
-
-        key_id = cache_key(record)
-        cached_value = cache_records.get(key_id)
-        if isinstance(cached_value, dict) and cached_value.get("title_zh"):
+        elif title and not record.get("title_zh") and cached_value.get("title_zh"):
             record["title_zh"] = cached_value["title_zh"]
             record["translation_status"] = "title_translated_cached"
             changed += 1
-            cached += 1
-            continue
+            title_cached += 1
+        elif title and not record.get("title_zh") and title_attempted < title_limit:
+            title_attempted += 1
+            try:
+                if args.sleep > 0 and title_attempted + abstract_attempted > 1:
+                    time.sleep(args.sleep)
+                title_zh = translate_title(title, key, base_url, model, args.timeout)
+                record["title_zh"] = title_zh
+                record["translation_status"] = "title_translated"
+                cached_value.update({"title": title, "title_zh": title_zh, "model": model})
+                cache_records[key_id] = cached_value
+                changed += 1
+            except (KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
+                record["translation_status"] = f"title_failed: {exc}"
+                if args.stop_on_error:
+                    raise
 
-        attempted += 1
+        abstract = str(record.get("abstract") or "").strip()
+        if not abstract or has_chinese(abstract) or record.get("abstract_zh"):
+            continue
+        abstract_digest = hashlib.sha1(abstract.encode("utf-8")).hexdigest()
+        if cached_value.get("abstract_zh") and cached_value.get("abstract_hash") == abstract_digest:
+            record["abstract_zh"] = cached_value["abstract_zh"]
+            record["translation_status"] = "abstract_translated_cached"
+            changed += 1
+            abstract_cached += 1
+            continue
+        if abstract_attempted >= abstract_limit or (deadline and time.monotonic() >= deadline):
+            continue
+        abstract_attempted += 1
         try:
-            if args.sleep > 0 and attempted > 1:
+            if args.sleep > 0 and title_attempted + abstract_attempted > 1:
                 time.sleep(args.sleep)
-            title_zh = translate_title(title, key, base_url, model, args.timeout)
-            record["title_zh"] = title_zh
-            record["translation_status"] = "title_translated"
-            cache_records[key_id] = {"title": title, "title_zh": title_zh, "model": model}
+            abstract_zh = translate_abstract(abstract, key, base_url, model, args.timeout)
+            record["abstract_zh"] = abstract_zh
+            record["translation_status"] = "abstract_translated"
+            cached_value.update(
+                {
+                    "abstract": abstract,
+                    "abstract_hash": abstract_digest,
+                    "abstract_zh": abstract_zh,
+                    "model": model,
+                }
+            )
+            cache_records[key_id] = cached_value
             changed += 1
         except (KeyError, urllib.error.URLError, TimeoutError, ValueError) as exc:
-            record["translation_status"] = f"title_failed: {exc}"
+            record["translation_status"] = f"abstract_failed: {exc}"
             if args.stop_on_error:
                 raise
     if changed and not args.dry_run:
         write_json(path, records)
-    return attempted, changed, cached
+    return title_attempted, abstract_attempted, changed, title_cached, abstract_cached
 
 
 def main() -> None:
@@ -182,6 +219,7 @@ def main() -> None:
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--date", default=None)
     parser.add_argument("--limit", type=int, default=400)
+    parser.add_argument("--abstract-limit", type=int, default=12)
     parser.add_argument("--timeout", type=int, default=45)
     parser.add_argument("--max-seconds", type=int, default=0)
     parser.add_argument("--sleep", type=float, default=0.0)
@@ -197,16 +235,40 @@ def main() -> None:
 
     cache = read_json(CACHE_PATH, {"records": {}})
     cache_records = cache.setdefault("records", {})
-    total_attempted = total_changed = total_cached = 0
+    total_title_attempted = total_abstract_attempted = total_changed = 0
+    total_title_cached = total_abstract_cached = 0
+    deadline = time.monotonic() + args.max_seconds if args.max_seconds else None
     for path in daily_paths(args.daily_dir, args.date):
-        attempted, changed, cached = translate_daily_file(path, args, key, base_url, model, cache_records)
-        total_attempted += attempted
+        if deadline and time.monotonic() >= deadline:
+            break
+        title_remaining = max(0, args.limit - total_title_attempted)
+        abstract_remaining = max(0, args.abstract_limit - total_abstract_attempted)
+        if title_remaining == 0 and abstract_remaining == 0:
+            break
+        title_attempted, abstract_attempted, changed, title_cached, abstract_cached = translate_daily_file(
+            path,
+            args,
+            key,
+            base_url,
+            model,
+            cache_records,
+            title_limit=title_remaining,
+            abstract_limit=abstract_remaining,
+            deadline=deadline,
+        )
+        total_title_attempted += title_attempted
+        total_abstract_attempted += abstract_attempted
         total_changed += changed
-        total_cached += cached
+        total_title_cached += title_cached
+        total_abstract_cached += abstract_cached
     if not args.dry_run:
         write_json(CACHE_PATH, cache)
-    record_source("translation", ok=True, count=total_changed, message=f"attempted={total_attempted} cached={total_cached}")
-    print(f"translation attempted={total_attempted} changed={total_changed} cached={total_cached}")
+    message = (
+        f"title_attempted={total_title_attempted} abstract_attempted={total_abstract_attempted} "
+        f"changed={total_changed} title_cached={total_title_cached} abstract_cached={total_abstract_cached}"
+    )
+    record_source("translation", ok=True, count=total_changed, message=message)
+    print(f"translation {message}")
 
 
 if __name__ == "__main__":

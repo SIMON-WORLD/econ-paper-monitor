@@ -122,7 +122,7 @@ STYLE = """
 EXTRA_STYLE = """
 .nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
 @media(max-width:920px){.nav{justify-content:flex-start;gap:14px;overflow-x:auto;white-space:nowrap;padding-bottom:4px}.nav a{flex:0 0 auto}}
-.detail-page{max-width:900px}.detail-kicker{color:var(--muted);font-size:14px;margin:0 0 8px}.detail-page h1{font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.18;margin:0 0 10px}.detail-title-zh{font-size:19px;color:#3b434c;margin:0 0 14px}.detail-authors{color:var(--muted);font-size:16px;margin:0 0 20px}.detail-meta{display:grid;grid-template-columns:150px minmax(0,1fr);border-top:1px solid var(--line);margin:18px 0 26px}.detail-meta div{padding:10px 0;border-bottom:1px solid var(--line)}.detail-meta .label{font-weight:700;color:var(--ink)}.detail-abstract{border-top:3px solid var(--blue);padding-top:14px;margin-top:24px}.detail-abstract h2{font-size:20px;margin:0 0 8px}.detail-abstract p{white-space:pre-line;line-height:1.75}.detail-links{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.detail-links a{border:1px solid var(--line);border-radius:7px;background:#fff;padding:8px 11px}.detail-links a.primary{background:var(--blue);border-color:var(--blue);color:#fff}.related-list{display:grid;gap:8px;margin:0;padding-left:20px}.related-list li{padding-left:4px}
+.detail-page{max-width:900px}.detail-kicker{color:var(--muted);font-size:14px;margin:0 0 8px}.detail-page h1{font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.18;margin:0 0 10px}.detail-title-zh{font-size:19px;color:#3b434c;margin:0 0 14px}.detail-authors{color:var(--muted);font-size:16px;margin:0 0 20px}.detail-meta{display:grid;grid-template-columns:150px minmax(0,1fr);border-top:1px solid var(--line);margin:18px 0 26px}.detail-meta div{padding:10px 0;border-bottom:1px solid var(--line)}.detail-meta .label{font-weight:700;color:var(--ink)}.detail-abstract{border-top:3px solid var(--blue);padding-top:14px;margin-top:24px}.detail-abstract h2{font-size:20px;margin:0 0 8px}.detail-abstract p{white-space:pre-line;line-height:1.75}.detail-links{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.detail-links a{border:1px solid var(--line);border-radius:7px;background:#fff;padding:8px 11px}.detail-links a.primary{background:var(--blue);border-color:var(--blue);color:#fff}.related-list{display:grid;gap:8px;margin:0;padding-left:20px}.related-list li{padding-left:4px}.detail-loading{min-height:280px}
 .presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}.reader-panel{position:fixed;right:20px;top:64px;z-index:20;display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.reader-panel button{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;color:var(--ink);cursor:pointer}.reader-panel button:hover{border-color:var(--blue);color:var(--blue)}body.reader-large .wrap{font-size:18px}body.reader-large .event h3{font-size:22px}body.reader-large .event p,body.reader-large .event .meta-block{font-size:16px}body.reader-large .event{padding-top:20px;padding-bottom:20px}body.reader-compact .wrap{font-size:14px}body.reader-compact .event h3{font-size:16px}body.reader-compact .event{padding-top:11px;padding-bottom:11px}
 """
 
@@ -184,7 +184,7 @@ def beijing_date(value: str | None) -> str:
 
 def beijing_time(value: str | None) -> str:
     dt = beijing_datetime(value)
-    return dt.strftime("%H:%M") if dt else "监测"
+    return dt.strftime("%H:%M") if dt else ""
 
 
 def beijing_stamp(value: str | None) -> str:
@@ -1119,7 +1119,7 @@ def page(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="{BASE}/assets/images/academic-door-favicon.png">
+  <link rel="icon" type="image/png" href="{BASE}/assets/images/academic-door-favicon.png?v=2">
   <title>{html_escape(title)}</title>
   {analytics_snippet()}
   <style>{STYLE}{EXTRA_STYLE}</style>
@@ -1182,9 +1182,13 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         field_attr = " ".join(topics)
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
         classes = "event" + (f" {extra_class}" if extra_class else "")
+        time_value = detected_time(record)
+        date_value = detected_date(record)
+        timeline_primary = time_value or date_value
+        timeline_secondary = date_value if time_value else ""
         chunks.append(
             f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(source_type_value(record))}">
-  <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
+  <div><div class="time">{html_escape(timeline_primary)}</div><div class="date-note">{html_escape(timeline_secondary)}</div></div>
   <div>
     <h3><a href="{html_escape(paper_page_url(record))}">{html_escape(record.get('title'))}</a></h3>
     {title_zh_html}
@@ -1993,32 +1997,62 @@ def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> i
                 "related": [{"key": paper_slug(item), "title": str(item.get("title") or "Untitled")} for item in related],
             }
         )
-    embedded = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
-    body = """<article class="detail-page" id="paperRoot"><div class="empty">正在载入论文详情。</div></article>
-<script type="application/json" id="paperData">__PAPER_DATA__</script>
+    paper_data_dir = docs_dir / "paper-data"
+    paper_data_dir.mkdir(parents=True, exist_ok=True)
+    for stale_path in paper_data_dir.glob("*.json"):
+        stale_path.unlink()
+    shards: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for item in payload:
+        match = re.search(r"([0-9a-f]{12})$", str(item.get("key") or ""), flags=re.I)
+        shard = match.group(1)[:2].casefold() if match else "misc"
+        shards[shard].append(item)
+    for shard, items in shards.items():
+        write_text(
+            paper_data_dir / f"{shard}.json",
+            json.dumps(items, ensure_ascii=False, separators=(",", ":")) + "\n",
+        )
+
+    body = """<article class="detail-page detail-loading" id="paperRoot" aria-busy="true"></article>
 <script>
 (() => {
-  const data = JSON.parse(document.getElementById('paperData').textContent || '[]');
   const key = new URLSearchParams(window.location.search).get('key') || '';
-  const item = data.find((record) => record.key === key);
   const root = document.getElementById('paperRoot');
   const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-  if (!item) {
+  const showMissing = () => {
+    root.classList.remove('detail-loading');
+    root.removeAttribute('aria-busy');
     root.innerHTML = '<h1>未找到这篇论文</h1><p class="muted">该链接可能已经被去重或尚未生成。</p><div class="detail-links"><a class="primary" href="./">返回首页</a><a href="./search/">进入全站检索</a></div>';
-    return;
-  }
-  document.title = `${item.title} | Econ Papers Daily`;
-  const titleZh = item.title_zh ? `<p class="detail-title-zh">${escapeHTML(item.title_zh)}</p>` : '';
-  const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
-  const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
-  const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
-  const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : '<section class="detail-abstract"><h2>摘要</h2><div class="empty">暂无摘要</div></section>';
-  const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
-  const related = (item.related || []).map((record) => `<li><a href="./paper.html?key=${encodeURIComponent(record.key)}">${escapeHTML(record.title)}</a></li>`).join('');
-  const relatedBlock = related ? `<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">${related}</ul></section>` : '';
-  root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(item.title)}</h1>${titleZh}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(item.detected)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div><div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}${relatedBlock}`;
+  };
+  const load = async () => {
+    const match = key.match(/([0-9a-f]{12})$/i);
+    if (!match) return showMissing();
+    try {
+      const response = await fetch(`./paper-data/${match[1].slice(0, 2).toLowerCase()}.json`, {cache: 'force-cache'});
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      const item = data.find((record) => record.key === key);
+      if (!item) return showMissing();
+      document.title = `${item.title} | Econ Papers Daily`;
+      const titleZh = item.title_zh ? `<p class="detail-title-zh">${escapeHTML(item.title_zh)}</p>` : '';
+      const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
+      const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
+      const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
+      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : '<section class="detail-abstract"><h2>摘要</h2><div class="empty">暂无摘要</div></section>';
+      const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
+      const related = (item.related || []).map((record) => `<li><a href="./paper.html?key=${encodeURIComponent(record.key)}">${escapeHTML(record.title)}</a></li>`).join('');
+      const relatedBlock = related ? `<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">${related}</ul></section>` : '';
+      root.classList.remove('detail-loading');
+      root.removeAttribute('aria-busy');
+      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(item.title)}</h1>${titleZh}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(item.detected)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div><div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}${relatedBlock}`;
+    } catch (error) {
+      root.classList.remove('detail-loading');
+      root.removeAttribute('aria-busy');
+      root.innerHTML = '<h1>论文详情暂时无法载入</h1><p class="muted">请刷新页面重试，或进入全站检索。</p><div class="detail-links"><a class="primary" href="./search/">进入全站检索</a></div>';
+    }
+  };
+  load();
 })();
-</script>""".replace("__PAPER_DATA__", embedded)
+</script>"""
     write_page(
         docs_dir / "paper.html",
         page("论文详情", records, body, sidebar_records=recent_detected_records(records, 3), sidebar_date=today_str()),
