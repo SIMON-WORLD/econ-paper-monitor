@@ -202,6 +202,8 @@ jobs:
           done
       - name: Fetch CNKI RSS feeds
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        env:
+          CNKI_RSS_PROXY_BASE: https://econ-paper-monitor-presence.academic-door.workers.dev/cnki-rss
         run: python scripts/fetch_cnki_rss.py
       - name: Fetch working paper sources
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'

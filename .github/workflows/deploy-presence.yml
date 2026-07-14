@@ -2,6 +2,11 @@ name: Deploy anonymous presence service
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "infra/**"
+      - ".github/workflows/deploy-presence.yml"
 
 jobs:
   deploy:

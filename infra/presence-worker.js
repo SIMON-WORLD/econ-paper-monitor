@@ -10,6 +10,16 @@ function corsHeaders(origin) {
   };
 }
 
+function rssHeaders(origin, contentType) {
+  return {
+    "Access-Control-Allow-Origin": origin || "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Cache-Control": "public, max-age=300",
+    "Content-Type": contentType || "application/rss+xml; charset=utf-8",
+  };
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "*";
@@ -17,6 +27,32 @@ export default {
       return new Response(null, { headers: corsHeaders(origin) });
     }
     const url = new URL(request.url);
+    if (url.pathname === "/cnki-rss" && request.method === "GET") {
+      const targetText = (url.searchParams.get("url") || "").trim();
+      let target;
+      try {
+        target = new URL(targetText);
+      } catch {
+        return new Response("invalid CNKI RSS URL", { status: 400, headers: rssHeaders(origin, "text/plain; charset=utf-8") });
+      }
+      if (target.protocol !== "https:" || !["rss.cnki.net", "kns.cnki.net"].includes(target.hostname)) {
+        return new Response("CNKI RSS host required", { status: 403, headers: rssHeaders(origin, "text/plain; charset=utf-8") });
+      }
+      const upstream = await fetch(target.toString(), {
+        headers: {
+          "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
+          "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
+          "Referer": "https://www.cnki.net/",
+          "User-Agent": "Mozilla/5.0 (compatible; Academic-Door-CNKI-Relay/1.0)",
+        },
+        cf: { cacheTtl: 300, cacheEverything: true },
+      });
+      const body = await upstream.arrayBuffer();
+      return new Response(body, {
+        status: upstream.status,
+        headers: rssHeaders(origin, upstream.headers.get("content-type") || "application/rss+xml; charset=utf-8"),
+      });
+    }
     if (url.pathname !== "/presence" || request.method !== "GET") {
       return new Response(JSON.stringify({ error: "not_found" }), { status: 404, headers: corsHeaders(origin) });
     }

@@ -9,8 +9,12 @@ from __future__ import annotations
 
 import argparse
 import html
+import os
 import re
 import ssl
+import sys
+import time
+import urllib.parse
 import urllib.error
 import urllib.request
 from email.utils import parsedate_to_datetime
@@ -129,45 +133,78 @@ def load_cnki_sources(path: Path) -> list[dict[str, Any]]:
     return feeds
 
 
+def cnki_proxy_url(base: str, source_url: str) -> str:
+    separator = "&" if "?" in base else "?"
+    return f"{base}{separator}url={urllib.parse.quote(source_url, safe='')}"
+
+
 def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
-    """Fetch primary RSS URL with a legacy CNKI RSS fallback."""
+    """Fetch CNKI RSS through direct and optional controlled relay paths.
+
+    CNKI sometimes returns HTTP 418 to GitHub-hosted runners by egress/IP.
+    A relay is restricted to CNKI RSS URLs and is only a transport fallback;
+    the feed remains supplemental evidence, while official journal pages stay
+    the primary source.
+    """
     urls = [str(source.get("url") or "")]
     fallback_url = str(source.get("fallback_url") or "")
     if fallback_url and fallback_url not in urls:
         urls.append(fallback_url)
     code = str(source.get("code") or "")
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "Chrome/126.0 Safari/537.36",
-        "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
-        "Referer": f"https://kns.cnki.net/knavi/journals/{code}/detail",
-        "Cache-Control": "no-cache",
-    }
+    profiles = [
+        {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
+            "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
+            "Referer": f"https://kns.cnki.net/knavi/journals/{code}/detail",
+            "Cache-Control": "no-cache",
+        },
+        {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.5 Safari/605.1.15",
+            "Accept": "application/rss+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "zh-CN,zh;q=0.9",
+            "Referer": "https://www.cnki.net/",
+        },
+    ]
+    proxy_base = os.environ.get("CNKI_RSS_PROXY_BASE", "").strip()
     last_error: Exception | None = None
+    attempts: list[str] = []
     for url in urls:
         if not url:
             continue
-        request = urllib.request.Request(url, headers=headers)
-        for context in (None, ssl._create_unverified_context()):
-            try:
-                kwargs: dict[str, Any] = {"timeout": 30}
-                if context is not None:
-                    kwargs["context"] = context
-                with urllib.request.urlopen(request, **kwargs) as response:  # type: ignore[arg-type]
-                    payload = response.read()
-                    charset = response.headers.get_content_charset() or "utf-8"
-                    for candidate in dict.fromkeys([charset, "utf-8", "gb18030", "gbk"]):
-                        try:
-                            return payload.decode(candidate), url
-                        except Exception:
-                            continue
-                    return payload.decode("utf-8", errors="replace"), url
-            except Exception as exc:  # noqa: BLE001
-                last_error = exc
-                continue
+        candidates = [(url, "direct")]
+        if proxy_base:
+            candidates.append((cnki_proxy_url(proxy_base, url), "relay"))
+        for candidate_url, transport in candidates:
+            for attempt in range(3 if transport == "direct" else 2):
+                headers = profiles[attempt % len(profiles)]
+                request = urllib.request.Request(candidate_url, headers=headers)
+                for context in (None, ssl._create_unverified_context()):
+                    try:
+                        kwargs: dict[str, Any] = {"timeout": 30}
+                        if context is not None:
+                            kwargs["context"] = context
+                        with urllib.request.urlopen(request, **kwargs) as response:  # type: ignore[arg-type]
+                            status_code = int(getattr(response, "status", 200) or 200)
+                            if status_code >= 400:
+                                raise urllib.error.HTTPError(candidate_url, status_code, "HTTP error", response.headers, None)
+                            payload = response.read()
+                            charset = response.headers.get_content_charset() or "utf-8"
+                            for candidate in dict.fromkeys([charset, "utf-8", "gb18030", "gbk"]):
+                                try:
+                                    return payload.decode(candidate), f"{transport}:{url}"
+                                except Exception:
+                                    continue
+                            return payload.decode("utf-8", errors="replace"), f"{transport}:{url}"
+                    except Exception as exc:  # noqa: BLE001
+                        last_error = exc
+                        attempts.append(f"{transport}:{type(exc).__name__}:{exc}")
+                        continue
+                if attempt < (2 if transport == "direct" else 1):
+                    time.sleep(1.5 * (attempt + 1))
     if last_error:
-        raise last_error
+        detail = "; ".join(attempts[-8:])
+        raise RuntimeError(f"CNKI RSS unavailable after direct/relay retries: {detail}") from last_error
     raise RuntimeError("empty CNKI RSS URL list")
 
 
@@ -223,6 +260,7 @@ def parse_feed(
             raw_data={
                 "cnki_code": source.get("code"),
                 "cnki_feed_url": source.get("url"),
+                "cnki_fetched_via": source.get("fetched_via"),
                 "cnki_pubdate_raw": pubdate_raw,
                 "cnki_channel_pubdate_raw": channel_pubdate,
                 "cnki_priority": source.get("priority"),
@@ -243,12 +281,15 @@ def parse_feed(
         "latest_research_date": latest_research_date,
         "latest_title": latest_title,
         "channel_updated_at": parse_cnki_pubdate(channel_pubdate),
+        "fetched_via": source.get("fetched_via") or "direct",
         "message": f"accepted={len(records)} filtered={filtered} stale={stale} latest_research={latest_research_date or 'none'}",
     }
     return records, summary
 
 
 def main() -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, default=DATA_DIR / "cnki_rss_sources.yml")
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -284,8 +325,8 @@ def main() -> None:
             )
             continue
         try:
-            xml_text, fetched_url = fetch_cnki_text(source)
-            source = {**source, "url": fetched_url}
+            xml_text, fetched_via = fetch_cnki_text(source)
+            source = {**source, "fetched_via": fetched_via}
             fetched, summary = parse_feed(xml_text, journal, source, max_age_days=args.max_age_days)
             if args.max_items_per_feed:
                 fetched = fetched[: args.max_items_per_feed]
