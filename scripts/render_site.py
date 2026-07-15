@@ -806,6 +806,8 @@ def date_source_label(record: dict[str, Any]) -> str:
         return "PDF"
     if date_source == "tandf_issue_date_fallback":
         return "T&F 备选日期"
+    if "elsevier_article_api" in date_source:
+        return "Elsevier API"
     if source == "cnki-rss" or date_source.startswith("cnki_rss"):
         return "CNKI RSS"
     if "publisher" in date_source or "detail" in date_source:
@@ -908,7 +910,13 @@ def source_delay_rows(records: list[dict[str, Any]], days: int = 14) -> str:
         precise = [record for record in items if parse_date(str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or ""))]
         rss_count = sum(1 for record in items if "rss" in str(record.get("source") or "").casefold() or "rss" in str(record.get("date_source") or "").casefold())
         crossref_count = sum(1 for record in items if "crossref" in str(record.get("date_source") or "").casefold())
-        detail_count = sum(1 for record in items if "publisher" in str(record.get("date_source") or "").casefold() or "detail" in str(record.get("date_source") or "").casefold())
+        detail_count = sum(
+            1
+            for record in items
+            if "publisher" in str(record.get("date_source") or "").casefold()
+            or "detail" in str(record.get("date_source") or "").casefold()
+            or "article_api" in str(record.get("date_source") or "").casefold()
+        )
         delayed_count = sum(1 for lag in lags if lag > 2)
         no_precise_count = len(items) - len(precise)
         avg_lag = "待判定" if not lags else f"{sum(lags) / len(lags):.1f} 天"

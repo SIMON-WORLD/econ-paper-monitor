@@ -1,0 +1,135 @@
+from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+
+import enrich_metadata  # noqa: E402
+
+
+class EnrichMetadataTests(unittest.TestCase):
+    def test_extract_markdown_abstract(self) -> None:
+        markdown = """# Paper
+
+## Abstract
+
+This abstract is intentionally longer than eighty characters so the parser can verify that only the public abstract section is retained.
+
+## Introduction
+
+This text must not be included.
+"""
+        abstract = enrich_metadata.extract_markdown_abstract(markdown)
+        self.assertIsNotNone(abstract)
+        self.assertIn("public abstract section", abstract or "")
+        self.assertNotIn("must not be included", abstract or "")
+
+    @patch.object(enrich_metadata, "fetch_text")
+    def test_proxy_reports_captcha_instead_of_missing_abstract(self, fetch_mock) -> None:
+        fetch_mock.return_value = "## Are you a robot?\nPlease complete the CAPTCHA challenge."
+
+        result = enrich_metadata.publisher_proxy_metadata(
+            "https://www.sciencedirect.com/science/article/pii/S0014498326000343",
+            timeout=1,
+        )
+
+        self.assertEqual(result, {"_status": "blocked-captcha"})
+
+    def test_weaker_date_metadata_does_not_replace_official_api_date(self) -> None:
+        record = {
+            "available_online": "2026-07-14",
+            "published_online": "2026-07-14",
+            "date_source": "elsevier_article_api",
+            "date_confidence": "B",
+        }
+        incoming = {
+            "available_online": "2026-07-15",
+            "published_online": "2026-07-15",
+            "date_source": "crossref_doi_elsevier_created_online",
+            "date_confidence": "C",
+            "abstract": "This is a sufficiently long abstract that should still be merged even when weaker date metadata is rejected by confidence precedence.",
+        }
+
+        changed = enrich_metadata.merge_metadata(record, incoming)
+
+        self.assertTrue(changed)
+        self.assertEqual(record["available_online"], "2026-07-14")
+        self.assertEqual(record["date_source"], "elsevier_article_api")
+        self.assertTrue(record["abstract"].startswith("This is a sufficiently long abstract"))
+
+    @patch.object(enrich_metadata, "openalex_doi_metadata")
+    @patch.object(enrich_metadata, "crossref_doi_metadata")
+    @patch.object(enrich_metadata, "publisher_proxy_metadata")
+    @patch.object(enrich_metadata, "elsevier_api_metadata")
+    def test_abstract_only_route_skips_blocked_publisher_html(
+        self,
+        elsevier_mock,
+        proxy_mock,
+        crossref_mock,
+        openalex_mock,
+    ) -> None:
+        crossref_mock.return_value = {}
+        openalex_mock.return_value = {}
+        elsevier_mock.return_value = {"pii": "S0095069626001166"}
+        proxy_mock.return_value = {
+            "abstract": "This abstract-only fallback is intentionally long enough to verify the fast path without requesting the blocked publisher HTML page.",
+            "abstract_source": "publisher_page_via_readonly_proxy",
+        }
+        record = {
+            "doi": "10.1016/j.jeem.2026.103396",
+            "url": "https://doi.org/10.1016/j.jeem.2026.103396",
+            "source_type": "journal",
+        }
+
+        changed, status = enrich_metadata.enrich_abstract_record(record, timeout=1)
+
+        self.assertTrue(changed)
+        self.assertEqual(status, "abstract-updated")
+        self.assertTrue(record["abstract"].startswith("This abstract-only fallback"))
+
+    @patch.object(enrich_metadata, "publisher_proxy_metadata")
+    @patch.object(enrich_metadata, "elsevier_api_metadata")
+    @patch.object(enrich_metadata, "api_fallback_metadata")
+    @patch.object(enrich_metadata, "fetch_text_and_url")
+    @patch.object(enrich_metadata, "crossref_doi_metadata")
+    def test_elsevier_date_does_not_stop_abstract_backfill(
+        self,
+        crossref_mock,
+        fetch_mock,
+        api_fallback_mock,
+        elsevier_mock,
+        proxy_mock,
+    ) -> None:
+        crossref_mock.return_value = {
+            "available_online": "2026-07-15",
+            "published_online": "2026-07-15",
+            "date_source": "crossref_doi_elsevier_created_online",
+            "date_confidence": "C",
+        }
+        fetch_mock.side_effect = OSError("publisher blocked")
+        api_fallback_mock.return_value = ({}, "api-fallback-empty")
+        elsevier_mock.return_value = {"pii": "S0095069626001166"}
+        proxy_mock.return_value = {
+            "abstract": "This publisher abstract is intentionally long enough to pass validation and prove that date metadata no longer stops abstract enrichment.",
+            "abstract_source": "publisher_page_via_readonly_proxy",
+        }
+        record = {
+            "doi": "10.1016/j.jeem.2026.103396",
+            "url": "https://doi.org/10.1016/j.jeem.2026.103396",
+            "source_type": "journal",
+        }
+
+        changed, status = enrich_metadata.enrich_record(record, timeout=1, allow_proxy_abstract=True)
+
+        self.assertTrue(changed)
+        self.assertEqual(status, "publisher-proxy-abstract")
+        self.assertEqual(record["pii"], "S0095069626001166")
+        self.assertTrue(record["abstract"].startswith("This publisher abstract"))
+
+
+if __name__ == "__main__":
+    unittest.main()

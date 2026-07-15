@@ -196,6 +196,77 @@ def extract_page_metadata(html: str) -> dict[str, str]:
     return result
 
 
+def extract_markdown_abstract(markdown: str) -> str | None:
+    match = re.search(r"(?ims)^##\s+Abstract\s*$\s*(.*?)(?=^##\s+|\Z)", markdown)
+    if not match:
+        return None
+    abstract = match.group(1)
+    abstract = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", abstract)
+    abstract = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", abstract)
+    abstract = re.sub(r"[*_`#>]", " ", abstract)
+    abstract = re.sub(r"\s+", " ", html_lib.unescape(abstract)).strip()
+    return abstract if len(abstract) > 80 else None
+
+
+def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
+    encoded_doi = urllib.parse.quote(doi, safe="")
+    url = f"https://api.elsevier.com/content/article/doi/{encoded_doi}?httpAccept=application%2Fjson"
+    try:
+        payload = fetch_json(url, timeout=timeout)
+    except Exception:
+        return {}
+    response = payload.get("full-text-retrieval-response") if isinstance(payload, dict) else None
+    core = response.get("coredata") if isinstance(response, dict) else None
+    if not isinstance(core, dict):
+        return {}
+    result: dict[str, str] = {}
+    pii = extract_elsevier_pii(str(core.get("prism:url") or ""), str(core.get("pii") or ""))
+    if pii:
+        result["pii"] = pii
+    display_date = str(core.get("prism:coverDisplayDate") or "")
+    cover_date = str(core.get("prism:coverDate") or "")
+    parsed = parse_date(display_date) or parse_date(cover_date)
+    if parsed and "available online" in display_date.casefold():
+        result["available_online"] = parsed
+        result["published_online"] = parsed
+        result["date_source"] = "elsevier_article_api"
+        result["date_confidence"] = "B"
+    abstract = core.get("dc:description")
+    if abstract and len(clean_text(str(abstract))) > 80:
+        result["abstract"] = clean_text(str(abstract))
+        result["abstract_source"] = "elsevier_article_api"
+    return result
+
+
+def publisher_proxy_metadata(url: str, timeout: int) -> dict[str, str]:
+    parsed = urllib.parse.urlparse(url)
+    host = parsed.netloc.casefold()
+    allowed_hosts = {
+        "www.sciencedirect.com",
+        "sciencedirect.com",
+        "onlinelibrary.wiley.com",
+        "www.tandfonline.com",
+        "tandfonline.com",
+        "academic.oup.com",
+    }
+    if host not in allowed_hosts:
+        return {}
+    target = f"http://{host}{parsed.path}"
+    if parsed.query:
+        target += f"?{parsed.query}"
+    try:
+        markdown = fetch_text(f"https://r.jina.ai/{target}", timeout=timeout)
+    except Exception:
+        return {"_status": "proxy-request-failed"}
+    lowered = markdown.casefold()
+    if "are you a robot" in lowered or "requiring captcha" in lowered or "captcha challenge" in lowered:
+        return {"_status": "blocked-captcha"}
+    abstract = extract_markdown_abstract(markdown)
+    if not abstract:
+        return {"_status": "abstract-not-exposed"}
+    return {"abstract": abstract, "abstract_source": "publisher_page_via_readonly_proxy"}
+
+
 def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
     try:
         payload = fetch_json(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}", timeout=timeout)
@@ -351,9 +422,25 @@ def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tup
 
 def merge_metadata(record: dict[str, Any], metadata: dict[str, str]) -> bool:
     changed = False
+    confidence_rank = {"A": 0, "B": 1, "C": 2, "D": 3, "F": 4, "unknown": 5, "": 6}
+    existing_confidence = str(record.get("date_confidence") or "")
+    incoming_confidence = str(metadata.get("date_confidence") or "")
+    protect_existing_dates = bool(record.get("available_online") or record.get("published_online")) and (
+        confidence_rank.get(incoming_confidence, 6) > confidence_rank.get(existing_confidence, 6)
+    )
+    date_fields = {
+        "accepted_date",
+        "available_online",
+        "published_online",
+        "issue_date",
+        "date_source",
+        "date_confidence",
+    }
     for field, value in metadata.items():
         if field == "_evidence_changed":
             changed = True
+            continue
+        if protect_existing_dates and field in date_fields and record.get(field):
             continue
         if value and record.get(field) != value:
             record[field] = value
@@ -415,15 +502,20 @@ def has_ab_date(record: dict[str, Any]) -> bool:
     )
 
 
-def enrich_priority(record: dict[str, Any]) -> tuple[int, int, str]:
+def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, float]:
     bucket = publisher_bucket(record)
     core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
     confidence = str(record.get("date_confidence") or "F")
     weak_date = 0 if not has_ab_date(record) or confidence in {"C", "D", "F", "unknown"} else 1
-    return (weak_date, core_rank, str(record.get("detected_at") or ""))
+    missing_abstract = 0 if not str(record.get("abstract") or "").strip() else 1
+    try:
+        detected_rank = -datetime.fromisoformat(str(record.get("detected_at") or "").replace("Z", "+00:00")).timestamp()
+    except ValueError:
+        detected_rank = 0.0
+    return (weak_date, missing_abstract, core_rank, detected_rank)
 
 
-def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
+def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bool = True) -> tuple[bool, str]:
     urls = candidate_urls(record)
     if not urls:
         return False, "missing-url"
@@ -431,15 +523,43 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     last_status = "no-metadata"
     doi = str(record.get("doi") or "").strip()
     resolved_elsevier_pii = False
+    elsevier_api_attempted = False
     missing_abstract = not str(record.get("abstract") or "").strip()
+    changed = False
     if doi.startswith("10.1016/") and not has_ab_date(record):
         metadata = crossref_doi_metadata(doi, timeout)
         evidence_changed = append_date_evidence(record, "crossref-doi", metadata)
         if metadata:
-            changed = evidence_changed or merge_metadata(record, metadata)
-            return changed, "crossref-doi-fallback"
+            metadata_changed = merge_metadata(record, metadata)
+            changed = evidence_changed or metadata_changed or changed
+            last_status = "crossref-doi-fallback"
+            if not missing_abstract:
+                return changed, last_status
+            metadata = {}
         if evidence_changed:
-            return True, "crossref-doi-evidence"
+            changed = True
+            last_status = "crossref-doi-evidence"
+
+    if missing_abstract and publisher_bucket(record) == "Elsevier":
+        if doi.startswith("10.1016/"):
+            elsevier_api_attempted = True
+            elsevier_metadata = elsevier_api_metadata(doi, timeout)
+            if elsevier_metadata:
+                changed = append_date_evidence(record, "elsevier-article-api", elsevier_metadata) or changed
+                changed = merge_metadata(record, elsevier_metadata) or changed
+                if elsevier_metadata.get("pii"):
+                    resolved_elsevier_pii = True
+                last_status = "elsevier-article-api"
+        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+        if allow_proxy_abstract and pii:
+            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+            proxy_metadata = publisher_proxy_metadata(proxy_url, timeout)
+            if proxy_metadata.get("abstract"):
+                changed = merge_metadata(record, proxy_metadata) or changed
+                return changed, "publisher-proxy-abstract"
+            return changed, str(proxy_metadata.get("_status") or "abstract-proxy-empty")
+        if pii:
+            return changed, "elsevier-metadata-only"
     for url in urls:
         try:
             html, final_url = fetch_text_and_url(str(url), timeout)
@@ -456,7 +576,6 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
         except Exception as exc:  # noqa: BLE001
             last_status = type(exc).__name__
             continue
-    changed = False
     if not metadata:
         if doi:
             metadata, api_status = api_fallback_metadata(record, doi, timeout)
@@ -464,12 +583,40 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
                 last_status = api_status
         if resolved_elsevier_pii:
             changed = True
-        if not metadata:
-            changed = correct_tandf_date(record) or changed
-            if changed and resolved_elsevier_pii:
-                return changed, "elsevier-pii-only"
-            return changed, "tandf-date-corrected" if changed else last_status
-    changed = merge_metadata(record, metadata) or changed
+    if metadata:
+        changed = merge_metadata(record, metadata) or changed
+
+    if not elsevier_api_attempted and doi.startswith("10.1016/") and (
+        missing_abstract or not has_ab_date(record) or str(record.get("date_confidence") or "") in {"C", "D", "F", "unknown"}
+    ):
+        elsevier_metadata = elsevier_api_metadata(doi, timeout)
+        if elsevier_metadata:
+            changed = append_date_evidence(record, "elsevier-article-api", elsevier_metadata) or changed
+            changed = merge_metadata(record, elsevier_metadata) or changed
+            if elsevier_metadata.get("pii"):
+                resolved_elsevier_pii = True
+            last_status = "elsevier-article-api"
+
+    if missing_abstract and allow_proxy_abstract and not str(record.get("abstract") or "").strip():
+        proxy_url = ""
+        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+        if pii:
+            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+        else:
+            for candidate in candidate_urls(record):
+                if urllib.parse.urlparse(candidate).netloc.casefold() in {
+                    "onlinelibrary.wiley.com",
+                    "www.tandfonline.com",
+                    "tandfonline.com",
+                    "academic.oup.com",
+                }:
+                    proxy_url = candidate
+                    break
+        proxy_metadata = publisher_proxy_metadata(proxy_url, timeout) if proxy_url else {}
+        if proxy_metadata:
+            changed = merge_metadata(record, proxy_metadata) or changed
+            last_status = "publisher-proxy-abstract"
+
     if missing_abstract and doi and not str(record.get("abstract") or "").strip():
         api_metadata, api_status = api_fallback_metadata(record, doi, timeout)
         abstract = api_metadata.get("abstract")
@@ -484,9 +631,56 @@ def enrich_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     changed = correct_tandf_date(record) or changed
     if resolved_elsevier_pii and not changed:
         changed = True
+    if not metadata and not changed:
+        return False, last_status
     if last_status.endswith("-fallback"):
         return changed, last_status
     return changed, "updated" if changed else "metadata-unchanged"
+
+
+def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
+    if str(record.get("abstract") or "").strip():
+        return False, "abstract-present"
+    changed = False
+    bucket = publisher_bucket(record)
+    doi = str(record.get("doi") or "").strip()
+    proxy_url = ""
+    if doi:
+        for source, getter in (("crossref-doi", crossref_doi_metadata), ("openalex", openalex_doi_metadata)):
+            metadata = getter(doi, timeout)
+            if not metadata:
+                continue
+            changed = append_date_evidence(record, source, metadata) or changed
+            changed = merge_metadata(record, metadata) or changed
+            if str(record.get("abstract") or "").strip():
+                return True, f"abstract-updated:{source}"
+    if bucket == "Elsevier":
+        if doi.startswith("10.1016/"):
+            metadata = elsevier_api_metadata(doi, timeout)
+            if metadata:
+                changed = append_date_evidence(record, "elsevier-article-api", metadata) or changed
+                changed = merge_metadata(record, metadata) or changed
+        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+        if pii:
+            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+    elif bucket in {"Taylor & Francis", "Wiley", "OUP"}:
+        for candidate in candidate_urls(record):
+            if urllib.parse.urlparse(candidate).netloc.casefold() in {
+                "onlinelibrary.wiley.com",
+                "www.tandfonline.com",
+                "tandfonline.com",
+                "academic.oup.com",
+            }:
+                proxy_url = candidate
+                break
+    if not proxy_url:
+        return changed, "abstract-route-missing" if not changed else "metadata-only"
+    metadata = publisher_proxy_metadata(proxy_url, timeout)
+    if not metadata.get("abstract"):
+        proxy_status = str(metadata.get("_status") or "abstract-proxy-empty")
+        return changed, proxy_status if not changed else f"metadata-only:{proxy_status}"
+    changed = merge_metadata(record, metadata) or changed
+    return changed, "abstract-updated"
 
 
 def record_publisher_group(stats: dict[str, dict[str, Any]]) -> None:
@@ -552,8 +746,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--date", default=today_str())
+    parser.add_argument("--doi", default=None, help="Only enrich the matching DOI (useful for retries and audits).")
     parser.add_argument("--latest-days", type=int, default=1)
     parser.add_argument("--limit", type=int, default=60)
+    parser.add_argument("--proxy-abstract-limit", type=int, default=20)
+    parser.add_argument("--abstract-only", action="store_true", help="Skip slow publisher HTML and only run abstract fallbacks.")
     parser.add_argument("--timeout", type=int, default=15)
     args = parser.parse_args()
 
@@ -573,10 +770,16 @@ def main() -> None:
     for path in paths:
         records = read_json(path, [])
         records_by_path[path] = records
-        candidates.extend((path, record) for record in records if should_enrich(record))
+        candidates.extend(
+            (path, record)
+            for record in records
+            if should_enrich(record)
+            and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
+        )
     candidates.sort(key=lambda item: enrich_priority(item[1]))
 
     changed_paths: set[Path] = set()
+    proxy_abstract_attempted = 0
     for path, record in candidates:
         if attempted >= args.limit:
             break
@@ -588,7 +791,19 @@ def main() -> None:
         )
         stats["attempted"] += 1
         try:
-            did_change, status = enrich_record(record, args.timeout)
+            needs_proxy = not str(record.get("abstract") or "").strip() and publisher_bucket(record) in {
+                "Elsevier",
+                "Taylor & Francis",
+                "Wiley",
+                "OUP",
+            }
+            allow_proxy = needs_proxy and proxy_abstract_attempted < max(0, args.proxy_abstract_limit)
+            if allow_proxy:
+                proxy_abstract_attempted += 1
+            if args.abstract_only:
+                did_change, status = enrich_abstract_record(record, args.timeout)
+            else:
+                did_change, status = enrich_record(record, args.timeout, allow_proxy_abstract=allow_proxy)
             changed += int(did_change)
             if did_change:
                 changed_paths.add(path)
@@ -610,7 +825,12 @@ def main() -> None:
 
     for path in sorted(changed_paths):
         write_json(path, records_by_path[path])
-    record_source("publisher-detail", ok=True, count=changed, message=f"attempted={attempted}; " + "; ".join(messages[-20:]))
+    record_source(
+        "publisher-detail",
+        ok=True,
+        count=changed,
+        message=f"attempted={attempted}; proxy_abstract_attempted={proxy_abstract_attempted}; " + "; ".join(messages[-20:]),
+    )
     record_publisher_group(publisher_stats)
     print(f"publisher detail attempted={attempted} changed={changed}")
 

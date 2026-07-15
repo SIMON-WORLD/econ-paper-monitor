@@ -30,6 +30,7 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
         "china_related": "china_related",
         "china_reason": "china_reason",
         "date_confidence": "date_confidence",
+        "date_source": "date_source",
         "accepted_date": "accepted_date",
         "available_online": "available_online",
         "published_online": "published_online",
