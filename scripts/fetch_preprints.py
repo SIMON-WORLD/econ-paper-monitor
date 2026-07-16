@@ -330,6 +330,20 @@ def child_text(node: ElementTree.Element, names: list[str]) -> str | None:
     return None
 
 
+def feed_authors(node: ElementTree.Element) -> list[str]:
+    values: list[str] = []
+    for child in node.iter():
+        local_name = child.tag.split("}")[-1].split(":")[-1].casefold()
+        if local_name not in {"author", "creator"}:
+            continue
+        text = clean_text(" ".join(child.itertext()))
+        for value in re.split(r"\s*;\s*|\s+and\s+", text, flags=re.I):
+            value = clean_text(value)
+            if value and value not in values:
+                values.append(value)
+    return values[:12]
+
+
 def source_record(
     source: dict[str, Any],
     *,
@@ -337,6 +351,7 @@ def source_record(
     url: str | None,
     published: str | None = None,
     abstract: str | None = None,
+    authors: list[str] | None = None,
 ) -> dict[str, Any]:
     source_type = str(source.get("type") or "working_paper")
     source_id = str(source.get("id") or "")
@@ -351,7 +366,7 @@ def source_record(
             clean_title = clean_text(match.group(2))
     return {
         "title": clean_title,
-        "authors": [],
+        "authors": authors or [],
         "journal": source_title,
         "journal_id": f"source-{source.get('id')}",
         "publisher": source_title,
@@ -374,6 +389,44 @@ def source_record(
     }
 
 
+def clean_markdown_text(value: str) -> str:
+    value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", value)
+    return clean_text(value.replace("*", " "))
+
+
+def enrich_record_from_proxy(record: dict[str, Any], source_id: str, *, timeout: int) -> dict[str, Any]:
+    url = str(record.get("url") or "")
+    if source_id not in {"fed-feds", "cepr-dp"} or not url:
+        return record
+    parsed = urlparse(url)
+    target = f"http://{parsed.netloc}{parsed.path}"
+    try:
+        markdown = fetch_text(f"https://r.jina.ai/{target}", timeout=timeout)
+    except Exception:
+        return record
+    authors: list[str] = []
+    if source_id == "fed-feds":
+        match = re.search(r"(?ms)^###\s+[^\r\n]+\s*\r?\n\s*\r?\n([^\r\n]+)\s*\r?\n\s*\r?\n\*\*Abstract", markdown)
+        author_line = clean_markdown_text(match.group(1)) if match else ""
+        author_line = re.sub(r",\s+and\s+", ", ", author_line, flags=re.I)
+        authors = [clean_text(value) for value in re.split(r"\s*,\s*|\s+and\s+", author_line) if clean_text(value)]
+        doi_match = re.search(r"https://doi\.org/(10\.17016/FEDS\.\d{4}\.\d+)", markdown, flags=re.I)
+        if doi_match:
+            record["doi"] = doi_match.group(1)
+        abstract_match = re.search(r"(?ms)\*\*Abstract:\*\*\s*(.*?)(?=\n\*\*Keywords|\n\*\*DOI)", markdown)
+        if abstract_match:
+            record["abstract"] = clean_markdown_text(abstract_match.group(1))
+    else:
+        authors = [
+            clean_markdown_text(value)
+            for value in re.findall(r"\[([^\]]+)\]\(https?://cepr\.org/about/people/[^)]+\)", markdown, flags=re.I)
+        ]
+    authors = list(dict.fromkeys(value for value in authors if value))[:12]
+    if authors:
+        record["authors"] = authors
+    return record
+
+
 def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *, timeout: int) -> dict[str, Any]:
     if source.get("id") == "world-bank-prwp":
         return enrich_world_bank_from_detail(record, source, timeout=timeout) or record
@@ -381,12 +434,12 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     url = record.get("url")
     if not url:
         return record
+    source_id = str(source.get("id") or "")
     try:
         html_text = fetch_text(str(url), timeout=timeout)
     except Exception:
-        return record
+        return enrich_record_from_proxy(record, source_id, timeout=timeout)
 
-    source_id = str(source.get("id") or "")
     title_meta_names = ["citation_title", "dc.title", "og:title"]
     if source_id == "fed-feds":
         title = (
@@ -506,6 +559,8 @@ def enrich_record_from_detail(record: dict[str, Any], source: dict[str, Any], *,
     if pdf:
         record["pdf_url"] = urljoin(str(url), pdf)
     record["paper_number"] = record.get("paper_number") or detect_paper_number(source, str(record.get("title") or ""), str(record.get("url") or ""))
+    if not record.get("authors") and source_id in {"fed-feds", "cepr-dp"}:
+        enrich_record_from_proxy(record, source_id, timeout=timeout)
     return record
 
 
@@ -599,7 +654,7 @@ def parse_feed(xml_text: str, source: dict[str, Any]) -> list[dict[str, Any]]:
                 continue
             published = parse_date(child_text(item, [f"{DC}date", "date", "dc:date"]))
             abstract = child_text(item, ["description", "summary"])
-            records.append(source_record(source, title=title, url=link, published=published, abstract=abstract))
+            records.append(source_record(source, title=title, url=link, published=published, abstract=abstract, authors=feed_authors(item)))
         return records
     if root.tag.endswith("rss") or root.find("channel") is not None:
         for item in root.findall("./channel/item"):
@@ -611,7 +666,7 @@ def parse_feed(xml_text: str, source: dict[str, Any]) -> list[dict[str, Any]]:
                 continue
             published = parse_date(child_text(item, ["pubDate", "date", "dc:date"]))
             abstract = child_text(item, ["description", "summary"])
-            records.append(source_record(source, title=title, url=link, published=published, abstract=abstract))
+            records.append(source_record(source, title=title, url=link, published=published, abstract=abstract, authors=feed_authors(item)))
         return records
 
     for entry in root.findall(f".//{ATOM}entry"):
@@ -626,7 +681,7 @@ def parse_feed(xml_text: str, source: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         published = parse_date(child_text(entry, [f"{ATOM}published", f"{ATOM}updated"]))
         abstract = child_text(entry, [f"{ATOM}summary", f"{ATOM}content"])
-        records.append(source_record(source, title=title, url=link, published=published, abstract=abstract))
+        records.append(source_record(source, title=title, url=link, published=published, abstract=abstract, authors=feed_authors(entry)))
     return records
 
 
@@ -1322,9 +1377,9 @@ def allowed_url(source: dict[str, Any], url: str | None) -> bool:
     homepage = str(source.get("homepage") or "").rstrip("/")
     if homepage and url.rstrip("/") == homepage:
         return False
-    for fragment in source.get("url_contains") or []:
-        if str(fragment).lower() in url.lower():
-            return True
+    fragments = source.get("url_contains") or []
+    if fragments:
+        return any(str(fragment).lower() in url.lower() for fragment in fragments)
     pattern = source.get("url_pattern")
     if not pattern:
         return True

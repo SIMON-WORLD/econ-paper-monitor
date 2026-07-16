@@ -82,7 +82,14 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
     title = " ".join(str(record.get("title") or "").split()).casefold()
     source_id = str(record.get("source_id") or "")
     url = str(record.get("url") or "").casefold()
+    doi = normalize_doi(record.get("doi"))
+    if not title and not url and not doi:
+        return True
+    if doi in {"10.1111/jofi.70063", "10.1016/j.euroecorev.2026.105420"}:
+        return True
     if (source_id == "brookings-economic-studies" or "brookings.edu/" in url) and "/articles/" not in url:
+        return True
+    if source_id == "voxeu-cepr-columns" and "/voxeu/" not in url:
         return True
     navigation_titles = {
         "supplemental appendix",
@@ -101,6 +108,14 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
         "back matter",
         "cover",
         "contents",
+        "announcements",
+        "correction",
+        "editors' report",
+        "editors’ report",
+        "editors' notes",
+        "editors’ notes",
+        "american finance association",
+        "report of independent auditor",
     }
     navigation_fragments = (
         "frontmatter of ",
@@ -109,6 +124,17 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
         "turnaround times",
         "outstanding doctoral dissertation award",
         "issue information",
+        "submission of manuscripts to ",
+        "annual report of the president",
+        "correction to",
+        "distinguished fellow",
+        "distinguished life member",
+        "cover and back matter",
+        "cover and front matter",
+        "abstracts of papers presented at",
+        "summaries of doctoral dissertations",
+        "prize in economic sciences in memory of alfred nobel",
+        "学院简介",
     )
     return title in navigation_titles or any(fragment in title for fragment in navigation_fragments)
 
@@ -317,6 +343,30 @@ def prune_navigation_noise_from_seen(seen_papers: dict[str, dict[str, Any]]) -> 
     return removed
 
 
+def collapse_seen_duplicates(seen_papers: dict[str, dict[str, Any]]) -> int:
+    """Merge aliases already present in the persistent seen-paper index."""
+    index: dict[str, str] = {}
+    removed = 0
+    for record_id, record in list(seen_papers.items()):
+        record.setdefault("id", record_id)
+        match_id = find_matching_seen_id(index, record)
+        if match_id is None:
+            add_seen_index(index, record_id, record)
+            continue
+        existing = seen_papers[match_id]
+        enrich_record(existing, record)
+        first_seen = min(
+            (value for value in (existing.get("first_seen"), record.get("first_seen")) if value),
+            default=None,
+        )
+        if first_seen:
+            existing["first_seen"] = first_seen
+        seen_papers.pop(record_id, None)
+        add_seen_index(index, match_id, existing)
+        removed += 1
+    return removed
+
+
 def prune_navigation_noise_from_daily(daily_dir: Path) -> int:
     removed = 0
     for path in daily_dir.glob("*.json"):
@@ -489,6 +539,7 @@ def main() -> None:
     seen = read_json(args.seen, {"papers": {}})
     seen_papers = seen.setdefault("papers", {})
     pruned = prune_navigation_noise_from_seen(seen_papers)
+    pruned += collapse_seen_duplicates(seen_papers)
     pruned += prune_navigation_noise_from_daily(args.daily_dir)
     seen_index = build_seen_index(seen_papers)
     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)

@@ -124,8 +124,8 @@ def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
     return sorted(daily_dir.glob("*.json"), reverse=True)
 
 
-def translate_daily_file(
-    path: Path,
+def translate_records(
+    records: list[dict[str, Any]],
     args: argparse.Namespace,
     key: str,
     base_url: str,
@@ -136,8 +136,11 @@ def translate_daily_file(
     abstract_limit: int,
     deadline: float | None,
 ) -> tuple[int, int, int, int, int]:
-    records = read_json(path, [])
-    records_to_translate = sorted(records, key=lambda record: str(record.get("detected_at") or ""), reverse=True)
+    records_to_translate = sorted(
+        records,
+        key=lambda record: str(record.get("detected_at") or record.get("first_seen") or ""),
+        reverse=True,
+    )
     changed = title_attempted = abstract_attempted = title_cached = abstract_cached = 0
     for record in records_to_translate:
         if deadline and time.monotonic() >= deadline:
@@ -209,14 +212,42 @@ def translate_daily_file(
             record["translation_status"] = f"abstract_failed: {exc}"
             if args.stop_on_error:
                 raise
-    if changed and not args.dry_run:
-        write_json(path, records)
     return title_attempted, abstract_attempted, changed, title_cached, abstract_cached
+
+
+def translate_daily_file(
+    path: Path,
+    args: argparse.Namespace,
+    key: str,
+    base_url: str,
+    model: str,
+    cache_records: dict[str, Any],
+    *,
+    title_limit: int,
+    abstract_limit: int,
+    deadline: float | None,
+) -> tuple[int, int, int, int, int]:
+    records = read_json(path, [])
+    result = translate_records(
+        records,
+        args,
+        key,
+        base_url,
+        model,
+        cache_records,
+        title_limit=title_limit,
+        abstract_limit=abstract_limit,
+        deadline=deadline,
+    )
+    if result[2] and not args.dry_run:
+        write_json(path, records)
+    return result
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
+    parser.add_argument("--seen", type=Path, default=DATA_DIR / "seen.json")
     parser.add_argument("--date", default=None)
     parser.add_argument("--limit", type=int, default=400)
     parser.add_argument("--abstract-limit", type=int, default=12)
@@ -238,6 +269,25 @@ def main() -> None:
     total_title_attempted = total_abstract_attempted = total_changed = 0
     total_title_cached = total_abstract_cached = 0
     deadline = time.monotonic() + args.max_seconds if args.max_seconds else None
+    seen_payload = read_json(args.seen, {"papers": {}})
+    seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
+    if isinstance(seen_papers, dict):
+        seen_records = [record for record in seen_papers.values() if isinstance(record, dict)]
+        result = translate_records(
+            seen_records,
+            args,
+            key,
+            base_url,
+            model,
+            cache_records,
+            title_limit=args.limit,
+            abstract_limit=args.abstract_limit,
+            deadline=deadline,
+        )
+        total_title_attempted, total_abstract_attempted, changed, total_title_cached, total_abstract_cached = result
+        total_changed += changed
+        if changed and not args.dry_run:
+            write_json(args.seen, seen_payload)
     for path in daily_paths(args.daily_dir, args.date):
         if deadline and time.monotonic() >= deadline:
             break

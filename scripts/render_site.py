@@ -162,7 +162,9 @@ def paper_page_url(record: dict[str, Any]) -> str:
 
 def authors(record: dict[str, Any], limit: int = 5) -> str:
     names = record.get("authors") or []
-    return ", ".join(names[:limit]) + (" 等" if len(names) > limit else "")
+    if names:
+        return ", ".join(names[:limit]) + (" 等" if len(names) > limit else "")
+    return str(record.get("authors_status") or "")
 
 
 def beijing_datetime(value: str | None) -> datetime | None:
@@ -1943,7 +1945,8 @@ def paper_detail_body(record: dict[str, Any], records: list[dict[str, Any]], det
 
     abstract = detail_plain_text(record.get("abstract"))
     abstract_zh = detail_plain_text(record.get("abstract_zh"))
-    abstract_html = f'<section class="detail-abstract"><h2>摘要</h2><p>{html_escape(abstract)}</p></section>' if abstract else '<section class="detail-abstract"><h2>摘要</h2><div class="empty">暂无摘要</div></section>'
+    abstract_empty = str(record.get("abstract_status") or "暂无摘要")
+    abstract_html = f'<section class="detail-abstract"><h2>摘要</h2><p>{html_escape(abstract)}</p></section>' if abstract else f'<section class="detail-abstract"><h2>摘要</h2><div class="empty">{html_escape(abstract_empty)}</div></section>'
     if abstract_zh and abstract_zh != abstract:
         abstract_html += f'<section class="detail-abstract"><h2>中文摘要</h2><p>{html_escape(abstract_zh)}</p></section>'
 
@@ -2000,6 +2003,7 @@ def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> i
                 "topics": [topic_label(topic) for topic in topics],
                 "abstract": detail_plain_text(record.get("abstract")),
                 "abstract_zh": detail_plain_text(record.get("abstract_zh")),
+                "abstract_status": str(record.get("abstract_status") or "暂无摘要"),
                 "doi": str(record.get("doi") or ""),
                 "url": record_url(record),
                 "related": [{"key": paper_slug(item), "title": str(item.get("title") or "Untitled")} for item in related],
@@ -2045,7 +2049,7 @@ def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> i
       const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
       const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
       const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
-      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : '<section class="detail-abstract"><h2>摘要</h2><div class="empty">暂无摘要</div></section>';
+      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract"><h2>摘要</h2><div class="empty">${escapeHTML(item.abstract_status || '暂无摘要')}</div></section>`;
       const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
       const related = (item.related || []).map((record) => `<li><a href="./paper.html?key=${encodeURIComponent(record.key)}">${escapeHTML(record.title)}</a></li>`).join('');
       const relatedBlock = related ? `<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">${related}</ul></section>` : '';

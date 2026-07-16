@@ -212,6 +212,12 @@ def canonicalize_source_type(record: dict[str, Any]) -> bool:
 
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
+    if not record.get("doi"):
+        url = html.unescape(str(record.get("url") or ""))
+        match = re.search(r"(?:doi\.org/|/doi/)(10\.\d{4,9}/[^?&#]+)", url, flags=re.I)
+        if match:
+            record["doi"] = match.group(1).strip("/ ").casefold()
+            changed = True
     if canonicalize_source_type(record):
         changed = True
     title = str(record.get("title") or "")

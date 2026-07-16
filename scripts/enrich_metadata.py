@@ -14,11 +14,12 @@ import re
 import urllib.parse
 import urllib.request
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, date_from_parts, fetch_json, fetch_text, read_json, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, date_from_parts, fetch_json, fetch_text, normalize_doi, read_json, today_str, write_json
 from status import load_status, now, record_source, save_status
 
 
@@ -107,6 +108,20 @@ def parse_meta(html: str) -> dict[str, str]:
     return meta
 
 
+def meta_values(html: str, names: tuple[str, ...]) -> list[str]:
+    wanted = {name.casefold() for name in names}
+    values: list[str] = []
+    for tag in re.findall(r"<meta\b[^>]*>", html, flags=re.I):
+        key_match = re.search(r"(?:name|property)=['\"]([^'\"]+)['\"]", tag, flags=re.I)
+        content_match = re.search(r"content=['\"]([^'\"]*)['\"]", tag, flags=re.I)
+        if not key_match or not content_match or key_match.group(1).casefold() not in wanted:
+            continue
+        value = clean_text(content_match.group(1))
+        if value and value not in values:
+            values.append(value)
+    return values
+
+
 def fetch_text_and_url(url: str, timeout: int) -> tuple[str, str]:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/125 Safari/537.36",
@@ -133,10 +148,13 @@ def extract_elsevier_pii(*values: str | None) -> str | None:
     return match.group(1).upper() if match else None
 
 
-def extract_page_metadata(html: str) -> dict[str, str]:
+def extract_page_metadata(html: str) -> dict[str, Any]:
     meta = parse_meta(html)
     text = clean_text(html)
-    result: dict[str, str] = {}
+    result: dict[str, Any] = {}
+    authors = meta_values(html, ("citation_author", "dc.creator", "dc.contributor.author"))
+    if authors:
+        result["authors"] = authors[:12]
 
     meta_date_fields = (
         ("available_online", "citation_online_date"),
@@ -267,7 +285,7 @@ def publisher_proxy_metadata(url: str, timeout: int) -> dict[str, str]:
     return {"abstract": abstract, "abstract_source": "publisher_page_via_readonly_proxy"}
 
 
-def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
+def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     try:
         payload = fetch_json(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}", timeout=timeout)
         item = payload.get("message") or {}
@@ -279,7 +297,16 @@ def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
     issued = date_from_parts(item.get("issued"))
     created = crossref_created_date(item)
     issue_date = published_print or published or issued
-    result: dict[str, str] = {}
+    result: dict[str, Any] = {}
+    authors = []
+    for author in item.get("author") or []:
+        if not isinstance(author, dict):
+            continue
+        name = clean_text(" ".join(str(author.get(key) or "") for key in ("given", "family")))
+        if name and name not in authors:
+            authors.append(name)
+    if authors:
+        result["authors"] = authors[:12]
     if published_online:
         result["available_online"] = published_online
         result["published_online"] = published_online
@@ -328,13 +355,21 @@ def openalex_abstract(index: Any) -> str | None:
     return " ".join(word for _, word in sorted(positions))
 
 
-def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
+def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     try:
         payload = fetch_json(f"https://api.openalex.org/works/https://doi.org/{urllib.parse.quote(doi)}", timeout=timeout)
     except Exception:
         return {}
     published = payload.get("publication_date")
-    result: dict[str, str] = {}
+    result: dict[str, Any] = {}
+    authors = []
+    for authorship in payload.get("authorships") or []:
+        author = authorship.get("author") if isinstance(authorship, dict) else None
+        name = clean_text(str(author.get("display_name") or "")) if isinstance(author, dict) else ""
+        if name and name not in authors:
+            authors.append(name)
+    if authors:
+        result["authors"] = authors[:12]
     parsed = parse_date(str(published)) if published else None
     if parsed:
         result["available_online"] = parsed
@@ -346,6 +381,32 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
         result["abstract"] = clean_text(abstract)
         result["abstract_source"] = "openalex"
     return result
+
+
+def crossref_title_metadata(title: str, timeout: int) -> dict[str, Any]:
+    query = urllib.parse.urlencode({"query.title": title, "rows": 3})
+    try:
+        payload = fetch_json(f"https://api.crossref.org/works?{query}", timeout=timeout)
+    except Exception:
+        return {}
+    normalized = " ".join(title.casefold().split())
+    for item in (payload.get("message") or {}).get("items") or []:
+        candidate = " ".join(str(item.get("title", [""])[0] or "").casefold().split())
+        if not candidate or (normalized not in candidate and candidate not in normalized):
+            continue
+        authors = []
+        for author in item.get("author") or []:
+            if not isinstance(author, dict):
+                continue
+            name = clean_text(" ".join(str(author.get(key) or "") for key in ("given", "family")))
+            if name and name not in authors:
+                authors.append(name)
+        result: dict[str, Any] = {"authors": authors[:12]} if authors else {}
+        doi = normalize_doi(item.get("DOI"))
+        if doi:
+            result["doi"] = doi
+        return result
+    return {}
 
 
 def unpaywall_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
@@ -365,7 +426,7 @@ def unpaywall_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
     return result
 
 
-def append_date_evidence(record: dict[str, Any], source: str, metadata: dict[str, str]) -> bool:
+def append_date_evidence(record: dict[str, Any], source: str, metadata: dict[str, Any]) -> bool:
     if not metadata:
         return False
     raw_data = record.setdefault("raw_data", {})
@@ -397,13 +458,13 @@ def append_date_evidence(record: dict[str, Any], source: str, metadata: dict[str
     return False
 
 
-def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tuple[dict[str, str], str]:
+def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tuple[dict[str, Any], str]:
     providers = [
         ("crossref-doi", crossref_doi_metadata),
         ("openalex", openalex_doi_metadata),
         ("unpaywall", unpaywall_doi_metadata),
     ]
-    first: dict[str, str] = {}
+    first: dict[str, Any] = {}
     first_source = "api-fallback-empty"
     evidence_changed = False
     for source, getter in providers:
@@ -415,12 +476,14 @@ def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tup
         elif metadata and "abstract" in metadata and "abstract" not in first:
             first["abstract"] = metadata["abstract"]
             first["abstract_source"] = metadata.get("abstract_source", source)
+        if metadata.get("authors") and not first.get("authors"):
+            first["authors"] = metadata["authors"]
     if evidence_changed:
         first["_evidence_changed"] = "true"
     return first, first_source
 
 
-def merge_metadata(record: dict[str, Any], metadata: dict[str, str]) -> bool:
+def merge_metadata(record: dict[str, Any], metadata: dict[str, Any]) -> bool:
     changed = False
     confidence_rank = {"A": 0, "B": 1, "C": 2, "D": 3, "F": 4, "unknown": 5, "": 6}
     existing_confidence = str(record.get("date_confidence") or "")
@@ -502,17 +565,18 @@ def has_ab_date(record: dict[str, Any]) -> bool:
     )
 
 
-def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, float]:
+def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, int, float]:
     bucket = publisher_bucket(record)
     core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
     confidence = str(record.get("date_confidence") or "F")
     weak_date = 0 if not has_ab_date(record) or confidence in {"C", "D", "F", "unknown"} else 1
+    missing_authors = 0 if not record.get("authors") else 1
     missing_abstract = 0 if not str(record.get("abstract") or "").strip() else 1
     try:
-        detected_rank = -datetime.fromisoformat(str(record.get("detected_at") or "").replace("Z", "+00:00")).timestamp()
+        detected_rank = -datetime.fromisoformat(str(record.get("detected_at") or record.get("first_seen") or "").replace("Z", "+00:00")).timestamp()
     except ValueError:
         detected_rank = 0.0
-    return (weak_date, missing_abstract, core_rank, detected_rank)
+    return (missing_authors, weak_date, missing_abstract, core_rank, detected_rank)
 
 
 def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bool = True) -> tuple[bool, str]:
@@ -639,7 +703,7 @@ def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bo
 
 
 def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
-    if str(record.get("abstract") or "").strip():
+    if str(record.get("abstract") or "").strip() and record.get("authors"):
         return False, "abstract-present"
     changed = False
     bucket = publisher_bucket(record)
@@ -653,7 +717,7 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
             changed = append_date_evidence(record, source, metadata) or changed
             changed = merge_metadata(record, metadata) or changed
             if str(record.get("abstract") or "").strip():
-                return True, f"abstract-updated:{source}"
+                return changed, f"metadata-updated:{source}"
     if bucket == "Elsevier":
         if doi.startswith("10.1016/"):
             metadata = elsevier_api_metadata(doi, timeout)
@@ -681,6 +745,52 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
         return changed, proxy_status if not changed else f"metadata-only:{proxy_status}"
     changed = merge_metadata(record, metadata) or changed
     return changed, "abstract-updated"
+
+
+def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
+    if record.get("authors"):
+        return False, "authors-present"
+    doi = str(record.get("doi") or "").strip()
+    if not doi:
+        for url in candidate_urls(record):
+            match = re.search(r"10\.\d{4,9}/[-._;()/:A-Z0-9]+", url, flags=re.I)
+            if match:
+                doi = normalize_doi(match.group(0)) or ""
+                if doi:
+                    record["doi"] = doi
+                    break
+    if doi:
+        for source, getter in (("crossref-doi", crossref_doi_metadata), ("openalex", openalex_doi_metadata)):
+            metadata = getter(doi, timeout)
+            if metadata.get("authors"):
+                changed = merge_metadata(record, metadata)
+                return changed, f"authors-updated:{source}"
+    if not doi and str(record.get("source_id") or "") in {"oecd-working-papers", "cepr-dp"}:
+        metadata = crossref_title_metadata(str(record.get("title") or ""), timeout)
+        if metadata.get("authors"):
+            changed = merge_metadata(record, metadata)
+            return changed, "authors-updated:crossref-title"
+    for url in candidate_urls(record):
+        try:
+            page_html, _ = fetch_text_and_url(url, timeout)
+        except Exception:
+            continue
+        metadata = extract_page_metadata(page_html)
+        if not metadata.get("authors") and record.get("source_id") == "iza":
+            from fetch_preprints import iza_detail_authors
+
+            metadata["authors"] = iza_detail_authors(page_html)
+        if metadata.get("authors"):
+            changed = merge_metadata(record, metadata)
+            return changed, "authors-updated:publisher-page"
+    if record.get("source_id") in {"fed-feds", "cepr-dp"}:
+        from fetch_preprints import enrich_record_from_proxy
+
+        before = list(record.get("authors") or [])
+        enrich_record_from_proxy(record, str(record.get("source_id")), timeout=timeout)
+        if record.get("authors") and record.get("authors") != before:
+            return True, "authors-updated:readonly-proxy"
+    return False, "authors-not-found"
 
 
 def record_publisher_group(stats: dict[str, dict[str, Any]]) -> None:
@@ -745,13 +855,17 @@ def correct_tandf_date(record: dict[str, Any]) -> bool:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
+    parser.add_argument("--seen", type=Path, default=DATA_DIR / "seen.json")
     parser.add_argument("--date", default=today_str())
     parser.add_argument("--doi", default=None, help="Only enrich the matching DOI (useful for retries and audits).")
     parser.add_argument("--latest-days", type=int, default=1)
     parser.add_argument("--limit", type=int, default=60)
     parser.add_argument("--proxy-abstract-limit", type=int, default=20)
     parser.add_argument("--abstract-only", action="store_true", help="Skip slow publisher HTML and only run abstract fallbacks.")
+    parser.add_argument("--authors-only", action="store_true", help="Only backfill records whose author list is missing.")
+    parser.add_argument("--source-id", default=None, help="Only process records from one source id during a targeted retry.")
     parser.add_argument("--timeout", type=int, default=15)
+    parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
 
     try:
@@ -765,45 +879,98 @@ def main() -> None:
     attempted = changed = 0
     messages: list[str] = []
     publisher_stats: dict[str, dict[str, Any]] = {}
-    records_by_path: dict[Path, list[dict[str, Any]]] = {}
+    records_by_path: dict[Path, Any] = {}
     candidates: list[tuple[Path, dict[str, Any]]] = []
+    daily_identities: set[str] = set()
+
+    def identity(record: dict[str, Any]) -> str:
+        doi = str(record.get("doi") or "").strip().casefold()
+        if doi:
+            return f"doi:{doi}"
+        url = str(record.get("url") or "").strip().casefold()
+        if url:
+            return f"url:{url}"
+        return f"title:{str(record.get('journal') or '').casefold()}:{str(record.get('title') or '').casefold()}"
+
     for path in paths:
         records = read_json(path, [])
         records_by_path[path] = records
+        daily_identities.update(identity(record) for record in records if isinstance(record, dict))
         candidates.extend(
             (path, record)
             for record in records
-            if should_enrich(record)
+            if (args.authors_only or should_enrich(record))
+            and (not args.authors_only or not record.get("authors"))
+            and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
             and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
         )
+    seen_payload = read_json(args.seen, {"papers": {}})
+    seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
+    if isinstance(seen_papers, dict):
+        records_by_path[args.seen] = seen_payload
+        oldest = anchor - timedelta(days=max(1, args.latest_days) - 1)
+        for record in seen_papers.values():
+            if not isinstance(record, dict) or identity(record) in daily_identities:
+                continue
+            seen_date = str(record.get("first_seen") or "")[:10]
+            try:
+                is_recent = date.fromisoformat(seen_date) >= oldest
+            except ValueError:
+                is_recent = False
+            if (
+                (is_recent or not record.get("authors"))
+                and (args.authors_only or should_enrich(record))
+                and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
+                and (not args.authors_only or not record.get("authors"))
+                and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
+            ):
+                candidates.append((args.seen, record))
     candidates.sort(key=lambda item: enrich_priority(item[1]))
 
     changed_paths: set[Path] = set()
+    selected: list[tuple[Path, dict[str, Any], bool]] = []
     proxy_abstract_attempted = 0
-    for path, record in candidates:
-        if attempted >= args.limit:
-            break
-        attempted += 1
+    for path, record in candidates[: max(0, args.limit)]:
         bucket = publisher_bucket(record)
-        stats = publisher_stats.setdefault(
-            bucket,
-            {"attempted": 0, "changed": 0, "ab_dates": 0, "failures": 0, "status_counts": Counter()},
-        )
-        stats["attempted"] += 1
+        needs_proxy = not str(record.get("abstract") or "").strip() and bucket in {
+            "Elsevier",
+            "Taylor & Francis",
+            "Wiley",
+            "OUP",
+        }
+        allow_proxy = needs_proxy and proxy_abstract_attempted < max(0, args.proxy_abstract_limit)
+        if allow_proxy:
+            proxy_abstract_attempted += 1
+        selected.append((path, record, allow_proxy))
+
+    def run_candidate(item: tuple[Path, dict[str, Any], bool]) -> tuple[Path, dict[str, Any], bool, str, Exception | None]:
+        path, record, allow_proxy = item
         try:
-            needs_proxy = not str(record.get("abstract") or "").strip() and publisher_bucket(record) in {
-                "Elsevier",
-                "Taylor & Francis",
-                "Wiley",
-                "OUP",
-            }
-            allow_proxy = needs_proxy and proxy_abstract_attempted < max(0, args.proxy_abstract_limit)
-            if allow_proxy:
-                proxy_abstract_attempted += 1
-            if args.abstract_only:
+            if args.authors_only:
+                did_change, status = enrich_author_record(record, args.timeout)
+            elif args.abstract_only:
                 did_change, status = enrich_abstract_record(record, args.timeout)
             else:
                 did_change, status = enrich_record(record, args.timeout, allow_proxy_abstract=allow_proxy)
+        except Exception as exc:  # noqa: BLE001
+            return path, record, False, type(exc).__name__, exc
+        return path, record, did_change, status, None
+
+    attempted = len(selected)
+    with ThreadPoolExecutor(max_workers=max(1, args.workers)) as executor:
+        results = executor.map(run_candidate, selected)
+        for path, record, did_change, status, error in results:
+            bucket = publisher_bucket(record)
+            stats = publisher_stats.setdefault(
+                bucket,
+                {"attempted": 0, "changed": 0, "ab_dates": 0, "failures": 0, "status_counts": Counter()},
+            )
+            stats["attempted"] += 1
+            if error is not None:
+                stats["failures"] += 1
+                stats["status_counts"][status] += 1
+                messages.append(f"{path.stem} {record.get('journal')}: {status}")
+                continue
             changed += int(did_change)
             if did_change:
                 changed_paths.add(path)
@@ -816,12 +983,6 @@ def main() -> None:
                 stats["failures"] += 1
             if status not in {"no-dates", "no-metadata"}:
                 messages.append(f"{path.stem} {record.get('journal')}: {status}")
-        except Exception as exc:  # noqa: BLE001
-            error_name = type(exc).__name__
-            stats["failures"] += 1
-            stats["status_counts"][error_name] += 1
-            messages.append(f"{path.stem} {record.get('journal')}: {error_name}")
-            continue
 
     for path in sorted(changed_paths):
         write_json(path, records_by_path[path])

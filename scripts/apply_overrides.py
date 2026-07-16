@@ -27,6 +27,7 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
         "abstract": "abstract",
         "abstract_zh": "abstract_zh",
         "abstract_source": "abstract_source",
+        "abstract_status": "abstract_status",
         "china_related": "china_related",
         "china_reason": "china_reason",
         "date_confidence": "date_confidence",
@@ -34,6 +35,9 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
         "accepted_date": "accepted_date",
         "available_online": "available_online",
         "published_online": "published_online",
+        "authors": "authors",
+        "authors_status": "authors_status",
+        "doi": "doi",
     }
     for source_key, target_key in field_map.items():
         if source_key not in override:
@@ -79,6 +83,7 @@ def daily_paths(daily_dir: Path, date_filter: str | None) -> list[Path]:
 def load_overrides(path: Path) -> dict[str, dict[str, Any]]:
     records: dict[str, dict[str, Any]] = {}
     current_key: str | None = None
+    current_list_field: str | None = None
     in_records = False
     for raw_line in path.read_text(encoding="utf-8").splitlines():
         if not raw_line.strip() or raw_line.lstrip().startswith("#"):
@@ -94,10 +99,20 @@ def load_overrides(path: Path) -> dict[str, dict[str, Any]]:
             key = stripped.rstrip(":").strip('"')
             records[key] = {}
             current_key = key
+            current_list_field = None
+            continue
+        if current_key and current_list_field and line.startswith("      - "):
+            records[current_key][current_list_field].append(parse_scalar(stripped[2:].strip()))
             continue
         if current_key and line.startswith("    "):
             field, _, value = stripped.partition(":")
-            records[current_key][field.strip()] = parse_scalar(value.strip())
+            field = field.strip()
+            if not value.strip():
+                records[current_key][field] = []
+                current_list_field = field
+            else:
+                records[current_key][field] = parse_scalar(value.strip())
+                current_list_field = None
     return records
 
 
@@ -129,7 +144,8 @@ def main() -> None:
     for key, override in overrides.items():
         if not isinstance(override, dict):
             continue
-        seen_key = f"doi:{normalize_doi(key)}" if normalize_doi(key) else key
+        normalized_key = normalize_doi(key)
+        seen_key = f"doi:{normalized_key}" if normalized_key and normalized_key.startswith("10.") else key
         entry = seen.get("papers", {}).get(seen_key)
         if isinstance(entry, dict) and apply_to_record(entry, override):
             changed += 1
