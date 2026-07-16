@@ -1,5 +1,6 @@
 param(
   [switch]$NoPush,
+  [switch]$RunnerMode,
   [int]$MaxAgeDays = 90
 )
 
@@ -12,6 +13,22 @@ New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $log = Join-Path $logDir "local-cnki-scheduled-task.log"
 
 Set-Location $repo
+
+if ($RunnerMode) {
+  $env:ECON_PAPER_MONITOR_RUNNER = "1"
+  & git -C $repo fetch origin main 2>&1 | ForEach-Object {
+    Add-Content -LiteralPath $log -Encoding UTF8 -Value $_
+  }
+  if ($LASTEXITCODE -ne 0) {
+    throw "Unable to fetch academic-door/main for the local CNKI runner."
+  }
+  & git -C $repo reset --hard origin/main 2>&1 | ForEach-Object {
+    Add-Content -LiteralPath $log -Encoding UTF8 -Value $_
+  }
+  if ($LASTEXITCODE -ne 0) {
+    throw "Unable to reset the local CNKI runner to origin/main."
+  }
+}
 
 $argsList = @(".\scripts\local_cnki_update.py", "--max-age-days", "$MaxAgeDays")
 if ($NoPush) {
