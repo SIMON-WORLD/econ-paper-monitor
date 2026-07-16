@@ -156,6 +156,13 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
         issue_date = valid_iso_date(record.get("issue_date"))
         if issue_date:
             return issue_date if issue_date <= run_date else None
+        raw_data = record.get("raw_data") if isinstance(record.get("raw_data"), dict) else {}
+        if (
+            source == "aea_toc"
+            and str(record.get("date_source") or "") == "aea_forthcoming"
+            and raw_data.get("aea_first_observed") is True
+        ):
+            return run_date
         return None
     if source != "rss":
         source_id = str(record.get("source_id") or "")
@@ -227,7 +234,10 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
         keys.add(f"url:{normalized_url}")
         # CNKI article URLs often share the same path and only differ by query
         # parameters. Dropping the query collapses unrelated papers into one.
-        if "kns.cnki.net/kcms2/article/abstract" not in normalized_url:
+        if (
+            "kns.cnki.net/kcms2/article/abstract" not in normalized_url
+            and "aeaweb.org/articles" not in normalized_url
+        ):
             keys.add(f"url:{normalized_url.split('?', 1)[0]}")
         for pattern in (
             r"nber\.org/papers/(w\d+)",

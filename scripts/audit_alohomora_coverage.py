@@ -148,7 +148,9 @@ def norm_title(value: str | None) -> str:
 
 def doi_from_url(value: str | None) -> str:
     match = re.search(r"(10\.\d{4,9}/[^\s\"<>]+)", value or "", re.I)
-    return match.group(1).lower().rstrip(").,;") if match else ""
+    if not match:
+        return ""
+    return re.split(r"[?&#]", match.group(1), maxsplit=1)[0].lower().rstrip(").,;")
 
 
 def parse_date_parts(value: Any) -> str | None:
