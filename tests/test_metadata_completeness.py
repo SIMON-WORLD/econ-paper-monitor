@@ -84,6 +84,16 @@ class MetadataCompletenessTests(unittest.TestCase):
         self.assertEqual(metadata["authors"], ["First Author"])
         self.assertEqual(metadata["doi"], "10.1234/example.1")
 
+    def test_author_only_enrichment_marks_unresolved_source(self) -> None:
+        record = {"source_id": "voxeu-cepr-columns", "url": "https://cepr.org/voxeu/columns/example", "authors": []}
+
+        with patch.object(enrich_metadata, "fetch_text_and_url", side_effect=RuntimeError("blocked")):
+            changed, status = enrich_metadata.enrich_author_record(record, timeout=1)
+
+        self.assertTrue(changed)
+        self.assertEqual(status, "authors-status-marked")
+        self.assertEqual(record["authors_status"], "作者信息待核验")
+
     def test_rss_creator_is_preserved_as_author(self) -> None:
         xml = """<?xml version="1.0"?>
         <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">

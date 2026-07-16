@@ -790,6 +790,14 @@ def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, st
         enrich_record_from_proxy(record, str(record.get("source_id")), timeout=timeout)
         if record.get("authors") and record.get("authors") != before:
             return True, "authors-updated:readonly-proxy"
+    if not record.get("authors") and not record.get("authors_status"):
+        source_id = str(record.get("source_id") or "")
+        record["authors_status"] = (
+            "官方页面未列出个人作者"
+            if source_id == "oecd-working-papers"
+            else "作者信息待核验"
+        )
+        return True, "authors-status-marked"
     return False, "authors-not-found"
 
 
