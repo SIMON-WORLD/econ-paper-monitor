@@ -16,16 +16,23 @@ Set-Location $repo
 
 if ($RunnerMode) {
   $env:ECON_PAPER_MONITOR_RUNNER = "1"
-  & git -C $repo fetch origin main 2>&1 | ForEach-Object {
+  $previousErrorActionPreference = $ErrorActionPreference
+  $ErrorActionPreference = "Continue"
+  $fetchOutput = & git -C $repo fetch origin main 2>&1
+  $fetchCode = $LASTEXITCODE
+  $resetOutput = if ($fetchCode -eq 0) { & git -C $repo reset --hard origin/main 2>&1 }
+  $resetCode = $LASTEXITCODE
+  $ErrorActionPreference = $previousErrorActionPreference
+  $fetchOutput | ForEach-Object {
     Add-Content -LiteralPath $log -Encoding UTF8 -Value $_
   }
-  if ($LASTEXITCODE -ne 0) {
+  if ($fetchCode -ne 0) {
     throw "Unable to fetch academic-door/main for the local CNKI runner."
   }
-  & git -C $repo reset --hard origin/main 2>&1 | ForEach-Object {
+  $resetOutput | ForEach-Object {
     Add-Content -LiteralPath $log -Encoding UTF8 -Value $_
   }
-  if ($LASTEXITCODE -ne 0) {
+  if ($resetCode -ne 0) {
     throw "Unable to reset the local CNKI runner to origin/main."
   }
 }
