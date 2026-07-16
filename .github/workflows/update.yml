@@ -312,7 +312,7 @@ jobs:
           ADMIN_STATUS_TOKEN_HASH: ${{ secrets.ADMIN_STATUS_TOKEN_HASH }}
       - name: Build RSS feed
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/build_feed.py --site-url https://simon-world.github.io/econ-paper-monitor/
+        run: python scripts/build_feed.py --site-url https://academic-door.github.io/econ-paper-monitor/
       - name: Send optional email digest
         if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && github.event.schedule == '30 0 * * *')
         run: python scripts/send_email_digest.py

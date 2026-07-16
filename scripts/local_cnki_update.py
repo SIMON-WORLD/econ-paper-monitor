@@ -178,7 +178,7 @@ def main() -> None:
         record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={LOG_PATH}")
         final_status_recorded = True
         run_step([python, "scripts/render_site.py"])
-        run_step([python, "scripts/build_feed.py", "--site-url", "https://simon-world.github.io/econ-paper-monitor/"])
+        run_step([python, "scripts/build_feed.py", "--site-url", "https://academic-door.github.io/econ-paper-monitor/"])
         run_step([python, "scripts/render_local_status.py"])
         run_step([python, "scripts/render_cnki_status.py"])
 

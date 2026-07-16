@@ -22,7 +22,7 @@ from common import DATA_DIR, ROOT, read_json, stable_id, write_text
 
 
 OVERRIDES_PATH = DATA_DIR / "manual_overrides.yml"
-SITE_URL = "https://simon-world.github.io/econ-paper-monitor/"
+SITE_URL = "https://academic-door.github.io/econ-paper-monitor/"
 
 
 def h(value: Any) -> str:

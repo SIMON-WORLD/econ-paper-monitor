@@ -19,7 +19,7 @@ from render_local_status import source_risks
 from status import load_status
 
 
-SITE_URL = "https://simon-world.github.io/econ-paper-monitor/"
+SITE_URL = "https://academic-door.github.io/econ-paper-monitor/"
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
