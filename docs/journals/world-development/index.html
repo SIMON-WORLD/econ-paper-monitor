@@ -90,13 +90,13 @@
   </div>
 </article>
 <article class="event" data-event-scope="default" data-search="refugees, camps, and host communities: evidence from bangladesh’s humanitarian hosting system 难民、难民营与收容社区：来自孟加拉国人道主义收容系统的证据 alvin etang ndip, sandra v. rozo, maría josé urbina, christina wieser world development 10.1016/j.worlddev.2026.107492" data-journal="world-development" data-fields="development" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
-  <div><div class="time">01:23</div><div class="date-note">2026-07-13</div></div>
+  <div><div class="time">01:23</div><div class="date-note">2026-07-14</div></div>
   <div>
     <h3><a href="../../paper.html?key=refugees-camps-and-host-communities-evidence-from-bangladesh-s-humanitar-4e55a96f662c">Refugees, camps, and host communities: Evidence from Bangladesh’s humanitarian hosting system</a></h3>
     <p class="title-zh">难民、难民营与收容社区：来自孟加拉国人道主义收容系统的证据</p>
     <p class="authors">Alvin Etang Ndip, Sandra V. Rozo, María José Urbina, Christina Wieser</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="pill">首次监测 2026-07-13</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="pill">首次监测 2026-07-14</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-07-14 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107492">10.1016/j.worlddev.2026.107492</a><span class="pill">发展经济学</span></span></div>
     </div>
@@ -828,3 +828,19 @@
   </div>
 </body>
 </html>
+<script>
+(() => {
+  const endpoint = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence";
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {headers: {'Accept': 'application/json'}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class="presence-dot">●</span> ' + data.online + ' 人在线'; })
+    .catch(() => {});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+})();
+</script>
