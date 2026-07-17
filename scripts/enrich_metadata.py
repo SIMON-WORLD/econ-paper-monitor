@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import html as html_lib
+import json
 import os
 import re
 import urllib.parse
@@ -226,11 +227,67 @@ def extract_markdown_abstract(markdown: str) -> str | None:
     return abstract if len(abstract) > 80 else None
 
 
+def fetch_elsevier_json(url: str, timeout: int, api_key: str = "") -> dict[str, Any]:
+    headers = {
+        "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
+        "Accept": "application/json",
+    }
+    if api_key:
+        headers["X-ELS-APIKey"] = api_key
+    request = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    return payload if isinstance(payload, dict) else {}
+
+
+def nested_text(value: Any) -> str:
+    if isinstance(value, str):
+        return clean_text(value)
+    if isinstance(value, list):
+        return clean_text(" ".join(nested_text(item) for item in value))
+    if isinstance(value, dict):
+        preferred = ("ce:para", "para", "$", "_", "content")
+        parts = [nested_text(value[key]) for key in preferred if key in value]
+        if not any(parts):
+            parts = [nested_text(item) for key, item in value.items() if not str(key).startswith("@")]
+        return clean_text(" ".join(part for part in parts if part))
+    return ""
+
+
+def extract_elsevier_api_abstract(response: dict[str, Any], core: dict[str, Any]) -> str | None:
+    candidates: list[Any] = [core.get("dc:description")]
+    item = response.get("item")
+    if isinstance(item, dict):
+        bibrecord = item.get("bibrecord")
+        if isinstance(bibrecord, dict):
+            head = bibrecord.get("head")
+            if isinstance(head, dict):
+                abstracts = head.get("abstracts")
+                if isinstance(abstracts, dict):
+                    candidates.append(abstracts.get("abstract"))
+                elif abstracts:
+                    candidates.append(abstracts)
+    original_text = response.get("originalText")
+    if isinstance(original_text, str):
+        match = re.search(r"<ce:abstract\b[^>]*>([\s\S]*?)</ce:abstract>", original_text, flags=re.I)
+        if match:
+            candidates.append(match.group(1))
+    for candidate in candidates:
+        abstract = nested_text(candidate)
+        if len(abstract) > 80:
+            return abstract
+    return None
+
+
 def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
     encoded_doi = urllib.parse.quote(doi, safe="")
-    url = f"https://api.elsevier.com/content/article/doi/{encoded_doi}?httpAccept=application%2Fjson"
+    api_key = (os.environ.get("ELSEVIER_API_KEY") or os.environ.get("ELS_API_KEY") or "").strip()
+    query = {"httpAccept": "application/json"}
+    if api_key:
+        query["view"] = "FULL"
+    url = f"https://api.elsevier.com/content/article/doi/{encoded_doi}?{urllib.parse.urlencode(query)}"
     try:
-        payload = fetch_json(url, timeout=timeout)
+        payload = fetch_elsevier_json(url, timeout=timeout, api_key=api_key)
     except Exception:
         return {}
     response = payload.get("full-text-retrieval-response") if isinstance(payload, dict) else None
@@ -249,10 +306,10 @@ def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
         result["published_online"] = parsed
         result["date_source"] = "elsevier_article_api"
         result["date_confidence"] = "B"
-    abstract = core.get("dc:description")
-    if abstract and len(clean_text(str(abstract))) > 80:
-        result["abstract"] = clean_text(str(abstract))
-        result["abstract_source"] = "elsevier_article_api"
+    abstract = extract_elsevier_api_abstract(response, core)
+    if abstract:
+        result["abstract"] = abstract
+        result["abstract_source"] = "elsevier_article_api_full" if api_key else "elsevier_article_api"
     return result
 
 

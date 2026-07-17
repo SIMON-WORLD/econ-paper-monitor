@@ -12,6 +12,52 @@ import enrich_metadata  # noqa: E402
 
 
 class EnrichMetadataTests(unittest.TestCase):
+    @patch.object(enrich_metadata, "fetch_elsevier_json")
+    def test_elsevier_full_api_extracts_nested_abstract(self, fetch_mock) -> None:
+        fetch_mock.return_value = {
+            "full-text-retrieval-response": {
+                "coredata": {"pii": "S030438782600163X"},
+                "item": {
+                    "bibrecord": {
+                        "head": {
+                            "abstracts": {
+                                "abstract": {
+                                    "ce:para": "This is a publisher supplied abstract that is intentionally longer than eighty characters so the Elsevier full response parser can retain it."
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+        }
+
+        with patch.dict(enrich_metadata.os.environ, {"ELSEVIER_API_KEY": "test-key"}, clear=False):
+            result = enrich_metadata.elsevier_api_metadata("10.1016/j.jdeveco.2026.103880", timeout=1)
+
+        self.assertEqual(result["abstract_source"], "elsevier_article_api_full")
+        self.assertIn("publisher supplied abstract", result["abstract"])
+        called_url = fetch_mock.call_args.args[0]
+        self.assertIn("view=FULL", called_url)
+        self.assertEqual(fetch_mock.call_args.kwargs["api_key"], "test-key")
+
+    @patch.object(enrich_metadata, "fetch_elsevier_json")
+    def test_elsevier_anonymous_api_keeps_core_metadata_fallback(self, fetch_mock) -> None:
+        fetch_mock.return_value = {
+            "full-text-retrieval-response": {
+                "coredata": {
+                    "pii": "S030438782600163X",
+                    "prism:coverDisplayDate": "Available online 16 July 2026",
+                }
+            }
+        }
+
+        with patch.dict(enrich_metadata.os.environ, {"ELSEVIER_API_KEY": "", "ELS_API_KEY": ""}, clear=False):
+            result = enrich_metadata.elsevier_api_metadata("10.1016/j.jdeveco.2026.103880", timeout=1)
+
+        self.assertNotIn("view=FULL", fetch_mock.call_args.args[0])
+        self.assertEqual(fetch_mock.call_args.kwargs["api_key"], "")
+        self.assertEqual(result["available_online"], "2026-07-16")
+
     def test_extract_markdown_abstract(self) -> None:
         markdown = """# Paper
 
