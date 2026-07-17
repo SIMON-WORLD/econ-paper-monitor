@@ -32,6 +32,23 @@ class MetadataCompletenessTests(unittest.TestCase):
 
             self.assertEqual(records["10.1234/test"]["authors"], ["First Author", "Second Author"])
 
+    def test_manual_china_override_is_persistently_confirmed(self) -> None:
+        record = {"china_relevance_status": "none", "china_related": None}
+
+        changed = apply_overrides.apply_to_record(
+            record,
+            {
+                "china_related": True,
+                "china_reason": "研究对象为中国司法改革",
+                "title_zh": "诉诸利维坦：跨区域司法管辖改革对企业投资的影响",
+            },
+        )
+
+        self.assertTrue(changed)
+        self.assertTrue(record["china_related"])
+        self.assertEqual(record["china_related_source"], "manual")
+        self.assertEqual(record["china_relevance_status"], "confirmed")
+
     def test_publisher_meta_extracts_all_authors(self) -> None:
         html = """
         <meta name="citation_author" content="First Author">
