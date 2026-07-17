@@ -267,9 +267,12 @@ jobs:
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_metadata.py --latest-days 14 --limit ${{ steps.mode.outputs.detail_limit }} --proxy-abstract-limit 36 --timeout 18
+      - name: Backfill missing authors
+        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        run: timeout 5m python scripts/enrich_metadata.py --authors-only --latest-days 45 --limit 80 --timeout 15 --workers 8
       - name: Backfill public abstracts
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: timeout 5m python scripts/enrich_metadata.py --abstract-only --latest-days 30 --limit 20 --proxy-abstract-limit 20 --timeout 12
+        run: timeout 5m python scripts/enrich_metadata.py --abstract-only --latest-days 30 --limit 40 --proxy-abstract-limit 40 --timeout 12 --workers 8
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all

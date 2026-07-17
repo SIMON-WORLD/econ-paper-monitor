@@ -57,6 +57,33 @@ class MetadataCompletenessTests(unittest.TestCase):
 
         self.assertEqual(metadata["authors"], ["Jose Apesteguia", "Miguel A. Ballester"])
 
+    @patch.object(enrich_metadata, "fetch_json")
+    def test_semantic_scholar_metadata_includes_abstract(self, fetch_json_mock) -> None:
+        fetch_json_mock.return_value = {
+            "abstract": "A sufficiently detailed public abstract for a newly deposited paper that provides enough context to pass metadata quality checks.",
+            "authors": [{"name": "First Author"}],
+            "publicationDate": "2026-07-16",
+        }
+
+        metadata = enrich_metadata.semantic_scholar_doi_metadata("10.1234/test", timeout=1)
+
+        self.assertEqual(metadata["authors"], ["First Author"])
+        self.assertIn("newly deposited paper", metadata["abstract"])
+        self.assertEqual(metadata["abstract_source"], "semantic_scholar")
+
+    def test_abstract_priority_prefers_new_missing_abstracts(self) -> None:
+        newest_missing = {"detected_at": "2026-07-16T12:00:00+00:00", "abstract": ""}
+        older_missing = {"detected_at": "2026-07-15T12:00:00+00:00", "abstract": ""}
+        newest_present = {"detected_at": "2026-07-16T13:00:00+00:00", "abstract": "Already available"}
+
+        ordered = sorted(
+            [newest_present, older_missing, newest_missing],
+            key=enrich_metadata.abstract_enrich_priority,
+        )
+
+        self.assertIs(ordered[0], newest_missing)
+        self.assertIs(ordered[1], older_missing)
+
     @patch.object(enrich_metadata, "crossref_doi_metadata", return_value={"authors": ["Recovered Author"]})
     def test_author_only_enrichment_stops_after_crossref(self, _crossref_mock) -> None:
         record = {"doi": "10.1257/test", "authors": []}

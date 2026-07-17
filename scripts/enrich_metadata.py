@@ -383,6 +383,33 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     return result
 
 
+def semantic_scholar_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
+    fields = urllib.parse.urlencode({"fields": "abstract,authors,publicationDate,externalIds"})
+    try:
+        payload = fetch_json(
+            f"https://api.semanticscholar.org/graph/v1/paper/DOI:{urllib.parse.quote(doi)}?{fields}",
+            timeout=timeout,
+        )
+    except Exception:
+        return {}
+    result: dict[str, Any] = {}
+    abstract = clean_text(str(payload.get("abstract") or ""))
+    if len(abstract) > 80:
+        result["abstract"] = abstract
+        result["abstract_source"] = "semantic_scholar"
+    authors = []
+    for author in payload.get("authors") or []:
+        name = clean_text(str(author.get("name") or "")) if isinstance(author, dict) else ""
+        if name and name not in authors:
+            authors.append(name)
+    if authors:
+        result["authors"] = authors[:12]
+    published = parse_date(str(payload.get("publicationDate") or ""))
+    if published:
+        result["published_online"] = published
+    return result
+
+
 def crossref_title_metadata(title: str, timeout: int) -> dict[str, Any]:
     query = urllib.parse.urlencode({"query.title": title, "rows": 3})
     try:
@@ -462,6 +489,7 @@ def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tup
     providers = [
         ("crossref-doi", crossref_doi_metadata),
         ("openalex", openalex_doi_metadata),
+        ("semantic-scholar", semantic_scholar_doi_metadata),
         ("unpaywall", unpaywall_doi_metadata),
     ]
     first: dict[str, Any] = {}
@@ -577,6 +605,19 @@ def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, int, float]:
     except ValueError:
         detected_rank = 0.0
     return (missing_authors, weak_date, missing_abstract, core_rank, detected_rank)
+
+
+def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, float, int]:
+    missing_abstract = 0 if not str(record.get("abstract") or "").strip() else 1
+    try:
+        detected_rank = -datetime.fromisoformat(
+            str(record.get("detected_at") or record.get("first_seen") or "").replace("Z", "+00:00")
+        ).timestamp()
+    except ValueError:
+        detected_rank = 0.0
+    bucket = publisher_bucket(record)
+    core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
+    return (missing_abstract, detected_rank, core_rank)
 
 
 def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bool = True) -> tuple[bool, str]:
@@ -710,7 +751,11 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
     doi = str(record.get("doi") or "").strip()
     proxy_url = ""
     if doi:
-        for source, getter in (("crossref-doi", crossref_doi_metadata), ("openalex", openalex_doi_metadata)):
+        for source, getter in (
+            ("crossref-doi", crossref_doi_metadata),
+            ("openalex", openalex_doi_metadata),
+            ("semantic-scholar", semantic_scholar_doi_metadata),
+        ):
             metadata = getter(doi, timeout)
             if not metadata:
                 continue
@@ -926,14 +971,15 @@ def main() -> None:
             except ValueError:
                 is_recent = False
             if (
-                (is_recent or not record.get("authors"))
+                (is_recent or (args.authors_only and not record.get("authors")))
                 and (args.authors_only or should_enrich(record))
                 and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
                 and (not args.authors_only or not record.get("authors"))
                 and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
             ):
                 candidates.append((args.seen, record))
-    candidates.sort(key=lambda item: enrich_priority(item[1]))
+    priority = abstract_enrich_priority if args.abstract_only else enrich_priority
+    candidates.sort(key=lambda item: priority(item[1]))
 
     changed_paths: set[Path] = set()
     selected: list[tuple[Path, dict[str, Any], bool]] = []
