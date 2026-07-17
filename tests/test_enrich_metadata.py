@@ -31,7 +31,11 @@ class EnrichMetadataTests(unittest.TestCase):
             }
         }
 
-        with patch.dict(enrich_metadata.os.environ, {"ELSEVIER_API_KEY": "test-key"}, clear=False):
+        with patch.dict(
+            enrich_metadata.os.environ,
+            {"ELSEVIER_API_KEY": "test-key", "ELSEVIER_INSTTOKEN": "test-insttoken"},
+            clear=False,
+        ):
             result = enrich_metadata.elsevier_api_metadata("10.1016/j.jdeveco.2026.103880", timeout=1)
 
         self.assertEqual(result["abstract_source"], "elsevier_article_api_full")
@@ -39,6 +43,7 @@ class EnrichMetadataTests(unittest.TestCase):
         called_url = fetch_mock.call_args.args[0]
         self.assertIn("view=FULL", called_url)
         self.assertEqual(fetch_mock.call_args.kwargs["api_key"], "test-key")
+        self.assertEqual(fetch_mock.call_args.kwargs["insttoken"], "test-insttoken")
 
     @patch.object(enrich_metadata, "fetch_elsevier_json")
     def test_elsevier_anonymous_api_keeps_core_metadata_fallback(self, fetch_mock) -> None:
@@ -51,11 +56,16 @@ class EnrichMetadataTests(unittest.TestCase):
             }
         }
 
-        with patch.dict(enrich_metadata.os.environ, {"ELSEVIER_API_KEY": "", "ELS_API_KEY": ""}, clear=False):
+        with patch.dict(
+            enrich_metadata.os.environ,
+            {"ELSEVIER_API_KEY": "", "ELS_API_KEY": "", "ELSEVIER_INSTTOKEN": ""},
+            clear=False,
+        ):
             result = enrich_metadata.elsevier_api_metadata("10.1016/j.jdeveco.2026.103880", timeout=1)
 
         self.assertNotIn("view=FULL", fetch_mock.call_args.args[0])
         self.assertEqual(fetch_mock.call_args.kwargs["api_key"], "")
+        self.assertEqual(fetch_mock.call_args.kwargs["insttoken"], "")
         self.assertEqual(result["available_online"], "2026-07-16")
 
     def test_extract_markdown_abstract(self) -> None:

@@ -227,13 +227,15 @@ def extract_markdown_abstract(markdown: str) -> str | None:
     return abstract if len(abstract) > 80 else None
 
 
-def fetch_elsevier_json(url: str, timeout: int, api_key: str = "") -> dict[str, Any]:
+def fetch_elsevier_json(url: str, timeout: int, api_key: str = "", insttoken: str = "") -> dict[str, Any]:
     headers = {
         "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
         "Accept": "application/json",
     }
     if api_key:
         headers["X-ELS-APIKey"] = api_key
+    if insttoken:
+        headers["X-ELS-Insttoken"] = insttoken
     request = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(request, timeout=timeout) as response:
         payload = json.loads(response.read().decode("utf-8"))
@@ -282,12 +284,13 @@ def extract_elsevier_api_abstract(response: dict[str, Any], core: dict[str, Any]
 def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
     encoded_doi = urllib.parse.quote(doi, safe="")
     api_key = (os.environ.get("ELSEVIER_API_KEY") or os.environ.get("ELS_API_KEY") or "").strip()
+    insttoken = (os.environ.get("ELSEVIER_INSTTOKEN") or "").strip()
     query = {"httpAccept": "application/json"}
     if api_key:
         query["view"] = "FULL"
     url = f"https://api.elsevier.com/content/article/doi/{encoded_doi}?{urllib.parse.urlencode(query)}"
     try:
-        payload = fetch_elsevier_json(url, timeout=timeout, api_key=api_key)
+        payload = fetch_elsevier_json(url, timeout=timeout, api_key=api_key, insttoken=insttoken)
     except Exception:
         return {}
     response = payload.get("full-text-retrieval-response") if isinstance(payload, dict) else None
