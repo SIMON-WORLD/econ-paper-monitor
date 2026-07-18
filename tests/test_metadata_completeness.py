@@ -17,9 +17,31 @@ import enrich_metadata  # noqa: E402
 import fetch_preprints  # noqa: E402
 import normalize_records  # noqa: E402
 import translate  # noqa: E402
+from common import clean_abstract_text  # noqa: E402
 
 
 class MetadataCompletenessTests(unittest.TestCase):
+    def test_jats_abstract_heading_is_removed(self) -> None:
+        value = "<jats:title>ABSTRACT</jats:title><jats:p>This study examines rural labor supply using panel data and a fixed-effects design.</jats:p>"
+
+        cleaned = clean_abstract_text(value)
+
+        self.assertEqual(
+            cleaned,
+            "This study examines rural labor supply using panel data and a fixed-effects design.",
+        )
+
+    def test_plain_abstract_label_is_removed_without_harming_normal_prose(self) -> None:
+        self.assertEqual(clean_abstract_text("ABSTRACT This paper studies a policy reform."), "This paper studies a policy reform.")
+        self.assertEqual(clean_abstract_text("Abstract: We estimate the causal effect."), "We estimate the causal effect.")
+        self.assertEqual(clean_abstract_text("Abstract concepts shape the model."), "Abstract concepts shape the model.")
+
+    def test_normalize_record_cleans_existing_abstract_markup(self) -> None:
+        record = {"abstract": "<jats:title>ABSTRACT</jats:title><jats:p>This study reports the main result.</jats:p>"}
+
+        self.assertTrue(normalize_records.normalize_record(record))
+        self.assertEqual(record["abstract"], "This study reports the main result.")
+
     def test_manual_override_parser_preserves_author_lists(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "overrides.yml"

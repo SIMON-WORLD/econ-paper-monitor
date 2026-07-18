@@ -63,6 +63,29 @@ def write_text(path: Path, payload: str) -> None:
         raise last_error
 
 
+def clean_abstract_text(value: Any) -> str:
+    """Convert publisher/JATS abstract markup into display-ready prose."""
+    text = html.unescape(str(value or ""))
+    text = re.sub(
+        r"<(?:[\w.-]+:)?title\b[^>]*>\s*(?:abstract|摘要)\s*</(?:[\w.-]+:)?title\s*>",
+        " ",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(r"<script\b[\s\S]*?</script>", " ", text, flags=re.I)
+    text = re.sub(r"<style\b[\s\S]*?</style>", " ", text, flags=re.I)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"^ABSTRACT\b[\s:：.\-–—]*", "", text).strip()
+    text = re.sub(
+        r"^Abstract\s*(?:[:：.\-–—]\s*|\s+(?=(?:This|We|The|Using|Based|Drawing|Our|In|As|An?|To)\b))",
+        "",
+        text,
+    ).strip()
+    text = re.sub(r"^摘要\s*(?:[:：]\s*|\s+(?=(?:本文|本研究|本论文|我们)\b))", "", text).strip()
+    return text
+
+
 def fetch_json(url: str, params: dict[str, str | int] | None = None, timeout: int = 30) -> Any:
     if params:
         sep = "&" if "?" in url else "?"

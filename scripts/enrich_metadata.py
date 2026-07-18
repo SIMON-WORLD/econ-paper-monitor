@@ -20,7 +20,7 @@ from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, date_from_parts, fetch_json, fetch_text, normalize_doi, read_json, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, clean_abstract_text, date_from_parts, fetch_json, fetch_text, normalize_doi, read_json, today_str, write_json
 from status import load_status, now, record_source, save_status
 
 
@@ -195,9 +195,9 @@ def extract_page_metadata(html: str) -> dict[str, Any]:
             result["date_source"] = f"publisher_{field}"
             result["date_confidence"] = "A"
     for key in ("citation_abstract", "dc.description", "description", "og:description"):
-        abstract = meta.get(key)
-        if abstract and len(clean_text(abstract)) > 80:
-            result.setdefault("abstract", clean_text(abstract))
+        abstract = clean_abstract_text(meta.get(key))
+        if len(abstract) > 80:
+            result.setdefault("abstract", abstract)
             result.setdefault("abstract_source", f"publisher_meta:{key}")
             break
     if "abstract" not in result:
@@ -207,7 +207,7 @@ def extract_page_metadata(html: str) -> dict[str, Any]:
         )
         for pattern in abstract_patterns:
             match = re.search(pattern, html, flags=re.I)
-            abstract = clean_text(match.group(1)) if match else ""
+            abstract = clean_abstract_text(match.group(1)) if match else ""
             if len(abstract) > 80:
                 result["abstract"] = abstract
                 result["abstract_source"] = "publisher_body:abstract"
@@ -223,7 +223,7 @@ def extract_markdown_abstract(markdown: str) -> str | None:
     abstract = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", abstract)
     abstract = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", abstract)
     abstract = re.sub(r"[*_`#>]", " ", abstract)
-    abstract = re.sub(r"\s+", " ", html_lib.unescape(abstract)).strip()
+    abstract = clean_abstract_text(abstract)
     return abstract if len(abstract) > 80 else None
 
 
@@ -275,7 +275,7 @@ def extract_elsevier_api_abstract(response: dict[str, Any], core: dict[str, Any]
         if match:
             candidates.append(match.group(1))
     for candidate in candidates:
-        abstract = nested_text(candidate)
+        abstract = clean_abstract_text(nested_text(candidate))
         if len(abstract) > 80:
             return abstract
     return None
@@ -391,9 +391,9 @@ def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
         result["issue_date"] = created
         result["date_source"] = "crossref_doi_created"
         result["date_confidence"] = "D"
-    abstract = item.get("abstract")
-    if abstract and len(clean_text(str(abstract))) > 80:
-        result["abstract"] = clean_text(str(abstract))
+    abstract = clean_abstract_text(item.get("abstract"))
+    if len(abstract) > 80:
+        result["abstract"] = abstract
         result["abstract_source"] = "crossref_doi"
     return {key: value for key, value in result.items() if value}
 
@@ -437,8 +437,9 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
         result["date_source"] = "openalex_publication_date"
         result["date_confidence"] = "C"
     abstract = openalex_abstract(payload.get("abstract_inverted_index"))
-    if abstract and len(clean_text(abstract)) > 80:
-        result["abstract"] = clean_text(abstract)
+    abstract = clean_abstract_text(abstract)
+    if len(abstract) > 80:
+        result["abstract"] = abstract
         result["abstract_source"] = "openalex"
     return result
 
@@ -453,7 +454,7 @@ def semantic_scholar_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     except Exception:
         return {}
     result: dict[str, Any] = {}
-    abstract = clean_text(str(payload.get("abstract") or ""))
+    abstract = clean_abstract_text(payload.get("abstract"))
     if len(abstract) > 80:
         result["abstract"] = abstract
         result["abstract_source"] = "semantic_scholar"

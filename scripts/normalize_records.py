@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, read_json, today_str, write_json
+from common import DATA_DIR, clean_abstract_text, read_json, today_str, write_json
 from status import record_source
 
 
@@ -212,6 +212,14 @@ def canonicalize_source_type(record: dict[str, Any]) -> bool:
 
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
+    for field in ("abstract", "abstract_zh"):
+        value = record.get(field)
+        if not value:
+            continue
+        cleaned = clean_abstract_text(value)
+        if cleaned != value:
+            record[field] = cleaned
+            changed = True
     if not record.get("doi"):
         url = html.unescape(str(record.get("url") or ""))
         match = re.search(r"(?:doi\.org/|/doi/)(10\.\d{4,9}/[^?&#]+)", url, flags=re.I)
@@ -354,6 +362,32 @@ def normalize_seen_source_types() -> int:
     return changed
 
 
+def normalize_seen_abstracts() -> int:
+    path = DATA_DIR / "seen.json"
+    payload = read_json(path, {"papers": {}})
+    papers = payload.get("papers") if isinstance(payload, dict) else None
+    if not isinstance(papers, dict):
+        return 0
+    changed = 0
+    for record in papers.values():
+        if not isinstance(record, dict):
+            continue
+        record_changed = False
+        for field in ("abstract", "abstract_zh"):
+            value = record.get(field)
+            if not value:
+                continue
+            cleaned = clean_abstract_text(value)
+            if cleaned != value:
+                record[field] = cleaned
+                record_changed = True
+        if record_changed:
+            changed += 1
+    if changed:
+        write_json(path, payload)
+    return changed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
@@ -381,8 +415,9 @@ def main() -> None:
     if not args.date:
         duplicate_removed, duplicate_files = remove_cross_day_duplicates(paths)
     seen_changed = normalize_seen_source_types() if not args.date else 0
-    record_source("normalize-records", ok=True, count=changed + duplicate_removed + seen_changed, message=f"files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed}")
-    print(f"normalize records changed={changed} files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed}")
+    seen_abstracts = normalize_seen_abstracts() if not args.date else 0
+    record_source("normalize-records", ok=True, count=changed + duplicate_removed + seen_changed + seen_abstracts, message=f"files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed} seen_abstracts={seen_abstracts}")
+    print(f"normalize records changed={changed} files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed} seen_abstracts={seen_abstracts}")
 
 
 if __name__ == "__main__":

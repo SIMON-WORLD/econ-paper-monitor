@@ -13,7 +13,7 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str, write_text
+from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, clean_abstract_text, html_escape, load_journals, read_json, today_str, write_text
 from dedupe import record_match_keys
 from normalize_records import canonicalize_source_type
 from status import load_status
@@ -1919,9 +1919,7 @@ def write_page(path: Path, content: str) -> None:
 
 
 def detail_plain_text(value: Any) -> str:
-    text = html.unescape(str(value or ""))
-    text = re.sub(r"<[^>]+>", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
+    return clean_abstract_text(value)
 
 
 def paper_detail_body(record: dict[str, Any], records: list[dict[str, Any]], detail_records: list[dict[str, Any]] | None = None) -> str:
