@@ -38,6 +38,7 @@ def apply_to_record(record: dict[str, Any], override: dict[str, Any]) -> bool:
         "authors": "authors",
         "authors_status": "authors_status",
         "doi": "doi",
+        "pii": "pii",
     }
     for source_key, target_key in field_map.items():
         if source_key not in override:

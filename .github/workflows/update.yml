@@ -141,6 +141,9 @@ jobs:
       - name: Fetch priority publisher TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/fetch_priority_toc.py --detail-limit 12 --max-items-per-source 40
+      - name: Fetch ScienceDirect search results ahead of RSS
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: timeout 8m python scripts/fetch_sciencedirect_search.py --days 4 --workers 6 --max-items-per-journal 15
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
