@@ -1931,6 +1931,8 @@ def paper_detail_body(record: dict[str, Any], records: list[dict[str, Any]], det
     source_type = source_type_label(record)
     author_text = authors(record, limit=100) or "作者信息待补"
     official_line = public_date_line(record)
+    accepted = str(record.get("accepted_date") or "").strip()
+    accepted_row = f'<div class="label">接受日期</div><div>{html_escape(accepted)} · 编辑流程日期，不等同于正式上线</div>' if accepted else ""
     detected = detected_date(record) or "暂无"
     doi = str(record.get("doi") or "").strip()
     original_url = record_url(record)
@@ -1968,6 +1970,7 @@ def paper_detail_body(record: dict[str, Any], records: list[dict[str, Any]], det
     <div class="label">来源</div><div>{html_escape(source_name)} · {html_escape(source_type)}</div>
     <div class="label">首次监测</div><div>{html_escape(detected)}</div>
     <div class="label">官方日期</div><div>{html_escape(official_line)}</div>
+    {accepted_row}
     <div class="label">主题</div><div class="meta-values">{topic_html or '<span class="muted">暂无主题标签</span>'}</div>
   </div>
   {abstract_html}
@@ -1998,6 +2001,7 @@ def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> i
                 "source_type": source_type_label(record),
                 "detected": detected_date(record) or "暂无",
                 "official": public_date_line(record),
+                "accepted": str(record.get("accepted_date") or ""),
                 "topics": [topic_label(topic) for topic in topics],
                 "abstract": detail_plain_text(record.get("abstract")),
                 "abstract_zh": detail_plain_text(record.get("abstract_zh")),
@@ -2051,9 +2055,10 @@ def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> i
       const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
       const related = (item.related || []).map((record) => `<li><a href="./paper.html?key=${encodeURIComponent(record.key)}">${escapeHTML(record.title)}</a></li>`).join('');
       const relatedBlock = related ? `<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">${related}</ul></section>` : '';
+      const accepted = item.accepted ? `<div class="label">接受日期</div><div>${escapeHTML(item.accepted)} · 编辑流程日期，不等同于正式上线</div>` : '';
       root.classList.remove('detail-loading');
       root.removeAttribute('aria-busy');
-      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(item.title)}</h1>${titleZh}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(item.detected)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div><div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}${relatedBlock}`;
+      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(item.title)}</h1>${titleZh}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(item.detected)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}${relatedBlock}`;
     } catch (error) {
       root.classList.remove('detail-loading');
       root.removeAttribute('aria-busy');

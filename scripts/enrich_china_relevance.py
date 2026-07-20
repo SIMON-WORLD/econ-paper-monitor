@@ -33,7 +33,20 @@ EXPLICIT_ENGLISH_PATTERNS = [
     r"\brural china\b",
     r"\bchina shock\b",
     r"\bhukou\b",
+    r"\bdeepseek(?:-ai)?\b",
+    r"\brenminbi\b",
+    r"\brmb\b",
+    r"\bpeople(?:'s|’s) bank of china\b",
+    r"\bpboc\b",
 ]
+
+HIGH_CONFIDENCE_CHINA_ENTITY_PATTERNS = (
+    r"\bdeepseek(?:-ai)?\b",
+    r"\brenminbi\b",
+    r"\brmb\b",
+    r"\bpeople(?:'s|’s) bank of china\b",
+    r"\bpboc\b",
+)
 
 EXPLICIT_CHINESE_KEYWORDS = [
     "中国企业",
@@ -198,6 +211,8 @@ def has_strong_china_signal(record: dict[str, Any]) -> bool:
     title_record = {"title": record.get("title"), "title_zh": record.get("title_zh")}
     if has_explicit_china_signal(title_record):
         return True
+    if any(re.search(pattern, evidence_text(record), flags=re.I) for pattern in HIGH_CONFIDENCE_CHINA_ENTITY_PATTERNS):
+        return True
     # Count one language only. Counting both the source abstract and its
     # translation would turn a single incidental mention into two signals.
     abstract = str(record.get("abstract") or record.get("abstract_zh") or "").casefold()
@@ -330,6 +345,16 @@ def classification_updates(record: dict[str, Any]) -> tuple[dict[str, Any | None
                 "china_related_source": "manual",
                 "china_relevance_status": "none",
                 "china_relevance_reason": reason or "人工确认：排除中国相关",
+            },
+            status,
+        )
+    if source == "ai" and status == "none":
+        return (
+            {
+                "china_related": False,
+                "china_related_source": "ai",
+                "china_relevance_status": "none",
+                "china_relevance_reason": reason or "AI 排除中国相关",
             },
             status,
         )
