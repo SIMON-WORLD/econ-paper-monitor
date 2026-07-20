@@ -132,10 +132,16 @@ def enrich(args: argparse.Namespace) -> None:
         issns = candidate.get("ISSN") or []
         primary_issn = issns[0] if issns else None
         if score >= args.min_score and primary_issn:
-            journal["issn"] = primary_issn
-            journal["publisher"] = candidate.get("publisher") or journal.get("publisher")
-            set_crossref_source_issn(journal, primary_issn)
-            updated += 1
+            # Existing ISSNs are curated identifiers. Crossref title search can
+            # return a different, identically named journal, so enrichment may
+            # fill missing identity data but must not silently replace it.
+            if not journal.get("issn"):
+                journal["issn"] = primary_issn
+                set_crossref_source_issn(journal, primary_issn)
+                updated += 1
+            if not journal.get("publisher") and candidate.get("publisher"):
+                journal["publisher"] = candidate.get("publisher")
+                updated += 1
         else:
             review.append(
                 {
