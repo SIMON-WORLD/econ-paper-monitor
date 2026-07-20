@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
-from dedupe import archive_date_for_new_record, record_match_keys
+from dedupe import archive_date_for_new_record, is_source_navigation_noise, record_match_keys
 from status import load_status, record_source
 
 
@@ -103,6 +103,9 @@ def main() -> None:
     suppressed_candidates = []
     missing_new_today = []
     for record in raw_records:
+        if is_source_navigation_noise(record):
+            suppressed_candidates.append(record)
+            continue
         keys = record_match_keys(record)
         if intersects(keys, seen_keys):
             already_seen.append(record)

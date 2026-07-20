@@ -10,7 +10,7 @@ from typing import Any
 
 from audit_ingestion import key_set, load_json_records, load_seen_records, raw_records_for_date, record_label, source_key
 from common import BEIJING_TZ, DATA_DIR, read_json, today_str, write_json
-from dedupe import archive_date_for_new_record, record_match_keys
+from dedupe import archive_date_for_new_record, is_source_navigation_noise, record_match_keys
 from status import record_source
 
 
@@ -60,6 +60,9 @@ def main() -> None:
     suppressed: list[dict[str, Any]] = []
 
     for record in raw_records:
+        if is_source_navigation_noise(record):
+            suppressed.append(record)
+            continue
         keys = record_match_keys(record)
         if keys and keys.intersection(daily_keys):
             covered.append(record)

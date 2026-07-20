@@ -48,7 +48,6 @@ def has_direct_china_evidence(record: dict[str, Any]) -> bool:
             record.get("abstract"),
             record.get("abstract_zh"),
             record.get("journal"),
-            " ".join(record.get("authors") or []),
         ]
     ).casefold()
     for phrase in ["发展中国家", "发展中经济体", "最不发达国家"]:

@@ -283,7 +283,15 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
     source_id = str(record.get("source_id") or "")
     paper_number = str(record.get("paper_number") or "")
     if source_id and paper_number:
-        keys.add(f"paper:{source_id.casefold()}:{paper_number.casefold()}")
+        if source_id.casefold().startswith("repec-nep-"):
+            # NEP reuses p1, p2, ... in every weekly issue.  The issue URL is
+            # therefore part of the paper identity; otherwise a new issue can
+            # enrich an older, unrelated paper with the new paper's abstract.
+            issue_url = str(record.get("source_url") or url.split("#", 1)[0]).strip().rstrip("/").casefold()
+            if issue_url:
+                keys.add(f"paper:{source_id.casefold()}:{issue_url}:{paper_number.casefold()}")
+        else:
+            keys.add(f"paper:{source_id.casefold()}:{paper_number.casefold()}")
     if source == "cnki-rss":
         if title and journal:
             keys.add(f"cnki-title:{journal}:{title}")

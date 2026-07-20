@@ -164,16 +164,18 @@ CHINA_SCOPE_JOURNAL_IDS = {
 }
 
 
-def haystack(record: dict[str, Any]) -> str:
+def evidence_text(record: dict[str, Any]) -> str:
     values = [
         record.get("title"),
         record.get("title_zh"),
         record.get("abstract"),
         record.get("abstract_zh"),
-        record.get("source_issue"),
-        " ".join(record.get("authors") or []),
     ]
     return " ".join(str(value or "") for value in values).casefold()
+
+
+def topic_text(record: dict[str, Any]) -> str:
+    return evidence_text(record)
 
 
 def chinese_text(record: dict[str, Any]) -> str:
@@ -185,11 +187,49 @@ def chinese_text(record: dict[str, Any]) -> str:
 
 
 def has_explicit_china_signal(record: dict[str, Any]) -> bool:
-    text = haystack(record)
+    text = evidence_text(record)
     if any(re.search(pattern, text, flags=re.I) for pattern in EXPLICIT_ENGLISH_PATTERNS):
         return True
     cn_text = chinese_text(record)
     return any(keyword in cn_text for keyword in EXPLICIT_CHINESE_KEYWORDS)
+
+
+def has_strong_china_signal(record: dict[str, Any]) -> bool:
+    title_record = {"title": record.get("title"), "title_zh": record.get("title_zh")}
+    if has_explicit_china_signal(title_record):
+        return True
+    # Count one language only. Counting both the source abstract and its
+    # translation would turn a single incidental mention into two signals.
+    abstract = str(record.get("abstract") or record.get("abstract_zh") or "").casefold()
+    direct_phrases = (
+        "evidence from china",
+        "data from china",
+        "in rural china",
+        "in china",
+        "china's ",
+        "chinese data",
+        "chinese firms",
+        "chinese households",
+        "chinese land reform",
+        "chinese-origin",
+        "china-origin",
+        "centred on china",
+        "centered on china",
+        "china-centred",
+        "china-centered",
+        "rollout of china",
+        "来自中国",
+        "在中国",
+        "中国企业",
+        "中国农村",
+        "中国市场",
+        "中国经济",
+    )
+    if any(phrase in abstract for phrase in direct_phrases):
+        return True
+    english_hits = sum(len(re.findall(pattern, abstract, flags=re.I)) for pattern in EXPLICIT_ENGLISH_PATTERNS)
+    chinese_hits = sum(abstract.count(keyword) for keyword in ("中国", "香港", "台湾"))
+    return english_hits + chinese_hits >= 2
 
 
 def surname(name: str) -> str:
@@ -229,7 +269,7 @@ def classify(record: dict[str, Any]) -> tuple[str, str, str]:
     if is_china_scope_journal(record) or has_china_topic(record):
         return "confirmed", "journal or topic scope is China economy", "rule"
 
-    text = haystack(record)
+    text = topic_text(record)
     if record.get("china_related") is True and source == "ai" and not has_explicit_china_signal(record):
         return "none", "AI 曾判定为中国相关，但题名/摘要/元数据缺少直接中国证据，已按保守规则排除", "rule"
     if record.get("china_related") is True and source == "ai":
@@ -237,8 +277,11 @@ def classify(record: dict[str, Any]) -> tuple[str, str, str]:
     if record.get("china_related") is False and source == "ai":
         return "none", str(record.get("china_relevance_reason") or "AI 排除中国相关"), "ai"
 
-    if has_explicit_china_signal(record):
+    if has_strong_china_signal(record):
         return "confirmed", "标题、摘要或元数据包含中国相关关键词", "rule"
+
+    if has_explicit_china_signal(record):
+        return "candidate", "摘要仅出现一次中国相关表述，需确认中国是否为核心研究对象", "rule"
 
     author_count = chinese_author_count(record)
     has_abstract = bool(record.get("abstract") or record.get("abstract_zh"))
