@@ -114,18 +114,23 @@ def normalize_issn(value: str | None) -> str | None:
 def journal_issns(journal: dict[str, Any]) -> list[str]:
     registry = load_registry()
     registry_entry = registry.get("journals", {}).get(journal["id"], {})
-    values = [
+    configured_values = [
         journal.get("issn"),
         journal.get("eissn"),
         journal.get("online_issn"),
         journal.get("print_issn"),
+    ]
+    for source in journal.get("sources", []):
+        if source.get("type") == "crossref" and source.get("issn"):
+            configured_values.append(source.get("issn"))
+    # The checked-in journal configuration is authoritative. Registry values
+    # are only discovery fallbacks; retaining stale registry ISSNs can query an
+    # identically named but unrelated journal alongside the corrected one.
+    values = configured_values if any(configured_values) else [
         registry_entry.get("issn"),
         registry_entry.get("online_issn"),
         registry_entry.get("print_issn"),
     ]
-    for source in journal.get("sources", []):
-        if source.get("type") == "crossref" and source.get("issn"):
-            values.append(source.get("issn"))
     return [issn for issn in dict.fromkeys(normalize_issn(str(value)) for value in values if value) if issn]
 
 

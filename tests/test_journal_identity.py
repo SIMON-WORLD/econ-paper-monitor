@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from common import load_journals  # noqa: E402
+import fetch_crossref  # noqa: E402
 
 
 class JournalIdentityTests(unittest.TestCase):
@@ -24,6 +25,10 @@ class JournalIdentityTests(unittest.TestCase):
 
     def test_journal_of_agricultural_and_resource_economics_identity(self) -> None:
         self.assertEqual(self.journals["journal-of-agricultural-and-resource-economics"]["issn"], "1068-5502")
+
+    def test_configured_issn_excludes_stale_registry_identity(self) -> None:
+        journal = self.journals["journal-of-finance"]
+        self.assertEqual(fetch_crossref.journal_issns(journal), ["0022-1082"])
 
 
 if __name__ == "__main__":
