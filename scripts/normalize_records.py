@@ -210,8 +210,26 @@ def canonicalize_source_type(record: dict[str, Any]) -> bool:
     return changed
 
 
+def normalize_authors(record: dict[str, Any]) -> bool:
+    authors = record.get("authors")
+    if not isinstance(authors, list):
+        return False
+    normalized: list[str] = []
+    for raw in authors:
+        for value in re.split(r"\s*;\s*", clean_inline_html(raw)):
+            value = value.strip()
+            if value and value not in normalized:
+                normalized.append(value)
+    if normalized == authors:
+        return False
+    record["authors"] = normalized[:20]
+    return True
+
+
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
+    if normalize_authors(record):
+        changed = True
     for field in ("abstract", "abstract_zh"):
         value = record.get(field)
         if not value:

@@ -326,6 +326,7 @@ def publisher_proxy_metadata(url: str, timeout: int) -> dict[str, str]:
         "www.tandfonline.com",
         "tandfonline.com",
         "academic.oup.com",
+        "link.springer.com",
     }
     if host not in allowed_hosts:
         return {}
@@ -628,6 +629,8 @@ def candidate_urls(record: dict[str, Any]) -> list[str]:
             urls.append(f"https://academic.oup.com/search-results?page=1&q={doi}")
         if doi.startswith("10.1111/") or doi.startswith("10.1002/"):
             urls.append(f"https://onlinelibrary.wiley.com/doi/full/{doi}")
+        if doi.startswith("10.1007/"):
+            urls.append(f"https://link.springer.com/article/{doi}")
     return list(dict.fromkeys(urls))
 
 
@@ -644,6 +647,8 @@ def publisher_bucket(record: dict[str, Any]) -> str:
         return "Wiley"
     if doi.startswith("10.1093/") or "academic.oup.com" in haystack or "oxford" in haystack:
         return "OUP"
+    if doi.startswith("10.1007/") or "link.springer.com" in haystack or "springer" in haystack:
+        return "Springer"
     return "Other"
 
 
@@ -656,7 +661,7 @@ def has_ab_date(record: dict[str, Any]) -> bool:
 
 def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, int, float]:
     bucket = publisher_bucket(record)
-    core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
+    core_rank = {"Elsevier": 0, "Springer": 1, "Taylor & Francis": 2, "Wiley": 3, "OUP": 4}.get(bucket, 8)
     confidence = str(record.get("date_confidence") or "F")
     weak_date = 0 if not has_ab_date(record) or confidence in {"C", "D", "F", "unknown"} else 1
     missing_authors = 0 if not record.get("authors") else 1
@@ -833,13 +838,14 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
         pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
         if pii:
             proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
-    elif bucket in {"Taylor & Francis", "Wiley", "OUP"}:
+    elif bucket in {"Taylor & Francis", "Wiley", "OUP", "Springer"}:
         for candidate in candidate_urls(record):
             if urllib.parse.urlparse(candidate).netloc.casefold() in {
                 "onlinelibrary.wiley.com",
                 "www.tandfonline.com",
                 "tandfonline.com",
                 "academic.oup.com",
+                "link.springer.com",
             }:
                 proxy_url = candidate
                 break
@@ -851,6 +857,26 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
         return changed, proxy_status if not changed else f"metadata-only:{proxy_status}"
     changed = merge_metadata(record, metadata) or changed
     return changed, "abstract-updated"
+
+
+def update_abstract_attempt_status(record: dict[str, Any], status: str) -> bool:
+    """Expose an honest compact state while delayed metadata indexes catch up."""
+    if str(record.get("abstract") or "").strip():
+        changed = record.pop("abstract_status", None) is not None
+        if record.get("abstract_enrichment_status") != "available":
+            record["abstract_enrichment_status"] = "available"
+            changed = True
+        return changed
+
+    changed = False
+    public_status = "摘要暂未公开，系统将自动重试"
+    if record.get("abstract_status") != public_status:
+        record["abstract_status"] = public_status
+        changed = True
+    if record.get("abstract_enrichment_status") != status:
+        record["abstract_enrichment_status"] = status
+        changed = True
+    return changed
 
 
 def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
@@ -1049,6 +1075,7 @@ def main() -> None:
         bucket = publisher_bucket(record)
         needs_proxy = not str(record.get("abstract") or "").strip() and bucket in {
             "Elsevier",
+            "Springer",
             "Taylor & Francis",
             "Wiley",
             "OUP",
@@ -1065,6 +1092,7 @@ def main() -> None:
                 did_change, status = enrich_author_record(record, args.timeout)
             elif args.abstract_only:
                 did_change, status = enrich_abstract_record(record, args.timeout)
+                did_change = update_abstract_attempt_status(record, status) or did_change
             else:
                 did_change, status = enrich_record(record, args.timeout, allow_proxy_abstract=allow_proxy)
         except Exception as exc:  # noqa: BLE001

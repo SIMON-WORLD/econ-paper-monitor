@@ -252,6 +252,12 @@ jobs:
       - name: Normalize daily records
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py
+      - name: Quarantine verified historical backfill
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/quarantine_historical_backfill.py --latest-days 3 --max-age-days 30
+      - name: Repair quarantined historical metadata
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        run: timeout 6m python scripts/repair_historical_backfill.py --limit 20 --workers 5 --timeout 15
       - name: Remove already-seen RSS backflow
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/remove_seen_backflow.py
@@ -282,6 +288,9 @@ jobs:
         env:
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
           ELSEVIER_INSTTOKEN: ${{ secrets.ELSEVIER_INSTTOKEN }}
+      - name: Recheck historical backfill after metadata enrichment
+        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        run: python scripts/quarantine_historical_backfill.py --latest-days 3 --max-age-days 30
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all

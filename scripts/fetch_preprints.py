@@ -965,6 +965,22 @@ def parse_specialized_html(html_text: str, source: dict[str, Any], limit: int) -
     source_id = str(source.get("id") or "")
     if source_id == "nber":
         return parse_nber_list(html_text, source, limit)
+    if source_id == "cepr-dp":
+        candidates: dict[int, dict[str, Any]] = {}
+        for match in re.finditer(
+            r'<a[^>]+href=["\'](?P<href>[^"\']*/publications/dp(?P<number>\d+)[^"\']*)["\'][^>]*>(?P<title>.*?)</a>',
+            html_text,
+            flags=re.I | re.S,
+        ):
+            title = clean_text(match.group("title"))
+            url = normalize_url(urljoin(str(source.get("homepage") or ""), html.unescape(match.group("href"))))
+            if not url or not plausible_title(title):
+                continue
+            number = int(match.group("number"))
+            record = source_record(source, title=title, url=url)
+            record["paper_number"] = f"DP{number}"
+            candidates.setdefault(number, record)
+        return [candidates[number] for number in sorted(candidates, reverse=True)[:limit]]
     if source_id == "imf-working-papers":
         return parse_imf_list(html_text, source, limit)
     if source_id == "bis-working-papers":

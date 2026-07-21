@@ -84,6 +84,28 @@ This text must not be included.
         self.assertIn("public abstract section", abstract or "")
         self.assertNotIn("must not be included", abstract or "")
 
+    def test_springer_records_use_article_page_proxy_route(self) -> None:
+        record = {
+            "doi": "10.1007/s11127-026-01439-w",
+            "url": "https://doi.org/10.1007/s11127-026-01439-w",
+            "publisher": "Springer",
+        }
+
+        self.assertEqual(enrich_metadata.publisher_bucket(record), "Springer")
+        self.assertIn(
+            "https://link.springer.com/article/10.1007/s11127-026-01439-w",
+            enrich_metadata.candidate_urls(record),
+        )
+
+    def test_missing_abstract_gets_compact_retry_status(self) -> None:
+        record = {"abstract": None}
+
+        changed = enrich_metadata.update_abstract_attempt_status(record, "abstract-not-exposed")
+
+        self.assertTrue(changed)
+        self.assertEqual(record["abstract_status"], "摘要暂未公开，系统将自动重试")
+        self.assertEqual(record["abstract_enrichment_status"], "abstract-not-exposed")
+
     @patch.object(enrich_metadata, "fetch_text")
     def test_proxy_reports_captcha_instead_of_missing_abstract(self, fetch_mock) -> None:
         fetch_mock.return_value = "## Are you a robot?\nPlease complete the CAPTCHA challenge."

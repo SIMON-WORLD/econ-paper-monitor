@@ -280,6 +280,11 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
     journal = " ".join(str(record.get("journal") or "").casefold().split())
     if record.get("source_type") == "journal" and title and journal and len(title) > 20:
         keys.add(f"journal-title:{journal}:{title}")
+    if source == "working_papers" and title and len(title) > 20 and not is_repec_placeholder(title):
+        # Aggregators often rediscover the same paper under an issue anchor and
+        # a canonical RePEc URL. Title identity prevents the later alias from
+        # being restored as a fresh paper after the official-date copy exists.
+        keys.add(f"working-title:{title}")
     source_id = str(record.get("source_id") or "")
     paper_number = str(record.get("paper_number") or "")
     if source_id and paper_number:

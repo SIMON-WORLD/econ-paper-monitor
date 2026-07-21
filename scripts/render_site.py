@@ -122,7 +122,7 @@ STYLE = """
 EXTRA_STYLE = """
 .nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
 @media(max-width:920px){.nav{justify-content:flex-start;gap:14px;overflow-x:auto;white-space:nowrap;padding-bottom:4px}.nav a{flex:0 0 auto}}
-.detail-page{max-width:900px}.detail-kicker{color:var(--muted);font-size:14px;margin:0 0 8px}.detail-page h1{font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.18;margin:0 0 10px}.detail-title-zh{font-size:19px;color:#3b434c;margin:0 0 14px}.detail-authors{color:var(--muted);font-size:16px;margin:0 0 20px}.detail-meta{display:grid;grid-template-columns:150px minmax(0,1fr);border-top:1px solid var(--line);margin:18px 0 26px}.detail-meta div{padding:10px 0;border-bottom:1px solid var(--line)}.detail-meta .label{font-weight:700;color:var(--ink)}.detail-abstract{border-top:3px solid var(--blue);padding-top:14px;margin-top:24px}.detail-abstract h2{font-size:20px;margin:0 0 8px}.detail-abstract p{white-space:pre-line;line-height:1.75}.detail-links{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.detail-links a{border:1px solid var(--line);border-radius:7px;background:#fff;padding:8px 11px}.detail-links a.primary{background:var(--blue);border-color:var(--blue);color:#fff}.related-list{display:grid;gap:8px;margin:0;padding-left:20px}.related-list li{padding-left:4px}.detail-loading{min-height:280px}
+.detail-page{max-width:900px}.detail-kicker{color:var(--muted);font-size:14px;margin:0 0 8px}.detail-page h1{font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.18;margin:0 0 10px}.detail-title-zh{font-size:19px;color:#3b434c;margin:0 0 14px}.detail-authors{color:var(--muted);font-size:16px;margin:0 0 20px}.detail-meta{display:grid;grid-template-columns:150px minmax(0,1fr);border-top:1px solid var(--line);margin:18px 0 26px}.detail-meta div{padding:10px 0;border-bottom:1px solid var(--line)}.detail-meta .label{font-weight:700;color:var(--ink)}.detail-abstract{border-top:3px solid var(--blue);padding-top:14px;margin-top:24px}.detail-abstract h2{font-size:20px;margin:0 0 8px}.detail-abstract p{white-space:pre-line;line-height:1.75}.detail-abstract.empty-state{border-top:1px solid var(--line);padding-top:12px;margin-top:18px}.detail-abstract.empty-state h2{font-size:16px;display:inline;margin-right:8px}.detail-abstract.empty-state .empty{display:inline;color:var(--muted)}.detail-links{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.detail-links a{border:1px solid var(--line);border-radius:7px;background:#fff;padding:8px 11px}.detail-links a.primary{background:var(--blue);border-color:var(--blue);color:#fff}.related-list{display:grid;gap:8px;margin:0;padding-left:20px}.related-list li{padding-left:4px}.detail-loading{min-height:280px}
 .presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}.reader-panel{position:fixed;right:20px;top:64px;z-index:20;display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.reader-panel button{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;color:var(--ink);cursor:pointer}.reader-panel button:hover{border-color:var(--blue);color:var(--blue)}body.reader-large .wrap{font-size:18px}body.reader-large .event h3{font-size:22px}body.reader-large .event p,body.reader-large .event .meta-block{font-size:16px}body.reader-large .event{padding-top:20px;padding-bottom:20px}body.reader-compact .wrap{font-size:14px}body.reader-compact .event h3{font-size:16px}body.reader-compact .event{padding-top:11px;padding-bottom:11px}
 """
 
@@ -287,8 +287,22 @@ def detected_date(record: dict[str, Any]) -> str:
     return str(record.get("_daily_date") or "") or beijing_date(record.get("detected_at")) or ""
 
 
+def is_historical_backfill(record: dict[str, Any]) -> bool:
+    if record.get("public_flow_excluded") is True or record.get("historical_backfill") is True:
+        return True
+    if not record.get("_from_seen_only"):
+        return False
+    if str(record.get("date_confidence") or "").upper() not in {"A", "B"}:
+        return False
+    official = parse_date(str(record.get("available_online") or record.get("published_online") or ""))
+    detected = parse_date(detected_date(record))
+    return bool(official and detected and (detected.date() - official.date()).days > 30)
+
+
 def record_is_on_date(record: dict[str, Any], target_date: str) -> bool:
     """A paper belongs to a day's view when it was found or officially online that day."""
+    if is_historical_backfill(record):
+        return False
     return detected_date(record) == target_date or target_date in {
         str(record.get("available_online") or "").strip(),
         str(record.get("published_online") or "").strip(),
@@ -1180,7 +1194,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         title_zh = record.get("title_zh")
         if title_zh and str(title_zh).strip() == str(record.get("title") or "").strip():
             title_zh = None
-        title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
+        title_zh_html = f'    <p class="title-zh">{html_escape(title_zh)}</p>\n' if title_zh else ""
         china_related = is_china_related(record) or "china" in topics
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
         official_line = public_date_line(record)
@@ -1201,8 +1215,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
   <div><div class="time">{html_escape(timeline_primary)}</div><div class="date-note">{html_escape(timeline_secondary)}</div></div>
   <div>
     <h3><a href="{html_escape(paper_page_url(record))}">{html_escape(record.get('title'))}</a></h3>
-    {title_zh_html}
-    <p class="authors">{html_escape(authors(record))}</p>
+{title_zh_html}    <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}{detected_chip}</span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">{official_chip}{lag_chip}</span></div>
@@ -1393,6 +1406,8 @@ def recent_detected_records(records: list[dict[str, Any]], days: int = 3) -> lis
     cutoff = today - timedelta(days=max(days, 1) - 1)
     selected: list[dict[str, Any]] = []
     for record in records:
+        if is_historical_backfill(record):
+            continue
         try:
             detected = datetime.fromisoformat(detected_date(record)).date()
         except ValueError:
@@ -1597,12 +1612,13 @@ def china_quality_body(records: list[dict[str, Any]]) -> str:
         status = str(record.get("china_relevance_status") or ("confirmed" if is_china_related(record) else "none"))
         reason = record.get("china_relevance_reason") or record.get("china_related_reason") or "暂无判定说明"
         evidence = record.get("china_relevance_evidence") or record.get("china_related_source") or ""
+        evidence_line = f'<div class="audit-reason"><b>证据</b>：{html_escape(evidence)}</div>' if evidence else ""
         return f"""<article class="audit-item">
   <h3><a href="{html_escape(paper_page_url(record))}">{html_escape(record.get('title') or 'Untitled')}</a></h3>
   {zh}
   <div class="audit-meta">{html_escape(record.get('journal') or '')} · {html_escape(detected_date(record))} · 状态：{html_escape(status)}</div>
   <div class="audit-reason"><b>判定理由</b>：{html_escape(reason)}</div>
-  {f'<div class="audit-reason"><b>证据</b>：{html_escape(evidence)}</div>' if evidence else ''}
+{evidence_line}
 </article>"""
 
     confirmed_html = "".join(item(record) for record in confirmed[:25]) or '<div class="empty">暂无已确认记录。</div>'
@@ -1945,8 +1961,8 @@ def paper_detail_body(record: dict[str, Any], records: list[dict[str, Any]], det
 
     abstract = detail_plain_text(record.get("abstract"))
     abstract_zh = detail_plain_text(record.get("abstract_zh"))
-    abstract_empty = str(record.get("abstract_status") or "暂无摘要")
-    abstract_html = f'<section class="detail-abstract"><h2>摘要</h2><p>{html_escape(abstract)}</p></section>' if abstract else f'<section class="detail-abstract"><h2>摘要</h2><div class="empty">{html_escape(abstract_empty)}</div></section>'
+    abstract_empty = str(record.get("abstract_status") or "摘要暂未公开，系统将自动重试")
+    abstract_html = f'<section class="detail-abstract"><h2>摘要</h2><p>{html_escape(abstract)}</p></section>' if abstract else f'<section class="detail-abstract empty-state"><h2>摘要</h2><div class="empty">{html_escape(abstract_empty)}</div></section>'
     if abstract_zh and abstract_zh != abstract:
         abstract_html += f'<section class="detail-abstract"><h2>中文摘要</h2><p>{html_escape(abstract_zh)}</p></section>'
 
@@ -2005,7 +2021,7 @@ def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> i
                 "topics": [topic_label(topic) for topic in topics],
                 "abstract": detail_plain_text(record.get("abstract")),
                 "abstract_zh": detail_plain_text(record.get("abstract_zh")),
-                "abstract_status": str(record.get("abstract_status") or "暂无摘要"),
+                "abstract_status": str(record.get("abstract_status") or "摘要暂未公开，系统将自动重试"),
                 "doi": str(record.get("doi") or ""),
                 "url": record_url(record),
                 "related": [{"key": paper_slug(item), "title": str(item.get("title") or "Untitled")} for item in related],
@@ -2051,7 +2067,7 @@ def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> i
       const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
       const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
       const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
-      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract"><h2>摘要</h2><div class="empty">${escapeHTML(item.abstract_status || '暂无摘要')}</div></section>`;
+      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract empty-state"><h2>摘要</h2><div class="empty">${escapeHTML(item.abstract_status || '摘要暂未公开，系统将自动重试')}</div></section>`;
       const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
       const related = (item.related || []).map((record) => `<li><a href="./paper.html?key=${encodeURIComponent(record.key)}">${escapeHTML(record.title)}</a></li>`).join('');
       const relatedBlock = related ? `<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">${related}</ul></section>` : '';
@@ -2158,7 +2174,7 @@ def ris_text(records: list[dict[str, Any]]) -> str:
             lines.append(f"PY  - {export_year(record)}")
         if official_date(record):
             lines.append(f"Y2  - {official_date(record)}")
-        lines.append("ER  - ")
+        lines.append("ER  -")
         chunks.append("\n".join(lines))
     return "\n\n".join(chunks) + "\n"
 
