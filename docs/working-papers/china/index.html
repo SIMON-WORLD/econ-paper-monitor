@@ -67,9 +67,9 @@
   <div><h2>与中国相关工作论文 <span class="live-count" id="flowCounter"></span></h2><p>覆盖工作论文与机构研究来源，按首次监测时间倒序排列；官方日期与本站首次监测日期分开显示。</p></div>
   <p>2026-07-21</p>
 </section>
-<nav class="view-tabs"><a class="view-tab " href="../../working-papers/today/">今日 <strong>0</strong></a><a class="view-tab " href="../../working-papers/recent7/">最近 7 天 <strong>191</strong></a><a class="view-tab " href="../../working-papers/">全部 <strong>952</strong></a><a class="view-tab active" href="../../working-papers/china/">与中国相关 <strong>51</strong></a></nav>
+<nav class="view-tabs"><a class="view-tab " href="../../working-papers/today/">今日 <strong>0</strong></a><a class="view-tab " href="../../working-papers/recent7/">最近 7 天 <strong>191</strong></a><a class="view-tab " href="../../working-papers/">全部 <strong>951</strong></a><a class="view-tab active" href="../../working-papers/china/">与中国相关 <strong>51</strong></a></nav>
 <section class="stats">
-  <a class="stat" href="../../working-papers/"><strong>952</strong><span>累计工作论文记录</span></a>
+  <a class="stat" href="../../working-papers/"><strong>951</strong><span>累计工作论文记录</span></a>
   <a class="stat" href="../../working-papers/china/"><strong>51</strong><span>与中国相关</span></a>
   <a class="stat" href="../../working-papers/today/"><strong>0</strong><span>今日新发现</span></a>
   <a class="stat" href="../../sources/working-papers/"><strong>20</strong><span>监测来源</span></a>
@@ -877,3 +877,19 @@
   </div>
 </body>
 </html>
+<script>
+(() => {
+  const endpoint = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence";
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {headers: {'Accept': 'application/json'}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class="presence-dot">●</span> ' + data.online + ' 人在线'; })
+    .catch(() => {});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+})();
+</script>

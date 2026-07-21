@@ -76,7 +76,7 @@
           <a class="hero-stat" href="./recent72/"><strong>172</strong><span>最近72小时</span></a>
           <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>0</strong><span>今日工作论文</span></a>
           <a class="hero-stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>0</strong><span>工作论文中与中国相关</span></a>
-          <a class="hero-stat duo" href="./archive/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>3943</strong><em>期刊论文</em></div><div><strong>952</strong><em>工作论文</em></div></div></a>
+          <a class="hero-stat duo" href="./archive/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>3943</strong><em>期刊论文</em></div><div><strong>951</strong><em>工作论文</em></div></div></a>
         </div>
       </div>
       <aside class="operator-card">
@@ -91,7 +91,7 @@
   </div>
 </section>
 <section class="status-strip">
-  <span>最近监测 <strong>2026-07-22 01:24 北京时间</strong></span>
+  <span>最近监测 <strong>2026-07-22 01:36 北京时间</strong></span>
   <span class="">监测状态 <strong>状态正常</strong></span>
   <span>监测类型 <strong>快速监测</strong></span>
   <span>下次快速 <strong>2026-07-22 02:00 北京时间</strong></span>
@@ -112,7 +112,7 @@
   <a class="stat" href="./working-papers/today/"><strong>0</strong><span>今日工作论文</span></a>
   <a class="stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>0</strong><span>工作论文中与中国相关</span></a>
   <a class="stat" href="./sources/working-papers/"><strong>0</strong><span>今日涉及来源</span></a>
-  <a class="stat" href="./working-papers/"><strong>952</strong><span>累计工作论文记录</span></a>
+  <a class="stat" href="./working-papers/"><strong>951</strong><span>累计工作论文记录</span></a>
 </section>
 
 <div class="empty">暂无符合条件的论文记录。</div>
@@ -246,3 +246,19 @@
   </div>
 </body>
 </html>
+<script>
+(() => {
+  const endpoint = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence";
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {headers: {'Accept': 'application/json'}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class="presence-dot">●</span> ' + data.online + ' 人在线'; })
+    .catch(() => {});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+})();
+</script>

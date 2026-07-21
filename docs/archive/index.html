@@ -151,8 +151,8 @@
   <td><a href="../daily/2026-07-10/">2026-07-10</a></td>
   <td>2026-07-01 至 2026-07-10</td>
   <td>25</td>
-  <td>30</td>
-  <td>55</td>
+  <td>29</td>
+  <td>54</td>
 </tr>
 <tr>
   <td><a href="../daily/2026-07-09/">2026-07-09</a></td>
@@ -2440,3 +2440,19 @@
   </div>
 </body>
 </html>
+<script>
+(() => {
+  const endpoint = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence";
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {headers: {'Accept': 'application/json'}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class="presence-dot">●</span> ' + data.online + ' 人在线'; })
+    .catch(() => {});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+})();
+</script>

@@ -66,7 +66,7 @@
       <main class="wrap" id="main-content"><section class="section-head"><div><h2>不平等：最近 7 天</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>56 篇</p></section><div class="toolbar">
   <a class="control primary" href="../../../daily/2026-07-21/?field=inequality">最新日期 3</a>
   <a class="control" href="../../../topics/inequality/recent7/">最近 7 天 56</a>
-  <a class="control" href="../../../topics/inequality/">全部历史 306</a>
+  <a class="control" href="../../../topics/inequality/">全部历史 305</a>
 </div><div class="toolbar" id="filters-default" data-filter-scope="default">
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">筛选期刊</option><option value="american-economic-review">American Economic Review</option><option value="source-cepr-dp">CEPR Discussion Papers</option><option value="source-cesifo-working-papers">CESifo Working Papers</option><option value="canadian-journal-of-economics">Canadian Journal of Economics</option><option value="econometrica">Econometrica</option><option value="source-imf-working-papers">IMF Working Papers</option><option value="source-iza">IZA Discussion Papers</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-economic-behavior-and-organization">Journal of Economic Behavior and Organization</option><option value="journal-of-industrial-economics">Journal of Industrial Economics</option><option value="land-use-policy">Land Use Policy</option><option value="source-nber">NBER Working Papers</option><option value="source-oecd-working-papers">OECD Working Papers</option><option value="source-repec-nep-dev">RePEc NEP Development</option><option value="source-repec-nep-mac">RePEc NEP Macroeconomics</option><option value="source-voxeu-cepr-columns">VoxEU / CEPR Columns</option></select>
@@ -932,3 +932,19 @@
   </div>
 </body>
 </html>
+<script>
+(() => {
+  const endpoint = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence";
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {headers: {'Accept': 'application/json'}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class="presence-dot">●</span> ' + data.online + ' 人在线'; })
+    .catch(() => {});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+})();
+</script>
