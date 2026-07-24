@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
-import html
 import json
 import os
 import re
@@ -13,9 +11,8 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, clean_abstract_text, html_escape, load_journals, read_json, today_str, write_text
+from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str, write_text
 from dedupe import record_match_keys
-from normalize_records import canonicalize_source_type
 from status import load_status
 
 
@@ -116,13 +113,11 @@ STYLE = """
 .journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
 .audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
 @media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
-@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}body:has(.detail-page) .sidebar{display:none}.detail-page h1{font-size:30px}.detail-meta{grid-template-columns:1fr}.detail-meta .label{padding-bottom:2px;border-bottom:0}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
 """
 
 EXTRA_STYLE = """
 .nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
-@media(max-width:920px){.nav{justify-content:flex-start;gap:14px;overflow-x:auto;white-space:nowrap;padding-bottom:4px}.nav a{flex:0 0 auto}}
-.detail-page{max-width:900px}.detail-kicker{color:var(--muted);font-size:14px;margin:0 0 8px}.detail-page h1{font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.18;margin:0 0 10px}.detail-title-zh{font-size:19px;color:#3b434c;margin:0 0 14px}.detail-authors{color:var(--muted);font-size:16px;margin:0 0 20px}.detail-meta{display:grid;grid-template-columns:150px minmax(0,1fr);border-top:1px solid var(--line);margin:18px 0 26px}.detail-meta div{padding:10px 0;border-bottom:1px solid var(--line)}.detail-meta .label{font-weight:700;color:var(--ink)}.detail-abstract{border-top:3px solid var(--blue);padding-top:14px;margin-top:24px}.detail-abstract h2{font-size:20px;margin:0 0 8px}.detail-abstract p{white-space:pre-line;line-height:1.75}.detail-abstract.empty-state{border-top:1px solid var(--line);padding-top:12px;margin-top:18px}.detail-abstract.empty-state h2{font-size:16px;display:inline;margin-right:8px}.detail-abstract.empty-state .empty{display:inline;color:var(--muted)}.detail-links{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.detail-links a{border:1px solid var(--line);border-radius:7px;background:#fff;padding:8px 11px}.detail-links a.primary{background:var(--blue);border-color:var(--blue);color:#fff}.related-list{display:grid;gap:8px;margin:0;padding-left:20px}.related-list li{padding-left:4px}.detail-loading{min-height:280px}
 .presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}.reader-panel{position:fixed;right:20px;top:64px;z-index:20;display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.reader-panel button{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;color:var(--ink);cursor:pointer}.reader-panel button:hover{border-color:var(--blue);color:var(--blue)}body.reader-large .wrap{font-size:18px}body.reader-large .event h3{font-size:22px}body.reader-large .event p,body.reader-large .event .meta-block{font-size:16px}body.reader-large .event{padding-top:20px;padding-bottom:20px}body.reader-compact .wrap{font-size:14px}body.reader-compact .event h3{font-size:16px}body.reader-compact .event{padding-top:11px;padding-bottom:11px}
 """
 
@@ -149,22 +144,9 @@ def record_url(record: dict[str, Any]) -> str:
     return record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else "#")
 
 
-def paper_slug(record: dict[str, Any]) -> str:
-    identity = str(record.get("doi") or record.get("url") or record.get("id") or record.get("title") or "paper").strip()
-    title = re.sub(r"[^a-z0-9]+", "-", str(record.get("title") or "paper").casefold()).strip("-")[:72]
-    digest = hashlib.sha1(identity.encode("utf-8")).hexdigest()[:12]
-    return f"{title or 'paper'}-{digest}"
-
-
-def paper_page_url(record: dict[str, Any]) -> str:
-    return f"{BASE}/paper.html?key={paper_slug(record)}"
-
-
 def authors(record: dict[str, Any], limit: int = 5) -> str:
     names = record.get("authors") or []
-    if names:
-        return ", ".join(names[:limit]) + (" 等" if len(names) > limit else "")
-    return str(record.get("authors_status") or "")
+    return ", ".join(names[:limit]) + (" 等" if len(names) > limit else "")
 
 
 def beijing_datetime(value: str | None) -> datetime | None:
@@ -186,7 +168,7 @@ def beijing_date(value: str | None) -> str:
 
 def beijing_time(value: str | None) -> str:
     dt = beijing_datetime(value)
-    return dt.strftime("%H:%M") if dt else ""
+    return dt.strftime("%H:%M") if dt else "监测"
 
 
 def beijing_stamp(value: str | None) -> str:
@@ -223,7 +205,13 @@ def latest_status_timestamp(status: dict[str, Any], records: list[dict[str, Any]
     return max(valid, default="")
 
 
-def monitor_freshness_label(value: str | None) -> str:
+def monitor_freshness_label(value: str | None, status: dict[str, Any] | None = None) -> str:
+    if status:
+        sources = status.get("sources") or {}
+        critical = ("cnki-rss", "priority-toc")
+        failed = [source_id for source_id in critical if source_id in sources and not sources[source_id].get("ok")]
+        if failed:
+            return "部分信源异常"
     dt = beijing_datetime(value)
     if not dt:
         return "状态待确认"
@@ -275,7 +263,6 @@ def load_all_daily(daily_dir: Path) -> list[dict[str, Any]]:
                 continue
             restored = dict(record)
             restored["id"] = restored.get("id") or record_id
-            canonicalize_source_type(restored)
             restored["_daily_date"] = first_seen
             restored["_from_seen_only"] = True
             records.append(restored)
@@ -287,22 +274,8 @@ def detected_date(record: dict[str, Any]) -> str:
     return str(record.get("_daily_date") or "") or beijing_date(record.get("detected_at")) or ""
 
 
-def is_historical_backfill(record: dict[str, Any]) -> bool:
-    if record.get("public_flow_excluded") is True or record.get("historical_backfill") is True:
-        return True
-    if not record.get("_from_seen_only"):
-        return False
-    if str(record.get("date_confidence") or "").upper() not in {"A", "B"}:
-        return False
-    official = parse_date(str(record.get("available_online") or record.get("published_online") or ""))
-    detected = parse_date(detected_date(record))
-    return bool(official and detected and (detected.date() - official.date()).days > 30)
-
-
 def record_is_on_date(record: dict[str, Any], target_date: str) -> bool:
     """A paper belongs to a day's view when it was found or officially online that day."""
-    if is_historical_backfill(record):
-        return False
     return detected_date(record) == target_date or target_date in {
         str(record.get("available_online") or "").strip(),
         str(record.get("published_online") or "").strip(),
@@ -419,10 +392,6 @@ def unique_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def source_type_label(record: dict[str, Any]) -> str:
     source_type = str(record.get("source_type") or "")
-    # Keep the public label consistent with the section even if a stale or
-    # malformed record predates source-type normalization.
-    if is_working_paper(record) and source_type in {"journal", "journal_article"}:
-        return "工作论文"
     return {
         "working_paper": "工作论文",
         "policy_paper": "机构研究",
@@ -434,8 +403,6 @@ def source_type_label(record: dict[str, Any]) -> str:
 
 def source_type_value(record: dict[str, Any]) -> str:
     source_type = str(record.get("source_type") or ("working_paper" if is_working_paper(record) else "journal_article"))
-    if is_working_paper(record) and source_type in {"journal", "journal_article"}:
-        return "working_paper"
     return "journal_article" if source_type in {"journal", "journal_article"} else source_type
 
 
@@ -744,7 +711,7 @@ def stats(records: list[dict[str, Any]], today_records: list[dict[str, Any]], fl
         "all_records": len(records),
         "all_journals": len(all_journals),
         "last_run": beijing_stamp(last_run),
-        "last_run_freshness": monitor_freshness_label(last_run),
+        "last_run_freshness": monitor_freshness_label(last_run, status),
         "last_run_label": workflow.get("mode_label") or "自动监测",
         "last_full_run": beijing_stamp(workflow.get("last_full_finished_at")),
         "last_light_run": beijing_stamp(workflow.get("last_light_finished_at")),
@@ -822,8 +789,6 @@ def date_source_label(record: dict[str, Any]) -> str:
         return "PDF"
     if date_source == "tandf_issue_date_fallback":
         return "T&F 备选日期"
-    if "elsevier_article_api" in date_source:
-        return "Elsevier API"
     if source == "cnki-rss" or date_source.startswith("cnki_rss"):
         return "CNKI RSS"
     if "publisher" in date_source or "detail" in date_source:
@@ -926,13 +891,7 @@ def source_delay_rows(records: list[dict[str, Any]], days: int = 14) -> str:
         precise = [record for record in items if parse_date(str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or ""))]
         rss_count = sum(1 for record in items if "rss" in str(record.get("source") or "").casefold() or "rss" in str(record.get("date_source") or "").casefold())
         crossref_count = sum(1 for record in items if "crossref" in str(record.get("date_source") or "").casefold())
-        detail_count = sum(
-            1
-            for record in items
-            if "publisher" in str(record.get("date_source") or "").casefold()
-            or "detail" in str(record.get("date_source") or "").casefold()
-            or "article_api" in str(record.get("date_source") or "").casefold()
-        )
+        detail_count = sum(1 for record in items if "publisher" in str(record.get("date_source") or "").casefold() or "detail" in str(record.get("date_source") or "").casefold())
         delayed_count = sum(1 for lag in lags if lag > 2)
         no_precise_count = len(items) - len(precise)
         avg_lag = "待判定" if not lags else f"{sum(lags) / len(lags):.1f} 天"
@@ -1143,7 +1102,6 @@ def page(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="{BASE}/assets/images/academic-door-favicon.png?v=2">
   <title>{html_escape(title)}</title>
   {analytics_snippet()}
   <style>{STYLE}{EXTRA_STYLE}</style>
@@ -1194,7 +1152,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         title_zh = record.get("title_zh")
         if title_zh and str(title_zh).strip() == str(record.get("title") or "").strip():
             title_zh = None
-        title_zh_html = f'    <p class="title-zh">{html_escape(title_zh)}</p>\n' if title_zh else ""
+        title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
         china_related = is_china_related(record) or "china" in topics
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
         official_line = public_date_line(record)
@@ -1206,16 +1164,13 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         field_attr = " ".join(topics)
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
         classes = "event" + (f" {extra_class}" if extra_class else "")
-        time_value = detected_time(record)
-        date_value = detected_date(record)
-        timeline_primary = time_value or date_value
-        timeline_secondary = date_value if time_value else ""
         chunks.append(
             f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(source_type_value(record))}">
-  <div><div class="time">{html_escape(timeline_primary)}</div><div class="date-note">{html_escape(timeline_secondary)}</div></div>
+  <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
-    <h3><a href="{html_escape(paper_page_url(record))}">{html_escape(record.get('title'))}</a></h3>
-{title_zh_html}    <p class="authors">{html_escape(authors(record))}</p>
+    <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title'))}</a></h3>
+    {title_zh_html}
+    <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}{detected_chip}</span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">{official_chip}{lag_chip}</span></div>
@@ -1267,6 +1222,14 @@ FILTER_SCRIPT = """
       if (sourceType && saved.sourceType) sourceType.value = saved.sourceType;
       if (saved.china === '1') { china.setAttribute('aria-pressed', 'true'); china.classList.add('active'); }
     }
+    const saveButton = toolbar.querySelector('[data-filter-save]');
+    const clearButton = toolbar.querySelector('[data-filter-clear]');
+    function saveFilters() {
+      localStorage.setItem(storageKey, JSON.stringify({q: search.value, journal: journal.value, field: field.value, dateType: dateType ? dateType.value : '', confidence: confidence ? confidence.value : '', sourceType: sourceType ? sourceType.value : '', china: china.getAttribute('aria-pressed') === 'true' ? '1' : ''}));
+      if (saveButton) { saveButton.textContent = '已保存'; setTimeout(() => saveButton.textContent = '保存筛选', 1200); }
+    }
+    if (saveButton) saveButton.addEventListener('click', saveFilters);
+    if (clearButton) clearButton.addEventListener('click', () => { localStorage.removeItem(storageKey); search.value=''; journal.value=''; field.value=''; if(dateType)dateType.value=''; if(confidence)confidence.value=''; if(sourceType)sourceType.value=''; china.setAttribute('aria-pressed','false'); china.classList.remove('active'); preset=''; applyFilters(); });
     function setCounter(visible, chinaOnly) {
       if (!counter) return;
       if (chinaOnly || preset === 'china') {
@@ -1406,8 +1369,6 @@ def recent_detected_records(records: list[dict[str, Any]], days: int = 3) -> lis
     cutoff = today - timedelta(days=max(days, 1) - 1)
     selected: list[dict[str, Any]] = []
     for record in records:
-        if is_historical_backfill(record):
-            continue
         try:
             detected = datetime.fromisoformat(detected_date(record)).date()
         except ValueError:
@@ -1612,13 +1573,12 @@ def china_quality_body(records: list[dict[str, Any]]) -> str:
         status = str(record.get("china_relevance_status") or ("confirmed" if is_china_related(record) else "none"))
         reason = record.get("china_relevance_reason") or record.get("china_related_reason") or "暂无判定说明"
         evidence = record.get("china_relevance_evidence") or record.get("china_related_source") or ""
-        evidence_line = f'<div class="audit-reason"><b>证据</b>：{html_escape(evidence)}</div>' if evidence else ""
         return f"""<article class="audit-item">
-  <h3><a href="{html_escape(paper_page_url(record))}">{html_escape(record.get('title') or 'Untitled')}</a></h3>
+  <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title') or 'Untitled')}</a></h3>
   {zh}
   <div class="audit-meta">{html_escape(record.get('journal') or '')} · {html_escape(detected_date(record))} · 状态：{html_escape(status)}</div>
   <div class="audit-reason"><b>判定理由</b>：{html_escape(reason)}</div>
-{evidence_line}
+  {f'<div class="audit-reason"><b>证据</b>：{html_escape(evidence)}</div>' if evidence else ''}
 </article>"""
 
     confirmed_html = "".join(item(record) for record in confirmed[:25]) or '<div class="empty">暂无已确认记录。</div>'
@@ -1934,163 +1894,6 @@ def write_page(path: Path, content: str) -> None:
     write_text(path, content.replace(BASE, page_base))
 
 
-def detail_plain_text(value: Any) -> str:
-    return clean_abstract_text(value)
-
-
-def paper_detail_body(record: dict[str, Any], records: list[dict[str, Any]], detail_records: list[dict[str, Any]] | None = None) -> str:
-    title = str(record.get("title") or "Untitled")
-    title_zh = str(record.get("title_zh") or "").strip()
-    if title_zh == title:
-        title_zh = ""
-    source_name = str(record.get("journal") or record.get("source_name") or "")
-    source_type = source_type_label(record)
-    author_text = authors(record, limit=100) or "作者信息待补"
-    official_line = public_date_line(record)
-    accepted = str(record.get("accepted_date") or "").strip()
-    accepted_row = f'<div class="label">接受日期</div><div>{html_escape(accepted)} · 编辑流程日期，不等同于正式上线</div>' if accepted else ""
-    detected = detected_date(record) or "暂无"
-    doi = str(record.get("doi") or "").strip()
-    original_url = record_url(record)
-    topics = article_topics(record)
-    topic_html = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in topics)
-    if is_china_related(record) and "china" not in topics:
-        topic_html += '<span class="pill china">与中国相关</span>'
-    original_link = f'<a class="primary" href="{html_escape(original_url)}" target="_blank" rel="noreferrer">打开原文页面</a>' if original_url != "#" else ""
-    doi_link = f'<a href="https://doi.org/{html_escape(doi)}" target="_blank" rel="noreferrer">DOI：{html_escape(doi)}</a>' if doi else ""
-
-    abstract = detail_plain_text(record.get("abstract"))
-    abstract_zh = detail_plain_text(record.get("abstract_zh"))
-    abstract_empty = str(record.get("abstract_status") or "摘要暂未公开，系统将自动重试")
-    abstract_html = f'<section class="detail-abstract"><h2>摘要</h2><p>{html_escape(abstract)}</p></section>' if abstract else f'<section class="detail-abstract empty-state"><h2>摘要</h2><div class="empty">{html_escape(abstract_empty)}</div></section>'
-    if abstract_zh and abstract_zh != abstract:
-        abstract_html += f'<section class="detail-abstract"><h2>中文摘要</h2><p>{html_escape(abstract_zh)}</p></section>'
-
-    identity = display_key(record)
-    candidates = [item for item in (detail_records or public_records(records)) if display_key(item) != identity]
-    same_source = [item for item in candidates if item.get("journal_id") == record.get("journal_id")]
-    related = same_source or candidates
-    related = related[:5]
-    related_html = "".join(
-        f'<li><a href="{html_escape(paper_page_url(item))}">{html_escape(item.get("title") or "Untitled")}</a></li>'
-        for item in related
-    )
-    related_block = f'<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">{related_html}</ul></section>' if related_html else ""
-    return f"""<article class="detail-page">
-  <p class="detail-kicker"><a href="{BASE}/">Econ Papers Daily</a> / {html_escape(source_type)}</p>
-  <h1>{html_escape(title)}</h1>
-  {f'<p class="detail-title-zh">{html_escape(title_zh)}</p>' if title_zh else ''}
-  <p class="detail-authors">{html_escape(author_text)}</p>
-  <div class="detail-links">{original_link}{doi_link}</div>
-  <div class="detail-meta">
-    <div class="label">来源</div><div>{html_escape(source_name)} · {html_escape(source_type)}</div>
-    <div class="label">首次监测</div><div>{html_escape(detected)}</div>
-    <div class="label">官方日期</div><div>{html_escape(official_line)}</div>
-    {accepted_row}
-    <div class="label">主题</div><div class="meta-values">{topic_html or '<span class="muted">暂无主题标签</span>'}</div>
-  </div>
-  {abstract_html}
-  {related_block}
-</article>"""
-
-
-def write_paper_detail_pages(docs_dir: Path, records: list[dict[str, Any]]) -> int:
-    detail_records = unique_records(public_records(records))
-    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for record in detail_records:
-        grouped[str(record.get("journal_id") or record.get("source_id") or "")].append(record)
-    payload: list[dict[str, Any]] = []
-    for record in detail_records:
-        identity = display_key(record)
-        group = grouped.get(str(record.get("journal_id") or record.get("source_id") or ""), detail_records)
-        related = [item for item in group if display_key(item) != identity][:5]
-        topics = article_topics(record)
-        if is_china_related(record) and "china" not in topics:
-            topics.append("china")
-        payload.append(
-            {
-                "key": paper_slug(record),
-                "title": str(record.get("title") or "Untitled"),
-                "title_zh": str(record.get("title_zh") or "") if record.get("title_zh") != record.get("title") else "",
-                "authors": authors(record, limit=100) or "作者信息待补",
-                "source": str(record.get("journal") or record.get("source_name") or ""),
-                "source_type": source_type_label(record),
-                "detected": detected_date(record) or "暂无",
-                "official": public_date_line(record),
-                "accepted": str(record.get("accepted_date") or ""),
-                "topics": [topic_label(topic) for topic in topics],
-                "abstract": detail_plain_text(record.get("abstract")),
-                "abstract_zh": detail_plain_text(record.get("abstract_zh")),
-                "abstract_status": str(record.get("abstract_status") or "摘要暂未公开，系统将自动重试"),
-                "doi": str(record.get("doi") or ""),
-                "url": record_url(record),
-                "related": [{"key": paper_slug(item), "title": str(item.get("title") or "Untitled")} for item in related],
-            }
-        )
-    paper_data_dir = docs_dir / "paper-data"
-    paper_data_dir.mkdir(parents=True, exist_ok=True)
-    for stale_path in paper_data_dir.glob("*.json"):
-        stale_path.unlink()
-    shards: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for item in payload:
-        match = re.search(r"([0-9a-f]{12})$", str(item.get("key") or ""), flags=re.I)
-        shard = match.group(1)[:2].casefold() if match else "misc"
-        shards[shard].append(item)
-    for shard, items in shards.items():
-        write_text(
-            paper_data_dir / f"{shard}.json",
-            json.dumps(items, ensure_ascii=False, separators=(",", ":")) + "\n",
-        )
-
-    body = """<article class="detail-page detail-loading" id="paperRoot" aria-busy="true"></article>
-<script>
-(() => {
-  const key = new URLSearchParams(window.location.search).get('key') || '';
-  const root = document.getElementById('paperRoot');
-  const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-  const showMissing = () => {
-    root.classList.remove('detail-loading');
-    root.removeAttribute('aria-busy');
-    root.innerHTML = '<h1>未找到这篇论文</h1><p class="muted">该链接可能已经被去重或尚未生成。</p><div class="detail-links"><a class="primary" href="./">返回首页</a><a href="./search/">进入全站检索</a></div>';
-  };
-  const load = async () => {
-    const match = key.match(/([0-9a-f]{12})$/i);
-    if (!match) return showMissing();
-    try {
-      const response = await fetch(`./paper-data/${match[1].slice(0, 2).toLowerCase()}.json`, {cache: 'force-cache'});
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
-      const item = data.find((record) => record.key === key);
-      if (!item) return showMissing();
-      document.title = `${item.title} | Econ Papers Daily`;
-      const titleZh = item.title_zh ? `<p class="detail-title-zh">${escapeHTML(item.title_zh)}</p>` : '';
-      const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
-      const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
-      const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
-      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract empty-state"><h2>摘要</h2><div class="empty">${escapeHTML(item.abstract_status || '摘要暂未公开，系统将自动重试')}</div></section>`;
-      const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
-      const related = (item.related || []).map((record) => `<li><a href="./paper.html?key=${encodeURIComponent(record.key)}">${escapeHTML(record.title)}</a></li>`).join('');
-      const relatedBlock = related ? `<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">${related}</ul></section>` : '';
-      const accepted = item.accepted ? `<div class="label">接受日期</div><div>${escapeHTML(item.accepted)} · 编辑流程日期，不等同于正式上线</div>` : '';
-      root.classList.remove('detail-loading');
-      root.removeAttribute('aria-busy');
-      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(item.title)}</h1>${titleZh}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(item.detected)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}${relatedBlock}`;
-    } catch (error) {
-      root.classList.remove('detail-loading');
-      root.removeAttribute('aria-busy');
-      root.innerHTML = '<h1>论文详情暂时无法载入</h1><p class="muted">请刷新页面重试，或进入全站检索。</p><div class="detail-links"><a class="primary" href="./search/">进入全站检索</a></div>';
-    }
-  };
-  load();
-})();
-</script>"""
-    write_page(
-        docs_dir / "paper.html",
-        page("论文详情", records, body, sidebar_records=recent_detected_records(records, 3), sidebar_date=today_str()),
-    )
-    return len(detail_records)
-
-
 def ensure_today_archive(daily_dir: Path) -> None:
     """Keep the static site from carrying yesterday as "today" after midnight."""
     path = daily_dir / f"{today_str()}.json"
@@ -2174,7 +1977,7 @@ def ris_text(records: list[dict[str, Any]]) -> str:
             lines.append(f"PY  - {export_year(record)}")
         if official_date(record):
             lines.append(f"Y2  - {official_date(record)}")
-        lines.append("ER  -")
+        lines.append("ER  - ")
         chunks.append("\n".join(lines))
     return "\n\n".join(chunks) + "\n"
 
@@ -2223,7 +2026,6 @@ def main() -> None:
     today_records = [record for record in records if record_is_on_date(record, today_str())]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
     home_flow_date = today_str()
-    detail_count = write_paper_detail_pages(args.docs_dir, records)
     write_page(
         args.docs_dir / "index.html",
         page(SITE_NAME, records, home_body(records, today_records), active="home", sidebar_records=home_flow_records, sidebar_date=home_flow_date),
@@ -2456,7 +2258,7 @@ def main() -> None:
         args.docs_dir / "archive" / "index.html",
         page("历史归档", records, archive_body, active="archive", sidebar_records=today_records, sidebar_date=today_str()),
     )
-    print(f"rendered {len(records)} records and {detail_count} paper detail pages into {args.docs_dir}")
+    print(f"rendered {len(records)} records into {args.docs_dir}")
 
 
 if __name__ == "__main__":

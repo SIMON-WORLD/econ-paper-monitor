@@ -26,6 +26,9 @@ TARGETS = {
         {
             "kind": "restud_advance",
             "url": "https://academic.oup.com/restud/advance-articles",
+            "fallback_urls": [
+                "https://r.jina.ai/http://academic.oup.com/restud/advance-articles",
+            ],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
         }
@@ -34,12 +37,18 @@ TARGETS = {
         {
             "kind": "restat_current",
             "url": "https://direct.mit.edu/rest/issue/current",
+            "fallback_urls": [
+                "https://r.jina.ai/http://direct.mit.edu/rest/issue/current",
+            ],
             "date_source": "mitpress_current_issue",
             "date_confidence": "C",
         },
         {
             "kind": "restat_advance",
             "url": "https://direct.mit.edu/rest/advance-articles",
+            "fallback_urls": [
+                "https://r.jina.ai/http://direct.mit.edu/rest/advance-articles",
+            ],
             "date_source": "mitpress_advance_articles",
             "date_confidence": "B",
         },
@@ -48,6 +57,9 @@ TARGETS = {
         {
             "kind": "econometrica_forthcoming",
             "url": "https://www.econometricsociety.org/publications/econometrica/forthcoming-papers",
+            "fallback_urls": [
+                "https://r.jina.ai/http://www.econometricsociety.org/publications/econometrica/forthcoming-papers",
+            ],
             "date_source": "econometric_society_forthcoming",
             "date_confidence": "B",
         }
@@ -65,23 +77,38 @@ BROWSER_HEADERS = {
 }
 
 
-def fetch_toc_text(url: str, timeout: int) -> str:
-    request = urllib.request.Request(url, headers=BROWSER_HEADERS)
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            payload = response.read()
-            charset = response.headers.get_content_charset() or "utf-8"
-    except Exception:
-        context = ssl._create_unverified_context()
-        with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
-            payload = response.read()
-            charset = response.headers.get_content_charset() or "utf-8"
-    for encoding in dict.fromkeys([charset, "utf-8", "latin-1"]):
+def fetch_toc_text(url: str, timeout: int, fallback_urls: list[str] | None = None) -> str:
+    """Fetch a publisher page, then a text-rendering mirror when blocked.
+
+    The mirror is only an acquisition fallback.  Dates and article metadata
+    still come from the page content and are labelled with the publisher
+    source configured for the target.
+    """
+    urls = [url, *(fallback_urls or [])]
+    last_error: Exception | None = None
+    for candidate in dict.fromkeys(urls):
+        request = urllib.request.Request(candidate, headers=BROWSER_HEADERS)
         try:
-            return payload.decode(encoding)
-        except Exception:
-            continue
-    return payload.decode("utf-8", errors="replace")
+            try:
+                with urllib.request.urlopen(request, timeout=timeout) as response:
+                    payload = response.read()
+                    charset = response.headers.get_content_charset() or "utf-8"
+            except Exception:
+                context = ssl._create_unverified_context()
+                with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+                    payload = response.read()
+                    charset = response.headers.get_content_charset() or "utf-8"
+            for encoding in dict.fromkeys([charset, "utf-8", "latin-1"]):
+                try:
+                    text = payload.decode(encoding)
+                    if text.strip():
+                        return text
+                except Exception:
+                    continue
+            raise ValueError("empty or undecodable publisher response")
+        except Exception as exc:  # noqa: BLE001 - try the next acquisition path.
+            last_error = exc
+    raise last_error or RuntimeError("no TOC acquisition URL")
 
 
 def clean_text(value: str | None) -> str:
@@ -191,12 +218,30 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             continue
         seen.add(key)
         links.append((url, title))
+    # r.jina.ai normally returns Markdown rather than HTML.
+    for match in re.finditer(r'\[(?P<title>[^\]]{8,240})\]\((?P<href>https?://[^)]+)\)', html_text):
+        href = html.unescape(match.group("href")).strip()
+        title = clean_text(match.group("title"))
+        href_lower = href.lower()
+        valid = bool(re.search(r"10\.\d{4,9}/", href_lower))
+        if "academic.oup.com/restud" in base_url.lower():
+            valid = valid and ("restud" in href_lower)
+        elif "direct.mit.edu/rest" in base_url.lower():
+            valid = valid and ("10.1162/rest" in href_lower or "/rest/" in href_lower)
+        elif "econometricsociety.org/publications/econometrica" in base_url.lower():
+            valid = valid and "10.3982/ecta" in href_lower
+        if not valid or any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary")):
+            continue
+        key = href.split("?", 1)[0].rstrip("/")
+        if key not in seen:
+            seen.add(key)
+            links.append((href, title))
     return links
 
 
 def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, object]:
     try:
-        html_text = fetch_toc_text(url, timeout=timeout)
+        html_text = fetch_toc_text(url, timeout=timeout, fallback_urls=[f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"])
     except Exception:
         return {"title": fallback_title, "authors": [], "doi": doi_from_text(url)}
     title = (meta_values(html_text, "citation_title") or [fallback_title])[0]
@@ -219,7 +264,7 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
 
 def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_limit: int, max_items: int) -> list[dict]:
     page_url = target["url"]
-    html_text = fetch_toc_text(page_url, timeout=timeout)
+    html_text = fetch_toc_text(page_url, timeout=timeout, fallback_urls=target.get("fallback_urls"))
     records: list[dict] = []
     for url, title in article_links(html_text, page_url):
         detail = enrich_detail(url, title, timeout) if len(records) < detail_limit else {"title": title, "doi": doi_from_text(url)}
@@ -276,6 +321,9 @@ def main() -> None:
                 records.extend(fetched)
                 journal_count += len(fetched)
                 messages.append(f"{journal_id}/{target['kind']}: {len(fetched)}")
+                if not fetched:
+                    failures += 1
+                    messages.append(f"{journal_id}/{target['kind']}: no article candidates")
             except Exception as exc:  # noqa: BLE001 - source health is reported below.
                 failures += 1
                 messages.append(f"{journal_id}/{target['kind']}: {type(exc).__name__}: {exc}")

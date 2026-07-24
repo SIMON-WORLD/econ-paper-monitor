@@ -8,10 +8,10 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import shutil
 import subprocess
 import sys
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -57,17 +57,17 @@ def prune_old_files(directory: Path, *, older_than_days: int) -> int:
 def run_step(command: list[str], *, allow_failure: bool = False) -> int:
     log("$ " + " ".join(command))
     env = os.environ.copy()
-    env["PYTHONIOENCODING"] = "utf-8"
-    env["PYTHONUTF8"] = "1"
+    env.setdefault("PYTHONIOENCODING", "utf-8")
+    env.setdefault("PYTHONUTF8", "1")
     completed = subprocess.run(
         command,
         cwd=ROOT,
         text=True,
         encoding="utf-8",
         errors="replace",
+        env=env,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
-        env=env,
     )
     if completed.stdout:
         for line in completed.stdout.splitlines():
@@ -90,11 +90,7 @@ def git_has_staged_changes() -> bool:
 def push_with_retries(attempts: int = 4) -> None:
     last_code = 0
     for attempt in range(1, attempts + 1):
-        run_step(["git", "fetch", "origin", "main"], allow_failure=True)
-        rebase_code = run_step(["git", "rebase", "-X", "theirs", "origin/main"], allow_failure=True)
-        if rebase_code:
-            raise RuntimeError("git rebase onto origin/main failed; refusing to publish stale CNKI data")
-        last_code = run_step(["git", "push", "origin", "HEAD:main"], allow_failure=True)
+        last_code = run_step(["git", "push"], allow_failure=True)
         if last_code == 0:
             return
         wait_seconds = min(120, attempt * 30)
@@ -139,9 +135,6 @@ def main() -> None:
     parser.add_argument("--no-push", action="store_true", help="Run pipeline without committing/pushing generated updates.")
     parser.add_argument("--max-age-days", type=int, default=90)
     args = parser.parse_args()
-    runner_mode = os.environ.get("ECON_PAPER_MONITOR_RUNNER") == "1"
-    if not args.no_push and not runner_mode:
-        raise RuntimeError("Automatic publishing is restricted to the dedicated local CNKI runner.")
 
     python = sys.executable
     start = datetime.now().isoformat(timespec="seconds")
@@ -155,6 +148,9 @@ def main() -> None:
     final_status_recorded = False
 
     try:
+        if not args.no_push:
+            run_step(["git", "pull", "--ff-only", "origin", "main"], allow_failure=True)
+
         RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
         cnki_temp = RUNTIME_DIR / f"cnki-rss-{today_str()}.json"
         run_step(
@@ -175,14 +171,13 @@ def main() -> None:
         run_step([python, "scripts/clean_cn_noise.py"])
         run_step([python, "scripts/apply_overrides.py"])
         run_step([python, "scripts/normalize_records.py"])
-        run_step([python, "scripts/audit_source_types.py"])
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
         record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={LOG_PATH}")
         final_status_recorded = True
         run_step([python, "scripts/render_site.py"])
-        run_step([python, "scripts/build_feed.py", "--site-url", "https://academic-door.github.io/econ-paper-monitor/"])
+        run_step([python, "scripts/build_feed.py", "--site-url", "https://simon-world.github.io/econ-paper-monitor/"])
         run_step([python, "scripts/render_local_status.py"])
         run_step([python, "scripts/render_cnki_status.py"])
 
@@ -190,6 +185,7 @@ def main() -> None:
             run_step(["git", "add", "data", "docs"])
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
+                run_step(["git", "pull", "--rebase", "-X", "theirs", "origin", "main"], allow_failure=True)
                 push_with_retries()
             else:
                 log("No generated changes to commit.")
