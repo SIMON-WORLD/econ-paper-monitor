@@ -67,7 +67,6 @@ jobs:
           DETAIL_LIMIT="0"
           CN_DETAIL_LIMIT="0"
           TRANSLATE_LIMIT="80"
-          ABSTRACT_TRANSLATE_LIMIT="8"
           TRANSLATE_SECONDS="180"
           TIER="hourly"
           CROSSREF_WALL_TIMEOUT="8m"
@@ -81,7 +80,6 @@ jobs:
             DETAIL_LIMIT="120"
             CN_DETAIL_LIMIT="0"
             TRANSLATE_LIMIT="160"
-            ABSTRACT_TRANSLATE_LIMIT="24"
             TRANSLATE_SECONDS="240"
             TIER=""
             CROSSREF_WALL_TIMEOUT="25m"
@@ -92,7 +90,6 @@ jobs:
             ROWS="60"
             DETAIL_LIMIT="25"
             TRANSLATE_LIMIT="80"
-            ABSTRACT_TRANSLATE_LIMIT="8"
             TRANSLATE_SECONDS="180"
             TIER=""
             CROSSREF_WALL_TIMEOUT="15m"
@@ -105,7 +102,6 @@ jobs:
           echo "detail_limit=$DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
           echo "cn_detail_limit=$CN_DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
           echo "translate_limit=$TRANSLATE_LIMIT" >> "$GITHUB_OUTPUT"
-          echo "abstract_translate_limit=$ABSTRACT_TRANSLATE_LIMIT" >> "$GITHUB_OUTPUT"
           echo "translate_seconds=$TRANSLATE_SECONDS" >> "$GITHUB_OUTPUT"
           echo "tier=$TIER" >> "$GITHUB_OUTPUT"
           echo "crossref_wall_timeout=$CROSSREF_WALL_TIMEOUT" >> "$GITHUB_OUTPUT"
@@ -141,9 +137,6 @@ jobs:
       - name: Fetch priority publisher TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/fetch_priority_toc.py --detail-limit 12 --max-items-per-source 40
-      - name: Fetch ScienceDirect search results ahead of RSS
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: timeout 8m python scripts/fetch_sciencedirect_search.py --days 4 --workers 6 --max-items-per-journal 15
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
@@ -209,9 +202,11 @@ jobs:
           done
       - name: Fetch CNKI RSS feeds
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        env:
-          CNKI_RSS_PROXY_BASE: https://econ-paper-monitor-presence.academic-door.workers.dev/cnki-rss
         run: python scripts/fetch_cnki_rss.py
+        env:
+          # CNKI often returns 418 to GitHub runner IPs. The relay is only a
+          # transport fallback; the source remains labelled as CNKI RSS.
+          CNKI_RSS_PROXY_BASE: ${{ vars.CNKI_RSS_PROXY_BASE || 'https://econ-paper-monitor-presence.academic-door.workers.dev/cnki-rss' }}
       - name: Fetch working paper sources
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash
@@ -252,21 +247,12 @@ jobs:
       - name: Normalize daily records
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py
-      - name: Quarantine verified historical backfill
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/quarantine_historical_backfill.py --latest-days 3 --max-age-days 30
-      - name: Repair quarantined historical metadata
-        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: timeout 6m python scripts/repair_historical_backfill.py --limit 20 --workers 5 --timeout 15
       - name: Remove already-seen RSS backflow
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/remove_seen_backflow.py
       - name: Audit ingestion health
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_ingestion.py
-      - name: Audit source types
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/audit_source_types.py
       - name: Audit recent 72-hour coverage
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_recent72_coverage.py
@@ -275,22 +261,7 @@ jobs:
         run: python scripts/audit_alohomora_coverage.py
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/enrich_metadata.py --latest-days 14 --limit ${{ steps.mode.outputs.detail_limit }} --proxy-abstract-limit 36 --timeout 18
-        env:
-          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
-          ELSEVIER_INSTTOKEN: ${{ secrets.ELSEVIER_INSTTOKEN }}
-      - name: Backfill missing authors
-        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: timeout 5m python scripts/enrich_metadata.py --authors-only --latest-days 45 --limit 80 --timeout 15 --workers 8
-      - name: Backfill public abstracts
-        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: timeout 5m python scripts/enrich_metadata.py --abstract-only --latest-days 30 --limit 40 --proxy-abstract-limit 40 --timeout 12 --workers 8
-        env:
-          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
-          ELSEVIER_INSTTOKEN: ${{ secrets.ELSEVIER_INSTTOKEN }}
-      - name: Recheck historical backfill after metadata enrichment
-        if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/quarantine_historical_backfill.py --latest-days 3 --max-age-days 30
+        run: python scripts/enrich_metadata.py --latest-days 7 --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all
@@ -302,9 +273,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-      - name: Translate paper titles and abstracts
+      - name: Translate paper titles
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --abstract-limit ${{ steps.mode.outputs.abstract_translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
+        run: python scripts/translate.py --limit ${{ steps.mode.outputs.translate_limit }} --max-seconds ${{ steps.mode.outputs.translate_seconds }} --timeout 25 --sleep 0.05
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -324,16 +295,16 @@ jobs:
         run: python scripts/render_site.py
         env:
           ANALYTICS_PROVIDER: ${{ vars.ANALYTICS_PROVIDER }}
-          PRESENCE_ENDPOINT: ${{ vars.PRESENCE_ENDPOINT }}
           PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
           PLAUSIBLE_SCRIPT_URL: ${{ vars.PLAUSIBLE_SCRIPT_URL }}
           UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
           UMAMI_SCRIPT_URL: ${{ vars.UMAMI_SCRIPT_URL }}
           GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
+          PRESENCE_ENDPOINT: ${{ vars.PRESENCE_ENDPOINT }}
           ADMIN_STATUS_TOKEN_HASH: ${{ secrets.ADMIN_STATUS_TOKEN_HASH }}
       - name: Build RSS feed
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/build_feed.py --site-url https://academic-door.github.io/econ-paper-monitor/
+        run: python scripts/build_feed.py --site-url https://simon-world.github.io/econ-paper-monitor/
       - name: Send optional email digest
         if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && github.event.schedule == '30 0 * * *')
         run: python scripts/send_email_digest.py
