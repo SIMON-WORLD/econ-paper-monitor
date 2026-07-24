@@ -12,11 +12,10 @@ import html
 import os
 import re
 import ssl
-import sys
-import time
-import urllib.parse
 import urllib.error
+import urllib.parse
 import urllib.request
+import time
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
@@ -28,9 +27,12 @@ from common import BEIJING_TZ, DATA_DIR, load_journals, parse_scalar, today_str,
 from sources.record import article_record
 from status import load_status, now, record_source, save_status
 
+try:
+    import sys
 
-if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
 
 NOISE_TITLE_PATTERNS = (
@@ -142,28 +144,12 @@ def cnki_proxy_url(base: str, source_url: str) -> str:
     return f"{base}{separator}url={urllib.parse.quote(source_url, safe='')}"
 
 
-def cnki_official_alias(source_url: str) -> str | None:
-    """Return CNKI's certificate-valid RSS alias when applicable."""
-    parsed = urllib.parse.urlsplit(source_url)
-    if parsed.hostname != "rss.cnki.net":
-        return None
-    return urllib.parse.urlunsplit((parsed.scheme, "navi.cnki.net", parsed.path, parsed.query, parsed.fragment))
-
-
 def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
-    """Fetch CNKI RSS through direct and optional controlled relay paths.
-
-    CNKI sometimes returns HTTP 418 to GitHub-hosted runners by egress/IP.
-    A relay is restricted to CNKI RSS URLs and is only a transport fallback;
-    the feed remains supplemental evidence, while official journal pages stay
-    the primary source.
-    """
-    primary_url = str(source.get("url") or "")
-    urls = [alias for alias in [cnki_official_alias(primary_url), primary_url] if alias]
+    """Fetch CNKI RSS through direct and optional controlled relay paths."""
+    urls = [str(source.get("url") or "")]
     fallback_url = str(source.get("fallback_url") or "")
-    for candidate in [cnki_official_alias(fallback_url), fallback_url]:
-        if candidate and candidate not in urls:
-            urls.append(candidate)
+    if fallback_url and fallback_url not in urls:
+        urls.append(fallback_url)
     code = str(source.get("code") or "")
     profiles = [
         {
@@ -176,7 +162,7 @@ def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
         {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.5 Safari/605.1.15",
             "Accept": "application/rss+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "zh-CN,zh;q=0.9",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
             "Referer": "https://www.cnki.net/",
         },
     ]
@@ -191,8 +177,7 @@ def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
             candidates.append((cnki_proxy_url(proxy_base, url), "relay"))
         for candidate_url, transport in candidates:
             for attempt in range(3 if transport == "direct" else 2):
-                headers = profiles[attempt % len(profiles)]
-                request = urllib.request.Request(candidate_url, headers=headers)
+                request = urllib.request.Request(candidate_url, headers=profiles[attempt % len(profiles)])
                 for context in (None, ssl._create_unverified_context()):
                     try:
                         kwargs: dict[str, Any] = {"timeout": 30}
@@ -213,12 +198,10 @@ def fetch_cnki_text(source: dict[str, Any]) -> tuple[str, str]:
                     except Exception as exc:  # noqa: BLE001
                         last_error = exc
                         attempts.append(f"{transport}:{type(exc).__name__}:{exc}")
-                        continue
                 if attempt < (2 if transport == "direct" else 1):
                     time.sleep(1.5 * (attempt + 1))
     if last_error:
-        detail = "; ".join(attempts[-8:])
-        raise RuntimeError(f"CNKI RSS unavailable after direct/relay retries: {detail}") from last_error
+        raise RuntimeError(f"CNKI RSS unavailable after direct/relay retries: {'; '.join(attempts[-8:])}") from last_error
     raise RuntimeError("empty CNKI RSS URL list")
 
 
@@ -274,7 +257,6 @@ def parse_feed(
             raw_data={
                 "cnki_code": source.get("code"),
                 "cnki_feed_url": source.get("url"),
-                "cnki_fetched_via": source.get("fetched_via"),
                 "cnki_pubdate_raw": pubdate_raw,
                 "cnki_channel_pubdate_raw": channel_pubdate,
                 "cnki_priority": source.get("priority"),
@@ -295,15 +277,12 @@ def parse_feed(
         "latest_research_date": latest_research_date,
         "latest_title": latest_title,
         "channel_updated_at": parse_cnki_pubdate(channel_pubdate),
-        "fetched_via": source.get("fetched_via") or "direct",
         "message": f"accepted={len(records)} filtered={filtered} stale={stale} latest_research={latest_research_date or 'none'}",
     }
     return records, summary
 
 
 def main() -> None:
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, default=DATA_DIR / "cnki_rss_sources.yml")
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -339,8 +318,8 @@ def main() -> None:
             )
             continue
         try:
-            xml_text, fetched_via = fetch_cnki_text(source)
-            source = {**source, "fetched_via": fetched_via}
+            xml_text, fetched_url = fetch_cnki_text(source)
+            source = {**source, "url": fetched_url}
             fetched, summary = parse_feed(xml_text, journal, source, max_age_days=args.max_age_days)
             if args.max_items_per_feed:
                 fetched = fetched[: args.max_items_per_feed]
