@@ -12,6 +12,9 @@ import argparse
 import html
 import re
 import ssl
+import json
+from datetime import date, timedelta
+from urllib.parse import urlencode
 import urllib.request
 from pathlib import Path
 from urllib.parse import urljoin
@@ -31,6 +34,7 @@ TARGETS = {
             ],
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
+            "fallback_issn": "0034-6527",
         }
     ],
     "review-of-economics-and-statistics": [
@@ -42,6 +46,7 @@ TARGETS = {
             ],
             "date_source": "mitpress_current_issue",
             "date_confidence": "C",
+            "fallback_issn": "0034-6535",
         },
         {
             "kind": "restat_advance",
@@ -51,6 +56,7 @@ TARGETS = {
             ],
             "date_source": "mitpress_advance_articles",
             "date_confidence": "B",
+            "fallback_issn": "0034-6535",
         },
     ],
     "econometrica": [
@@ -62,6 +68,7 @@ TARGETS = {
             ],
             "date_source": "econometric_society_forthcoming",
             "date_confidence": "B",
+            "fallback_issn": "0012-9682",
         }
     ],
 }
@@ -290,6 +297,64 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
     return records
 
 
+def fetch_crossref_fallback(journal: dict, target: dict[str, str], *, timeout: int, max_items: int) -> list[dict]:
+    """Use Crossref online-publication metadata when a publisher endpoint blocks CI."""
+    issn = str(target.get("fallback_issn") or "").strip()
+    if not issn:
+        return []
+    start = (date.today() - timedelta(days=45)).isoformat()
+    params = urlencode({
+        "filter": f"from-online-pub-date:{start},until-online-pub-date:{date.today().isoformat()}",
+        "rows": max_items,
+        "select": "DOI,title,author,published-online,published,created,URL,abstract",
+    })
+    request = urllib.request.Request(
+        f"https://api.crossref.org/journals/{issn}/works?{params}",
+        headers={**BROWSER_HEADERS, "Accept": "application/json", "User-Agent": "AcademicDoorPaperMonitor/1.0 (mailto:academic-door@users.noreply.github.com)"},
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    records: list[dict] = []
+    for item in (payload.get("message", {}).get("items") or []):
+        title = str((item.get("title") or [""])[0]).strip()
+        doi = str(item.get("DOI") or "").strip().lower()
+        if not title or not doi:
+            continue
+        online = item.get("published-online") or item.get("published") or {}
+        parts = online.get("date-parts") or []
+        published = None
+        if parts and parts[0]:
+            values = parts[0]
+            published = "-".join(str(value).zfill(2) for value in values[:3])
+            if len(values) == 1:
+                published += "-01-01"
+            elif len(values) == 2:
+                published += "-01"
+        authors = [
+            " ".join(part for part in (author.get("given"), author.get("family")) if part).strip()
+            for author in (item.get("author") or [])
+        ]
+        authors = [author for author in authors if author]
+        records.append(article_record(
+            journal,
+            title=title,
+            url=str(item.get("URL") or f"https://doi.org/{doi}"),
+            source="priority_crossref_fallback",
+            source_url=f"https://api.crossref.org/journals/{issn}/works",
+            doi=doi,
+            authors=authors,
+            abstract=item.get("abstract"),
+            published_online=published,
+            available_online=published,
+            date_source="crossref_published_online",
+            date_confidence="B" if item.get("published-online") else "C",
+            raw_data={"priority_toc_kind": target["kind"], "fallback": "crossref", "issn": issn},
+        ))
+        if len(records) >= max_items:
+            break
+    return records
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -322,11 +387,23 @@ def main() -> None:
                 journal_count += len(fetched)
                 messages.append(f"{journal_id}/{target['kind']}: {len(fetched)}")
                 if not fetched:
-                    failures += 1
-                    messages.append(f"{journal_id}/{target['kind']}: no article candidates")
+                    fallback = fetch_crossref_fallback(journal, target, timeout=timeout, max_items=args.max_items_per_source)
+                    records.extend(fallback)
+                    journal_count += len(fallback)
+                    messages.append(f"{journal_id}/{target['kind']}: crossref fallback {len(fallback)}")
+                    if not fallback:
+                        failures += 1
             except Exception as exc:  # noqa: BLE001 - source health is reported below.
-                failures += 1
-                messages.append(f"{journal_id}/{target['kind']}: {type(exc).__name__}: {exc}")
+                try:
+                    fallback = fetch_crossref_fallback(journal, target, timeout=timeout, max_items=args.max_items_per_source)
+                except Exception as fallback_exc:  # noqa: BLE001
+                    fallback = []
+                    messages.append(f"{journal_id}/{target['kind']}: Crossref fallback {type(fallback_exc).__name__}: {fallback_exc}")
+                records.extend(fallback)
+                journal_count += len(fallback)
+                messages.append(f"{journal_id}/{target['kind']}: {type(exc).__name__}; crossref fallback {len(fallback)}")
+                if not fallback:
+                    failures += 1
         if journal_count == 0:
             messages.append(f"{journal_id}: 0")
 
