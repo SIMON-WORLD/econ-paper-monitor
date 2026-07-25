@@ -206,12 +206,6 @@ def latest_status_timestamp(status: dict[str, Any], records: list[dict[str, Any]
 
 
 def monitor_freshness_label(value: str | None, status: dict[str, Any] | None = None) -> str:
-    if status:
-        sources = status.get("sources") or {}
-        critical = ("cnki-rss", "priority-toc")
-        failed = [source_id for source_id in critical if source_id in sources and not sources[source_id].get("ok")]
-        if failed:
-            return "部分信源异常"
     dt = beijing_datetime(value)
     if not dt:
         return "状态待确认"
