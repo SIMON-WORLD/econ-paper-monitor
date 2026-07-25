@@ -97,12 +97,12 @@ def fetch_toc_text(url: str, timeout: int, fallback_urls: list[str] | None = Non
         request = urllib.request.Request(candidate, headers=BROWSER_HEADERS)
         try:
             try:
-                with urllib.request.urlopen(request, timeout=timeout) as response:
+                with urllib.request.urlopen(request, timeout=args.timeout) as response:
                     payload = response.read()
                     charset = response.headers.get_content_charset() or "utf-8"
             except Exception:
                 context = ssl._create_unverified_context()
-                with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+                with urllib.request.urlopen(request, timeout=args.timeout, context=context) as response:
                     payload = response.read()
                     charset = response.headers.get_content_charset() or "utf-8"
             for encoding in dict.fromkeys([charset, "utf-8", "latin-1"]):
@@ -248,7 +248,7 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
 
 def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, object]:
     try:
-        html_text = fetch_toc_text(url, timeout=timeout, fallback_urls=[f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"])
+        html_text = fetch_toc_text(url, timeout=args.timeout, fallback_urls=[f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"])
     except Exception:
         return {"title": fallback_title, "authors": [], "doi": doi_from_text(url)}
     title = (meta_values(html_text, "citation_title") or [fallback_title])[0]
@@ -271,7 +271,7 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
 
 def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_limit: int, max_items: int) -> list[dict]:
     page_url = target["url"]
-    html_text = fetch_toc_text(page_url, timeout=timeout, fallback_urls=target.get("fallback_urls"))
+    html_text = fetch_toc_text(page_url, timeout=args.timeout, fallback_urls=target.get("fallback_urls"))
     records: list[dict] = []
     for url, title in article_links(html_text, page_url):
         detail = enrich_detail(url, title, timeout) if len(records) < detail_limit else {"title": title, "doi": doi_from_text(url)}
@@ -312,7 +312,7 @@ def fetch_crossref_fallback(journal: dict, target: dict[str, str], *, timeout: i
         f"https://api.crossref.org/journals/{issn}/works?{params}",
         headers={**BROWSER_HEADERS, "Accept": "application/json", "User-Agent": "AcademicDoorPaperMonitor/1.0 (mailto:academic-door@users.noreply.github.com)"},
     )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
+    with urllib.request.urlopen(request, timeout=args.timeout) as response:
         payload = json.loads(response.read().decode("utf-8"))
     records: list[dict] = []
     for item in (payload.get("message", {}).get("items") or []):
@@ -387,7 +387,7 @@ def main() -> None:
                 journal_count += len(fetched)
                 messages.append(f"{journal_id}/{target['kind']}: {len(fetched)}")
                 if not fetched:
-                    fallback = fetch_crossref_fallback(journal, target, timeout=timeout, max_items=args.max_items_per_source)
+                    fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
                     records.extend(fallback)
                     journal_count += len(fallback)
                     messages.append(f"{journal_id}/{target['kind']}: crossref fallback {len(fallback)}")
@@ -395,7 +395,7 @@ def main() -> None:
                         failures += 1
             except Exception as exc:  # noqa: BLE001 - source health is reported below.
                 try:
-                    fallback = fetch_crossref_fallback(journal, target, timeout=timeout, max_items=args.max_items_per_source)
+                    fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
                 except Exception as fallback_exc:  # noqa: BLE001
                     fallback = []
                     messages.append(f"{journal_id}/{target['kind']}: Crossref fallback {type(fallback_exc).__name__}: {fallback_exc}")
