@@ -99,18 +99,18 @@ class ChinaRelevanceAndNepTests(unittest.TestCase):
         self.assertEqual(updates["china_related_source"], "ai")
 
     def test_detail_page_separates_acceptance_from_online_date(self) -> None:
-        record = {
-            "title": "A just accepted paper",
-            "authors": ["Test Author"],
-            "available_online": "2026-07-20",
-            "accepted_date": "2026-07-17",
-            "detected_at": "2026-07-20T17:24:00+00:00",
-            "source_type": "journal",
-        }
-        body = render_site.paper_detail_body(record, [record])
-        self.assertIn("官方在线 2026-07-20", body)
-        self.assertIn("接受日期", body)
-        self.assertIn("不等同于正式上线", body)
+        """The acceptance-date caveat must stay on the paper detail page.
+
+        This used to be asserted against ``render_site.paper_detail_body``.
+        Detail rendering has since moved to the client-side ``docs/paper.html``
+        template, so the guard follows it there rather than being dropped.
+        """
+        template = (Path(__file__).resolve().parents[1] / "docs" / "paper.html").read_text(encoding="utf-8")
+
+        self.assertIn("官方日期", template)
+        self.assertIn("接受日期", template)
+        self.assertIn("不等同于正式上线", template)
+        self.assertLess(template.index("官方日期"), template.index("${accepted}"))
 
     def test_editorial_board_is_suppressed_from_ingestion_audit(self) -> None:
         self.assertTrue(dedupe.is_source_navigation_noise({"title": "Editorial Board"}))

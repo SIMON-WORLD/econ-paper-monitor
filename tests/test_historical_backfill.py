@@ -13,6 +13,7 @@ import fetch_preprints  # noqa: E402
 import normalize_records  # noqa: E402
 import quarantine_historical_backfill  # noqa: E402
 import repair_historical_backfill  # noqa: E402
+import remove_seen_backflow  # noqa: E402
 import render_site  # noqa: E402
 from dedupe import record_match_keys  # noqa: E402
 
@@ -176,18 +177,59 @@ class HistoricalBackfillTests(unittest.TestCase):
             self.assertEqual([record["title"] for record in pending], ["Untouched old record", "Blocked old record"])
             self.assertEqual(pending[1]["historical_backfill_attempts"], 1)
 
-    def test_seen_only_old_record_is_excluded_from_public_recent_flow(self) -> None:
+    def test_seen_only_old_record_is_moved_off_todays_page(self) -> None:
+        """A record whose canonical first_seen predates today must leave today.
+
+        The suppression used to live in ``render_site.is_historical_backfill``.
+        It now runs one stage earlier, in ``remove_seen_backflow``, which both
+        drops the record from today's page and files it under its first-seen
+        date. Asserting there keeps the guarantee covered.
+        """
+        today = "2026-07-21"
+        first_seen_date = "2026-02-26"
         record = {
+            "id": "cepr-dp-0001",
             "title": "A previously published CEPR paper restored from seen state",
-            "_from_seen_only": True,
-            "available_online": "2026-02-26",
+            "url": "https://cepr.org/publications/dp0001",
+            "available_online": first_seen_date,
             "date_confidence": "B",
             "detected_at": "2026-07-21T14:43:15+00:00",
         }
-        with patch.object(render_site, "today_str", return_value="2026-07-21"):
-            self.assertTrue(render_site.is_historical_backfill(record))
-            self.assertFalse(render_site.record_is_on_date(record, "2026-07-21"))
-            self.assertEqual(render_site.recent_detected_records([record], 3), [])
+        seen = {
+            "papers": {
+                "cepr-dp-0001": {
+                    "title": record["title"],
+                    "url": record["url"],
+                    "first_seen": f"{first_seen_date}T08:00:00+00:00",
+                }
+            }
+        }
+
+        with tempfile.TemporaryDirectory() as tmp:
+            daily_dir = Path(tmp) / "daily"
+            daily_dir.mkdir()
+            (daily_dir / f"{today}.json").write_text(json.dumps([record]), encoding="utf-8")
+            seen_path = Path(tmp) / "seen.json"
+            seen_path.write_text(json.dumps(seen), encoding="utf-8")
+
+            argv = [
+                "remove_seen_backflow.py",
+                "--date",
+                today,
+                "--daily-dir",
+                str(daily_dir),
+                "--seen",
+                str(seen_path),
+            ]
+            with patch.object(sys, "argv", argv), patch.object(remove_seen_backflow, "record_source"):
+                remove_seen_backflow.main()
+
+            today_records = json.loads((daily_dir / f"{today}.json").read_text(encoding="utf-8"))
+            restored_records = json.loads((daily_dir / f"{first_seen_date}.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(today_records, [])
+        self.assertEqual([item["title"] for item in restored_records], [record["title"]])
+        self.assertEqual(restored_records[0]["_restored_from_backflow"], today)
 
 
 if __name__ == "__main__":
