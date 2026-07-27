@@ -1,0 +1,26 @@
+name: Verify anonymous presence service
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "infra/presence-worker.js"
+      - "infra/wrangler.toml"
+      - ".github/workflows/deploy-presence.yml"
+      - ".github/workflows/verify-presence.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check presence endpoint
+        shell: bash
+        run: |
+          payload="$(curl --fail --silent --show-error --retry 3 --retry-delay 2 \
+            'https://econ-paper-monitor-presence.academic-door.workers.dev/presence?client_id=github-actions-smoke-20260727')"
+          echo "$payload"
+          python -c 'import json, sys; value=json.loads(sys.argv[1]); assert isinstance(value.get("online"), int) and value["online"] >= 1' "$payload"

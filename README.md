@@ -67,3 +67,7 @@ report `data/source_health.json` distinguishes healthy dual-path coverage,
 degraded single-path coverage, stale checks, and unavailable journals. A run
 stops before publishing when a formal journal has no usable RSS or Crossref
 path; a publisher block is acceptable only when another path remains usable.
+
+The anonymous presence Worker is deployed separately from paper monitoring. Its
+endpoint is smoke-tested by `.github/workflows/verify-presence.yml`, so a
+Cloudflare deployment failure cannot be mistaken for a paper-monitor failure.
