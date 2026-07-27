@@ -172,6 +172,17 @@ def metadata_from_description(description: str | None) -> dict[str, Any]:
 def normalize_authors(values: list[str]) -> list[str]:
     authors: list[str] = []
     for value in values:
+        # Some RDF feeds concatenate personal names with affiliations without
+        # separators. Keeping that blob as one author is worse than leaving it
+        # empty, because DOI enrichment can then replace it with authoritative
+        # Crossref names.
+        if re.search(
+            r"(?:University|College|School|Department|Institute|Centre|Center|"
+            r"National Bureau|National Economic|Research and Policy|University of)",
+            value,
+            flags=re.I,
+        ):
+            continue
         for part in re.split(r"\s*;\s*|\s+ and\s+|\s*,\s*(?=[A-Z][A-Za-z'.-]+(?:\s|$))", value):
             cleaned = clean_text(part)
             if cleaned and cleaned not in authors:
@@ -191,6 +202,15 @@ def extract_pii(*values: str | None) -> str | None:
     return None
 
 
+def extract_doi(*values: str | None) -> str | None:
+    for value in values:
+        text = clean_text(value)
+        match = re.search(r"(?:doi\s*:\s*|doi\.org/)(10\.\d{4,9}/[^\s<>&\"']+)", text, flags=re.I)
+        if match:
+            return match.group(1).rstrip(".,;)").casefold()
+    return None
+
+
 def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[dict[str, Any]]:
     if "<html" in xml_text[:500].casefold():
         raise ValueError("feed URL returned HTML, not RSS/Atom")
@@ -206,7 +226,8 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
             published = parse_date(child_text_any(item, ["pubDate", "date", "dc:date", "updated", "published"]))
             description = child_text_any(item, ["description", "summary", "content"])
             authors = child_texts_any(item, ["creator", "author", "dc:creator"])
-            records.append(make_record(title, link, published, journal, feed_url, description=description, guid=guid, authors=authors))
+            identifier = child_text_any(item, ["identifier", "doi"])
+            records.append(make_record(title, link, published, journal, feed_url, description=description, guid=guid, identifier=identifier, authors=authors))
         return [record for record in records if record["title"]]
 
     entries = root.findall(f".//{ATOM}entry")
@@ -238,7 +259,8 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
         published = parse_date(child_text_any(item, ["date", "pubDate", "updated", "published"]))
         description = child_text_any(item, ["description", "summary", "content"])
         authors = child_texts_any(item, ["creator", "author", "dc:creator"])
-        records.append(make_record(title, link, published, journal, feed_url, description=description, authors=authors))
+        identifier = child_text_any(item, ["identifier", "doi"])
+        records.append(make_record(title, link, published, journal, feed_url, description=description, identifier=identifier, authors=authors))
     return [record for record in records if record["title"]]
 
 
@@ -250,11 +272,13 @@ def make_record(
     feed_url: str,
     description: str | None = None,
     guid: str | None = None,
+    identifier: str | None = None,
     authors: list[str] | None = None,
 ) -> dict[str, Any]:
     description_metadata = metadata_from_description(description)
     parsed_authors = normalize_authors(authors or []) or description_metadata.get("authors")
     pii = extract_pii(link, guid, description)
+    doi = extract_doi(identifier, link, description)
     record = {
         **article_record(
             journal,
@@ -262,6 +286,7 @@ def make_record(
             url=link,
             source="rss",
             source_url=feed_url,
+            doi=doi,
             authors=parsed_authors,
             published_online=published or description_metadata.get("published_online"),
             available_online=published or description_metadata.get("available_online"),

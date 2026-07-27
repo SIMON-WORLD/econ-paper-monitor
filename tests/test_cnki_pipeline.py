@@ -82,6 +82,11 @@ def test_rss_parser_does_not_truncate_unparseable_date_labels():
     assert fetch_rss.parse_month_date("September 2026") == "2026-09-01"
 
 
+def test_rss_helpers_extract_doi_and_reject_concatenated_affiliation_blob():
+    assert fetch_rss.extract_doi("doi:10.1086/740172") == "10.1086/740172"
+    assert fetch_rss.normalize_authors(["Bård HarstadKatinka HoltsmarkStanford University"]) == []
+
+
 def test_local_pipeline_normalizes_after_metadata_enrichment():
     root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
     local_script = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
