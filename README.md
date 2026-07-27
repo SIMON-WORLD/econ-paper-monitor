@@ -43,6 +43,18 @@ time (set the machine timezone to Beijing time if those should be Beijing times)
 powershell -ExecutionPolicy Bypass -File .\scripts\install_local_cnki_task.ps1
 ```
 
+The local supplement writes a durable owner status to
+`data/local_cnki_status.json`. The public watchdog checks that status and
+fails when the last successful six-source run is older than 30 hours:
+
+```powershell
+python .\scripts\audit_local_cnki_status.py --max-age-hours 30
+```
+
+This keeps the local CNKI network requirement separate from the GitHub-hosted
+publisher monitor while making a stopped local task visible to the release
+process.
+
 The scheduled task uses `-WindowStyle Hidden`. Logs and local-only dashboards are
 written under:
 
