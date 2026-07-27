@@ -222,6 +222,12 @@ def main() -> None:
         run_step([python, "scripts/clean_cn_noise.py"])
         run_step([python, "scripts/apply_overrides.py"])
         run_step([python, "scripts/normalize_records.py"])
+        # Dedupe can restore records from seen.json. Re-run the same public
+        # discovery cleanup used by GitHub Actions after that restore point.
+        run_step([python, "scripts/clean_historical_working_papers.py"])
+        run_step([python, "scripts/clean_nonpaper_records.py"])
+        run_step([python, "scripts/clean_rss_backfill.py"])
+        run_step([python, "scripts/remove_seen_backflow.py"])
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])

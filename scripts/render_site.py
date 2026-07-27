@@ -270,6 +270,13 @@ def detected_date(record: dict[str, Any]) -> str:
 
 def record_is_on_date(record: dict[str, Any], target_date: str) -> bool:
     """A paper belongs to a day's view when it was found or officially online that day."""
+    # seen-only records are restored for catalogue/search pages. Their
+    # first_seen date must not recreate a historical item in today's flow.
+    if record.get("_from_seen_only") and detected_date(record) == target_date:
+        return target_date in {
+            str(record.get("available_online") or "").strip(),
+            str(record.get("published_online") or "").strip(),
+        }
     return detected_date(record) == target_date or target_date in {
         str(record.get("available_online") or "").strip(),
         str(record.get("published_online") or "").strip(),
@@ -2130,7 +2137,11 @@ def main() -> None:
     by_field: dict[str, list[dict[str, Any]]] = defaultdict(list)
     by_topic: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
-        by_date[detected_date(record) or record.get("_daily_date") or "unknown"].append(record)
+        # seen-only records remain searchable and available in the full
+        # catalogue, but must not manufacture a daily archive entry from their
+        # historical first_seen timestamp.
+        if not record.get("_from_seen_only"):
+            by_date[detected_date(record) or record.get("_daily_date") or "unknown"].append(record)
         if not is_working_paper(record) and record.get("journal_id"):
             by_journal[str(record.get("journal_id"))].append(record)
         for field in record.get("fields", []) or []:
