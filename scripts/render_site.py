@@ -123,7 +123,7 @@ STYLE = """
 
 EXTRA_STYLE = """
 .nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
-.presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}.reader-panel{position:fixed;right:20px;top:64px;z-index:20;display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.reader-panel button{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;color:var(--ink);cursor:pointer}.reader-panel button:hover{border-color:var(--blue);color:var(--blue)}body.reader-large .wrap{font-size:18px}body.reader-large .event h3{font-size:22px}body.reader-large .event p,body.reader-large .event .meta-block{font-size:16px}body.reader-large .event{padding-top:20px;padding-bottom:20px}body.reader-compact .wrap{font-size:14px}body.reader-compact .event h3{font-size:16px}body.reader-compact .event{padding-top:11px;padding-bottom:11px}
+.presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}
 """
 
 
@@ -1108,6 +1108,7 @@ def page(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="{BASE}/assets/academic-door-logo.png">
   <title>{html_escape(title)}</title>
   {analytics_snippet()}
   <style>{STYLE}{EXTRA_STYLE}</style>
