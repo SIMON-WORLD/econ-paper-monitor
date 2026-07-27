@@ -226,6 +226,7 @@ def main() -> None:
     promotions = sentinel_promotions(SENTINEL_PATH, run_date)
     records: list[dict] = []
     messages: list[str] = []
+    journal_status: dict[str, dict[str, object]] = {}
     failures = 0
     journals = filter_journals_by_tier(load_journals(args.journals), args.tier)
     if args.only:
@@ -244,6 +245,12 @@ def main() -> None:
         )
         annotate_snapshot_records(fetched, str(journal.get("id") or ""), snapshot, promotions)
         records.extend(fetched)
+        journal_id = str(journal.get("id") or "")
+        journal_status[journal_id] = {
+            "ok": not errors,
+            "count": len(fetched),
+            "message": "; ".join(errors) if errors else "ok",
+        }
         if errors:
             failures += len(errors)
             messages.append(f"{journal.get('id')}: {len(fetched)} ({'; '.join(errors)})")
@@ -252,7 +259,13 @@ def main() -> None:
 
     write_json(output, records)
     write_json(SNAPSHOT_PATH, {"updated_at": now_iso(), "journals": snapshot})
-    record_source("aea-toc", ok=failures == 0, count=len(records), message="; ".join(messages) or str(output))
+    record_source(
+        "aea-toc",
+        ok=failures == 0,
+        count=len(records),
+        message="; ".join(messages) or str(output),
+        details={"journals": journal_status},
+    )
     print(f"wrote {len(records)} AEA records to {output}")
     for message in messages:
         print(message)

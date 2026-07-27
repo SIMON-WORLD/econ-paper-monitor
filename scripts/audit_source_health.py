@@ -79,7 +79,16 @@ def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, ma
         ("priority-toc", "priority-toc", PRIORITY_TOC_JOURNALS),
     ):
         entry = sources.get(source_id) or {}
-        if journal_id in targets and status_entry_is_fresh(entry, now, max_age):
+        per_journal = (entry.get("journals") or {}).get(journal_id)
+        if journal_id in targets and (
+            status_entry_is_fresh(entry, now, max_age)
+            or (
+                isinstance(per_journal, dict)
+                and per_journal.get("ok")
+                and status_age_days(entry.get("updated_at"), now) is not None
+                and status_age_days(entry.get("updated_at"), now) <= max_age
+            )
+        ):
             paths.append(path_name)
             if entry.get("updated_at"):
                 checked_at.append(str(entry["updated_at"]))

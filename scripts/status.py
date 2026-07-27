@@ -30,15 +30,19 @@ def record_source(
     ok: bool,
     count: int = 0,
     message: str = "",
+    details: dict[str, Any] | None = None,
     path: Path = STATUS_PATH,
 ) -> None:
     status = load_status(path)
-    status.setdefault("sources", {})[source_id] = {
+    entry = {
         "ok": ok,
         "count": count,
         "message": message,
         "updated_at": now(),
     }
+    if details:
+        entry.update(details)
+    status.setdefault("sources", {})[source_id] = entry
     save_status(status, path)
 
 

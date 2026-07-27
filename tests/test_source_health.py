@@ -85,6 +85,23 @@ def test_failed_chinese_journal_does_not_count_as_a_path():
     assert result["usable_paths"] == ["crossref"]
 
 
+def test_failed_aea_child_does_not_hide_successful_sibling():
+    result = inspect_journal(
+        {"id": "american-economic-review", "title": "AER", "publisher": "AEA"},
+        {"journals": {"american-economic-review": {"last_rss_status": "none", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+        {"sources": {"aea-toc": {
+            "ok": False,
+            "updated_at": "2026-07-27T11:30:00+00:00",
+            "journals": {"american-economic-review": {"ok": True, "count": 44}},
+        }}},
+    )
+    assert result["level"] == "healthy"
+    assert "aea-toc" in result["usable_paths"]
+
+
 def test_rss_error_does_not_count_as_a_healthy_path():
     result = inspect_journal(
         journal(),
