@@ -248,6 +248,28 @@ This is a sufficiently long public abstract for a Federal Reserve working paper 
         self.assertEqual(record["doi"], "10.17016/FEDS.2026.999")
         self.assertIn("sufficiently long public abstract", record["abstract"])
 
+    def test_cepr_proxy_ignores_advisory_board_and_recovers_abstract(self) -> None:
+        markdown = """# Designing Contracts for the Energy Transition
+
+**Authors**
+
+[First Author](https://cepr.org/about/people/first-author), [Second Author](https://cepr.org/about/people/second-author)
+
+**Abstract**
+
+This is a sufficiently long CEPR abstract describing the paper, its data, identification strategy, and main findings for a public metadata page.
+
+**Keywords**
+
+Energy transition
+
+[Advisory Board](https://cepr.org/about/people/advisory-board)
+"""
+        authors, abstract = fetch_preprints.parse_cepr_proxy_markdown(markdown)
+
+        self.assertEqual(authors, ["First Author", "Second Author"])
+        self.assertIn("sufficiently long CEPR abstract", abstract or "")
+
     @patch.object(translate, "translate_abstract", return_value="这是最近仅存在于已监测记录中的论文摘要翻译。")
     def test_seen_only_abstract_can_be_translated(self, _translate_mock) -> None:
         records = [

@@ -394,6 +394,55 @@ def clean_markdown_text(value: str) -> str:
     return clean_text(value.replace("*", " "))
 
 
+def parse_cepr_proxy_markdown(markdown: str) -> tuple[list[str], str | None]:
+    """Extract paper metadata from the CEPR page returned by r.jina.ai.
+
+    CEPR pages contain navigation and governance links alongside the paper
+    metadata. Keep this parser deliberately section-based so an Advisory
+    Board link cannot become the paper's author list.
+    """
+    abstract: str | None = None
+    abstract_match = re.search(
+        r"(?is)(?:^|\n)\s*(?:#{1,4}\s*)?(?:\*\*|__)?abstract(?:\*\*|__)?\s*:?[ \t]*\n+"
+        r"(?P<body>.*?)(?=\n\s*(?:#{1,4}\s*)?(?:\*\*|__)?"
+        r"(?:keywords?|jel|download|citation|doi|related|references?)"
+        r"(?:\*\*|__)?\b|\Z)",
+        markdown,
+    )
+    if abstract_match:
+        candidate = clean_markdown_text(abstract_match.group("body"))
+        if len(candidate) >= 80 and not is_boilerplate_text(candidate):
+            abstract = candidate
+
+    author_block = re.search(
+        r"(?is)(?:^|\n)\s*(?:#{1,4}\s*)?(?:\*\*|__)?authors?"
+        r"(?:\*\*|__)?\s*:?[ \t]*\n(?P<body>.*?)(?=\n\s*(?:#{1,4}\s*)?"
+        r"(?:\*\*|__)?abstract(?:\*\*|__)?\b|\Z)",
+        markdown,
+    )
+    author_text = author_block.group("body") if author_block else ""
+    authors = [
+        clean_markdown_text(value)
+        for value in re.findall(
+            r"\[([^\]]+)\]\(https?://cepr\.org/about/people/[^)]+\)",
+            author_text,
+            flags=re.I,
+        )
+    ]
+    if not authors:
+        authors = [
+            clean_markdown_text(value)
+            for value in re.findall(
+                r"\[([^\]]+)\]\(https?://cepr\.org/about/people/[^)]+\)",
+                markdown,
+                flags=re.I,
+            )
+        ]
+    blocked = {"advisory board", "cepr people", "research fellows", "staff"}
+    authors = list(dict.fromkeys(value for value in authors if value.casefold() not in blocked))[:12]
+    return authors, abstract
+
+
 def enrich_record_from_proxy(record: dict[str, Any], source_id: str, *, timeout: int) -> dict[str, Any]:
     url = str(record.get("url") or "")
     if source_id not in {"fed-feds", "cepr-dp"} or not url:
@@ -417,10 +466,10 @@ def enrich_record_from_proxy(record: dict[str, Any], source_id: str, *, timeout:
         if abstract_match:
             record["abstract"] = clean_markdown_text(abstract_match.group(1))
     else:
-        authors = [
-            clean_markdown_text(value)
-            for value in re.findall(r"\[([^\]]+)\]\(https?://cepr\.org/about/people/[^)]+\)", markdown, flags=re.I)
-        ]
+        authors, abstract = parse_cepr_proxy_markdown(markdown)
+        if abstract:
+            record["abstract"] = abstract
+            record["abstract_source"] = "cepr_proxy_markdown"
     authors = list(dict.fromkeys(value for value in authors if value))[:12]
     if authors:
         record["authors"] = authors
