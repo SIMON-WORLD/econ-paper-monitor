@@ -149,6 +149,16 @@ def push_with_retries(attempts: int = 4) -> None:
     raise RuntimeError(f"git push failed after {attempts} attempts; last exit code={last_code}")
 
 
+def publish_final_status() -> None:
+    """Publish the post-push result instead of leaving ``pending`` public."""
+    run_step(["git", "add", "data/status.json"])
+    if not git_has_staged_changes():
+        return
+    run_step(["git", "commit", "-m", "Record local CNKI publish status"])
+    run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])
+    push_with_retries()
+
+
 def prepare_cnki_raw_input(temp_output: Path) -> tuple[Path, int]:
     input_dir = RUNTIME_DIR / "raw-input"
     input_feed_dir = input_dir / "cnki-rss"
@@ -294,9 +304,11 @@ def main() -> None:
                 run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])
                 push_with_retries()
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
+                publish_final_status()
             else:
                 log("No generated changes to commit.")
                 record_source("local-cnki-publish", ok=True, count=0, message="no generated changes")
+                publish_final_status()
 
         log("Local CNKI update finished successfully.")
     except Exception as exc:  # noqa: BLE001

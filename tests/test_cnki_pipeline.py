@@ -78,6 +78,18 @@ def test_local_cnki_publish_pulls_are_fail_closed():
     assert '"-X", "theirs"' not in script
 
 
+def test_local_cnki_publishes_final_status_after_push():
+    script = (
+        Path(fetch_cnki_rss.__file__).resolve().parents[1]
+        / "scripts"
+        / "local_cnki_update.py"
+    ).read_text(encoding="utf-8")
+
+    assert "def publish_final_status()" in script
+    assert 'record_source("local-cnki-publish", ok=True' in script
+    assert "publish_final_status()" in script
+
+
 def test_local_task_prefers_powershell_7_with_windows_fallback():
     root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
     script = (root / "scripts" / "install_local_cnki_task.ps1").read_text(encoding="utf-8")
