@@ -151,6 +151,11 @@ def test_rss_forthcoming_date_is_not_published_as_a_future_archive():
     assert dedupe.archive_date_for_new_record(record, "2026-07-27") is None
 
 
+def test_undated_rss_backfill_is_not_published_as_today():
+    record = {"source": "rss", "url": "https://example.org/paper", "date_source": "", "title": "Undated feed item"}
+    assert dedupe.archive_date_for_new_record(record, "2026-07-27") is None
+
+
 def test_policy_commentary_has_a_distinct_public_label():
     import render_site
 

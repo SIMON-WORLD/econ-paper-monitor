@@ -203,7 +203,10 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
     issue_only = "issue" in date_source or date_source in {"issue_only", "crossref_published", "crossref_created"}
     official = None if issue_only else valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
     if not official:
-        return run_date
+        # An undated publisher RSS item may be a backfill or a navigation
+        # result. Keep it available for later enrichment/seen dedupe, but do
+        # not claim it was first discovered today without date evidence.
+        return None
     # A feed may expose a forthcoming issue date before the paper is officially
     # online. Keep it in the seen catalogue, but never create a public future
     # archive or let it appear in today's discovery flow.
