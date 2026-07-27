@@ -44,6 +44,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     failures: list[dict[str, Any]] = []
     warnings: list[dict[str, Any]] = []
 
+    if not isinstance(source_health, dict) or not isinstance(source_health.get("counts"), dict) or not source_health.get("checked_at"):
+        failures.append({"code": "formal_source_health_missing_or_invalid", "count": 1})
+
     source_counts = source_health.get("counts") or {}
     coverage_counts = source_health.get("coverage_counts") or {}
     unavailable = int(source_counts.get("unavailable") or 0)
