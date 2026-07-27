@@ -20,6 +20,10 @@ from status import record_source
 
 def load_records(path: Path) -> list[dict[str, Any]]:
     payload = read_json(path, [])
+    if isinstance(payload, dict):
+        papers = payload.get("papers")
+        if isinstance(papers, dict):
+            return [dict(item) for item in papers.values() if isinstance(item, dict)]
     return [dict(item) for item in payload if isinstance(item, dict)] if isinstance(payload, list) else []
 
 
