@@ -1129,9 +1129,9 @@ def page(
       <main class="wrap" id="main-content">{body}</main>
     </div>
   </div>
-</body>
+{presence_snippet()}</body>
 </html>
-""" + presence_snippet()
+"""
 
 
 def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, scope: str = "default", extra_class: str = "") -> str:
