@@ -228,6 +228,21 @@ def main() -> None:
         run_step([python, "scripts/clean_nonpaper_records.py"])
         run_step([python, "scripts/clean_rss_backfill.py"])
         run_step([python, "scripts/remove_seen_backflow.py"])
+        run_step(
+            [
+                python,
+                "scripts/enrich_metadata.py",
+                "--latest-days",
+                "1",
+                "--limit",
+                "80",
+                "--workers",
+                "4",
+                "--timeout",
+                "20",
+            ],
+            allow_failure=True,
+        )
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])

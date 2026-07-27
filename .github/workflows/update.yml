@@ -302,6 +302,15 @@ jobs:
       - name: Re-apply historical working-paper quarantine after date enrichment
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_historical_working_papers.py
+      - name: Retry today missing publisher abstracts
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          if timeout 8m python scripts/enrich_metadata.py --latest-days 1 --limit 80 --workers 4 --timeout 12; then
+            echo "Today abstract retry completed."
+          else
+            echo "::warning::Today abstract retry timed out or failed; keeping the honest retry status."
+          fi
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all
