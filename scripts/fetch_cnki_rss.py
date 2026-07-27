@@ -287,6 +287,18 @@ def parse_feed(
     return records, summary
 
 
+def source_health_counts(summaries: list[dict[str, Any]]) -> dict[str, int | bool]:
+    """Summarize source availability for callers that enforce publish gates."""
+    successful = sum(1 for item in summaries if item.get("ok"))
+    failed = len(summaries) - successful
+    return {
+        "ok": bool(successful),
+        "selected_sources": len(summaries),
+        "successful_sources": successful,
+        "failed_sources": failed,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sources", type=Path, default=DATA_DIR / "cnki_rss_sources.yml")
@@ -295,6 +307,11 @@ def main() -> None:
     parser.add_argument("--only", action="append", default=[])
     parser.add_argument("--max-items-per-feed", type=int, default=80)
     parser.add_argument("--max-age-days", type=int, default=45)
+    parser.add_argument(
+        "--require-all-sources",
+        action="store_true",
+        help="Exit nonzero when any selected source fails; used by the authoritative local runner.",
+    )
     args = parser.parse_args()
 
     output = args.output or DATA_DIR / "raw" / "cnki-rss" / f"{today_str()}.json"
@@ -346,7 +363,9 @@ def main() -> None:
 
     write_json(output, records)
     write_json(output.with_suffix(".status.json"), summaries)
-    ok = any(item.get("ok") for item in summaries)
+    health = source_health_counts(summaries)
+    successful_sources = [item for item in summaries if item.get("ok")]
+    ok = bool(health["ok"])
     total = len(records)
     message = "; ".join(f"{item.get('journal')}: {item.get('message')}" for item in summaries)
     record_source("cnki-rss", ok=ok, count=total, message=message)
@@ -354,6 +373,9 @@ def main() -> None:
     status.setdefault("source_groups", {})["cnki-rss"] = {
         "ok": ok,
         "count": total,
+        "selected_sources": health["selected_sources"],
+        "successful_sources": health["successful_sources"],
+        "failed_sources": health["failed_sources"],
         "updated_at": now(),
         "journals": summaries,
     }
@@ -361,6 +383,13 @@ def main() -> None:
     print(f"wrote {total} CNKI RSS records to {output}")
     for item in summaries:
         print(f"{item.get('journal')}: {item.get('message')}")
+    if summaries and (not successful_sources or (args.require_all_sources and health["failed_sources"])):
+        if not successful_sources:
+            reason = "every configured source failed"
+        else:
+            reason = f"{health['failed_sources']} configured source(s) failed"
+        print(f"CNKI RSS {reason}; refusing to publish a local supplement.")
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

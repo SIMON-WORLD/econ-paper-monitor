@@ -199,7 +199,10 @@ def main() -> None:
 
     try:
         if not args.no_push:
-            run_step(["git", "pull", "--ff-only", "origin", "main"], allow_failure=True)
+            # A local supplement must start from the current public main. If
+            # the GitHub updater is publishing at the same time, fail safely
+            # instead of mixing new CNKI data with an older checkout.
+            run_step(["git", "pull", "--ff-only", "origin", "main"])
 
         RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
         cnki_temp = RUNTIME_DIR / f"cnki-rss-{today_str()}.json"
@@ -209,6 +212,7 @@ def main() -> None:
                 "scripts/fetch_cnki_rss.py",
                 "--max-age-days",
                 str(args.max_age_days),
+                "--require-all-sources",
                 "--output",
                 str(cnki_temp),
             ]
@@ -275,7 +279,7 @@ def main() -> None:
             run_step(["git", "add", "data", "docs"])
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
-                run_step(["git", "pull", "--rebase", "-X", "theirs", "origin", "main"], allow_failure=True)
+                run_step(["git", "pull", "--rebase", "-X", "theirs", "origin", "main"])
                 push_with_retries()
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
             else:
