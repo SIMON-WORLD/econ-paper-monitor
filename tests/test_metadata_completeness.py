@@ -270,6 +270,20 @@ Energy transition
         self.assertEqual(authors, ["First Author", "Second Author"])
         self.assertIn("sufficiently long CEPR abstract", abstract or "")
 
+    def test_cepr_proxy_recovers_url_encoded_embedded_summary(self) -> None:
+        markdown = (
+            "# Designing Contracts for the Energy Transition\n\n"
+            "Translation widget: This%20paper%20examines%20the%20limitations%20of%20spot%20markets%20"
+            "in%20providing%20adequate%20investment%20incentives%20to%20support%20zero-carbon%20investments%20"
+            "in%20electricity%20markets.%20A%20theoretical%20model%20is%20developed%20to%20analyze%20contract%20"
+            "design%20under%20conditions%20of%20moral%20hazard%20and%20adverse%20selection.%20"
+            "Translation%20created%20by%20Artificial%20Intelligence%20(LLM)"
+        )
+
+        _authors, abstract = fetch_preprints.parse_cepr_proxy_markdown(markdown)
+
+        self.assertIn("This paper examines the limitations", abstract or "")
+
     @patch.object(translate, "translate_abstract", return_value="这是最近仅存在于已监测记录中的论文摘要翻译。")
     def test_seen_only_abstract_can_be_translated(self, _translate_mock) -> None:
         records = [

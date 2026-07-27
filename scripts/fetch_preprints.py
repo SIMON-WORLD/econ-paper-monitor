@@ -14,7 +14,7 @@ import re
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 from xml.etree import ElementTree
 
 from common import DATA_DIR, fetch_json, fetch_text, now_iso, today_str, write_json
@@ -413,6 +413,19 @@ def parse_cepr_proxy_markdown(markdown: str) -> tuple[list[str], str | None]:
         candidate = clean_markdown_text(abstract_match.group("body"))
         if len(candidate) >= 80 and not is_boilerplate_text(candidate):
             abstract = candidate
+    if not abstract:
+        # Some CEPR pages expose the English summary only inside the URL-encoded
+        # language widget, without an Abstract heading in the rendered page.
+        decoded = clean_markdown_text(unquote(markdown))
+        embedded_match = re.search(
+            r"(?is)\b(?:This paper|This study|We examine|We investigate|We develop|We estimate)\b"
+            r".{160,5000}?(?=\s+(?:Translation created by Artificial Intelligence|Share via|Keywords)\b)",
+            decoded,
+        )
+        if embedded_match:
+            candidate = clean_markdown_text(embedded_match.group(0))
+            if len(candidate) >= 80 and not is_boilerplate_text(candidate):
+                abstract = candidate
 
     author_block = re.search(
         r"(?is)(?:^|\n)\s*(?:#{1,4}\s*)?(?:\*\*|__)?authors?"

@@ -169,6 +169,27 @@ This text must not be included.
         self.assertEqual(status, "abstract-updated")
         self.assertTrue(record["abstract"].startswith("This abstract-only fallback"))
 
+    @patch("fetch_preprints.enrich_record_from_proxy")
+    def test_abstract_only_route_includes_cepr_working_papers(self, proxy_mock) -> None:
+        proxy_mock.side_effect = lambda record, _source_id, *, timeout: record.update(
+            {
+                "abstract": "This CEPR abstract is long enough to prove working-paper records are included in abstract-only retries.",
+                "authors": ["First Author"],
+            }
+        )
+        record = {
+            "source_id": "cepr-dp",
+            "source": "working_papers",
+            "source_type": "working_paper",
+            "url": "https://cepr.org/publications/dp20328",
+        }
+
+        changed, status = enrich_metadata.enrich_abstract_record(record, timeout=1)
+
+        self.assertTrue(changed)
+        self.assertEqual(status, "abstract-updated:readonly-proxy")
+        proxy_mock.assert_called_once_with(record, "cepr-dp", timeout=1)
+
     @patch.object(enrich_metadata, "publisher_proxy_metadata")
     @patch.object(enrich_metadata, "elsevier_api_metadata")
     @patch.object(enrich_metadata, "api_fallback_metadata")

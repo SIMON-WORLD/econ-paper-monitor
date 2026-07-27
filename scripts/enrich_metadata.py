@@ -813,6 +813,17 @@ def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, 
     if str(record.get("abstract") or "").strip() and record.get("authors"):
         return False, "abstract-present"
     changed = False
+    source_id = str(record.get("source_id") or "")
+    if source_id in {"cepr-dp", "fed-feds"}:
+        from fetch_preprints import enrich_record_from_proxy
+
+        before_abstract = str(record.get("abstract") or "")
+        before_authors = list(record.get("authors") or [])
+        enrich_record_from_proxy(record, source_id, timeout=timeout)
+        if str(record.get("abstract") or "").strip() and str(record.get("abstract") or "") != before_abstract:
+            return True, "abstract-updated:readonly-proxy"
+        if list(record.get("authors") or []) != before_authors:
+            changed = True
     bucket = publisher_bucket(record)
     doi = str(record.get("doi") or "").strip()
     proxy_url = ""
@@ -1039,7 +1050,7 @@ def main() -> None:
         candidates.extend(
             (path, record)
             for record in records
-            if (args.authors_only or should_enrich(record))
+            if (args.authors_only or args.abstract_only or should_enrich(record))
             and (not args.authors_only or not record.get("authors"))
             and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
             and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
@@ -1059,7 +1070,7 @@ def main() -> None:
                 is_recent = False
             if (
                 (is_recent or (args.authors_only and not record.get("authors")))
-                and (args.authors_only or should_enrich(record))
+                and (args.authors_only or args.abstract_only or should_enrich(record))
                 and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
                 and (not args.authors_only or not record.get("authors"))
                 and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())

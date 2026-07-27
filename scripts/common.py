@@ -5,8 +5,10 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 import re
 import ssl
+import tempfile
 import time
 import urllib.parse
 import urllib.request
@@ -49,8 +51,19 @@ def write_json(path: Path, value: Any) -> None:
 
 def write_text(path: Path, payload: str) -> None:
     ensure_parent(path)
-    tmp = path.with_name(f"{path.name}.tmp")
-    tmp.write_text(payload, encoding="utf-8")
+    fd, tmp_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    tmp = Path(tmp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+    except Exception:
+        try:
+            tmp.unlink()
+        except FileNotFoundError:
+            pass
+        raise
     last_error: OSError | None = None
     for attempt in range(24):
         try:
@@ -59,6 +72,10 @@ def write_text(path: Path, payload: str) -> None:
         except OSError as exc:
             last_error = exc
             time.sleep(min(1.5, 0.25 * (attempt + 1)))
+    try:
+        tmp.unlink()
+    except FileNotFoundError:
+        pass
     if last_error:
         raise last_error
 
