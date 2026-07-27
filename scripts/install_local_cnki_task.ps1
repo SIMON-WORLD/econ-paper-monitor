@@ -1,12 +1,16 @@
 param(
   [string]$TaskName = "Econ Papers Daily - Local CNKI Supplement",
   [string]$Time = "12:10",
-  [switch]$NoPush
+  [switch]$NoPush,
+  [string]$RunnerPath = ""
 )
 
 $ErrorActionPreference = "Stop"
 $repo = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$runner = Join-Path $repo "scripts\run_local_cnki_update.ps1"
+if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
+  $RunnerPath = $repo
+}
+$runner = Join-Path $RunnerPath "scripts\run_local_cnki_update.ps1"
 
 if (-not (Test-Path -LiteralPath $runner)) {
   throw "Runner script not found: $runner"
