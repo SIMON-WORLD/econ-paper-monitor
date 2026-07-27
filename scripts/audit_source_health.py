@@ -101,13 +101,18 @@ def main() -> None:
         "journals": rows,
     }
     write_json(args.output, report)
-    ok = counts["unavailable"] == 0
+    # A stale registry is not evidence that a source is currently usable. A
+    # release may continue with one degraded path, but never with an outage
+    # or an unrefreshed formal-source audit.
+    ok = counts["unavailable"] == 0 and counts["stale"] == 0
     message = "healthy={healthy} degraded={degraded} stale={stale} unavailable={unavailable}".format(**counts)
     record_source("source-health", ok=ok, count=len(rows), message=message)
     print(f"source health formal={len(rows)} {message}")
     if not ok:
         for row in report["unavailable"][:20]:
             print(f"UNAVAILABLE {row['journal']}: rss={row['rss_status']} crossref={row['crossref_status']}")
+        for row in report["stale"][:20]:
+            print(f"STALE {row['journal']}: last_checked={row['last_checked_at']}")
         raise SystemExit(2)
 
 

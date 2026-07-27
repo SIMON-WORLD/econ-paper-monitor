@@ -85,6 +85,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     missing_abstract = int((quality.get("totals") or {}).get("missing_abstract_today") or 0)
     if missing_abstract:
         warnings.append({"code": "missing_abstract_today", "count": missing_abstract})
+    missing_authors = int((quality.get("totals") or {}).get("missing_authors_today_journals") or 0)
+    if missing_authors:
+        warnings.append({"code": "missing_authors_today_journals", "count": missing_authors})
 
     return {"date": today, "ok": not failures, "failures": failures, "warnings": warnings}
 
