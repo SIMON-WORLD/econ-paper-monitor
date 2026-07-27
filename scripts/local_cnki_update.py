@@ -26,6 +26,15 @@ MAX_LOG_BYTES = 2_000_000
 KEEP_LOG_BYTES = 400_000
 
 
+def configure_console() -> None:
+    """Keep scheduled-task logging alive on legacy Windows code pages."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, OSError):
+            pass
+
+
 def log_path_for_status() -> str:
     """Return a repository-relative log path for public status metadata."""
     return str(LOG_PATH.relative_to(ROOT)).replace("\\", "/")
@@ -140,6 +149,7 @@ def main() -> None:
     parser.add_argument("--no-push", action="store_true", help="Run pipeline without committing/pushing generated updates.")
     parser.add_argument("--max-age-days", type=int, default=90)
     args = parser.parse_args()
+    configure_console()
 
     python = sys.executable
     start = datetime.now().isoformat(timespec="seconds")
