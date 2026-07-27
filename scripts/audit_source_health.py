@@ -19,6 +19,26 @@ from status import record_source
 
 GOOD_RSS = {"official-generated", "configured", "feed", "html", "specialized-api", "specialized-html", "nep-issue"}
 
+# These sources are written to the run-status ledger rather than the generic
+# RSS/Crossref registry.  They still represent real acquisition paths and must
+# participate in the per-journal health decision.
+AEA_JOURNALS = {
+    "american-economic-review",
+    "american-economic-review-insights",
+    "journal-of-economic-literature",
+    "journal-of-economic-perspectives",
+    "american-economic-journal-applied-economics",
+    "american-economic-journal-economic-policy",
+    "american-economic-journal-macroeconomics",
+    "american-economic-journal-microeconomics",
+    "american-economic-review-papers-and-proceedings",
+}
+PRIORITY_TOC_JOURNALS = {
+    "review-of-economic-studies",
+    "review-of-economics-and-statistics",
+    "econometrica",
+}
+
 
 def age_days(value: str | None, today: date) -> int | None:
     if not value:
@@ -41,7 +61,50 @@ def status_age_days(value: str | None, now: datetime) -> float | None:
         return None
 
 
-def inspect_journal(journal: dict[str, Any], registry: dict[str, Any], today: date, now: datetime, max_age: int) -> dict[str, Any]:
+def status_entry_is_fresh(entry: dict[str, Any], now: datetime, max_age: float) -> bool:
+    if not entry.get("ok"):
+        return False
+    updated = status_age_days(entry.get("updated_at"), now)
+    return updated is not None and updated <= max_age
+
+
+def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, max_age: float) -> tuple[list[str], list[str]]:
+    paths: list[str] = []
+    checked_at: list[str] = []
+    sources = status.get("sources") or {}
+    groups = status.get("source_groups") or {}
+
+    for source_id, path_name, targets in (
+        ("aea-toc", "aea-toc", AEA_JOURNALS),
+        ("priority-toc", "priority-toc", PRIORITY_TOC_JOURNALS),
+    ):
+        entry = sources.get(source_id) or {}
+        if journal_id in targets and status_entry_is_fresh(entry, now, max_age):
+            paths.append(path_name)
+            if entry.get("updated_at"):
+                checked_at.append(str(entry["updated_at"]))
+
+    for group_id, path_name in (("cn-journals", "cn-journals"), ("cnki-rss", "cnki-rss")):
+        group = groups.get(group_id) or {}
+        if not status_entry_is_fresh(group, now, max_age):
+            continue
+        rows = group.get("journals") or []
+        row = next((item for item in rows if str(item.get("journal_id") or "") == journal_id), None)
+        if row and row.get("ok"):
+            paths.append(path_name)
+            if group.get("updated_at"):
+                checked_at.append(str(group["updated_at"]))
+    return paths, checked_at
+
+
+def inspect_journal(
+    journal: dict[str, Any],
+    registry: dict[str, Any],
+    today: date,
+    now: datetime,
+    max_age: int,
+    status: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     journal_id = str(journal.get("id") or "")
     entry = ((registry.get("journals") or {}).get(journal_id) or {})
     rss_status = str(entry.get("last_rss_status") or "")
@@ -49,7 +112,10 @@ def inspect_journal(journal: dict[str, Any], registry: dict[str, Any], today: da
     rss_ok = rss_status in GOOD_RSS
     crossref_ok = crossref_status == "ok"
     paths = [name for name, ok in (("rss", rss_ok), ("crossref", crossref_ok)) if ok]
-    checked = entry.get("updated_at") or entry.get("last_checked_at")
+    specialized, specialized_checked = specialized_paths(journal_id, status or {}, now, max_age)
+    paths.extend(path for path in specialized if path not in paths)
+    checked_candidates = [str(value) for value in (entry.get("updated_at"), entry.get("last_checked_at"), *specialized_checked) if value]
+    checked = max(checked_candidates) if checked_candidates else None
     checked_age = status_age_days(checked, now)
     stale = checked_age is None or checked_age > max_age
     if not paths:
@@ -70,6 +136,7 @@ def inspect_journal(journal: dict[str, Any], registry: dict[str, Any], today: da
         "rss_count": entry.get("last_rss_count"),
         "crossref_status": crossref_status,
         "crossref_count": entry.get("last_crossref_count"),
+        "specialized_paths": specialized,
         "last_checked_at": checked,
         "checked_age_days": checked_age,
         "registry_age_days": age_days(entry.get("last_checked_at"), today),
@@ -88,7 +155,8 @@ def main() -> None:
     today = date.fromisoformat(today_str())
     max_age = args.max_age_hours / 24
     registry = read_json(args.registry, {})
-    rows = [inspect_journal(journal, registry, today, now, max_age) for journal in load_journals(args.journals)]
+    status = read_json(DATA_DIR / "status.json", {})
+    rows = [inspect_journal(journal, registry, today, now, max_age, status) for journal in load_journals(args.journals)]
     counts = {level: sum(row["level"] == level for row in rows) for level in ("healthy", "degraded", "stale", "unavailable")}
     report = {
         "checked_at": now.replace(microsecond=0).isoformat(),

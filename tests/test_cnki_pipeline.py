@@ -62,3 +62,15 @@ def test_public_workflow_does_not_overwrite_local_cnki_status():
 
     assert "Fetch CNKI RSS feeds" not in workflow
     assert "CNKI RSS is intentionally absent" in workflow
+
+
+def test_local_cnki_publish_pulls_are_fail_closed():
+    script = (
+        Path(fetch_cnki_rss.__file__).resolve().parents[1]
+        / "scripts"
+        / "local_cnki_update.py"
+    ).read_text(encoding="utf-8")
+
+    assert 'run_step(["git", "pull", "--ff-only", "origin", "main"])' in script
+    assert 'run_step(["git", "pull", "--rebase", "origin", "main"])' in script
+    assert '"-X", "theirs"' not in script

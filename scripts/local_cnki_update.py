@@ -279,7 +279,10 @@ def main() -> None:
             run_step(["git", "add", "data", "docs"])
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
-                run_step(["git", "pull", "--rebase", "-X", "theirs", "origin", "main"])
+                # Never publish from a checkout that failed to rebase onto
+                # the current public main; silent conflict resolution can
+                # discard another updater's data.
+                run_step(["git", "pull", "--rebase", "origin", "main"])
                 push_with_retries()
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
             else:
