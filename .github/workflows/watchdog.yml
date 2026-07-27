@@ -28,6 +28,8 @@ jobs:
           DECISION="$(python scripts/should_dispatch_monitor.py --light-min-minutes 50 --full-times 02:30,08:30,14:30,20:30)"
           echo "decision=$DECISION" >> "$GITHUB_OUTPUT"
           echo "Monitor freshness: $DECISION"
+      - name: Check local CNKI freshness
+        run: python scripts/audit_local_cnki_status.py --max-age-hours 30
       - name: Check active monitor run
         id: active
         if: steps.freshness.outputs.decision == 'light' || steps.freshness.outputs.decision == 'full'
