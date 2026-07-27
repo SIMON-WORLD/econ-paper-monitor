@@ -7,12 +7,19 @@ under the Academic Door brand. The brand homepage and this product are separate
 surfaces. Keep changes scoped to this repository unless a task explicitly says
 otherwise.
 
+Claude may also inspect the companion repository
+`academic-door/nber-working-papers-cn` when access is enabled. Cross-repository
+findings should improve this product's monitoring logic, not expand its journal
+scope without an explicit product decision.
+
 ## Collaboration Roles
 
 - Claude may audit data sources, coverage, freshness, duplicates, date evidence,
-  and metadata quality, then submit a focused PR with evidence.
+  and metadata quality. Small, low-risk fixes may be applied directly; major,
+  cross-cutting, uncertain, or explicitly requested changes should be proposed
+  in a focused PR with evidence.
 - The main Codex line owns product direction, merge decisions, public wording,
-  release verification, and changes to the monitoring contract.
+  release verification, changes to the monitoring contract, and final delivery.
 - A PR is advice and evidence, not an automatic product decision. Keep it small
   enough to review and avoid unrelated generated-data churn.
 
