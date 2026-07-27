@@ -173,6 +173,7 @@ def main() -> None:
             run_step([python, "scripts/dedupe.py", "--raw-dir", str(cnki_raw_input)])
         else:
             log("No CNKI RSS records available for dedupe input; skipping dedupe.")
+        run_step([python, "scripts/clean_historical_working_papers.py"])
         run_step([python, "scripts/clean_cn_noise.py"])
         run_step([python, "scripts/apply_overrides.py"])
         run_step([python, "scripts/normalize_records.py"])

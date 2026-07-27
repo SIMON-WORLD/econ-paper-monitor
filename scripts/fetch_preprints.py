@@ -1352,6 +1352,13 @@ def plausible_nep_title(title: str) -> bool:
     return not any(fragment in lowered for fragment in bad_fragments)
 
 
+def is_historical_cepr_record(record: dict[str, Any]) -> bool:
+    if str(record.get("source_id") or "") != "cepr-dp":
+        return False
+    match = re.search(r"/dp(\d+)(?:\D|$)", str(record.get("url") or ""), flags=re.I)
+    return bool(match and int(match.group(1)) < 10000)
+
+
 def nep_field(html_text: str, label: str) -> str | None:
     pattern = (
         rf'<td[^>]*class=["\']fina["\'][^>]*>\s*{re.escape(label)}:\s*</td>\s*'
@@ -1482,6 +1489,7 @@ def main() -> None:
                         record = enrich_record_from_detail(record, source, timeout=args.timeout)
                     enriched.append(record)
                 records = enriched
+            records = [record for record in records if not is_historical_cepr_record(record)]
             all_records.extend(records)
             messages.append(f"{source_id}: {len(records)} via {method}")
             record_source(f"working-paper:{source_id}", ok=True, count=len(records), message=method)

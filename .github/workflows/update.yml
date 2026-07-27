@@ -232,6 +232,9 @@ jobs:
       - name: Repair official-date archives
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/repair_official_date_archives.py
+      - name: Clean historical working-paper catalogue items
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/clean_historical_working_papers.py
       - name: Remove non-paper navigation records
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_nonpaper_records.py
