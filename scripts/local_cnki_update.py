@@ -219,7 +219,10 @@ def main() -> None:
         )
         cnki_raw_input, cnki_count = prepare_cnki_raw_input(cnki_temp)
         if cnki_count:
-            run_step([python, "scripts/dedupe.py", "--raw-dir", str(cnki_raw_input)])
+            # The release gate audits all current raw sources, not only CNKI.
+            # Rebuild the shared dedupe index so a local supplement cannot
+            # leave publisher candidates unarchived after a prior full run.
+            run_step([python, "scripts/dedupe.py"])
         else:
             log("No CNKI RSS records available for dedupe input; skipping dedupe.")
         run_step([python, "scripts/clean_historical_working_papers.py"])

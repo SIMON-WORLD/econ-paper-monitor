@@ -83,3 +83,19 @@ def test_failed_chinese_journal_does_not_count_as_a_path():
         {"source_groups": {"cn-journals": {"ok": True, "updated_at": "2026-07-27T11:30:00+00:00", "journals": [{"journal_id": "journal-edcb877d78", "ok": False}]}}},
     )
     assert result["usable_paths"] == ["crossref"]
+
+
+def test_rss_error_does_not_count_as_a_healthy_path():
+    result = inspect_journal(
+        journal(),
+        {"journals": {"j1": {
+            "last_rss_status": "configured",
+            "last_rss_error": "HTTPError: 403",
+            "last_crossref_status": "ok",
+            "updated_at": "2026-07-27T11:00:00+00:00",
+        }}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+    )
+    assert result["usable_paths"] == ["crossref"]

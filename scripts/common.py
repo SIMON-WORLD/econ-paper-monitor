@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 DOCS_DIR = ROOT / "docs"
 
-USER_AGENT = "econ-paper-monitor/0.1 (mailto:example@example.com)"
+USER_AGENT = "AcademicDoorPaperMonitor/1.0 (https://github.com/academic-door/econ-paper-monitor)"
 BEIJING_TZ = timezone(timedelta(hours=8))
 
 

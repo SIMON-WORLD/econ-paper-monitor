@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 import fetch_cnki_rss  # noqa: E402
 import fetch_rss  # noqa: E402
+import dedupe  # noqa: E402
 
 
 def test_cnki_health_accepts_partial_source_success():
@@ -85,6 +86,29 @@ def test_rss_parser_does_not_truncate_unparseable_date_labels():
 def test_rss_helpers_extract_doi_and_reject_concatenated_affiliation_blob():
     assert fetch_rss.extract_doi("doi:10.1086/740172") == "10.1086/740172"
     assert fetch_rss.normalize_authors(["Bård HarstadKatinka HoltsmarkStanford University"]) == []
+
+
+def test_rss_identity_guard_rejects_a_valid_but_wrong_chicago_feed():
+    xml = "<rss><channel><title>The Journal of Law and Economics</title></channel></rss>"
+    assert fetch_rss.feed_identity_matches(xml, {"title": "Journal of Labor Economics"}) is False
+    assert fetch_rss.feed_identity_matches(xml, {"title": "Journal of Law & Economics"}) is True
+
+
+def test_chicago_journal_codes_are_kept_distinct():
+    journals = {item["id"]: item for item in fetch_rss.load_journals()}
+    jole = journals["journal-of-labor-economics"]["sources"][0]["url"]
+    jle = journals["journal-of-law-and-economics"]["sources"][0]["url"]
+    assert "jc=jole" in jole
+    assert "jc=jle" in jle
+
+
+def test_rss_forthcoming_date_is_not_published_as_a_future_archive():
+    record = {"source": "rss", "available_online": "2026-08-01", "date_source": "rss_published"}
+    assert dedupe.archive_date_for_new_record(record, "2026-07-27") is None
+
+
+def test_known_wrong_journal_doi_is_quarantined():
+    assert dedupe.is_source_navigation_noise({"doi": "10.56347/jle.v5i1.421", "title": "Unrelated paper"}) is True
 
 
 def test_local_pipeline_normalizes_after_metadata_enrichment():

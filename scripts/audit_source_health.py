@@ -109,7 +109,7 @@ def inspect_journal(
     entry = ((registry.get("journals") or {}).get(journal_id) or {})
     rss_status = str(entry.get("last_rss_status") or "")
     crossref_status = str(entry.get("last_crossref_status") or "")
-    rss_ok = rss_status in GOOD_RSS
+    rss_ok = rss_status in GOOD_RSS and not entry.get("last_rss_error")
     crossref_ok = crossref_status == "ok"
     paths = [name for name, ok in (("rss", rss_ok), ("crossref", crossref_ok)) if ok]
     specialized, specialized_checked = specialized_paths(journal_id, status or {}, now, max_age)

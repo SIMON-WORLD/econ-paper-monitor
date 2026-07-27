@@ -264,6 +264,44 @@ def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[di
     return [record for record in records if record["title"]]
 
 
+def feed_identity_matches(xml_text: str, journal: dict[str, Any]) -> bool:
+    """Reject a valid RSS feed that belongs to a different journal.
+
+    Some publisher platforms reuse short journal codes.  A successful HTTP/XML
+    response is therefore not enough: when the feed exposes a publication name
+    or source, it must agree with the configured journal.  Generic Springer
+    feeds only say "Latest Results" and are intentionally left to their
+    configured facet URL.
+    """
+    root = ElementTree.fromstring(xml_text)
+    def compact_name(value: str) -> str:
+        return re.sub(r"[^a-z0-9]+", "", value.replace("&", " and ").casefold())
+
+    expected = compact_name(str(journal.get("title") or ""))
+    if not expected:
+        return True
+    candidates: list[str] = []
+    channel = next((node for node in root if local_name(node.tag) == "channel"), None)
+    if channel is not None:
+        channel_title = next((node for node in channel if local_name(node.tag) == "title"), None)
+        if channel_title is not None and channel_title.text:
+            compact = compact_name(clean_text(channel_title.text))
+            if compact and compact not in {"latestresults", "thelatestcontentavailablefromspringer"}:
+                candidates.append(compact)
+    for node in root.iter():
+        name = local_name(node.tag)
+        if name not in {"publicationname", "source", "channel"}:
+            continue
+        value = clean_text(node.text)
+        if value and value.casefold() not in {"latest results", "the latest content available from springer"}:
+            compact = compact_name(value)
+            if compact:
+                candidates.append(compact)
+    if not candidates:
+        return True
+    return any(expected in candidate or candidate in expected for candidate in candidates)
+
+
 def make_record(
     title: str | None,
     link: str | None,
@@ -321,6 +359,8 @@ def main() -> None:
     selected = journals[: args.limit] if args.limit else journals
     records: list[dict[str, Any]] = []
     messages: list[str] = []
+    attempted_feeds = 0
+    successful_feeds = 0
     registry = load_registry()
 
     for journal in selected:
@@ -335,8 +375,13 @@ def main() -> None:
         journal_count = 0
         errors: list[str] = []
         for source in feeds:
+            attempted_feeds += 1
             try:
-                fetched = parse_feed(fetch_text(source["url"]), journal, source["url"])
+                xml_text = fetch_text(source["url"])
+                if not feed_identity_matches(xml_text, journal):
+                    raise ValueError("RSS feed identity does not match configured journal")
+                fetched = parse_feed(xml_text, journal, source["url"])
+                successful_feeds += 1
                 if args.max_items_per_feed:
                     fetched = fetched[: args.max_items_per_feed]
                 records.extend(fetched)
@@ -354,7 +399,13 @@ def main() -> None:
 
     save_registry(registry)
     write_json(output, records)
-    record_source("rss", ok=True, count=len(records), message="; ".join(messages[-20:]) or str(output))
+    rss_ok = attempted_feeds == 0 or successful_feeds > 0
+    record_source(
+        "rss",
+        ok=rss_ok,
+        count=len(records),
+        message=(f"feeds={successful_feeds}/{attempted_feeds}; " + "; ".join(messages[-20:])).strip("; ") or str(output),
+    )
     print(f"wrote {len(records)} RSS records to {output}")
     for message in messages:
         print(message)

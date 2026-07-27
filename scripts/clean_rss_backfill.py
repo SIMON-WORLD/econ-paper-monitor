@@ -50,6 +50,9 @@ def clean_date(daily_dir: Path, date_value: str) -> tuple[int, int, int]:
         if not target_date:
             kept.append(record)
             continue
+        if target_date > date_value:
+            suppressed += 1
+            continue
         if target_date == date_value:
             kept.append(record)
         else:

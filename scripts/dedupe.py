@@ -83,6 +83,10 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
     source_id = str(record.get("source_id") or "")
     url = str(record.get("url") or "").casefold()
     doi = normalize_doi(record.get("doi"))
+    # This DOI prefix belongs to an unrelated Indonesian journal that was
+    # previously misclassified as Chicago's Journal of Law & Economics.
+    if doi and doi.startswith("10.56347/jle."):
+        return True
     if not title and not url and not doi:
         return True
     if doi in {"10.1111/jofi.70063", "10.1016/j.euroecorev.2026.105420"}:
@@ -200,7 +204,10 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
     official = None if issue_only else valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
     if not official:
         return run_date
-    return official
+    # A feed may expose a forthcoming issue date before the paper is officially
+    # online. Keep it in the seen catalogue, but never create a public future
+    # archive or let it appear in today's discovery flow.
+    return official if official <= run_date else None
 
 
 def has_value(value: Any) -> bool:
