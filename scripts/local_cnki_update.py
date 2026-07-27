@@ -26,6 +26,11 @@ MAX_LOG_BYTES = 2_000_000
 KEEP_LOG_BYTES = 400_000
 
 
+def log_path_for_status() -> str:
+    """Return a repository-relative log path for public status metadata."""
+    return str(LOG_PATH.relative_to(ROOT)).replace("\\", "/")
+
+
 def log(message: str) -> None:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     rotate_log(LOG_PATH)
@@ -174,7 +179,7 @@ def main() -> None:
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
-        record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={LOG_PATH}")
+        record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={log_path_for_status()}")
         final_status_recorded = True
         run_step([python, "scripts/render_site.py"])
         run_step([python, "scripts/build_feed.py", "--site-url", "https://academic-door.github.io/econ-paper-monitor/"])
@@ -193,7 +198,7 @@ def main() -> None:
         log("Local CNKI update finished successfully.")
     except Exception as exc:  # noqa: BLE001
         if not final_status_recorded:
-            record_source("local-cnki-run", ok=False, count=0, message=f"{type(exc).__name__}: {exc}; log={LOG_PATH}")
+            record_source("local-cnki-run", ok=False, count=0, message=f"{type(exc).__name__}: {exc}; log={log_path_for_status()}")
         log(f"FAILED: {type(exc).__name__}: {exc}")
         raise
 
