@@ -20,6 +20,11 @@ SITE_NAME = "Econ Papers Daily"
 SITE_SUBTITLE = "每日追踪 TOP 经济学期刊论文"
 BASE = "__BASE__"
 CN_TZ = BEIJING_TZ
+# The worker is deployed by .github/workflows/deploy-presence.yml.  Keeping a
+# public default makes the small status indicator work on Pages even when the
+# optional repository variable has not been added yet; request failures remain
+# silent and never affect paper rendering.
+DEFAULT_PRESENCE_ENDPOINT = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence"
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -1067,7 +1072,7 @@ gtag('config', '{escaped_id}');
 
 
 def presence_snippet() -> str:
-    endpoint = os.environ.get("PRESENCE_ENDPOINT", "").strip()
+    endpoint = os.environ.get("PRESENCE_ENDPOINT", DEFAULT_PRESENCE_ENDPOINT).strip()
     if not endpoint:
         return ""
     endpoint_js = json.dumps(endpoint)
