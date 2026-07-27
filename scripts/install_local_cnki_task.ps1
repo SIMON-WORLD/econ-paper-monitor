@@ -1,6 +1,6 @@
 param(
   [string]$TaskName = "Econ Papers Daily - Local CNKI Supplement",
-  [string]$Time = "12:10",
+  [string[]]$Times = @("00:10", "06:10", "12:10", "18:10"),
   [switch]$NoPush,
   [string]$RunnerPath = ""
 )
@@ -27,7 +27,9 @@ if ($NoPush) {
 }
 
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument ($argumentParts -join " ") -WorkingDirectory $repo
-$trigger = New-ScheduledTaskTrigger -Daily -At $Time
+$triggers = foreach ($time in $Times) {
+  New-ScheduledTaskTrigger -Daily -At $time
+}
 $settings = New-ScheduledTaskSettingsSet `
   -StartWhenAvailable `
   -AllowStartIfOnBatteries `
@@ -38,12 +40,12 @@ $settings = New-ScheduledTaskSettingsSet `
 Register-ScheduledTask `
   -TaskName $TaskName `
   -Action $action `
-  -Trigger $trigger `
+  -Trigger $triggers `
   -Settings $settings `
   -Description "Fetch CNKI RSS locally, update Econ Papers Daily, and push generated site data." `
   -Force | Out-Null
 
 Write-Host "Installed scheduled task: $TaskName"
-Write-Host "Schedule: daily at $Time"
+Write-Host "Schedule: daily at $($Times -join ', ') (local time)"
 Write-Host "Runner: $runner"
 Write-Host "Log: $(Join-Path $repo 'local_admin\logs\local-cnki-update.log')"
