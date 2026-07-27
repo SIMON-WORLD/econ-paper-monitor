@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -45,6 +46,20 @@ def official_date(record: dict[str, Any]) -> str:
         or record.get("issue_date")
         or ""
     )
+
+
+def malformed_dates(record: dict[str, Any]) -> list[str]:
+    bad: list[str] = []
+    for field in ("accepted_date", "available_online", "published_online", "issue_date"):
+        value = str(record.get(field) or "").strip()
+        if not value:
+            continue
+        try:
+            if len(value) != 10 or date.fromisoformat(value).isoformat() != value:
+                bad.append(field)
+        except ValueError:
+            bad.append(field)
+    return bad
 
 
 def looks_like_abstract(value: str | None) -> bool:
@@ -130,6 +145,7 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
         and not official_date(record)
     ]
     abstract_titles = [record for record in records if looks_like_abstract(record.get("title"))]
+    malformed_date_records = [record for record in records if malformed_dates(record)]
     untranslated_recent = [
         record
         for record in records[:500]
@@ -187,6 +203,10 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
             "missing_authors_today": [record_label(record) for record in missing_authors_today[:50]],
             "missing_authors_recent": [record_label(record) for record in missing_authors_recent[:50]],
             "duplicate_examples": [[record_label(record) for record in group[:5]] for group in duplicates[:20]],
+            "malformed_dates": [
+                {**record_label(record), "fields": malformed_dates(record)}
+                for record in malformed_date_records[:50]
+            ],
         },
         "abstracts": {
             "total": len(records),

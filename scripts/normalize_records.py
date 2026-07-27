@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import html
 import re
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -64,6 +65,36 @@ def clean_inline_html(value: Any) -> str:
     text = str(value or "")
     text = re.sub(r"<[^>]+>", "", text)
     return html.unescape(text).strip()
+
+
+def valid_iso_date(value: Any) -> bool:
+    text = str(value or "").strip()
+    if not re.fullmatch(r"20\d{2}-\d{2}-\d{2}", text):
+        return False
+    try:
+        date.fromisoformat(text)
+    except ValueError:
+        return False
+    return True
+
+
+def normalize_date_fields(record: dict[str, Any]) -> bool:
+    """Remove malformed upstream labels before they reach public templates."""
+    changed = False
+    for field in ("accepted_date", "available_online", "published_online", "issue_date"):
+        value = record.get(field)
+        if value in (None, "") or valid_iso_date(value):
+            continue
+        record[field] = None
+        changed = True
+    if changed and not any(record.get(field) for field in ("accepted_date", "available_online", "published_online", "issue_date")):
+        if record.get("date_source") != "unknown":
+            record["date_source"] = "unknown"
+            changed = True
+        if record.get("date_confidence") != "F":
+            record["date_confidence"] = "F"
+            changed = True
+    return changed
 
 
 def canonical_title_text(value: Any) -> str:
@@ -228,6 +259,8 @@ def normalize_authors(record: dict[str, Any]) -> bool:
 
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
+    if normalize_date_fields(record):
+        changed = True
     if normalize_authors(record):
         changed = True
     for field in ("abstract", "abstract_zh"):

@@ -109,7 +109,10 @@ def parse_date(value: str | None) -> str | None:
             month = MONTHS.get(match.group(1).casefold())
             if month:
                 return f"{int(match.group(3)):04d}-{month:02d}-{int(match.group(2)):02d}"
-        return value[:10] if len(value) >= 10 else None
+        # Do not truncate labels such as ``September 2026`` into a value that
+        # looks date-like but is not ISO-8601. Month-only issue dates are
+        # handled explicitly by parse_month_date at the call site.
+        return None
 
 
 def parse_month_date(value: str | None) -> str | None:

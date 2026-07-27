@@ -7,6 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 import fetch_cnki_rss  # noqa: E402
+import fetch_rss  # noqa: E402
 
 
 def test_cnki_health_accepts_partial_source_success():
@@ -74,3 +75,16 @@ def test_local_cnki_publish_pulls_are_fail_closed():
     assert 'run_step(["git", "pull", "--ff-only", "origin", "main"])' in script
     assert 'run_step(["git", "pull", "--rebase", "origin", "main"])' in script
     assert '"-X", "theirs"' not in script
+
+
+def test_rss_parser_does_not_truncate_unparseable_date_labels():
+    assert fetch_rss.parse_date("September 2026") is None
+    assert fetch_rss.parse_month_date("September 2026") == "2026-09-01"
+
+
+def test_local_pipeline_normalizes_after_metadata_enrichment():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    local_script = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
+    workflow = (root / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+    assert local_script.index('"scripts/enrich_metadata.py"') < local_script.rfind('"scripts/normalize_records.py"]')
+    assert workflow.index("Enrich publisher detail pages") < workflow.index("Normalize enriched metadata")

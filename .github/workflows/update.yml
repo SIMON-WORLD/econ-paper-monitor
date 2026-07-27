@@ -306,6 +306,9 @@ jobs:
           else
             echo "::warning::Today abstract retry timed out or failed; keeping the honest retry status."
           fi
+      - name: Normalize enriched metadata
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/normalize_records.py
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all

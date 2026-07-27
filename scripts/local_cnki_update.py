@@ -247,6 +247,9 @@ def main() -> None:
             ],
             allow_failure=True,
         )
+        # Enrichment can contribute publisher dates; normalize once more so
+        # a malformed upstream label cannot reach the release gate or pages.
+        run_step([python, "scripts/normalize_records.py"])
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])

@@ -142,11 +142,12 @@ def elsevier_core_metadata(pii: str, timeout: int) -> dict[str, str]:
     core = (payload.get("full-text-retrieval-response") or {}).get("coredata") if isinstance(payload, dict) else None
     if not isinstance(core, dict):
         return {}
+    online_date = parse_online_date(str(core.get("prism:coverDisplayDate") or ""))
     return {
         "title": clean_markdown(core.get("dc:title")),
         "doi": str(core.get("prism:doi") or "").strip().casefold(),
         "journal": clean_markdown(core.get("prism:publicationName")),
-        "available_online": parse_online_date(str(core.get("prism:coverDisplayDate") or "")) or str(core.get("prism:coverDate") or ""),
+        "available_online": online_date,
     }
 
 

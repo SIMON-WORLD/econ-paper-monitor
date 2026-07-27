@@ -57,6 +57,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         failures.append({"code": "formal_journal_candidates_not_archived", "count": formal_missed})
 
     source_type_errors = []
+    malformed_dates = []
     for record in daily:
         working = is_working(record)
         source_type = str(record.get("source_type") or "")
@@ -64,8 +65,18 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             source_type_errors.append(record.get("title"))
         if not working and source_type in {"working_paper", "policy_paper", "aggregator"}:
             source_type_errors.append(record.get("title"))
+        for field in ("accepted_date", "available_online", "published_online", "issue_date"):
+            value = str(record.get(field) or "").strip()
+            if value:
+                try:
+                    if len(value) != 10 or date.fromisoformat(value).isoformat() != value:
+                        malformed_dates.append({"title": record.get("title"), "field": field, "value": value})
+                except ValueError:
+                    malformed_dates.append({"title": record.get("title"), "field": field, "value": value})
     if source_type_errors:
         failures.append({"code": "source_type_mismatch", "count": len(source_type_errors), "examples": source_type_errors[:10]})
+    if malformed_dates:
+        failures.append({"code": "malformed_public_dates", "count": len(malformed_dates), "examples": malformed_dates[:10]})
 
     today_date = date.fromisoformat(today)
     historical = []
