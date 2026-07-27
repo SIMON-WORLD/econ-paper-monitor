@@ -63,7 +63,7 @@
       <main class="wrap" id="main-content"><section class="section-head"><div><h2>Journal of Finance：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>4 篇</p></section><div class="toolbar">
   <a class="control primary" href="../../../daily/2026-07-23/?journal=journal-of-finance">最新日期 3</a>
   <a class="control" href="../../../journals/journal-of-finance/recent7/">最近 7 天 4</a>
-  <a class="control" href="../../../journals/journal-of-finance/">全部历史 22</a>
+  <a class="control" href="../../../journals/journal-of-finance/">全部历史 23</a>
 </div><div class="toolbar" id="filters-default" data-filter-scope="default">
   <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" data-filter-role="journal"><option value="">筛选期刊</option><option value="journal-of-finance">Journal of Finance</option></select>
@@ -261,3 +261,19 @@
   </div>
 </body>
 </html>
+<script>
+(() => {
+  const endpoint = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence";
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {headers: {'Accept': 'application/json'}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class="presence-dot">●</span> ' + data.online + ' 人在线'; })
+    .catch(() => {});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+})();
+</script>
