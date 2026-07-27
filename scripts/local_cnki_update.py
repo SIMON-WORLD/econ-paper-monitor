@@ -21,20 +21,6 @@ from status import record_source
 
 LOG_DIR = ROOT / "local_admin" / "logs"
 LOG_PATH = LOG_DIR / "local-cnki-update.log"
-
-
-def log_path_for_status() -> str:
-    """Return a repo-relative log path.
-
-    ``data/status.json`` is committed to a public repository, so the absolute
-    path of the operator's machine must never reach a public status message.
-    """
-    try:
-        return LOG_PATH.relative_to(ROOT).as_posix()
-    except ValueError:
-        return LOG_PATH.name
-
-
 RUNTIME_DIR = ROOT / "local_admin" / "runtime"
 MAX_LOG_BYTES = 2_000_000
 KEEP_LOG_BYTES = 400_000
@@ -188,7 +174,7 @@ def main() -> None:
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
-        record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={log_path_for_status()}")
+        record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={LOG_PATH}")
         final_status_recorded = True
         run_step([python, "scripts/render_site.py"])
         run_step([python, "scripts/build_feed.py", "--site-url", "https://academic-door.github.io/econ-paper-monitor/"])
@@ -207,7 +193,7 @@ def main() -> None:
         log("Local CNKI update finished successfully.")
     except Exception as exc:  # noqa: BLE001
         if not final_status_recorded:
-            record_source("local-cnki-run", ok=False, count=0, message=f"{type(exc).__name__}: {exc}; log={log_path_for_status()}")
+            record_source("local-cnki-run", ok=False, count=0, message=f"{type(exc).__name__}: {exc}; log={LOG_PATH}")
         log(f"FAILED: {type(exc).__name__}: {exc}")
         raise
 
