@@ -328,14 +328,24 @@
     "publisher-detail": {
       "publishers": [
         {
-          "ab_dates": 0,
-          "attempted": 0,
-          "changed": 0,
-          "failures": 0,
-          "message": "",
+          "ab_dates": 10,
+          "attempted": 28,
+          "changed": 24,
+          "failures": 18,
+          "message": "metadata-only:blocked-captcha:8, blocked-captcha:6, metadata-only:proxy-request-failed:4, metadata-only:3",
           "publisher": "Elsevier",
-          "statuses": {},
-          "success_rate": 0
+          "statuses": {
+            "abstract-route-missing": 2,
+            "abstract-updated:readonly-proxy": 1,
+            "blocked-captcha": 6,
+            "metadata-only": 3,
+            "metadata-only:blocked-captcha": 8,
+            "metadata-only:proxy-request-failed": 4,
+            "metadata-updated:openalex": 2,
+            "metadata-updated:semantic-scholar": 1,
+            "proxy-request-failed": 1
+          },
+          "success_rate": 0.3571
         },
         {
           "ab_dates": 0,
@@ -348,27 +358,61 @@
           "success_rate": 0
         },
         {
-          "ab_dates": 0,
-          "attempted": 0,
-          "changed": 0,
-          "failures": 0,
-          "message": "",
-          "publisher": "Taylor & Francis",
-          "statuses": {},
-          "success_rate": 0
+          "ab_dates": 50,
+          "attempted": 54,
+          "changed": 23,
+          "failures": 4,
+          "message": "abstract-route-missing:34, metadata-only:13, abstract-updated:readonly-proxy:7",
+          "publisher": "Other",
+          "statuses": {
+            "abstract-route-missing": 34,
+            "abstract-updated:readonly-proxy": 7,
+            "metadata-only": 13
+          },
+          "success_rate": 0.9259
         },
         {
-          "ab_dates": 0,
-          "attempted": 0,
-          "changed": 0,
+          "ab_dates": 31,
+          "attempted": 31,
+          "changed": 5,
           "failures": 0,
-          "message": "",
+          "message": "abstract-not-exposed:24, proxy-request-failed:3, abstract-updated:3, metadata-only:abstract-not-exposed:1",
+          "publisher": "Springer",
+          "statuses": {
+            "abstract-not-exposed": 24,
+            "abstract-updated": 3,
+            "metadata-only:abstract-not-exposed": 1,
+            "proxy-request-failed": 3
+          },
+          "success_rate": 1.0
+        },
+        {
+          "ab_dates": 5,
+          "attempted": 5,
+          "changed": 5,
+          "failures": 0,
+          "message": "metadata-updated:openalex:5",
+          "publisher": "Taylor & Francis",
+          "statuses": {
+            "metadata-updated:openalex": 5
+          },
+          "success_rate": 1.0
+        },
+        {
+          "ab_dates": 2,
+          "attempted": 2,
+          "changed": 2,
+          "failures": 0,
+          "message": "proxy-request-failed:1, blocked-captcha:1",
           "publisher": "Wiley",
-          "statuses": {},
-          "success_rate": 0
+          "statuses": {
+            "blocked-captcha": 1,
+            "proxy-request-failed": 1
+          },
+          "success_rate": 1.0
         }
       ],
-      "updated_at": "2026-07-27T16:10:24+00:00"
+      "updated_at": "2026-07-27T17:15:57+00:00"
     }
   },
   "sources": {
@@ -519,10 +563,10 @@
       "updated_at": "2026-07-27T17:11:32+00:00"
     },
     "publisher-detail": {
-      "count": 0,
-      "message": "attempted=0; proxy_abstract_attempted=0; ",
+      "count": 59,
+      "message": "attempted=120; proxy_abstract_attempted=66; seen CEPR Discussion Papers: abstract-updated:readonly-proxy; seen CEPR Discussion Papers: metadata-only; seen CEPR Discussion Papers: abstract-updated:readonly-proxy; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: metadata-only; seen CEPR Discussion Papers: abstract-updated:readonly-proxy; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: abstract-route-missing; 2026-07-24 Journal of Monetary Economics: metadata-only:blocked-captcha; 2026-07-24 Games and Economic Behavior: metadata-only:proxy-request-failed; seen CEPR Discussion Papers: metadata-only; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: abstract-updated:readonly-proxy; seen CEPR Discussion Papers: abstract-updated:readonly-proxy; 2026-07-23 Journal of Mathematical Economics: metadata-only:blocked-captcha; 2026-07-23 Journal of Econometrics: metadata-only:blocked-captcha; 2026-07-23 Land Use Policy: blocked-captcha; seen CEPR Discussion Papers: metadata-only; seen CEPR Discussion Papers: abstract-route-missing",
       "ok": true,
-      "updated_at": "2026-07-27T16:10:24+00:00"
+      "updated_at": "2026-07-27T17:15:57+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
@@ -550,7 +594,7 @@
     },
     "source-health": {
       "count": 86,
-      "message": "healthy=68 degraded=18 stale=0 unavailable=0",
+      "message": "healthy=73 degraded=13 stale=0 unavailable=0",
       "ok": true,
       "updated_at": "2026-07-27T17:14:27+00:00"
     },

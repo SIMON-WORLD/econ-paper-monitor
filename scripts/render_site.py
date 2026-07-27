@@ -401,6 +401,7 @@ def source_type_label(record: dict[str, Any]) -> str:
     return {
         "working_paper": "工作论文",
         "policy_paper": "机构研究",
+        "policy_commentary": "研究评论",
         "aggregator": "聚合源",
         "journal": "期刊论文",
         "journal_article": "期刊论文",
@@ -1758,6 +1759,17 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
     cn_group = source_groups.get("cn-journals") or {}
     cnki_group = source_groups.get("cnki-rss") or {}
     publisher_group = source_groups.get("publisher-detail") or {}
+    source_health = read_json(DATA_DIR / "source_health.json", {})
+    coverage_counts = source_health.get("coverage_counts") or {}
+    health_rows = "".join(
+        f"<tr><td>{html_escape(key)}</td><td>{html_escape(value)}</td></tr>"
+        for key, value in (
+            ("双路径/专项可用", coverage_counts.get("official_or_specialized", 0)),
+            ("补充路径可用", coverage_counts.get("supplemental", 0)),
+            ("仅 Crossref 备用", coverage_counts.get("crossref_only", 0)),
+            ("不可用", coverage_counts.get("unavailable", 0)),
+        )
+    )
     ingestion = read_json(DATA_DIR / "ingestion_audit.json", {})
     recent72_audit = read_json(DATA_DIR / "recent72_coverage_audit.json", {})
     journals_by_id = journal_lookup()
@@ -1826,6 +1838,8 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
   <div class="audit-card"><strong>{len(failures)}</strong><span>失败/受限来源</span></div>
   <div class="audit-card"><strong>{html_escape(beijing_stamp(workflow.get('finished_at')))}</strong><span>最近监测完成</span></div>
 </section>
+<section class="section-head"><div><h2>正式期刊信源覆盖</h2><p>这是后台维护指标：区分官方/专项路径与 Crossref 备用，不把备用路径伪装成双路径稳定。</p></div></section>
+<table class="journal-table"><thead><tr><th>覆盖等级</th><th>期刊数</th></tr></thead><tbody>{health_rows}</tbody></table>
 <section class="section-head"><div><h2>重点出版社延迟对比</h2><p>最近 14 天内，比较 RSS/TOC、出版社详情页与 Crossref 备用日期对第一时间发现的贡献。</p></div></section>
 <table class="journal-table"><thead><tr><th>出版社</th><th>记录</th><th>有官方日期</th><th>无精确日期</th><th>延迟&gt;2天</th><th>平均滞后</th><th>最大滞后</th><th>RSS/TOC</th><th>详情页</th><th>Crossref fallback</th></tr></thead><tbody>{delay_rows}</tbody></table>
 <section class="section-head"><div><h2>入库诊断</h2><p>对比今日原始候选和最终展示记录，用于判断是否存在“抓到但未入库”。</p></div></section>

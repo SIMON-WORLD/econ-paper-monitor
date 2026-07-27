@@ -24,6 +24,7 @@ def test_crossref_only_is_degraded_but_usable():
         1.5,
     )
     assert result["level"] == "degraded"
+    assert result["coverage"] == "crossref_only"
     assert result["usable_paths"] == ["crossref"]
 
 
@@ -99,6 +100,7 @@ def test_failed_aea_child_does_not_hide_successful_sibling():
         }}},
     )
     assert result["level"] == "healthy"
+    assert result["coverage"] == "official_or_specialized"
     assert "aea-toc" in result["usable_paths"]
 
 
@@ -116,3 +118,17 @@ def test_rss_error_does_not_count_as_a_healthy_path():
         1.5,
     )
     assert result["usable_paths"] == ["crossref"]
+
+
+def test_partial_specialized_source_with_records_is_usable():
+    result = inspect_journal(
+        journal(),
+        {"journals": {"j1": {"last_rss_status": "none", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        datetime(2026, 7, 27, 12, tzinfo=timezone.utc),
+        36,
+        {"source_groups": {"cn-journals": {"ok": True, "updated_at": "2026-07-27T11:00:00+00:00", "journals": [{"journal_id": "j1", "ok": False, "count": 12}]}}},
+    )
+    assert result["level"] == "healthy"
+    assert result["coverage"] == "official_or_specialized"
+    assert "cn-journals" in result["usable_paths"]

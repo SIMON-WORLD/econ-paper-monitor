@@ -63,10 +63,13 @@ exceeds 2 MB.
 ## Formal Source Health
 
 Each scheduled run audits every journal in `data/journals.yml`. The internal
-report `data/source_health.json` distinguishes healthy dual-path coverage,
-degraded single-path coverage, stale checks, and unavailable journals. A run
-stops before publishing when a formal journal has no usable RSS or Crossref
-path; a publisher block is acceptable only when another path remains usable.
+report `data/source_health.json` distinguishes the release level (healthy,
+degraded, stale, unavailable) from the acquisition coverage: official or
+specialized, supplemental, Crossref-only, or unavailable. This makes a
+Crossref fallback visible to maintainers without exposing transport errors on
+the public homepage. A run stops before publishing when a formal journal has
+no usable RSS, specialized, or Crossref path; a publisher block is acceptable
+only when another path remains usable.
 
 The anonymous presence Worker is deployed separately from paper monitoring. Its
 endpoint is smoke-tested by `.github/workflows/verify-presence.yml`, so a

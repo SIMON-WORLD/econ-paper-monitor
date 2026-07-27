@@ -70,6 +70,12 @@
   const key = new URLSearchParams(window.location.search).get('key') || '';
   const root = document.getElementById('paperRoot');
   const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const abstractMessage = (status) => {
+    const value = String(status || '').toLowerCase();
+    if (value.includes('blocked') || value.includes('forbidden') || value.includes('proxy')) return '出版社页面暂时无法读取摘要，系统会继续尝试补全。';
+    if (value.includes('no-abstract') || value.includes('not-exposed') || value.includes('route-missing')) return '上游暂未公开摘要，系统会继续尝试补全。';
+    return '摘要暂未公开，系统会继续尝试补全。';
+  };
   const showMissing = () => {
     root.classList.remove('detail-loading');
     root.removeAttribute('aria-busy');
@@ -89,7 +95,7 @@
       const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
       const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
       const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
-      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract empty-state"><h2>摘要</h2><div class="empty">${escapeHTML(item.abstract_status || '摘要暂未公开，系统将自动重试')}</div></section>`;
+      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract empty-state"><h2>摘要</h2><div class="empty">${escapeHTML(abstractMessage(item.abstract_status))}</div></section>`;
       const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
       const related = (item.related || []).map((record) => `<li><a href="./paper.html?key=${encodeURIComponent(record.key)}">${escapeHTML(record.title)}</a></li>`).join('');
       const relatedBlock = related ? `<section class="detail-abstract"><h2>相关记录</h2><ul class="related-list">${related}</ul></section>` : '';

@@ -112,6 +112,14 @@ TANDF_JOURNAL_CODES = {
     "applied-economics": "raec20",
 }
 
+UCHICAGO_JOURNAL_CODES = {
+    # Chicago's official RSS endpoint requires the journal code rather than ISSN.
+    "journal-of-political-economy": "jpe",
+    "economic-development-and-cultural-change": "edcc",
+    "journal-of-labor-economics": "jole",
+    "journal-of-law-and-economics": "jle",
+}
+
 
 def generated_official_rss_urls(journal: dict[str, Any]) -> list[dict[str, str]]:
     """Return official publisher RSS URLs that can be built from known rules."""
@@ -160,6 +168,15 @@ def generated_official_rss_urls(journal: dict[str, Any]) -> list[dict[str, str]]
             {
                 "url": f"https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc={tandf_code}",
                 "label": "Taylor & Francis RSS",
+                "type": "official",
+            }
+        )
+    chicago_code = UCHICAGO_JOURNAL_CODES.get(journal_id) or registry_entry.get("uchicago_code")
+    if chicago_code:
+        feeds.append(
+            {
+                "url": f"https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc={chicago_code}",
+                "label": "Chicago Journals RSS",
                 "type": "official",
             }
         )

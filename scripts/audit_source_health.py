@@ -99,7 +99,11 @@ def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, ma
             continue
         rows = group.get("journals") or []
         row = next((item for item in rows if str(item.get("journal_id") or "") == journal_id), None)
-        if row and row.get("ok"):
+        # A source may have one failed child endpoint while another child
+        # endpoint already returned valid records. Treat that as usable with
+        # partial-failure evidence, rather than downgrading the whole journal
+        # to Crossref-only.
+        if row and (row.get("ok") or int(row.get("count") or 0) > 0):
             paths.append(path_name)
             if group.get("updated_at"):
                 checked_at.append(str(group["updated_at"]))
@@ -135,11 +139,20 @@ def inspect_journal(
         level = "degraded"
     else:
         level = "healthy"
+    if not paths:
+        coverage = "unavailable"
+    elif "crossref" in paths and len(paths) == 1:
+        coverage = "crossref_only"
+    elif any(path in paths for path in ("rss", "aea-toc", "priority-toc", "cn-journals", "cnki-rss")):
+        coverage = "official_or_specialized"
+    else:
+        coverage = "supplemental"
     return {
         "journal_id": journal_id,
         "journal": journal.get("title"),
         "publisher": journal.get("publisher"),
         "level": level,
+        "coverage": coverage,
         "usable_paths": paths,
         "rss_status": rss_status,
         "rss_count": entry.get("last_rss_count"),
@@ -167,11 +180,16 @@ def main() -> None:
     status = read_json(DATA_DIR / "status.json", {})
     rows = [inspect_journal(journal, registry, today, now, max_age, status) for journal in load_journals(args.journals)]
     counts = {level: sum(row["level"] == level for row in rows) for level in ("healthy", "degraded", "stale", "unavailable")}
+    coverage_counts = {
+        coverage: sum(row["coverage"] == coverage for row in rows)
+        for coverage in ("official_or_specialized", "supplemental", "crossref_only", "unavailable")
+    }
     report = {
         "checked_at": now.replace(microsecond=0).isoformat(),
         "max_age_hours": args.max_age_hours,
         "formal_journals": len(rows),
         "counts": counts,
+        "coverage_counts": coverage_counts,
         "unavailable": [row for row in rows if row["level"] == "unavailable"],
         "stale": [row for row in rows if row["level"] == "stale"],
         "degraded": [row for row in rows if row["level"] == "degraded"],

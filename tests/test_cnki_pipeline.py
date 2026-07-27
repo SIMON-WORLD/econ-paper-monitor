@@ -137,9 +137,24 @@ def test_chicago_journal_codes_are_kept_distinct():
     assert "jc=jle" in jle
 
 
+def test_chicago_official_feed_codes_cover_verified_journals():
+    from sources.registry import UCHICAGO_JOURNAL_CODES, generated_official_rss_urls
+
+    assert UCHICAGO_JOURNAL_CODES["journal-of-political-economy"] == "jpe"
+    journals = {item["id"]: item for item in fetch_rss.load_journals()}
+    urls = [item["url"] for item in generated_official_rss_urls(journals["journal-of-political-economy"])]
+    assert any("jc=jpe" in url for url in urls)
+
+
 def test_rss_forthcoming_date_is_not_published_as_a_future_archive():
     record = {"source": "rss", "available_online": "2026-08-01", "date_source": "rss_published"}
     assert dedupe.archive_date_for_new_record(record, "2026-07-27") is None
+
+
+def test_policy_commentary_has_a_distinct_public_label():
+    import render_site
+
+    assert render_site.source_type_label({"source": "working_papers", "source_type": "policy_commentary"}) == "研究评论"
 
 
 def test_known_wrong_journal_doi_is_quarantined():
