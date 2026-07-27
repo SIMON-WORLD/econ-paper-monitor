@@ -94,6 +94,13 @@ def test_aggregate_source_status_does_not_hide_partial_failures():
     assert "successful_feeds == attempted_feeds" in rss
 
 
+def test_local_cnki_does_not_recompute_global_formal_source_health():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    script = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
+    assert 'run_step([python, "scripts/audit_source_health.py"])' not in script
+    assert "GitHub full workflow owns data/source_health.json" in script
+
+
 def test_rss_parser_does_not_truncate_unparseable_date_labels():
     assert fetch_rss.parse_date("September 2026") is None
     assert fetch_rss.parse_month_date("September 2026") == "2026-09-01"

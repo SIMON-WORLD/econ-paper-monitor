@@ -256,7 +256,10 @@ def main() -> None:
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
-        run_step([python, "scripts/audit_source_health.py"])
+        # Do not recompute the global formal-journal health here. This local
+        # supplement intentionally does not fetch the English publisher RSS
+        # set; recomputing it would turn untouched paths into false failures.
+        # The GitHub full workflow owns data/source_health.json.
         run_step([python, "scripts/audit_formal_journal_coverage.py"])
         run_step([python, "scripts/release_gate.py"])
         finished_at = now()
