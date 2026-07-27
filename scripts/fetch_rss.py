@@ -399,7 +399,10 @@ def main() -> None:
 
     save_registry(registry)
     write_json(output, records)
-    rss_ok = attempted_feeds == 0 or successful_feeds > 0
+    # A single successful feed does not establish that the selected RSS set
+    # completed. Per-journal registry entries retain the usable paths, while
+    # this aggregate status must surface partial failures for auditing.
+    rss_ok = attempted_feeds == 0 or successful_feeds == attempted_feeds
     record_source(
         "rss",
         ok=rss_ok,

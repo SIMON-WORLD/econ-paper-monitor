@@ -1583,7 +1583,10 @@ def main() -> None:
         summary = f"partial_success failures={failures}; {summary}"
     record_source(
         "working-papers",
-        ok=len(all_records) > 0,
+        # A non-empty aggregate is not proof that every configured source ran.
+        # Keep the records we did obtain, but expose partial failures to the
+        # operational status layer so they cannot be mistaken for completeness.
+        ok=failures == 0,
         count=len(all_records),
         message=summary,
     )

@@ -86,6 +86,14 @@ def test_local_task_prefers_powershell_7_with_windows_fallback():
     assert "-Execute $shell" in script
 
 
+def test_aggregate_source_status_does_not_hide_partial_failures():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    preprints = (root / "scripts" / "fetch_preprints.py").read_text(encoding="utf-8")
+    rss = (root / "scripts" / "fetch_rss.py").read_text(encoding="utf-8")
+    assert "ok=failures == 0" in preprints
+    assert "successful_feeds == attempted_feeds" in rss
+
+
 def test_rss_parser_does_not_truncate_unparseable_date_labels():
     assert fetch_rss.parse_date("September 2026") is None
     assert fetch_rss.parse_month_date("September 2026") == "2026-09-01"
