@@ -16,13 +16,14 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-from common import ROOT, today_str
+from common import DATA_DIR, ROOT, read_json, today_str, write_json
 from status import now, record_source, record_workflow_run
 
 
 LOG_DIR = ROOT / "local_admin" / "logs"
 LOG_PATH = LOG_DIR / "local-cnki-update.log"
 RUNTIME_DIR = ROOT / "local_admin" / "runtime"
+LOCAL_STATUS_PATH = DATA_DIR / "local_cnki_status.json"
 MAX_LOG_BYTES = 2_000_000
 KEEP_LOG_BYTES = 400_000
 
@@ -39,6 +40,28 @@ def configure_console() -> None:
 def log_path_for_status() -> str:
     """Return a repository-relative log path for public status metadata."""
     return str(LOG_PATH.relative_to(ROOT)).replace("\\", "/")
+
+
+def write_local_status(
+    state: str,
+    *,
+    message: str,
+    count: int = 0,
+    finished_at: str | None = None,
+) -> None:
+    """Persist CNKI ownership outside the shared, frequently rewritten ledger."""
+    previous = read_json(LOCAL_STATUS_PATH, {})
+    payload = {
+        "state": state,
+        "ok": state in {"success", "published"},
+        "count": count,
+        "message": message,
+        "updated_at": now(),
+        "last_success_at": previous.get("last_success_at"),
+    }
+    if state in {"success", "published"}:
+        payload["last_success_at"] = finished_at or payload["updated_at"]
+    write_json(LOCAL_STATUS_PATH, payload)
 
 
 def log(message: str) -> None:
@@ -151,7 +174,7 @@ def push_with_retries(attempts: int = 4) -> None:
 
 def publish_final_status() -> None:
     """Publish the post-push result instead of leaving ``pending`` public."""
-    run_step(["git", "add", "data/status.json"])
+    run_step(["git", "add", "data/status.json", "data/local_cnki_status.json"])
     if not git_has_staged_changes():
         return
     run_step(["git", "commit", "-m", "Record local CNKI publish status"])
@@ -205,6 +228,7 @@ def main() -> None:
         log(f"Pruned old local artifacts: runtime={removed_runtime}, cnki_raw={removed_raw}")
     record_source("local-cnki-run", ok=False, count=0, message="running")
     record_source("local-cnki-publish", ok=False, count=0, message="not attempted")
+    write_local_status("running", message="本地 CNKI 链路运行中")
     final_status_recorded = False
 
     try:
@@ -274,6 +298,7 @@ def main() -> None:
         run_step([python, "scripts/release_gate.py"])
         finished_at = now()
         record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={log_path_for_status()}")
+        write_local_status("success", message="六个 CNKI RSS 源已通过校验", count=cnki_count, finished_at=finished_at)
         record_workflow_run(
             {
                 "mode": "light",
@@ -294,6 +319,7 @@ def main() -> None:
         run_step([python, "scripts/render_cnki_status.py"])
 
         if not args.no_push:
+            write_local_status("publishing", message="数据已生成，等待推送完成", count=cnki_count)
             record_source("local-cnki-publish", ok=False, count=0, message="pending")
             run_step(["git", "add", "data", "docs"])
             if git_has_staged_changes():
@@ -303,15 +329,18 @@ def main() -> None:
                 # discard another updater's data.
                 run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])
                 push_with_retries()
+                write_local_status("published", message="本地 CNKI 结果已推送到 origin/main", count=cnki_count)
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
                 publish_final_status()
             else:
                 log("No generated changes to commit.")
+                write_local_status("published", message="无新增数据，主线已是最新", count=cnki_count)
                 record_source("local-cnki-publish", ok=True, count=0, message="no generated changes")
                 publish_final_status()
 
         log("Local CNKI update finished successfully.")
     except Exception as exc:  # noqa: BLE001
+        write_local_status("failed", message=f"{type(exc).__name__}: {exc}")
         if not final_status_recorded:
             record_source("local-cnki-run", ok=False, count=0, message=f"{type(exc).__name__}: {exc}; log={log_path_for_status()}")
         log(f"FAILED: {type(exc).__name__}: {exc}")

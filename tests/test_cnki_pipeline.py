@@ -78,6 +78,15 @@ def test_local_cnki_publish_pulls_are_fail_closed():
     assert '"-X", "theirs"' not in script
 
 
+def test_local_cnki_has_durable_owner_status():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    script = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
+    renderer = (root / "scripts" / "render_cnki_status.py").read_text(encoding="utf-8")
+    assert "local_cnki_status.json" in script
+    assert 'write_local_status("published"' in script
+    assert "local_status = read_json(DATA_DIR / \"local_cnki_status.json\"" in renderer
+
+
 def test_local_cnki_publishes_final_status_after_push():
     script = (
         Path(fetch_cnki_rss.__file__).resolve().parents[1]

@@ -49,11 +49,19 @@ def table(rows: list[str], headers: list[str]) -> str:
 
 def main() -> None:
     status = load_status()
+    local_status = read_json(DATA_DIR / "local_cnki_status.json", {})
     source = (status.get("sources") or {}).get("cnki-rss") or {}
     local_run = (status.get("sources") or {}).get("local-cnki-run") or {}
     group = (status.get("source_groups") or {}).get("cnki-rss") or {}
     records = load_daily_cnki_records()
     by_journal = Counter(record.get("journal") or "未知期刊" for record in records)
+    local_ok = bool(local_status.get("ok")) if local_status else bool(source.get("ok"))
+    local_success_at = (
+        local_status.get("last_success_at")
+        or local_status.get("updated_at")
+        or local_run.get("updated_at")
+        or source.get("updated_at")
+    )
 
     journal_rows = [
         row(
@@ -106,8 +114,8 @@ def main() -> None:
   <div class="grid">
     <div class="card"><strong>{html_escape(source.get('count', 0))}</strong><span>本轮 RSS 原始记录</span></div>
     <div class="card"><strong>{html_escape(len(records))}</strong><span>已进入归档的 CNKI RSS 记录</span></div>
-    <div class="card"><strong>{html_escape('OK' if source.get('ok') else 'FAIL')}</strong><span>CNKI RSS 状态</span></div>
-    <div class="card"><strong>{html_escape(beijing_stamp(local_run.get('updated_at') or source.get('updated_at')))}</strong><span>最近本地运行</span></div>
+    <div class="card"><strong>{html_escape('OK' if local_ok else 'FAIL')}</strong><span>CNKI RSS 状态</span></div>
+    <div class="card"><strong>{html_escape(beijing_stamp(local_success_at))}</strong><span>最近本地成功</span></div>
   </div>
   <h2>本轮各期刊 RSS 结果</h2>
   {table(journal_rows, ["期刊", "状态", "RSS 条数", "最新来源日期", "模式", "信息"])}
