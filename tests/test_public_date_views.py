@@ -32,6 +32,16 @@ class PublicDateViewTests(unittest.TestCase):
 
         self.assertTrue(render_site.record_is_on_date(record, "2026-07-27"))
 
+    def test_recent72_excludes_old_catalogue_backfill(self) -> None:
+        record = {
+            "detected_at": "2026-07-27T10:00:00+00:00",
+            "available_online": "2025-06-04",
+            "published_online": "2025-06-04",
+            "title": "Banks vs. Firms: Who Benefits from Credit Guarantees?",
+        }
+
+        self.assertEqual(render_site.recent_detected_records([record], 3), [])
+
 
 if __name__ == "__main__":
     unittest.main()

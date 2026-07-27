@@ -7,7 +7,7 @@ import json
 import os
 import re
 from collections import Counter, defaultdict
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -1367,7 +1367,13 @@ def recent_records(records: list[dict[str, Any]], days: int = 7) -> list[dict[st
 
 
 def recent_detected_records(records: list[dict[str, Any]], days: int = 3) -> list[dict[str, Any]]:
-    """Records first detected from today back to the prior N-1 Beijing dates."""
+    """Records first detected recently, excluding dated backfill items.
+
+    A source can expose an old catalogue item during a fresh crawl.  Its
+    ``detected_at`` is recent, but its official date proves it is not a recent
+    discovery signal, so it must stay in the archive rather than the 72-hour
+    selection page.
+    """
     try:
         today = datetime.fromisoformat(today_str()).date()
     except ValueError:
@@ -1380,6 +1386,12 @@ def recent_detected_records(records: list[dict[str, Any]], days: int = 3) -> lis
         except ValueError:
             continue
         if cutoff <= detected <= today:
+            official = official_date(record)
+            try:
+                if official and date.fromisoformat(official[:10]) < cutoff:
+                    continue
+            except ValueError:
+                pass
             selected.append(record)
     return sort_records(selected)
 
