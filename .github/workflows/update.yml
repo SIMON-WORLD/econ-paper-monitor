@@ -212,19 +212,11 @@ jobs:
               --detail-limit ${{ steps.mode.outputs.cn_detail_limit }} \
               || echo "::warning::Chinese journal fetch timed out or failed: $JOURNAL"
           done
-      - name: Fetch CNKI RSS feeds
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        shell: bash
-        run: |
-          if timeout 5m python scripts/fetch_cnki_rss.py; then
-            echo "CNKI RSS fetch completed."
-          else
-            echo "::warning::CNKI RSS fetch timed out or failed; local CNKI supplement remains authoritative for this source."
-          fi
-        env:
-          # CNKI often returns 418 to GitHub runner IPs. The relay is only a
-          # transport fallback; the source remains labelled as CNKI RSS.
-          CNKI_RSS_PROXY_BASE: ${{ vars.CNKI_RSS_PROXY_BASE || 'https://econ-paper-monitor-presence.academic-door.workers.dev/cnki-rss' }}
+      # CNKI RSS is intentionally absent from the public GitHub runner.
+      # GitHub runner IPs are rejected intermittently (HTTP 418), and a failed
+      # public attempt must never overwrite the last successful local CNKI
+      # supplement status. The Windows local task owns this source and pushes
+      # its verified result to main after all configured feeds succeed.
       - name: Fetch working paper sources
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash

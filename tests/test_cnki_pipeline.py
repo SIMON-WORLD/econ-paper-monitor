@@ -50,3 +50,15 @@ def test_authoritative_local_runner_requires_every_source():
         / "scripts"
         / "local_cnki_update.py"
     ).read_text(encoding="utf-8")
+
+
+def test_public_workflow_does_not_overwrite_local_cnki_status():
+    workflow = (
+        Path(fetch_cnki_rss.__file__).resolve().parents[1]
+        / ".github"
+        / "workflows"
+        / "update.yml"
+    ).read_text(encoding="utf-8")
+
+    assert "Fetch CNKI RSS feeds" not in workflow
+    assert "CNKI RSS is intentionally absent" in workflow
