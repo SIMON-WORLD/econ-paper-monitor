@@ -249,6 +249,7 @@ def main() -> None:
         journals = [journal for journal in journals if journal.get("id") in selected_ids]
     selected = journals[: args.limit] if args.limit else journals
     registry = load_registry()
+    failures = 0
 
     for journal in selected:
         registry_entry = registry.setdefault("journals", {}).setdefault(journal["id"], {})
@@ -260,6 +261,7 @@ def main() -> None:
             registry_entry["last_crossref_error"] = None
             messages.append(f"{journal.get('title')}: {len(fetched)}")
         except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
+            failures += 1
             registry_entry["last_crossref_count"] = 0
             registry_entry["last_crossref_status"] = "error"
             registry_entry["last_crossref_error"] = f"{type(exc).__name__}: {exc}"
@@ -269,7 +271,13 @@ def main() -> None:
 
     save_registry(registry)
     write_json(output, records)
-    record_source("crossref", ok=True, count=len(records), message="; ".join(messages[-30:]) or str(output))
+    record_source(
+        "crossref",
+        ok=failures == 0,
+        count=len(records),
+        message=(f"partial_success failures={failures}; " if failures else "")
+        + ("; ".join(messages[-30:]) or str(output)),
+    )
     print(f"wrote {len(records)} Crossref records to {output}")
     for message in messages:
         print(message)

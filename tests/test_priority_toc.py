@@ -57,6 +57,8 @@ class PriorityTocFallbackTests(unittest.TestCase):
 
         self.assertEqual(timeouts, [7] * TARGET_COUNT)
         self.assertTrue(record_source.called)
+        self.assertFalse(record_source.call_args.kwargs["ok"])
+        self.assertIn("journals", record_source.call_args.kwargs["details"])
 
     def test_fallback_runs_when_publisher_page_returns_nothing(self) -> None:
         timeouts, _ = self._run_main(mock.Mock(return_value=[]))
@@ -125,6 +127,29 @@ class LocalCnkiLogPathTests(unittest.TestCase):
         self.assertFalse(Path(value).is_absolute())
         self.assertNotIn(":\\", value)
         self.assertTrue(value.endswith("local-cnki-update.log"))
+
+
+class AdditionalEconometricSocietyTargetTests(unittest.TestCase):
+    def test_forthcoming_targets_cover_configured_journals(self) -> None:
+        self.assertIn("theoretical-economics", fetch_priority_toc.TARGETS)
+        self.assertIn("quantitative-economics", fetch_priority_toc.TARGETS)
+        self.assertEqual(fetch_priority_toc.TARGETS["theoretical-economics"][0]["fallback_issn"], "1933-6837")
+        self.assertEqual(fetch_priority_toc.TARGETS["quantitative-economics"][0]["fallback_issn"], "1759-7323")
+
+    def test_links_are_filtered_by_journal_doi_prefix(self) -> None:
+        html = '<a href="https://doi.org/10.3982/TE9999">A theoretical result</a><a href="https://doi.org/10.3982/QE9999">A quantitative result</a>'
+        theoretical = fetch_priority_toc.article_links(
+            html,
+            "https://www.econometricsociety.org/publications/theoretical-economics/forthcoming-papers",
+        )
+        quantitative = fetch_priority_toc.article_links(
+            html,
+            "https://www.econometricsociety.org/publications/quantitative-economics/forthcoming-papers",
+        )
+        self.assertEqual(len(theoretical), 1)
+        self.assertIn("TE9999", theoretical[0][0])
+        self.assertEqual(len(quantitative), 1)
+        self.assertIn("QE9999", quantitative[0][0])
 
 
 if __name__ == "__main__":

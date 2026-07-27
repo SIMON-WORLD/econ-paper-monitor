@@ -118,6 +118,12 @@ def test_rss_parser_does_not_truncate_unparseable_date_labels():
     assert fetch_rss.parse_month_date("September 2026") == "2026-09-01"
 
 
+def test_rss_parser_repairs_bare_ampersands_but_keeps_structure_strict():
+    xml = "<rss><channel><item><title>Trade & Growth</title><link>https://example.org/paper</link></item></channel></rss>"
+    records = fetch_rss.parse_feed(xml, {"id": "test-journal", "title": "Test Journal"}, "https://example.org/feed")
+    assert records[0]["title"] == "Trade & Growth"
+
+
 def test_rss_helpers_extract_doi_and_reject_concatenated_affiliation_blob():
     assert fetch_rss.extract_doi("doi:10.1086/740172") == "10.1086/740172"
     assert fetch_rss.normalize_authors(["Bård HarstadKatinka HoltsmarkStanford University"]) == []

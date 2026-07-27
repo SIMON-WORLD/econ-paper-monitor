@@ -37,6 +37,8 @@ PRIORITY_TOC_JOURNALS = {
     "review-of-economic-studies",
     "review-of-economics-and-statistics",
     "econometrica",
+    "theoretical-economics",
+    "quantitative-economics",
 }
 
 
@@ -194,6 +196,29 @@ def main() -> None:
         "stale": [row for row in rows if row["level"] == "stale"],
         "degraded": [row for row in rows if row["level"] == "degraded"],
         "journals": rows,
+    }
+    report["coverage_debt"] = {
+        "crossref_only": [
+            {
+                "journal_id": row["journal_id"],
+                "journal": row["journal"],
+                "publisher": row["publisher"],
+                "usable_paths": row["usable_paths"],
+                "next_action": "verify an official RSS, TOC, advance, or latest-article source",
+            }
+            for row in rows
+            if row["coverage"] == "crossref_only"
+        ],
+        "single_path_degraded": [
+            {
+                "journal_id": row["journal_id"],
+                "journal": row["journal"],
+                "usable_paths": row["usable_paths"],
+                "next_action": "add or verify an independent fallback path",
+            }
+            for row in rows
+            if row["level"] == "degraded"
+        ],
     }
     write_json(args.output, report)
     # A stale registry is not evidence that a source is currently usable. A

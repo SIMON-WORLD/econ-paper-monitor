@@ -40,8 +40,24 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     quality = read_json(args.quality_report, {})
     ingestion = read_json(args.ingestion_audit, {})
     formal = read_json(args.formal_audit, {})
+    source_health = read_json(getattr(args, "source_health", DATA_DIR / "source_health.json"), {})
     failures: list[dict[str, Any]] = []
     warnings: list[dict[str, Any]] = []
+
+    source_counts = source_health.get("counts") or {}
+    coverage_counts = source_health.get("coverage_counts") or {}
+    unavailable = int(source_counts.get("unavailable") or 0)
+    stale = int(source_counts.get("stale") or 0)
+    if unavailable:
+        failures.append({"code": "formal_sources_unavailable", "count": unavailable})
+    if stale:
+        failures.append({"code": "formal_sources_stale", "count": stale})
+    crossref_only = int(coverage_counts.get("crossref_only") or 0)
+    degraded = int(source_counts.get("degraded") or 0)
+    if crossref_only:
+        warnings.append({"code": "formal_sources_crossref_only", "count": crossref_only})
+    if degraded:
+        warnings.append({"code": "formal_sources_single_path", "count": degraded})
 
     keys = [record_key(record) for record in daily]
     duplicates = sorted({key for key in keys if key and keys.count(key) > 1})
@@ -110,6 +126,7 @@ def main() -> None:
     parser.add_argument("--quality-report", type=Path, default=DATA_DIR / "quality_report.json")
     parser.add_argument("--ingestion-audit", type=Path, default=DATA_DIR / "ingestion_audit.json")
     parser.add_argument("--formal-audit", type=Path, default=DATA_DIR / "formal_journal_audit.json")
+    parser.add_argument("--source-health", type=Path, default=DATA_DIR / "source_health.json")
     parser.add_argument("--max-historical-days", type=int, default=14)
     args = parser.parse_args()
     report = run(args)

@@ -74,3 +74,28 @@ only when another path remains usable.
 The anonymous presence Worker is deployed separately from paper monitoring. Its
 endpoint is smoke-tested by `.github/workflows/verify-presence.yml`, so a
 Cloudflare deployment failure cannot be mistaken for a paper-monitor failure.
+
+## Coverage Debt And Release Checks
+
+`data/source_health.json` contains an internal `coverage_debt` section. It lists
+formal journals that currently rely only on Crossref or have one degraded
+acquisition path, with the next action for the maintainer. These records are
+not shown as transport errors on the public site. The release gate blocks only
+when a formal journal is unavailable or its source audit is stale; Crossref-only
+coverage remains usable but is recorded as an explicit improvement task.
+
+The normal verification sequence is:
+
+```powershell
+python -m pytest -q
+python .\scripts\audit_source_health.py
+python .\scripts\audit_recent72_coverage.py
+python .\scripts\audit_formal_journal_coverage.py
+python .\scripts\product_audit.py
+python .\scripts\release_gate.py
+```
+
+For the local Chinese supplement, verify the Windows task itself rather than
+inferring health from the public page: confirm the task is `Ready`, its last
+result is `0`, and its next run is one of the four configured times. A successful
+CNKI fetch is published only after all six configured feeds succeed.

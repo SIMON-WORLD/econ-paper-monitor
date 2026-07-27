@@ -3,7 +3,8 @@
 This adapter is intentionally narrow.  It covers sources that matter for the
 project's economics-journal scope and that external sentinels often see before
 Crossref catches up: REStud advance articles, REStat current/advance pages,
-and Econometrica forthcoming papers.
+Econometrica, Theoretical Economics, and Quantitative Economics forthcoming
+papers.
 """
 
 from __future__ import annotations
@@ -69,6 +70,30 @@ TARGETS = {
             "date_source": "econometric_society_forthcoming",
             "date_confidence": "B",
             "fallback_issn": "0012-9682",
+        }
+    ],
+    "theoretical-economics": [
+        {
+            "kind": "theoretical_economics_forthcoming",
+            "url": "https://www.econometricsociety.org/publications/theoretical-economics/forthcoming-papers",
+            "fallback_urls": [
+                "https://r.jina.ai/http://www.econometricsociety.org/publications/theoretical-economics/forthcoming-papers",
+            ],
+            "date_source": "econometric_society_forthcoming",
+            "date_confidence": "B",
+            "fallback_issn": "1933-6837",
+        }
+    ],
+    "quantitative-economics": [
+        {
+            "kind": "quantitative_economics_forthcoming",
+            "url": "https://www.econometricsociety.org/publications/quantitative-economics/forthcoming-papers",
+            "fallback_urls": [
+                "https://r.jina.ai/http://www.econometricsociety.org/publications/quantitative-economics/forthcoming-papers",
+            ],
+            "date_source": "econometric_society_forthcoming",
+            "date_confidence": "B",
+            "fallback_issn": "1759-7323",
         }
     ],
 }
@@ -207,8 +232,14 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
         is_restud_article = "10.1093/restud/" in href_lower or "/restud/article/" in href_lower
         is_restat_article = "10.1162/rest" in href_lower or "/rest/article/" in href_lower
         is_econometrica_article = "10.3982/ecta" in href_lower
+        is_theoretical_economics_article = "10.3982/te" in href_lower
+        is_quantitative_economics_article = "10.3982/qe" in href_lower
         if "econometricsociety.org/publications/econometrica" in base_lower:
             valid_article = is_econometrica_article
+        elif "econometricsociety.org/publications/theoretical-economics" in base_lower:
+            valid_article = is_theoretical_economics_article
+        elif "econometricsociety.org/publications/quantitative-economics" in base_lower:
+            valid_article = is_quantitative_economics_article
         elif "academic.oup.com/restud" in base_lower:
             valid_article = is_restud_article or (is_doi_article and "restud" in href_lower)
         elif "direct.mit.edu/rest" in base_lower:
@@ -237,6 +268,10 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid = valid and ("10.1162/rest" in href_lower or "/rest/" in href_lower)
         elif "econometricsociety.org/publications/econometrica" in base_url.lower():
             valid = valid and "10.3982/ecta" in href_lower
+        elif "econometricsociety.org/publications/theoretical-economics" in base_url.lower():
+            valid = valid and "10.3982/te" in href_lower
+        elif "econometricsociety.org/publications/quantitative-economics" in base_url.lower():
+            valid = valid and "10.3982/qe" in href_lower
         if not valid or any(skip in title.casefold() for skip in ("pdf", "permissions", "supplementary")):
             continue
         key = href.split("?", 1)[0].rstrip("/")
@@ -369,11 +404,14 @@ def main() -> None:
     records: list[dict] = []
     messages: list[str] = []
     failures = 0
+    journal_status: dict[str, dict[str, object]] = {}
     for journal_id, targets in TARGETS.items():
         journal = journals.get(journal_id)
         if not journal:
             continue
         journal_count = 0
+        publisher_success = True
+        fallback_count = 0
         for target in targets:
             try:
                 fetched = fetch_target(
@@ -390,10 +428,12 @@ def main() -> None:
                     fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
                     records.extend(fallback)
                     journal_count += len(fallback)
+                    fallback_count += len(fallback)
                     messages.append(f"{journal_id}/{target['kind']}: crossref fallback {len(fallback)}")
                     if not fallback:
                         failures += 1
             except Exception as exc:  # noqa: BLE001 - source health is reported below.
+                publisher_success = False
                 try:
                     fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
                 except Exception as fallback_exc:  # noqa: BLE001
@@ -401,18 +441,26 @@ def main() -> None:
                     messages.append(f"{journal_id}/{target['kind']}: Crossref fallback {type(fallback_exc).__name__}: {fallback_exc}")
                 records.extend(fallback)
                 journal_count += len(fallback)
+                fallback_count += len(fallback)
                 messages.append(f"{journal_id}/{target['kind']}: {type(exc).__name__}; crossref fallback {len(fallback)}")
                 if not fallback:
                     failures += 1
         if journal_count == 0:
             messages.append(f"{journal_id}: 0")
+        journal_status[journal_id] = {
+            "ok": publisher_success,
+            "count": journal_count,
+            "publisher_ok": publisher_success,
+            "fallback_count": fallback_count,
+        }
 
     write_json(output, records)
     record_source(
         "priority-toc",
-        ok=bool(records) or failures == 0,
+        ok=failures == 0,
         count=len(records),
         message="; ".join(messages[-20:]) or str(output),
+        details={"journals": journal_status},
     )
     print(f"wrote {len(records)} priority TOC records to {output}")
     for message in messages:

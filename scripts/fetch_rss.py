@@ -214,7 +214,15 @@ def extract_doi(*values: str | None) -> str | None:
 def parse_feed(xml_text: str, journal: dict[str, Any], feed_url: str) -> list[dict[str, Any]]:
     if "<html" in xml_text[:500].casefold():
         raise ValueError("feed URL returned HTML, not RSS/Atom")
-    root = ElementTree.fromstring(xml_text)
+    try:
+        root = ElementTree.fromstring(xml_text)
+    except ElementTree.ParseError:
+        # A few publisher feeds contain bare ampersands or control characters
+        # in titles/descriptions. Repair only those XML lexical defects; a
+        # malformed document with broken tags must still fail closed.
+        repaired = re.sub(r"&(?!#(?:\d+|x[0-9a-fA-F]+);|amp;|lt;|gt;|quot;|apos;)", "&amp;", xml_text)
+        repaired = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", " ", repaired)
+        root = ElementTree.fromstring(repaired)
     records: list[dict[str, Any]] = []
 
     if root.tag.endswith("rss") or root.find("channel") is not None:

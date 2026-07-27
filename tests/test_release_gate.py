@@ -25,13 +25,15 @@ class ReleaseGateTests(unittest.TestCase):
             (root / "quality.json").write_text(json.dumps({"totals": {"missing_abstract_today": 1}}), encoding="utf-8")
             (root / "ingestion.json").write_text(json.dumps({"new_today_missing_candidates": 2}), encoding="utf-8")
             (root / "formal.json").write_text(json.dumps({"suspected_missed_journals": 0}), encoding="utf-8")
+            (root / "source.json").write_text(json.dumps({"counts": {"degraded": 1, "unavailable": 0, "stale": 0}, "coverage_counts": {"crossref_only": 1}}), encoding="utf-8")
             report = release_gate.run(Namespace(
                 date="2026-07-27", daily_dir=root, quality_report=root / "quality.json",
                 ingestion_audit=root / "ingestion.json", formal_audit=root / "formal.json",
+                source_health=root / "source.json",
                 max_historical_days=14,
             ))
             self.assertFalse(report["ok"])
-            self.assertEqual(report["warnings"][0]["code"], "missing_abstract_today")
+            self.assertIn("missing_abstract_today", {item["code"] for item in report["warnings"]})
 
     def test_allows_missing_abstract_when_discovery_integrity_is_clean(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -41,13 +43,15 @@ class ReleaseGateTests(unittest.TestCase):
             )
             for name, payload in (("quality.json", {"totals": {"missing_abstract_today": 1}}), ("ingestion.json", {"new_today_missing_candidates": 0}), ("formal.json", {"suspected_missed_journals": 0})):
                 (root / name).write_text(json.dumps(payload), encoding="utf-8")
+            (root / "source.json").write_text(json.dumps({"counts": {"degraded": 0, "unavailable": 0, "stale": 0}, "coverage_counts": {"crossref_only": 0}}), encoding="utf-8")
             report = release_gate.run(Namespace(
                 date="2026-07-27", daily_dir=root, quality_report=root / "quality.json",
                 ingestion_audit=root / "ingestion.json", formal_audit=root / "formal.json",
+                source_health=root / "source.json",
                 max_historical_days=14,
             ))
             self.assertTrue(report["ok"])
-            self.assertEqual(report["warnings"][0]["count"], 1)
+            self.assertIn("missing_abstract_today", {item["code"] for item in report["warnings"]})
 
 
 if __name__ == "__main__":
