@@ -127,7 +127,13 @@ jobs:
         run: python scripts/build_source_registry.py
       - name: Enrich journals
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
-        run: python scripts/enrich_journals.py --rows 3 --timeout 8 --sleep 0.05
+        shell: bash
+        run: |
+          if timeout 5m python scripts/enrich_journals.py --rows 3 --timeout 8 --sleep 0.05; then
+            echo "Journal registry enrichment completed."
+          else
+            echo "::warning::Journal registry enrichment timed out or failed; continuing with cached journal configuration."
+          fi
       - name: Fetch RSS feeds
         if: steps.mode.outputs.mode != 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --tier "${{ steps.mode.outputs.tier }}"
@@ -136,7 +142,13 @@ jobs:
         run: timeout 5m python scripts/fetch_aea.py --tier "${{ steps.mode.outputs.tier }}" --detail-limit 10 --max-items-per-journal 30
       - name: Fetch priority publisher TOCs
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/fetch_priority_toc.py --detail-limit 12 --max-items-per-source 40
+        shell: bash
+        run: |
+          if timeout 8m python scripts/fetch_priority_toc.py --detail-limit 12 --max-items-per-source 40; then
+            echo "Priority publisher TOCs completed."
+          else
+            echo "::warning::Priority publisher TOCs timed out or failed; continuing with Crossref and RSS sources."
+          fi
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
@@ -202,7 +214,13 @@ jobs:
           done
       - name: Fetch CNKI RSS feeds
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/fetch_cnki_rss.py
+        shell: bash
+        run: |
+          if timeout 5m python scripts/fetch_cnki_rss.py; then
+            echo "CNKI RSS fetch completed."
+          else
+            echo "::warning::CNKI RSS fetch timed out or failed; local CNKI supplement remains authoritative for this source."
+          fi
         env:
           # CNKI often returns 418 to GitHub runner IPs. The relay is only a
           # transport fallback; the source remains labelled as CNKI RSS.
@@ -219,7 +237,11 @@ jobs:
             LIMIT="30"
             PREPRINT_DETAIL_LIMIT="18"
           fi
-          python scripts/fetch_preprints.py --stage "$STAGE" --limit-per-source "$LIMIT" --detail-limit "$PREPRINT_DETAIL_LIMIT" --timeout 20
+          if timeout 15m python scripts/fetch_preprints.py --stage "$STAGE" --limit-per-source "$LIMIT" --detail-limit "$PREPRINT_DETAIL_LIMIT" --timeout 20; then
+            echo "Working-paper sources completed."
+          else
+            echo "::warning::Working-paper sources timed out or failed; preserving previous working-paper data."
+          fi
       - name: Backfill missing IZA authors
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: timeout 4m python scripts/backfill_iza_authors.py --days 7 --limit 20 --timeout 10
