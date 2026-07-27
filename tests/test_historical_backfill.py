@@ -10,6 +10,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 import fetch_preprints  # noqa: E402
+import clean_historical_working_papers  # noqa: E402
 import normalize_records  # noqa: E402
 import quarantine_historical_backfill  # noqa: E402
 import repair_historical_backfill  # noqa: E402
@@ -19,6 +20,17 @@ from dedupe import record_match_keys  # noqa: E402
 
 
 class HistoricalBackfillTests(unittest.TestCase):
+    def test_recent_cepr_number_with_old_official_date_moves_to_pending(self) -> None:
+        record = {
+            "source": "working_papers",
+            "source_id": "cepr-dp",
+            "published_online": "2025-06-03",
+            "url": "https://cepr.org/publications/dp20322",
+        }
+        self.assertTrue(clean_historical_working_papers.is_historical_working_paper(
+            record, run_date="2026-07-27", max_age_days=14
+        ))
+
     def test_verified_old_working_paper_moves_to_official_archive(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             daily = Path(tmp)

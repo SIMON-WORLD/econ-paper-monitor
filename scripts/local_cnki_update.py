@@ -181,6 +181,7 @@ def main() -> None:
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
         run_step([python, "scripts/audit_formal_journal_coverage.py"])
+        run_step([python, "scripts/release_gate.py"])
         finished_at = now()
         record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={log_path_for_status()}")
         record_workflow_run(

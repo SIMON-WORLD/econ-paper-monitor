@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import re
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -20,10 +21,23 @@ def is_historical_cepr(record: dict[str, Any]) -> bool:
     return bool(match and int(match.group(1)) < 10000)
 
 
+def is_historical_working_paper(record: dict[str, Any], *, run_date: str, max_age_days: int) -> bool:
+    if str(record.get("source") or "") != "working_papers":
+        return False
+    official = str(record.get("available_online") or record.get("published_online") or "")[:10]
+    if not re.fullmatch(r"20\d{2}-\d{2}-\d{2}", official):
+        return False
+    try:
+        return (date.fromisoformat(run_date) - date.fromisoformat(official)).days > max_age_days
+    except ValueError:
+        return False
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--pending", type=Path, default=DATA_DIR / "pending_date_records.json")
+    parser.add_argument("--max-age-days", type=int, default=14)
     args = parser.parse_args()
 
     pending = read_json(args.pending, [])
@@ -38,10 +52,17 @@ def main() -> None:
         kept: list[dict[str, Any]] = []
         file_changed = False
         for record in payload:
+            historical_reason = None
             if isinstance(record, dict) and is_historical_cepr(record):
+                historical_reason = "historical CEPR catalogue item without a current online date"
+            elif path.stem == today_str() and isinstance(record, dict) and is_historical_working_paper(
+                record, run_date=today_str(), max_age_days=args.max_age_days
+            ):
+                historical_reason = "working-paper catalogue item has an official date older than the public discovery window"
+            if historical_reason:
                 record = dict(record)
                 record["id"] = record.get("id") or stable_id(record)
-                record["pending_reason"] = "historical CEPR catalogue item without a current online date"
+                record["pending_reason"] = historical_reason
                 if record["id"] not in pending_keys:
                     pending.append(record)
                     pending_keys.add(record["id"])
