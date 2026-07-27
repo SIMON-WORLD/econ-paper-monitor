@@ -7,6 +7,7 @@ the user's local network, then publishes only normalized site data to GitHub.
 from __future__ import annotations
 
 import argparse
+import base64
 import json
 import shutil
 import subprocess
@@ -68,11 +69,19 @@ def prune_old_files(directory: Path, *, older_than_days: int) -> int:
     return removed
 
 
-def run_step(command: list[str], *, allow_failure: bool = False) -> int:
-    log("$ " + " ".join(command))
+def run_step(
+    command: list[str],
+    *,
+    allow_failure: bool = False,
+    extra_env: dict[str, str] | None = None,
+    display_command: list[str] | None = None,
+) -> int:
+    log("$ " + " ".join(display_command or command))
     env = os.environ.copy()
     env.setdefault("PYTHONIOENCODING", "utf-8")
     env.setdefault("PYTHONUTF8", "1")
+    if extra_env:
+        env.update(extra_env)
     completed = subprocess.run(
         command,
         cwd=ROOT,
@@ -101,10 +110,35 @@ def git_has_staged_changes() -> bool:
     return completed.returncode != 0
 
 
+def push_command() -> tuple[list[str], dict[str, str]]:
+    """Return a push command and private environment additions.
+
+    Interactive Git Credential Manager remains the default. A scheduled task
+    can instead provide GITHUB_PUBLISH_TOKEN without putting the token in the
+    remote URL or command-line log.
+    """
+    token = os.environ.get("GITHUB_PUBLISH_TOKEN", "").strip()
+    if not token:
+        return ["git", "push"], {}
+    encoded = base64.b64encode(f"x-access-token:{token}".encode("ascii")).decode("ascii")
+    count = int(os.environ.get("GIT_CONFIG_COUNT", "0") or 0)
+    return ["git", "-c", "http.sslbackend=openssl", "push"], {
+        "GIT_CONFIG_COUNT": str(count + 1),
+        f"GIT_CONFIG_KEY_{count}": "http.https://github.com/.extraheader",
+        f"GIT_CONFIG_VALUE_{count}": f"AUTHORIZATION: basic {encoded}",
+    }
+
+
 def push_with_retries(attempts: int = 4) -> None:
     last_code = 0
     for attempt in range(1, attempts + 1):
-        last_code = run_step(["git", "push"], allow_failure=True)
+        command, extra_env = push_command()
+        last_code = run_step(
+            command,
+            allow_failure=True,
+            extra_env=extra_env,
+            display_command=["git", "push"],
+        )
         if last_code == 0:
             return
         wait_seconds = min(120, attempt * 30)
@@ -160,6 +194,7 @@ def main() -> None:
     if removed_runtime or removed_raw:
         log(f"Pruned old local artifacts: runtime={removed_runtime}, cnki_raw={removed_raw}")
     record_source("local-cnki-run", ok=False, count=0, message="running")
+    record_source("local-cnki-publish", ok=False, count=0, message="not attempted")
     final_status_recorded = False
 
     try:
@@ -214,13 +249,16 @@ def main() -> None:
         run_step([python, "scripts/render_cnki_status.py"])
 
         if not args.no_push:
+            record_source("local-cnki-publish", ok=False, count=0, message="pending")
             run_step(["git", "add", "data", "docs"])
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
                 run_step(["git", "pull", "--rebase", "-X", "theirs", "origin", "main"], allow_failure=True)
                 push_with_retries()
+                record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
             else:
                 log("No generated changes to commit.")
+                record_source("local-cnki-publish", ok=True, count=0, message="no generated changes")
 
         log("Local CNKI update finished successfully.")
     except Exception as exc:  # noqa: BLE001

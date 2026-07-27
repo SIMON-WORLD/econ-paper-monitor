@@ -51,6 +51,11 @@ written under:
 - `local_admin\status.html`
 - `local_admin\cnki_status.html`
 
+If Windows Credential Manager is unavailable to a non-interactive scheduled
+task, provide a repository-scoped fine-grained GitHub token through the user
+environment variable `GITHUB_PUBLISH_TOKEN`. The runner passes it through an
+in-memory Git header and never writes it to the remote URL or task log.
+
 The local runner prunes temporary runtime files older than 14 days and CNKI raw
 cache files older than 60 days. The main log is automatically trimmed after it
 exceeds 2 MB.
