@@ -246,6 +246,7 @@ def main() -> None:
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
+        run_step([python, "scripts/audit_source_health.py"])
         run_step([python, "scripts/audit_formal_journal_coverage.py"])
         run_step([python, "scripts/release_gate.py"])
         finished_at = now()

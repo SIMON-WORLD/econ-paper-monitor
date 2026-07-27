@@ -59,3 +59,11 @@ in-memory Git header and never writes it to the remote URL or task log.
 The local runner prunes temporary runtime files older than 14 days and CNKI raw
 cache files older than 60 days. The main log is automatically trimmed after it
 exceeds 2 MB.
+
+## Formal Source Health
+
+Each scheduled run audits every journal in `data/journals.yml`. The internal
+report `data/source_health.json` distinguishes healthy dual-path coverage,
+degraded single-path coverage, stale checks, and unavailable journals. A run
+stops before publishing when a formal journal has no usable RSS or Crossref
+path; a publisher block is acceptable only when another path remains usable.

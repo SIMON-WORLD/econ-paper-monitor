@@ -135,7 +135,9 @@ def journal_issns(journal: dict[str, Any]) -> list[str]:
 
 
 def crossref_get(url: str, params: dict[str, Any], timeout: int, retries: int, sleep: float) -> Any:
-    mailto = os.environ.get("CROSSREF_MAILTO")
+    # Crossref's polite pool is materially less bursty when every request
+    # carries a stable contact address, even when the workflow has no secret.
+    mailto = os.environ.get("CROSSREF_MAILTO") or "academic-door@users.noreply.github.com"
     if mailto:
         params["mailto"] = mailto
     query = urllib.parse.urlencode(params)
@@ -151,6 +153,14 @@ def crossref_get(url: str, params: dict[str, Any], timeout: int, retries: int, s
             last_error = exc
             if exc.code not in {429, 500, 502, 503, 504}:
                 raise
+            retry_after = exc.headers.get("Retry-After")
+            try:
+                retry_seconds = min(90.0, max(0.0, float(retry_after))) if retry_after else 0.0
+            except (TypeError, ValueError):
+                retry_seconds = 0.0
+            if retry_seconds:
+                polite_sleep(max(sleep * (attempt + 1), retry_seconds))
+                continue
         except urllib.error.URLError as exc:
             last_error = exc
         polite_sleep(sleep * (attempt + 1))
