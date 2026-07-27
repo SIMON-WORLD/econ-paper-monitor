@@ -253,6 +253,9 @@ jobs:
       - name: Audit ingestion health
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_ingestion.py
+      - name: Audit formal journal coverage
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/audit_formal_journal_coverage.py
       - name: Audit recent 72-hour coverage
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_recent72_coverage.py
