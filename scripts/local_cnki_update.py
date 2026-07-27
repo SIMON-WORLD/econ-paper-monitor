@@ -16,7 +16,7 @@ from datetime import datetime
 from pathlib import Path
 
 from common import ROOT, today_str
-from status import record_source
+from status import now, record_source, record_workflow_run
 
 
 LOG_DIR = ROOT / "local_admin" / "logs"
@@ -179,7 +179,21 @@ def main() -> None:
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
+        finished_at = now()
         record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={log_path_for_status()}")
+        record_workflow_run(
+            {
+                "mode": "light",
+                "mode_label": "本地中文补充",
+                "event": "local-cnki",
+                "schedule": "",
+                "run_id": "",
+                "run_url": "",
+                "date": today_str(),
+                "finished_at": finished_at,
+                "updated_at": finished_at,
+            }
+        )
         final_status_recorded = True
         run_step([python, "scripts/render_site.py"])
         run_step([python, "scripts/build_feed.py", "--site-url", "https://academic-door.github.io/econ-paper-monitor/"])
