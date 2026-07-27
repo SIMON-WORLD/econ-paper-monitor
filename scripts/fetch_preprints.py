@@ -483,6 +483,22 @@ def enrich_record_from_proxy(record: dict[str, Any], source_id: str, *, timeout:
         if abstract:
             record["abstract"] = abstract
             record["abstract_source"] = "cepr_proxy_markdown"
+        # Jina preserves the page-level publication timestamp even when the
+        # rendered CEPR page has no visible date heading. Use it as publisher
+        # evidence, never as a detection timestamp.
+        published_match = re.search(
+            r"(?im)^Published\s+Time:\s*(\d{4}-\d{2}-\d{2})\s*$",
+            markdown,
+        )
+        published = published_match.group(1) if published_match else None
+        if published:
+            current = str(record.get("published_online") or "")
+            if not current or str(record.get("date_confidence") or "") in {"F", "unknown"}:
+                record["published_online"] = published
+                record["available_online"] = published
+                record["official_date"] = published
+                record["date_source"] = "cepr_published_time"
+                record["date_confidence"] = "B"
     authors = list(dict.fromkeys(value for value in authors if value))[:12]
     if authors:
         record["authors"] = authors

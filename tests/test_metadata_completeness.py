@@ -284,6 +284,29 @@ Energy transition
 
         self.assertIn("This paper examines the limitations", abstract or "")
 
+    @patch.object(fetch_preprints, "fetch_text")
+    def test_cepr_proxy_recovers_publisher_date_without_overwriting_detection(self, fetch_mock) -> None:
+        fetch_mock.return_value = (
+            "Title: DP20328 Example\n"
+            "Published Time: 2026-07-26\n\n"
+            "Authors\n\n[First Author](https://cepr.org/about/people/first-author)\n"
+        )
+        record = {
+            "source_id": "cepr-dp",
+            "url": "https://cepr.org/publications/dp20328",
+            "detected_at": "2026-07-27T10:00:00+00:00",
+            "published_online": None,
+            "date_confidence": "F",
+        }
+
+        fetch_preprints.enrich_record_from_proxy(record, "cepr-dp", timeout=1)
+
+        self.assertEqual(record["published_online"], "2026-07-26")
+        self.assertEqual(record["available_online"], "2026-07-26")
+        self.assertEqual(record["date_source"], "cepr_published_time")
+        self.assertEqual(record["date_confidence"], "B")
+        self.assertEqual(record["detected_at"], "2026-07-27T10:00:00+00:00")
+
     @patch.object(translate, "translate_abstract", return_value="这是最近仅存在于已监测记录中的论文摘要翻译。")
     def test_seen_only_abstract_can_be_translated(self, _translate_mock) -> None:
         records = [

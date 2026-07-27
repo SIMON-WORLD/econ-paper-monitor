@@ -290,6 +290,18 @@ jobs:
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_metadata.py --latest-days 7 --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
+      - name: Backfill abstracts and authors from metadata indexes
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          if timeout 12m python scripts/enrich_metadata.py --abstract-only --latest-days 30 --limit 180 --workers 8 --timeout 12; then
+            echo "Abstract and author backfill completed."
+          else
+            echo "::warning::Abstract and author backfill timed out or failed; preserving existing metadata."
+          fi
+      - name: Re-apply historical working-paper quarantine after date enrichment
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/clean_historical_working_papers.py
       - name: Enrich China relevance
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/enrich_china_relevance.py --all

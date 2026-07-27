@@ -1971,7 +1971,7 @@ def ris_text(records: list[dict[str, Any]]) -> str:
             lines.append(f"PY  - {export_year(record)}")
         if official_date(record):
             lines.append(f"Y2  - {official_date(record)}")
-        lines.append("ER  - ")
+        lines.append("ER  -")
         chunks.append("\n".join(lines))
     return "\n\n".join(chunks) + "\n"
 

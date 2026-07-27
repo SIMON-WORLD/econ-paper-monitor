@@ -810,19 +810,38 @@ def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bo
 
 
 def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
-    if str(record.get("abstract") or "").strip() and record.get("authors"):
+    source_id = str(record.get("source_id") or "")
+    needs_readonly_date_retry = source_id in {"cepr-dp", "fed-feds"} and str(
+        record.get("date_confidence") or ""
+    ) in {"F", "unknown"}
+    if str(record.get("abstract") or "").strip() and record.get("authors") and not needs_readonly_date_retry:
         return False, "abstract-present"
     changed = False
-    source_id = str(record.get("source_id") or "")
     if source_id in {"cepr-dp", "fed-feds"}:
         from fetch_preprints import enrich_record_from_proxy
 
         before_abstract = str(record.get("abstract") or "")
         before_authors = list(record.get("authors") or [])
+        before_date = (
+            record.get("published_online"),
+            record.get("available_online"),
+            record.get("official_date"),
+            record.get("date_source"),
+            record.get("date_confidence"),
+        )
         enrich_record_from_proxy(record, source_id, timeout=timeout)
         if str(record.get("abstract") or "").strip() and str(record.get("abstract") or "") != before_abstract:
             return True, "abstract-updated:readonly-proxy"
         if list(record.get("authors") or []) != before_authors:
+            changed = True
+        after_date = (
+            record.get("published_online"),
+            record.get("available_online"),
+            record.get("official_date"),
+            record.get("date_source"),
+            record.get("date_confidence"),
+        )
+        if after_date != before_date:
             changed = True
     bucket = publisher_bucket(record)
     doi = str(record.get("doi") or "").strip()

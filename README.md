@@ -26,8 +26,9 @@ Review remaining uncertain journal matches in `data/journal_match_review.yml`.
 ## Local CNKI RSS Supplement
 
 GitHub-hosted Actions may be blocked by CNKI RSS (`HTTP 418`). Keep international
-sources on GitHub Actions, and run the CNKI RSS supplement once per day on a
-local Windows machine or a domestic self-hosted runner.
+sources on GitHub Actions, and run the CNKI RSS supplement on a local Windows
+machine or a domestic self-hosted runner. The installed task runs four times
+per day and publishes only generated data and pages.
 
 Run once manually without pushing:
 
@@ -35,16 +36,18 @@ Run once manually without pushing:
 powershell -ExecutionPolicy Bypass -File .\scripts\run_local_cnki_update.ps1 -NoPush
 ```
 
-Install a silent daily Windows scheduled task, defaulting to 12:10 Beijing time:
+Install a silent Windows scheduled task at 00:10, 06:10, 12:10 and 18:10 local
+time (set the machine timezone to Beijing time if those should be Beijing times):
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\install_local_cnki_task.ps1 -Time 12:10
+powershell -ExecutionPolicy Bypass -File .\scripts\install_local_cnki_task.ps1
 ```
 
 The scheduled task uses `-WindowStyle Hidden`. Logs and local-only dashboards are
 written under:
 
 - `local_admin\logs\local-cnki-update.log`
+- `local_admin\logs\local-cnki-scheduled-task.log`
 - `local_admin\status.html`
 - `local_admin\cnki_status.html`
 
