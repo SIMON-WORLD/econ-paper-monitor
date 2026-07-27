@@ -12,6 +12,13 @@ if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
 }
 $runner = Join-Path $RunnerPath "scripts\run_local_cnki_update.ps1"
 
+# PowerShell 7 uses the same OpenSSL/TLS stack as the verified local Git path.
+# Keep Windows PowerShell as a fallback for machines without pwsh installed.
+$shell = (Get-Command pwsh.exe -ErrorAction SilentlyContinue).Source
+if ([string]::IsNullOrWhiteSpace($shell)) {
+  $shell = (Get-Command powershell.exe -ErrorAction Stop).Source
+}
+
 if (-not (Test-Path -LiteralPath $runner)) {
   throw "Runner script not found: $runner"
 }
@@ -26,7 +33,7 @@ if ($NoPush) {
   $argumentParts += "-NoPush"
 }
 
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument ($argumentParts -join " ") -WorkingDirectory $repo
+$action = New-ScheduledTaskAction -Execute $shell -Argument ($argumentParts -join " ") -WorkingDirectory $repo
 $triggers = foreach ($time in $Times) {
   New-ScheduledTaskTrigger -Daily -At $time
 }

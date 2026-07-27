@@ -73,9 +73,17 @@ def test_local_cnki_publish_pulls_are_fail_closed():
         / "local_cnki_update.py"
     ).read_text(encoding="utf-8")
 
-    assert 'run_step(["git", "pull", "--ff-only", "origin", "main"])' in script
-    assert 'run_step(["git", "pull", "--rebase", "origin", "main"])' in script
+    assert 'run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--ff-only", "origin", "main"])' in script
+    assert 'run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])' in script
     assert '"-X", "theirs"' not in script
+
+
+def test_local_task_prefers_powershell_7_with_windows_fallback():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    script = (root / "scripts" / "install_local_cnki_task.ps1").read_text(encoding="utf-8")
+    assert "Get-Command pwsh.exe" in script
+    assert "Get-Command powershell.exe" in script
+    assert "-Execute $shell" in script
 
 
 def test_rss_parser_does_not_truncate_unparseable_date_labels():

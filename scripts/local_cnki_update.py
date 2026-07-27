@@ -202,7 +202,7 @@ def main() -> None:
             # A local supplement must start from the current public main. If
             # the GitHub updater is publishing at the same time, fail safely
             # instead of mixing new CNKI data with an older checkout.
-            run_step(["git", "pull", "--ff-only", "origin", "main"])
+            run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--ff-only", "origin", "main"])
 
         RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
         cnki_temp = RUNTIME_DIR / f"cnki-rss-{today_str()}.json"
@@ -288,7 +288,7 @@ def main() -> None:
                 # Never publish from a checkout that failed to rebase onto
                 # the current public main; silent conflict resolution can
                 # discard another updater's data.
-                run_step(["git", "pull", "--rebase", "origin", "main"])
+                run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])
                 push_with_retries()
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
             else:
