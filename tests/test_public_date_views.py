@@ -65,6 +65,16 @@ class PublicDateViewTests(unittest.TestCase):
         }
         self.assertFalse(render_site.record_is_on_date(record, "2026-07-28"))
 
+    def test_acceptance_date_is_displayed_but_not_treated_as_online_date(self) -> None:
+        record = {
+            "accepted_date": "2026-07-17",
+            "detected_at": "2026-07-20T08:00:00+00:00",
+            "date_source": "publisher_detail",
+            "date_confidence": "A",
+        }
+        self.assertEqual(render_site.official_date(record), "")
+        self.assertIn("接受日期 2026-07-17", render_site.public_date_line(record))
+
 
 if __name__ == "__main__":
     unittest.main()

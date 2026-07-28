@@ -309,7 +309,6 @@ def sortable_official_date(record: dict[str, Any]) -> str:
     return str(
         record.get("available_online")
         or record.get("published_online")
-        or record.get("accepted_date")
         or record.get("issue_date")
         or ""
     )
@@ -819,7 +818,23 @@ def public_date_label(record: dict[str, Any]) -> str:
 
 
 def official_date(record: dict[str, Any]) -> str:
-    return str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("source_issue") or record.get("issue_date") or "")
+    """Return a date that can support an online/publication claim.
+
+    Acceptance is an editorial-process date, not evidence that the paper was
+    published online. ``source_issue`` is a label rather than a date and is
+    therefore kept out of this machine-comparable value as well.
+    """
+    return str(record.get("available_online") or record.get("published_online") or record.get("issue_date") or "")
+
+
+def display_date(record: dict[str, Any]) -> str:
+    """Return the best date to display while preserving its label."""
+    return str(
+        official_date(record)
+        or record.get("accepted_date")
+        or record.get("source_issue")
+        or ""
+    )
 
 
 def date_source_label(record: dict[str, Any]) -> str:
@@ -846,7 +861,7 @@ def date_source_label(record: dict[str, Any]) -> str:
 
 
 def public_date_line(record: dict[str, Any]) -> str:
-    date_value = official_date(record)
+    date_value = display_date(record)
     if record.get("date_precision") == "month" and date_value and date_value.count("-") == 2:
         date_value = date_value[:7]
     if date_value in {"待解析", "寰呰В鏋?", ""}:
@@ -923,7 +938,7 @@ def source_delay_rows(records: list[dict[str, Any]], days: int = 14) -> str:
     for family in ["Elsevier / ScienceDirect", "Taylor & Francis", "Wiley", "OUP"]:
         items = grouped.get(family, [])
         lags = [lag for record in items if (lag := detection_lag_days(record)) is not None]
-        precise = [record for record in items if parse_date(str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or ""))]
+        precise = [record for record in items if parse_date(str(record.get("available_online") or record.get("published_online") or record.get("issue_date") or ""))]
         rss_count = sum(1 for record in items if "rss" in str(record.get("source") or "").casefold() or "rss" in str(record.get("date_source") or "").casefold())
         crossref_count = sum(1 for record in items if "crossref" in str(record.get("date_source") or "").casefold())
         detail_count = sum(1 for record in items if "publisher" in str(record.get("date_source") or "").casefold() or "detail" in str(record.get("date_source") or "").casefold())
@@ -942,9 +957,9 @@ def archive_official_date_summary(records: list[dict[str, Any]]) -> str:
         return "暂无记录"
     dates = sorted(
         {
-            str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("issue_date") or "")
+            str(record.get("available_online") or record.get("published_online") or record.get("issue_date") or "")
             for record in records
-            if str(record.get("available_online") or record.get("published_online") or record.get("accepted_date") or record.get("issue_date") or "").count("-") == 2
+            if str(record.get("available_online") or record.get("published_online") or record.get("issue_date") or "").count("-") == 2
         }
     )
     if not dates:

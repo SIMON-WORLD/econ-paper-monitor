@@ -42,7 +42,6 @@ def official_date(record: dict[str, Any]) -> str:
     return str(
         record.get("available_online")
         or record.get("published_online")
-        or record.get("accepted_date")
         or record.get("issue_date")
         or ""
     )
