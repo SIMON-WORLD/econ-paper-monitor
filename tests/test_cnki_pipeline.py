@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import fetch_cnki_rss  # noqa: E402
 import fetch_rss  # noqa: E402
 import dedupe  # noqa: E402
+import merge_local_cnki  # noqa: E402
 
 
 def test_cnki_health_accepts_partial_source_success():
@@ -205,3 +206,30 @@ def test_local_pipeline_normalizes_after_metadata_enrichment():
     workflow = (root / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
     assert local_script.index('"scripts/enrich_metadata.py"') < local_script.rfind('"scripts/normalize_records.py"]')
     assert workflow.index("Enrich publisher detail pages") < workflow.index("Normalize enriched metadata")
+
+
+def test_local_cnki_merge_preserves_unrelated_seen_records(tmp_path):
+    seen = tmp_path / "seen.json"
+    daily = tmp_path / "daily"
+    daily.mkdir()
+    merge_local_cnki.write_json(
+        seen,
+        {"papers": {"doi:10.1000/old": {"id": "doi:10.1000/old", "title": "Old paper"}}},
+    )
+    record = {
+        "title": "Chinese rural finance",
+        "journal": "经济研究",
+        "doi": "10.1000/new",
+        "url": "https://example.cnki.net/paper/new",
+        "source": "cnki-rss",
+        "source_type": "journal",
+        "available_online": "2026-07-28",
+        "published_online": "2026-07-28",
+        "detected_at": "2026-07-28T00:10:00+00:00",
+    }
+    result = merge_local_cnki.merge_records([record], seen_path=seen, daily_dir=daily, run_date="2026-07-28")
+    payload = merge_local_cnki.read_json(seen, {})
+    assert result["new"] == 1
+    assert "doi:10.1000/old" in payload["papers"]
+    assert "doi:10.1000/new" in payload["papers"]
+    assert (daily / "2026-07-28.json").exists()

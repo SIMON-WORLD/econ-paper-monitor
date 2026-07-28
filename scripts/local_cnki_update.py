@@ -253,22 +253,9 @@ def main() -> None:
         )
         cnki_raw_input, cnki_count = prepare_cnki_raw_input(cnki_temp)
         if cnki_count:
-            # The release gate audits all current raw sources, not only CNKI.
-            # Rebuild the shared dedupe index so a local supplement cannot
-            # leave publisher candidates unarchived after a prior full run.
-            run_step([python, "scripts/dedupe.py"])
+            run_step([python, "scripts/merge_local_cnki.py", "--input", str(cnki_temp)])
         else:
-            log("No CNKI RSS records available for dedupe input; skipping dedupe.")
-        run_step([python, "scripts/clean_historical_working_papers.py"])
-        run_step([python, "scripts/clean_cn_noise.py"])
-        run_step([python, "scripts/apply_overrides.py"])
-        run_step([python, "scripts/normalize_records.py"])
-        # Dedupe can restore records from seen.json. Re-run the same public
-        # discovery cleanup used by GitHub Actions after that restore point.
-        run_step([python, "scripts/clean_historical_working_papers.py"])
-        run_step([python, "scripts/clean_nonpaper_records.py"])
-        run_step([python, "scripts/clean_rss_backfill.py"])
-        run_step([python, "scripts/remove_seen_backflow.py"])
+            log("No CNKI RSS records available; preserving existing paper catalogue.")
         run_step(
             [
                 python,
