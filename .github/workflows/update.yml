@@ -342,6 +342,9 @@ jobs:
       - name: Audit product quality
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/product_audit.py
+      - name: Build metadata retry queue
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/build_metadata_retry_queue.py --recent-days 30 --limit 500
       - name: Enforce public release gate
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/release_gate.py

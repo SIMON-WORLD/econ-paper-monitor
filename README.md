@@ -73,6 +73,20 @@ written under:
 - `local_admin\status.html`
 - `local_admin\cnki_status.html`
 
+## Metadata Retry Queue
+
+The full monitor writes `data/metadata_retry_queue.json` after each quality
+audit. It ranks recent records with missing abstracts, missing authors, or weak
+date evidence for automatic retries and independent review. The queue is an
+internal operational artifact: it never invents metadata and it is not shown
+as a public navigation surface.
+
+OpenAlex is configured as an independent recall source for journals whose
+publisher pages are currently inaccessible to hosted runners. Recall records
+are retained for audit and enrichment, but are explicitly excluded from the
+public daily first-discovery archive until an authoritative source confirms
+the online date.
+
 If Windows Credential Manager is unavailable to a non-interactive scheduled
 task, provide a repository-scoped fine-grained GitHub token through the user
 environment variable `GITHUB_PUBLISH_TOKEN`. The runner passes it through an
