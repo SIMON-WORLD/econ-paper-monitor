@@ -308,6 +308,34 @@ def scope_bucket(mapped_journal: str, in_monitor_list: bool) -> str:
     return "unknown_scope"
 
 
+def scope_counts(items: list[dict[str, Any]]) -> dict[str, int]:
+    """Return explicit scope counts for the external comparison radar.
+
+    The external feed is deliberately broader than our formal journal list.
+    Keep its raw candidate count for diagnosis, but expose formal-scope gaps as
+    the only count that can be used as a monitor-quality alarm.
+    """
+    counts = {
+        "formal_scope_missing_count": 0,
+        "econ_expand_candidate_count": 0,
+        "broader_relevant_candidate_count": 0,
+        "out_of_scope_reference_count": 0,
+        "unknown_scope_candidate_count": 0,
+    }
+    bucket_to_key = {
+        "our_scope": "formal_scope_missing_count",
+        "econ_expand_candidate": "econ_expand_candidate_count",
+        "broader_relevant_candidate": "broader_relevant_candidate_count",
+        "broader_out_of_scope": "out_of_scope_reference_count",
+        "unknown_scope": "unknown_scope_candidate_count",
+    }
+    for item in items:
+        key = bucket_to_key.get(str(item.get("scope_bucket") or ""))
+        if key:
+            counts[key] += 1
+    return counts
+
+
 def monitor_names() -> set[str]:
     path = DATA_DIR / "journals.yml"
     text = path.read_text(encoding="utf-8") if path.exists() else ""
@@ -587,6 +615,7 @@ def main() -> None:
     missing_econ_expand = [item for item in current_missing if item["scope_bucket"] == "econ_expand_candidate"]
     missing_broader_relevant = [item for item in current_missing if item["scope_bucket"] == "broader_relevant_candidate"]
     broader_out = [item for item in missing if item["scope_bucket"] == "broader_out_of_scope"]
+    current_scope_counts = scope_counts(current_missing)
     local_not_in_external = recent_local_not_in_external(records, remote_titles, remote_dois, known_names)
     scope_policy = {
         "formal_monitor_count": len(known_names),
@@ -602,12 +631,21 @@ def main() -> None:
         "matched_local_daily": matched,
         "possible_missing_count": len(missing),
         "current_possible_missing_count": len(current_missing),
+        **current_scope_counts,
         "old_backflow_count": len(old_backflow),
         "missing_china_like_count": sum(1 for item in current_missing if item["china_like"]),
         "missing_in_monitor_list_count": len(missing_in_monitor),
         "missing_econ_expand_count": len(missing_econ_expand),
         "missing_broader_relevant_count": len(missing_broader_relevant),
         "broader_out_of_scope_count": len(broader_out),
+        "counts": {
+            "current_possible_missing": len(current_missing),
+            "formal_scope_missing": current_scope_counts["formal_scope_missing_count"],
+            "econ_expand_candidates": current_scope_counts["econ_expand_candidate_count"],
+            "broader_relevant_candidates": current_scope_counts["broader_relevant_candidate_count"],
+            "out_of_scope_references": current_scope_counts["out_of_scope_reference_count"],
+            "unknown_scope_candidates": current_scope_counts["unknown_scope_candidate_count"],
+        },
         "local_not_in_external_count": len(local_not_in_external),
         "missing_by_journal": Counter(item["journal"] for item in missing).most_common(50),
         "missing_china_like": [item for item in current_missing if item["china_like"]][:50],

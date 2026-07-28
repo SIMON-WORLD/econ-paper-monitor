@@ -759,9 +759,12 @@ def main() -> None:
     <tr><td>Alohomora 返回</td><td>{html_escape(alohomora.get('alo_count', '未生成'))}</td></tr>
     <tr><td>本地已匹配</td><td>{html_escape(alohomora.get('matched_local_daily', '未生成'))}</td></tr>
     <tr><td>未匹配候选</td><td>{html_escape(alohomora.get('possible_missing_count', '未生成'))}</td></tr>
-    <tr><td>当前疑似遗漏</td><td>{html_escape(alohomora.get('current_possible_missing_count', '未生成'))}</td></tr>
+    <tr><td>当前未匹配候选（含非正式范围）</td><td>{html_escape(alohomora.get('current_possible_missing_count', '未生成'))}</td></tr>
     <tr><td>旧文回流</td><td>{html_escape(alohomora.get('old_backflow_count', '未生成'))}</td></tr>
     <tr><td>我们清单内疑似漏抓</td><td>{html_escape(alohomora.get('missing_in_monitor_list_count', '未生成'))}</td></tr>
+    <tr><td>经济学扩展候选</td><td>{html_escape(alohomora.get('econ_expand_candidate_count', alohomora.get('missing_econ_expand_count', '未生成')))}</td></tr>
+    <tr><td>更广相关候选</td><td>{html_escape(alohomora.get('broader_relevant_candidate_count', alohomora.get('missing_broader_relevant_count', '未生成')))}</td></tr>
+    <tr><td>清单外参考</td><td>{html_escape(alohomora.get('out_of_scope_reference_count', '未生成'))}</td></tr>
     <tr><td>标题疑似中国相关</td><td>{html_escape(missing_china_like.get('count', alohomora.get('missing_china_like_count', '未生成')))}</td></tr>
     <tr><td>高优先级 China-like 清单</td><td>{html_escape(missing_china_like.get('high_priority_count', '未生成'))}</td></tr>
     <tr><td>我方领先/对方未覆盖样本</td><td>{html_escape(alohomora.get('local_not_in_external_count', '未生成'))}</td></tr>

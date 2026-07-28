@@ -84,6 +84,16 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
         })
 
     sentinel_counts = sentinel.get("counts") if isinstance(sentinel, dict) else {}
+    if not isinstance(sentinel_counts, dict):
+        sentinel_counts = {}
+    if isinstance(sentinel, dict):
+        # Accept both the current nested schema and older top-level reports.
+        sentinel_counts = {
+            "formal_scope_missing": sentinel.get("formal_scope_missing_count", sentinel_counts.get("formal_scope_missing", sentinel_counts.get("in_scope_missing", 0))),
+            "econ_expand_candidates": sentinel.get("econ_expand_candidate_count", sentinel_counts.get("econ_expand_candidates", 0)),
+            "broader_relevant_candidates": sentinel.get("broader_relevant_candidate_count", sentinel_counts.get("broader_relevant_candidates", 0)),
+            "out_of_scope_references": sentinel.get("out_of_scope_reference_count", sentinel_counts.get("out_of_scope_references", 0)),
+        }
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "date": day,
@@ -102,7 +112,14 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
             "source_crossref_only": crossref_only,
             "missing_abstract_today": missing_abstract_today,
             "missing_authors_today_journals": missing_authors_today,
-            "external_sentinel_missing": int(sentinel_counts.get("in_scope_missing") or 0) if isinstance(sentinel_counts, dict) else 0,
+            # Only formal-scope candidates are a monitor-quality alarm.  The
+            # external sentinel intentionally includes broader candidates.
+            "external_sentinel_missing": int(
+                sentinel_counts.get("formal_scope_missing") or 0
+            ),
+            "external_sentinel_econ_expand_candidates": int(sentinel_counts.get("econ_expand_candidates") or 0),
+            "external_sentinel_broader_relevant_candidates": int(sentinel_counts.get("broader_relevant_candidates") or 0),
+            "external_sentinel_out_of_scope_references": int(sentinel_counts.get("out_of_scope_references") or 0),
         },
         "source_health": {
             "checked_at": source_health.get("checked_at") if isinstance(source_health, dict) else None,
