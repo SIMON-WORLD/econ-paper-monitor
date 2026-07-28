@@ -32,7 +32,20 @@ jobs:
           PY
           )
           if [ ! -f "data/daily/${DAILY_DATE}.json" ]; then
-            DAILY_DATE=$(ls data/daily/*.json | sort | tail -n 1 | sed 's#^.*/##; s#\.json$##')
+            DAILY_DATE=$(python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in sorted(Path("data/daily").glob("*.json"), reverse=True):
+              try:
+                  if json.loads(path.read_text(encoding="utf-8")):
+                      print(path.stem)
+                      break
+              except (OSError, ValueError):
+                  continue
+          else:
+              raise SystemExit("No non-empty canonical daily archive available")
+          PY
+            )
             echo "Current Beijing date archive is not committed; using latest canonical archive ${DAILY_DATE}."
           fi
           python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output "$RUNNER_TEMP/daily-vnext.html" --report "$RUNNER_TEMP/daily-vnext-report.json"
