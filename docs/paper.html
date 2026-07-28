@@ -81,16 +81,39 @@
     root.removeAttribute('aria-busy');
     root.innerHTML = '<h1>未找到这篇论文</h1><p class="muted">该链接可能已经被去重或尚未生成。</p><div class="detail-links"><a class="primary" href="./">返回首页</a><a href="./search/">进入全站检索</a></div>';
   };
+  const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+  const loadShardRecord = async (shard, attempts = 3) => {
+    let lastError;
+    for (let attempt = 0; attempt < attempts; attempt += 1) {
+      try {
+        // GitHub Pages can briefly serve the previous shard during a release.
+        // Retry before treating a newly published paper as missing.
+        const cacheBust = `?v=${Date.now()}-${attempt}`;
+        const response = await fetch(`./paper-data/${shard}.json${cacheBust}`, {cache: 'no-cache'});
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error('Invalid shard payload');
+        return data;
+      } catch (error) {
+        lastError = error;
+        if (attempt < attempts - 1) await wait(350 * (attempt + 1));
+      }
+    }
+    throw lastError || new Error('Shard unavailable');
+  };
   const load = async () => {
     const match = key.match(/([0-9a-f]{12})$/i);
     if (!match) return showMissing();
     try {
-      // Revalidate the small shard after each release so newly published records
-      // cannot be hidden by a browser's stale force-cache entry.
-      const response = await fetch(`./paper-data/${match[1].slice(0, 2).toLowerCase()}.json`, {cache: 'no-cache'});
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
-      const item = data.find((record) => record.key === key);
+      const data = await loadShardRecord(match[1].slice(0, 2).toLowerCase());
+      let item = data.find((record) => record.key === key);
+      if (!item) {
+        // A shard may be valid but one release behind. Give Pages one more
+        // propagation window before showing a definitive missing state.
+        await wait(450);
+        const refreshed = await loadShardRecord(match[1].slice(0, 2).toLowerCase(), 2);
+        item = refreshed.find((record) => record.key === key);
+      }
       if (!item) return showMissing();
       document.title = `${item.title} | Econ Papers Daily`;
       const titleZh = item.title_zh ? `<p class="detail-title-zh">${escapeHTML(item.title_zh)}</p>` : '';
