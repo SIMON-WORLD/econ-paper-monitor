@@ -75,6 +75,25 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
     behind a one-line status message.
     """
 
+    def test_springer_online_first_targets_are_configured(self) -> None:
+        expected = {
+            "international-journal-of-game-theory",
+            "economic-theory",
+            "review-of-economic-design",
+            "social-choice-and-welfare",
+            "public-choice",
+            "international-tax-and-public-finance",
+            "journal-of-economic-growth",
+            "journal-of-population-economics",
+            "environmental-and-resource-economics",
+        }
+        self.assertTrue(expected.issubset(fetch_priority_toc.TARGETS))
+        for journal_id in expected:
+            self.assertEqual(
+                fetch_priority_toc.TARGETS[journal_id][0]["kind"],
+                "springer_online_first",
+            )
+
     def test_no_helper_reads_the_args_namespace(self) -> None:
         source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")
         tree = ast.parse(source)

@@ -6,7 +6,10 @@ param(
 $ErrorActionPreference = "Stop"
 $repo = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
-  $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
+  $localAppData = $env:LOCALAPPDATA
+  if ([string]::IsNullOrWhiteSpace($localAppData)) {
+    $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
+  }
   if ([string]::IsNullOrWhiteSpace($localAppData)) {
     $localAppData = Join-Path $env:USERPROFILE "AppData\Local"
   }

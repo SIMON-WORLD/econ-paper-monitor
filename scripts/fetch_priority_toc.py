@@ -168,6 +168,72 @@ TARGETS = {
             "fallback_issn": "0165-1587",
         }
     ],
+    # Springer RSS frequently returns malformed XML from CI networks. The
+    # publisher's Online First pages provide an independent official HTML
+    # path while preserving article DOI links.
+    "international-journal-of-game-theory": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/182/online-first",
+        "fallback_issn": "0020-7276",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "economic-theory": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/199/online-first",
+        "fallback_issn": "0938-2259",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "review-of-economic-design": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/10058/online-first",
+        "fallback_issn": "1434-4742",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "social-choice-and-welfare": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/355/online-first",
+        "fallback_issn": "0176-1714",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "public-choice": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/11127/online-first",
+        "fallback_issn": "0048-5829",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "international-tax-and-public-finance": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/10797/online-first",
+        "fallback_issn": "0927-5940",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "journal-of-economic-growth": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/10887/online-first",
+        "fallback_issn": "1381-4338",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "journal-of-population-economics": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/148/online-first",
+        "fallback_issn": "0933-1433",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
+    "environmental-and-resource-economics": [{
+        "kind": "springer_online_first",
+        "url": "https://link.springer.com/journal/10640/online-first",
+        "fallback_issn": "0924-6460",
+        "date_source": "springer_online_first",
+        "date_confidence": "B",
+    }],
 }
 
 BROWSER_HEADERS = {

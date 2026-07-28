@@ -14,7 +14,10 @@ if ([string]::IsNullOrWhiteSpace($shell)) {
   $shell = (Get-Command powershell.exe -ErrorAction Stop).Source
 }
 if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
-  $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
+  $localAppData = $env:LOCALAPPDATA
+  if ([string]::IsNullOrWhiteSpace($localAppData)) {
+    $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
+  }
   if ([string]::IsNullOrWhiteSpace($localAppData)) {
     $localAppData = Join-Path $env:USERPROFILE "AppData\Local"
   }

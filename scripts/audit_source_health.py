@@ -46,6 +46,15 @@ PRIORITY_TOC_JOURNALS = {
     "journal-of-law-economics-and-organization",
     "review-of-financial-studies",
     "european-review-of-agricultural-economics",
+    "international-journal-of-game-theory",
+    "economic-theory",
+    "review-of-economic-design",
+    "social-choice-and-welfare",
+    "public-choice",
+    "international-tax-and-public-finance",
+    "journal-of-economic-growth",
+    "journal-of-population-economics",
+    "environmental-and-resource-economics",
 }
 
 
