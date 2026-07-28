@@ -164,6 +164,12 @@ def test_chicago_journal_codes_are_kept_distinct():
     assert "jc=jle" in jle
 
 
+def test_applied_economics_uses_verified_taylor_francis_rss():
+    journals = {item["id"]: item for item in fetch_rss.load_journals()}
+    url = journals["applied-economics"]["sources"][0]["url"]
+    assert "showFeed?type=etoc&feed=rss&jc=raec20" in url
+
+
 def test_chicago_official_feed_codes_cover_verified_journals():
     from sources.registry import UCHICAGO_JOURNAL_CODES, generated_official_rss_urls
 
