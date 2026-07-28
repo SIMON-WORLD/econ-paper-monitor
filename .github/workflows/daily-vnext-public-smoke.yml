@@ -1,0 +1,62 @@
+name: Daily vNext Public Smoke
+
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  public-smoke:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Audit public Daily vNext
+        run: |
+          mkdir -p reports
+          npx --yes lighthouse@12.8.2 https://academic-door.github.io/econ-paper-monitor/daily-vnext/ \
+            --preset=desktop \
+            --chrome-flags="--headless --no-sandbox --disable-gpu" \
+            --output=json --output=html \
+            --output-path=reports/daily-vnext-desktop.json --quiet
+          npx --yes lighthouse@12.8.2 https://academic-door.github.io/econ-paper-monitor/daily-vnext/ \
+            --form-factor=mobile --screenEmulation.mobile \
+            --screenEmulation.width=390 --screenEmulation.height=844 \
+            --screenEmulation.deviceScaleFactor=1 \
+            --chrome-flags="--headless --no-sandbox --disable-gpu" \
+            --output=json --output=html \
+            --output-path=reports/daily-vnext-mobile.json --quiet
+      - name: Check public results
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const name of ['daily-vnext-desktop.report.json', 'daily-vnext-mobile.report.json']) {
+            const report = JSON.parse(fs.readFileSync(`reports/${name}`, 'utf8'));
+            const scores = {
+              performance: report.categories.performance.score * 100,
+              accessibility: report.categories.accessibility.score * 100,
+              bestPractices: report.categories['best-practices'].score * 100,
+              seo: report.categories.seo.score * 100,
+              lcp: report.audits['largest-contentful-paint'].numericValue,
+              cls: report.audits['cumulative-layout-shift'].numericValue,
+              tbt: report.audits['total-blocking-time'].numericValue,
+            };
+            console.log(name, scores);
+            if (scores.performance < (name.includes('mobile') ? 90 : 95)) throw new Error('performance target failed');
+            if (scores.accessibility < 95 || scores.bestPractices < 95 || scores.seo < 95) throw new Error('quality target failed');
+            if (scores.cls >= 0.02) throw new Error('CLS target failed');
+          }
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: daily-vnext-public-lighthouse
+          path: reports/
