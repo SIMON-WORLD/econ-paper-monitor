@@ -340,6 +340,23 @@ def restud_author_map(html_text: str, base_url: str) -> dict[str, list[str]]:
     return authors_by_url
 
 
+def restud_abstract_from_jina(text: str) -> str | None:
+    """Extract the first substantive abstract paragraph from a REStud page."""
+    content = text.split("Markdown Content:", 1)[-1] if "Markdown Content:" in text else text
+    lines = [clean_text(line) for line in content.splitlines()]
+    lines = [line for line in lines if line]
+    date_index = next(
+        (index for index, line in enumerate(lines) if re.fullmatch(r"\d{1,2}\s+[A-Za-z]+\s+20\d{2}", line)),
+        None,
+    )
+    if date_index is None:
+        return None
+    for paragraph in lines[date_index + 2 :]:
+        if len(paragraph) >= 80:
+            return paragraph
+    return None
+
+
 def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, object]:
     try:
         html_text = fetch_toc_text(url, timeout=timeout, fallback_urls=[f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"])
@@ -353,7 +370,8 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
         or parse_date((meta_values(html_text, "citation_publication_date") or [None])[0])
         or parse_date((meta_values(html_text, "dc.Date") or [None])[0])
     )
-    if "restud.com" in url.lower() and (not published or not authors):
+    jina_text = ""
+    if "restud.com" in url.lower() and (not published or not authors or not meta_values(html_text, "citation_abstract")):
         jina_url = f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"
         try:
             jina_text = fetch_toc_text(jina_url, timeout=timeout)
@@ -374,6 +392,8 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
         published_match = re.search(r"Published Time:\s*(20\d{2}-\d{2}-\d{2})", html_text, flags=re.I)
         published = published_match.group(1) if published_match else None
     abstract = (meta_values(html_text, "citation_abstract") or [None])[0]
+    if "restud.com" in url.lower() and not abstract and jina_text:
+        abstract = restud_abstract_from_jina(jina_text)
     if "restud.com" in url.lower() and not authors:
         author_match = re.search(
             r"Markdown Content:\s*\n\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}\s*\n\s*([^\n]+)",

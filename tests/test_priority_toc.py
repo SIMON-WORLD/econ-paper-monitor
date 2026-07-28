@@ -144,6 +144,10 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
             {"https://www.restud.com/macro-shocks": ["Alessandro T. Villa"]},
         )
 
+    def test_restud_jina_page_extracts_abstract_paragraph(self) -> None:
+        page = """Title: Example\nPublished Time: 2026-07-24T16:07:56+00:00\nMarkdown Content:\n24 July 2026\n\nAlessandro T. Villa\n\nMotivated by a secular increase in concentration, I develop a new macroeconomic model with heterogeneous firms and financial intermediaries. The model explains how market power affects investment and aggregate activity during crises."""
+        self.assertIn("Motivated by a secular increase", fetch_priority_toc.restud_abstract_from_jina(page))
+
     def test_priority_journal_status_remains_usable_when_optional_page_is_blocked(self) -> None:
         source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")
         self.assertIn('"ok": bool(journal_count)', source)
