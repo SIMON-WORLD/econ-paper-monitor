@@ -4,10 +4,14 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import re
+import subprocess
 import sys
+import tempfile
 from collections import Counter
 from datetime import datetime
+from html.parser import HTMLParser
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -124,11 +128,19 @@ def search_text(record: dict, labels: list[str]) -> str:
 def load_records(date_value: str) -> tuple[list[dict], int]:
     path = DAILY_DIR / f"{date_value}.json"
     if not path.exists():
-        return [], 0
-    payload = json.loads(path.read_text(encoding="utf-8"))
+        raise FileNotFoundError(f"canonical daily file is missing: {path}")
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"canonical daily JSON is invalid: {path}: {exc}") from exc
     if not isinstance(payload, list):
-        return [], 0
+        raise ValueError(f"canonical daily JSON must be a list: {path}")
     archive_records = [dict(item) for item in payload if isinstance(item, dict)]
+    if len(archive_records) != len(payload):
+        raise ValueError(f"canonical daily JSON contains non-object records: {path}")
+    invalid = [index for index, record in enumerate(archive_records) if not (record.get("title") and (record.get("url") or record.get("source_url")) and first_seen(record))]
+    if invalid:
+        raise ValueError(f"canonical daily records failed field validation at indexes: {invalid[:10]}")
     records = [
         record
         for record in archive_records
@@ -136,6 +148,46 @@ def load_records(date_value: str) -> tuple[list[dict], int]:
     ]
     records.sort(key=lambda item: first_seen(item) or datetime.min.replace(tzinfo=BEIJING), reverse=True)
     return records, len(archive_records)
+
+
+class GeneratedPageParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.paper_entries = 0
+        self.has_html = False
+        self.has_body = False
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "html":
+            self.has_html = True
+        elif tag == "body":
+            self.has_body = True
+        elif any(name == "class" and value and "paper-entry" in value.split() for name, value in attrs):
+            self.paper_entries += 1
+
+
+def validate_generated_page(document: str, expected_count: int, output_path: Path) -> None:
+    parser = GeneratedPageParser()
+    parser.feed(document)
+    parser.close()
+    if not parser.has_html or not parser.has_body:
+        raise ValueError("generated Daily vNext HTML is incomplete")
+    if parser.paper_entries != expected_count:
+        raise ValueError(f"generated paper count mismatch: html={parser.paper_entries}, data={expected_count}")
+    script = """const fs = require('fs');
+const html = fs.readFileSync(process.argv[1], 'utf8');
+const scripts = [...html.matchAll(/<script[^>]*>([\\s\\S]*?)<\\/script>/g)].map(m => m[1]).filter(Boolean);
+scripts.forEach(source => new Function(source));
+"""
+    with tempfile.NamedTemporaryFile("w", suffix=".html", dir=output_path.parent, encoding="utf-8", delete=False) as html_file:
+        html_file.write(document)
+        html_path = Path(html_file.name)
+    try:
+        result = subprocess.run(["node", "-e", script, str(html_path)], capture_output=True, text=True, check=False)
+        if result.returncode:
+            raise ValueError(f"generated Daily vNext JavaScript validation failed: {result.stderr.strip()}")
+    finally:
+        html_path.unlink(missing_ok=True)
 
 
 def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tuple[str, str]:
@@ -230,8 +282,17 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
         timeline = f'''    <section class="timeline" aria-live="polite">{paper_html}<div class="empty-state" data-empty-state hidden><h3>没有找到匹配的论文</h3><p>尝试更换关键词，或切换论文类型。</p><button class="clear-filters" type="button" data-clear>清除筛选</button></div></section>'''
         document = replace_section(document, "timeline", timeline)
         document = re.sub(r'<div class="result-status"[^>]*>.*?</div>', f'<div class="result-status" data-result-status aria-live="polite">今日共 {len(records)} 项研究内容</div>', document, count=1, flags=re.S)
+        if not records and os.environ.get("ALLOW_EMPTY_DAILY") != "1":
+            raise RuntimeError("refusing to replace Daily vNext with an empty page; set ALLOW_EMPTY_DAILY=1 to override")
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(document, encoding="utf-8")
+        validate_generated_page(document, len(records), output_path)
+        with tempfile.NamedTemporaryFile("w", suffix=".html", dir=output_path.parent, encoding="utf-8", delete=False) as temp_file:
+            temp_file.write(document)
+            temp_path = Path(temp_file.name)
+        try:
+            os.replace(temp_path, output_path)
+        finally:
+            temp_path.unlink(missing_ok=True)
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     sys.stdout.buffer.write((json.dumps(report, ensure_ascii=False) + "\n").encode("utf-8"))

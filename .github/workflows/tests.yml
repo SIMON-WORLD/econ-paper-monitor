@@ -55,3 +55,25 @@ jobs:
           scripts.forEach(script => new Function(script));
           console.log(`Daily vNext JavaScript validated: ${scripts.length} inline scripts`);
           NODE
+      - name: Verify empty Daily protection
+        run: |
+          python - <<'PY'
+          import os
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          probe = Path(os.environ["RUNNER_TEMP"]) / "daily-vnext-preserved.html"
+          probe.write_text("previous-valid-page", encoding="utf-8")
+          env = os.environ.copy()
+          env.pop("ALLOW_EMPTY_DAILY", None)
+          result = subprocess.run(
+              [sys.executable, "scripts/build_daily_vnext.py", "--date", "2026-06-14", "--output", str(probe)],
+              env=env,
+              capture_output=True,
+              text=True,
+          )
+          assert result.returncode != 0, result.stdout + result.stderr
+          assert probe.read_text(encoding="utf-8") == "previous-valid-page"
+          print("Empty Daily protection validated: previous HTML preserved")
+          PY
