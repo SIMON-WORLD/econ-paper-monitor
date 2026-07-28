@@ -23,6 +23,7 @@ async function checkPage(browser, url) {
 
   for (const type of ["all", "working", "column", "china"]) {
     await page.locator(`[data-filter="${type}"]`).click();
+    await page.waitForTimeout(750);
     const expected = type === "all"
       ? total
       : type === "china"
