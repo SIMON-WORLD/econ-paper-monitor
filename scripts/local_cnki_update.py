@@ -291,6 +291,27 @@ def main() -> None:
             ],
             allow_failure=True,
         )
+        # Working-paper pages are often discovered from a catalogue whose
+        # official date is older than the discovery date. Run the lightweight
+        # abstract/author routes for today's bucket as well, then quarantine
+        # clearly historical catalogue items before rendering the homepage.
+        run_step(
+            [
+                python,
+                "scripts/enrich_metadata.py",
+                "--abstract-only",
+                "--latest-days",
+                "1",
+                "--limit",
+                "120",
+                "--workers",
+                "4",
+                "--timeout",
+                "20",
+            ],
+            allow_failure=True,
+        )
+        run_step([python, "scripts/clean_historical_working_papers.py"])
         # Enrichment can contribute publisher dates; normalize once more so
         # a malformed upstream label cannot reach the release gate or pages.
         run_step([python, "scripts/normalize_records.py"])

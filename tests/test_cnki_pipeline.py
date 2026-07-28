@@ -214,6 +214,14 @@ def test_local_pipeline_normalizes_after_metadata_enrichment():
     assert workflow.index("Enrich publisher detail pages") < workflow.index("Normalize enriched metadata")
 
 
+def test_local_cnki_backfills_working_paper_metadata_and_quarantines_history():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    script = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
+    assert '"--abstract-only"' in script
+    assert '"scripts/clean_historical_working_papers.py"' in script
+    assert script.index('"--abstract-only"') < script.index('"scripts/clean_historical_working_papers.py"')
+
+
 def test_local_cnki_merge_preserves_unrelated_seen_records(tmp_path):
     seen = tmp_path / "seen.json"
     daily = tmp_path / "daily"
