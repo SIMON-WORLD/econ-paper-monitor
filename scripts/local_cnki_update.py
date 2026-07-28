@@ -48,6 +48,7 @@ def write_local_status(
     message: str,
     count: int = 0,
     finished_at: str | None = None,
+    source_health: dict | None = None,
 ) -> None:
     """Persist CNKI ownership outside the shared, frequently rewritten ledger."""
     previous = read_json(LOCAL_STATUS_PATH, {})
@@ -59,6 +60,10 @@ def write_local_status(
         "updated_at": now(),
         "last_success_at": previous.get("last_success_at"),
     }
+    if isinstance(source_health, dict):
+        for key in ("selected_sources", "successful_sources", "failed_sources"):
+            if key in source_health:
+                payload[key] = source_health[key]
     if state in {"success", "published"}:
         payload["last_success_at"] = finished_at or payload["updated_at"]
     write_json(LOCAL_STATUS_PATH, payload)
@@ -283,6 +288,26 @@ def main() -> None:
                 str(cnki_temp),
             ]
         )
+        cnki_status_path = cnki_temp.with_suffix(".status.json")
+        cnki_summaries = read_json(cnki_status_path, [])
+        source_health = {
+            "selected_sources": len(cnki_summaries) if isinstance(cnki_summaries, list) else 0,
+            "successful_sources": sum(
+                1 for item in cnki_summaries
+                if isinstance(item, dict) and item.get("ok") is True
+            ) if isinstance(cnki_summaries, list) else 0,
+            "failed_sources": sum(
+                1 for item in cnki_summaries
+                if not isinstance(item, dict) or item.get("ok") is not True
+            ) if isinstance(cnki_summaries, list) else 0,
+        }
+        if (
+            not isinstance(cnki_summaries, list)
+            or not cnki_summaries
+            or source_health["failed_sources"]
+            or source_health["successful_sources"] != source_health["selected_sources"]
+        ):
+            raise RuntimeError(f"CNKI source status is incomplete: {source_health}")
         cnki_raw_input, cnki_count = prepare_cnki_raw_input(cnki_temp)
         if cnki_count:
             run_step([python, "scripts/merge_local_cnki.py", "--input", str(cnki_temp)])
@@ -339,7 +364,13 @@ def main() -> None:
         run_step([python, "scripts/monitor_health.py"])
         finished_at = now()
         record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={log_path_for_status()}")
-        write_local_status("success", message="六个 CNKI RSS 源已通过校验", count=cnki_count, finished_at=finished_at)
+        write_local_status(
+            "success",
+            message="全部 CNKI RSS 源已通过校验",
+            count=cnki_count,
+            finished_at=finished_at,
+            source_health=source_health,
+        )
         record_workflow_run(
             {
                 "mode": "light",
@@ -360,7 +391,12 @@ def main() -> None:
         run_step([python, "scripts/render_cnki_status.py"])
 
         if not args.no_push:
-            write_local_status("publishing", message="数据已生成，等待推送完成", count=cnki_count)
+            write_local_status(
+                "publishing",
+                message="数据已生成，等待推送完成",
+                count=cnki_count,
+                source_health=source_health,
+            )
             record_source("local-cnki-publish", ok=False, count=0, message="pending")
             run_step(["git", "add", "data", "docs"])
             if git_has_staged_changes():
@@ -370,12 +406,22 @@ def main() -> None:
                 # update atomically; the next scheduled run resets to the
                 # then-current main and regenerates the supplement.
                 push_with_retries()
-                write_local_status("published", message="本地 CNKI 结果已推送到 origin/main", count=cnki_count)
+                write_local_status(
+                    "published",
+                    message="本地 CNKI 结果已推送到 origin/main",
+                    count=cnki_count,
+                    source_health=source_health,
+                )
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
                 publish_final_status()
             else:
                 log("No generated changes to commit.")
-                write_local_status("published", message="无新增数据，主线已是最新", count=cnki_count)
+                write_local_status(
+                    "published",
+                    message="无新增数据，主线已是最新",
+                    count=cnki_count,
+                    source_health=source_health,
+                )
                 record_source("local-cnki-publish", ok=True, count=0, message="no generated changes")
                 publish_final_status()
 

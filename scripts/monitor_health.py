@@ -116,6 +116,7 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
             "fresh": local_cnki_check.get("ok"),
             "freshness_code": local_cnki_check.get("code"),
             "age_hours": local_cnki_check.get("age_hours"),
+            "source_health": local_cnki_check.get("source_health"),
         },
         "sentinel": {
             "checked_at": sentinel.get("checked_at") if isinstance(sentinel, dict) else None,

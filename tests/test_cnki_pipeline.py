@@ -90,7 +90,7 @@ def test_local_cnki_has_durable_owner_status():
     script = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
     renderer = (root / "scripts" / "render_cnki_status.py").read_text(encoding="utf-8")
     assert "local_cnki_status.json" in script
-    assert 'write_local_status("published"' in script
+    assert '"published",' in script
     assert "local_status = read_json(DATA_DIR / \"local_cnki_status.json\"" in renderer
 
 

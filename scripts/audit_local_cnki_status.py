@@ -38,6 +38,22 @@ def inspect_status(path: Path, *, now: datetime | None = None, max_age_hours: fl
             "message": payload.get("message", "local CNKI status is not published"),
         }
 
+    source_health = {
+        key: payload.get(key)
+        for key in ("selected_sources", "successful_sources", "failed_sources")
+        if key in payload
+    }
+    if source_health:
+        selected = int(source_health.get("selected_sources") or 0)
+        successful = int(source_health.get("successful_sources") or 0)
+        failed = int(source_health.get("failed_sources") or 0)
+        if selected <= 0 or failed != 0 or successful != selected:
+            return {
+                "ok": False,
+                "code": "incomplete_source_health",
+                "source_health": source_health,
+            }
+
     timestamp = parse_timestamp(payload.get("last_success_at"))
     if timestamp is None:
         return {"ok": False, "code": "missing_success_timestamp", "message": "last_success_at is invalid"}
@@ -58,6 +74,7 @@ def inspect_status(path: Path, *, now: datetime | None = None, max_age_hours: fl
         "age_hours": round(max(age_hours, 0), 2),
         "last_success_at": timestamp.isoformat(),
         "count": payload.get("count"),
+        "source_health": source_health or None,
     }
 
 

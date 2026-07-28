@@ -10,11 +10,13 @@ papers.
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import html
 import re
 import ssl
 import json
 from datetime import date, timedelta
+from typing import Any
 from urllib.parse import urlencode
 import urllib.request
 from pathlib import Path
@@ -619,6 +621,56 @@ def fetch_crossref_fallback(journal: dict, target: dict[str, str], *, timeout: i
     return records
 
 
+def fetch_target_with_fallback(
+    journal: dict,
+    target: dict[str, str],
+    *,
+    timeout: int,
+    detail_limit: int,
+    max_items: int,
+) -> tuple[list[dict], int, bool, list[str], bool]:
+    """Fetch one target without allowing it to block its sibling targets."""
+    label = f"{journal.get('id')}/{target['kind']}"
+    try:
+        fetched = fetch_target(
+            journal,
+            target,
+            timeout=timeout,
+            detail_limit=detail_limit,
+            max_items=max_items,
+        )
+        if fetched:
+            return fetched, 0, True, [f"{label}: {len(fetched)}"], False
+        fallback = fetch_crossref_fallback(
+            journal, target, timeout=timeout, max_items=max_items
+        )
+        return (
+            fallback,
+            len(fallback),
+            False,
+            [f"{label}: 0", f"{label}: crossref fallback {len(fallback)}"],
+            not fallback,
+        )
+    except Exception as exc:  # noqa: BLE001 - source health is reported below.
+        try:
+            fallback = fetch_crossref_fallback(
+                journal, target, timeout=timeout, max_items=max_items
+            )
+            fallback_message = f"{label}: {type(exc).__name__}; crossref fallback {len(fallback)}"
+            return fallback, len(fallback), False, [fallback_message], not fallback
+        except Exception as fallback_exc:  # noqa: BLE001 - preserve both errors.
+            return (
+                [],
+                0,
+                False,
+                [
+                    f"{label}: {type(exc).__name__}; crossref fallback "
+                    f"{type(fallback_exc).__name__}: {fallback_exc}"
+                ],
+                True,
+            )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -632,6 +684,12 @@ def main() -> None:
         dest="journal_ids",
         help="Only fetch the named journal id; repeat for focused source checks.",
     )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=4,
+        help="Maximum concurrent priority targets; keep bounded for publisher etiquette.",
+    )
     args = parser.parse_args()
 
     journals = {str(journal.get("id")): journal for journal in load_journals(args.journals)}
@@ -641,65 +699,53 @@ def main() -> None:
     messages: list[str] = []
     failures = 0
     journal_status: dict[str, dict[str, object]] = {}
-    for journal_id, targets in TARGETS.items():
-        if journal_id not in selected_journals:
-            continue
-        journal = journals.get(journal_id)
-        if not journal:
-            continue
-        journal_count = 0
-        publisher_success = False
-        fallback_count = 0
-        for target in targets:
-            try:
-                fetched = fetch_target(
+    jobs: dict[Any, tuple[str, dict, dict]] = {}
+    with ThreadPoolExecutor(max_workers=max(1, min(args.workers, 8))) as executor:
+        for journal_id, targets in TARGETS.items():
+            if journal_id not in selected_journals:
+                continue
+            journal = journals.get(journal_id)
+            if not journal:
+                continue
+            for target in targets:
+                future = executor.submit(
+                    fetch_target_with_fallback,
                     journal,
                     target,
                     timeout=args.timeout,
                     detail_limit=args.detail_limit,
                     max_items=args.max_items_per_source,
                 )
-                records.extend(fetched)
-                journal_count += len(fetched)
-                messages.append(f"{journal_id}/{target['kind']}: {len(fetched)}")
-                if fetched:
-                    publisher_success = True
-                if not fetched:
-                    # An empty response from an advance page is commonly a
-                    # challenge/navigation page. Treat it as a publisher-path
-                    # failure when a fallback is needed; otherwise source
-                    # health could mistake Crossref-only recovery for direct
-                    # publisher coverage.
-                    publisher_success = False
-                    fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
-                    records.extend(fallback)
-                    journal_count += len(fallback)
-                    fallback_count += len(fallback)
-                    messages.append(f"{journal_id}/{target['kind']}: crossref fallback {len(fallback)}")
-                    if not fallback:
-                        failures += 1
-            except Exception as exc:  # noqa: BLE001 - source health is reported below.
-                try:
-                    fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
-                except Exception as fallback_exc:  # noqa: BLE001
-                    fallback = []
-                    messages.append(f"{journal_id}/{target['kind']}: Crossref fallback {type(fallback_exc).__name__}: {fallback_exc}")
-                records.extend(fallback)
-                journal_count += len(fallback)
-                fallback_count += len(fallback)
-                messages.append(f"{journal_id}/{target['kind']}: {type(exc).__name__}; crossref fallback {len(fallback)}")
-                if not fallback:
-                    failures += 1
-        if journal_count == 0:
-            messages.append(f"{journal_id}: 0")
-        journal_status[journal_id] = {
-            # One blocked optional page must not hide a usable official
-            # fallback or Crossref result for the same journal.
-            "ok": bool(journal_count),
-            "count": journal_count,
-            "publisher_ok": publisher_success,
-            "fallback_count": fallback_count,
-        }
+                jobs[future] = (journal_id, journal, target)
+
+        per_journal: dict[str, dict[str, Any]] = {}
+        for future in as_completed(jobs):
+            journal_id, _journal, target = jobs[future]
+            fetched, fallback_count, publisher_success, result_messages, failed = future.result()
+            records.extend(fetched)
+            state = per_journal.setdefault(
+                journal_id,
+                {"count": 0, "fallback_count": 0, "publisher_ok": False, "failed": 0},
+            )
+            state["count"] += len(fetched)
+            state["fallback_count"] += fallback_count
+            state["publisher_ok"] = bool(state["publisher_ok"] or publisher_success)
+            state["failed"] += int(failed)
+            messages.extend(result_messages)
+
+        for journal_id in selected_journals:
+            if journal_id not in per_journal or journal_id not in journals:
+                continue
+            state = per_journal[journal_id]
+            failures += int(state["failed"])
+            if not state["count"]:
+                messages.append(f"{journal_id}: 0")
+            journal_status[journal_id] = {
+                "ok": bool(state["count"]),
+                "count": state["count"],
+                "publisher_ok": state["publisher_ok"],
+                "fallback_count": state["fallback_count"],
+            }
 
     write_json(output, records)
     record_source(

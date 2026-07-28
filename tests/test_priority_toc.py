@@ -174,7 +174,7 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
 
     def test_priority_journal_status_remains_usable_when_optional_page_is_blocked(self) -> None:
         source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")
-        self.assertIn('"ok": bool(journal_count)', source)
+        self.assertIn('"ok": bool(state["count"])', source)
 
     def test_partial_harvest_is_not_reported_as_total_source_outage(self) -> None:
         source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")
