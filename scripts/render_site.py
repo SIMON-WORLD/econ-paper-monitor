@@ -279,14 +279,26 @@ def record_is_on_date(record: dict[str, Any], target_date: str) -> bool:
     # seen-only records are restored for catalogue/search pages. Their
     # first_seen date must not recreate a historical item in today's flow.
     if record.get("_from_seen_only") and detected_date(record) == target_date:
-        return target_date in {
-            str(record.get("available_online") or "").strip(),
-            str(record.get("published_online") or "").strip(),
-        }
-    return detected_date(record) == target_date or target_date in {
+        return target_date in verified_online_dates(record)
+    return detected_date(record) == target_date or target_date in verified_online_dates(record)
+
+
+def verified_online_dates(record: dict[str, Any]) -> set[str]:
+    """Return online dates strong enough to drive public date views.
+
+    Crossref/OpenAlex/Unpaywall dates are useful metadata evidence, but they
+    are not proof that the publisher made the article available online. They
+    must not resurrect an old record into today's first-discovery stream.
+    """
+    source = str(record.get("date_source") or "").casefold()
+    confidence = str(record.get("date_confidence") or "").upper()
+    weak_provider = any(token in source for token in ("crossref", "openalex", "unpaywall"))
+    if weak_provider or confidence in {"C", "D", "F", "UNKNOWN", ""}:
+        return set()
+    return {
         str(record.get("available_online") or "").strip(),
         str(record.get("published_online") or "").strip(),
-    }
+    } - {""}
 
 
 def detected_time(record: dict[str, Any]) -> str:
@@ -784,8 +796,13 @@ def confidence_label(value: str) -> str:
 
 
 def public_date_label(record: dict[str, Any]) -> str:
-    if str(record.get("date_source") or "").casefold().startswith("cnki_rss"):
+    date_source = str(record.get("date_source") or "").casefold()
+    if date_source.startswith("cnki_rss"):
         return "官方发布"
+    if "crossref" in date_source:
+        return "Crossref 元数据日期"
+    if "openalex" in date_source or "unpaywall" in date_source:
+        return "聚合元数据日期"
     if record.get("date_precision") == "month" and (record.get("available_online") or record.get("published_online")):
         return "官方在线月份"
     if record.get("available_online"):
@@ -850,14 +867,8 @@ def parse_date(value: str | None) -> datetime | None:
 
 
 def detection_lag_days(record: dict[str, Any]) -> int | None:
-    official = parse_date(
-        str(
-            record.get("available_online")
-            or record.get("published_online")
-            or record.get("accepted_date")
-            or ""
-        )
-    )
+    online_dates = verified_online_dates(record)
+    official = parse_date(next(iter(online_dates), ""))
     detected = parse_date(detected_date(record))
     if not official or not detected:
         return None
