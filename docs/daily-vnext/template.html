@@ -158,11 +158,12 @@
       const right = hero.querySelector('.hero-door-panel--right');
       const eyebrow = hero.querySelector('[data-motion="eyebrow"]');
       const title = hero.querySelector('[data-motion="title"] h1');
-      const lede = hero.querySelector('[data-motion="lede"]');
+      const lede = hero.querySelector('.hero-lede');
       const discovery = hero.querySelector('[data-motion="discovery"]');
       const total = hero.querySelector('[data-count]');
       const statLine = hero.querySelector('[data-motion="stat-line"]');
       const nodes = hero.querySelectorAll('.hero-data-node');
+      if (![left, right, eyebrow, title, lede, discovery, total, statLine].every(Boolean)) return;
       gsap.set([left, right], {xPercent: 0});
       gsap.set(title, {clipPath: 'inset(0 48% 0 48%)'});
       gsap.set([lede, discovery], {autoAlpha: 0, y: 12});
