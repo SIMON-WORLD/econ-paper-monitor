@@ -60,12 +60,15 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
     if not isinstance(gate, dict) or gate.get("ok") is not True:
         failures.append({"code": "release_gate_not_ok", "count": 1})
     crossref_only = int(coverage_counts.get("crossref_only") or 0) if isinstance(coverage_counts, dict) else 0
+    supplemental = int(coverage_counts.get("supplemental") or 0) if isinstance(coverage_counts, dict) else 0
     degraded = int(source_counts.get("degraded") or 0) if isinstance(source_counts, dict) else 0
     missing_abstract_today = int(quality_totals.get("missing_abstract_today") or 0) if isinstance(quality_totals, dict) else 0
     missing_authors_today = int(quality_totals.get("missing_authors_today_journals") or 0) if isinstance(quality_totals, dict) else 0
     if crossref_only:
         warnings.append({"code": "formal_sources_crossref_only", "count": crossref_only})
-    if degraded:
+    if supplemental:
+        warnings.append({"code": "formal_sources_crossref_plus_recall", "count": supplemental})
+    elif degraded:
         warnings.append({"code": "formal_sources_degraded", "count": degraded})
     if missing_abstract_today:
         warnings.append({"code": "missing_abstract_today", "count": missing_abstract_today})

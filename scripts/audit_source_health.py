@@ -227,7 +227,7 @@ def main() -> None:
             for row in rows
             if row["coverage"] == "crossref_only"
         ],
-        "supplemental_only": [
+        "crossref_plus_supplemental": [
             {
                 "journal_id": row["journal_id"],
                 "journal": row["journal"],

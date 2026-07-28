@@ -56,10 +56,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     if stale:
         failures.append({"code": "formal_sources_stale", "count": stale})
     crossref_only = int(coverage_counts.get("crossref_only") or 0)
+    supplemental = int(coverage_counts.get("supplemental") or 0)
     degraded = int(source_counts.get("degraded") or 0)
     if crossref_only:
         warnings.append({"code": "formal_sources_crossref_only", "count": crossref_only})
-    if degraded:
+    if supplemental:
+        warnings.append({"code": "formal_sources_crossref_plus_recall", "count": supplemental})
+    elif degraded:
         warnings.append({"code": "formal_sources_single_path", "count": degraded})
 
     keys = [record_key(record) for record in daily]
