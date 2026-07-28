@@ -133,8 +133,16 @@ def inspect_journal(
     supplemental: list[str] = []
     supplemental_entry = (status.get("sources") or {}).get("openalex-recall") if status else None
     if isinstance(supplemental_entry, dict) and status_entry_is_fresh(supplemental_entry, now, max_age):
-        supplemental.append("openalex-recall")
-        paths.append("openalex-recall")
+        details = supplemental_entry.get("details") if isinstance(supplemental_entry.get("details"), dict) else {}
+        per_journal = details.get("per_journal") if isinstance(details.get("per_journal"), dict) else None
+        journal_entry = per_journal.get(journal_id) if per_journal is not None else None
+        # Older status files had only a global OpenAlex result. Keep them
+        # readable, but use the per-journal ledger whenever it is available so
+        # one successful query cannot masquerade as full-journal coverage.
+        eligible = journal_entry is None if per_journal is None else bool(journal_entry.get("ok"))
+        if eligible:
+            supplemental.append("openalex-recall")
+            paths.append("openalex-recall")
     checked_candidates = [str(value) for value in (entry.get("updated_at"), entry.get("last_checked_at"), *specialized_checked) if value]
     checked = max(checked_candidates) if checked_candidates else None
     checked_age = status_age_days(checked, now)

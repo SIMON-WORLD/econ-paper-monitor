@@ -160,17 +160,21 @@ def main() -> None:
     journals = {str(j.get("id")): j for j in load_journals()}
     records: list[dict[str, Any]] = []
     failures: list[str] = []
+    per_journal: dict[str, dict[str, Any]] = {}
     for journal_id in sorted(RECALL_JOURNALS):
         journal = journals.get(journal_id)
         if not journal:
             failures.append(f"{journal_id}: missing from journals.yml")
+            per_journal[journal_id] = {"ok": False, "count": 0, "error": "missing from journals.yml"}
             continue
         try:
             fetched = fetch_journal(journal, days=args.days, rows=args.rows, timeout=args.timeout)
             records.extend(fetched)
+            per_journal[journal_id] = {"ok": True, "count": len(fetched)}
             print(f"{journal_id}: {len(fetched)}")
         except Exception as exc:  # noqa: BLE001 - one source must not stop recall.
             failures.append(f"{journal_id}: {type(exc).__name__}: {exc}")
+            per_journal[journal_id] = {"ok": False, "count": 0, "error": f"{type(exc).__name__}: {exc}"}
             print(f"{journal_id}: failed: {type(exc).__name__}: {exc}")
         time.sleep(max(0.0, args.sleep))
 
@@ -181,7 +185,12 @@ def main() -> None:
         ok=bool(records),
         count=len(records),
         message="; ".join(failures[-8:]) or str(output),
-        details={"journals": len(RECALL_JOURNALS), "failed_journals": len(failures), "recall_only": True},
+        details={
+            "journals": len(RECALL_JOURNALS),
+            "failed_journals": len(failures),
+            "recall_only": True,
+            "per_journal": per_journal,
+        },
     )
     print(f"wrote {len(records)} OpenAlex recall records to {output}; failures={len(failures)}")
 
