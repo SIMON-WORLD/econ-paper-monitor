@@ -22,3 +22,36 @@ jobs:
         run: python -m pip install --disable-pip-version-check pytest
       - name: Run regression tests
         run: python -m pytest -q
+      - name: Build and validate Daily Door vNext
+        shell: bash
+        run: |
+          DAILY_DATE=$(python - <<'PY'
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
+          PY
+          )
+          python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output "$RUNNER_TEMP/daily-vnext.html" --report "$RUNNER_TEMP/daily-vnext-report.json"
+          python - <<'PY'
+          import json
+          import os
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          output = Path(os.environ["RUNNER_TEMP"]) / "daily-vnext.html"
+          report = json.loads((Path(os.environ["RUNNER_TEMP"]) / "daily-vnext-report.json").read_text())
+          parser = HTMLParser()
+          parser.feed(output.read_text(encoding="utf-8"))
+          html = output.read_text(encoding="utf-8")
+          rendered = html.count('class="paper-entry"')
+          assert rendered == report["final_render_count"], (rendered, report["final_render_count"])
+          assert "data-count=\"" in html
+          print(f"Daily vNext validated: {rendered} entries")
+          PY
+          node - <<'NODE'
+          const fs = require('fs');
+          const html = fs.readFileSync(process.env.RUNNER_TEMP + '/daily-vnext.html', 'utf8');
+          const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]).filter(Boolean);
+          scripts.forEach(script => new Function(script));
+          console.log(`Daily vNext JavaScript validated: ${scripts.length} inline scripts`);
+          NODE
