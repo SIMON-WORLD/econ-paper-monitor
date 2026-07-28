@@ -74,6 +74,61 @@ def key_set(records: list[dict[str, Any]]) -> set[str]:
     return keys
 
 
+def exclusion_reason(record: dict[str, Any], run_date: str, seen_keys: set[str]) -> dict[str, Any] | None:
+    """Return a traceable exclusion record for candidates not entering today."""
+    keys = record_match_keys(record)
+    matched = sorted(keys.intersection(seen_keys))
+    if is_source_navigation_noise(record):
+        return {
+            "stage": "source_rule",
+            "reason": "publisher navigation or non-article source noise",
+            "seen": bool(matched),
+            "duplicate": bool(matched),
+            "matched_keys": matched,
+        }
+    if matched:
+        return {
+            "stage": "seen_dedupe",
+            "reason": "matching DOI, URL, paper identity, or title already exists in seen catalogue",
+            "seen": True,
+            "duplicate": True,
+            "matched_keys": matched,
+        }
+    archive_date = archive_date_for_new_record(record, run_date)
+    if not archive_date:
+        return {
+            "stage": "date_filter",
+            "reason": "date missing, unparsable, future-dated, or insufficient for public Daily inclusion",
+            "seen": False,
+            "duplicate": False,
+            "matched_keys": [],
+        }
+    if archive_date != run_date:
+        return {
+            "stage": "date_filter",
+            "reason": f"resolved to archive date {archive_date}, not run date {run_date}",
+            "seen": False,
+            "duplicate": False,
+            "matched_keys": [],
+        }
+    return None
+
+
+def ledger_record(record: dict[str, Any], exclusion: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "title": record.get("title") or record.get("paper_title"),
+        "source": record.get("journal") or record.get("source_id") or record.get("source"),
+        "url": record.get("url") or record.get("source_url"),
+        "doi": record.get("doi"),
+        "fetched_at": record.get("detected_at") or record.get("first_seen"),
+        "source_type": record.get("source_type"),
+        "first_seen_at": record.get("first_seen_at") or record.get("first_seen"),
+        "official_date": record.get("available_online") or record.get("published_online") or record.get("issue_date"),
+        "raw_file": record.get("_raw_file"),
+        **exclusion,
+    }
+
+
 def intersects(keys: set[str], universe: set[str]) -> bool:
     return bool(keys and keys.intersection(universe))
 
@@ -84,6 +139,7 @@ def main() -> None:
     parser.add_argument("--raw-dir", type=Path, default=DATA_DIR / "raw")
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--output", type=Path, default=DATA_DIR / "ingestion_audit.json")
+    parser.add_argument("--ledger-output", type=Path, default=DATA_DIR / "ingestion_exclusion_ledger.json")
     args = parser.parse_args()
 
     raw_records = raw_records_for_date(args.raw_dir, args.date)
@@ -102,7 +158,11 @@ def main() -> None:
     new_other_date_candidates = []
     suppressed_candidates = []
     missing_new_today = []
+    exclusion_ledger = []
     for record in raw_records:
+        exclusion = exclusion_reason(record, args.date, seen_keys)
+        if exclusion:
+            exclusion_ledger.append(ledger_record(record, exclusion))
         if is_source_navigation_noise(record):
             suppressed_candidates.append(record)
             continue
@@ -162,6 +222,18 @@ def main() -> None:
         "seen_backflow_message": backflow_status.get("message") or "",
     }
     write_json(args.output, report)
+    reason_counts = Counter(item["reason"] for item in exclusion_ledger)
+    write_json(
+        args.ledger_output,
+        {
+            "date": args.date,
+            "candidate_count": len(raw_records),
+            "excluded_count": len(exclusion_ledger),
+            "records": exclusion_ledger,
+            "reason_counts": dict(reason_counts),
+            "note": "Generated from raw candidate records; an empty records array means raw artifacts were unavailable at audit time.",
+        },
+    )
     message = (
         f"raw={len(raw_records)} daily={len(daily_records)} "
         f"new_today={len(new_today_candidates)} missed={len(missing_new_today)} "
