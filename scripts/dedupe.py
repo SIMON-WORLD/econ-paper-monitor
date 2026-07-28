@@ -179,6 +179,11 @@ def archive_date_for_new_record(record: dict[str, Any], run_date: str) -> str | 
     if source == "cnki-rss":
         source_date = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
         return source_date or None
+    if source == "openalex_recall":
+        # OpenAlex is a recall-only audit path. It can identify records that
+        # authoritative sources missed, but it cannot establish first online
+        # or first discovery for the public daily flow.
+        return None
     if source in {"crossref", "priority_toc", "aea_toc"}:
         official_date = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
         if official_date:
