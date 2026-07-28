@@ -11,9 +11,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import audit_alohomora_coverage  # noqa: E402
 import dedupe  # noqa: E402
 import fetch_aea  # noqa: E402
+import common  # noqa: E402
 
 
 class AeaIngestionTests(unittest.TestCase):
+    def test_jel_forthcoming_source_has_a_configured_journal(self) -> None:
+        journals = {str(item.get("id")) for item in common.load_journals()}
+        self.assertIn("journal-of-economic-literature", fetch_aea.AEA_CODES)
+        self.assertIn("journal-of-economic-literature", journals)
+
     def test_article_link_removes_tracking_parameters(self) -> None:
         html = '''<a href="/articles?id=10.1257/aer.20240666&amp;&amp;from=f">Durables and the Marginal Propensity to Spend</a>'''
 
