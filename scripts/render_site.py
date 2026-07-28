@@ -1253,8 +1253,6 @@ FILTER_SCRIPT = """
     const events = Array.from(document.querySelectorAll(`.event[data-event-scope="${scope}"]`));
     if (!search || !journal || !field || !china) return;
     let preset = '';
-    const storageKey = `epd_filters_${scope}`;
-    const saved = (() => { try { return JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (error) { return {}; } })();
     if (params.get('q')) search.value = params.get('q');
     if (params.get('journal')) journal.value = params.get('journal');
     if (params.get('field')) field.value = params.get('field');
@@ -1266,23 +1264,6 @@ FILTER_SCRIPT = """
       china.classList.add('active');
     }
     if (params.get('onlineToday') === '1') preset = 'online-today';
-    if (!params.toString()) {
-      if (saved.q) search.value = saved.q;
-      if (saved.journal) journal.value = saved.journal;
-      if (saved.field) field.value = saved.field;
-      if (dateType && saved.dateType) dateType.value = saved.dateType;
-      if (confidence && saved.confidence) confidence.value = saved.confidence;
-      if (sourceType && saved.sourceType) sourceType.value = saved.sourceType;
-      if (saved.china === '1') { china.setAttribute('aria-pressed', 'true'); china.classList.add('active'); }
-    }
-    const saveButton = toolbar.querySelector('[data-filter-save]');
-    const clearButton = toolbar.querySelector('[data-filter-clear]');
-    function saveFilters() {
-      localStorage.setItem(storageKey, JSON.stringify({q: search.value, journal: journal.value, field: field.value, dateType: dateType ? dateType.value : '', confidence: confidence ? confidence.value : '', sourceType: sourceType ? sourceType.value : '', china: china.getAttribute('aria-pressed') === 'true' ? '1' : ''}));
-      if (saveButton) { saveButton.textContent = '已保存'; setTimeout(() => saveButton.textContent = '保存筛选', 1200); }
-    }
-    if (saveButton) saveButton.addEventListener('click', saveFilters);
-    if (clearButton) clearButton.addEventListener('click', () => { localStorage.removeItem(storageKey); search.value=''; journal.value=''; field.value=''; if(dateType)dateType.value=''; if(confidence)confidence.value=''; if(sourceType)sourceType.value=''; china.setAttribute('aria-pressed','false'); china.classList.remove('active'); preset=''; applyFilters(); });
     function setCounter(visible, chinaOnly) {
       if (!counter) return;
       if (chinaOnly || preset === 'china') {
@@ -2313,6 +2294,10 @@ def main() -> None:
         title = str(journal.get("title") or journal["id"])
         body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊暂无有效论文记录。</p></div></section>{paper_events([])}'
         write_page(args.docs_dir / "journals" / journal["id"] / "index.html", page(title, records, body))
+        write_page(
+            args.docs_dir / "journals" / journal["id"] / "recent7" / "index.html",
+            page(f"{title} 最近 7 天", records, body),
+        )
 
     journal_rows = []
     for journal in journals:
