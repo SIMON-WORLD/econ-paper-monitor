@@ -20,6 +20,11 @@ CN_JOURNAL_IDS = [
 ]
 
 
+def aggregate_ok(rows: list[dict[str, Any]], found_outputs: int) -> bool:
+    """Only report the group as healthy when every configured child succeeded."""
+    return bool(rows) and found_outputs == len(rows) and all(bool(row.get("ok")) for row in rows)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=today_str())
@@ -56,8 +61,11 @@ def main() -> None:
         print("cn journal aggregate skipped: no per-journal raw outputs found")
         return
 
-    ok = any(row["ok"] for row in rows)
+    successful = sum(1 for row in rows if row["ok"])
+    ok = aggregate_ok(rows, found_outputs)
     message = "; ".join(f"{row['journal']}: {row['count']}" for row in rows)
+    if not ok:
+        message = f"partial_success successful={successful}/{len(rows)}; " + message
     record_source("cn-journals", ok=ok, count=total, message=message)
     status = load_status()
     status.setdefault("source_groups", {})["cn-journals"] = {

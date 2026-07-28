@@ -76,6 +76,11 @@ NOISE_TEXT = (
 )
 
 
+def all_journal_sources_ok(rows: list[dict[str, Any]]) -> bool:
+    """Report group health only when every configured child source succeeds."""
+    return bool(rows) and all(bool(row.get("ok")) for row in rows)
+
+
 def clean_text(value: str | None) -> str:
     if not value:
         return ""
@@ -1045,7 +1050,10 @@ def main() -> None:
 
     write_json(output, records)
     write_json(output.with_suffix(".status.json"), journal_summaries)
-    ok = any(item.get("ok") for item in journal_summaries)
+    successful = sum(1 for item in journal_summaries if item.get("ok"))
+    ok = all_journal_sources_ok(journal_summaries)
+    if successful != len(journal_summaries):
+        messages.insert(0, f"partial_success successful={successful}/{len(journal_summaries)}")
     if DETAIL_LIMIT:
         messages.append(f"detail-attempted={DETAIL_ATTEMPTED}/{DETAIL_LIMIT}")
     record_source("cn-journals", ok=ok, count=len(records), message="; ".join(messages))
