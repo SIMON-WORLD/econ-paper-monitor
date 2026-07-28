@@ -167,3 +167,31 @@ def test_partial_specialized_source_with_records_is_usable():
     assert result["level"] == "healthy"
     assert result["coverage"] == "official_or_specialized"
     assert "cn-journals" in result["usable_paths"]
+
+
+def test_blocked_priority_publisher_does_not_count_crossref_fallback_as_specialized():
+    result = inspect_journal(
+        {"id": "quarterly-journal-of-economics", "title": "QJE", "publisher": "OUP"},
+        {"journals": {"quarterly-journal-of-economics": {
+            "last_rss_status": "none",
+            "last_crossref_status": "ok",
+            "updated_at": "2026-07-27T11:00:00+00:00",
+        }}},
+        date(2026, 7, 27),
+        datetime(2026, 7, 27, 12, tzinfo=timezone.utc),
+        36,
+        {"sources": {"priority-toc": {
+            "ok": True,
+            "updated_at": "2026-07-27T11:30:00+00:00",
+            "journals": {
+                "quarterly-journal-of-economics": {
+                    "ok": True,
+                    "publisher_ok": False,
+                    "count": 3,
+                    "fallback_count": 3,
+                }
+            },
+        }}},
+    )
+    assert result["usable_paths"] == ["crossref"]
+    assert result["coverage"] == "crossref_only"

@@ -175,6 +175,18 @@ class AdditionalEconometricSocietyTargetTests(unittest.TestCase):
         self.assertEqual(fetch_priority_toc.TARGETS["theoretical-economics"][0]["fallback_issn"], "1933-6837")
         self.assertEqual(fetch_priority_toc.TARGETS["quantitative-economics"][0]["fallback_issn"], "1759-7323")
 
+    def test_oup_advance_targets_cover_crossref_only_oup_journals(self) -> None:
+        expected = {
+            "quarterly-journal-of-economics",
+            "economic-journal",
+            "journal-of-the-european-economic-association",
+            "journal-of-law-economics-and-organization",
+            "review-of-financial-studies",
+            "european-review-of-agricultural-economics",
+        }
+        self.assertTrue(expected.issubset(fetch_priority_toc.TARGETS))
+        self.assertTrue(all(fetch_priority_toc.TARGETS[j][0]["kind"] == "oup_advance_articles" for j in expected))
+
     def test_links_are_filtered_by_journal_doi_prefix(self) -> None:
         html = '<a href="https://doi.org/10.3982/TE9999">A theoretical result</a><a href="https://doi.org/10.3982/QE9999">A quantitative result</a>'
         theoretical = fetch_priority_toc.article_links(

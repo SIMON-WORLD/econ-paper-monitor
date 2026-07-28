@@ -40,6 +40,12 @@ PRIORITY_TOC_JOURNALS = {
     "econometrica",
     "theoretical-economics",
     "quantitative-economics",
+    "quarterly-journal-of-economics",
+    "economic-journal",
+    "journal-of-the-european-economic-association",
+    "journal-of-law-economics-and-organization",
+    "review-of-financial-studies",
+    "european-review-of-agricultural-economics",
 }
 
 
@@ -83,15 +89,18 @@ def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, ma
     ):
         entry = sources.get(source_id) or {}
         per_journal = (entry.get("journals") or {}).get(journal_id)
-        if journal_id in targets and (
-            status_entry_is_fresh(entry, now, max_age)
-            or (
-                isinstance(per_journal, dict)
-                and per_journal.get("ok")
-                and status_age_days(entry.get("updated_at"), now) is not None
-                and status_age_days(entry.get("updated_at"), now) <= max_age
-            )
-        ):
+        source_fresh = status_entry_is_fresh(entry, now, max_age)
+        checked_fresh = status_age_days(entry.get("updated_at"), now) is not None and status_age_days(entry.get("updated_at"), now) <= max_age
+        journal_fresh = (
+            isinstance(per_journal, dict)
+            and per_journal.get("ok")
+            and per_journal.get("publisher_ok", True)
+            and checked_fresh
+        )
+        # A per-journal result is authoritative when present. This prevents a
+        # successful Crossref fallback for one blocked publisher page from
+        # masquerading as a successful specialized acquisition path.
+        if journal_id in targets and (journal_fresh or (not isinstance(per_journal, dict) and source_fresh)):
             paths.append(path_name)
             if entry.get("updated_at"):
                 checked_at.append(str(entry["updated_at"]))

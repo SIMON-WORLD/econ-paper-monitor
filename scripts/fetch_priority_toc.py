@@ -106,6 +106,66 @@ TARGETS = {
             "fallback_issn": "1759-7323",
         }
     ],
+    "quarterly-journal-of-economics": [
+        {
+            "kind": "oup_advance_articles",
+            "url": "https://academic.oup.com/qje/advance-articles",
+            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/qje/advance-articles"],
+            "date_source": "oup_advance_articles",
+            "date_confidence": "B",
+            "fallback_issn": "0033-5533",
+        }
+    ],
+    "economic-journal": [
+        {
+            "kind": "oup_advance_articles",
+            "url": "https://academic.oup.com/econj/advance-articles",
+            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/econj/advance-articles"],
+            "date_source": "oup_advance_articles",
+            "date_confidence": "B",
+            "fallback_issn": "1468-0297",
+        }
+    ],
+    "journal-of-the-european-economic-association": [
+        {
+            "kind": "oup_advance_articles",
+            "url": "https://academic.oup.com/jeea/advance-articles",
+            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/jeea/advance-articles"],
+            "date_source": "oup_advance_articles",
+            "date_confidence": "B",
+            "fallback_issn": "1542-4766",
+        }
+    ],
+    "journal-of-law-economics-and-organization": [
+        {
+            "kind": "oup_advance_articles",
+            "url": "https://academic.oup.com/jleo/advance-articles",
+            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/jleo/advance-articles"],
+            "date_source": "oup_advance_articles",
+            "date_confidence": "B",
+            "fallback_issn": "8756-6222",
+        }
+    ],
+    "review-of-financial-studies": [
+        {
+            "kind": "oup_advance_articles",
+            "url": "https://academic.oup.com/rfs/advance-articles",
+            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/rfs/advance-articles"],
+            "date_source": "oup_advance_articles",
+            "date_confidence": "B",
+            "fallback_issn": "0893-9454",
+        }
+    ],
+    "european-review-of-agricultural-economics": [
+        {
+            "kind": "oup_advance_articles",
+            "url": "https://academic.oup.com/erae/advance-articles",
+            "fallback_urls": ["https://r.jina.ai/http://academic.oup.com/erae/advance-articles"],
+            "date_source": "oup_advance_articles",
+            "date_confidence": "B",
+            "fallback_issn": "0165-1587",
+        }
+    ],
 }
 
 BROWSER_HEADERS = {
@@ -519,7 +579,7 @@ def main() -> None:
         if not journal:
             continue
         journal_count = 0
-        publisher_success = True
+        publisher_success = False
         fallback_count = 0
         for target in targets:
             try:
@@ -533,7 +593,15 @@ def main() -> None:
                 records.extend(fetched)
                 journal_count += len(fetched)
                 messages.append(f"{journal_id}/{target['kind']}: {len(fetched)}")
+                if fetched:
+                    publisher_success = True
                 if not fetched:
+                    # An empty response from an advance page is commonly a
+                    # challenge/navigation page. Treat it as a publisher-path
+                    # failure when a fallback is needed; otherwise source
+                    # health could mistake Crossref-only recovery for direct
+                    # publisher coverage.
+                    publisher_success = False
                     fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
                     records.extend(fallback)
                     journal_count += len(fallback)
@@ -542,7 +610,6 @@ def main() -> None:
                     if not fallback:
                         failures += 1
             except Exception as exc:  # noqa: BLE001 - source health is reported below.
-                publisher_success = False
                 try:
                     fallback = fetch_crossref_fallback(journal, target, timeout=args.timeout, max_items=args.max_items_per_source)
                 except Exception as fallback_exc:  # noqa: BLE001
