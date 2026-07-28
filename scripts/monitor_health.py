@@ -9,6 +9,11 @@ from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
 
+try:
+    from audit_local_cnki_status import inspect_status
+except ModuleNotFoundError:  # package import during tests
+    from scripts.audit_local_cnki_status import inspect_status
+
 
 def count_records(path: Path) -> int:
     payload = read_json(path, [])
@@ -27,6 +32,7 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
     source_health = read_json(data_dir / "source_health.json", {})
     gate = read_json(data_dir / "release_gate.json", {})
     local_cnki = read_json(data_dir / "local_cnki_status.json", {})
+    local_cnki_check = inspect_status(data_dir / "local_cnki_status.json", max_age_hours=30.0)
     sentinel = read_json(data_dir / "external_sentinel_alohomora.json", {})
     quality_totals = quality.get("totals") if isinstance(quality, dict) else {}
     source_counts = source_health.get("counts") if isinstance(source_health, dict) else {}
@@ -67,6 +73,12 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
         warnings.append({"code": "missing_authors_today_journals", "count": missing_authors_today})
     if local_cnki.get("state") not in {"success", "published"}:
         warnings.append({"code": "local_cnki_not_published", "state": local_cnki.get("state") or "unknown"})
+    elif not local_cnki_check.get("ok"):
+        warnings.append({
+            "code": "local_cnki_stale",
+            "state": local_cnki_check.get("code") or "unknown",
+            "age_hours": local_cnki_check.get("age_hours"),
+        })
 
     sentinel_counts = sentinel.get("counts") if isinstance(sentinel, dict) else {}
     return {
@@ -98,6 +110,9 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
             "ok": local_cnki.get("ok"),
             "last_success_at": local_cnki.get("last_success_at"),
             "count": local_cnki.get("count"),
+            "fresh": local_cnki_check.get("ok"),
+            "freshness_code": local_cnki_check.get("code"),
+            "age_hours": local_cnki_check.get("age_hours"),
         },
         "sentinel": {
             "checked_at": sentinel.get("checked_at") if isinstance(sentinel, dict) else None,

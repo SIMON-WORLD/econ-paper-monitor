@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -11,7 +12,7 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, read_json, today_str, write_text
+from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, normalize_doi, read_json, today_str, write_text
 from dedupe import record_match_keys
 from status import load_status
 
@@ -382,6 +383,22 @@ def display_key(record: dict[str, Any]) -> str:
         if value:
             return f"{key}:{str(value).casefold()}"
     return "title:"
+
+
+def detail_key(record: dict[str, Any]) -> str:
+    """Return the stable public key used by ``docs/paper.html``."""
+    title = str(record.get("title") or "paper").casefold()
+    slug = re.sub(r"[^a-z0-9]+", "-", title).strip("-") or "paper"
+    slug = slug[:88].rstrip("-")
+    identity = normalize_doi(record.get("doi")) or str(record.get("url") or "")
+    if not identity:
+        identity = f"{record.get('title') or ''}|{record.get('journal') or ''}"
+    digest = hashlib.sha1(identity.encode("utf-8")).hexdigest()[:12]
+    return f"{slug}-{digest}"
+
+
+def detail_url(record: dict[str, Any]) -> str:
+    return f"{BASE}/paper.html?key={detail_key(record)}"
 
 
 def unique_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1164,6 +1181,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
         china_related = is_china_related(record) or "china" in topics
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
+        detail_href = detail_url(record)
         official_line = public_date_line(record)
         official_class = "pending" if official_line.startswith("官方日期待补") else ("issue" if public_date_label(record) in {"来源期次", "卷期日期"} else "")
         official_chip = f'<span class="date-chip {official_class}">{html_escape(official_line)}</span>'
@@ -1177,7 +1195,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
             f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(source_type_value(record))}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
-    <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title'))}</a></h3>
+    <h3><a href="{html_escape(detail_href)}">{html_escape(record.get('title'))}</a></h3>
     {title_zh_html}
     <p class="authors">{html_escape(authors(record))}</p>
     <div class="meta-block">
@@ -2049,6 +2067,38 @@ def write_exports(docs_dir: Path, records: list[dict[str, Any]]) -> None:
     write_text(export_dir / "recent72.bib", bibtex_text(records))
 
 
+def write_detail_data(docs_dir: Path, records: list[dict[str, Any]]) -> None:
+    """Write compact, sharded detail payloads so detail pages stay fast."""
+    detail_dir = docs_dir / "paper-data"
+    detail_dir.mkdir(parents=True, exist_ok=True)
+    shards: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for record in unique_records(public_records(records)):
+        key = detail_key(record)
+        item = {
+            "key": key,
+            "title": record.get("title") or "",
+            "title_zh": record.get("title_zh") or "",
+            "authors": authors(record),
+            "source": record.get("journal") or record.get("source") or "",
+            "source_type": source_type_label(record),
+            "detected": detected_date(record),
+            "official": public_date_line(record),
+            "accepted": record.get("accepted_date") or "",
+            "topics": [topic_label(topic) for topic in article_topics(record)],
+            "abstract": record.get("abstract") or "",
+            "abstract_zh": record.get("abstract_zh") or "",
+            "abstract_status": record.get("abstract_status") or "",
+            "doi": record.get("doi") or "",
+            "url": record.get("url") or "",
+        }
+        # paper.html routes by the first two characters of the 12-char hash
+        # suffix, keeping each request small and cacheable.
+        shards[key[-12:-10].lower()].append(item)
+    for shard in range(256):
+        name = f"{shard:02x}.json"
+        write_text(detail_dir / name, json.dumps(shards.get(name[:2], []), ensure_ascii=False, separators=(",", ":")))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
@@ -2066,6 +2116,7 @@ def main() -> None:
     )
     recent72_records = recent_detected_records(records, 3)
     write_exports(args.docs_dir, recent72_records)
+    write_detail_data(args.docs_dir, records)
     write_page(
         args.docs_dir / "recent72" / "index.html",
         page(

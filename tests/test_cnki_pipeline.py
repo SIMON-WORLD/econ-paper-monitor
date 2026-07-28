@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import json
 from pathlib import Path
 
 
@@ -257,3 +258,27 @@ def test_public_pages_label_filters_and_expose_search_description():
     assert '<meta name="description"' in source
     assert 'aria-label="筛选期刊"' in source
     assert 'aria-label="筛选主题"' in source
+
+
+def test_monitor_health_reports_local_cnki_freshness(tmp_path):
+    import monitor_health
+
+    (tmp_path / "daily").mkdir()
+    (tmp_path / "daily" / "2026-07-28.json").write_text("[]", encoding="utf-8")
+    for name, payload in {
+        "quality_report.json": {"totals": {}},
+        "formal_journal_audit.json": {"formal_journals": 86, "suspected_missed_journals": 0},
+        "recent72_coverage_audit.json": {"missing": 0},
+        "source_health.json": {"counts": {"healthy": 1}},
+        "release_gate.json": {"ok": True},
+        "local_cnki_status.json": {
+            "state": "published",
+            "ok": True,
+            "last_success_at": "2026-07-28T07:00:00+00:00",
+            "count": 101,
+        },
+    }.items():
+        (tmp_path / name).write_text(json.dumps(payload), encoding="utf-8")
+    report = monitor_health.build_health(tmp_path, date="2026-07-28")
+    assert report["local_cnki"]["fresh"] is True
+    assert report["local_cnki"]["freshness_code"] == "fresh"
