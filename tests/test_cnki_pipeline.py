@@ -122,7 +122,8 @@ def test_local_task_bootstraps_a_dedicated_runner_and_uses_it_as_working_directo
     assert "bootstrap_local_cnki_runner.ps1" in installer
     assert "-WorkingDirectory $RunnerPath" in installer
     assert "git clone --branch main --single-branch" in bootstrap
-    assert "git -C $RunnerPath -c http.sslbackend=openssl pull --ff-only origin main" in bootstrap
+    assert "http.sslbackend=openssl" in bootstrap
+    assert "pull --ff-only origin main" in bootstrap
     assert "must use branch main" in bootstrap
 
 

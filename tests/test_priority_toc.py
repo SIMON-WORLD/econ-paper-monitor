@@ -103,6 +103,30 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
         self.assertIn("ok", text)
         self.assertEqual(urlopen.call_args.kwargs["timeout"], 5)
 
+    def test_http_200_challenge_page_uses_fallback(self) -> None:
+        challenge = mock.MagicMock()
+        challenge.read.return_value = b"<html><title>Just a moment...</title></html>"
+        challenge.headers.get_content_charset.return_value = "utf-8"
+        challenge.__enter__.return_value = challenge
+        valid = mock.MagicMock()
+        valid.read.return_value = b"<html><title>Forthcoming Papers</title></html>"
+        valid.headers.get_content_charset.return_value = "utf-8"
+        valid.__enter__.return_value = valid
+
+        with mock.patch.object(
+            fetch_priority_toc.urllib.request,
+            "urlopen",
+            side_effect=[challenge, valid],
+        ) as urlopen:
+            text = fetch_priority_toc.fetch_toc_text(
+                "https://publisher.invalid/toc",
+                timeout=5,
+                fallback_urls=["https://mirror.invalid/toc"],
+            )
+
+        self.assertIn("Forthcoming Papers", text)
+        self.assertEqual(urlopen.call_count, 2)
+
     def test_crossref_fallback_passes_its_own_timeout(self) -> None:
         response = mock.MagicMock()
         response.read.return_value = b'{"message": {"items": []}}'
@@ -201,6 +225,25 @@ class AdditionalEconometricSocietyTargetTests(unittest.TestCase):
         self.assertIn("TE9999", theoretical[0][0])
         self.assertEqual(len(quantitative), 1)
         self.assertIn("QE9999", quantitative[0][0])
+
+    def test_econometric_society_cards_extract_primary_pdf_and_authors(self) -> None:
+        html = """
+        <div class="article" id="forthcoming_Social-Learning">
+          <h3 class="article_title">The Social Learning Barrier</h3>
+          <p>Brandl, Florian</p>
+          <div class="article_actions">
+            <a href="/publications/econometrica/forthcoming-papers/0000/00/00/Social-Learning/file/24769-2.pdf">View</a>
+            <a href="/publications/econometrica/forthcoming-papers/0000/00/00/Social-Learning/supp/24769SUPP.pdf">Supplemental Appendix</a>
+          </div>
+        </div>
+        """
+        base = "https://www.econometricsociety.org/publications/econometrica/forthcoming-papers"
+        links = fetch_priority_toc.article_links(html, base)
+        authors = fetch_priority_toc.econometric_society_author_map(html, base)
+        self.assertEqual(len(links), 1)
+        self.assertIn("/file/24769-2.pdf", links[0][0])
+        self.assertEqual(links[0][1], "The Social Learning Barrier")
+        self.assertEqual(authors[links[0][0]], ["Brandl, Florian"])
 
 
 if __name__ == "__main__":

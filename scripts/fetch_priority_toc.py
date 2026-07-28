@@ -179,6 +179,18 @@ BROWSER_HEADERS = {
 }
 
 
+def is_challenge_page(text: str) -> bool:
+    """Reject HTTP-200 anti-bot interstitials as source success."""
+    lowered = re.sub(r"\s+", " ", text or "").casefold()
+    strong_markers = (
+        "just a moment...",
+        "verify you are human",
+        "enable javascript and cookies to continue",
+        "cf-chl-",
+    )
+    return len(lowered) < 5000 and any(marker in lowered for marker in strong_markers)
+
+
 def fetch_toc_text(url: str, timeout: int, fallback_urls: list[str] | None = None) -> str:
     """Fetch a publisher page, then a text-rendering mirror when blocked.
 
@@ -204,6 +216,8 @@ def fetch_toc_text(url: str, timeout: int, fallback_urls: list[str] | None = Non
                 try:
                     text = payload.decode(encoding)
                     if text.strip():
+                        if is_challenge_page(text):
+                            raise ValueError("publisher returned an anti-bot challenge page")
                         return text
                 except Exception:
                     continue
@@ -291,6 +305,25 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
     """
     links: list[tuple[str, str]] = []
     seen: set[str] = set()
+    if "econometricsociety.org/publications/" in base_url.lower():
+        # Forthcoming pages expose article cards with a title, author line,
+        # and PDF link, but no DOI or HTML article URL. Only the primary
+        # ``file`` link is a paper; supplemental files are excluded.
+        card_pattern = re.compile(
+            r'<div[^>]+class=["\']article["\'][^>]*>.*?'
+            r'<h3[^>]+class=["\']article_title["\'][^>]*>(?P<title>.*?)</h3>\s*'
+            r'<p>(?P<authors>.*?)</p>.*?'
+            r'<a[^>]+href=["\'](?P<href>[^"\']+/file/[^"\']+\.pdf)["\']',
+            flags=re.I | re.S,
+        )
+        for match in card_pattern.finditer(html_text):
+            title = clean_text(match.group("title"))
+            href = urljoin(base_url, html.unescape(match.group("href")).strip())
+            if title and len(title) >= 8 and href not in seen:
+                seen.add(href)
+                links.append((href, title))
+        if links:
+            return links
     for match in re.finditer(r'<a[^>]+href=["\'](?P<href>[^"\']+)["\'][^>]*>(?P<title>.*?)</a>', html_text, flags=re.I | re.S):
         href = html.unescape(match.group("href")).strip()
         raw_title = match.group("title")
@@ -400,6 +433,26 @@ def restud_author_map(html_text: str, base_url: str) -> dict[str, list[str]]:
     return authors_by_url
 
 
+def econometric_society_author_map(html_text: str, base_url: str) -> dict[str, list[str]]:
+    """Map forthcoming PDF links to the author line in each article card."""
+    if "econometricsociety.org/publications/" not in base_url.lower():
+        return {}
+    authors_by_url: dict[str, list[str]] = {}
+    card_pattern = re.compile(
+        r'<div[^>]+class=["\']article["\'][^>]*>.*?'
+        r'<h3[^>]+class=["\']article_title["\'][^>]*>.*?</h3>\s*'
+        r'<p>(?P<authors>.*?)</p>.*?'
+        r'<a[^>]+href=["\'](?P<href>[^"\']+/file/[^"\']+\.pdf)["\']',
+        flags=re.I | re.S,
+    )
+    for match in card_pattern.finditer(html_text):
+        href = urljoin(base_url, html.unescape(match.group("href")).strip())
+        author_text = clean_text(match.group("authors"))
+        if author_text:
+            authors_by_url[href.rstrip("/")] = [author_text]
+    return authors_by_url
+
+
 def restud_abstract_from_jina(text: str) -> str | None:
     """Extract the first substantive abstract paragraph from a REStud page."""
     content = text.split("Markdown Content:", 1)[-1] if "Markdown Content:" in text else text
@@ -475,9 +528,16 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
     page_url = target["url"]
     html_text = fetch_toc_text(page_url, timeout=timeout, fallback_urls=target.get("fallback_urls"))
     author_map = restud_author_map(html_text, page_url)
+    author_map.update(econometric_society_author_map(html_text, page_url))
     records: list[dict] = []
     for url, title in article_links(html_text, page_url):
-        detail = enrich_detail(url, title, timeout) if len(records) < detail_limit else {"title": title, "doi": doi_from_text(url)}
+        is_econometric_society_pdf = "econometricsociety.org/publications/" in url.lower() and "/file/" in url.lower()
+        detail = (
+            {"title": title, "doi": doi_from_text(url)}
+            if is_econometric_society_pdf
+            else enrich_detail(url, title, timeout) if len(records) < detail_limit
+            else {"title": title, "doi": doi_from_text(url)}
+        )
         records.append(
             article_record(
                 journal,
@@ -486,7 +546,7 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
                 source="priority_toc",
                 source_url=page_url,
                 doi=detail.get("doi") if isinstance(detail.get("doi"), str) else None,
-                authors=(author_map.get(url.rstrip("/")) if journal.get("id") == "review-of-economic-studies" else None)
+                authors=author_map.get(url.rstrip("/")) if author_map else None
                 or (detail.get("authors") if isinstance(detail.get("authors"), list) else []),
                 abstract=detail.get("abstract") if isinstance(detail.get("abstract"), str) else None,
                 published_online=detail.get("published_online") if isinstance(detail.get("published_online"), str) else None,
@@ -566,15 +626,24 @@ def main() -> None:
     parser.add_argument("--timeout", type=int, default=20)
     parser.add_argument("--detail-limit", type=int, default=12)
     parser.add_argument("--max-items-per-source", type=int, default=40)
+    parser.add_argument(
+        "--journal",
+        action="append",
+        dest="journal_ids",
+        help="Only fetch the named journal id; repeat for focused source checks.",
+    )
     args = parser.parse_args()
 
     journals = {str(journal.get("id")): journal for journal in load_journals(args.journals)}
+    selected_journals = set(args.journal_ids or TARGETS)
     output = args.output or DATA_DIR / "raw" / "priority-toc" / f"{today_str()}.json"
     records: list[dict] = []
     messages: list[str] = []
     failures = 0
     journal_status: dict[str, dict[str, object]] = {}
     for journal_id, targets in TARGETS.items():
+        if journal_id not in selected_journals:
+            continue
         journal = journals.get(journal_id)
         if not journal:
             continue
