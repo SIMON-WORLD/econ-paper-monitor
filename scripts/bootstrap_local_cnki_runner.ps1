@@ -23,15 +23,19 @@ if (-not (Test-Path -LiteralPath (Join-Path $RunnerPath ".git"))) {
   }
   git clone --branch main --single-branch $Remote $RunnerPath
 } else {
-  $branch = (git -C $RunnerPath branch --show-current).Trim()
+  $gitRunner = @("-c", "safe.directory=$RunnerPath", "-C", $RunnerPath)
+  $branch = (git @gitRunner branch --show-current).Trim()
   if ($branch -ne "main") {
     throw "CNKI runner must use branch main, found '$branch'"
   }
-  $dirty = git -C $RunnerPath status --porcelain
+  $dirty = git @gitRunner status --porcelain
   if ($dirty) {
     throw "CNKI runner has uncommitted changes; inspect it before scheduling: $RunnerPath"
   }
-  git -C $RunnerPath -c http.sslbackend=openssl pull --ff-only origin main
+  git @gitRunner -c http.sslbackend=openssl pull --ff-only origin main
+  if ($LASTEXITCODE -ne 0) {
+    throw "Failed to update CNKI runner from origin/main (exit code $LASTEXITCODE)."
+  }
 }
 
 Write-Host "CNKI runner ready: $RunnerPath"
