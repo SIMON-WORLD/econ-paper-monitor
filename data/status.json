@@ -332,11 +332,11 @@
           "attempted": 2,
           "changed": 0,
           "failures": 2,
-          "message": "crossref-doi-fallback:1, blocked-captcha:1",
+          "message": "abstract-route-missing:1, blocked-captcha:1",
           "publisher": "Elsevier",
           "statuses": {
-            "blocked-captcha": 1,
-            "crossref-doi-fallback": 1
+            "abstract-route-missing": 1,
+            "blocked-captcha": 1
           },
           "success_rate": 0.0
         },
@@ -351,40 +351,42 @@
           "success_rate": 0
         },
         {
-          "ab_dates": 3,
-          "attempted": 4,
-          "changed": 1,
-          "failures": 0,
-          "message": "metadata-unchanged:3, updated:1",
+          "ab_dates": 29,
+          "attempted": 30,
+          "changed": 10,
+          "failures": 1,
+          "message": "abstract-present:17, abstract-route-missing:8, abstract-updated:readonly-proxy:4, metadata-only:1",
           "publisher": "Other",
           "statuses": {
-            "metadata-unchanged": 3,
-            "updated": 1
+            "abstract-present": 17,
+            "abstract-route-missing": 8,
+            "abstract-updated:readonly-proxy": 4,
+            "metadata-only": 1
           },
-          "success_rate": 0.75
+          "success_rate": 0.9667
         },
         {
-          "ab_dates": 0,
-          "attempted": 3,
-          "changed": 0,
+          "ab_dates": 3,
+          "attempted": 6,
+          "changed": 2,
           "failures": 3,
-          "message": "crossref-doi-fallback:3",
+          "message": "abstract-present:6",
           "publisher": "Springer",
           "statuses": {
-            "crossref-doi-fallback": 3
+            "abstract-present": 6
           },
-          "success_rate": 0.0
+          "success_rate": 0.5
         },
         {
           "ab_dates": 0,
           "attempted": 5,
           "changed": 4,
-          "failures": 1,
-          "message": "updated:4, crossref-doi-fallback:1",
+          "failures": 5,
+          "message": "abstract-updated:3, abstract-present:2",
           "publisher": "Taylor & Francis",
           "statuses": {
-            "crossref-doi-fallback": 1,
-            "updated": 4
+            "abstract-present": 2,
+            "abstract-updated": 3
           },
           "success_rate": 0.0
         },
@@ -393,15 +395,15 @@
           "attempted": 5,
           "changed": 3,
           "failures": 1,
-          "message": "crossref-doi-fallback:5",
+          "message": "abstract-present:5",
           "publisher": "Wiley",
           "statuses": {
-            "crossref-doi-fallback": 5
+            "abstract-present": 5
           },
           "success_rate": 0.8
         }
       ],
-      "updated_at": "2026-07-28T15:07:48+00:00"
+      "updated_at": "2026-07-28T15:39:32+00:00"
     }
   },
   "sources": {
@@ -505,9 +507,9 @@
     },
     "formal-journal-audit": {
       "count": 86,
-      "message": "formal=86 raw_today=80 daily_today=7 missed=0",
+      "message": "formal=86 raw_today=25 daily_today=7 missed=0",
       "ok": true,
-      "updated_at": "2026-07-28T15:06:44+00:00"
+      "updated_at": "2026-07-28T15:41:47+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -659,18 +661,18 @@
       "updated_at": "2026-07-28T14:59:33+00:00"
     },
     "priority-toc": {
-      "count": 163,
+      "count": 192,
       "journals": {
         "econometrica": {
+          "count": 30,
+          "fallback_count": 0,
+          "ok": true,
+          "publisher_ok": true
+        },
+        "economic-journal": {
           "count": 0,
           "fallback_count": 0,
           "ok": false,
-          "publisher_ok": false
-        },
-        "economic-journal": {
-          "count": 20,
-          "fallback_count": 20,
-          "ok": true,
           "publisher_ok": false
         },
         "european-review-of-agricultural-economics": {
@@ -686,21 +688,21 @@
           "publisher_ok": false
         },
         "journal-of-the-european-economic-association": {
-          "count": 7,
-          "fallback_count": 7,
-          "ok": true,
-          "publisher_ok": false
-        },
-        "quantitative-economics": {
           "count": 0,
           "fallback_count": 0,
           "ok": false,
           "publisher_ok": false
         },
-        "quarterly-journal-of-economics": {
+        "quantitative-economics": {
           "count": 8,
-          "fallback_count": 8,
+          "fallback_count": 0,
           "ok": true,
+          "publisher_ok": true
+        },
+        "quarterly-journal-of-economics": {
+          "count": 0,
+          "fallback_count": 0,
+          "ok": false,
           "publisher_ok": false
         },
         "review-of-economic-studies": {
@@ -722,28 +724,28 @@
           "publisher_ok": false
         },
         "theoretical-economics": {
-          "count": 0,
+          "count": 26,
           "fallback_count": 0,
-          "ok": false,
-          "publisher_ok": false
+          "ok": true,
+          "publisher_ok": true
         }
       },
-      "message": "econometrica/econometrica_forthcoming: crossref fallback 0; econometrica: 0; theoretical-economics/theoretical_economics_forthcoming: 0; theoretical-economics/theoretical_economics_forthcoming: crossref fallback 0; theoretical-economics: 0; quantitative-economics/quantitative_economics_forthcoming: 0; quantitative-economics/quantitative_economics_forthcoming: crossref fallback 0; quantitative-economics: 0; quarterly-journal-of-economics/oup_advance_articles: 0; quarterly-journal-of-economics/oup_advance_articles: crossref fallback 8; economic-journal/oup_advance_articles: 0; economic-journal/oup_advance_articles: crossref fallback 20; journal-of-the-european-economic-association/oup_advance_articles: 0; journal-of-the-european-economic-association/oup_advance_articles: crossref fallback 7; journal-of-law-economics-and-organization/oup_advance_articles: 0; journal-of-law-economics-and-organization/oup_advance_articles: crossref fallback 1; review-of-financial-studies/oup_advance_articles: 0; review-of-financial-studies/oup_advance_articles: crossref fallback 16; european-review-of-agricultural-economics/oup_advance_articles: 0; european-review-of-agricultural-economics/oup_advance_articles: crossref fallback 4",
+      "message": "review-of-economic-studies/restud_official_accepted: 6; econometrica/econometrica_forthcoming: 30; review-of-economic-studies/restud_advance: ValueError; crossref fallback 21; theoretical-economics/theoretical_economics_forthcoming: 26; review-of-economics-and-statistics/restat_advance: ValueError; crossref fallback 40; quantitative-economics/quantitative_economics_forthcoming: 8; review-of-economics-and-statistics/restat_current: ValueError; crossref fallback 40; quarterly-journal-of-economics/oup_advance_articles: ValueError; crossref fallback URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>; economic-journal/oup_advance_articles: ValueError; crossref fallback URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>; journal-of-the-european-economic-association/oup_advance_articles: ValueError; crossref fallback URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>; review-of-financial-studies/oup_advance_articles: ValueError; crossref fallback 16; journal-of-law-economics-and-organization/oup_advance_articles: ValueError; crossref fallback 1; european-review-of-agricultural-economics/oup_advance_articles: ValueError; crossref fallback 4; quarterly-journal-of-economics: 0; economic-journal: 0; journal-of-the-european-economic-association: 0",
       "ok": true,
       "partial_failures": 3,
-      "updated_at": "2026-07-28T14:56:45+00:00"
+      "updated_at": "2026-07-28T15:43:40+00:00"
     },
     "publisher-detail": {
-      "count": 8,
-      "message": "attempted=19; proxy_abstract_attempted=6; 2026-07-28 World Development: crossref-doi-fallback; 2026-07-28 Land Use Policy: blocked-captcha; 2026-07-28 Applied Economics: updated; 2026-07-28 Applied Economics: updated; 2026-07-28 Applied Economics: updated; 2026-07-28 Applied Economics: updated; 2026-07-28 Public Choice: crossref-doi-fallback; 2026-07-28 Public Choice: crossref-doi-fallback; 2026-07-28 Public Choice: crossref-doi-fallback; seen Applied Economics: crossref-doi-fallback; 2026-07-28 Journal of Finance: crossref-doi-fallback; seen European Central Bank Working Papers: updated; seen Australian Journal of Agricultural and Resource Economics: crossref-doi-fallback; seen Australian Journal of Agricultural and Resource Economics: crossref-doi-fallback; seen Canadian Journal of Economics: crossref-doi-fallback; seen Canadian Journal of Economics: crossref-doi-fallback; seen Review of Economic Studies: metadata-unchanged; seen Review of Economic Studies: metadata-unchanged; seen Review of Economic Studies: metadata-unchanged",
+      "count": 19,
+      "message": "attempted=48; proxy_abstract_attempted=5; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; 2026-07-28 Environmental and Resource Economics: abstract-present; seen Australian Journal of Agricultural and Resource Economics: abstract-present; seen Australian Journal of Agricultural and Resource Economics: abstract-present; seen Applied Economics: abstract-present; 2026-07-28 International Tax and Public Finance: abstract-present; seen CEPR Discussion Papers: abstract-present; seen Review of Economic Studies: abstract-present; seen Review of Economic Studies: abstract-present; seen Review of Economic Studies: abstract-present; 2026-07-28 VoxEU / CEPR Columns: abstract-present; 2026-07-28 VoxEU / CEPR Columns: abstract-present; seen Canadian Journal of Economics: abstract-present; seen Canadian Journal of Economics: abstract-present; seen Economic Theory: abstract-present",
       "ok": true,
-      "updated_at": "2026-07-28T15:07:48+00:00"
+      "updated_at": "2026-07-28T15:39:32+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
-      "message": "dates=2026-07-28,2026-07-27,2026-07-26 raw=3856 daily=111 covered=135 seen=3616 missing=0",
+      "message": "dates=2026-07-28,2026-07-27,2026-07-26 raw=242 daily=106 covered=4 seen=111 missing=0",
       "ok": true,
-      "updated_at": "2026-07-28T15:06:45+00:00"
+      "updated_at": "2026-07-28T15:41:46+00:00"
     },
     "remove-seen-backflow": {
       "count": 2,
@@ -765,9 +767,9 @@
     },
     "source-health": {
       "count": 86,
-      "message": "healthy=61 degraded=25 stale=0 unavailable=0",
+      "message": "healthy=63 degraded=23 stale=0 unavailable=0",
       "ok": true,
-      "updated_at": "2026-07-28T15:06:45+00:00"
+      "updated_at": "2026-07-28T15:43:50+00:00"
     },
     "translation": {
       "count": 44,

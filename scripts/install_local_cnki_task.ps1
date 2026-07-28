@@ -14,7 +14,11 @@ if ([string]::IsNullOrWhiteSpace($shell)) {
   $shell = (Get-Command powershell.exe -ErrorAction Stop).Source
 }
 if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
-  $RunnerPath = Join-Path $env:LOCALAPPDATA "AcademicDoor\econ-paper-monitor-cnki-runner"
+  $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
+  if ([string]::IsNullOrWhiteSpace($localAppData)) {
+    $localAppData = Join-Path $env:USERPROFILE "AppData\Local"
+  }
+  $RunnerPath = Join-Path $localAppData "AcademicDoor\econ-paper-monitor-cnki-runner"
 }
 $bootstrap = Join-Path $repo "scripts\bootstrap_local_cnki_runner.ps1"
 & $shell -NoProfile -ExecutionPolicy Bypass -File $bootstrap -RunnerPath $RunnerPath
@@ -40,7 +44,8 @@ if ($NoPush) {
 
 $action = New-ScheduledTaskAction -Execute $shell -Argument ($argumentParts -join " ") -WorkingDirectory $RunnerPath
 $triggers = foreach ($time in $Times) {
-  New-ScheduledTaskTrigger -Daily -At $time
+  $at = [datetime]::ParseExact($time, "HH:mm", [Globalization.CultureInfo]::InvariantCulture)
+  New-ScheduledTaskTrigger -Daily -At $at
 }
 $settings = New-ScheduledTaskSettingsSet `
   -StartWhenAvailable `

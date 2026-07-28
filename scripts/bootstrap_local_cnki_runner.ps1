@@ -6,7 +6,11 @@ param(
 $ErrorActionPreference = "Stop"
 $repo = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
-  $RunnerPath = Join-Path $env:LOCALAPPDATA "AcademicDoor\econ-paper-monitor-cnki-runner"
+  $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
+  if ([string]::IsNullOrWhiteSpace($localAppData)) {
+    $localAppData = Join-Path $env:USERPROFILE "AppData\Local"
+  }
+  $RunnerPath = Join-Path $localAppData "AcademicDoor\econ-paper-monitor-cnki-runner"
 }
 if ([string]::IsNullOrWhiteSpace($Remote)) {
   $Remote = (git -C $repo remote get-url origin).Trim()
