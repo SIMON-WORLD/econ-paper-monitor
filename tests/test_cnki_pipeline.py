@@ -248,3 +248,12 @@ def test_monitor_health_fails_when_recent_coverage_is_missing(tmp_path):
     report = monitor_health.build_health(tmp_path, date="2026-07-28")
     assert report["ok"] is False
     assert {item["code"] for item in report["failures"]} == {"recent72_missing"}
+
+
+def test_public_pages_label_filters_and_expose_search_description():
+    import render_site
+
+    source = Path(render_site.__file__).read_text(encoding="utf-8")
+    assert '<meta name="description"' in source
+    assert 'aria-label="筛选期刊"' in source
+    assert 'aria-label="筛选主题"' in source

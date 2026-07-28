@@ -1110,6 +1110,7 @@ def page(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="{BASE}/assets/academic-door-logo.png">
+  <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分首次监测时间、官方在线日期和中国相关研究。">
   <title>{html_escape(title)}</title>
   {analytics_snippet()}
   <style>{STYLE}{EXTRA_STYLE}</style>
@@ -1338,13 +1339,13 @@ def filter_toolbar(records: list[dict[str, Any]], *, include_rss: bool = False, 
     date_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(date_type_label(value))}</option>' for value in date_types)
     confidence_options = "".join(f'<option value="{html_escape(value)}">{html_escape(confidence_label(value))}</option>' for value in confidences)
     source_type_options = "".join(f'<option value="{html_escape(value)}">{html_escape(SOURCE_TYPE_LABELS.get(value, source_type_label({"source_type": value})))}</option>' for value in source_types)
-    source_type_control = f'<select class="control" data-filter-role="sourceType"><option value="">筛选来源类型</option>{source_type_options}</select>' if len(source_types) > 1 else ""
+    source_type_control = f'<select class="control" aria-label="筛选来源类型" data-filter-role="sourceType"><option value="">筛选来源类型</option>{source_type_options}</select>' if len(source_types) > 1 else ""
     return f"""<div class="toolbar" id="filters-{html_escape(scope)}" data-filter-scope="{html_escape(scope)}">
-  <input class="control" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
-  <select class="control" data-filter-role="journal"><option value="">{html_escape(source_label)}</option>{journal_options}</select>
-  <select class="control" data-filter-role="field"><option value="">筛选主题</option>{field_options}</select>
-  <select class="control" data-filter-role="dateType"><option value="">筛选日期类型</option>{date_type_options}</select>
-  <select class="control" data-filter-role="confidence"><option value="">筛选可信度</option>{confidence_options}</select>
+  <input class="control" aria-label="搜索标题、作者或 DOI" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">{html_escape(source_label)}</option>{journal_options}</select>
+  <select class="control" aria-label="筛选主题" data-filter-role="field"><option value="">筛选主题</option>{field_options}</select>
+  <select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">筛选日期类型</option>{date_type_options}</select>
+  <select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">筛选可信度</option>{confidence_options}</select>
   {source_type_control}
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
 </div>
