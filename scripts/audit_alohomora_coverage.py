@@ -244,6 +244,26 @@ def local_records() -> list[dict[str, Any]]:
     return records
 
 
+def seen_records() -> list[dict[str, Any]]:
+    """Load records already discovered but intentionally excluded from public flow."""
+    payload = read_json(DATA_DIR / "seen.json", {})
+    if not isinstance(payload, dict):
+        return []
+    payload = payload.get("papers", payload)
+    if not isinstance(payload, dict):
+        return []
+    records: list[dict[str, Any]] = []
+    for record in payload.values():
+        if not isinstance(record, dict):
+            continue
+        item = dict(record)
+        first_seen = parse_any_date(item.get("first_seen"))
+        if first_seen:
+            item["_local_first_seen_date"] = first_seen
+        records.append(item)
+    return records
+
+
 def local_indexes(records: list[dict[str, Any]]) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
     titles = {norm_title(str(record.get("title") or "")): record for record in records if record.get("title")}
     dois = {normalize_doi(str(record.get("doi") or "")): record for record in records if normalize_doi(str(record.get("doi") or ""))}
@@ -485,7 +505,11 @@ def main() -> None:
     remote_payload = fetch_json(ALO_API)
     papers = [item for item in remote_payload.get("papers", []) if isinstance(item, dict)]
     records = local_records()
-    titles, dois = local_indexes(records)
+    # A record may be intentionally absent from the public daily flow (for
+    # example AEA forthcoming). It is still a successful first discovery and
+    # must count as matched in the external-sentinel audit.
+    match_records = records + seen_records()
+    titles, dois = local_indexes(match_records)
     known_names = monitor_names()
     remote_titles = {norm_title(str(paper.get("title") or "")) for paper in papers if paper.get("title")}
     remote_dois = {normalize_doi(doi_from_url(str(paper.get("link") or ""))) for paper in papers if doi_from_url(str(paper.get("link") or ""))}
@@ -513,7 +537,7 @@ def main() -> None:
                     "journal": paper.get("journal"),
                     "mapped_journal": ALIASES.get(str(paper.get("journal") or ""), str(paper.get("journal") or "")),
                     "external_first_seen_date": external_first_seen_date,
-                    "local_first_seen_date": local_match.get("_daily_date"),
+                    "local_first_seen_date": local_match.get("_daily_date") or local_match.get("_local_first_seen_date"),
                     "official_date": local_date,
                     "lead_days_local_minus_external": day_delta(str(local_match.get("_daily_date") or ""), external_first_seen_date),
                 }

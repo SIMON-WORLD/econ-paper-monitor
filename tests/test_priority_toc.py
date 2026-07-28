@@ -117,6 +117,37 @@ class PriorityTocTimeoutScopeTests(unittest.TestCase):
         self.assertEqual(records, [])
         self.assertEqual(urlopen.call_args.kwargs["timeout"], 5)
 
+    def test_restud_official_homepage_extracts_new_article_links(self) -> None:
+        html = """[New ### Macro Shocks and Firm Dynamics with Oligopolistic Financial Intermediaries 24 July 2026 Alessandro T. Villa](https://www.restud.com/macro-shocks-and-firm-dynamics-with-oligopolistic-financial-intermediaries/)"""
+        links = fetch_priority_toc.article_links(html, "https://www.restud.com/")
+        self.assertEqual(
+            links,
+            [
+                (
+                    "https://www.restud.com/macro-shocks-and-firm-dynamics-with-oligopolistic-financial-intermediaries/",
+                    "Macro Shocks and Firm Dynamics with Oligopolistic Financial Intermediaries",
+                )
+            ],
+        )
+
+    def test_restud_detail_reads_published_time_and_author_from_jina_page(self) -> None:
+        page = """Title: Macro Shocks and Firm Dynamics with Oligopolistic Financial Intermediaries\nPublished Time: 2026-07-24T16:07:56+00:00\nMarkdown Content:\n24 July 2026\n\nAlessandro T. Villa, Federal Reserve Bank of Chicago\n\nAbstract text."""
+        with mock.patch.object(fetch_priority_toc, "fetch_toc_text", return_value=page):
+            detail = fetch_priority_toc.enrich_detail("https://www.restud.com/example/", "Fallback", 5)
+        self.assertEqual(detail["published_online"], "2026-07-24")
+        self.assertEqual(detail["authors"], ["Alessandro T. Villa, Federal Reserve Bank of Chicago"])
+
+    def test_restud_author_map_prefers_clean_card_authors(self) -> None:
+        html = """<a href="/macro-shocks/"><p class="author-short">Alessandro T. Villa</p></a>"""
+        self.assertEqual(
+            fetch_priority_toc.restud_author_map(html, "https://www.restud.com/"),
+            {"https://www.restud.com/macro-shocks": ["Alessandro T. Villa"]},
+        )
+
+    def test_priority_journal_status_remains_usable_when_optional_page_is_blocked(self) -> None:
+        source = Path(fetch_priority_toc.__file__).read_text(encoding="utf-8")
+        self.assertIn('"ok": bool(journal_count)', source)
+
 
 class LocalCnkiLogPathTests(unittest.TestCase):
     def test_status_log_path_is_repo_relative(self) -> None:

@@ -33,6 +33,16 @@ class AeaIngestionTests(unittest.TestCase):
         value = "https://www.aeaweb.org/articles?id=10.1257/aer.20240666&&from=f"
         self.assertEqual(audit_alohomora_coverage.doi_from_url(value), "10.1257/aer.20240666")
 
+    def test_seen_records_preserve_first_discovery_without_fake_public_date(self) -> None:
+        with patch.object(
+            audit_alohomora_coverage,
+            "read_json",
+            return_value={"doi:test": {"title": "Forthcoming paper", "first_seen": "2026-07-28T10:00:00+00:00"}},
+        ):
+            records = audit_alohomora_coverage.seen_records()
+        self.assertEqual(records[0]["_local_first_seen_date"], "2026-07-28")
+        self.assertIsNone(audit_alohomora_coverage.public_date(records[0]))
+
     def test_article_url_provides_doi_without_detail_request(self) -> None:
         url = "https://www.aeaweb.org/articles?id=10.1257/aer.20240666"
         self.assertEqual(fetch_aea.doi_from_article_url(url), "10.1257/aer.20240666")

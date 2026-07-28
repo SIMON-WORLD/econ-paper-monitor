@@ -36,7 +36,17 @@ TARGETS = {
             "date_source": "oup_advance_articles",
             "date_confidence": "B",
             "fallback_issn": "0034-6527",
-        }
+        },
+        {
+            "kind": "restud_official_accepted",
+            "url": "https://www.restud.com/",
+            "fallback_urls": [
+                "https://r.jina.ai/http://www.restud.com/",
+            ],
+            "date_source": "restud_published_time",
+            "date_confidence": "A",
+            "fallback_issn": "0034-6527",
+        },
     ],
     "review-of-economics-and-statistics": [
         {
@@ -223,7 +233,22 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
     seen: set[str] = set()
     for match in re.finditer(r'<a[^>]+href=["\'](?P<href>[^"\']+)["\'][^>]*>(?P<title>.*?)</a>', html_text, flags=re.I | re.S):
         href = html.unescape(match.group("href")).strip()
+        raw_title = match.group("title")
         title = clean_text(match.group("title"))
+        if "restud.com" in base_url.lower() and (
+            "<h3" not in raw_title.lower()
+            or "<time" not in raw_title.lower()
+            or "author-short" not in raw_title.lower()
+        ):
+            continue
+        if "restud.com" in base_url.lower():
+            h3_title = re.search(r"<h3[^>]*>(.*?)</h3>", raw_title, flags=re.I | re.S)
+            if h3_title:
+                title = clean_text(re.sub(r"<[^>]+>", " ", h3_title.group(1)))
+        if "restud.com" in base_url.lower() and "###" in title:
+            restud_title = re.search(r"###\s*(.+?)\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}", title)
+            if restud_title:
+                title = clean_text(restud_title.group(1))
         if not title or len(title) < 8:
             continue
         href_lower = href.lower()
@@ -244,6 +269,11 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
             valid_article = is_restud_article or (is_doi_article and "restud" in href_lower)
         elif "direct.mit.edu/rest" in base_lower:
             valid_article = is_restat_article
+        elif "restud.com" in base_lower:
+            valid_article = ("restud.com/" in href_lower or href_lower.startswith("/")) and href_lower.rstrip("/") not in {
+                "https://www.restud.com",
+                "http://www.restud.com",
+            }
         else:
             valid_article = is_doi_article
         if not valid_article:
@@ -259,13 +289,22 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
     # r.jina.ai normally returns Markdown rather than HTML.
     for match in re.finditer(r'\[(?P<title>[^\]]{8,240})\]\((?P<href>https?://[^)]+)\)', html_text):
         href = html.unescape(match.group("href")).strip()
-        title = clean_text(match.group("title"))
+        raw_title = match.group("title")
+        title = clean_text(raw_title)
+        if "restud.com" in base_url.lower() and "###" not in raw_title:
+            continue
+        if "restud.com" in base_url.lower() and "###" in title:
+            restud_title = re.search(r"###\s*(.+?)\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}", title)
+            if restud_title:
+                title = clean_text(restud_title.group(1))
         href_lower = href.lower()
         valid = bool(re.search(r"10\.\d{4,9}/", href_lower))
         if "academic.oup.com/restud" in base_url.lower():
             valid = valid and ("restud" in href_lower)
         elif "direct.mit.edu/rest" in base_url.lower():
             valid = valid and ("10.1162/rest" in href_lower or "/rest/" in href_lower)
+        elif "restud.com" in base_url.lower():
+            valid = "restud.com/" in href_lower
         elif "econometricsociety.org/publications/econometrica" in base_url.lower():
             valid = valid and "10.3982/ecta" in href_lower
         elif "econometricsociety.org/publications/theoretical-economics" in base_url.lower():
@@ -281,6 +320,26 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
     return links
 
 
+def restud_author_map(html_text: str, base_url: str) -> dict[str, list[str]]:
+    """Read the clean author-short field from the official REStud cards."""
+    if "restud.com" not in base_url.lower():
+        return {}
+    authors_by_url: dict[str, list[str]] = {}
+    for match in re.finditer(
+        r'<a[^>]+href=["\'](?P<href>[^"\']+)["\'][^>]*>(?P<body>.*?)</a>',
+        html_text,
+        flags=re.I | re.S,
+    ):
+        author_match = re.search(r'class=["\']author-short["\'][^>]*>(.*?)</', match.group("body"), flags=re.I | re.S)
+        if not author_match:
+            continue
+        href = urljoin(base_url, html.unescape(match.group("href")).strip())
+        author_text = clean_text(re.sub(r"<[^>]+>", " ", author_match.group(1)))
+        if author_text:
+            authors_by_url[href.split("?", 1)[0].rstrip("/")] = [author_text]
+    return authors_by_url
+
+
 def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, object]:
     try:
         html_text = fetch_toc_text(url, timeout=timeout, fallback_urls=[f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"])
@@ -294,7 +353,35 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
         or parse_date((meta_values(html_text, "citation_publication_date") or [None])[0])
         or parse_date((meta_values(html_text, "dc.Date") or [None])[0])
     )
+    if "restud.com" in url.lower() and (not published or not authors):
+        jina_url = f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"
+        try:
+            jina_text = fetch_toc_text(jina_url, timeout=timeout)
+            if not published:
+                published_match = re.search(r"Published Time:\s*(20\d{2}-\d{2}-\d{2})", jina_text, flags=re.I)
+                published = published_match.group(1) if published_match else published
+            if not authors:
+                author_match = re.search(
+                    r"Markdown Content:\s*\n\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}\s*\n\s*([^\n]+)",
+                    jina_text,
+                    flags=re.I,
+                )
+                if author_match:
+                    authors = [clean_text(author_match.group(1))]
+        except Exception:
+            pass
+    if not published:
+        published_match = re.search(r"Published Time:\s*(20\d{2}-\d{2}-\d{2})", html_text, flags=re.I)
+        published = published_match.group(1) if published_match else None
     abstract = (meta_values(html_text, "citation_abstract") or [None])[0]
+    if "restud.com" in url.lower() and not authors:
+        author_match = re.search(
+            r"Markdown Content:\s*\n\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}\s*\n\s*([^\n]+)",
+            html_text,
+            flags=re.I,
+        )
+        if author_match:
+            authors = [clean_text(author_match.group(1))]
     return {
         "title": title,
         "authors": authors,
@@ -307,6 +394,7 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
 def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_limit: int, max_items: int) -> list[dict]:
     page_url = target["url"]
     html_text = fetch_toc_text(page_url, timeout=timeout, fallback_urls=target.get("fallback_urls"))
+    author_map = restud_author_map(html_text, page_url)
     records: list[dict] = []
     for url, title in article_links(html_text, page_url):
         detail = enrich_detail(url, title, timeout) if len(records) < detail_limit else {"title": title, "doi": doi_from_text(url)}
@@ -318,7 +406,8 @@ def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_
                 source="priority_toc",
                 source_url=page_url,
                 doi=detail.get("doi") if isinstance(detail.get("doi"), str) else None,
-                authors=detail.get("authors") if isinstance(detail.get("authors"), list) else [],
+                authors=(author_map.get(url.rstrip("/")) if journal.get("id") == "review-of-economic-studies" else None)
+                or (detail.get("authors") if isinstance(detail.get("authors"), list) else []),
                 abstract=detail.get("abstract") if isinstance(detail.get("abstract"), str) else None,
                 published_online=detail.get("published_online") if isinstance(detail.get("published_online"), str) else None,
                 available_online=detail.get("published_online") if isinstance(detail.get("published_online"), str) else None,
@@ -448,7 +537,9 @@ def main() -> None:
         if journal_count == 0:
             messages.append(f"{journal_id}: 0")
         journal_status[journal_id] = {
-            "ok": publisher_success,
+            # One blocked optional page must not hide a usable official
+            # fallback or Crossref result for the same journal.
+            "ok": bool(journal_count),
             "count": journal_count,
             "publisher_ok": publisher_success,
             "fallback_count": fallback_count,
