@@ -31,7 +31,7 @@ jobs:
           print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
           PY
           )
-          if ! python - "$DAILY_DATE" <<'PY'
+          DAILY_ARCHIVE_VALID=$(python - "$DAILY_DATE" <<'PY'
           import json
           import sys
           from pathlib import Path
@@ -40,8 +40,10 @@ jobs:
               valid = bool(json.loads(path.read_text(encoding="utf-8")))
           except (OSError, ValueError):
               valid = False
-          raise SystemExit(0 if valid else 1)
+          print("1" if valid else "0")
           PY
+          )
+          if [ "$DAILY_ARCHIVE_VALID" != "1" ]; then
             DAILY_DATE=$(python - <<'PY'
           import json
           from pathlib import Path
