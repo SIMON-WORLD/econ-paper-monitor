@@ -53,8 +53,24 @@ jobs:
           const html = fs.readFileSync(process.env.RUNNER_TEMP + '/daily-vnext.html', 'utf8');
           const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]).filter(Boolean);
           scripts.forEach(script => new Function(script));
+          if (!html.includes('class="hero-lede"')) throw new Error('Hero lede missing');
+          if (!html.includes('[data-motion="hero"]')) throw new Error('Hero motion target missing');
+          if (html.match(/data-search="[^"]*abstract|data-search="[^"]*summary/i)) throw new Error('Abstract leaked into data-search');
+          if (html.includes('<div class="tags"></div>')) throw new Error('Empty tags container rendered');
           console.log(`Daily vNext JavaScript validated: ${scripts.length} inline scripts`);
           NODE
+      - name: Verify Daily vNext template contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          template = Path('docs/daily-vnext/template.html').read_text(encoding='utf-8')
+          required = ['data-motion="hero"', 'data-motion="title"', 'class="hero-lede"', 'data-motion="discovery"', 'data-motion="stat-line"']
+          missing = [item for item in required if item not in template]
+          assert not missing, missing
+          assert 'const lede = hero.querySelector(\'.hero-lede\')' in template
+          assert 'if (![left, right, eyebrow, title, lede, discovery, total, statLine].every(Boolean)) return;' in template
+          print('Daily vNext template contract validated')
+          PY
       - name: Verify empty Daily protection
         run: |
           python - <<'PY'
