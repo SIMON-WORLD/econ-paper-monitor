@@ -334,6 +334,9 @@ jobs:
       - name: Enforce public release gate
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/release_gate.py
+      - name: Build consolidated monitor health
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/monitor_health.py
       - name: Record workflow context
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/record_run_context.py --mode "${{ steps.mode.outputs.mode }}" --event "${{ github.event_name }}" --schedule "${{ github.event.schedule }}" --run-id "${{ github.run_id }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

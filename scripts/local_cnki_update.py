@@ -283,6 +283,7 @@ def main() -> None:
         # The GitHub full workflow owns data/source_health.json.
         run_step([python, "scripts/audit_formal_journal_coverage.py"])
         run_step([python, "scripts/release_gate.py"])
+        run_step([python, "scripts/monitor_health.py"])
         finished_at = now()
         record_source("local-cnki-run", ok=True, count=1, message=f"finished; log={log_path_for_status()}")
         write_local_status("success", message="六个 CNKI RSS 源已通过校验", count=cnki_count, finished_at=finished_at)

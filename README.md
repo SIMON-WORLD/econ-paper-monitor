@@ -115,7 +115,12 @@ python .\scripts\audit_recent72_coverage.py
 python .\scripts\audit_formal_journal_coverage.py
 python .\scripts\product_audit.py
 python .\scripts\release_gate.py
+python .\scripts\monitor_health.py
 ```
+
+`data/monitor_health.json` is the consolidated internal handoff for the main
+workflow, the local CNKI task, and independent source audits. Its `failures`
+list is release-blocking; its `warnings` list is tracked improvement debt.
 
 For the local Chinese supplement, verify the Windows task itself rather than
 inferring health from the public page: confirm the task is `Ready`, its last

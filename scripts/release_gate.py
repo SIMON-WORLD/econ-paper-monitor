@@ -12,7 +12,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, read_json, today_str
+from common import DATA_DIR, read_json, today_str, write_json
 
 
 def load_records(path: Path) -> list[dict[str, Any]]:
@@ -130,9 +130,11 @@ def main() -> None:
     parser.add_argument("--ingestion-audit", type=Path, default=DATA_DIR / "ingestion_audit.json")
     parser.add_argument("--formal-audit", type=Path, default=DATA_DIR / "formal_journal_audit.json")
     parser.add_argument("--source-health", type=Path, default=DATA_DIR / "source_health.json")
+    parser.add_argument("--output", type=Path, default=DATA_DIR / "release_gate.json")
     parser.add_argument("--max-historical-days", type=int, default=14)
     args = parser.parse_args()
     report = run(args)
+    write_json(args.output, report)
     print(f"release gate date={report['date']} ok={report['ok']} failures={len(report['failures'])} warnings={len(report['warnings'])}")
     for item in report["failures"]:
         print(f"FAIL {item}")

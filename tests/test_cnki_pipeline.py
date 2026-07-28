@@ -233,3 +233,18 @@ def test_local_cnki_merge_preserves_unrelated_seen_records(tmp_path):
     assert "doi:10.1000/old" in payload["papers"]
     assert "doi:10.1000/new" in payload["papers"]
     assert (daily / "2026-07-28.json").exists()
+
+
+def test_monitor_health_fails_when_recent_coverage_is_missing(tmp_path):
+    import monitor_health
+
+    (tmp_path / "daily").mkdir()
+    (tmp_path / "daily" / "2026-07-28.json").write_text("[]", encoding="utf-8")
+    (tmp_path / "quality_report.json").write_text('{"totals": {}}', encoding="utf-8")
+    (tmp_path / "formal_journal_audit.json").write_text('{"formal_journals": 86, "suspected_missed_journals": 0}', encoding="utf-8")
+    (tmp_path / "recent72_coverage_audit.json").write_text('{"missing": 2}', encoding="utf-8")
+    (tmp_path / "source_health.json").write_text('{"counts": {"healthy": 1}}', encoding="utf-8")
+    (tmp_path / "release_gate.json").write_text('{"ok": true}', encoding="utf-8")
+    report = monitor_health.build_health(tmp_path, date="2026-07-28")
+    assert report["ok"] is False
+    assert {item["code"] for item in report["failures"]} == {"recent72_missing"}
