@@ -181,14 +181,27 @@ def sync_runner_to_public_main() -> None:
     CNKI feed is fetched again below, so an unpublished generated commit is
     recoverable rather than silently merged.
     """
-    run_step(["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"])
+    fetch_public_main_with_retries()
     run_step(["git", "reset", "--hard", "origin/main"])
 
 
-def assert_public_main_is_ancestor() -> None:
-    """Fail closed when public main changed during a local generation run."""
-    run_step(["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"])
-    run_step(["git", "merge-base", "--is-ancestor", "origin/main", "HEAD"])
+def fetch_public_main_with_retries(attempts: int = 4) -> None:
+    """Refresh the runner baseline while tolerating transient TLS EOFs."""
+    import time
+
+    last_code = 0
+    for attempt in range(1, attempts + 1):
+        last_code = run_step(
+            ["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"],
+            allow_failure=True,
+        )
+        if last_code == 0:
+            return
+        if attempt < attempts:
+            wait_seconds = min(60, attempt * 10)
+            log(f"git fetch failed; retrying in {wait_seconds} seconds ({attempt}/{attempts}).")
+            time.sleep(wait_seconds)
+    raise RuntimeError(f"git fetch failed after {attempts} attempts; last exit code={last_code}")
 
 
 def publish_final_status() -> None:
@@ -197,7 +210,6 @@ def publish_final_status() -> None:
     if not git_has_staged_changes():
         return
     run_step(["git", "commit", "-m", "Record local CNKI publish status"])
-    assert_public_main_is_ancestor()
     push_with_retries()
 
 
@@ -354,9 +366,9 @@ def main() -> None:
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
                 # Never publish from a checkout that diverged while pages
-                # were being rendered. The next scheduled run will reset to
-                # the then-current main and regenerate the supplement.
-                assert_public_main_is_ancestor()
+                # were being rendered. Git push rejects a concurrent remote
+                # update atomically; the next scheduled run resets to the
+                # then-current main and regenerates the supplement.
                 push_with_retries()
                 write_local_status("published", message="本地 CNKI 结果已推送到 origin/main", count=cnki_count)
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
