@@ -68,7 +68,7 @@ jobs:
           env = os.environ.copy()
           env.pop("ALLOW_EMPTY_DAILY", None)
           result = subprocess.run(
-              [sys.executable, "scripts/build_daily_vnext.py", "--date", "2026-06-14", "--output", str(probe)],
+              [sys.executable, "scripts/build_daily_vnext.py", "--date", "2099-01-01", "--output", str(probe)],
               env=env,
               capture_output=True,
               text=True,

@@ -279,11 +279,15 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
             paper_parts.append(part)
             previous_date = current_date
         paper_html = "\n".join(paper_parts)
-        timeline = f'''    <section class="timeline" aria-live="polite">{paper_html}<div class="empty-state" data-empty-state hidden><h3>没有找到匹配的论文</h3><p>尝试更换关键词，或切换论文类型。</p><button class="clear-filters" type="button" data-clear>清除筛选</button></div></section>'''
+        empty_state = (
+            '<div class="empty-state" data-empty-state><h3>今日暂无新发现</h3>'
+            '<p>监测任务已完成，当前没有符合今日日期的新记录。历史论文仍可在全站监测与归档中查看。</p></div>'
+            if not records
+            else '<div class="empty-state" data-empty-state hidden><h3>没有找到匹配的论文</h3><p>尝试更换关键词，或切换论文类型。</p><button class="clear-filters" type="button" data-clear>清除筛选</button></div>'
+        )
+        timeline = f'''    <section class="timeline" aria-live="polite">{paper_html}{empty_state}</section>'''
         document = replace_section(document, "timeline", timeline)
         document = re.sub(r'<div class="result-status"[^>]*>.*?</div>', f'<div class="result-status" data-result-status aria-live="polite">今日共 {len(records)} 项研究内容</div>', document, count=1, flags=re.S)
-        if not records and os.environ.get("ALLOW_EMPTY_DAILY") != "1":
-            raise RuntimeError("refusing to replace Daily vNext with an empty page; set ALLOW_EMPTY_DAILY=1 to override")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         validate_generated_page(document, len(records), output_path)
         with tempfile.NamedTemporaryFile("w", suffix=".html", dir=output_path.parent, encoding="utf-8", delete=False) as temp_file:
