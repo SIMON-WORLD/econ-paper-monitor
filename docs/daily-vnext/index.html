@@ -13,9 +13,10 @@
     .page{max-width:1280px;margin:auto;padding:0 2rem}.hero{position:relative;isolation:isolate;overflow:hidden;min-height:470px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:5rem;align-items:end;padding:7rem 0 5rem;border-bottom:1px solid var(--line)}.hero-copy,.hero-side{position:relative;z-index:1}.hero-title-reveal{position:relative;overflow:hidden;display:block}.hero-title-reveal h1{will-change:clip-path,transform}.hero-door-panel{display:none;position:absolute;z-index:2;top:0;bottom:0;width:51%;background:var(--paper);pointer-events:none;will-change:transform}.motion-ready .hero-door-panel{display:block}.hero-door-panel--left{left:0;transform-origin:left center}.hero-door-panel--right{right:0;transform-origin:right center}.hero-data-texture{position:absolute;inset:8% 0 4%;z-index:0;pointer-events:none;overflow:hidden}.hero-data-node{position:absolute;z-index:0;color:var(--muted);font:500 .58rem var(--mono);letter-spacing:.08em;opacity:.07;white-space:nowrap;will-change:transform}.hero-data-node:first-child{opacity:.055}.hero-stat-line{position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--blue);z-index:2;transform-origin:left center}.eyebrow{color:var(--blue);font:600 .75rem var(--mono);letter-spacing:.16em}h1{font:400 clamp(3.8rem,9vw,8rem)/.9 var(--serif);letter-spacing:-.04em;margin:1.2rem 0 1.5rem;max-width:760px}.hero-lede{font:400 1.25rem/1.55 var(--serif);max-width:560px;margin:0}.hero-side{border-left:1px solid var(--line);padding-left:2rem;padding-bottom:.3rem}.hero-side .date{font:600 .8rem var(--mono);color:var(--blue)}.hero-total{font:400 5rem/.95 var(--serif);margin:.7rem 0 .25rem}.hero-note{color:var(--muted);font-size:.9rem}
     .overview{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}.overview-item{padding:1.25rem 1rem 1.35rem 0}.overview-item+ .overview-item{padding-left:1.5rem;border-left:1px solid var(--line)}.overview strong{display:block;font:400 1.7rem var(--serif)}.overview span{font-size:.78rem;color:var(--muted)}
     .flow-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;padding:5.5rem 0 1.2rem}.flow-head h2{font:400 2.6rem/1 var(--serif);margin:0}.flow-head p{font:600 .75rem var(--mono);color:var(--muted);margin:0}.filters{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:1.5rem}.filter{border:1px solid var(--line);background:transparent;padding:.55rem .85rem;font:500 .8rem var(--sans);color:var(--muted);cursor:pointer}.filter:hover,.filter[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}.search{margin-left:auto;border:1px solid var(--line);background:var(--white);padding:.55rem .8rem;min-width:220px;font:inherit}
-    .timeline{border-top:1px solid var(--ink)}.paper-entry{display:grid;grid-template-columns:100px minmax(0,1fr);gap:2rem;padding:2rem 0;border-bottom:1px solid var(--line)}.paper-time{font:600 .76rem var(--mono);color:var(--blue);padding-top:.35rem}.paper-time span{display:block;color:var(--muted);font-weight:400;margin-top:.2rem}.paper-body{min-width:0}.paper-kicker{display:flex;gap:.8rem;align-items:center;text-transform:uppercase;letter-spacing:.09em;font-size:.68rem;color:var(--muted)}.paper-kicker span:first-child{color:var(--blue-deep);font-weight:700}.paper-body h3{font:400 clamp(1.45rem,2.8vw,2.1rem)/1.2 var(--serif);margin:.55rem 0 .35rem;max-width:940px}.paper-body h3 a:hover{color:var(--blue)}.english-title{font:400 .98rem/1.45 var(--serif);color:var(--muted);margin:0 0 .55rem;max-width:900px}.authors{font-size:.86rem;color:var(--muted);margin:0 0 1rem}.paper-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem}.tags{display:flex;gap:.45rem;flex-wrap:wrap}.tag{font-size:.7rem;color:var(--blue-deep);border-bottom:1px solid #a8c0ca;padding-bottom:.1rem}.tag-china{color:var(--red);border-color:#cf9188}.read-link{font-size:.78rem;color:var(--blue);white-space:nowrap}.read-link:hover{text-decoration:underline}.paper-details{margin-top:.8rem;color:var(--muted);font-size:.75rem}.paper-details summary{cursor:pointer;color:var(--muted)}.paper-details p{margin:.4rem 0 0}.paper-entry[hidden]{display:none}
+    .timeline{position:relative;border-top:1px solid var(--ink)}.timeline::before{content:"";position:absolute;left:86px;top:18px;bottom:18px;width:1px;background:rgba(29,95,131,.28);pointer-events:none}.paper-entry{position:relative;display:grid;grid-template-columns:72px 28px minmax(0,1fr);gap:0;padding:2rem 0;border-bottom:0}.paper-time{font:600 .76rem var(--mono);color:var(--blue);padding-top:.35rem;text-align:left}.paper-time span{display:block;color:var(--muted);font-weight:400;margin-top:.2rem;font-size:.68rem}.timeline-rail{position:relative;min-height:100%;display:flex;justify-content:center}.timeline-dot{position:relative;z-index:1;display:block;width:9px;height:9px;margin-top:.42rem;border:1px solid #9eb7c3;border-radius:50%;background:var(--paper);transform-origin:center}.paper-entry.is-latest .timeline-dot{border-color:var(--blue);background:var(--blue)}.paper-body{position:relative;min-width:0;padding-bottom:1.65rem}.paper-kicker{display:flex;gap:.8rem;align-items:center;text-transform:uppercase;letter-spacing:.09em;font-size:.68rem;color:var(--muted)}.paper-kicker span:first-child{color:var(--blue-deep);font-weight:700}.paper-body h3{font:400 clamp(1.45rem,2.8vw,2.1rem)/1.2 var(--serif);margin:.55rem 0 .35rem;max-width:940px}.paper-body h3 a{display:inline-block;transition:color .2s ease,transform .2s ease}.paper-body h3 a:hover{color:var(--blue);transform:translateX(4px)}.english-title{font:400 .98rem/1.45 var(--serif);color:var(--muted);margin:0 0 .55rem;max-width:900px;transition:opacity .2s ease}.authors{font-size:.86rem;color:var(--muted);margin:0 0 1rem}.paper-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem}.tags{display:flex;gap:.45rem;flex-wrap:wrap}.tag{font-size:.7rem;color:var(--blue-deep);border-bottom:1px solid #a8c0ca;padding-bottom:.1rem}.tag-china{color:var(--red);border-color:#cf9188}.read-link{font-size:.78rem;color:var(--blue);white-space:nowrap}.read-link span{display:inline-block;transition:transform .2s ease}.read-link:hover{text-decoration:underline}.read-link:hover span{transform:translate(3px,-3px)}.paper-divider{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transform-origin:left center}.paper-entry:hover .paper-divider{background:#9fb6bf}.paper-entry:hover .timeline-dot{border-color:var(--blue);background:var(--blue)}.paper-details{margin-top:.8rem;color:var(--muted);font-size:.75rem}.paper-details summary{cursor:pointer;color:var(--muted)}.paper-details p{margin:.4rem 0 0}.paper-entry[hidden]{display:none}
     footer{margin-top:7rem;border-top:1px solid var(--ink);padding:3rem 0 4rem}.footer-inner{display:flex;justify-content:space-between;gap:2rem;align-items:end}.footer-brand{font:400 2rem var(--serif)}.footer-note{color:var(--muted);font-size:.85rem;margin-top:.4rem}.qr{width:112px;height:112px;object-fit:cover}
-    @media(max-width:800px){.header-inner,.page{padding-left:1rem;padding-right:1rem}.nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:1rem;flex-direction:column;gap:.6rem}.nav.open{display:flex}.menu{display:block;margin-left:auto}.hero{display:block;min-height:0;padding:5rem 0 3rem}.hero-side{border-left:0;border-top:1px solid var(--line);padding:1.2rem 0 0;margin-top:3rem}.hero-total{font-size:4.5rem}.overview{grid-template-columns:repeat(2,1fr)}.overview-item:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--line)}.overview-item:nth-child(4){border-top:1px solid var(--line)}.flow-head{padding-top:3.8rem;display:block}.flow-head p{margin-top:.7rem}.search{width:100%;margin-left:0;order:5}.paper-entry{grid-template-columns:1fr;gap:.7rem;padding:1.5rem 0}.paper-time span{display:inline;margin-left:.6rem}.paper-foot{align-items:flex-start;flex-direction:column}.footer-inner{align-items:flex-start;flex-direction:column}.qr{width:96px;height:96px}}
+    @media(max-width:800px){.header-inner,.page{padding-left:1rem;padding-right:1rem}.nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:1rem;flex-direction:column;gap:.6rem}.nav.open{display:flex}.menu{display:block;margin-left:auto}.hero{display:block;min-height:0;padding:5rem 0 3rem}.hero-side{border-left:0;border-top:1px solid var(--line);padding:1.2rem 0 0;margin-top:3rem}.hero-total{font-size:4.5rem}.overview{grid-template-columns:repeat(2,1fr)}.overview-item:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--line)}.overview-item:nth-child(4){border-top:1px solid var(--line)}.flow-head{padding-top:3.8rem;display:block}.flow-head p{margin-top:.7rem}.search{width:100%;margin-left:0;order:5}.timeline::before{left:14px;top:18px;bottom:18px}.paper-entry{grid-template-columns:28px minmax(0,1fr);padding:1.5rem 0}.paper-time{grid-column:2;grid-row:1;margin-bottom:.35rem;padding-top:0}.timeline-rail{grid-column:1;grid-row:1 / span 2;min-height:100%}.timeline-dot{margin-top:.42rem}.paper-body{grid-column:2;grid-row:2}.paper-time span{display:inline;margin-left:.6rem}.paper-foot{align-items:flex-start;flex-direction:column}.footer-inner{align-items:flex-start;flex-direction:column}.qr{width:96px;height:96px}}
+    @media(hover:hover) and (pointer:fine){.paper-entry:hover .english-title{opacity:.86}}
     @media(max-width:800px){.hero-data-texture{display:none}.hero-door-panel{width:54%}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-data-node{transform:none!important}}
   </style>
@@ -29,63 +30,62 @@
     <section class="flow-head"><div><h2>今日论文时间流</h2></div><p>2026-07-28 · 按首次监测时间</p></section>
     <section class="filters" aria-label="论文筛选"><button class="filter" type="button" data-filter="all" aria-pressed="true">全部</button><button class="filter" type="button" data-filter="journal" aria-pressed="false">期刊论文</button><button class="filter" type="button" data-filter="working" aria-pressed="false">工作论文</button><button class="filter" type="button" data-filter="china" aria-pressed="false">与中国相关</button><input class="search" type="search" aria-label="搜索今日论文" placeholder="搜索标题、作者或期刊"></section>
     <section class="timeline" aria-live="polite">
-      <article class="paper-entry" data-kind="working" data-china="false" data-search="measuring economic policy uncertainty 经济政策不确定性的测度  cepr discussion papers ">
-        <div class="paper-time"><time>07:13</time><span>2026-07-28</span></div>
+      <article class="paper-entry is-latest" data-motion="paper" data-kind="working" data-china="false" data-search="measuring economic policy uncertainty 经济政策不确定性的测度  cepr discussion papers ">
+        <div class="paper-time"><time>07:13</time></div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
         <div class="paper-body">
-          <div class="paper-kicker"><span>工作论文</span><span>CEPR Discussion Papers</span></div>
+          <div class="paper-kicker"><span>讨论论文</span><span>CEPR Discussion Papers</span></div>
           <h3><a href="https://cepr.org/publications/dp10900" target="_blank" rel="noreferrer">经济政策不确定性的测度</a></h3>
           <p class="english-title">Measuring Economic Policy Uncertainty</p>
-          <p class="authors">作者信息待补</p>
-          <div class="paper-foot"><div class="tags"><span class="tag">macro</span><span class="tag">finance</span><span class="tag">trade</span><span class="tag">development</span></div><a class="read-link" href="https://cepr.org/publications/dp10900" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
-          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期：日期待补 · 首次监测：2026-07-28</p></details>
+          <div class="paper-foot"><div class="tags"><span class="tag">宏观经济学</span><span class="tag">金融</span><span class="tag">国际贸易</span></div><a class="read-link" href="https://cepr.org/publications/dp10900" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
+          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期暂未获取 · 首次监测：2026-07-28</p></details><span class="paper-divider" aria-hidden="true"></span>
         </div>
       </article>
 
-      <article class="paper-entry" data-kind="journal" data-china="false" data-search="scarred by nature: how early exposure to natural disasters shapes risk attitudes 被自然所伤：早期自然灾害经历如何塑造风险态度 [&#x27;despina gavresi&#x27;, &#x27;andreas sintos&#x27;] world development 10.1016/j.worlddev.2026.107506">
-        <div class="paper-time"><time>05:27</time><span>2026-07-28</span></div>
+      <article class="paper-entry" data-motion="paper" data-kind="journal" data-china="false" data-search="scarred by nature: how early exposure to natural disasters shapes risk attitudes 被自然所伤：早期自然灾害经历如何塑造风险态度 [&#x27;despina gavresi&#x27;, &#x27;andreas sintos&#x27;] world development 10.1016/j.worlddev.2026.107506">
+        <div class="paper-time"><time>05:27</time></div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
         <div class="paper-body">
           <div class="paper-kicker"><span>期刊论文</span><span>World Development</span></div>
           <h3><a href="https://doi.org/10.1016/j.worlddev.2026.107506" target="_blank" rel="noreferrer">被自然所伤：早期自然灾害经历如何塑造风险态度</a></h3>
           <p class="english-title">Scarred by nature: How early exposure to natural disasters shapes risk attitudes</p>
           <p class="authors">Despina Gavresi, Andreas Sintos</p>
-          <div class="paper-foot"><div class="tags"><span class="tag">development</span><span class="tag">agriculture_environment_resource</span></div><a class="read-link" href="https://doi.org/10.1016/j.worlddev.2026.107506" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
-          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期：2026-07-28 · 首次监测：2026-07-28 · DOI：10.1016/j.worlddev.2026.107506</p></details>
+          <div class="paper-foot"><div class="tags"><span class="tag">发展经济学</span><span class="tag">农业、环境与资源经济学</span></div><a class="read-link" href="https://doi.org/10.1016/j.worlddev.2026.107506" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
+          <details class="paper-details"><summary>查看来源与日期</summary><p>官方在线：2026-07-28 · 首次监测：2026-07-28 · DOI：10.1016/j.worlddev.2026.107506</p></details><span class="paper-divider" aria-hidden="true"></span>
         </div>
       </article>
 
-      <article class="paper-entry" data-kind="working" data-china="false" data-search="dividend tax reforms: why design shapes revenue and measured inequality 股息税改革：为何设计影响财政收入与测度不平等 [&#x27;yonatan berman, esteban klor&#x27;] voxeu / cepr columns ">
-        <div class="paper-time"><time>02:20</time><span>2026-07-28</span></div>
+      <article class="paper-entry" data-motion="paper" data-kind="working" data-china="false" data-search="dividend tax reforms: why design shapes revenue and measured inequality 股息税改革：为何设计影响财政收入与测度不平等 [&#x27;yonatan berman, esteban klor&#x27;] voxeu / cepr columns ">
+        <div class="paper-time"><time>02:20</time></div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
         <div class="paper-body">
-          <div class="paper-kicker"><span>工作论文</span><span>VoxEU / CEPR Columns</span></div>
+          <div class="paper-kicker"><span>研究专栏</span><span>VoxEU / CEPR Columns</span></div>
           <h3><a href="https://cepr.org/voxeu/columns/dividend-tax-reforms-why-design-shapes-revenue-and-measured-inequality" target="_blank" rel="noreferrer">股息税改革：为何设计影响财政收入与测度不平等</a></h3>
           <p class="english-title">Dividend tax reforms: Why design shapes revenue and measured inequality</p>
           <p class="authors">Yonatan Berman, Esteban Klor</p>
-          <div class="paper-foot"><div class="tags"><span class="tag">macro</span><span class="tag">finance</span><span class="tag">trade</span><span class="tag">development</span></div><a class="read-link" href="https://cepr.org/voxeu/columns/dividend-tax-reforms-why-design-shapes-revenue-and-measured-inequality" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
-          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期：2026-07-28 · 首次监测：2026-07-28</p></details>
+          <div class="paper-foot"><div class="tags"><span class="tag">宏观经济学</span><span class="tag">金融</span><span class="tag">国际贸易</span></div><a class="read-link" href="https://cepr.org/voxeu/columns/dividend-tax-reforms-why-design-shapes-revenue-and-measured-inequality" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
+          <details class="paper-details"><summary>查看来源与日期</summary><p>官方在线：2026-07-28 · 首次监测：2026-07-28</p></details><span class="paper-divider" aria-hidden="true"></span>
         </div>
       </article>
 
-      <article class="paper-entry" data-kind="working" data-china="false" data-search="beyond the snapshot: how poverty really unfolds over time in the eu 超越快照：欧盟贫困如何随时间真实演变 [&#x27;alina șandor, shaun da costa, argyrios k. pisiotis&#x27;] voxeu / cepr columns ">
-        <div class="paper-time"><time>02:20</time><span>2026-07-28</span></div>
+      <article class="paper-entry" data-motion="paper" data-kind="working" data-china="false" data-search="beyond the snapshot: how poverty really unfolds over time in the eu 超越快照：欧盟贫困如何随时间真实演变 [&#x27;alina șandor, shaun da costa, argyrios k. pisiotis&#x27;] voxeu / cepr columns ">
+        <div class="paper-time"><time>同批进入</time></div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
         <div class="paper-body">
-          <div class="paper-kicker"><span>工作论文</span><span>VoxEU / CEPR Columns</span></div>
+          <div class="paper-kicker"><span>研究专栏</span><span>VoxEU / CEPR Columns</span></div>
           <h3><a href="https://cepr.org/voxeu/columns/beyond-snapshot-how-poverty-really-unfolds-over-time-eu" target="_blank" rel="noreferrer">超越快照：欧盟贫困如何随时间真实演变</a></h3>
           <p class="english-title">Beyond the snapshot: How poverty really unfolds over time in the EU</p>
           <p class="authors">Alina Șandor, Shaun Da Costa, Argyrios K. Pisiotis</p>
-          <div class="paper-foot"><div class="tags"><span class="tag">macro</span><span class="tag">finance</span><span class="tag">trade</span><span class="tag">development</span></div><a class="read-link" href="https://cepr.org/voxeu/columns/beyond-snapshot-how-poverty-really-unfolds-over-time-eu" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
-          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期：2026-07-28 · 首次监测：2026-07-28</p></details>
+          <div class="paper-foot"><div class="tags"><span class="tag">宏观经济学</span><span class="tag">金融</span><span class="tag">国际贸易</span></div><a class="read-link" href="https://cepr.org/voxeu/columns/beyond-snapshot-how-poverty-really-unfolds-over-time-eu" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
+          <details class="paper-details"><summary>查看来源与日期</summary><p>官方在线：2026-07-28 · 首次监测：2026-07-28</p></details><span class="paper-divider" aria-hidden="true"></span>
         </div>
       </article>
 
-      <article class="paper-entry" data-kind="journal" data-china="false" data-search="‘rentierism’ at the peri-urban edge: studentification, speculative land markets, and the uneven geographies of gentrification in ghana 城乡边缘的“食利主义”：学生化、投机性土地市场与加纳绅士化进程的不均衡地理 [&#x27;frederick mensah&#x27;, &#x27;stephen b. liwur&#x27;, &#x27;francisca agyei&#x27;, &#x27;michael osei asibey&#x27;] land use policy 10.1016/j.landusepol.2026.108237">
-        <div class="paper-time"><time>02:16</time><span>2026-07-28</span></div>
+      <article class="paper-entry" data-motion="paper" data-kind="journal" data-china="false" data-search="‘rentierism’ at the peri-urban edge: studentification, speculative land markets, and the uneven geographies of gentrification in ghana 城乡边缘的“食利主义”：学生化、投机性土地市场与加纳绅士化进程的不均衡地理 [&#x27;frederick mensah&#x27;, &#x27;stephen b. liwur&#x27;, &#x27;francisca agyei&#x27;, &#x27;michael osei asibey&#x27;] land use policy 10.1016/j.landusepol.2026.108237">
+        <div class="paper-time"><time>02:16</time></div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
         <div class="paper-body">
           <div class="paper-kicker"><span>期刊论文</span><span>Land Use Policy</span></div>
           <h3><a href="https://doi.org/10.1016/j.landusepol.2026.108237" target="_blank" rel="noreferrer">城乡边缘的“食利主义”：学生化、投机性土地市场与加纳绅士化进程的不均衡地理</a></h3>
           <p class="english-title">‘Rentierism’ at the peri-urban edge: Studentification, speculative land markets, and the uneven geographies of gentrification in Ghana</p>
           <p class="authors">Frederick Mensah, Stephen B. Liwur, Francisca Agyei, Michael Osei Asibey</p>
-          <div class="paper-foot"><div class="tags"><span class="tag">agriculture_environment_resource</span></div><a class="read-link" href="https://doi.org/10.1016/j.landusepol.2026.108237" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
-          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期：2026-07-28 · 首次监测：2026-07-28 · DOI：10.1016/j.landusepol.2026.108237</p></details>
+          <div class="paper-foot"><div class="tags"><span class="tag">农业、环境与资源经济学</span></div><a class="read-link" href="https://doi.org/10.1016/j.landusepol.2026.108237" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
+          <details class="paper-details"><summary>查看来源与日期</summary><p>官方在线：2026-07-28 · 首次监测：2026-07-28 · DOI：10.1016/j.landusepol.2026.108237</p></details><span class="paper-divider" aria-hidden="true"></span>
         </div>
       </article></section>
     <footer><div class="footer-inner"><div><div class="footer-brand">Academic Door</div><div class="footer-note">读好文献，用好论文。Econ Papers Daily 是每日之门里的研究发现流。</div></div><img class="qr" src="../assets/academic-portal-qr.jpg" alt="学术传送门二维码"></div></footer>
@@ -93,6 +93,40 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+  <script>
+    (() => {
+      const entries = [...document.querySelectorAll('[data-motion="paper"]')];
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!entries.length || reduce || !window.gsap || !window.ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+      entries.forEach((entry) => {
+        const time = entry.querySelector('.paper-time');
+        const dot = entry.querySelector('.timeline-dot');
+        const kicker = entry.querySelector('.paper-kicker');
+        const title = entry.querySelector('h3 a');
+        const secondary = entry.querySelectorAll('.english-title, .authors, .paper-foot');
+        const divider = entry.querySelector('.paper-divider');
+        gsap.set([time, kicker, title, ...secondary].filter(Boolean), {autoAlpha: 0, y: 8});
+        gsap.set(dot, {autoAlpha: 0, scale: .6});
+        gsap.set(divider, {scaleX: 0});
+        ScrollTrigger.create({
+          trigger: entry,
+          start: 'top 88%',
+          once: true,
+          onEnter: () => {
+            gsap.timeline({defaults: {ease: 'power2.out'}})
+              .to(time, {autoAlpha: 1, y: 0, duration: .22}, 0)
+              .to(dot, {autoAlpha: 1, scale: 1, duration: .24}, .03)
+              .to(kicker, {autoAlpha: 1, y: 0, duration: .22}, .08)
+              .to(title, {autoAlpha: 1, y: 0, duration: .3}, .14)
+              .to(secondary, {autoAlpha: 1, y: 0, duration: .25, stagger: .05}, .28)
+              .to(divider, {scaleX: 1, duration: .32}, .36);
+          }
+        });
+      });
+      requestAnimationFrame(() => { ScrollTrigger.refresh(); ScrollTrigger.update(); });
+    })();
+  </script>
   <script>
     (() => {
       const hero = document.querySelector('[data-motion="hero"]');
