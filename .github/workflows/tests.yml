@@ -121,4 +121,35 @@ jobs:
           assert result.returncode != 0, result.stdout + result.stderr
           assert probe.read_text(encoding="utf-8") == "previous-valid-page"
           print("Empty Daily protection validated: previous HTML preserved")
+      - name: Verify valid empty Daily renders calmly
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          output = Path(os.environ["RUNNER_TEMP"]) / "daily-vnext-valid-empty.html"
+          report = Path(os.environ["RUNNER_TEMP"]) / "daily-vnext-valid-empty.json"
+          result = subprocess.run(
+              [
+                  sys.executable,
+                  "scripts/build_daily_vnext.py",
+                  "--date",
+                  "2026-06-14",
+                  "--output",
+                  str(output),
+                  "--report",
+                  str(report),
+              ],
+              capture_output=True,
+              text=True,
+          )
+          assert result.returncode == 0, result.stdout + result.stderr
+          payload = json.loads(report.read_text(encoding="utf-8"))
+          assert payload["final_render_count"] == 0
+          assert "今日暂无新发现" in output.read_text(encoding="utf-8")
+          print("Valid empty Daily rendered without exposing stale records")
+          PY
           PY

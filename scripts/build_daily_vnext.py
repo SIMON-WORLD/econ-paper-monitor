@@ -381,8 +381,6 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
             "max_length": max(search_lengths, default=0),
             "average_length": round(sum(search_lengths) / len(search_lengths), 2) if search_lengths else 0,
         }
-        if not records and os.environ.get("ALLOW_EMPTY_DAILY") != "1":
-            raise RuntimeError("refusing to replace Daily vNext with an empty page; set ALLOW_EMPTY_DAILY=1 to override")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         validate_generated_page(document, len(records), output_path)
         with tempfile.NamedTemporaryFile("w", suffix=".html", dir=output_path.parent, encoding="utf-8", delete=False) as temp_file:
