@@ -328,17 +328,22 @@
     "publisher-detail": {
       "publishers": [
         {
-          "ab_dates": 0,
-          "attempted": 2,
-          "changed": 0,
-          "failures": 2,
-          "message": "abstract-route-missing:1, blocked-captcha:1",
+          "ab_dates": 19,
+          "attempted": 44,
+          "changed": 31,
+          "failures": 25,
+          "message": "metadata-only:blocked-captcha:17, blocked-captcha:10, metadata-only:6, abstract-route-missing:5",
           "publisher": "Elsevier",
           "statuses": {
-            "abstract-route-missing": 1,
-            "blocked-captcha": 1
+            "abstract-route-missing": 5,
+            "abstract-updated": 1,
+            "blocked-captcha": 10,
+            "metadata-only": 6,
+            "metadata-only:blocked-captcha": 17,
+            "metadata-only:proxy-request-failed": 2,
+            "proxy-request-failed": 3
           },
-          "success_rate": 0.0
+          "success_rate": 0.4318
         },
         {
           "ab_dates": 0,
@@ -351,56 +356,58 @@
           "success_rate": 0
         },
         {
-          "ab_dates": 37,
-          "attempted": 37,
-          "changed": 0,
-          "failures": 0,
-          "message": "abstract-present:27, abstract-route-missing:10",
+          "ab_dates": 98,
+          "attempted": 104,
+          "changed": 21,
+          "failures": 6,
+          "message": "abstract-route-missing:85, metadata-only:17, abstract-updated:readonly-proxy:2",
           "publisher": "Other",
           "statuses": {
-            "abstract-present": 27,
-            "abstract-route-missing": 10
+            "abstract-route-missing": 85,
+            "abstract-updated:readonly-proxy": 2,
+            "metadata-only": 17
           },
-          "success_rate": 1.0
+          "success_rate": 0.9423
         },
         {
-          "ab_dates": 3,
-          "attempted": 3,
-          "changed": 0,
+          "ab_dates": 26,
+          "attempted": 26,
+          "changed": 12,
           "failures": 0,
-          "message": "abstract-present:3",
+          "message": "abstract-not-exposed:17, proxy-request-failed:8, metadata-only:abstract-not-exposed:1",
           "publisher": "Springer",
           "statuses": {
-            "abstract-present": 3
+            "abstract-not-exposed": 17,
+            "metadata-only:abstract-not-exposed": 1,
+            "proxy-request-failed": 8
           },
           "success_rate": 1.0
         },
         {
           "ab_dates": 0,
-          "attempted": 1,
-          "changed": 0,
-          "failures": 1,
-          "message": "abstract-present:1",
-          "publisher": "Taylor & Francis",
-          "statuses": {
-            "abstract-present": 1
-          },
-          "success_rate": 0.0
-        },
-        {
-          "ab_dates": 2,
-          "attempted": 2,
+          "attempted": 0,
           "changed": 0,
           "failures": 0,
-          "message": "abstract-present:2",
+          "message": "",
+          "publisher": "Taylor & Francis",
+          "statuses": {},
+          "success_rate": 0
+        },
+        {
+          "ab_dates": 6,
+          "attempted": 6,
+          "changed": 5,
+          "failures": 0,
+          "message": "blocked-captcha:5, proxy-request-failed:1",
           "publisher": "Wiley",
           "statuses": {
-            "abstract-present": 2
+            "blocked-captcha": 5,
+            "proxy-request-failed": 1
           },
           "success_rate": 1.0
         }
       ],
-      "updated_at": "2026-07-28T13:01:52+00:00"
+      "updated_at": "2026-07-28T13:43:11+00:00"
     }
   },
   "sources": {
@@ -501,7 +508,7 @@
       "count": 86,
       "message": "formal=86 raw_today=25 daily_today=4 missed=0",
       "ok": true,
-      "updated_at": "2026-07-28T13:28:53+00:00"
+      "updated_at": "2026-07-28T13:44:15+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -519,7 +526,7 @@
       "count": 201,
       "message": "raw=201 daily=6 new_today=0 missed=0 seen=200 suppressed=1",
       "ok": true,
-      "updated_at": "2026-07-28T13:28:50+00:00"
+      "updated_at": "2026-07-28T13:44:12+00:00"
     },
     "local-cnki-publish": {
       "count": 1,
@@ -543,13 +550,13 @@
       "count": 0,
       "message": "files=0 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=0",
       "ok": true,
-      "updated_at": "2026-07-28T12:18:22+00:00"
+      "updated_at": "2026-07-28T13:43:27+00:00"
     },
     "openalex-recall": {
       "count": 72,
-      "failed_journals": 2,
+      "failed_journals": 0,
       "journals": 24,
-      "message": "journal-of-agricultural-and-resource-economics: URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>; theoretical-economics: URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>",
+      "message": "E:\\BaiduSyncdisk\\Work\\Agent_automation\\vibe_coding\\econ-paper-monitor\\.maturity\\data\\raw\\openalex-recall\\2026-07-28.json",
       "ok": true,
       "per_journal": {
         "applied-economics": {
@@ -586,8 +593,7 @@
         },
         "journal-of-agricultural-and-resource-economics": {
           "count": 0,
-          "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>",
-          "ok": false
+          "ok": true
         },
         "journal-of-economic-growth": {
           "count": 0,
@@ -647,12 +653,11 @@
         },
         "theoretical-economics": {
           "count": 0,
-          "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)>",
-          "ok": false
+          "ok": true
         }
       },
       "recall_only": true,
-      "updated_at": "2026-07-28T12:47:49+00:00"
+      "updated_at": "2026-07-28T13:37:11+00:00"
     },
     "priority-toc": {
       "count": 28,
@@ -730,16 +735,16 @@
       "updated_at": "2026-07-28T13:27:24+00:00"
     },
     "publisher-detail": {
-      "count": 0,
-      "message": "attempted=45; proxy_abstract_attempted=2; seen 管理世界: abstract-present; seen 管理世界: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; 2026-07-28 Environmental and Resource Economics: abstract-present; seen Australian Journal of Agricultural and Resource Economics: abstract-present; seen Applied Economics: abstract-present; 2026-07-28 International Tax and Public Finance: abstract-present; seen CEPR Discussion Papers: abstract-present; seen Review of Economic Studies: abstract-present; seen Review of Economic Studies: abstract-present; seen Review of Economic Studies: abstract-present; 2026-07-28 VoxEU / CEPR Columns: abstract-present; 2026-07-28 VoxEU / CEPR Columns: abstract-present; seen Canadian Journal of Economics: abstract-present; seen Economic Theory: abstract-present",
+      "count": 69,
+      "message": "attempted=180; proxy_abstract_attempted=20; 2026-07-23 Economics Letters: metadata-only:blocked-captcha; 2026-07-22 Games and Economic Behavior: metadata-only:blocked-captcha; 2026-07-22 China Economic Review: abstract-route-missing; 2026-07-22 Journal of Mathematical Economics: metadata-only:blocked-captcha; 2026-07-22 Economics Letters: blocked-captcha; 2026-07-22 Land Use Policy: metadata-only:blocked-captcha; seen Journal of the Association of Environmental and Resource Economists: metadata-only; 2026-07-22 Journal of Econometrics: metadata-only:blocked-captcha; seen Journal of Public Economics: metadata-only:proxy-request-failed; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: abstract-updated:readonly-proxy; 2026-07-23 Food Policy: metadata-only:blocked-captcha; 2026-07-23 Journal of Public Economics: metadata-only:blocked-captcha; 2026-07-22 China Economic Review: abstract-route-missing; seen China Economic Review: abstract-route-missing; 2026-07-22 Journal of Mathematical Economics: metadata-only:blocked-captcha; 2026-07-22 World Development: metadata-only",
       "ok": true,
-      "updated_at": "2026-07-28T13:01:52+00:00"
+      "updated_at": "2026-07-28T13:43:11+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
       "message": "dates=2026-07-28,2026-07-27,2026-07-26 raw=201 daily=98 covered=2 seen=198 missing=0",
       "ok": true,
-      "updated_at": "2026-07-28T13:28:52+00:00"
+      "updated_at": "2026-07-28T13:44:13+00:00"
     },
     "remove-seen-backflow": {
       "count": 2,
@@ -763,7 +768,7 @@
       "count": 86,
       "message": "healthy=75 degraded=11 stale=0 unavailable=0",
       "ok": true,
-      "updated_at": "2026-07-28T13:28:55+00:00"
+      "updated_at": "2026-07-28T13:44:16+00:00"
     },
     "translation": {
       "count": 13,

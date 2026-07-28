@@ -89,7 +89,9 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
         return True
     if not title and not url and not doi:
         return True
-    if doi in {"10.1111/jofi.70063", "10.1016/j.euroecorev.2026.105420"}:
+    if doi in {"10.1111/jofi.70063", "10.1016/j.euroecorev.2026.105420"} or any(
+        marker in url for marker in ("10.1111/jofi.70063", "10.1016/j.euroecorev.2026.105420")
+    ):
         return True
     if (source_id == "brookings-economic-studies" or "brookings.edu/" in url) and "/articles/" not in url:
         return True

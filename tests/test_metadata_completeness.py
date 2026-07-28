@@ -185,6 +185,13 @@ class MetadataCompletenessTests(unittest.TestCase):
         record = {"title": "Submission of Manuscripts to the Econometric Society Monograph Series"}
         self.assertTrue(dedupe.is_source_navigation_noise(record))
 
+    def test_known_wiley_author_only_rss_item_is_not_a_paper(self) -> None:
+        record = {
+            "title": "Jay R. Ritter",
+            "url": "https://onlinelibrary.wiley.com/doi/10.1111/jofi.70063?af=R",
+        }
+        self.assertTrue(dedupe.is_source_navigation_noise(record))
+
     def test_empty_seen_placeholder_is_not_a_paper(self) -> None:
         self.assertTrue(dedupe.is_source_navigation_noise({"journal": "管理世界"}))
 

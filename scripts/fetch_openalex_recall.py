@@ -79,13 +79,21 @@ def abstract_from_inverted_index(value: Any) -> str | None:
     return " ".join(token for _, token in sorted(words))
 
 
-def openalex_get(params: dict[str, str], timeout: int) -> dict[str, Any]:
+def openalex_get(params: dict[str, str], timeout: int, retries: int = 3) -> dict[str, Any]:
     params = dict(params)
     params.setdefault("mailto", os.environ.get("OPENALEX_MAILTO", "academic-door@users.noreply.github.com"))
     url = "https://api.openalex.org/works?" + urllib.parse.urlencode(params)
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return json.loads(response.read().decode("utf-8"))
+    last_error: Exception | None = None
+    for attempt in range(max(1, retries)):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except Exception as exc:  # noqa: BLE001 - retry transient transport failures.
+            last_error = exc
+            if attempt + 1 < max(1, retries):
+                time.sleep(0.5 * (attempt + 1))
+    raise last_error or RuntimeError("OpenAlex request failed")
 
 
 def author_names(work: dict[str, Any]) -> list[str]:
