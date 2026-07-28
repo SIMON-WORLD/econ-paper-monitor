@@ -226,7 +226,8 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
             part, current_date = paper_markup(record, date_value, previous_date)
             paper_parts.append(part)
             previous_date = current_date
-        timeline = f'''    <section class="timeline" aria-live="polite">{'\n'.join(paper_parts)}<div class="empty-state" data-empty-state hidden><h3>没有找到匹配的论文</h3><p>尝试更换关键词，或切换论文类型。</p><button class="clear-filters" type="button" data-clear>清除筛选</button></div></section>'''
+        paper_html = "\n".join(paper_parts)
+        timeline = f'''    <section class="timeline" aria-live="polite">{paper_html}<div class="empty-state" data-empty-state hidden><h3>没有找到匹配的论文</h3><p>尝试更换关键词，或切换论文类型。</p><button class="clear-filters" type="button" data-clear>清除筛选</button></div></section>'''
         document = replace_section(document, "timeline", timeline)
         document = re.sub(r'<div class="result-status"[^>]*>.*?</div>', f'<div class="result-status" data-result-status aria-live="polite">今日共 {len(records)} 项研究内容</div>', document, count=1, flags=re.S)
         output_path.parent.mkdir(parents=True, exist_ok=True)
