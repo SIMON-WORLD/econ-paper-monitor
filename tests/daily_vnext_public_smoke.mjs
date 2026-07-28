@@ -33,7 +33,9 @@ async function checkPage(browser, url) {
   }
 
   await page.locator('[data-filter="all"]').click();
-  const searchable = await page.locator('.paper-entry').first().getAttribute('data-search');
+  const searchable = total > 0
+    ? await page.locator('.paper-entry').first().getAttribute('data-search')
+    : null;
   if (searchable) {
     await page.locator('.search').fill(searchable.split(/\s+/)[0]);
     await page.waitForTimeout(250);
