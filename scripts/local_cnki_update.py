@@ -172,13 +172,32 @@ def push_with_retries(attempts: int = 4) -> None:
     raise RuntimeError(f"git push failed after {attempts} attempts; last exit code={last_code}")
 
 
+def sync_runner_to_public_main() -> None:
+    """Reset the disposable runner to the latest public main.
+
+    The runner contains generated data only. Resetting before each run avoids
+    trying to merge hundreds of generated HTML files when GitHub Actions or a
+    previous local run advanced main while this machine was offline. The raw
+    CNKI feed is fetched again below, so an unpublished generated commit is
+    recoverable rather than silently merged.
+    """
+    run_step(["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"])
+    run_step(["git", "reset", "--hard", "origin/main"])
+
+
+def assert_public_main_is_ancestor() -> None:
+    """Fail closed when public main changed during a local generation run."""
+    run_step(["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"])
+    run_step(["git", "merge-base", "--is-ancestor", "origin/main", "HEAD"])
+
+
 def publish_final_status() -> None:
     """Publish the post-push result instead of leaving ``pending`` public."""
     run_step(["git", "add", "data/status.json", "data/local_cnki_status.json"])
     if not git_has_staged_changes():
         return
     run_step(["git", "commit", "-m", "Record local CNKI publish status"])
-    run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])
+    assert_public_main_is_ancestor()
     push_with_retries()
 
 
@@ -234,9 +253,10 @@ def main() -> None:
     try:
         if not args.no_push:
             # A local supplement must start from the current public main. If
-            # the GitHub updater is publishing at the same time, fail safely
-            # instead of mixing new CNKI data with an older checkout.
-            run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--ff-only", "origin", "main"])
+            # the GitHub updater is publishing at the same time, the runner
+            # starts from the new public main instead of merging generated
+            # pages from an older checkout.
+            sync_runner_to_public_main()
 
         RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
         cnki_temp = RUNTIME_DIR / f"cnki-rss-{today_str()}.json"
@@ -312,10 +332,10 @@ def main() -> None:
             run_step(["git", "add", "data", "docs"])
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
-                # Never publish from a checkout that failed to rebase onto
-                # the current public main; silent conflict resolution can
-                # discard another updater's data.
-                run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])
+                # Never publish from a checkout that diverged while pages
+                # were being rendered. The next scheduled run will reset to
+                # the then-current main and regenerate the supplement.
+                assert_public_main_is_ancestor()
                 push_with_retries()
                 write_local_status("published", message="本地 CNKI 结果已推送到 origin/main", count=cnki_count)
                 record_source("local-cnki-publish", ok=True, count=1, message="published to origin/main")
