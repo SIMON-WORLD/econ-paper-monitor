@@ -31,7 +31,17 @@ jobs:
           print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
           PY
           )
-          if [ ! -f "data/daily/${DAILY_DATE}.json" ]; then
+          if ! python - "$DAILY_DATE" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          path = Path("data/daily") / f"{sys.argv[1]}.json"
+          try:
+              valid = bool(json.loads(path.read_text(encoding="utf-8")))
+          except (OSError, ValueError):
+              valid = False
+          raise SystemExit(0 if valid else 1)
+          PY
             DAILY_DATE=$(python - <<'PY'
           import json
           from pathlib import Path
