@@ -28,6 +28,8 @@ class PublicDateViewTests(unittest.TestCase):
             "first_seen": "2026-07-27T10:00:00+00:00",
             "available_online": "2026-07-27",
             "published_online": "2026-07-27",
+            "date_source": "publisher_detail",
+            "date_confidence": "B",
         }
 
         self.assertTrue(render_site.record_is_on_date(record, "2026-07-27"))
@@ -41,6 +43,27 @@ class PublicDateViewTests(unittest.TestCase):
         }
 
         self.assertEqual(render_site.recent_detected_records([record], 3), [])
+
+    def test_crossref_metadata_date_is_not_presented_as_official_online(self) -> None:
+        record = {
+            "available_online": "2026-07-28",
+            "published_online": "2026-07-28",
+            "date_source": "crossref_doi_published_online",
+            "date_confidence": "C",
+        }
+        self.assertIn("Crossref 元数据日期", render_site.public_date_line(record))
+        self.assertEqual(render_site.detection_lag_days(record), None)
+
+    def test_crossref_date_cannot_resurrect_seen_record_into_today(self) -> None:
+        record = {
+            "_from_seen_only": True,
+            "first_seen": "2026-07-27T10:00:00+00:00",
+            "available_online": "2026-07-28",
+            "published_online": "2026-07-28",
+            "date_source": "crossref_doi_elsevier_created_online",
+            "date_confidence": "C",
+        }
+        self.assertFalse(render_site.record_is_on_date(record, "2026-07-28"))
 
 
 if __name__ == "__main__":

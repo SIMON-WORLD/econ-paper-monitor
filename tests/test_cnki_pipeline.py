@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import json
 from pathlib import Path
 
 
@@ -74,8 +75,13 @@ def test_local_cnki_publish_pulls_are_fail_closed():
         / "local_cnki_update.py"
     ).read_text(encoding="utf-8")
 
-    assert 'run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--ff-only", "origin", "main"])' in script
-    assert 'run_step(["git", "-c", "http.sslbackend=openssl", "pull", "--rebase", "origin", "main"])' in script
+    assert "def sync_runner_to_public_main()" in script
+    assert "def fetch_public_main_with_retries" in script
+    assert '["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"]' in script
+    assert 'run_step(["git", "reset", "--hard", "origin/main"])' in script
+    assert "Git push rejects a concurrent remote" in script
+    assert '"pull", "--rebase"' not in script
+    assert '"pull", "--ff-only"' not in script
     assert '"-X", "theirs"' not in script
 
 
@@ -208,6 +214,14 @@ def test_local_pipeline_normalizes_after_metadata_enrichment():
     assert workflow.index("Enrich publisher detail pages") < workflow.index("Normalize enriched metadata")
 
 
+def test_local_cnki_backfills_working_paper_metadata_and_quarantines_history():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    script = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
+    assert '"--abstract-only"' in script
+    assert '"scripts/clean_historical_working_papers.py"' in script
+    assert script.index('"--abstract-only"') < script.index('"scripts/clean_historical_working_papers.py"')
+
+
 def test_local_cnki_merge_preserves_unrelated_seen_records(tmp_path):
     seen = tmp_path / "seen.json"
     daily = tmp_path / "daily"
@@ -248,3 +262,36 @@ def test_monitor_health_fails_when_recent_coverage_is_missing(tmp_path):
     report = monitor_health.build_health(tmp_path, date="2026-07-28")
     assert report["ok"] is False
     assert {item["code"] for item in report["failures"]} == {"recent72_missing"}
+
+
+def test_public_pages_label_filters_and_expose_search_description():
+    import render_site
+
+    source = Path(render_site.__file__).read_text(encoding="utf-8")
+    assert '<meta name="description"' in source
+    assert 'aria-label="筛选期刊"' in source
+    assert 'aria-label="筛选主题"' in source
+
+
+def test_monitor_health_reports_local_cnki_freshness(tmp_path):
+    import monitor_health
+
+    (tmp_path / "daily").mkdir()
+    (tmp_path / "daily" / "2026-07-28.json").write_text("[]", encoding="utf-8")
+    for name, payload in {
+        "quality_report.json": {"totals": {}},
+        "formal_journal_audit.json": {"formal_journals": 86, "suspected_missed_journals": 0},
+        "recent72_coverage_audit.json": {"missing": 0},
+        "source_health.json": {"counts": {"healthy": 1}},
+        "release_gate.json": {"ok": True},
+        "local_cnki_status.json": {
+            "state": "published",
+            "ok": True,
+            "last_success_at": "2026-07-28T07:00:00+00:00",
+            "count": 101,
+        },
+    }.items():
+        (tmp_path / name).write_text(json.dumps(payload), encoding="utf-8")
+    report = monitor_health.build_health(tmp_path, date="2026-07-28")
+    assert report["local_cnki"]["fresh"] is True
+    assert report["local_cnki"]["freshness_code"] == "fresh"

@@ -73,6 +73,18 @@ class ChinaRelevanceAndNepTests(unittest.TestCase):
         }
         self.assertEqual(enrich_china_relevance.classify(record)[0], "confirmed")
 
+    def test_detail_key_uses_the_same_shard_prefix_as_paper_page(self) -> None:
+        record = {
+            "title": "Scarred by nature",
+            "doi": "10.1234/example",
+        }
+        key = render_site.detail_key(record)
+        self.assertEqual(key[-12:-10], key[-12:][:2])
+        self.assertIn(
+            "cache: 'no-cache'",
+            (ROOT / "docs" / "paper.html").read_text(encoding="utf-8"),
+        )
+
     def test_renminbi_is_confirmed_as_direct_china_evidence(self) -> None:
         record = {
             "abstract": "We study how the renminbi can become an international reserve currency.",
@@ -114,6 +126,14 @@ class ChinaRelevanceAndNepTests(unittest.TestCase):
 
     def test_editorial_board_is_suppressed_from_ingestion_audit(self) -> None:
         self.assertTrue(dedupe.is_source_navigation_noise({"title": "Editorial Board"}))
+
+    def test_detail_key_is_stable_and_uses_doi_identity(self) -> None:
+        record = {"title": "DP515 Should Rules be Simple?", "doi": "https://doi.org/10.1007/bf00373063"}
+        self.assertEqual(render_site.detail_key(record), "dp515-should-rules-be-simple-003f08625c04")
+
+    def test_detail_key_falls_back_to_url_identity(self) -> None:
+        record = {"title": "The Price of Borrowing for College", "url": "https://www.iza.org/publications/dp/18768/the-price-of-borrowing-for-college-student-loan-interest-rates-education"}
+        self.assertEqual(render_site.detail_key(record), "the-price-of-borrowing-for-college-ed6159e3fc4e")
 
 
 if __name__ == "__main__":

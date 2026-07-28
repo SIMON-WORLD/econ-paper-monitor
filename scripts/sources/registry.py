@@ -218,7 +218,7 @@ def feeds_for_journal(journal: dict[str, Any], *, discover: bool = False) -> tup
     feeds.extend(generated_feeds)
     feeds.extend(journal_entry.get("rss", []))
 
-    if discover and not feeds:
+    if discover:
         discovered: list[dict[str, str]] = []
         for page in candidate_pages(journal):
             try:
@@ -226,7 +226,9 @@ def feeds_for_journal(journal: dict[str, Any], *, discover: bool = False) -> tup
             except Exception:
                 continue
         if discovered:
-            journal_entry["rss"] = discovered
+            existing = journal_entry.get("rss") if isinstance(journal_entry.get("rss"), list) else []
+            merged = {str(item.get("url")): item for item in [*existing, *discovered] if item.get("url")}
+            journal_entry["rss"] = list(merged.values())
             journal_entry["rss_status"] = "discovered"
             save_registry(registry)
             feeds.extend(discovered)

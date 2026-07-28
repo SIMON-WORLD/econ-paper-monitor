@@ -190,6 +190,17 @@ jobs:
           else
             echo "::warning::Single-journal Crossref fetch timed out or failed; continuing with the rest of the monitor."
           fi
+      - name: Fetch independent OpenAlex recall source
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        shell: bash
+        run: |
+          mkdir -p data/raw/openalex-recall
+          TODAY=$(python -c "from scripts.common import today_str; print(today_str())")
+          if timeout 6m python scripts/fetch_openalex_recall.py --days 21 --rows 50 --timeout 25 --output data/raw/openalex-recall/${TODAY}.json; then
+            echo "OpenAlex recall fetch completed."
+          else
+            echo "::warning::OpenAlex recall fetch failed; Crossref and publisher sources remain authoritative."
+          fi
       - name: Fetch Chinese journal pages
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         shell: bash

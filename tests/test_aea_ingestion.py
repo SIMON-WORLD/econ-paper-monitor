@@ -134,6 +134,10 @@ class AeaIngestionTests(unittest.TestCase):
         self.assertEqual(status["count"], 1)
         self.assertIn("404", status["message"])
 
+    def test_global_partial_harvest_is_source_usable(self) -> None:
+        source = Path(fetch_aea.__file__).read_text(encoding="utf-8")
+        self.assertIn("ok=failures == 0 or bool(records)", source)
+
     @patch.object(fetch_aea, "enrich_article")
     @patch.object(fetch_aea, "fetch_text")
     def test_current_issue_limit_does_not_skip_forthcoming(self, fetch_mock, enrich_mock) -> None:

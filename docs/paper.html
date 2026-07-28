@@ -85,7 +85,9 @@
     const match = key.match(/([0-9a-f]{12})$/i);
     if (!match) return showMissing();
     try {
-      const response = await fetch(`./paper-data/${match[1].slice(0, 2).toLowerCase()}.json`, {cache: 'force-cache'});
+      // Revalidate the small shard after each release so newly published records
+      // cannot be hidden by a browser's stale force-cache entry.
+      const response = await fetch(`./paper-data/${match[1].slice(0, 2).toLowerCase()}.json`, {cache: 'no-cache'});
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       const item = data.find((record) => record.key === key);

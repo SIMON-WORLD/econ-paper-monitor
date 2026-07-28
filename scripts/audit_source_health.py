@@ -18,6 +18,7 @@ from status import record_source
 
 
 GOOD_RSS = {"official-generated", "configured", "feed", "html", "specialized-api", "specialized-html", "nep-issue"}
+SUPPLEMENTAL_SOURCE_IDS = {"openalex-recall"}
 
 # These sources are written to the run-status ledger rather than the generic
 # RSS/Crossref registry.  They still represent real acquisition paths and must
@@ -129,23 +130,39 @@ def inspect_journal(
     paths = [name for name, ok in (("rss", rss_ok), ("crossref", crossref_ok)) if ok]
     specialized, specialized_checked = specialized_paths(journal_id, status or {}, now, max_age)
     paths.extend(path for path in specialized if path not in paths)
+    supplemental: list[str] = []
+    supplemental_entry = (status.get("sources") or {}).get("openalex-recall") if status else None
+    if isinstance(supplemental_entry, dict) and status_entry_is_fresh(supplemental_entry, now, max_age):
+        details = supplemental_entry.get("details") if isinstance(supplemental_entry.get("details"), dict) else {}
+        per_journal = details.get("per_journal") if isinstance(details.get("per_journal"), dict) else None
+        journal_entry = per_journal.get(journal_id) if per_journal is not None else None
+        # Older status files had only a global OpenAlex result. Keep them
+        # readable, but use the per-journal ledger whenever it is available so
+        # one successful query cannot masquerade as full-journal coverage.
+        eligible = journal_entry is None if per_journal is None else bool(journal_entry.get("ok"))
+        if eligible:
+            supplemental.append("openalex-recall")
+            paths.append("openalex-recall")
     checked_candidates = [str(value) for value in (entry.get("updated_at"), entry.get("last_checked_at"), *specialized_checked) if value]
     checked = max(checked_candidates) if checked_candidates else None
     checked_age = status_age_days(checked, now)
     stale = checked_age is None or checked_age > max_age
-    if not paths:
-        level = "unavailable"
+    reliable_paths = [path for path in paths if path not in SUPPLEMENTAL_SOURCE_IDS]
+    if not reliable_paths:
+        level = "unavailable" if not paths else "degraded"
     elif stale:
         level = "stale"
-    elif len(paths) == 1:
+    elif len(reliable_paths) == 1:
         level = "degraded"
     else:
         level = "healthy"
-    if not paths:
+    if not reliable_paths and not supplemental:
         coverage = "unavailable"
-    elif "crossref" in paths and len(paths) == 1:
+    elif "crossref" in reliable_paths and len(reliable_paths) == 1 and supplemental:
+        coverage = "supplemental"
+    elif "crossref" in reliable_paths and len(reliable_paths) == 1:
         coverage = "crossref_only"
-    elif any(path in paths for path in ("rss", "aea-toc", "priority-toc", "cn-journals", "cnki-rss")):
+    elif any(path in reliable_paths for path in ("rss", "aea-toc", "priority-toc", "cn-journals", "cnki-rss")):
         coverage = "official_or_specialized"
     else:
         coverage = "supplemental"
@@ -161,6 +178,7 @@ def inspect_journal(
         "crossref_status": crossref_status,
         "crossref_count": entry.get("last_crossref_count"),
         "specialized_paths": specialized,
+        "supplemental_paths": supplemental,
         "last_checked_at": checked,
         "checked_age_days": checked_age,
         "registry_age_days": age_days(entry.get("last_checked_at"), today),
@@ -208,6 +226,17 @@ def main() -> None:
             }
             for row in rows
             if row["coverage"] == "crossref_only"
+        ],
+        "crossref_plus_supplemental": [
+            {
+                "journal_id": row["journal_id"],
+                "journal": row["journal"],
+                "publisher": row["publisher"],
+                "usable_paths": row["usable_paths"],
+                "next_action": "replace or complement the recall source with an official RSS, TOC, advance, or latest-article source",
+            }
+            for row in rows
+            if row["coverage"] == "supplemental"
         ],
         "single_path_degraded": [
             {

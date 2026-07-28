@@ -568,10 +568,12 @@ def main() -> None:
     write_json(output, records)
     record_source(
         "priority-toc",
-        ok=failures == 0,
+        # Keep the source usable when at least one priority journal produced
+        # records and another optional publisher page was unavailable.
+        ok=failures == 0 or bool(records),
         count=len(records),
         message="; ".join(messages[-20:]) or str(output),
-        details={"journals": journal_status},
+        details={"journals": journal_status, "partial_failures": failures},
     )
     print(f"wrote {len(records)} priority TOC records to {output}")
     for message in messages:

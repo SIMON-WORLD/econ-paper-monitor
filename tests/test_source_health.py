@@ -28,6 +28,41 @@ def test_crossref_only_is_degraded_but_usable():
     assert result["usable_paths"] == ["crossref"]
 
 
+def test_openalex_recall_does_not_upgrade_crossref_only_to_healthy():
+    result = inspect_journal(
+        journal(),
+        {"journals": {"j1": {"last_rss_status": "none", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+        {"sources": {"openalex-recall": {
+            "ok": True,
+            "updated_at": "2026-07-27T11:30:00+00:00",
+            "details": {"per_journal": {"j1": {"ok": True, "count": 2}}},
+        }}},
+    )
+    assert result["level"] == "degraded"
+    assert result["coverage"] == "supplemental"
+    assert result["usable_paths"] == ["crossref", "openalex-recall"]
+
+
+def test_openalex_failed_journal_is_not_marked_as_covered():
+    result = inspect_journal(
+        journal(),
+        {"journals": {"j1": {"last_rss_status": "none", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+        {"sources": {"openalex-recall": {
+            "ok": True,
+            "updated_at": "2026-07-27T11:30:00+00:00",
+            "details": {"per_journal": {"j1": {"ok": False, "count": 0}}},
+        }}},
+    )
+    assert result["usable_paths"] == ["crossref"]
+    assert result["coverage"] == "crossref_only"
+
+
 def test_both_paths_are_healthy():
     result = inspect_journal(
         journal(),

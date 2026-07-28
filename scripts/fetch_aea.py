@@ -266,10 +266,13 @@ def main() -> None:
     write_json(SNAPSHOT_PATH, {"updated_at": now_iso(), "journals": snapshot})
     record_source(
         "aea-toc",
-        ok=failures == 0,
+        # A failed optional page must not turn a successful partial harvest
+        # into an operational outage. The per-journal entries retain the
+        # exact failure message for audit purposes.
+        ok=failures == 0 or bool(records),
         count=len(records),
         message="; ".join(messages) or str(output),
-        details={"journals": journal_status},
+        details={"journals": journal_status, "partial_failures": failures},
     )
     print(f"wrote {len(records)} AEA records to {output}")
     for message in messages:
