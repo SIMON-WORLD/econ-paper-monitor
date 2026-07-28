@@ -304,7 +304,7 @@
       };
       buttons.forEach((button) => button.addEventListener('click', () => { active = button.dataset.filter; apply(); }));
       search.addEventListener('input', () => { window.clearTimeout(debounceTimer); debounceTimer = window.setTimeout(() => apply(), 150); });
-      document.querySelector('[data-clear]').addEventListener('click', () => { active = 'all'; search.value = ''; apply(); });
+      document.querySelector('[data-clear]')?.addEventListener('click', () => { active = 'all'; search.value = ''; apply(); });
       readUrl();
       apply({animate: false});
       window.__dailyVnextDebug = {getVisibleCount: () => entries.filter((entry) => !entry.hidden).length, getTriggerCount: () => window.DailyVNextMotion ? window.DailyVNextMotion.count() : 0, getActiveType: () => active};
