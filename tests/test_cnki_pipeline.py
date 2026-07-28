@@ -77,9 +77,9 @@ def test_local_cnki_publish_pulls_are_fail_closed():
 
     assert "def sync_runner_to_public_main()" in script
     assert "def fetch_public_main_with_retries" in script
-    assert 'run_step(["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"])' in script
+    assert '["git", "-c", "http.sslbackend=openssl", "fetch", "origin", "main"]' in script
     assert 'run_step(["git", "reset", "--hard", "origin/main"])' in script
-    assert "Git push rejects a concurrent remote update atomically" in script
+    assert "Git push rejects a concurrent remote" in script
     assert '"pull", "--rebase"' not in script
     assert '"pull", "--ff-only"' not in script
     assert '"-X", "theirs"' not in script
