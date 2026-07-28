@@ -7,17 +7,22 @@ param(
 
 $ErrorActionPreference = "Stop"
 $repo = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
-  $RunnerPath = $repo
-}
-$runner = Join-Path $RunnerPath "scripts\run_local_cnki_update.ps1"
-
 # PowerShell 7 uses the same OpenSSL/TLS stack as the verified local Git path.
 # Keep Windows PowerShell as a fallback for machines without pwsh installed.
 $shell = (Get-Command pwsh.exe -ErrorAction SilentlyContinue).Source
 if ([string]::IsNullOrWhiteSpace($shell)) {
   $shell = (Get-Command powershell.exe -ErrorAction Stop).Source
 }
+if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
+  $RunnerPath = Join-Path $env:LOCALAPPDATA "AcademicDoor\econ-paper-monitor-cnki-runner"
+}
+$bootstrap = Join-Path $repo "scripts\bootstrap_local_cnki_runner.ps1"
+& $shell -NoProfile -ExecutionPolicy Bypass -File $bootstrap -RunnerPath $RunnerPath
+$bootstrapCode = $LASTEXITCODE
+if ($bootstrapCode -ne 0) {
+  throw "CNKI runner bootstrap failed with exit code $bootstrapCode"
+}
+$runner = Join-Path $RunnerPath "scripts\run_local_cnki_update.ps1"
 
 if (-not (Test-Path -LiteralPath $runner)) {
   throw "Runner script not found: $runner"
@@ -33,7 +38,7 @@ if ($NoPush) {
   $argumentParts += "-NoPush"
 }
 
-$action = New-ScheduledTaskAction -Execute $shell -Argument ($argumentParts -join " ") -WorkingDirectory $repo
+$action = New-ScheduledTaskAction -Execute $shell -Argument ($argumentParts -join " ") -WorkingDirectory $RunnerPath
 $triggers = foreach ($time in $Times) {
   New-ScheduledTaskTrigger -Daily -At $time
 }
@@ -55,4 +60,4 @@ Register-ScheduledTask `
 Write-Host "Installed scheduled task: $TaskName"
 Write-Host "Schedule: daily at $($Times -join ', ') (local time)"
 Write-Host "Runner: $runner"
-Write-Host "Log: $(Join-Path $repo 'local_admin\logs\local-cnki-update.log')"
+Write-Host "Log: $(Join-Path $RunnerPath 'local_admin\logs\local-cnki-update.log')"

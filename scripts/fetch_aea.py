@@ -206,6 +206,15 @@ def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, 
     return records, errors
 
 
+def journal_status_entry(records: list[dict], errors: list[str]) -> dict[str, object]:
+    """Keep a journal usable when one optional AEA page is unavailable."""
+    return {
+        "ok": bool(records) or not errors,
+        "count": len(records),
+        "message": "; ".join(errors) if errors else "ok",
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -246,11 +255,7 @@ def main() -> None:
         annotate_snapshot_records(fetched, str(journal.get("id") or ""), snapshot, promotions)
         records.extend(fetched)
         journal_id = str(journal.get("id") or "")
-        journal_status[journal_id] = {
-            "ok": not errors,
-            "count": len(fetched),
-            "message": "; ".join(errors) if errors else "ok",
-        }
+        journal_status[journal_id] = journal_status_entry(fetched, errors)
         if errors:
             failures += len(errors)
             messages.append(f"{journal.get('id')}: {len(fetched)} ({'; '.join(errors)})")

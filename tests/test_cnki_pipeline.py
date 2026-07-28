@@ -107,6 +107,18 @@ def test_local_task_prefers_powershell_7_with_windows_fallback():
     assert "-Execute $shell" in script
 
 
+def test_local_task_bootstraps_a_dedicated_runner_and_uses_it_as_working_directory():
+    root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
+    installer = (root / "scripts" / "install_local_cnki_task.ps1").read_text(encoding="utf-8")
+    bootstrap = (root / "scripts" / "bootstrap_local_cnki_runner.ps1").read_text(encoding="utf-8")
+    assert "LOCALAPPDATA" in installer
+    assert "bootstrap_local_cnki_runner.ps1" in installer
+    assert "-WorkingDirectory $RunnerPath" in installer
+    assert "git clone --branch main --single-branch" in bootstrap
+    assert "git -C $RunnerPath -c http.sslbackend=openssl pull --ff-only origin main" in bootstrap
+    assert "must use branch main" in bootstrap
+
+
 def test_aggregate_source_status_does_not_hide_partial_failures():
     root = Path(fetch_cnki_rss.__file__).resolve().parents[1]
     preprints = (root / "scripts" / "fetch_preprints.py").read_text(encoding="utf-8")

@@ -115,6 +115,15 @@ class AeaIngestionTests(unittest.TestCase):
 
         self.assertNotIn("american-economic-review", snapshot)
 
+    def test_partial_page_failure_keeps_journal_usable_when_records_exist(self) -> None:
+        status = fetch_aea.journal_status_entry(
+            [{"doi": "10.1257/jep.20251470"}],
+            ["forthcoming: HTTPError: 404"],
+        )
+        self.assertTrue(status["ok"])
+        self.assertEqual(status["count"], 1)
+        self.assertIn("404", status["message"])
+
     @patch.object(fetch_aea, "enrich_article")
     @patch.object(fetch_aea, "fetch_text")
     def test_current_issue_limit_does_not_skip_forthcoming(self, fetch_mock, enrich_mock) -> None:

@@ -30,18 +30,28 @@ sources on GitHub Actions, and run the CNKI RSS supplement on a local Windows
 machine or a domestic self-hosted runner. The installed task runs four times
 per day and publishes only generated data and pages.
 
-Run once manually without pushing:
+The scheduled task uses a dedicated checkout under
+`%LOCALAPPDATA%\AcademicDoor\econ-paper-monitor-cnki-runner`. It must not use a
+development worktree: the runner always follows the public `origin/main`, while
+the main development checkout may contain unpublished commits.
+
+Run once manually without pushing from the dedicated runner:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\run_local_cnki_update.ps1 -NoPush
 ```
 
-Install a silent Windows scheduled task at 00:10, 06:10, 12:10 and 18:10 local
-time (set the machine timezone to Beijing time if those should be Beijing times):
+Install or refresh a silent Windows scheduled task at 00:10, 06:10, 12:10 and
+18:10 local time (set the machine timezone to Beijing time if those should be
+Beijing times). The installer creates and updates the dedicated runner first:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install_local_cnki_task.ps1
 ```
+
+For a custom runner location, pass `-RunnerPath` explicitly. Never point it at
+the development checkout unless that checkout is intentionally kept identical
+to the public `main` branch.
 
 The local supplement writes a durable owner status to
 `data/local_cnki_status.json`. The public watchdog checks that status and
