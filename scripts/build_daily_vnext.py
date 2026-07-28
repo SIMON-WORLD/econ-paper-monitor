@@ -24,6 +24,10 @@ DEFAULT_REPORT = DATA_DIR / "daily_vnext_build_report.json"
 BEIJING = ZoneInfo("Asia/Shanghai")
 
 TOPIC_LABELS = {
+    "applied_empirical": "应用实证",
+    "public_political": "公共与政治经济学",
+    "macro_monetary": "宏观与货币经济学",
+    "labor": "劳动经济学",
     "macro": "宏观经济学",
     "macroeconomics": "宏观经济学",
     "finance": "金融",
@@ -44,6 +48,23 @@ TOPIC_LABELS = {
     "inequality": "不平等",
     "education": "教育",
     "health": "健康经济学",
+    "environment_climate": "环境与气候",
+    "theory_game": "理论与博弈",
+    "industrial_organization": "产业组织",
+    "econometrics": "计量经济学",
+    "behavior_organization": "行为与组织",
+    "china": "中国研究",
+    "chinese": "中国研究",
+    "economic_history": "经济史",
+    "environmental": "环境与气候",
+    "experimental": "实验经济学",
+    "game_theory": "理论与博弈",
+    "general": "综合经济学",
+    "international": "国际经济学",
+    "law_comparative": "比较法与经济",
+    "microeconomics": "微观经济学",
+    "population": "人口经济学",
+    "theory": "理论经济学",
 }
 
 
@@ -118,11 +139,63 @@ def author_values(record: dict) -> list[str]:
 
 
 def search_text(record: dict, labels: list[str]) -> str:
-    values = [record.get(key) for key in ("title", "title_zh", "journal", "doi", "url", "abstract")]
+    values = [record.get(key) for key in ("title", "title_zh", "journal", "source", "doi", "url")]
     values.extend(author_values(record))
     values.extend(labels)
     values.extend(str(item) for item in (record.get("fields") or []) if item)
+    values.append("true" if is_china_related(record) else "false")
     return " ".join(str(value or "") for value in values).lower()
+
+
+def topic_keys(record: dict) -> list[str]:
+    raw = record.get("fields") or record.get("topics") or record.get("ai_tags") or []
+    if isinstance(raw, str):
+        raw = [raw]
+    return [str(item or "").strip().lower() for item in raw if str(item or "").strip()]
+
+
+def warn_unknown_topics(records: list[dict]) -> list[str]:
+    unknown = sorted({key for record in records for key in topic_keys(record) if key not in TOPIC_LABELS})
+    for key in unknown:
+        print(f"WARNING: unknown Daily vNext topic code: {key}", file=sys.stderr)
+    return unknown
+
+
+def compact_source(record: dict) -> str:
+    source = source_name(record).strip()
+    lower = source.lower()
+    if "voxeu" in lower or "columns" in lower:
+        return "VOXEU"
+    if "cepr" in lower:
+        return "CEPR"
+    return re.sub(r"[^A-Za-z0-9& -]", "", source).strip().upper()[:28]
+
+
+def hero_nodes_markup(records: list[dict]) -> str:
+    candidates: list[dict] = []
+    for record in records:
+        seen = first_seen(record)
+        source = compact_source(record)
+        if seen and source:
+            candidates.append({"time": seen.strftime("%H:%M"), "source": source, "kind": content_type(record)})
+    if not candidates:
+        return '<div class="hero-data-texture" aria-hidden="true" hidden></div>'
+    selected = [candidates[0]]
+    for candidate in candidates[1:]:
+        if (candidate["time"], candidate["source"]) != (selected[0]["time"], selected[0]["source"]):
+            selected.append(candidate)
+            break
+    if len(selected) == 1:
+        for candidate in candidates[1:]:
+            if candidate["source"] != selected[0]["source"]:
+                selected.append(candidate)
+                break
+    slots = [("top:8%;left:4%", ""), ("top:18%;right:4%", "")]
+    nodes = "".join(
+        f'<span class="hero-data-node" style="{slots[index][0]}">{esc(item["time"])} / {esc(item["source"])}</span>'
+        for index, item in enumerate(selected[:2])
+    )
+    return f'<div class="hero-data-texture" aria-hidden="true">{nodes}</div>'
 
 
 def load_records(date_value: str) -> tuple[list[dict], int]:
@@ -205,6 +278,7 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tu
     topic_markup = "".join(f'<span class="tag">{esc(label)}</span>' for label in labels)
     if china:
         topic_markup += '<span class="tag tag-china">与中国相关</span>'
+    tags_markup = f'<div class="tags">{topic_markup}</div>' if topic_markup else ""
     original = str(record.get("url") or record.get("source_url") or "#")
     doi = str(record.get("doi") or "").strip()
     official = official_date(record)
@@ -223,7 +297,7 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tu
           <div class="paper-kicker"><span>{esc(detail_kind)}</span><span>{esc(source_name(record))}</span></div>
           <h3><a href="{esc(original)}" target="_blank" rel="noreferrer">{esc(title_zh or title_en)}</a></h3>
           {f'<p class="english-title">{esc(title_en)}</p>' if title_zh else ''}
-{author_markup}          <div class="paper-foot"><div class="tags">{topic_markup}</div><a class="read-link" href="{esc(original)}" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
+{author_markup}          <div class="paper-foot">{tags_markup}<a class="read-link" href="{esc(original)}" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
           <details class="paper-details"><summary>查看来源与日期</summary><p>{details}</p></details><span class="paper-divider" aria-hidden="true"></span>
         </div>
       </article>'''
@@ -240,6 +314,7 @@ def replace_section(document: str, class_name: str, replacement: str) -> str:
 
 def build(date_value: str, template_path: Path, output_path: Path, report_path: Path, dry_run: bool = False) -> dict:
     records, archive_file_count = load_records(date_value)
+    unknown_topics = warn_unknown_topics(records)
     counts = Counter(content_type(record) for record in records)
     china_count = sum(is_china_related(record) for record in records)
     source_counts = Counter(source_name(record) for record in records)
@@ -258,11 +333,23 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
         "source_counts": dict(source_counts),
         "china_related_count": china_count,
         "latest_first_seen_beijing": latest.isoformat() if latest else None,
+        "unknown_topic_codes": unknown_topics,
     }
     if not dry_run:
         document = template_path.read_text(encoding="utf-8")
+        root_output = output_path.resolve() == (ROOT / "docs" / "index.html").resolve()
+        site_prefix = "./" if root_output else "../"
+        document = document.replace('href="../', f'href="{site_prefix}')
+        document = document.replace('src="../', f'src="{site_prefix}')
+        document = re.sub(
+            r'<link rel="canonical" href="[^"]+">',
+            f'<link rel="canonical" href="https://academic-door.github.io/econ-paper-monitor/{"" if root_output else "daily-vnext/"}">',
+            document,
+            count=1,
+        )
         document = re.sub(r'DAILY DOOR / [^<]+', f'DAILY DOOR / {esc(date_value)}', document, count=1)
         document = re.sub(r'<p class="hero-lede"[^>]*>.*?</p>', '<p class="hero-lede">每日追踪重点经济学期刊、工作论文与研究专栏，沿着时间流发现值得打开的研究。</p>', document, count=1, flags=re.S)
+        document = re.sub(r'<div class="hero-data-texture"[^>]*>.*?</div>', hero_nodes_markup(records), document, count=1, flags=re.S)
         document = re.sub(r'<div class="hero-total"[^>]*>.*?</div>', f'<div class="hero-total" data-count="{len(records)}">{len(records)}</div>', document, count=1, flags=re.S)
         hero_note = f'{counts["journal"]} 篇期刊论文 · {counts["working"]} 篇工作论文 · {counts["column"]} 篇研究专栏'
         document = re.sub(r'<div class="hero-note">.*?</div>', f'<div class="hero-note">{esc(hero_note)}</div>', document, count=1, flags=re.S)
@@ -288,6 +375,14 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
         timeline = f'''    <section class="timeline" aria-live="polite">{paper_html}{empty_state}</section>'''
         document = replace_section(document, "timeline", timeline)
         document = re.sub(r'<div class="result-status"[^>]*>.*?</div>', f'<div class="result-status" data-result-status aria-live="polite">今日共 {len(records)} 项研究内容</div>', document, count=1, flags=re.S)
+        search_lengths = [len(value) for value in re.findall(r'data-search="([^"]*)"', document)]
+        report["data_search"] = {
+            "html_bytes": len(document.encode("utf-8")),
+            "max_length": max(search_lengths, default=0),
+            "average_length": round(sum(search_lengths) / len(search_lengths), 2) if search_lengths else 0,
+        }
+        if not records and os.environ.get("ALLOW_EMPTY_DAILY") != "1":
+            raise RuntimeError("refusing to replace Daily vNext with an empty page; set ALLOW_EMPTY_DAILY=1 to override")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         validate_generated_page(document, len(records), output_path)
         with tempfile.NamedTemporaryFile("w", suffix=".html", dir=output_path.parent, encoding="utf-8", delete=False) as temp_file:

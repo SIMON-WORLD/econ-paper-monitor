@@ -31,6 +31,35 @@ jobs:
           print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
           PY
           )
+          DAILY_ARCHIVE_VALID=$(python - "$DAILY_DATE" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          path = Path("data/daily") / f"{sys.argv[1]}.json"
+          try:
+              valid = bool(json.loads(path.read_text(encoding="utf-8")))
+          except (OSError, ValueError):
+              valid = False
+          print("1" if valid else "0")
+          PY
+          )
+          if [ "$DAILY_ARCHIVE_VALID" != "1" ]; then
+            DAILY_DATE=$(python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in sorted(Path("data/daily").glob("*.json"), reverse=True):
+              try:
+                  if json.loads(path.read_text(encoding="utf-8")):
+                      print(path.stem)
+                      break
+              except (OSError, ValueError):
+                  continue
+          else:
+              raise SystemExit("No non-empty canonical daily archive available")
+          PY
+            )
+            echo "Current Beijing date archive is not committed; using latest canonical archive ${DAILY_DATE}."
+          fi
           python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output "$RUNNER_TEMP/daily-vnext.html" --report "$RUNNER_TEMP/daily-vnext-report.json"
           python - <<'PY'
           import json
@@ -53,8 +82,24 @@ jobs:
           const html = fs.readFileSync(process.env.RUNNER_TEMP + '/daily-vnext.html', 'utf8');
           const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]).filter(Boolean);
           scripts.forEach(script => new Function(script));
+          if (!html.includes('class="hero-lede"')) throw new Error('Hero lede missing');
+          if (!html.includes('[data-motion="hero"]')) throw new Error('Hero motion target missing');
+          if (html.match(/data-search="[^"]*abstract|data-search="[^"]*summary/i)) throw new Error('Abstract leaked into data-search');
+          if (html.includes('<div class="tags"></div>')) throw new Error('Empty tags container rendered');
           console.log(`Daily vNext JavaScript validated: ${scripts.length} inline scripts`);
           NODE
+      - name: Verify Daily vNext template contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          template = Path('docs/daily-vnext/template.html').read_text(encoding='utf-8')
+          required = ['data-motion="hero"', 'data-motion="title"', 'class="hero-lede"', 'data-motion="discovery"', 'data-motion="stat-line"']
+          missing = [item for item in required if item not in template]
+          assert not missing, missing
+          assert 'const lede = hero.querySelector(\'.hero-lede\')' in template
+          assert 'if (![left, right, eyebrow, title, lede, discovery, total, statLine].every(Boolean)) return;' in template
+          print('Daily vNext template contract validated')
+          PY
       - name: Verify empty Daily protection
         run: |
           python - <<'PY'

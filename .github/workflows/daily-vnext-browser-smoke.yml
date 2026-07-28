@@ -1,0 +1,41 @@
+name: Daily vNext Browser Smoke
+
+on:
+  push:
+    branches: ["codex/**"]
+  pull_request:
+    paths:
+      - "docs/**"
+      - "scripts/build_daily_vnext.py"
+      - "tests/daily_vnext_public_smoke.mjs"
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke:
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ (github.event_name == 'workflow_run') && 'main' || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: npm install --no-save --no-package-lock playwright@1.55.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start local static server
+        if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+        run: python -m http.server 8765 --directory docs > /tmp/daily-vnext-http.log 2>&1 &
+      - name: Run public browser smoke
+        env:
+          DAILY_VNEXT_URL: ${{ (github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && 'http://127.0.0.1:8765/daily-vnext/' || 'https://academic-door.github.io/econ-paper-monitor/daily-vnext/' }}
+        run: node tests/daily_vnext_public_smoke.mjs

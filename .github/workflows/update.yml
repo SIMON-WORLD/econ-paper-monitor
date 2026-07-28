@@ -371,7 +371,7 @@ jobs:
           ADMIN_STATUS_TOKEN_HASH: ${{ secrets.ADMIN_STATUS_TOKEN_HASH }}
       - name: Render Daily Door vNext
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/build_daily_vnext.py
+        run: python scripts/build_daily_vnext.py --output docs/index.html --report data/daily_vnext_build_report.json
       - name: Build RSS feed
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_feed.py --site-url https://academic-door.github.io/econ-paper-monitor/
