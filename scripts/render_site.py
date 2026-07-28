@@ -1528,16 +1528,16 @@ def working_papers_body(records: list[dict[str, Any]], *, view: str = "all") -> 
     all_wp_records = working_paper_records(records)
     wp_records = all_wp_records
     if view == "today":
-        wp_records = [record for record in all_wp_records if record_is_on_date(record, today_str())]
+        wp_records = recent_detected_records(all_wp_records, 1)
     elif view == "recent7":
-        wp_records = recent_records(all_wp_records, 7)
+        wp_records = recent_detected_records(all_wp_records, 7)
     elif view == "china":
         wp_records = [record for record in all_wp_records if is_public_china_related(record)]
     elif view == "china-recent7":
-        wp_records = [record for record in recent_records(all_wp_records, 7) if is_public_china_related(record)]
+        wp_records = [record for record in recent_detected_records(all_wp_records, 7) if is_public_china_related(record)]
     latest_day = detected_date(wp_records[0]) if wp_records else ""
-    today_count = sum(1 for record in all_wp_records if record_is_on_date(record, today_str()))
-    recent_count = len(recent_records(all_wp_records, 7))
+    today_count = len(recent_detected_records(all_wp_records, 1))
+    recent_count = len(recent_detected_records(all_wp_records, 7))
     china_count = sum(1 for record in all_wp_records if is_public_china_related(record))
     title = {
         "today": "今日工作论文",
