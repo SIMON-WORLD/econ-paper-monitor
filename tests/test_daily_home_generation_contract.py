@@ -1,5 +1,10 @@
 from pathlib import Path
 import re
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+
+from build_daily_vnext import build  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,9 +21,18 @@ def page_info(path: Path) -> tuple[str, int, int, str]:
     return date.group(1), int(count.group(1)), entries, flow
 
 
-def test_root_and_vnext_share_the_new_daily_generation_contract():
-    root = ROOT / "docs" / "index.html"
-    vnext = ROOT / "docs" / "daily-vnext" / "index.html"
+def test_root_and_vnext_share_the_new_daily_generation_contract(tmp_path):
+    archives = sorted((ROOT / "data" / "daily").glob("*.json"), reverse=True)
+    date_value = next(
+        path.stem
+        for path in archives
+        if path.read_text(encoding="utf-8").strip() not in {"", "[]"}
+    )
+    template = ROOT / "docs" / "daily-vnext" / "template.html"
+    root = tmp_path / "index.html"
+    vnext = tmp_path / "daily-vnext" / "index.html"
+    build(date_value, template, root, tmp_path / "root-report.json")
+    build(date_value, template, vnext, tmp_path / "vnext-report.json")
     classic = ROOT / "docs" / "classic" / "index.html"
 
     root_html = root.read_text(encoding="utf-8")
