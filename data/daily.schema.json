@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://academic-door.github.io/econ-paper-monitor/data/daily.schema.json",
+  "title": "Academic Door canonical daily paper archive",
+  "description": "Each data/daily/YYYY-MM-DD.json file is the canonical Beijing-date first-discovery bucket consumed by the display layer.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "title",
+      "authors",
+      "journal",
+      "source",
+      "source_type",
+      "url",
+      "fields"
+    ],
+    "properties": {
+      "id": {"type": "string", "minLength": 1},
+      "title": {"type": "string", "minLength": 1},
+      "title_zh": {"type": ["string", "null"]},
+      "authors": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "journal": {"type": "string"},
+      "journal_id": {"type": ["string", "null"]},
+      "source": {"type": "string"},
+      "source_id": {"type": ["string", "null"]},
+      "source_type": {"type": "string"},
+      "url": {"type": "string"},
+      "doi": {"type": ["string", "null"]},
+      "abstract": {"type": ["string", "null"]},
+      "abstract_zh": {"type": ["string", "null"]},
+      "fields": {
+        "type": "array",
+        "items": {"type": "string"},
+        "uniqueItems": true
+      },
+      "china_related": {"type": ["boolean", "null"]},
+      "china_relevance_status": {"type": ["string", "null"]},
+      "first_seen_at": {"type": ["string", "null"], "format": "date-time"},
+      "first_seen": {"type": ["string", "null"], "format": "date-time"},
+      "detected_at": {"type": ["string", "null"], "format": "date-time"},
+      "available_online": {"type": ["string", "null"], "format": "date"},
+      "published_online": {"type": ["string", "null"], "format": "date"},
+      "accepted_date": {"type": ["string", "null"], "format": "date"},
+      "issue_date": {"type": ["string", "null"], "format": "date"},
+      "date_source": {"type": ["string", "null"]},
+      "date_confidence": {"type": ["string", "null"]}
+    },
+    "anyOf": [
+      {"required": ["first_seen_at"]},
+      {"required": ["first_seen"]},
+      {"required": ["detected_at"]}
+    ],
+    "additionalProperties": true
+  }
+}
