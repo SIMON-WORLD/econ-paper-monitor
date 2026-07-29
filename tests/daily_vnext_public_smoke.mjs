@@ -30,7 +30,7 @@ async function checkPage(browser, url) {
   await china.click();
   await page.waitForTimeout(250);
   assert.equal(await visibleEntries(page), await page.locator('.paper-entry[data-china="true"]').count(), `${url} China filter`);
-  await china.click();
+  await page.locator('.filter[data-filter="all"]').click();
   const searchable = total > 0
     ? await entries.first().getAttribute('data-search')
     : null;
