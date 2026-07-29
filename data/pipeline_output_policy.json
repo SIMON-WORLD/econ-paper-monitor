@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "owner": "data-monitoring-layer",
+  "canonical_interface": "data/daily/YYYY-MM-DD.json",
+  "allowed_commit_roots": [
+    "data/"
+  ],
+  "required_supporting_artifacts": [
+    "data/daily.schema.json",
+    "data/seen.json",
+    "data/ingestion_audit.json",
+    "data/ingestion_exclusion_ledger.json",
+    "data/quality_report.json",
+    "data/monitor_health.json",
+    "data/release_gate.json"
+  ],
+  "forbidden_monitor_outputs": [
+    "docs/index.html",
+    "docs/daily-vnext/",
+    "docs/classic/",
+    "docs/feed.xml",
+    "local_admin/*.html"
+  ],
+  "active_monitor_entrypoints": [
+    ".github/workflows/update.yml",
+    "scripts/local_cnki_update.py"
+  ],
+  "display_generators_retained_but_not_called_by_monitoring": [
+    "scripts/render_site.py",
+    "scripts/build_daily_vnext.py",
+    "scripts/build_feed.py",
+    "scripts/render_local_status.py",
+    "scripts/render_cnki_status.py"
+  ]
+}
