@@ -19,6 +19,7 @@
     @media(hover:hover) and (pointer:fine){.paper-entry:hover .english-title{opacity:.86}}
     @media(max-width:800px){.hero-data-texture{display:none}.hero-door-panel{width:54%}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-data-node{transform:none!important}}
+    .filter,.search,.clear-filters{min-height:44px}.paper-kicker,.paper-body h3,.english-title,.authors,.paper-details{overflow-wrap:anywhere}.paper-foot,.tags{min-width:0}
   </style>
 </head>
 <body>
@@ -218,6 +219,7 @@
       let debounceTimer = 0;
       let applyToken = 0;
 
+      if (!nav || !menu || !search || !timeline || !empty || !resultStatus) return;
       menu.addEventListener('click', () => { const open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(open)); });
 
       const normalize = (value) => String(value || '').trim().toLocaleLowerCase();
@@ -310,9 +312,11 @@
       window.__dailyVnextDebug = {getVisibleCount: () => entries.filter((entry) => !entry.hidden).length, getTriggerCount: () => window.DailyVNextMotion ? window.DailyVNextMotion.count() : 0, getActiveType: () => active};
 
       const endpoint = 'https://econ-paper-monitor-presence.academic-door.workers.dev/presence'; const target = document.querySelector('[data-presence-count]'); const key = 'epd_presence_client';
-      const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)); localStorage.setItem(key, clientId);
-      const heartbeat = () => fetch(endpoint + '?client_id=' + encodeURIComponent(clientId), {headers: {Accept: 'application/json'}}).then(r => r.ok ? r.json() : null).then(d => { if (d && Number.isFinite(Number(d.online))) target.textContent = d.online + ' 人在线'; }).catch(() => {});
-      heartbeat(); window.setInterval(heartbeat, 60000);
+      if (target) {
+        const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)); localStorage.setItem(key, clientId);
+        const heartbeat = () => fetch(endpoint + '?client_id=' + encodeURIComponent(clientId), {headers: {Accept: 'application/json'}}).then(r => r.ok ? r.json() : null).then(d => { if (d && Number.isFinite(Number(d.online))) target.textContent = d.online + ' 人在线'; }).catch(() => {});
+        heartbeat(); window.setInterval(heartbeat, 60000);
+      }
     })();
   </script>
 </body></html>
