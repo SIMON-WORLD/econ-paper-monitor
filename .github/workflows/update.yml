@@ -27,6 +27,7 @@ on:
     - cron: "30 12 * * *"
 
 permissions:
+  actions: write
   contents: write
 
 env:
@@ -368,15 +369,18 @@ jobs:
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/action_summary.py
       - name: Commit generated updates
+        id: commit
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data
           if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
             echo "No generated changes to commit."
             exit 0
           fi
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
           git commit -m "Update paper monitor"
           for attempt in 1 2 3; do
             if git pull --rebase -X theirs origin main && git push; then
@@ -388,3 +392,9 @@ jobs:
           done
           echo "Failed to push generated updates after retries."
           exit 1
+
+      - name: Trigger display render
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run render-site.yml --repo "${{ github.repository }}" --ref main
