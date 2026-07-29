@@ -24,9 +24,19 @@ jobs:
         shell: bash
         run: |
           DAILY_DATE=$(python - <<'PY'
-          from datetime import datetime
-          from zoneinfo import ZoneInfo
-          print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
+          import json
+          from pathlib import Path
+
+          for path in sorted(Path("data/daily").glob("*.json"), reverse=True):
+              try:
+                  payload = json.loads(path.read_text(encoding="utf-8"))
+              except (OSError, ValueError):
+                  continue
+              if isinstance(payload, list) and all(isinstance(item, dict) for item in payload):
+                  print(path.stem)
+                  break
+          else:
+              raise SystemExit("No valid canonical daily archive available")
           PY
           )
           python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/index.html --report "$RUNNER_TEMP/daily-home-report.json"
