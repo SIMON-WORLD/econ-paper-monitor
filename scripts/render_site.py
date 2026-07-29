@@ -2117,10 +2117,6 @@ def main() -> None:
     today_records = [record for record in records if record_is_on_date(record, today_str())]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
     home_flow_date = today_str()
-    write_page(
-        args.docs_dir / "index.html",
-        page(SITE_NAME, records, home_body(records, today_records), active="home", sidebar_records=home_flow_records, sidebar_date=home_flow_date),
-    )
     recent72_records = recent_detected_records(records, 3)
     write_exports(args.docs_dir, recent72_records)
     write_detail_data(args.docs_dir, records)
