@@ -1,0 +1,83 @@
+{
+  "audit_date": "2026-07-29",
+  "scope": "data-monitoring-layer-versus-display-layer",
+  "canonical_output": "data/daily/YYYY-MM-DD.json",
+  "active_monitor_call_chain": {
+    "github": [
+      ".github/workflows/update.yml",
+      "source fetchers",
+      "data/raw candidates",
+      "scripts/dedupe.py and data/seen.json",
+      "metadata, translation, topics, China relevance",
+      "scripts/audit_ingestion.py and exclusion ledger",
+      "scripts/product_audit.py",
+      "scripts/release_gate.py",
+      "scripts/monitor_health.py",
+      "git add data"
+    ],
+    "local_cnki": [
+      "scripts/local_cnki_update.py",
+      "CNKI raw candidate promotion",
+      "dedupe and canonical daily merge",
+      "metadata and China relevance enrichment",
+      "quality audits and release gate",
+      "git add data"
+    ]
+  },
+  "page_writes_removed_from_active_monitoring": [
+    {
+      "caller": ".github/workflows/update.yml",
+      "removed_calls": [
+        "python scripts/render_site.py",
+        "python scripts/build_daily_vnext.py --output docs/index.html",
+        "python scripts/build_feed.py",
+        "python scripts/render_local_status.py",
+        "git add data docs"
+      ]
+    },
+    {
+      "caller": "scripts/local_cnki_update.py",
+      "removed_calls": [
+        "scripts/render_site.py",
+        "scripts/build_feed.py",
+        "scripts/render_local_status.py",
+        "scripts/render_cnki_status.py",
+        "git add data docs"
+      ]
+    }
+  ],
+  "retained_display_generators_pending_owner_confirmation": [
+    {
+      "path": "scripts/render_site.py",
+      "outputs": "docs/index.html and static archive/detail/topic/journal pages"
+    },
+    {
+      "path": "scripts/build_daily_vnext.py",
+      "outputs": "docs/daily-vnext/index.html or an explicitly supplied HTML output"
+    },
+    {
+      "path": "scripts/build_feed.py",
+      "outputs": "docs/feed.xml"
+    },
+    {
+      "path": "scripts/render_local_status.py",
+      "outputs": "local_admin/status.html"
+    },
+    {
+      "path": "scripts/render_cnki_status.py",
+      "outputs": "local_admin/cnki_status.html"
+    },
+    {
+      "path": "scripts/admin_server.py",
+      "outputs": "manual refresh currently invokes render_site, build_feed and render_local_status"
+    }
+  ],
+  "display_only_workflows_not_modified": [
+    ".github/workflows/daily-vnext-browser-smoke.yml",
+    ".github/workflows/daily-vnext-public-smoke.yml",
+    "display-oriented sections of .github/workflows/tests.yml",
+    "GitHub Pages deployment configuration"
+  ],
+  "docs_files_modified": [],
+  "pages_deployment_requested": false
+}

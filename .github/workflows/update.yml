@@ -357,24 +357,6 @@ jobs:
       - name: Repair workflow status
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/repair_workflow_status.py
-      - name: Render static site
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/render_site.py
-        env:
-          ANALYTICS_PROVIDER: ${{ vars.ANALYTICS_PROVIDER }}
-          PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
-          PLAUSIBLE_SCRIPT_URL: ${{ vars.PLAUSIBLE_SCRIPT_URL }}
-          UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
-          UMAMI_SCRIPT_URL: ${{ vars.UMAMI_SCRIPT_URL }}
-          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
-          PRESENCE_ENDPOINT: ${{ vars.PRESENCE_ENDPOINT }}
-          ADMIN_STATUS_TOKEN_HASH: ${{ secrets.ADMIN_STATUS_TOKEN_HASH }}
-      - name: Render Daily Door vNext
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/build_daily_vnext.py --output docs/index.html --report data/daily_vnext_build_report.json
-      - name: Build RSS feed
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/build_feed.py --site-url https://academic-door.github.io/econ-paper-monitor/
       - name: Send optional email digest
         if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && github.event.schedule == '30 0 * * *')
         run: python scripts/send_email_digest.py
@@ -382,9 +364,6 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           DIGEST_EMAIL_FROM: ${{ secrets.DIGEST_EMAIL_FROM }}
           DIGEST_EMAIL_TO: ${{ secrets.DIGEST_EMAIL_TO }}
-      - name: Render local/admin status artifact
-        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
-        run: python scripts/render_local_status.py
       - name: Write run summary
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/action_summary.py
@@ -393,7 +372,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data docs
+          git add data
           if git diff --cached --quiet; then
             echo "No generated changes to commit."
             exit 0
