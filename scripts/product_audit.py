@@ -8,11 +8,12 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
-from common import DATA_DIR, read_json, today_str, write_json
+from common import DATA_DIR, load_journals, read_json, today_str, write_json
+from dedupe import is_source_navigation_noise, record_match_keys
 
 
 CN_JOURNAL_IDS = {
@@ -31,7 +32,9 @@ def has_chinese(value: str | None) -> bool:
 
 def is_working_paper(record: dict[str, Any]) -> bool:
     source_type = str(record.get("source_type") or "")
-    return str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}
+    return str(record.get("source") or "") == "working_papers" or source_type in {
+        "working_paper", "policy_paper", "policy_commentary", "aggregator"
+    }
 
 
 def is_cn_journal(record: dict[str, Any]) -> bool:
@@ -47,6 +50,10 @@ def official_date(record: dict[str, Any]) -> str:
     )
 
 
+def online_date(record: dict[str, Any]) -> str:
+    return str(record.get("available_online") or record.get("published_online") or "")
+
+
 def malformed_dates(record: dict[str, Any]) -> list[str]:
     bad: list[str] = []
     for field in ("accepted_date", "available_online", "published_online", "issue_date"):
@@ -59,6 +66,54 @@ def malformed_dates(record: dict[str, Any]) -> list[str]:
         except ValueError:
             bad.append(field)
     return bad
+
+
+def malformed_first_seen(record: dict[str, Any]) -> bool:
+    value = record.get("first_seen_at") or record.get("first_seen") or record.get("detected_at")
+    if not value:
+        return True
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    return parsed.tzinfo is None
+
+
+def canonical_date_age(record: dict[str, Any]) -> int | None:
+    bucket = str(record.get("_daily_date") or "")
+    official = official_date(record)
+    try:
+        return (date.fromisoformat(bucket) - date.fromisoformat(official)).days
+    except ValueError:
+        return None
+
+
+def canonical_online_date_age(record: dict[str, Any]) -> int | None:
+    bucket = str(record.get("_daily_date") or "")
+    try:
+        return (date.fromisoformat(bucket) - date.fromisoformat(online_date(record))).days
+    except ValueError:
+        return None
+
+
+def strong_identity_keys(record: dict[str, Any]) -> set[str]:
+    return {
+        key
+        for key in record_match_keys(record)
+        if key.startswith(("doi:", "url:", "urlpaper:", "journal-title:", "working-title:", "cnki-title:"))
+    }
+
+
+def duplicate_groups(records: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    owners: dict[str, int] = {}
+    groups: dict[int, list[dict[str, Any]]] = {}
+    for index, record in enumerate(records):
+        matched = {owners[key] for key in strong_identity_keys(record) if key in owners}
+        owner = min(matched) if matched else index
+        groups.setdefault(owner, []).append(record)
+        for key in strong_identity_keys(record):
+            owners.setdefault(key, owner)
+    return [group for group in groups.values() if len(group) > 1]
 
 
 def looks_like_abstract(value: str | None) -> bool:
@@ -107,7 +162,7 @@ def record_label(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
+def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = None) -> dict[str, Any]:
     today = today_str()
     today_records = [record for record in records if record.get("_daily_date") == today]
     journal_today = [record for record in today_records if not is_working_paper(record)]
@@ -124,12 +179,7 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
     missing_authors_today_journals = [record for record in journal_today if not record.get("authors")]
     missing_abstract_by_journal = Counter(str(record.get("journal") or record.get("source_id") or "unknown") for record in missing_abstract)
 
-    duplicate_keys: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
-    for record in records:
-        key = str(record.get("doi") or record.get("url") or "").casefold()
-        if key:
-            duplicate_keys[key].append(record)
-    duplicates = [items for items in duplicate_keys.values() if len(items) > 1]
+    duplicates = duplicate_groups(records)
 
     low_conf_today = [
         record
@@ -145,6 +195,49 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
     ]
     abstract_titles = [record for record in records if looks_like_abstract(record.get("title"))]
     malformed_date_records = [record for record in records if malformed_dates(record)]
+    malformed_first_seen_records = [record for record in records if malformed_first_seen(record)]
+    historical_records = [
+        record
+        for record in records
+        if canonical_date_age(record) is not None
+        and canonical_date_age(record) > 14
+        and str(record.get("date_confidence") or "") not in {"F", "unknown"}
+    ]
+    future_official_records = [
+        record
+        for record in records
+        if canonical_online_date_age(record) is not None and canonical_online_date_age(record) < 0
+    ]
+    nonpaper_records = [record for record in records if is_source_navigation_noise(record)]
+    required_fields = ("id", "title", "authors", "journal", "source", "source_type", "url", "fields")
+    def missing_schema_fields(record: dict[str, Any]) -> list[str]:
+        missing = [field for field in required_fields if field not in record]
+        missing.extend(
+            field
+            for field in ("id", "title", "journal", "source", "source_type", "url")
+            if field in record and not str(record.get(field) or "").strip()
+        )
+        return sorted(set(missing))
+
+    missing_required = [
+        {"record": record, "fields": missing_schema_fields(record)}
+        for record in records
+        if missing_schema_fields(record)
+    ]
+    allowed_source_types = {"journal", "working_paper", "policy_paper", "policy_commentary", "aggregator"}
+    source_type_errors = [
+        record
+        for record in records
+        if str(record.get("source_type") or "") not in allowed_source_types
+        or (str(record.get("source") or "") == "working_papers" and str(record.get("source_type") or "") == "journal")
+    ]
+    invalid_journal_ids = [
+        record
+        for record in records
+        if formal_journal_ids is not None
+        and str(record.get("source_type") or "") == "journal"
+        and str(record.get("journal_id") or "") not in formal_journal_ids
+    ]
     untranslated_recent = [
         record
         for record in records[:500]
@@ -188,6 +281,13 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
             "missing_authors_today": len(missing_authors_today),
             "missing_authors_today_journals": len(missing_authors_today_journals),
             "missing_authors_recent": len(missing_authors_recent),
+            "historical_records_in_bucket": len(historical_records),
+            "future_official_date_in_bucket": len(future_official_records),
+            "nonpaper_records": len(nonpaper_records),
+            "missing_required_fields": len(missing_required),
+            "malformed_first_seen": len(malformed_first_seen_records),
+            "source_type_errors": len(source_type_errors),
+            "invalid_journal_ids": len(invalid_journal_ids),
         },
         "date_confidence": dict(confidence),
         "date_source_top": dict(date_source.most_common(20)),
@@ -206,6 +306,16 @@ def audit(records: list[dict[str, Any]]) -> dict[str, Any]:
                 {**record_label(record), "fields": malformed_dates(record)}
                 for record in malformed_date_records[:50]
             ],
+            "malformed_first_seen": [record_label(record) for record in malformed_first_seen_records[:50]],
+            "historical_records_in_bucket": [record_label(record) for record in historical_records[:50]],
+            "future_official_date_in_bucket": [record_label(record) for record in future_official_records[:50]],
+            "nonpaper_records": [record_label(record) for record in nonpaper_records[:50]],
+            "missing_required_fields": [
+                {**record_label(item["record"]), "fields": item["fields"]}
+                for item in missing_required[:50]
+            ],
+            "source_type_errors": [record_label(record) for record in source_type_errors[:50]],
+            "invalid_journal_ids": [record_label(record) for record in invalid_journal_ids[:50]],
         },
         "abstracts": {
             "total": len(records),
@@ -237,7 +347,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DATA_DIR / "quality_report.json")
     args = parser.parse_args()
     records = load_records(args.daily_dir)
-    report = audit(records)
+    formal_journal_ids = {str(journal.get("id") or "") for journal in load_journals()}
+    report = audit(records, formal_journal_ids)
     write_json(args.output, report)
     totals = report["totals"]
     print(

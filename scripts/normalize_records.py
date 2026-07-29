@@ -97,6 +97,23 @@ def normalize_date_fields(record: dict[str, Any]) -> bool:
     return changed
 
 
+def normalize_nep_issue_date(record: dict[str, Any]) -> bool:
+    if not str(record.get("source_id") or "").startswith("repec-nep-"):
+        return False
+    if str(record.get("date_source") or "") != "nep_issue_date":
+        return False
+    first_seen = str(record.get("first_seen_at") or record.get("first_seen") or "")[:10]
+    if not valid_iso_date(first_seen):
+        return False
+    current = str(record.get("available_online") or record.get("published_online") or "")[:10]
+    if not valid_iso_date(current) or current <= first_seen:
+        return False
+    record["available_online"] = first_seen
+    record["published_online"] = first_seen
+    record["date_source"] = "nep_first_seen_issue_date"
+    return True
+
+
 def canonical_title_text(value: Any) -> str:
     text = clean_inline_html(value).casefold()
     replacements = {
@@ -260,6 +277,8 @@ def normalize_authors(record: dict[str, Any]) -> bool:
 def normalize_record(record: dict[str, Any]) -> bool:
     changed = False
     if normalize_date_fields(record):
+        changed = True
+    if normalize_nep_issue_date(record):
         changed = True
     if normalize_authors(record):
         changed = True

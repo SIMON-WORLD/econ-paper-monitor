@@ -33,6 +33,16 @@ def raw_records_for_date(raw_dir: Path, date_value: str) -> list[dict[str, Any]]
     return records
 
 
+def raw_artifact_paths_for_date(raw_dir: Path, date_value: str) -> list[Path]:
+    if not raw_dir.exists():
+        return []
+    return [
+        path
+        for path in sorted(raw_dir.rglob(f"{date_value}*.json"))
+        if not path.name.endswith(".status.json")
+    ]
+
+
 def source_key(record: dict[str, Any]) -> str:
     source = str(record.get("source") or "")
     source_id = str(record.get("source_id") or "")
@@ -143,6 +153,7 @@ def main() -> None:
     args = parser.parse_args()
 
     raw_records = raw_records_for_date(args.raw_dir, args.date)
+    raw_artifacts = raw_artifact_paths_for_date(args.raw_dir, args.date)
     daily_records = load_json_records(args.daily_dir / f"{args.date}.json")
     raw_by_source = Counter(source_key(record) for record in raw_records)
     daily_by_source = Counter(source_key(record) for record in daily_records)
@@ -204,6 +215,7 @@ def main() -> None:
     report = {
         "date": args.date,
         "raw_candidates": len(raw_records),
+        "raw_artifact_count": len(raw_artifacts),
         "daily_records": len(daily_records),
         "raw_by_source": dict(raw_by_source.most_common()),
         "daily_by_source": dict(daily_by_source.most_common()),

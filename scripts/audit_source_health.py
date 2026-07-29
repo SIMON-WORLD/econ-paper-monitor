@@ -86,9 +86,15 @@ def status_entry_is_fresh(entry: dict[str, Any], now: datetime, max_age: float) 
     return updated is not None and updated <= max_age
 
 
-def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, max_age: float) -> tuple[list[str], list[str]]:
+def specialized_paths(
+    journal_id: str,
+    status: dict[str, Any],
+    now: datetime,
+    max_age: float,
+) -> tuple[list[str], list[str], list[dict[str, Any]]]:
     paths: list[str] = []
     checked_at: list[str] = []
+    failures: list[dict[str, Any]] = []
     sources = status.get("sources") or {}
     groups = status.get("source_groups") or {}
 
@@ -98,7 +104,6 @@ def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, ma
     ):
         entry = sources.get(source_id) or {}
         per_journal = (entry.get("journals") or {}).get(journal_id)
-        source_fresh = status_entry_is_fresh(entry, now, max_age)
         checked_fresh = status_age_days(entry.get("updated_at"), now) is not None and status_age_days(entry.get("updated_at"), now) <= max_age
         journal_fresh = (
             isinstance(per_journal, dict)
@@ -109,14 +114,23 @@ def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, ma
         # A per-journal result is authoritative when present. This prevents a
         # successful Crossref fallback for one blocked publisher page from
         # masquerading as a successful specialized acquisition path.
-        if journal_id in targets and (journal_fresh or (not isinstance(per_journal, dict) and source_fresh)):
-            paths.append(path_name)
+        if journal_id in targets:
+            if journal_fresh or (not isinstance(per_journal, dict) and status_entry_is_fresh(entry, now, max_age)):
+                paths.append(path_name)
+            elif checked_fresh:
+                failures.append(
+                    {
+                        "path": path_name,
+                        "message": (per_journal or {}).get("error") or (per_journal or {}).get("message") or entry.get("message") or "source check failed",
+                    }
+                )
             if entry.get("updated_at"):
                 checked_at.append(str(entry["updated_at"]))
 
     for group_id, path_name in (("cn-journals", "cn-journals"), ("cnki-rss", "cnki-rss")):
         group = groups.get(group_id) or {}
-        if not status_entry_is_fresh(group, now, max_age):
+        group_age = status_age_days(group.get("updated_at"), now)
+        if group_age is None or group_age > max_age:
             continue
         rows = group.get("journals") or []
         row = next((item for item in rows if str(item.get("journal_id") or "") == journal_id), None)
@@ -126,9 +140,11 @@ def specialized_paths(journal_id: str, status: dict[str, Any], now: datetime, ma
         # to Crossref-only.
         if row and (row.get("ok") or int(row.get("count") or 0) > 0):
             paths.append(path_name)
-            if group.get("updated_at"):
-                checked_at.append(str(group["updated_at"]))
-    return paths, checked_at
+        elif row:
+            failures.append({"path": path_name, "message": row.get("message") or row.get("mode") or "source check failed"})
+        if row and group.get("updated_at"):
+            checked_at.append(str(group["updated_at"]))
+    return paths, checked_at, failures
 
 
 def inspect_journal(
@@ -146,7 +162,7 @@ def inspect_journal(
     rss_ok = rss_status in GOOD_RSS and not entry.get("last_rss_error")
     crossref_ok = crossref_status == "ok"
     paths = [name for name, ok in (("rss", rss_ok), ("crossref", crossref_ok)) if ok]
-    specialized, specialized_checked = specialized_paths(journal_id, status or {}, now, max_age)
+    specialized, specialized_checked, failed_paths = specialized_paths(journal_id, status or {}, now, max_age)
     paths.extend(path for path in specialized if path not in paths)
     supplemental: list[str] = []
     supplemental_entry = (status.get("sources") or {}).get("openalex-recall") if status else None
@@ -170,7 +186,7 @@ def inspect_journal(
         level = "unavailable" if not paths else "degraded"
     elif stale:
         level = "stale"
-    elif len(reliable_paths) == 1:
+    elif len(reliable_paths) == 1 or failed_paths:
         level = "degraded"
     else:
         level = "healthy"
@@ -196,6 +212,7 @@ def inspect_journal(
         "crossref_status": crossref_status,
         "crossref_count": entry.get("last_crossref_count"),
         "specialized_paths": specialized,
+        "failed_paths": failed_paths,
         "supplemental_paths": supplemental,
         "last_checked_at": checked,
         "checked_age_days": checked_age,

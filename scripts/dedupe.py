@@ -58,6 +58,7 @@ DATE_SOURCE_RANK = {
     "repec_series_year": 2,
     "repec_detail_year": 3,
     "nep_issue_date": 3,
+    "nep_first_seen_issue_date": 4,
     }
 
 
@@ -397,6 +398,65 @@ def collapse_seen_duplicates(seen_papers: dict[str, dict[str, Any]]) -> int:
     return removed
 
 
+def collapse_daily_duplicates(daily_dir: Path) -> int:
+    """Collapse aliases across all canonical day files into the earliest bucket."""
+    canonical: dict[str, dict[str, Any]] = {}
+    owner_paths: dict[str, Path] = {}
+    key_owner: dict[str, str] = {}
+    path_payloads: dict[Path, list[dict[str, Any]]] = {}
+    changed: dict[Path, list[dict[str, Any]]] = {}
+    removed = 0
+
+    for path in sorted(daily_dir.glob("*.json")):
+        records = read_json(path, [])
+        if not isinstance(records, list):
+            continue
+        kept: list[dict[str, Any]] = []
+        for record in records:
+            if not isinstance(record, dict):
+                kept.append(record)
+                continue
+            keys = record_match_keys(record)
+            owner_id = next((key_owner[key] for key in keys if key in key_owner), None)
+            if owner_id is None:
+                owner_id = str(record.get("id") or stable_id(record))
+                record["id"] = owner_id
+                canonical[owner_id] = record
+                owner_paths[owner_id] = path
+                kept.append(record)
+                for key in keys:
+                    key_owner.setdefault(key, owner_id)
+                continue
+
+            owner = canonical[owner_id]
+            owner_changed = enrich_record(owner, record)
+            first_seen = min(
+                (value for value in (owner.get("first_seen"), record.get("first_seen")) if value),
+                default=None,
+            )
+            if first_seen:
+                owner_changed = owner.get("first_seen") != first_seen or owner_changed
+                owner["first_seen"] = first_seen
+            if owner.get("source") == "cnki-rss" and record.get("source") == "cn-official":
+                owner_changed = owner.get("url") != record.get("url") or owner_changed
+                owner["url"] = record.get("url") or owner.get("url")
+                owner["source_url"] = record.get("source_url") or owner.get("source_url")
+            if owner_changed:
+                owner_path = owner_paths[owner_id]
+                if owner_path in path_payloads:
+                    changed[owner_path] = path_payloads[owner_path]
+            for key in record_match_keys(owner) | keys:
+                key_owner.setdefault(key, owner_id)
+            removed += 1
+        if len(kept) != len(records):
+            changed[path] = kept
+        path_payloads[path] = kept
+
+    for path, records in changed.items():
+        write_json(path, records)
+    return removed
+
+
 def prune_navigation_noise_from_daily(daily_dir: Path) -> int:
     removed = 0
     for path in daily_dir.glob("*.json"):
@@ -571,6 +631,7 @@ def main() -> None:
     pruned = prune_navigation_noise_from_seen(seen_papers)
     pruned += collapse_seen_duplicates(seen_papers)
     pruned += prune_navigation_noise_from_daily(args.daily_dir)
+    pruned += collapse_daily_duplicates(args.daily_dir)
     seen_index = build_seen_index(seen_papers)
     daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
     touched_daily_paths: set[Path] = set()

@@ -8,11 +8,13 @@ because they can make the public "today" view misleading.
 from __future__ import annotations
 
 import argparse
+import json
 from datetime import date
 from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
+from dedupe import record_match_keys
 
 
 def load_records(path: Path) -> list[dict[str, Any]]:
@@ -22,6 +24,18 @@ def load_records(path: Path) -> list[dict[str, Any]]:
     if isinstance(payload, dict) and isinstance(payload.get("papers"), dict):
         return [dict(item) for item in payload["papers"].values() if isinstance(item, dict)]
     return []
+
+
+def load_canonical_daily(path: Path) -> tuple[list[dict[str, Any]], str | None]:
+    if not path.exists():
+        return [], "canonical_daily_missing"
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return [], "canonical_daily_invalid"
+    if not isinstance(payload, list) or any(not isinstance(item, dict) for item in payload):
+        return [], "canonical_daily_invalid"
+    return [dict(item) for item in payload], None
 
 
 def record_key(record: dict[str, Any]) -> str:
@@ -36,13 +50,16 @@ def is_working(record: dict[str, Any]) -> bool:
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
     today = args.date or today_str()
-    daily = load_records(args.daily_dir / f"{today}.json")
+    daily, canonical_error = load_canonical_daily(args.daily_dir / f"{today}.json")
     quality = read_json(args.quality_report, {})
     ingestion = read_json(args.ingestion_audit, {})
     formal = read_json(args.formal_audit, {})
     source_health = read_json(getattr(args, "source_health", DATA_DIR / "source_health.json"), {})
     failures: list[dict[str, Any]] = []
     warnings: list[dict[str, Any]] = []
+
+    if canonical_error:
+        failures.append({"code": canonical_error, "count": 1})
 
     if not isinstance(source_health, dict) or not isinstance(source_health.get("counts"), dict) or not source_health.get("checked_at"):
         failures.append({"code": "formal_source_health_missing_or_invalid", "count": 1})
@@ -65,14 +82,27 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     elif degraded:
         warnings.append({"code": "formal_sources_single_path", "count": degraded})
 
-    keys = [record_key(record) for record in daily]
-    duplicates = sorted({key for key in keys if key and keys.count(key) > 1})
+    strong_key_owner: dict[str, int] = {}
+    duplicate_keys: set[str] = set()
+    for index, record in enumerate(daily):
+        keys = {
+            key
+            for key in record_match_keys(record)
+            if key.startswith(("doi:", "url:", "urlpaper:", "journal-title:", "working-title:"))
+        }
+        for key in keys:
+            owner = strong_key_owner.setdefault(key, index)
+            if owner != index:
+                duplicate_keys.add(key)
+    duplicates = sorted(duplicate_keys)
     if duplicates:
         failures.append({"code": "duplicate_public_records", "count": len(duplicates), "examples": duplicates[:10]})
 
     missing = int(ingestion.get("new_today_missing_candidates") or 0)
     if missing:
         failures.append({"code": "ingestion_missing_candidates", "count": missing})
+    if "raw_artifact_count" in ingestion and int(ingestion.get("raw_artifact_count") or 0) == 0:
+        warnings.append({"code": "raw_fetch_empty", "count": 0})
 
     formal_missed = int(formal.get("suspected_missed_journals") or 0)
     if formal_missed:

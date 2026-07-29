@@ -24,7 +24,13 @@ def is_historical_cepr(record: dict[str, Any]) -> bool:
 def is_historical_working_paper(record: dict[str, Any], *, run_date: str, max_age_days: int) -> bool:
     if str(record.get("source") or "") != "working_papers":
         return False
-    official = str(record.get("available_online") or record.get("published_online") or "")[:10]
+    return is_historical_record(record, run_date=run_date, max_age_days=max_age_days)
+
+
+def is_historical_record(record: dict[str, Any], *, run_date: str, max_age_days: int) -> bool:
+    if str(record.get("date_confidence") or "") in {"F", "unknown"}:
+        return False
+    official = str(record.get("available_online") or record.get("published_online") or record.get("issue_date") or "")[:10]
     if not re.fullmatch(r"20\d{2}-\d{2}-\d{2}", official):
         return False
     try:
@@ -55,10 +61,10 @@ def main() -> None:
             historical_reason = None
             if isinstance(record, dict) and is_historical_cepr(record):
                 historical_reason = "historical CEPR catalogue item without a current online date"
-            elif path.stem == today_str() and isinstance(record, dict) and is_historical_working_paper(
-                record, run_date=today_str(), max_age_days=args.max_age_days
+            elif isinstance(record, dict) and is_historical_record(
+                record, run_date=path.stem, max_age_days=args.max_age_days
             ):
-                historical_reason = "working-paper catalogue item has an official date older than the public discovery window"
+                historical_reason = "record has an official date older than the public discovery window"
             if historical_reason:
                 record = dict(record)
                 record["id"] = record.get("id") or stable_id(record)
