@@ -180,11 +180,10 @@ def push_with_retries(attempts: int = 4) -> None:
 def sync_runner_to_public_main() -> None:
     """Reset the disposable runner to the latest public main.
 
-    The runner contains generated data only. Resetting before each run avoids
-    trying to merge hundreds of generated HTML files when GitHub Actions or a
-    previous local run advanced main while this machine was offline. The raw
-    CNKI feed is fetched again below, so an unpublished generated commit is
-    recoverable rather than silently merged.
+    The runner contains generated monitoring data only. Resetting before each
+    run avoids merging stale generated state when GitHub Actions or a previous
+    local run advanced main while this machine was offline. The raw CNKI feed
+    is fetched again below, so an unpublished data commit is recoverable.
     """
     fetch_public_main_with_retries()
     run_step(["git", "reset", "--hard", "origin/main"])
@@ -350,7 +349,7 @@ def main() -> None:
         )
         run_step([python, "scripts/clean_historical_working_papers.py"])
         # Enrichment can contribute publisher dates; normalize once more so
-        # a malformed upstream label cannot reach the release gate or pages.
+        # a malformed upstream label cannot reach the release gate or canonical data.
         run_step([python, "scripts/normalize_records.py"])
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
         run_step([python, "scripts/product_audit.py"])
@@ -385,11 +384,6 @@ def main() -> None:
             }
         )
         final_status_recorded = True
-        run_step([python, "scripts/render_site.py"])
-        run_step([python, "scripts/build_feed.py", "--site-url", "https://academic-door.github.io/econ-paper-monitor/"])
-        run_step([python, "scripts/render_local_status.py"])
-        run_step([python, "scripts/render_cnki_status.py"])
-
         if not args.no_push:
             write_local_status(
                 "publishing",
@@ -398,13 +392,12 @@ def main() -> None:
                 source_health=source_health,
             )
             record_source("local-cnki-publish", ok=False, count=0, message="pending")
-            run_step(["git", "add", "data", "docs"])
+            run_step(["git", "add", "data"])
             if git_has_staged_changes():
                 run_step(["git", "commit", "-m", "Update local CNKI supplement"])
-                # Never publish from a checkout that diverged while pages
-                # were being rendered. Git push rejects a concurrent remote
-                # update atomically; the next scheduled run resets to the
-                # then-current main and regenerates the supplement.
+                # Git push rejects a concurrent remote update atomically; the
+                # next scheduled run resets to the then-current main and
+                # regenerates the data supplement.
                 push_with_retries()
                 write_local_status(
                     "published",
