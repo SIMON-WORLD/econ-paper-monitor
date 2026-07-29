@@ -2107,12 +2107,15 @@ def write_detail_data(docs_dir: Path, records: list[dict[str, Any]]) -> None:
 
 
 def main() -> None:
+    global DOCS_DIR
     parser = argparse.ArgumentParser()
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
     args = parser.parse_args()
 
-    ensure_today_archive(args.daily_dir)
+    # Secondary-page rendering is read-only against the data-line interface.
+    # Empty-day records are created by the data workflow, not by this renderer.
+    DOCS_DIR = args.docs_dir.resolve()
     records = load_all_daily(args.daily_dir)
     today_records = [record for record in records if record_is_on_date(record, today_str())]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]

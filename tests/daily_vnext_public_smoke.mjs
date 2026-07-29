@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { chromium } from "playwright";
 
-const base = process.env.DAILY_VNEXT_URL || "https://academic-door.github.io/econ-paper-monitor/";
-const urls = [base];
+const root = process.env.SITE_ROOT_URL || "https://academic-door.github.io/econ-paper-monitor/";
+const dailyVnext = process.env.DAILY_VNEXT_URL || new URL("daily-vnext/", root).href;
+const urls = [root, dailyVnext];
 
 async function visibleEntries(page, selector = '.paper-entry') {
   return page.locator(`${selector}:not([hidden])`).count();
@@ -10,7 +11,8 @@ async function visibleEntries(page, selector = '.paper-entry') {
 
 async function checkPage(browser, url) {
   const errors = [];
-  const page = await browser.newPage();
+  const mobile = Number(process.env.VIEWPORT_WIDTH || 0);
+  const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
   page.on("pageerror", (error) => errors.push(String(error)));
   await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
   await page.waitForTimeout(2400);
@@ -18,6 +20,9 @@ async function checkPage(browser, url) {
   assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
   assert.ok(await page.locator('.hero-lede').isVisible(), `${url} Hero lede is not visible`);
   assert.ok((await page.locator('.hero-total').count()) >= 1);
+  if (mobile) {
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
+  }
   const entries = page.locator('.paper-entry');
   const total = await entries.count();
   assert.ok(total >= 0);
@@ -42,6 +47,24 @@ async function checkPage(browser, url) {
   await page.close();
 }
 
+async function checkSecondaryPages(browser) {
+  const paths = ["classic/", "recent72/", "archive/", "search/", "journals/", "working-papers/"];
+  for (const path of paths) {
+    const url = new URL(path, root).href;
+    const page = await browser.newPage();
+    const errors = [];
+    page.on("pageerror", (error) => errors.push(String(error)));
+    const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+    assert.equal(response?.status(), 200, `${url} did not return 200`);
+    assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
+    await page.close();
+  }
+  const feedPage = await browser.newPage();
+  const feed = await feedPage.request.get(new URL("feed.xml", root).href);
+  assert.equal(feed.status(), 200, "feed.xml did not return 200");
+  await feedPage.close();
+}
+
 async function checkGsapFallback(browser) {
   const page = await browser.newPage();
   const errors = [];
@@ -49,7 +72,7 @@ async function checkGsapFallback(browser) {
   await page.route("**/gsap.min.js", (route) => route.abort());
   await page.route("**/ScrollTrigger.min.js", (route) => route.abort());
   await page.route("**/Flip.min.js", (route) => route.abort());
-  await page.goto(base, { waitUntil: "networkidle", timeout: 60000 });
+  await page.goto(root, { waitUntil: "networkidle", timeout: 60000 });
   await page.waitForTimeout(500);
   assert.ok(await page.locator('.hero h1').isVisible(), "Homepage fallback hid Hero title");
   assert.ok(await page.locator('.hero-lede').isVisible(), "Homepage fallback hid Hero lede");
@@ -57,9 +80,13 @@ async function checkGsapFallback(browser) {
   await page.close();
 }
 
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: process.env.CHROME_EXECUTABLE || undefined,
+});
 try {
   for (const url of urls) await checkPage(browser, url);
+  await checkSecondaryPages(browser);
   await checkGsapFallback(browser);
   console.log(`Daily vNext public smoke passed for ${urls.join(" and ")}`);
 } finally {
