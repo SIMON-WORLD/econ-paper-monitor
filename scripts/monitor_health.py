@@ -32,7 +32,12 @@ def build_health(data_dir: Path = DATA_DIR, *, date: str | None = None) -> dict[
     source_health = read_json(data_dir / "source_health.json", {})
     gate = read_json(data_dir / "release_gate.json", {})
     local_cnki = read_json(data_dir / "local_cnki_status.json", {})
-    local_cnki_check = inspect_status(data_dir / "local_cnki_status.json", max_age_hours=30.0)
+    check_now = datetime.fromisoformat(f"{day}T23:59:59+00:00") if date else None
+    local_cnki_check = inspect_status(
+        data_dir / "local_cnki_status.json",
+        now=check_now,
+        max_age_hours=30.0,
+    )
     sentinel = read_json(data_dir / "external_sentinel_alohomora.json", {})
     quality_totals = quality.get("totals") if isinstance(quality, dict) else {}
     source_counts = source_health.get("counts") if isinstance(source_health, dict) else {}
