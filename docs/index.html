@@ -1,279 +1,285 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Econ Papers Daily：每日追踪重点经济学期刊、工作论文与研究专栏，沿时间流发现新的经济学研究。">
-  <link rel="canonical" href="https://academic-door.github.io/econ-paper-monitor/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="./assets/academic-door-logo.png">
-  <title>Daily Door · Econ Papers Daily</title>
+  <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分首次监测时间、官方在线日期和中国相关研究。">
+  <title>Econ Papers Daily</title>
+  
   <style>
-    :root{--paper:#f4f1ea;--ink:#202426;--muted:#6f716d;--line:#d8d3c9;--blue:#1d5f83;--blue-deep:#16445e;--red:#a94236;--white:#fbfaf7;--mono:"IBM Plex Mono",Consolas,monospace;--serif:Georgia,"Noto Serif SC","Songti SC",serif;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #84b8d3;outline-offset:4px}.skip{position:absolute;left:1rem;top:-3rem;background:var(--blue-deep);color:#fff;padding:.6rem 1rem;z-index:5}.skip:focus{top:1rem}
-    .site-header{border-bottom:1px solid var(--line);background:rgba(244,241,234,.94);position:sticky;top:0;z-index:3;backdrop-filter:blur(12px)}.header-inner{max-width:1280px;margin:auto;padding:1rem 2rem;display:flex;align-items:center;gap:2rem}.wordmark{font-family:var(--serif);font-size:1.2rem;white-space:nowrap}.wordmark small{display:block;font:600 .66rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}.nav{display:flex;gap:1.4rem;margin-left:auto;font-size:.88rem;color:var(--muted)}.nav a:hover{color:var(--blue)}.presence{font-size:.76rem;white-space:nowrap;color:var(--muted)}.presence::before{content:"";display:inline-block;width:.45rem;height:.45rem;border-radius:50%;background:#3e8b61;margin-right:.4rem;vertical-align:1px}.menu{display:none;border:0;background:none;font-size:1.3rem}
-    .page{max-width:1280px;margin:auto;padding:0 2rem}.hero{position:relative;isolation:isolate;overflow:hidden;min-height:470px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:5rem;align-items:end;padding:7rem 0 5rem;border-bottom:1px solid var(--line)}.hero-copy,.hero-side{position:relative;z-index:1}.hero-title-reveal{position:relative;overflow:hidden;display:block}.hero-title-reveal h1{will-change:clip-path,transform}.hero-door-panel{display:none;position:absolute;z-index:2;top:0;bottom:0;width:51%;background:var(--paper);pointer-events:none;will-change:transform}.motion-ready .hero-door-panel{display:block}.hero-door-panel--left{left:0;transform-origin:left center}.hero-door-panel--right{right:0;transform-origin:right center}.hero-data-texture{position:absolute;inset:8% 0 4%;z-index:0;pointer-events:none;overflow:hidden}.hero-data-node{position:absolute;z-index:0;color:var(--muted);font:500 .58rem var(--mono);letter-spacing:.08em;opacity:.07;white-space:nowrap;will-change:transform}.hero-data-node:first-child{opacity:.055}.hero-stat-line{position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--blue);z-index:2;transform-origin:left center}.eyebrow{color:var(--blue);font:600 .75rem var(--mono);letter-spacing:.16em}h1{font:400 clamp(3.8rem,9vw,8rem)/.9 var(--serif);letter-spacing:-.04em;margin:1.2rem 0 1.5rem;max-width:760px}.hero-lede{font:400 1.25rem/1.55 var(--serif);max-width:560px;margin:0}.hero-side{border-left:1px solid var(--line);padding-left:2rem;padding-bottom:.3rem}.hero-side .date{font:600 .8rem var(--mono);color:var(--blue)}.hero-total{font:400 5rem/.95 var(--serif);margin:.7rem 0 .25rem}.hero-note{color:var(--muted);font-size:.9rem}
-    .overview{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}.overview-item{padding:1.25rem 1rem 1.35rem 0}.overview-item+ .overview-item{padding-left:1.5rem;border-left:1px solid var(--line)}.overview strong{display:block;font:400 1.7rem var(--serif)}.overview span{font-size:.78rem;color:var(--muted)}
-    .flow-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;padding:5.5rem 0 1.2rem}.flow-head h2{font:400 2.6rem/1 var(--serif);margin:0}.flow-head p{font:600 .75rem var(--mono);color:var(--muted);margin:0}.result-status{font:600 .72rem var(--mono);color:var(--muted);margin:.45rem 0 0}.filters{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:1.5rem}.filter{min-height:40px;border:1px solid var(--line);background:transparent;padding:.55rem .85rem;font:500 .8rem var(--sans);color:var(--muted);cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease}.filter:hover,.filter[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}.filter:focus-visible{outline-offset:2px}.search{margin-left:auto;border:1px solid var(--line);background:var(--white);padding:.55rem .8rem;min-width:220px;min-height:40px;font:inherit;transition:border-color .2s ease,box-shadow .2s ease}.search:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(29,95,131,.16);outline:0}
-    .timeline{position:relative;border-top:1px solid var(--ink)}.timeline.is-empty::before{display:none}.timeline::before{content:"";position:absolute;left:86px;top:var(--rail-top,18px);bottom:var(--rail-bottom,18px);width:1px;background:rgba(29,95,131,.28);pointer-events:none;transition:top .45s ease,bottom .45s ease}.paper-entry{position:relative;display:grid;grid-template-columns:72px 28px minmax(0,1fr);gap:0;padding:2rem 0;border-bottom:0}.paper-time{font:600 .76rem var(--mono);color:var(--blue);padding-top:.35rem;text-align:left}.paper-time span{display:block;color:var(--muted);font-weight:400;margin-top:.2rem;font-size:.68rem}.timeline-rail{position:relative;min-height:100%;display:flex;justify-content:center}.timeline-dot{position:relative;z-index:1;display:block;width:9px;height:9px;margin-top:.42rem;border:1px solid #9eb7c3;border-radius:50%;background:var(--paper);transform-origin:center}.paper-entry.is-latest-visible .timeline-dot{border-color:var(--blue);background:var(--blue)}.paper-entry:not(.is-latest-visible) .timeline-dot{background:var(--paper)}.paper-body{position:relative;min-width:0;padding-bottom:1.65rem}.paper-kicker{display:flex;gap:.8rem;align-items:center;text-transform:uppercase;letter-spacing:.09em;font-size:.68rem;color:var(--muted)}.paper-kicker span:first-child{color:var(--blue-deep);font-weight:700}.paper-body h3{font:400 clamp(1.45rem,2.8vw,2.1rem)/1.2 var(--serif);margin:.55rem 0 .35rem;max-width:940px}.paper-body h3 a{display:inline-block;transition:color .2s ease,transform .2s ease}.paper-body h3 a:hover{color:var(--blue);transform:translateX(4px)}.english-title{font:400 .98rem/1.45 var(--serif);color:var(--muted);margin:0 0 .55rem;max-width:900px;transition:opacity .2s ease}.authors{font-size:.86rem;color:var(--muted);margin:0 0 1rem}.paper-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem}.tags{display:flex;gap:.45rem;flex-wrap:wrap}.tag{font-size:.7rem;color:var(--blue-deep);border-bottom:1px solid #a8c0ca;padding-bottom:.1rem}.tag-china{color:var(--red);border-color:#cf9188}.read-link{font-size:.78rem;color:var(--blue);white-space:nowrap}.read-link span{display:inline-block;transition:transform .2s ease}.read-link:hover{text-decoration:underline}.read-link:hover span{transform:translate(3px,-3px)}.paper-divider{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transform-origin:left center}.paper-entry:hover .paper-divider{background:#9fb6bf}.paper-entry:hover .timeline-dot{border-color:var(--blue);background:var(--blue)}.paper-details{margin-top:.8rem;color:var(--muted);font-size:.75rem}.paper-details summary{cursor:pointer;color:var(--muted)}.paper-details p{margin:.4rem 0 0}.paper-entry[hidden]{display:none}.empty-state{padding:4rem 1rem;border-bottom:1px solid var(--line);text-align:center}.empty-state h3{font:400 1.8rem var(--serif);margin:0 0 .4rem}.empty-state p{color:var(--muted);margin:.2rem 0 1.2rem}.clear-filters{min-height:40px;border:1px solid var(--blue);background:transparent;color:var(--blue);padding:.55rem .9rem;font:500 .8rem var(--sans);cursor:pointer}.clear-filters:hover{background:var(--blue);color:#fff}
-    footer{margin-top:7rem;border-top:1px solid var(--ink);padding:3rem 0 4rem}.footer-inner{display:flex;justify-content:space-between;gap:2rem;align-items:end}.footer-brand{font:400 2rem var(--serif)}.footer-note{color:var(--muted);font-size:.85rem;margin-top:.4rem}.qr{width:112px;height:112px;object-fit:cover}
-    @media(max-width:800px){.header-inner,.page{padding-left:1rem;padding-right:1rem}.nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:1rem;flex-direction:column;gap:.6rem}.nav.open{display:flex}.menu{display:block;margin-left:auto}.hero{display:block;min-height:0;padding:5rem 0 3rem}.hero-side{border-left:0;border-top:1px solid var(--line);padding:1.2rem 0 0;margin-top:3rem}.hero-total{font-size:4.5rem}.overview{grid-template-columns:repeat(2,1fr)}.overview-item:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--line)}.overview-item:nth-child(4){border-top:1px solid var(--line)}.flow-head{padding-top:3.8rem;display:block}.flow-head p{margin-top:.7rem}.search{width:100%;margin-left:0;order:5}.timeline::before{left:14px}.paper-entry{grid-template-columns:28px minmax(0,1fr);padding:1.5rem 0}.paper-time{grid-column:2;grid-row:1;margin-bottom:.35rem;padding-top:0}.timeline-rail{grid-column:1;grid-row:1 / span 2;min-height:100%}.timeline-dot{margin-top:.42rem}.paper-body{grid-column:2;grid-row:2}.paper-time span{display:inline;margin-left:.6rem}.paper-foot{align-items:flex-start;flex-direction:column}.footer-inner{align-items:flex-start;flex-direction:column}.qr{width:96px;height:96px}}
-    @media(hover:hover) and (pointer:fine){.paper-entry:hover .english-title{opacity:.86}}
-    @media(max-width:800px){.hero-data-texture{display:none}.hero-door-panel{width:54%}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-data-node{transform:none!important}}
-  </style>
+:root{color-scheme:light;--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--soft:#f6f8fa;--page:#fafafa;--panel:#fff;--blue:#0969da;--blue-soft:#ddf4ff;--red:#cf222e;--red-soft:#fff1f0;--shadow:0 1px 2px rgba(31,35,40,.05)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.skip-link{position:absolute;left:16px;top:-48px;z-index:10;background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.skip-link:focus{top:12px;text-decoration:none}
+.shell{display:grid;grid-template-columns:320px minmax(0,1120px);width:min(100% - 32px,1440px);margin:0 auto;min-height:100vh;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}.sidebar{background:var(--soft);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;margin:0}.subtitle{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.side-block{margin:22px 0}.side-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.side-link{display:flex;justify-content:space-between;gap:12px;border-radius:6px;padding:7px 9px;color:var(--ink);font-size:14px}.side-link:hover{background:#fff;text-decoration:none}.side-main{min-width:0}.side-main strong{display:block;white-space:normal}.side-main em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.35;margin-top:1px}.count{flex:0 0 auto;color:var(--muted)}
+.content{min-width:0;background:var(--page)}.topbar{border-bottom:1px solid var(--line);border-top:3px solid var(--blue);background:#fff}.topbar-inner{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.nav a{margin-left:18px;color:var(--muted);font-size:14px}.nav a.active,.nav a:hover{color:var(--blue);text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:26px 28px 48px}
+.banner{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:var(--shadow)}.banner-main{padding:34px 36px 30px}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:14px;font-weight:800;letter-spacing:0;margin:0 0 8px}.banner h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.06;margin:0 0 12px}.banner p{color:var(--muted);font-size:19px;max-width:720px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin-top:24px;max-width:860px}.hero-stat{border-top:3px solid var(--blue);background:#fff;border-radius:8px;padding:12px 13px;box-shadow:var(--shadow);color:var(--ink)}.hero-stat:hover{text-decoration:none;box-shadow:0 0 0 1px var(--blue)}.hero-stat.china{border-top-color:var(--red)}.hero-stat strong{display:block;font-size:27px;line-height:1.05}.hero-stat span{color:var(--muted);font-size:13px}.hero-stat.duo{display:block}.hero-stat.duo .stat-title{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}.hero-stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat-pair strong{font-size:25px}.hero-stat-pair em{display:block;color:var(--muted);font-style:normal;font-size:13px;line-height:1.2}.operator-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;box-shadow:var(--shadow);text-align:center;align-self:center}.operator-card img{display:block;width:128px;height:128px;object-fit:cover;margin:0 auto 10px;border-radius:6px}.operator-card strong{display:block;font-size:16px}.operator-card span{display:block;color:var(--ink);font-size:13px;font-weight:700;margin-top:3px}.operator-card em{display:block;color:var(--red);font-style:normal;font-size:12px;font-weight:800;margin-top:4px}.operator-line{margin-top:18px;color:var(--muted);font-size:13px}.operator-line strong{color:var(--ink)}.status-strip{display:flex;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 12px;margin:14px 0 0;color:var(--muted);font-size:13px}.status-strip strong{color:var(--ink);font-weight:700}.status-strip .warn strong{color:#7d4e00}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.stat{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px 12px;color:var(--ink);box-shadow:var(--shadow)}.stat.china{border-top:3px solid var(--red)}.stat:hover{border-color:var(--blue);text-decoration:none}.stat strong{display:inline;font-size:22px;line-height:1}.stat span{font-size:13px;color:var(--muted)}
+.live-count{font-size:14px;color:var(--muted);font-weight:500}.live-count .num{color:var(--red);font-weight:800}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1.05fr) minmax(190px,1.45fr) minmax(125px,.75fr) minmax(118px,.65fr) minmax(118px,.65fr) minmax(118px,.65fr) auto auto;gap:9px;align-items:center;margin:18px 0 8px}.control{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:8px 10px;font-size:14px;min-height:38px;min-width:0}.control:focus{outline:2px solid rgba(9,105,218,.16);border-color:var(--blue)}.control.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;white-space:nowrap}.control.rss-link{color:var(--ink);background:#fff;border-color:var(--line);font-weight:600;white-space:nowrap}.control.toggle{white-space:nowrap}.control.toggle.active{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:700}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-top:26px}.section-head.split-section{margin-top:58px}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}
+.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:18px;border:1px solid transparent;border-bottom-color:var(--line);border-radius:8px;padding:16px 14px 16px 18px;background:transparent}.event:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#b6d7ff}.event[data-china="true"]:before{background:var(--red)}.event:hover{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}.event:hover:before{background:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red)}.event[hidden]{display:none}.time{font-weight:700;color:var(--blue);font-size:14px}.date-note{color:var(--muted);font-size:12px;margin-top:2px}.event h3{font-size:18px;line-height:1.35;margin:0 0 5px}.title-zh{color:#3b434c;font-size:15px;margin:0 0 7px}.authors{color:var(--muted);margin:0 0 10px}.meta-block{display:grid;gap:6px;color:var(--muted);font-size:13px}.meta-line{display:flex;gap:8px;align-items:flex-start;min-height:24px}.meta-values{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0;line-height:24px}.meta-label{color:var(--ink);font-weight:700;flex:0 0 72px;line-height:24px}.journal-chip{background:var(--blue-soft);border:1px solid #b6e3ff;color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.source-chip{color:var(--muted)}.date-chip{display:inline-flex;align-items:center;border:1px solid #b6e3ff;background:var(--blue-soft);color:#0550ae;border-radius:999px;padding:2px 8px;line-height:18px}.date-chip.pending{border-color:#f0d98c;background:#fff8c5;color:#7d4e00}.date-chip.issue{border-color:var(--line);background:var(--soft);color:var(--muted)}.pill{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 7px;line-height:18px}.pill.fresh{background:#dafbe1;border-color:#aceebb;color:#116329}.pill.lag{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.pill.china{background:var(--red-soft);border-color:#ffccc7;color:var(--red);font-weight:800}.doi{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:24px;word-break:break-word}
+.journal-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.journal-table th{background:var(--soft);font-weight:700}.muted{color:var(--muted)}.empty{border:1px dashed var(--line);border-radius:8px;padding:20px;color:var(--muted);background:var(--soft)}.home-note{padding:14px 16px;font-size:14px}.archive-list{padding-left:18px}.archive-list li{margin:8px 0}.view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.view-tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 11px;color:var(--ink);font-size:14px}.view-tab:hover{text-decoration:none;border-color:var(--blue)}.view-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.source-status{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:2px 8px;font-size:12px;font-weight:700;background:var(--soft);white-space:nowrap}.source-status.ok{background:#dafbe1;border-color:#aceebb;color:#116329}.source-status.todo{background:#fff8c5;border-color:#f0d98c;color:#7d4e00}.source-status.pause{background:var(--red-soft);border-color:#ffccc7;color:var(--red)}
+.audit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.audit-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px;box-shadow:var(--shadow)}.audit-card strong{display:block;font-size:26px}.audit-list{display:grid;gap:12px}.audit-item{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}.audit-item h3{font-size:16px;margin:0 0 6px}.audit-meta{color:var(--muted);font-size:13px}.audit-reason{margin-top:8px;color:#3b434c;font-size:14px}.gate{max-width:620px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:24px;box-shadow:var(--shadow)}.gate input{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin:12px 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:7px;padding:9px 12px}.gate-note{color:var(--muted);font-size:13px}.hidden{display:none!important}
+@media(max-width:1100px){.toolbar{grid-template-columns:minmax(180px,1fr) minmax(220px,1.4fr) minmax(140px,.8fr) minmax(130px,.7fr);}.toolbar .control.toggle,.toolbar .control.primary{width:max-content}}
+@media(max-width:920px){.shell{display:block;width:100%;border:0}.sidebar{position:static;height:auto}.topbar-inner{display:block}.nav{margin-top:10px}.nav a{margin:0 16px 0 0}.banner h1{font-size:36px}.banner p{font-size:17px}.banner-main{padding:30px 24px}.hero-layout{grid-template-columns:1fr}.operator-card{max-width:210px;text-align:left;display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.operator-card img{width:92px;height:92px;margin:0}.hero-stats{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar .control.toggle,.toolbar .control.primary{width:100%}.event{grid-template-columns:1fr}.audit-grid{grid-template-columns:1fr}}
+
+.nav{display:flex;justify-content:flex-end;gap:18px}.nav a{margin-left:0}
+.presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}
+</style>
 </head>
 <body>
-  <a class="skip" href="#main">跳到今日论文</a>
-  <header class="site-header"><div class="header-inner"><a class="wordmark" href="./"><small>Academic Door</small>Econ Papers Daily</a><nav class="nav" id="primary-nav"><a href="./">今日</a><a href="./recent72/">最近72小时</a><a href="./topics/china/">中国研究</a><a href="./journals/">期刊</a><a href="./archive/">归档</a><a href="./search/">搜索</a></nav><span class="presence" data-presence-count title="匿名在线人数，按短时心跳统计">在线</span><button class="menu" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="打开导航">☰</button></div></header>
-  <main id="main"><div class="page">
-    <section class="hero" data-motion="hero"><div class="hero-data-texture" aria-hidden="true"><span class="hero-data-node" style="top:8%;left:4%">08:45 / VOXEU</span></div><span class="hero-door-panel hero-door-panel--left" aria-hidden="true"></span><span class="hero-door-panel hero-door-panel--right" aria-hidden="true"></span><div class="hero-copy"><div class="eyebrow" data-motion="eyebrow">DAILY DOOR / 2026-07-29</div><div class="hero-title-reveal" data-motion="title"><h1>今日之门<br>已经开启</h1></div><p class="hero-lede">每日追踪重点经济学期刊、工作论文与研究专栏，沿着时间流发现值得打开的研究。</p></div><div class="hero-side" data-motion="discovery"><div class="date">TODAY'S DISCOVERY</div><div class="hero-total" data-count="2">2</div><div class="hero-note">0 篇期刊论文 · 0 篇工作论文 · 2 篇研究专栏</div></div><span class="hero-stat-line" data-motion="stat-line" aria-hidden="true"></span></section>
-    <section class="overview" aria-label="今日概览"><div class="overview-item"><strong>0</strong><span>期刊论文</span></div><div class="overview-item"><strong>0</strong><span>工作论文</span></div><div class="overview-item"><strong>2</strong><span>研究专栏</span></div><div class="overview-item"><strong>0</strong><span>与中国相关</span></div></section>
-    <section class="flow-head"><div><h2>今日研究时间流</h2><p class="result-status" data-result-status aria-live="polite">今日共 2 项研究内容</p></div><p>更新于 08:45 北京时间 · 按首次监测时间</p></section>
-    <section class="filters" aria-label="论文筛选"><button class="filter" type="button" data-filter="all" aria-pressed="true">全部</button><button class="filter" type="button" data-filter="journal" aria-pressed="false">期刊论文</button><button class="filter" type="button" data-filter="working" aria-pressed="false">工作论文</button><button class="filter" type="button" data-filter="column" aria-pressed="false">研究专栏</button><button class="filter" type="button" data-filter="china" aria-pressed="false">中国研究</button><input class="search" type="search" aria-label="搜索标题、作者、期刊、DOI或主题" placeholder="搜索标题、作者、期刊、DOI 或主题"></section>
-    <section class="timeline" aria-live="polite">      <article class="paper-entry" data-motion="paper" data-paper-id="url:c5b38ffa27223239" data-kind="column" data-china="false" data-search="the ai premium 人工智能溢价 voxeu / cepr columns working_papers  https://cepr.org/voxeu/columns/ai-premium nicola borri, yukun liu, aleh tsyvinski 宏观经济学 金融 国际贸易 macro finance trade development false">
-        <div class="paper-time"><time>08:45</time><span>2026-07-29</span></div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
-        <div class="paper-body">
-          <div class="paper-kicker"><span>研究专栏</span><span>VoxEU / CEPR Columns</span></div>
-          <h3><a href="https://cepr.org/voxeu/columns/ai-premium" target="_blank" rel="noreferrer">人工智能溢价</a></h3>
-          <p class="english-title">The AI premium</p>
-          <p class="authors">Nicola Borri, Yukun Liu, Aleh Tsyvinski</p>
-          <div class="paper-foot"><div class="tags"><span class="tag">宏观经济学</span><span class="tag">金融</span><span class="tag">国际贸易</span></div><a class="read-link" href="https://cepr.org/voxeu/columns/ai-premium" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
-          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期：2026-07-29 · 首次监测：2026-07-29 08:45 北京时间</p></details><span class="paper-divider" aria-hidden="true"></span>
+  <a class="skip-link" href="#main-content">跳到正文</a>
+  <div class="shell">
+    <aside class="sidebar">
+  <h1 class="brand">Econ Papers Daily</h1>
+  <div class="subtitle">每日追踪 TOP 经济学期刊论文</div>
+  <div class="side-block"><div class="side-title">导航</div>
+    <a class="side-link" href="./"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
+    <a class="side-link" href="./recent72/"><span class="side-main"><strong>最近72小时</strong></span><span class="count">近3天</span></a>
+    <a class="side-link" href="./topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
+    <a class="side-link" href="./archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
+    <a class="side-link" href="./search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
+    <a class="side-link" href="./journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
+    <a class="side-link" href="./working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
+    <a class="side-link" href="./sources/working-papers/"><span class="side-main"><strong>工作论文来源</strong></span><span class="count">来源</span></a>
+  </div>
+  <div class="side-block"><div class="side-title">今日文章主题</div><a class="side-link" href="./daily/2026-07-29/?field=macro"><span class="side-main"><strong>宏观与货币</strong></span><span class="count">2</span></a><a class="side-link" href="./daily/2026-07-29/?field=finance"><span class="side-main"><strong>金融</strong></span><span class="count">2</span></a><a class="side-link" href="./daily/2026-07-29/?field=firms"><span class="side-main"><strong>企业与产业</strong></span><span class="count">1</span></a><a class="side-link" href="./daily/2026-07-29/?field=labor"><span class="side-main"><strong>劳动</strong></span><span class="count">1</span></a><a class="side-link" href="./daily/2026-07-29/?field=theory"><span class="side-main"><strong>理论与博弈</strong></span><span class="count">1</span></a></div>
+  <div class="side-block"><div class="side-title">今日期刊论文来源</div><div class="side-link"><span class="side-main"><strong>暂无期刊更新</strong></span><span class="count">0</span></div><a class="side-link" href="./daily/2026-07-29/"><span class="side-main"><strong>查看今日期刊论文</strong></span><span class="count">今日</span></a></div>
+  <div class="side-block"><div class="side-title">今日工作论文来源</div><a class="side-link" href="./working-papers/today/?journal=source-voxeu-cepr-columns"><span class="side-main"><strong>VoxEU / CEPR Columns</strong><em>VoxEU / CEPR 专栏</em></span><span class="count">2</span></a><a class="side-link" href="./working-papers/today/"><span class="side-main"><strong>查看今日工作论文</strong></span><span class="count">今日</span></a></div>
+</aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner">
+        <div><strong>Econ Papers Daily</strong> <span class="subtitle">每日追踪 TOP 经济学期刊论文</span></div>
+        <span class="presence" data-presence-count></span>
+        <nav class="nav">
+          <a class="active" href="./">今日</a>
+          <a class="" href="./recent72/">最近72小时</a>
+          <a href="./topics/china/">与中国相关</a>
+          <a class="" href="./archive/">归档</a>
+          <a class="" href="./search/">检索</a>
+          <a href="./journals/">监测期刊</a>
+          <a class="" href="./working-papers/">工作论文</a>
+          <a href="./feed.xml">RSS</a>
+        </nav>
+      </div></header>
+      <main class="wrap" id="main-content"><section class="banner">
+  <div class="banner-main">
+      <div class="hero-layout">
+      <div>
+        <p class="eyebrow">TOP economics journals, updated daily</p>
+        <h1>Econ Papers Daily</h1>
+        <p>每日追踪 TOP 经济学期刊论文</p>
+        <div class="hero-stats">
+          <a class="hero-stat" href="#journal-flow" data-filter-preset="all" data-filter-scope-target="journal"><strong>0</strong><span>今日期刊论文新发现</span></a>
+          <a class="hero-stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>0</strong><span>期刊论文中与中国相关</span></a>
+          <a class="hero-stat" href="./recent72/"><strong>197</strong><span>最近72小时</span></a>
+          <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>2</strong><span>今日工作论文</span></a>
+          <a class="hero-stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>0</strong><span>工作论文中与中国相关</span></a>
+          <a class="hero-stat duo" href="./archive/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>4438</strong><em>期刊论文</em></div><div><strong>1316</strong><em>工作论文</em></div></div></a>
         </div>
-      </article>
-      <article class="paper-entry" data-motion="paper" data-paper-id="url:ac13bae7a2377a3e" data-kind="column" data-china="false" data-search="rethinking the use of quantitative easing for macro stimulus 重新思考量化宽松用于宏观刺激的作用 voxeu / cepr columns working_papers  https://cepr.org/voxeu/columns/rethinking-use-quantitative-easing-macro-stimulus tobias adrian, marcin kolasa, christopher erceg, jesper lindé, pawel zabczyk 宏观经济学 金融 国际贸易 macro finance trade development false">
-        <div class="paper-time"><time>08:45</time></div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
-        <div class="paper-body">
-          <div class="paper-kicker"><span>研究专栏</span><span>VoxEU / CEPR Columns</span></div>
-          <h3><a href="https://cepr.org/voxeu/columns/rethinking-use-quantitative-easing-macro-stimulus" target="_blank" rel="noreferrer">重新思考量化宽松用于宏观刺激的作用</a></h3>
-          <p class="english-title">Rethinking the use of quantitative easing for macro stimulus</p>
-          <p class="authors">Tobias Adrian, Marcin Kolasa, Christopher Erceg, Jesper Lindé, Pawel Zabczyk</p>
-          <div class="paper-foot"><div class="tags"><span class="tag">宏观经济学</span><span class="tag">金融</span><span class="tag">国际贸易</span></div><a class="read-link" href="https://cepr.org/voxeu/columns/rethinking-use-quantitative-easing-macro-stimulus" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
-          <details class="paper-details"><summary>查看来源与日期</summary><p>官方日期：2026-07-29 · 首次监测：2026-07-29 08:45 北京时间</p></details><span class="paper-divider" aria-hidden="true"></span>
+      </div>
+      <aside class="operator-card">
+        <img src="./assets/academic-portal-qr.jpg" alt="学术传送门二维码">
+        <div>
+          <strong>学术传送门</strong>
+          <span>本站由学术传送门运营</span>
+          <em>读好文献，用好文献</em>
         </div>
-      </article><div class="empty-state" data-empty-state hidden><h3>没有找到匹配的论文</h3><p>尝试更换关键词，或切换论文类型。</p><button class="clear-filters" type="button" data-clear>清除筛选</button></div></section>
-    <footer><div class="footer-inner"><div><div class="footer-brand">Academic Door</div><div class="footer-note">读好文献，用好论文。Econ Papers Daily 是每日之门里的研究发现流。</div></div><img class="qr" src="./assets/academic-portal-qr.jpg" alt="学术传送门二维码"></div></footer>
-  </div></main>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
-  <script>
-    (() => {
-      const entries = [...document.querySelectorAll('[data-motion="paper"]')];
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const motion = {
-        triggers: new Map(),
-        destroy() {
-          this.triggers.forEach((trigger) => trigger.kill());
-          this.triggers.clear();
-          if (window.gsap) gsap.set(entries.flatMap((entry) => [entry.querySelector('.paper-time'), entry.querySelector('.timeline-dot'), entry.querySelector('.paper-kicker'), entry.querySelector('h3 a'), ...entry.querySelectorAll('.english-title, .authors, .paper-foot'), entry.querySelector('.paper-divider')].filter(Boolean)), {clearProps: 'all'});
-        },
-        init(visibleEntries = entries) {
-          this.destroy();
-          if (reduce || !window.gsap || !window.ScrollTrigger) return;
-          gsap.registerPlugin(ScrollTrigger);
-          visibleEntries.forEach((entry) => {
-            const time = entry.querySelector('.paper-time');
-            const dot = entry.querySelector('.timeline-dot');
-            const kicker = entry.querySelector('.paper-kicker');
-            const title = entry.querySelector('h3 a');
-            const secondary = [...entry.querySelectorAll('.english-title, .authors, .paper-foot')];
-            const divider = entry.querySelector('.paper-divider');
-            gsap.set([time, kicker, title, ...secondary].filter(Boolean), {autoAlpha: 0, y: 8});
-            gsap.set(dot, {autoAlpha: 0, scale: .6});
-            gsap.set(divider, {scaleX: 0});
-            const trigger = ScrollTrigger.create({
-              trigger: entry,
-              start: 'top 88%',
-              once: true,
-              onEnter: () => {
-                gsap.timeline({defaults: {ease: 'power2.out'}})
-                  .to(time, {autoAlpha: 1, y: 0, duration: .22}, 0)
-                  .to(dot, {autoAlpha: 1, scale: 1, duration: .24}, .03)
-                  .to(kicker, {autoAlpha: 1, y: 0, duration: .22}, .08)
-                  .to(title, {autoAlpha: 1, y: 0, duration: .3}, .14)
-                  .to(secondary, {autoAlpha: 1, y: 0, duration: .25, stagger: .05}, .28)
-                  .to(divider, {scaleX: 1, duration: .32}, .36);
-              }
-            });
-            this.triggers.set(entry, trigger);
-          });
-          requestAnimationFrame(() => { ScrollTrigger.refresh(); ScrollTrigger.update(); });
-        },
-        refresh() { if (window.ScrollTrigger) ScrollTrigger.refresh(); },
-        count() { return this.triggers.size; }
-      };
-      window.DailyVNextMotion = motion;
-      if (entries.length) motion.init(entries);
-    })();
-  </script>
-  <script>
-    (() => {
-      const hero = document.querySelector('[data-motion="hero"]');
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!hero || !window.gsap) return;
-      if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
-      if (window.Flip) gsap.registerPlugin(Flip);
-      if (reduce) return;
-      const left = hero.querySelector('.hero-door-panel--left');
-      const right = hero.querySelector('.hero-door-panel--right');
-      const eyebrow = hero.querySelector('[data-motion="eyebrow"]');
-      const title = hero.querySelector('[data-motion="title"] h1');
-      const lede = hero.querySelector('.hero-lede');
-      const discovery = hero.querySelector('[data-motion="discovery"]');
-      const total = hero.querySelector('[data-count]');
-      const statLine = hero.querySelector('[data-motion="stat-line"]');
-      const nodes = hero.querySelectorAll('.hero-data-node');
-      if (![left, right, eyebrow, title, lede, discovery, total, statLine].every(Boolean)) return;
-      const revealHeroFallback = () => {
-        document.documentElement.classList.remove('motion-ready');
-        [left, right, eyebrow, title, lede, discovery, statLine, ...nodes].forEach((element) => {
-          if (!element) return;
-          element.style.clipPath = 'none';
-          element.style.opacity = '1';
-          element.style.visibility = 'visible';
-          element.style.transform = 'none';
-        });
-        statLine.style.width = '100%';
-      };
-      try {
-      document.documentElement.classList.add('motion-ready');
-      gsap.set([left, right], {xPercent: 0});
-      gsap.set(title, {clipPath: 'inset(0 48% 0 48%)'});
-      gsap.set([lede, discovery], {autoAlpha: 0, y: 12});
-      gsap.set(eyebrow, {autoAlpha: 0, y: 10});
-      gsap.set(statLine, {width: 0});
-      gsap.set(nodes, {autoAlpha: 0});
-      const tl = gsap.timeline({defaults: {ease: 'power2.out'}, onComplete: () => hero.dataset.motionComplete = 'true'});
-      tl.to(eyebrow, {autoAlpha: 1, y: 0, duration: .3}, 0)
-        .to(nodes, {autoAlpha: 1, duration: .5, stagger: .04}, .08)
-        .to(left, {xPercent: -100, duration: .82, ease: 'power3.inOut'}, .2)
-        .to(right, {xPercent: 100, duration: .82, ease: 'power3.inOut'}, .2)
-        .to(title, {clipPath: 'inset(0 0% 0 0%)', duration: .72, ease: 'power2.out'}, .28)
-        .to(lede, {autoAlpha: 1, y: 0, duration: .45}, .78)
-        .to(discovery, {autoAlpha: 1, y: 0, duration: .5}, 1.02)
-        .to(statLine, {width: '100%', duration: .65, ease: 'power1.out'}, 1.25);
-      const target = Number(total.dataset.count || 0);
-      const counter = {value: 0};
-      gsap.to(counter, {value: target, duration: .7, delay: 1.02, ease: 'power1.out', onUpdate: () => { total.textContent = String(Math.round(counter.value)); }});
-      nodes.forEach((node, index) => gsap.to(node, {x: index % 2 ? -16 : 16, y: index % 2 ? 8 : -8, duration: 12 + index * 1.5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: index * .3}));
-      } catch (error) {
-        revealHeroFallback();
-        console.warn('Daily vNext Hero motion fallback:', error);
+      </aside>
+      </div>
+  </div>
+</section>
+<section class="status-strip">
+  <span>最近监测 <strong>2026-07-29 12:11 北京时间</strong></span>
+  <span class="">监测状态 <strong>状态正常</strong></span>
+  <span>监测类型 <strong>本地中文补充</strong></span>
+  <span>下次快速 <strong>2026-07-29 13:00 北京时间</strong></span>
+  <span>下次全量 <strong>2026-07-29 14:30 北京时间</strong></span>
+</section>
+<section id="journal-flow" class="section-head"><div><h2>今日 TOP 期刊论文 <span class="live-count" data-filter-counter="journal"></span></h2></div><p>2026-07-29</p></section>
+<section class="stats">
+  <a class="stat" href="./journals/"><strong>0</strong><span>今日涉及期刊</span></a>
+  <a class="stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>0</strong><span>期刊论文中与中国相关</span></a>
+  <a class="stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>0</strong><span>期刊在线日期为今日</span></a>
+  <a class="stat" href="./archive/"><strong>4438</strong><span>累计期刊论文记录</span></a>
+</section>
+
+
+<div class="empty">暂无符合条件的论文记录。</div>
+<section id="working-flow" class="section-head split-section"><div><h2>今日工作论文 <span class="live-count" data-filter-counter="working"></span></h2></div><p><a href="./working-papers/today/">查看全部 2 篇</a></p></section>
+<section class="stats">
+  <a class="stat" href="./working-papers/today/"><strong>2</strong><span>今日工作论文</span></a>
+  <a class="stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>0</strong><span>工作论文中与中国相关</span></a>
+  <a class="stat" href="./sources/working-papers/"><strong>1</strong><span>今日涉及来源</span></a>
+  <a class="stat" href="./working-papers/"><strong>1316</strong><span>累计工作论文记录</span></a>
+</section>
+<div class="toolbar" id="filters-working" data-filter-scope="working">
+  <input class="control" aria-label="搜索标题、作者或 DOI" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选来源</option><option value="source-voxeu-cepr-columns">VoxEU / CEPR Columns</option></select>
+  <select class="control" aria-label="筛选主题" data-filter-role="field"><option value="">筛选主题</option><option value="firms">企业与产业</option><option value="labor">劳动</option><option value="macro">宏观与货币</option><option value="theory">理论与博弈</option><option value="finance">金融</option></select>
+  <select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="available_online">官方在线</option></select>
+  <select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">筛选可信度</option><option value="B">B：RSS/出版社备选日期</option></select>
+  
+  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
+</div>
+<div class="empty" data-filter-empty="working" hidden>没有符合当前筛选条件的论文。</div>
+<article class="event home-wp-preview" data-event-scope="working" data-search="rethinking the use of quantitative easing for macro stimulus 重新思考量化宽松用于宏观刺激的作用 tobias adrian, marcin kolasa, christopher erceg, jesper lindé, pawel zabczyk voxeu / cepr columns " data-journal="source-voxeu-cepr-columns" data-fields="finance macro theory" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="B" data-source-type="policy_commentary">
+  <div><div class="time">08:45</div><div class="date-note">2026-07-29</div></div>
+  <div>
+    <h3><a href="./paper.html?key=rethinking-the-use-of-quantitative-easing-for-macro-stimulus-ac13bae7a237">Rethinking the use of quantitative easing for macro stimulus</a></h3>
+    <p class="title-zh">重新思考量化宽松用于宏观刺激的作用</p>
+    <p class="authors">Tobias Adrian, Marcin Kolasa, Christopher Erceg, Jesper Lindé, Pawel Zabczyk</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">VoxEU / CEPR Columns</span><span class="pill">研究评论</span><span class="pill">首次监测 2026-07-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-07-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/voxeu/columns/rethinking-use-quantitative-easing-macro-stimulus">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">理论与博弈</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event home-wp-preview" data-event-scope="working" data-search="the ai premium 人工智能溢价 nicola borri, yukun liu, aleh tsyvinski voxeu / cepr columns " data-journal="source-voxeu-cepr-columns" data-fields="finance macro labor firms" data-china="false" data-online-today="true" data-date-type="available_online" data-confidence="B" data-source-type="policy_commentary">
+  <div><div class="time">08:45</div><div class="date-note">2026-07-29</div></div>
+  <div>
+    <h3><a href="./paper.html?key=the-ai-premium-c5b38ffa2722">The AI premium</a></h3>
+    <p class="title-zh">人工智能溢价</p>
+    <p class="authors">Nicola Borri, Yukun Liu, Aleh Tsyvinski</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">VoxEU / CEPR Columns</span><span class="pill">研究评论</span><span class="pill">首次监测 2026-07-29</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-07-29 · 来源：出版社网页</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://cepr.org/voxeu/columns/ai-premium">文章链接</a><span class="pill">金融</span><span class="pill">宏观与货币</span><span class="pill">劳动</span></span></div>
+    </div>
+  </div>
+</article>
+
+<script>
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
+    const scope = toolbar.dataset.filterScope || 'default';
+    const search = toolbar.querySelector('[data-filter-role="search"]');
+    const journal = toolbar.querySelector('[data-filter-role="journal"]');
+    const field = toolbar.querySelector('[data-filter-role="field"]');
+    const dateType = toolbar.querySelector('[data-filter-role="dateType"]');
+    const confidence = toolbar.querySelector('[data-filter-role="confidence"]');
+    const sourceType = toolbar.querySelector('[data-filter-role="sourceType"]');
+    const china = toolbar.querySelector('[data-filter-role="china"]');
+    const counter = document.querySelector(`[data-filter-counter="${scope}"]`);
+    const empty = document.querySelector(`[data-filter-empty="${scope}"]`);
+    const events = Array.from(document.querySelectorAll(`.event[data-event-scope="${scope}"]`));
+    if (!search || !journal || !field || !china) return;
+    let preset = '';
+    if (params.get('q')) search.value = params.get('q');
+    if (params.get('journal')) journal.value = params.get('journal');
+    if (params.get('field')) field.value = params.get('field');
+    if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+    if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+    if (sourceType && params.get('sourceType')) sourceType.value = params.get('sourceType');
+    if (params.get('china') === '1') {
+      china.setAttribute('aria-pressed', 'true');
+      china.classList.add('active');
+    }
+    if (params.get('onlineToday') === '1') preset = 'online-today';
+    function setCounter(visible, chinaOnly) {
+      if (!counter) return;
+      if (chinaOnly || preset === 'china') {
+        counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
+      } else if (preset === 'online-today') {
+        counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
+      } else {
+        counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
       }
-    })();
-  </script>
-  <script>
-    (() => {
-      const nav = document.querySelector('.nav'), menu = document.querySelector('.menu');
-      const buttons = [...document.querySelectorAll('[data-filter]')];
-      const search = document.querySelector('.search');
-      const entries = [...document.querySelectorAll('.paper-entry')];
-      const timeline = document.querySelector('.timeline');
-      const empty = document.querySelector('[data-empty-state]');
-      const resultStatus = document.querySelector('[data-result-status]');
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const validTypes = new Set(['all', 'journal', 'working', 'column', 'china']);
-      const total = entries.length;
-      let active = 'all';
-      let filterTween = null;
-      let debounceTimer = 0;
-      let applyToken = 0;
-
-      menu.addEventListener('click', () => { const open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(open)); });
-
-      const normalize = (value) => String(value || '').trim().toLocaleLowerCase();
-      const currentQuery = () => normalize(search.value);
-      const matchesEntry = (entry, query) => {
-        const typeMatch = active === 'china' ? entry.dataset.china === 'true' : active === 'all' || entry.dataset.kind === active;
-        return typeMatch && (!query || normalize(entry.dataset.search).includes(query));
-      };
-      const updateUrl = () => {
-        const params = new URLSearchParams();
-        if (active !== 'all') params.set('type', active);
-        if (currentQuery()) params.set('q', search.value.trim());
-        const next = `${window.location.pathname}${params.toString() ? `?${params}` : ''}${window.location.hash}`;
-        window.history.replaceState(null, '', next);
-      };
-      const updateButtons = () => buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === active)));
-      const updateResult = (count) => {
-        if (!active && !currentQuery()) return;
-        const query = currentQuery();
-        if (active === 'all' && query) resultStatus.textContent = `找到 ${count} 篇`;
-        else if (query || active !== 'all') resultStatus.textContent = `${count} / ${total} 篇`;
-        else resultStatus.textContent = `今日共 ${total} 篇`;
-      };
-      const updateTimeline = (visible) => {
-        entries.forEach((entry) => entry.classList.remove('is-first-visible', 'is-last-visible', 'is-latest-visible'));
-        timeline.classList.toggle('is-empty', visible.length === 0);
-        if (!visible.length) {
-          timeline.style.removeProperty('--rail-top');
-          timeline.style.removeProperty('--rail-bottom');
-          return;
+    }
+    function applyFilters() {
+      const q = (search.value || '').trim().toLowerCase();
+      const journalValue = journal.value;
+      const fieldValue = field.value;
+      const dateTypeValue = dateType ? dateType.value : '';
+      const confidenceValue = confidence ? confidence.value : '';
+      const sourceTypeValue = sourceType ? sourceType.value : '';
+      const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+      let visible = 0;
+      for (const item of events) {
+        const okSearch = !q || item.dataset.search.includes(q);
+        const okJournal = !journalValue || item.dataset.journal === journalValue;
+        const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+        const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+        const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+        const okSourceType = !sourceTypeValue || item.dataset.sourceType === sourceTypeValue;
+        const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+        const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+        const show = okSearch && okJournal && okField && okDateType && okConfidence && okSourceType && okChina && okPreset;
+        item.hidden = !show;
+        if (show) visible += 1;
+      }
+      if (empty) empty.hidden = visible !== 0;
+      setCounter(visible, chinaOnly);
+    }
+    search.addEventListener('input', applyFilters);
+    journal.addEventListener('change', applyFilters);
+    field.addEventListener('change', applyFilters);
+    if (dateType) dateType.addEventListener('change', applyFilters);
+    if (confidence) confidence.addEventListener('change', applyFilters);
+    if (sourceType) sourceType.addEventListener('change', applyFilters);
+    china.addEventListener('click', () => {
+      const active = china.getAttribute('aria-pressed') !== 'true';
+      china.setAttribute('aria-pressed', String(active));
+      china.classList.toggle('active', active);
+      applyFilters();
+    });
+    document.querySelectorAll(`[data-filter-preset][data-filter-scope-target="${scope}"]`).forEach((item) => {
+      item.addEventListener('click', (event) => {
+        event.preventDefault();
+        preset = item.dataset.filterPreset || '';
+        if (preset === 'all') {
+          search.value = '';
+          journal.value = '';
+          field.value = '';
+          if (dateType) dateType.value = '';
+          if (confidence) confidence.value = '';
+          if (sourceType) sourceType.value = '';
+          china.setAttribute('aria-pressed', 'false');
+          china.classList.remove('active');
         }
-        visible[0].classList.add('is-first-visible');
-        visible[visible.length - 1].classList.add('is-last-visible');
-        visible[0].classList.add('is-latest-visible');
-        const timelineRect = timeline.getBoundingClientRect();
-        const firstDot = visible[0].querySelector('.timeline-dot').getBoundingClientRect();
-        const lastDot = visible[visible.length - 1].querySelector('.timeline-dot').getBoundingClientRect();
-        timeline.style.setProperty('--rail-top', `${firstDot.top - timelineRect.top + firstDot.height / 2}px`);
-        timeline.style.setProperty('--rail-bottom', `${timelineRect.bottom - lastDot.bottom + lastDot.height / 2}px`);
-      };
-      const finishLayout = (visible, count, token) => {
-        if (token !== applyToken) return;
-        updateTimeline(visible);
-        empty.hidden = count !== 0;
-        updateResult(count);
-        if (window.DailyVNextMotion) window.DailyVNextMotion.init(visible);
-        if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
-      };
-      const apply = ({animate = true} = {}) => {
-        const token = ++applyToken;
-        if (filterTween) filterTween.kill();
-        if (window.gsap) gsap.killTweensOf(entries);
-        if (window.DailyVNextMotion) window.DailyVNextMotion.destroy();
-        entries.forEach((entry) => { entry.style.removeProperty('opacity'); entry.style.removeProperty('visibility'); });
-        const query = currentQuery();
-        const beforeVisible = entries.filter((entry) => !entry.hidden);
-        const visible = entries.filter((entry) => matchesEntry(entry, query));
-        const hidden = entries.filter((entry) => !matchesEntry(entry, query));
-        const state = animate && !reduce && window.Flip && window.gsap && beforeVisible.length ? Flip.getState(beforeVisible) : null;
-        const shouldAnimate = Boolean(state && (hidden.length || visible.length !== beforeVisible.length));
-        const layout = () => {
-          if (token !== applyToken) return;
-          entries.forEach((entry) => { entry.hidden = !matchesEntry(entry, query); });
-          requestAnimationFrame(() => {
-            const nowVisible = entries.filter((entry) => !entry.hidden);
-            const complete = () => finishLayout(nowVisible, nowVisible.length, token);
-            if (state && shouldAnimate && window.Flip) {
-              filterTween = Flip.from(state, {duration: .55, ease: 'power2.inOut', absolute: false, nested: true, onComplete: complete});
-            } else complete();
-          });
-        };
-        if (shouldAnimate && hidden.some((entry) => !entry.hidden)) {
-          filterTween = gsap.to(hidden.filter((entry) => !entry.hidden), {autoAlpha: 0, duration: .2, ease: 'power2.out', onComplete: layout});
-        } else layout();
-        updateButtons();
-        updateUrl();
-      };
-      const readUrl = () => {
-        const params = new URLSearchParams(window.location.search);
-        const type = params.get('type');
-        active = validTypes.has(type) ? type : 'all';
-        search.value = params.get('q') || '';
-        updateButtons();
-      };
-      buttons.forEach((button) => button.addEventListener('click', () => { active = button.dataset.filter; apply(); }));
-      search.addEventListener('input', () => { window.clearTimeout(debounceTimer); debounceTimer = window.setTimeout(() => apply(), 150); });
-      document.querySelector('[data-clear]')?.addEventListener('click', () => { active = 'all'; search.value = ''; apply(); });
-      readUrl();
-      apply({animate: false});
-      window.__dailyVnextDebug = {getVisibleCount: () => entries.filter((entry) => !entry.hidden).length, getTriggerCount: () => window.DailyVNextMotion ? window.DailyVNextMotion.count() : 0, getActiveType: () => active};
+        if (preset === 'china') {
+          china.setAttribute('aria-pressed', 'true');
+          china.classList.add('active');
+        }
+        applyFilters();
+        toolbar.scrollIntoView({behavior: 'smooth', block: 'start'});
+      });
+    });
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]:not([data-filter-scope-target])').forEach((item) => {
+    item.setAttribute('data-filter-scope-target', 'default');
+  });
+  for (const item of document.querySelectorAll('[data-filter-preset]')) {
+    if (!item.dataset.boundScopeFallback) {
+      item.dataset.boundScopeFallback = '1';
+      if (!item.dataset.filterScopeTarget) {
+        item.dataset.filterScopeTarget = 'default';
+      }
+    }
+  }
+})();
+</script>
 
-      const endpoint = 'https://econ-paper-monitor-presence.academic-door.workers.dev/presence'; const target = document.querySelector('[data-presence-count]'); const key = 'epd_presence_client';
-      const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)); localStorage.setItem(key, clientId);
-      const heartbeat = () => fetch(endpoint + '?client_id=' + encodeURIComponent(clientId), {headers: {Accept: 'application/json'}}).then(r => r.ok ? r.json() : null).then(d => { if (d && Number.isFinite(Number(d.online))) target.textContent = d.online + ' 人在线'; }).catch(() => {});
-      heartbeat(); window.setInterval(heartbeat, 60000);
-    })();
-  </script>
-</body></html>
+</main>
+    </div>
+  </div>
+<script>
+(() => {
+  const endpoint = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence";
+  const key = 'epd_presence_client';
+  const clientId = localStorage.getItem(key) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
+  localStorage.setItem(key, clientId);
+  const target = document.querySelector('[data-presence-count]');
+  if (!target) return;
+  const heartbeat = () => fetch(endpoint + (endpoint.includes('?') ? '&' : '?') + 'client_id=' + encodeURIComponent(clientId), {headers: {'Accept': 'application/json'}})
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { if (data && Number.isFinite(Number(data.online))) target.innerHTML = '<span class="presence-dot">●</span> ' + data.online + ' 人在线'; })
+    .catch(() => {});
+  heartbeat();
+  window.setInterval(heartbeat, 60000);
+})();
+</script></body>
+</html>
