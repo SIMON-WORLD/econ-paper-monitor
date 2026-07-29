@@ -37,5 +37,5 @@ jobs:
         run: python -m http.server 8765 --directory docs > /tmp/daily-vnext-http.log 2>&1 &
       - name: Run public browser smoke
         env:
-          DAILY_VNEXT_URL: ${{ (github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && 'http://127.0.0.1:8765/daily-vnext/' || 'https://academic-door.github.io/econ-paper-monitor/daily-vnext/' }}
+          DAILY_VNEXT_URL: ${{ (github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && 'http://127.0.0.1:8765/' || 'https://academic-door.github.io/econ-paper-monitor/' }}
         run: node tests/daily_vnext_public_smoke.mjs
