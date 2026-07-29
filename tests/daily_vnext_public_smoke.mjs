@@ -4,8 +4,8 @@ import { chromium } from "playwright";
 const base = process.env.DAILY_VNEXT_URL || "https://academic-door.github.io/econ-paper-monitor/";
 const urls = [base];
 
-async function visibleEntries(page, scope = "working") {
-  return page.locator(`.event[data-event-scope="${scope}"]:not([hidden])`).count();
+async function visibleEntries(page, selector = '.paper-entry') {
+  return page.locator(`${selector}:not([hidden])`).count();
 }
 
 async function checkPage(browser, url) {
@@ -15,23 +15,24 @@ async function checkPage(browser, url) {
   await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
   await page.waitForTimeout(2400);
   assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
-  assert.ok(await page.locator('.banner h1').isVisible(), `${url} Hero title is not visible`);
-  assert.ok(await page.locator('.banner h1 + p').isVisible(), `${url} Hero lede is not visible`);
-  assert.ok((await page.locator('.hero-stats strong').count()) >= 1);
-  const total = await page.locator('.event[data-event-scope="working"]').count();
+  assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
+  assert.ok(await page.locator('.hero-lede').isVisible(), `${url} Hero lede is not visible`);
+  assert.ok((await page.locator('.hero-total').count()) >= 1);
+  const entries = page.locator('.paper-entry');
+  const total = await entries.count();
   assert.ok(total >= 0);
 
-  const search = page.locator('[data-filter-role="search"]').last();
-  const china = page.locator('[data-filter-role="china"]').last();
-  assert.ok(await search.isVisible(), `${url} working-paper search is not visible`);
+  const search = page.locator('input.search').last();
+  const china = page.locator('.filter[data-filter="china"]').last();
+  assert.ok(await search.isVisible(), `${url} paper search is not visible`);
   assert.ok(await china.isVisible(), `${url} China filter is not visible`);
-  assert.equal(await visibleEntries(page), total, `${url} default working-paper filter`);
+  assert.equal(await visibleEntries(page), total, `${url} default paper filter`);
   await china.click();
   await page.waitForTimeout(250);
-  assert.equal(await visibleEntries(page), await page.locator('.event[data-event-scope="working"][data-china="true"]').count(), `${url} China filter`);
+  assert.equal(await visibleEntries(page), await page.locator('.paper-entry[data-china="true"]').count(), `${url} China filter`);
   await china.click();
   const searchable = total > 0
-    ? await page.locator('.event[data-event-scope="working"]').first().getAttribute('data-search')
+    ? await entries.first().getAttribute('data-search')
     : null;
   if (searchable) {
     await search.fill(searchable.split(/\s+/)[0]);
@@ -46,8 +47,8 @@ async function checkGsapFallback(browser) {
   const errors = [];
   page.on("pageerror", (error) => errors.push(String(error)));
   await page.goto(base, { waitUntil: "networkidle", timeout: 60000 });
-  assert.ok(await page.locator('.banner h1').isVisible(), "Homepage fallback hid Hero title");
-  assert.ok(await page.locator('.banner h1 + p').isVisible(), "Homepage fallback hid Hero lede");
+  assert.ok(await page.locator('.hero h1').isVisible(), "Homepage fallback hid Hero title");
+  assert.ok(await page.locator('.hero-lede').isVisible(), "Homepage fallback hid Hero lede");
   assert.equal(errors.length, 0, `GSAP fallback errors: ${errors.join(" | ")}`);
   await page.close();
 }
