@@ -46,7 +46,11 @@ async function checkGsapFallback(browser) {
   const page = await browser.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(String(error)));
+  await page.route("**/gsap.min.js", (route) => route.abort());
+  await page.route("**/ScrollTrigger.min.js", (route) => route.abort());
+  await page.route("**/Flip.min.js", (route) => route.abort());
   await page.goto(base, { waitUntil: "networkidle", timeout: 60000 });
+  await page.waitForTimeout(500);
   assert.ok(await page.locator('.hero h1').isVisible(), "Homepage fallback hid Hero title");
   assert.ok(await page.locator('.hero-lede').isVisible(), "Homepage fallback hid Hero lede");
   assert.equal(errors.length, 0, `GSAP fallback errors: ${errors.join(" | ")}`);
