@@ -20,6 +20,17 @@ jobs:
           python-version: "3.11"
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
+      - name: Generate Daily homepage contract fixtures
+        shell: bash
+        run: |
+          DAILY_DATE=$(python - <<'PY'
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          print(datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"))
+          PY
+          )
+          python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/index.html --report "$RUNNER_TEMP/daily-home-report.json"
+          python scripts/build_daily_vnext.py --date "$DAILY_DATE" --output docs/daily-vnext/index.html --report "$RUNNER_TEMP/daily-vnext-report.json"
       - name: Run regression tests
         run: python -m pytest -q
       - name: Build and validate Daily Door vNext
