@@ -20,6 +20,54 @@ from dedupe import record_match_keys  # noqa: E402
 
 
 class HistoricalBackfillTests(unittest.TestCase):
+    def test_future_online_record_is_quarantined_instead_of_restored_to_an_old_bucket(self) -> None:
+        record = {"available_online": "2026-07-30", "published_online": "2026-07-30"}
+        self.assertEqual(remove_seen_backflow.future_official_date(record, "2026-07-29"), "2026-07-30")
+        self.assertIsNone(remove_seen_backflow.future_official_date(record, "2026-07-30"))
+
+    def test_nep_rediscovery_cannot_move_the_original_issue_date_forward(self) -> None:
+        record = {
+            "source_id": "repec-nep-mac",
+            "date_source": "nep_issue_date",
+            "first_seen": "2026-06-21T01:28:34+00:00",
+            "available_online": "2026-07-20",
+            "published_online": "2026-07-20",
+        }
+
+        self.assertTrue(normalize_records.normalize_nep_issue_date(record))
+        self.assertEqual(record["available_online"], "2026-06-21")
+        self.assertEqual(record["published_online"], "2026-06-21")
+        self.assertEqual(record["date_source"], "nep_first_seen_issue_date")
+
+    def test_historical_cleanup_uses_each_canonical_bucket_date(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            daily = root / "daily"
+            daily.mkdir()
+            pending = root / "pending.json"
+            record = {
+                "title": "Historical catalogue item",
+                "source": "working_papers",
+                "source_id": "cepr-dp",
+                "available_online": "2023-01-19",
+                "date_confidence": "B",
+                "url": "https://cepr.org/publications/dp17822",
+            }
+            (daily / "2026-07-27.json").write_text(json.dumps([record]), encoding="utf-8")
+            argv = [
+                "clean_historical_working_papers.py",
+                "--daily-dir",
+                str(daily),
+                "--pending",
+                str(pending),
+            ]
+
+            with patch.object(sys, "argv", argv):
+                clean_historical_working_papers.main()
+
+            self.assertEqual(json.loads((daily / "2026-07-27.json").read_text(encoding="utf-8")), [])
+            self.assertEqual(len(json.loads(pending.read_text(encoding="utf-8"))), 1)
+
     def test_recent_cepr_number_with_old_official_date_moves_to_pending(self) -> None:
         record = {
             "source": "working_papers",

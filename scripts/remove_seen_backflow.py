@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
-from dedupe import build_seen_index, find_matching_seen_id, merge_daily
+from dedupe import build_seen_index, find_matching_seen_id, merge_daily, valid_iso_date
 from status import record_source
 
 
@@ -26,11 +26,17 @@ def detected_date(record: dict[str, Any], fallback: str) -> str:
     return fallback
 
 
+def future_official_date(record: dict[str, Any], run_date: str) -> str | None:
+    official = valid_iso_date(record.get("available_online")) or valid_iso_date(record.get("published_online"))
+    return official if official and official > run_date else None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=today_str())
     parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
     parser.add_argument("--seen", type=Path, default=DATA_DIR / "seen.json")
+    parser.add_argument("--future-records", type=Path, default=DATA_DIR / "future_records.json")
     args = parser.parse_args()
 
     daily_path = args.daily_dir / f"{args.date}.json"
@@ -47,6 +53,7 @@ def main() -> None:
     kept: list[dict[str, Any]] = []
     removed: list[dict[str, Any]] = []
     restore_by_date: dict[str, list[dict[str, Any]]] = {}
+    future_records: list[dict[str, Any]] = []
     for record in records:
         seen_id = find_matching_seen_id(seen_index, record)
         seen_entry = seen_papers.get(seen_id) if seen_id else None
@@ -61,7 +68,10 @@ def main() -> None:
                     if key not in restored or restored.get(key) in (None, "", []):
                         restored[key] = value
             restored["_restored_from_backflow"] = args.date
-            restore_by_date.setdefault(first_date, []).append(restored)
+            if future_official_date(restored, args.date):
+                future_records.append(restored)
+            else:
+                restore_by_date.setdefault(first_date, []).append(restored)
             removed.append(record)
             continue
         # Some historical records were inserted into seen without first_seen;
@@ -70,7 +80,10 @@ def main() -> None:
         if fallback_date < args.date:
             restored = dict(record)
             restored["_restored_from_backflow"] = args.date
-            restore_by_date.setdefault(fallback_date, []).append(restored)
+            if future_official_date(restored, args.date):
+                future_records.append(restored)
+            else:
+                restore_by_date.setdefault(fallback_date, []).append(restored)
             removed.append(record)
             continue
         kept.append(record)
@@ -85,11 +98,15 @@ def main() -> None:
             existing = []
         write_json(restore_path, merge_daily(existing, restore_records))
         restored_count += len(restore_records)
+    if future_records:
+        existing_future = read_json(args.future_records, [])
+        existing_future = existing_future if isinstance(existing_future, list) else []
+        write_json(args.future_records, merge_daily(existing_future, future_records))
     record_source(
         "remove-seen-backflow",
         ok=True,
         count=len(removed),
-        message=f"date={args.date} kept={len(kept)} removed={len(removed)} restored={restored_count}",
+        message=f"date={args.date} kept={len(kept)} removed={len(removed)} restored={restored_count} future={len(future_records)}",
     )
     print(f"seen backflow cleaned date={args.date} kept={len(kept)} removed={len(removed)} restored={restored_count}")
 

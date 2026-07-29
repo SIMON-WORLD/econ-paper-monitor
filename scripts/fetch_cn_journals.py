@@ -18,12 +18,15 @@ import json
 import re
 import ssl
 import socket
+import time
 import http.cookiejar
 import urllib.parse
 import urllib.request
+from datetime import datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from common import DATA_DIR, fetch_text, filter_journals_by_tier, load_journals, now_iso, today_str, write_json
 from status import load_status, now, record_source, save_status
@@ -32,6 +35,7 @@ from status import load_status, now, record_source, save_status
 DETAIL_LIMIT = 0
 DETAIL_ATTEMPTED = 0
 GLSJ_LAST_NOTE = ""
+GLSJ_FETCH_BUDGET_SECONDS = 55
 
 CN_HOME_URLS = {
     "journal-f69300dae2": "https://zgncjj.ajcass.com/#/",
@@ -732,7 +736,17 @@ def enrich_cn_detail(record: dict[str, Any]) -> None:
             record["abstract_zh"] = clean_text(abstract)
 
 
-def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:
+def remaining_timeout(deadline: float, cap: int) -> int | None:
+    remaining = int(deadline - time.monotonic())
+    return min(cap, remaining) if remaining > 0 else None
+
+
+def current_issue_candidates() -> range:
+    month = datetime.now(ZoneInfo("Asia/Shanghai")).month
+    return range(min(12, month + 1), 0, -1)
+
+
+def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int, *, deadline: float) -> list[dict[str, Any]]:
     """Read Management World's public archive TOC when the AJAX endpoint is blocked.
 
     The public chinajournal host exposes the 2026 issue pages reliably even
@@ -744,10 +758,13 @@ def fetch_glsj_archive_issue(journal: dict[str, Any], limit: int) -> list[dict[s
         "https://glsj.chinajournal.net.cn/WKB/WebPublication/",
     )
     for base in bases:
-        for issue in range(12, 0, -1):
+        for issue in current_issue_candidates():
+            request_timeout = remaining_timeout(deadline, 5)
+            if request_timeout is None:
+                return []
             url = f"{base}wkTextContent.aspx?colType=4&yt={current_year}&st={issue:02d}"
             try:
-                page = fetch_text_partial(url, timeout=15, max_bytes=900_000)
+                page = fetch_text_partial(url, timeout=request_timeout, max_bytes=900_000)
             except Exception:
                 continue
             if "paperDigest.aspx" not in page:
@@ -800,6 +817,7 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
     """
     global GLSJ_LAST_NOTE
     GLSJ_LAST_NOTE = ""
+    deadline = time.monotonic() + GLSJ_FETCH_BUDGET_SECONDS
     base = "https://glsj.cbpt.cnki.net/WKB2/WebPublication/"
     cookie_jar = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
@@ -812,12 +830,18 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
     }
     records: list[dict[str, Any]] = []
     try:
-        opener.open(urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers), timeout=8).read()
+        opener.open(
+            urllib.request.Request(base + "index.aspx?mid=glsj", headers=headers),
+            timeout=remaining_timeout(deadline, 6) or 1,
+        ).read()
     except Exception:
         GLSJ_LAST_NOTE = "cbpt-index-unavailable; trying-public-archive"
     try:
         first_endpoint = "getFirstPublishPaperInfo.ashx"
-        first_page = opener.open(urllib.request.Request(base + first_endpoint, headers=headers), timeout=5).read().decode("utf-8", errors="replace")
+        first_page = opener.open(
+            urllib.request.Request(base + first_endpoint, headers=headers),
+            timeout=remaining_timeout(deadline, 4) or 1,
+        ).read().decode("utf-8", errors="replace")
     except Exception:
         first_page = ""
     if first_page and ("showValidateCode.aspx" in first_page or "login.css" in first_page):
@@ -854,10 +878,17 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
     current_year = int(today_str()[:4])
     latest_page = ""
     latest_endpoint = ""
-    for issue in range(12, 0, -1):
+    for issue in current_issue_candidates():
+        request_timeout = remaining_timeout(deadline, 3)
+        if request_timeout is None:
+            GLSJ_LAST_NOTE = "time-budget-exhausted"
+            return records
         endpoint = f"getThisIssuePaperInfo.ashx?y={current_year}&i={issue}"
         try:
-            page = opener.open(urllib.request.Request(base + endpoint, headers=headers), timeout=4).read().decode("utf-8", errors="replace")
+            page = opener.open(
+                urllib.request.Request(base + endpoint, headers=headers),
+                timeout=request_timeout,
+            ).read().decode("utf-8", errors="replace")
         except Exception:
             continue
         if "暂无内容" in page or "showValidateCode.aspx" in page or "login.css" in page or "paperDigest.aspx" not in page or len(page) < 200:
@@ -866,7 +897,7 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
         latest_endpoint = endpoint
         break
     if not latest_page:
-        archive_records = fetch_glsj_archive_issue(journal, limit)
+        archive_records = fetch_glsj_archive_issue(journal, limit, deadline=deadline)
         if archive_records:
             issue_text = str(archive_records[0].get("source_issue") or "")
             issue_match = re.search(r"第(\d+)期", issue_text)
@@ -875,9 +906,16 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
             return archive_records
         previous_year = current_year - 1
         for issue in range(12, 0, -1):
+            request_timeout = remaining_timeout(deadline, 2)
+            if request_timeout is None:
+                GLSJ_LAST_NOTE = "time-budget-exhausted"
+                return records
             endpoint = f"getThisIssuePaperInfo.ashx?y={previous_year}&i={issue}"
             try:
-                page = opener.open(urllib.request.Request(base + endpoint, headers=headers), timeout=4).read().decode("utf-8", errors="replace")
+                page = opener.open(
+                    urllib.request.Request(base + endpoint, headers=headers),
+                    timeout=request_timeout,
+                ).read().decode("utf-8", errors="replace")
             except Exception:
                 continue
             if "showValidateCode.aspx" in page or "login.css" in page:

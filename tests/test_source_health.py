@@ -119,6 +119,24 @@ def test_failed_chinese_journal_does_not_count_as_a_path():
         {"source_groups": {"cn-journals": {"ok": True, "updated_at": "2026-07-27T11:30:00+00:00", "journals": [{"journal_id": "journal-edcb877d78", "ok": False}]}}},
     )
     assert result["usable_paths"] == ["crossref"]
+    assert result["failed_paths"][0]["path"] == "cn-journals"
+
+
+def test_partial_group_failure_does_not_hide_successful_chinese_sibling():
+    result = inspect_journal(
+        {"id": "journal-edcb877d78", "title": "数量经济技术经济研究", "publisher": "CN"},
+        {"journals": {"journal-edcb877d78": {"last_rss_status": "none", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+        {"source_groups": {"cn-journals": {
+            "ok": False,
+            "updated_at": "2026-07-27T11:30:00+00:00",
+            "journals": [{"journal_id": "journal-edcb877d78", "ok": True, "count": 8}],
+        }}},
+    )
+    assert "cn-journals" in result["usable_paths"]
+    assert result["failed_paths"] == []
 
 
 def test_failed_aea_child_does_not_hide_successful_sibling():
