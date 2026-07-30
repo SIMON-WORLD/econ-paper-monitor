@@ -15,6 +15,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from display_contract import display_titles
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 DAILY_DIR = DATA_DIR / "daily"
@@ -271,8 +273,8 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tu
     seen_date = seen.strftime("%Y-%m-%d") if seen else date_value
     seen_time = seen.strftime("%H:%M") if seen else "--:--"
     date_markup = f'<span>{esc(seen_date)}</span>' if previous_date != seen_date else ""
-    title_en = str(record.get("title") or "未命名记录").strip()
-    title_zh = str(record.get("title_zh") or "").strip()
+    title_primary, title_secondary = display_titles(record)
+    title_primary = title_primary or "未命名记录"
     authors = author_values(record)
     author_markup = f'          <p class="authors">{esc(", ".join(authors))}</p>\n' if authors else ""
     topic_markup = "".join(f'<span class="tag">{esc(label)}</span>' for label in labels)
@@ -295,8 +297,8 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tu
         <div class="paper-time"><time>{esc(seen_time)}</time>{date_markup}</div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
         <div class="paper-body">
           <div class="paper-kicker"><span>{esc(detail_kind)}</span><span>{esc(source_name(record))}</span></div>
-          <h3><a href="{esc(original)}" target="_blank" rel="noreferrer">{esc(title_zh or title_en)}</a></h3>
-          {f'<p class="english-title">{esc(title_en)}</p>' if title_zh else ''}
+          <h3><a href="{esc(original)}" target="_blank" rel="noreferrer">{esc(title_primary)}</a></h3>
+          {f'<p class="english-title">{esc(title_secondary)}</p>' if title_secondary else ''}
 {author_markup}          <div class="paper-foot">{tags_markup}<a class="read-link" href="{esc(original)}" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
           <details class="paper-details"><summary>查看来源与日期</summary><p>{details}</p></details><span class="paper-divider" aria-hidden="true"></span>
         </div>

@@ -92,6 +92,31 @@ def test_failed_generation_preserves_previous_valid_output(daily_builder, tmp_pa
     assert output.read_bytes() == before
 
 
+@pytest.mark.parametrize(
+    ("title", "title_zh", "primary", "secondary"),
+    [
+        ("English title", "中文标题", "中文标题", "English title"),
+        ("English title", "", "English title", None),
+        ("Same title", "Same title", "Same title", None),
+    ],
+)
+def test_shared_title_contract_controls_primary_and_secondary_titles(
+    daily_builder, tmp_path, title, title_zh, primary, secondary
+):
+    builder, daily_dir = daily_builder
+    record = make_record(1)
+    record.update({"title": title, "title_zh": title_zh})
+    (daily_dir / "2026-07-29.json").write_text(json.dumps([record]), encoding="utf-8")
+    output = tmp_path / "index.html"
+    builder.build("2026-07-29", ROOT / "docs" / "daily-vnext" / "template.html", output, tmp_path / "report.json")
+    html = output.read_text(encoding="utf-8")
+    assert f">{primary}</a>" in html
+    if secondary:
+        assert f'class="english-title">{secondary}</p>' in html
+    else:
+        assert 'class="english-title"' not in html
+
+
 def test_display_build_does_not_modify_data(tmp_path):
     data_files = sorted((ROOT / "data").rglob("*"))
     before = {
@@ -137,7 +162,6 @@ def test_secondary_pages_use_vnext_shell_and_preserve_classic(tmp_path):
         "topics/china/index.html",
         "journals/index.html",
         "working-papers/index.html",
-        "archive/index.html",
         "search/index.html",
     ]:
         html = (tmp_path / "docs" / relative).read_text(encoding="utf-8")
@@ -146,6 +170,11 @@ def test_secondary_pages_use_vnext_shell_and_preserve_classic(tmp_path):
         assert 'class="context-nav"' in html
         assert 'class="sidebar"' not in html
         assert 'data-filter-scope="' in html or "journal-table" in html
+
+    archive_html = (tmp_path / "docs" / "archive" / "index.html").read_text(encoding="utf-8")
+    assert 'name="robots" content="noindex,follow"' in archive_html
+    assert 'http-equiv="refresh" content="0;url=../search/"' in archive_html
+    assert 'class="site-header"' not in archive_html
 
     assert hashlib.sha256(classic.read_bytes()).hexdigest() == before_classic
 

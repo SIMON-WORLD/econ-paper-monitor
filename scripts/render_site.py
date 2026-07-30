@@ -15,6 +15,7 @@ from typing import Any
 from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, normalize_doi, read_json, today_str, write_text
 from dedupe import record_match_keys
 from status import load_status
+from display_contract import display_titles
 
 
 SITE_NAME = "Econ Papers Daily"
@@ -1079,7 +1080,6 @@ def sidebar(
     <a class="side-link" href="{BASE}/"><span class="side-main"><strong>今日论文</strong></span><span class="count">今日</span></a>
     <a class="side-link" href="{BASE}/recent72/"><span class="side-main"><strong>最近72小时</strong></span><span class="count">近3天</span></a>
     <a class="side-link" href="{BASE}/topics/china/"><span class="side-main"><strong>与中国相关</strong></span><span class="count">主题</span></a>
-    <a class="side-link" href="{BASE}/archive/"><span class="side-main"><strong>历史归档</strong></span><span class="count">归档</span></a>
     <a class="side-link" href="{BASE}/search/"><span class="side-main"><strong>全站检索</strong></span><span class="count">检索</span></a>
     <a class="side-link" href="{BASE}/journals/"><span class="side-main"><strong>监测期刊</strong></span><span class="count">清单</span></a>
     <a class="side-link" href="{BASE}/working-papers/"><span class="side-main"><strong>工作论文</strong></span><span class="count">论文</span></a>
@@ -1151,7 +1151,6 @@ def secondary_context_nav(active: str = "") -> str:
         ("china", "中国研究", f"{BASE}/topics/china/"),
         ("journals", "期刊", f"{BASE}/journals/"),
         ("working-papers", "工作论文", f"{BASE}/working-papers/"),
-        ("archive", "归档", f"{BASE}/archive/"),
         ("search", "搜索", f"{BASE}/search/"),
         ("feed", "RSS", f"{BASE}/feed.xml"),
     ]
@@ -1223,7 +1222,6 @@ def page(
       <a class="{ 'active' if active == 'recent72' else '' }" href="{BASE}/recent72/">最近72小时</a>
       <a class="{ 'active' if active == 'china' else '' }" href="{BASE}/topics/china/">中国研究</a>
       <a class="{ 'active' if active == 'journals' else '' }" href="{BASE}/journals/">期刊</a>
-      <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
       <a class="{ 'active' if active == 'search' else '' }" href="{BASE}/search/">搜索</a>
       <a class="{ 'active' if active == 'working-papers' else '' }" href="{BASE}/working-papers/">工作论文</a>
     </nav>
@@ -1266,12 +1264,9 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
             link_or_doi = '<span class="doi">暂无 DOI</span>'
         topics = article_topics(record)
         fields = "".join(f'<span class="pill">{html_escape(topic_label(topic))}</span>' for topic in topics[:3] if topic != "china")
-        title_en = str(record.get("title") or "")
-        title_zh = record.get("title_zh")
-        if title_zh and str(title_zh).strip() == title_en.strip():
-            title_zh = None
-        primary_title = title_zh or title_en
-        original_title_html = f'\n    <p class="title-original">{html_escape(title_en)}</p>' if title_zh else ""
+        primary_title, secondary_title = display_titles(record)
+        primary_title = primary_title or "未命名记录"
+        original_title_html = f'\n    <p class="title-original">{html_escape(secondary_title)}</p>' if secondary_title else ""
         author_text = authors(record)
         authors_html = f'\n    <p class="authors">{html_escape(author_text)}</p>' if author_text else ""
         china_related = is_china_related(record) or "china" in topics
@@ -1547,7 +1542,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
           <a class="hero-stat" href="{BASE}/recent72/"><strong>{len(recent72_records)}</strong><span>最近72小时</span></a>
           <a class="hero-stat" href="#working-flow" data-filter-preset="all" data-filter-scope-target="working"><strong>{len(working_flow_records)}</strong><span>今日工作论文</span></a>
           <a class="hero-stat china" href="#working-flow" data-filter-preset="china" data-filter-scope-target="working"><strong>{sum(1 for record in working_flow_records if is_public_china_related(record))}</strong><span>工作论文中与中国相关</span></a>
-          <a class="hero-stat duo" href="{BASE}/archive/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>{all_journal_count}</strong><em>期刊论文</em></div><div><strong>{len(all_working)}</strong><em>工作论文</em></div></div></a>
+          <a class="hero-stat duo" href="{BASE}/search/"><span class="stat-title">累计监测</span><div class="hero-stat-pair"><div><strong>{all_journal_count}</strong><em>期刊论文</em></div><div><strong>{len(all_working)}</strong><em>工作论文</em></div></div></a>
         </div>
       </div>
       <aside class="operator-card">
@@ -1573,7 +1568,7 @@ def home_body(records: list[dict[str, Any]], today_records: list[dict[str, Any]]
   <a class="stat" href="{BASE}/journals/"><strong>{len({record.get('journal_id') for record in journal_flow_records if record.get('journal_id')})}</strong><span>今日涉及期刊</span></a>
   <a class="stat china" href="#journal-flow" data-filter-preset="china" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if is_china_related(record))}</strong><span>期刊论文中与中国相关</span></a>
   <a class="stat" href="#journal-flow" data-filter-preset="online-today" data-filter-scope-target="journal"><strong>{sum(1 for record in journal_flow_records if today_str() in {str(record.get('available_online') or ''), str(record.get('published_online') or '')})}</strong><span>期刊在线日期为今日</span></a>
-  <a class="stat" href="{BASE}/archive/"><strong>{all_journal_count}</strong><span>累计期刊论文记录</span></a>
+  <a class="stat" href="{BASE}/journals/"><strong>{all_journal_count}</strong><span>累计期刊论文记录</span></a>
 </section>
 {filter_toolbar(journal_flow_records, include_rss=True, scope="journal")}
 {note}
@@ -1681,14 +1676,15 @@ def china_quality_body(records: list[dict[str, Any]]) -> str:
     working_confirmed = [record for record in confirmed if is_working_paper(record)]
 
     def item(record: dict[str, Any]) -> str:
-        title_zh = record.get("title_zh")
-        zh = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh and title_zh != record.get("title") else ""
+        title_primary, title_secondary = display_titles(record)
+        title_primary = title_primary or "未命名记录"
+        secondary = f'<p class="title-original">{html_escape(title_secondary)}</p>' if title_secondary else ""
         status = str(record.get("china_relevance_status") or ("confirmed" if is_china_related(record) else "none"))
         reason = record.get("china_relevance_reason") or record.get("china_related_reason") or "暂无判定说明"
         evidence = record.get("china_relevance_evidence") or record.get("china_related_source") or ""
         return f"""<article class="audit-item">
-  <h3><a href="{html_escape(record_url(record))}">{html_escape(record.get('title') or 'Untitled')}</a></h3>
-  {zh}
+  <h3><a href="{html_escape(record_url(record))}">{html_escape(title_primary)}</a></h3>
+  {secondary}
   <div class="audit-meta">{html_escape(record.get('journal') or '')} · {html_escape(detected_date(record))} · 状态：{html_escape(status)}</div>
   <div class="audit-reason"><b>判定理由</b>：{html_escape(reason)}</div>
   {f'<div class="audit-reason"><b>证据</b>：{html_escape(evidence)}</div>' if evidence else ''}
@@ -1730,7 +1726,7 @@ def search_body(records: list[dict[str, Any]]) -> str:
 <section class="stats">
   <span class="stat"><strong>{len(journal_records)}</strong><span>期刊论文</span></span>
   <span class="stat"><strong>{len(wp_records)}</strong><span>工作论文/机构研究</span></span>
-  <a class="stat" href="{BASE}/archive/"><strong>{len({detected_date(record) for record in searchable})}</strong><span>归档日期</span></a>
+  <span class="stat"><strong>{len({detected_date(record) for record in searchable})}</strong><span>记录日期</span></span>
   <a class="stat china" href="{BASE}/topics/china/"><strong>{sum(1 for record in searchable if is_public_china_related(record))}</strong><span>与中国相关</span></a>
 </section>
 <div class="empty home-note">可以按标题、中文标题、作者、DOI、期刊/来源检索；也可以继续组合期刊、主题、日期类型、可信度和来源类型筛选。</div>
@@ -2018,6 +2014,20 @@ def write_page(path: Path, content: str) -> None:
     depth = len(relative_parent.parts)
     page_base = "." if depth == 0 else "/".join([".."] * depth)
     write_text(path, content.replace(BASE, page_base))
+
+
+def archive_compatibility_page() -> str:
+    """Keep old /archive/ links useful without presenting a second archive UI."""
+    return f'''<!doctype html>
+<html lang="zh-CN"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta http-equiv="refresh" content="0;url={BASE}/search/">
+  <title>历史记录检索 · Econ Papers Daily</title>
+</head><body>
+  <main><h1>历史记录已移至全站检索</h1>
+  <p><a href="{BASE}/search/">前往全站检索</a></p></main>
+</body></html>'''
 
 
 def ensure_today_archive(daily_dir: Path) -> None:
@@ -2415,15 +2425,9 @@ def main() -> None:
             page(f"{title} 最近 7 天", records, recent_body, active="china" if topic == "china" else "", sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
         )
 
-    archive_body = (
-        '<section class="section-head"><div><h2>历史归档</h2><p>按本站首次监测日期整理，同时展示当日记录中的官方/在线日期范围。</p></div></section>'
-        '<table class="journal-table"><thead><tr><th>首次监测日期</th><th>官方/在线日期范围</th><th>期刊论文</th><th>工作论文</th><th>合计</th></tr></thead><tbody>'
-        + "\n".join(archive_rows)
-        + "</tbody></table>"
-    )
     write_page(
         args.docs_dir / "archive" / "index.html",
-        page("历史归档", records, archive_body, active="archive", sidebar_records=today_records, sidebar_date=today_str()),
+        archive_compatibility_page(),
     )
     print(f"rendered {len(records)} records into {args.docs_dir}")
 
