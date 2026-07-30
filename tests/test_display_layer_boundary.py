@@ -8,6 +8,7 @@ def test_only_homepage_generator_can_target_root_homepage():
     renderer = (ROOT / "scripts" / "render_site.py").read_text(encoding="utf-8")
     homepage = (ROOT / "scripts" / "build_daily_vnext.py").read_text(encoding="utf-8")
     assert 'args.docs_dir / "index.html"' not in renderer
+    assert 'args.docs_dir / "classic"' not in renderer
     assert 'ROOT / "docs" / "index.html"' in homepage
 
 

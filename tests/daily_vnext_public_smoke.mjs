@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { chromium } from "playwright";
 
-const root = process.env.SITE_ROOT_URL || "https://academic-door.github.io/econ-paper-monitor/";
-const dailyVnext = process.env.DAILY_VNEXT_URL || new URL("daily-vnext/", root).href;
+const root = process.env.SITE_ROOT_URL || process.env.DAILY_VNEXT_URL || "https://academic-door.github.io/econ-paper-monitor/";
+const dailyVnext = new URL("daily-vnext/", root).href;
 const urls = [root, dailyVnext];
 
 async function visibleEntries(page, selector = '.paper-entry') {
@@ -48,15 +48,26 @@ async function checkPage(browser, url) {
 }
 
 async function checkSecondaryPages(browser) {
-  const paths = ["classic/", "recent72/", "archive/", "search/", "journals/", "working-papers/"];
+  const paths = ["classic/", "recent72/", "topics/china/", "archive/", "search/", "journals/", "working-papers/"];
+  const mobile = Number(process.env.VIEWPORT_WIDTH || 0);
   for (const path of paths) {
     const url = new URL(path, root).href;
-    const page = await browser.newPage();
+    const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
     const errors = [];
     page.on("pageerror", (error) => errors.push(String(error)));
     const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
     assert.equal(response?.status(), 200, `${url} did not return 200`);
     assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
+    if (path === "classic/") {
+      assert.ok(await page.locator('.sidebar').isVisible(), `${url} classic sidebar is missing`);
+    } else {
+      assert.ok(await page.locator('.site-header').isVisible(), `${url} vNext header is missing`);
+      assert.equal(await page.locator('.sidebar').count(), 0, `${url} legacy sidebar leaked`);
+      assert.ok(await page.locator('.secondary-page').isVisible(), `${url} secondary shell is missing`);
+    }
+    if (mobile) {
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
+    }
     await page.close();
   }
   const feedPage = await browser.newPage();

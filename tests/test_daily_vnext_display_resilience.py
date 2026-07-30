@@ -116,3 +116,35 @@ def test_display_build_does_not_modify_data(tmp_path):
         if path.is_file()
     }
     assert after == before
+
+
+def test_secondary_pages_use_vnext_shell_and_preserve_classic(tmp_path):
+    import subprocess
+
+    classic = ROOT / "docs" / "classic" / "index.html"
+    before_classic = hashlib.sha256(classic.read_bytes()).hexdigest()
+
+    subprocess.run(
+        ["python", "scripts/render_site.py", "--docs-dir", str(tmp_path / "docs")],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    for relative in [
+        "recent72/index.html",
+        "topics/china/index.html",
+        "journals/index.html",
+        "working-papers/index.html",
+        "archive/index.html",
+        "search/index.html",
+    ]:
+        html = (tmp_path / "docs" / relative).read_text(encoding="utf-8")
+        assert 'class="site-header"' in html
+        assert 'class="secondary-page"' in html
+        assert 'class="context-nav"' in html
+        assert 'class="sidebar"' not in html
+        assert 'data-filter-scope="' in html or "journal-table" in html
+
+    assert hashlib.sha256(classic.read_bytes()).hexdigest() == before_classic
