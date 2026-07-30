@@ -148,3 +148,22 @@ def test_secondary_pages_use_vnext_shell_and_preserve_classic(tmp_path):
         assert 'data-filter-scope="' in html or "journal-table" in html
 
     assert hashlib.sha256(classic.read_bytes()).hexdigest() == before_classic
+
+
+def test_secondary_page_titles_prefer_chinese_and_keep_original():
+    import sys
+
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import render_site
+
+    record = make_record(1)
+    rendered = render_site.paper_events([record], scope="fixture")
+
+    assert f">{record['title_zh']}</a></h3>" in rendered
+    assert f'<p class="title-original">{record["title"]}</p>' in rendered
+    assert rendered.index(record["title_zh"]) < rendered.index(record["title"])
+
+    record.pop("title_zh")
+    fallback = render_site.paper_events([record], scope="fixture")
+    assert f">{record['title']}</a></h3>" in fallback
+    assert 'class="title-original"' not in fallback
