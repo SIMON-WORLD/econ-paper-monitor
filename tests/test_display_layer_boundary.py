@@ -30,3 +30,21 @@ def test_monitor_and_display_workflows_cannot_form_a_push_loop():
     assert "git add data" in monitor
     assert 'paths:\n      - "data/**"' in display
     assert '      - "docs/**"' not in display
+
+
+def test_non_classic_navigation_has_no_archive_entry():
+    renderer = (ROOT / "scripts" / "render_site.py").read_text(encoding="utf-8")
+    template = (ROOT / "docs" / "daily-vnext" / "template.html").read_text(encoding="utf-8")
+    assert 'href="{BASE}/archive/"' not in renderer
+    assert 'href="../archive/"' not in template
+
+
+def test_classic_surface_is_not_owned_by_display_renderer():
+    renderer = (ROOT / "scripts" / "render_site.py").read_text(encoding="utf-8")
+    assert 'args.docs_dir / "classic"' not in renderer
+
+
+def test_archive_is_a_noindex_search_compatibility_page():
+    renderer = (ROOT / "scripts" / "render_site.py").read_text(encoding="utf-8")
+    assert 'meta name="robots" content="noindex,follow"' in renderer
+    assert 'meta http-equiv="refresh" content="0;url={BASE}/search/"' in renderer
