@@ -127,6 +127,13 @@ EXTRA_STYLE = """
 .presence{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}.presence-dot{color:#1a9b52;font-size:14px}
 """
 
+SECONDARY_STYLE = """
+:root{color-scheme:light;--paper:#f4f1ea;--ink:#202426;--muted:#6f716d;--line:#d8d3c9;--blue:#1d5f83;--blue-deep:#16445e;--red:#a94236;--white:#fbfaf7;--soft:#ece7dc;--mono:"IBM Plex Mono",Consolas,monospace;--serif:Georgia,"Noto Serif SC","Songti SC",serif;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.62}a{color:inherit;text-decoration:none}a:hover{color:var(--blue)}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #84b8d3;outline-offset:3px}.skip-link{position:absolute;left:1rem;top:-3rem;background:var(--blue-deep);color:#fff;padding:.6rem 1rem;z-index:5}.skip-link:focus{top:1rem}.site-header{position:sticky;top:0;z-index:4;border-bottom:1px solid var(--line);background:rgba(244,241,234,.94);backdrop-filter:blur(12px)}.header-inner{max-width:1280px;margin:auto;padding:1rem 2rem;display:flex;align-items:center;gap:2rem}.wordmark{font-family:var(--serif);font-size:1.2rem;line-height:1.05;white-space:nowrap}.wordmark small{display:block;font:600 .66rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}.nav{display:flex;gap:1.35rem;margin-left:auto;font-size:.88rem;color:var(--muted);align-items:center}.nav a.active{color:var(--blue);font-weight:700}.presence{font-size:.76rem;white-space:nowrap;color:var(--muted)}.presence::before{content:"";display:inline-block;width:.45rem;height:.45rem;border-radius:50%;background:#3e8b61;margin-right:.4rem;vertical-align:1px}.presence-dot{display:none}.menu{display:none;border:0;background:transparent;color:var(--ink);font-size:1.35rem;min-width:44px;min-height:44px}.secondary-page{max-width:1280px;margin:auto;padding:0 2rem}.page-hero{padding:4.7rem 0 2.4rem;border-bottom:1px solid var(--ink);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end}.page-eyebrow{font:600 .72rem var(--mono);letter-spacing:.15em;color:var(--blue);text-transform:uppercase;margin:0 0 .85rem}.page-hero h1{font:400 clamp(2.6rem,6vw,5.6rem)/.94 var(--serif);letter-spacing:-.03em;margin:0;overflow-wrap:anywhere}.page-hero p{max-width:680px;color:var(--muted);margin:.95rem 0 0;font:400 1.05rem/1.55 var(--serif)}.context-nav{display:flex;gap:.55rem;flex-wrap:wrap;padding:1rem 0 0}.context-nav a{border:1px solid var(--line);min-height:36px;padding:.42rem .7rem;font-size:.78rem;color:var(--muted);display:inline-flex;align-items:center}.context-nav a:hover,.context-nav a.active{border-color:var(--blue);color:var(--blue);background:rgba(29,95,131,.05)}.wrap{padding:2.5rem 0 4rem}.section-head{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;border-bottom:1px solid var(--line);padding:2.2rem 0 1rem;margin:0}.section-head.split-section{margin-top:3rem}.section-head h2{font:400 clamp(1.7rem,3vw,2.5rem)/1.05 var(--serif);margin:0}.section-head p{margin:.45rem 0 0;color:var(--muted);font-size:.86rem;max-width:720px}.stats,.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:1.3rem 0;background:var(--line)}.stat,.audit-card{background:var(--paper);padding:1rem .9rem;color:var(--muted);min-width:0}.stat:hover{background:rgba(251,250,247,.55);text-decoration:none}.stat strong,.audit-card strong{display:block;color:var(--ink);font:400 1.65rem/1 var(--serif);overflow-wrap:anywhere}.stat span,.audit-card span{display:block;font-size:.78rem;margin-top:.25rem}.stat.china strong,.pill.china{color:var(--red)}.toolbar{display:flex;gap:.55rem;flex-wrap:wrap;align-items:center;margin:1.35rem 0}.control{min-height:44px;border:1px solid var(--line);background:var(--white);color:var(--muted);padding:.58rem .75rem;font:500 .82rem var(--sans);max-width:100%;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease}.control:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(29,95,131,.14);outline:0}.control.primary,.control.toggle.active{background:var(--blue);border-color:var(--blue);color:#fff}.control.rss-link{font-weight:700}.view-tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin:1rem 0}.view-tab{border:1px solid var(--line);padding:.5rem .75rem;color:var(--muted);font-size:.82rem;min-height:38px;display:inline-flex;align-items:center}.view-tab.active,.view-tab:hover{border-color:var(--blue);color:var(--blue);background:rgba(29,95,131,.05)}.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:1.4rem;padding:1.65rem 0;border-bottom:1px solid var(--line);background:transparent;min-width:0}.event:before{content:"";position:absolute;left:87px;top:1.95rem;width:8px;height:8px;border:1px solid #9eb7c3;border-radius:50%;background:var(--paper)}.event:after{content:"";position:absolute;left:91px;top:2.6rem;bottom:-.4rem;width:1px;background:rgba(29,95,131,.2)}.event:last-of-type:after{display:none}.event[data-china="true"]:before{border-color:var(--red)}.event:hover:before{background:var(--blue);border-color:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red);border-color:var(--red)}.event[hidden]{display:none}.time{font:600 .76rem var(--mono);color:var(--blue);padding-top:.24rem}.date-note{font:.68rem var(--mono);color:var(--muted);margin-top:.2rem}.event h3{font:400 clamp(1.25rem,2vw,1.85rem)/1.25 var(--serif);margin:0 0 .45rem;max-width:920px;overflow-wrap:anywhere}.title-zh{font:400 .96rem/1.5 var(--serif);color:var(--muted);margin:0 0 .5rem;overflow-wrap:anywhere}.authors{font-size:.85rem;color:var(--muted);margin:0 0 .95rem;overflow-wrap:anywhere}.meta-block{display:grid;gap:.42rem;font-size:.78rem;color:var(--muted);min-width:0}.meta-line{display:flex;gap:.65rem;align-items:flex-start;min-width:0}.meta-label{flex:0 0 4.5rem;color:var(--ink);font-weight:700}.meta-values{display:flex;flex-wrap:wrap;gap:.45rem;min-width:0}.journal-chip,.date-chip,.pill,.source-status{border:1px solid var(--line);background:rgba(251,250,247,.7);color:var(--muted);padding:.14rem .45rem;font-size:.72rem;line-height:1.4;overflow-wrap:anywhere}.journal-chip{color:var(--blue-deep);border-color:#a8c0ca}.date-chip.pending{border-color:#d3bd70;color:#7d4e00}.date-chip.issue{background:var(--soft)}.pill.fresh{border-color:#92bd9e;color:#286942}.pill.lag{border-color:#d3bd70;color:#7d4e00}.doi{font-family:var(--mono);word-break:break-word}.empty{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:2.2rem 0;color:var(--muted);background:transparent}.home-note{padding:1rem 0}.journal-table{width:100%;border-collapse:collapse;margin-top:1.3rem;font-size:.86rem}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:.78rem .65rem;text-align:left;vertical-align:top;overflow-wrap:anywhere}.journal-table th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}.muted{color:var(--muted)}.archive-list{padding-left:1.1rem}.archive-list li{margin:.45rem 0}.audit-list{display:grid;gap:0;border-top:1px solid var(--line)}.audit-item{border-bottom:1px solid var(--line);padding:1.3rem 0}.audit-item h3{font:400 1.3rem/1.3 var(--serif);margin:0 0 .45rem}.audit-meta,.audit-reason{color:var(--muted);font-size:.84rem;margin-top:.35rem}.gate{max-width:640px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);padding:1.6rem 0}.gate input{width:100%;border:1px solid var(--line);background:var(--white);min-height:44px;padding:.65rem;margin:.8rem 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;min-height:42px;padding:.55rem .85rem}.gate-note{color:var(--muted);font-size:.82rem}.hidden{display:none!important}.site-footer{margin-top:5rem;border-top:1px solid var(--ink);padding:2.5rem 0 3.5rem}.footer-inner{display:flex;justify-content:space-between;gap:2rem;align-items:end}.footer-brand{font:400 1.9rem var(--serif)}.footer-note{color:var(--muted);font-size:.84rem;margin-top:.35rem}.footer-links{display:flex;gap:1rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+@media(max-width:900px){.header-inner,.secondary-page{padding-left:1rem;padding-right:1rem}.nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:1rem;flex-direction:column;align-items:flex-start;gap:.7rem}.nav.open{display:flex}.menu{display:block;margin-left:auto}.presence{display:none}.page-hero{display:block;padding:3.4rem 0 1.7rem}.page-hero p{font-size:1rem}.wrap{padding-top:1.7rem}.section-head{display:block;padding-top:1.8rem}.section-head>p{margin-top:.65rem}.toolbar{display:grid;grid-template-columns:1fr}.control{width:100%}.event{grid-template-columns:1fr;gap:.4rem;padding:1.35rem 0 1.45rem}.event:before{left:0;top:1.72rem}.event:after{left:4px;top:2.35rem}.time,.date-note{padding-left:1.25rem;display:inline-block}.date-note{margin-left:.4rem}.meta-line{display:block}.meta-label{display:block;margin-bottom:.2rem}.journal-table{display:block;overflow-x:auto;max-width:100%}.footer-inner{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+"""
+
 
 def field_label(field: str) -> str:
     return FIELD_LABELS.get(field, field.replace("_", " "))
@@ -1138,6 +1145,54 @@ def presence_snippet() -> str:
 </script>"""
 
 
+def secondary_context_nav(active: str = "") -> str:
+    links = [
+        ("recent72", "最近72小时", f"{BASE}/recent72/"),
+        ("china", "中国研究", f"{BASE}/topics/china/"),
+        ("journals", "期刊", f"{BASE}/journals/"),
+        ("working-papers", "工作论文", f"{BASE}/working-papers/"),
+        ("archive", "归档", f"{BASE}/archive/"),
+        ("search", "搜索", f"{BASE}/search/"),
+        ("feed", "RSS", f"{BASE}/feed.xml"),
+    ]
+    return "".join(
+        f'<a class="{"active" if key == active else ""}" href="{href}">{label}</a>'
+        for key, label, href in links
+    )
+
+
+def secondary_page_lede(title: str) -> str:
+    if title == "最近72小时":
+        return "连续浏览近三天首次监测到的经济学研究内容，适合快速补齐最近的发现流。"
+    if title == "与中国相关":
+        return "集中查看明确涉及中国数据、制度、市场或研究对象的期刊论文与工作论文。"
+    if title == "全站检索":
+        return "检索全部历史记录，并组合期刊、主题、日期类型、可信度和来源类型筛选。"
+    if title in {"监测期刊", "历史归档", "全部工作论文"}:
+        return "使用与 Daily Door 同源的数据和页面体系，保持清晰、可检索、可连续浏览。"
+    if "归档" in title:
+        return "按本站首次监测日期组织的每日记录，官方发布日期与首次监测日期分开显示。"
+    if "工作论文" in title:
+        return "覆盖工作论文与机构研究来源，按首次监测时间倒序排列。"
+    if "最近 7 天" in title:
+        return "按最近有记录的日期向前滚动，帮助连续追踪同一来源或主题。"
+    return "从规范化 canonical 数据生成，保留论文来源、日期、主题和详情入口。"
+
+
+def menu_script() -> str:
+    return """<script>
+(() => {
+  const nav = document.querySelector('.nav');
+  const menu = document.querySelector('.menu');
+  if (!nav || !menu) return;
+  menu.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', String(open));
+  });
+})();
+</script>"""
+
+
 def page(
     title: str,
     records: list[dict[str, Any]],
@@ -1147,6 +1202,7 @@ def page(
     sidebar_records: list[dict[str, Any]] | None = None,
     sidebar_date: str | None = None,
 ) -> str:
+    lede = secondary_page_lede(title)
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -1156,31 +1212,40 @@ def page(
   <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分首次监测时间、官方在线日期和中国相关研究。">
   <title>{html_escape(title)}</title>
   {analytics_snippet()}
-  <style>{STYLE}{EXTRA_STYLE}</style>
+  <style>{SECONDARY_STYLE}</style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳到正文</a>
-  <div class="shell">
-    {sidebar(records, context_records=sidebar_records, context_date=sidebar_date)}
-    <div class="content">
-      <header class="topbar"><div class="topbar-inner">
-        <div><strong>{SITE_NAME}</strong> <span class="subtitle">{SITE_SUBTITLE}</span></div>
-        <span class="presence" data-presence-count></span>
-        <nav class="nav">
-          <a class="{ 'active' if active == 'home' else '' }" href="{BASE}/">今日</a>
-          <a class="{ 'active' if active == 'recent72' else '' }" href="{BASE}/recent72/">最近72小时</a>
-          <a href="{BASE}/topics/china/">与中国相关</a>
-          <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
-          <a class="{ 'active' if active == 'search' else '' }" href="{BASE}/search/">检索</a>
-          <a href="{BASE}/journals/">监测期刊</a>
-          <a class="{ 'active' if active == 'working-papers' else '' }" href="{BASE}/working-papers/">工作论文</a>
-          <a href="{BASE}/feed.xml">RSS</a>
-        </nav>
-      </div></header>
-      <main class="wrap" id="main-content">{body}</main>
-    </div>
-  </div>
-{presence_snippet()}</body>
+  <header class="site-header"><div class="header-inner">
+    <a class="wordmark" href="{BASE}/"><small>Academic Door</small>Econ Papers Daily</a>
+    <nav class="nav" id="primary-nav">
+      <a class="{ 'active' if active == 'home' else '' }" href="{BASE}/">今日</a>
+      <a class="{ 'active' if active == 'recent72' else '' }" href="{BASE}/recent72/">最近72小时</a>
+      <a class="{ 'active' if active == 'china' else '' }" href="{BASE}/topics/china/">中国研究</a>
+      <a class="{ 'active' if active == 'journals' else '' }" href="{BASE}/journals/">期刊</a>
+      <a class="{ 'active' if active == 'archive' else '' }" href="{BASE}/archive/">归档</a>
+      <a class="{ 'active' if active == 'search' else '' }" href="{BASE}/search/">搜索</a>
+      <a class="{ 'active' if active == 'working-papers' else '' }" href="{BASE}/working-papers/">工作论文</a>
+    </nav>
+    <span class="presence" data-presence-count title="匿名在线人数，按短时心跳统计">在线</span>
+    <button class="menu" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="打开导航">☰</button>
+  </div></header>
+  <main class="secondary-page" id="main-content">
+    <section class="page-hero">
+      <div>
+        <p class="page-eyebrow">Research Discovery</p>
+        <h1>{html_escape(title)}</h1>
+        <p>{html_escape(lede)}</p>
+      </div>
+      <nav class="context-nav" aria-label="页面导航">{secondary_context_nav(active)}</nav>
+    </section>
+    <div class="wrap">{body}</div>
+    <footer class="site-footer"><div class="footer-inner">
+      <div><div class="footer-brand">Academic Door</div><div class="footer-note">读好文献，用好论文。Econ Papers Daily 是每日之门里的研究发现流。</div></div>
+      <nav class="footer-links" aria-label="页脚导航"><a href="{BASE}/classic/">旧版</a><a href="{BASE}/daily-vnext/">Daily vNext</a><a href="{BASE}/feed.xml">RSS</a></nav>
+    </div></footer>
+  </main>
+{menu_script()}{presence_snippet()}</body>
 </html>
 """
 
@@ -1204,7 +1269,9 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         title_zh = record.get("title_zh")
         if title_zh and str(title_zh).strip() == str(record.get("title") or "").strip():
             title_zh = None
-        title_zh_html = f'<p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
+        title_zh_html = f'\n    <p class="title-zh">{html_escape(title_zh)}</p>' if title_zh else ""
+        author_text = authors(record)
+        authors_html = f'\n    <p class="authors">{html_escape(author_text)}</p>' if author_text else ""
         china_related = is_china_related(record) or "china" in topics
         china_tag = '<span class="pill china">与中国相关</span>' if china_related else ""
         detail_href = detail_url(record)
@@ -1221,9 +1288,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
             f"""<article class="{html_escape(classes)}" data-event-scope="{html_escape(scope)}" data-search="{html_escape(normalize_attr(search_text))}" data-journal="{html_escape(normalize_attr(record.get('journal_id')))}" data-fields="{html_escape(normalize_attr(field_attr))}" data-china="{str(china_related).lower()}" data-online-today="{str(online_today).lower()}" data-date-type="{html_escape(date_type(record))}" data-confidence="{html_escape(confidence_value(record))}" data-source-type="{html_escape(source_type_value(record))}">
   <div><div class="time">{html_escape(detected_time(record))}</div><div class="date-note">{html_escape(detected_date(record))}</div></div>
   <div>
-    <h3><a href="{html_escape(detail_href)}">{html_escape(record.get('title'))}</a></h3>
-    {title_zh_html}
-    <p class="authors">{html_escape(authors(record))}</p>
+    <h3><a href="{html_escape(detail_href)}">{html_escape(record.get('title'))}</a></h3>{title_zh_html}{authors_html}
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">{'来源' if is_working_paper(record) else '期刊'}</span><span class="meta-values"><span class="journal-chip">{html_escape(record.get('journal'))}</span>{type_tag}{detected_chip}</span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">{official_chip}{lag_chip}</span></div>
@@ -2151,6 +2216,7 @@ def main() -> None:
             "中国相关判定抽检",
             records,
             china_quality_body(records),
+            active="china",
             sidebar_records=home_flow_records,
             sidebar_date=home_flow_date,
         ),
@@ -2278,13 +2344,13 @@ def main() -> None:
         body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊历史发现记录。</p></div></section>{view_links}{filter_toolbar(journal_records)}{paper_events(journal_records)}{FILTER_SCRIPT}'
         write_page(
             args.docs_dir / "journals" / journal_id / "index.html",
-            page(title, records, body, sidebar_records=latest_journal_records, sidebar_date=latest_journal_date),
+            page(title, records, body, active="journals", sidebar_records=latest_journal_records, sidebar_date=latest_journal_date),
         )
         recent = recent_records(journal_records, 7)
         recent_body = f'<section class="section-head"><div><h2>{html_escape(title)}：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>{len(recent)} 篇</p></section>{view_links}{filter_toolbar(recent)}{paper_events(recent)}{FILTER_SCRIPT}'
         write_page(
             args.docs_dir / "journals" / journal_id / "recent7" / "index.html",
-            page(f"{title} 最近 7 天", records, recent_body, sidebar_records=latest_journal_records, sidebar_date=latest_journal_date),
+            page(f"{title} 最近 7 天", records, recent_body, active="journals", sidebar_records=latest_journal_records, sidebar_date=latest_journal_date),
         )
 
     for journal in journals:
@@ -2292,10 +2358,10 @@ def main() -> None:
             continue
         title = str(journal.get("title") or journal["id"])
         body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊暂无有效论文记录。</p></div></section>{paper_events([])}'
-        write_page(args.docs_dir / "journals" / journal["id"] / "index.html", page(title, records, body))
+        write_page(args.docs_dir / "journals" / journal["id"] / "index.html", page(title, records, body, active="journals"))
         write_page(
             args.docs_dir / "journals" / journal["id"] / "recent7" / "index.html",
-            page(f"{title} 最近 7 天", records, body),
+            page(f"{title} 最近 7 天", records, body, active="journals"),
         )
 
     journal_rows = []
@@ -2314,7 +2380,7 @@ def main() -> None:
         )
     journals_body = f"""<section class="section-head"><div><h2>监测期刊</h2><p>当前监测清单共 {len(journals)} 本期刊。优先级仅用于抓取频率，不在公开页面展示。</p></div></section>
 <table class="journal-table"><thead><tr><th>期刊</th><th>缩写</th><th>领域</th><th>ISSN</th><th>出版社</th></tr></thead><tbody>{"".join(journal_rows)}</tbody></table>"""
-    write_page(args.docs_dir / "journals" / "index.html", page("监测期刊", records, journals_body))
+    write_page(args.docs_dir / "journals" / "index.html", page("监测期刊", records, journals_body, active="journals"))
 
     for field, field_records in by_field.items():
         title = field_label(field)
@@ -2334,7 +2400,7 @@ def main() -> None:
         )
         write_page(
             args.docs_dir / "topics" / topic / "index.html",
-            page(title, records, body, sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
+            page(title, records, body, active="china" if topic == "china" else "", sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
         )
         recent = recent_records(topic_records, 7)
         recent_body = (
@@ -2344,7 +2410,7 @@ def main() -> None:
         )
         write_page(
             args.docs_dir / "topics" / topic / "recent7" / "index.html",
-            page(f"{title} 最近 7 天", records, recent_body, sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
+            page(f"{title} 最近 7 天", records, recent_body, active="china" if topic == "china" else "", sidebar_records=latest_topic_records, sidebar_date=latest_topic_date),
         )
 
     archive_body = (
