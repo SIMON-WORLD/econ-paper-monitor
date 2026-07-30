@@ -17,6 +17,7 @@ def test_display_workflow_reads_data_and_commits_docs_only():
     assert 'paths:\n      - "data/**"' in workflow
     assert "scripts/render_site.py" in workflow
     assert "scripts/build_daily_vnext.py" in workflow
+    assert "scripts/display_contract.py" in workflow
     assert "scripts/build_feed.py" in workflow
     assert "git add docs" in workflow
     assert "git add data" not in workflow
