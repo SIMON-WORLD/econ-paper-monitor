@@ -39,7 +39,145 @@
       </div>
       <nav class="context-nav" aria-label="页面导航"><a class="" href="../../../recent72/">最近72小时</a><a class="" href="../../../topics/china/">中国研究</a><a class="active" href="../../../journals/">期刊</a><a class="" href="../../../working-papers/">工作论文</a><a class="" href="../../../archive/">归档</a><a class="" href="../../../search/">搜索</a><a class="" href="../../../feed.xml">RSS</a></nav>
     </section>
-    <div class="wrap"><section class="section-head"><div><h2>American Economic Journal: Microeconomics</h2><p>该期刊暂无有效论文记录。</p></div></section><div class="empty">暂无符合条件的论文记录。</div></div>
+    <div class="wrap"><section class="section-head"><div><h2>American Economic Journal: Microeconomics：最近 7 天</h2><p>按该期刊最近有记录日期向前滚动 7 天。</p></div><p>1 篇</p></section><div class="toolbar">
+  <a class="control primary" href="../../../daily/2026-07-30/?journal=american-economic-journal-microeconomics">最新日期 1</a>
+  <a class="control" href="../../../journals/american-economic-journal-microeconomics/recent7/">最近 7 天 1</a>
+  <a class="control" href="../../../journals/american-economic-journal-microeconomics/">全部历史 1</a>
+</div><div class="toolbar" id="filters-default" data-filter-scope="default">
+  <input class="control" aria-label="搜索标题、作者或 DOI" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
+  <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选期刊</option><option value="american-economic-journal-microeconomics">American Economic Journal: Microeconomics</option></select>
+  <select class="control" aria-label="筛选主题" data-filter-role="field"><option value="">筛选主题</option><option value="development">发展经济学</option></select>
+  <select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">筛选日期类型</option><option value="issue">来源期次</option></select>
+  <select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">筛选可信度</option><option value="C">C：Crossref 元数据</option></select>
+  
+  <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
+</div>
+<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><article class="event" data-event-scope="default" data-search="disentangling probabilistic and strategic errors 区分概率性错误与策略性错误 geng, sen, guan, menglong american economic journal: microeconomics 10.1257/mic.20250285" data-journal="american-economic-journal-microeconomics" data-fields="development" data-china="false" data-online-today="false" data-date-type="issue" data-confidence="C" data-source-type="journal_article">
+  <div><div class="time">00:46</div><div class="date-note">2026-07-30</div></div>
+  <div>
+    <h3><a href="../../../paper.html?key=disentangling-probabilistic-and-strategic-errors-7206a4adfe1e">区分概率性错误与策略性错误</a></h3>
+    <p class="title-original">Disentangling Probabilistic and Strategic Errors</p>
+    <p class="authors">Geng, Sen, Guan, Menglong</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">American Economic Journal: Microeconomics</span><span class="pill">首次监测 2026-07-30</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip issue">来源期次 American Economic Journal: Microeconomics · 来源：期刊官网</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1257/mic.20250285">10.1257/mic.20250285</a><span class="pill">发展经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<script>
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
+    const scope = toolbar.dataset.filterScope || 'default';
+    const search = toolbar.querySelector('[data-filter-role="search"]');
+    const journal = toolbar.querySelector('[data-filter-role="journal"]');
+    const field = toolbar.querySelector('[data-filter-role="field"]');
+    const dateType = toolbar.querySelector('[data-filter-role="dateType"]');
+    const confidence = toolbar.querySelector('[data-filter-role="confidence"]');
+    const sourceType = toolbar.querySelector('[data-filter-role="sourceType"]');
+    const china = toolbar.querySelector('[data-filter-role="china"]');
+    const counter = document.querySelector(`[data-filter-counter="${scope}"]`);
+    const empty = document.querySelector(`[data-filter-empty="${scope}"]`);
+    const events = Array.from(document.querySelectorAll(`.event[data-event-scope="${scope}"]`));
+    if (!search || !journal || !field || !china) return;
+    let preset = '';
+    if (params.get('q')) search.value = params.get('q');
+    if (params.get('journal')) journal.value = params.get('journal');
+    if (params.get('field')) field.value = params.get('field');
+    if (dateType && params.get('dateType')) dateType.value = params.get('dateType');
+    if (confidence && params.get('confidence')) confidence.value = params.get('confidence');
+    if (sourceType && params.get('sourceType')) sourceType.value = params.get('sourceType');
+    if (params.get('china') === '1') {
+      china.setAttribute('aria-pressed', 'true');
+      china.classList.add('active');
+    }
+    if (params.get('onlineToday') === '1') preset = 'online-today';
+    function setCounter(visible, chinaOnly) {
+      if (!counter) return;
+      if (chinaOnly || preset === 'china') {
+        counter.innerHTML = `当前显示与中国相关研究 <span class="num">${visible}</span> 篇`;
+      } else if (preset === 'online-today') {
+        counter.innerHTML = `当前显示在线日期为今日的研究 <span class="num">${visible}</span> 篇`;
+      } else {
+        counter.innerHTML = `当前显示 <span class="num">${visible}</span> 篇`;
+      }
+    }
+    function applyFilters() {
+      const q = (search.value || '').trim().toLowerCase();
+      const journalValue = journal.value;
+      const fieldValue = field.value;
+      const dateTypeValue = dateType ? dateType.value : '';
+      const confidenceValue = confidence ? confidence.value : '';
+      const sourceTypeValue = sourceType ? sourceType.value : '';
+      const chinaOnly = china.getAttribute('aria-pressed') === 'true';
+      let visible = 0;
+      for (const item of events) {
+        const okSearch = !q || item.dataset.search.includes(q);
+        const okJournal = !journalValue || item.dataset.journal === journalValue;
+        const okField = !fieldValue || item.dataset.fields.split(' ').includes(fieldValue);
+        const okDateType = !dateTypeValue || item.dataset.dateType === dateTypeValue;
+        const okConfidence = !confidenceValue || item.dataset.confidence === confidenceValue;
+        const okSourceType = !sourceTypeValue || item.dataset.sourceType === sourceTypeValue;
+        const okChina = (!chinaOnly && preset !== 'china') || item.dataset.china === 'true';
+        const okPreset = preset !== 'online-today' || item.dataset.onlineToday === 'true';
+        const show = okSearch && okJournal && okField && okDateType && okConfidence && okSourceType && okChina && okPreset;
+        item.hidden = !show;
+        if (show) visible += 1;
+      }
+      if (empty) empty.hidden = visible !== 0;
+      setCounter(visible, chinaOnly);
+    }
+    search.addEventListener('input', applyFilters);
+    journal.addEventListener('change', applyFilters);
+    field.addEventListener('change', applyFilters);
+    if (dateType) dateType.addEventListener('change', applyFilters);
+    if (confidence) confidence.addEventListener('change', applyFilters);
+    if (sourceType) sourceType.addEventListener('change', applyFilters);
+    china.addEventListener('click', () => {
+      const active = china.getAttribute('aria-pressed') !== 'true';
+      china.setAttribute('aria-pressed', String(active));
+      china.classList.toggle('active', active);
+      applyFilters();
+    });
+    document.querySelectorAll(`[data-filter-preset][data-filter-scope-target="${scope}"]`).forEach((item) => {
+      item.addEventListener('click', (event) => {
+        event.preventDefault();
+        preset = item.dataset.filterPreset || '';
+        if (preset === 'all') {
+          search.value = '';
+          journal.value = '';
+          field.value = '';
+          if (dateType) dateType.value = '';
+          if (confidence) confidence.value = '';
+          if (sourceType) sourceType.value = '';
+          china.setAttribute('aria-pressed', 'false');
+          china.classList.remove('active');
+        }
+        if (preset === 'china') {
+          china.setAttribute('aria-pressed', 'true');
+          china.classList.add('active');
+        }
+        applyFilters();
+        toolbar.scrollIntoView({behavior: 'smooth', block: 'start'});
+      });
+    });
+    applyFilters();
+  });
+  document.querySelectorAll('[data-filter-preset]:not([data-filter-scope-target])').forEach((item) => {
+    item.setAttribute('data-filter-scope-target', 'default');
+  });
+  for (const item of document.querySelectorAll('[data-filter-preset]')) {
+    if (!item.dataset.boundScopeFallback) {
+      item.dataset.boundScopeFallback = '1';
+      if (!item.dataset.filterScopeTarget) {
+        item.dataset.filterScopeTarget = 'default';
+      }
+    }
+  }
+})();
+</script>
+</div>
     <footer class="site-footer"><div class="footer-inner">
       <div><div class="footer-brand">Academic Door</div><div class="footer-note">读好文献，用好论文。Econ Papers Daily 是每日之门里的研究发现流。</div></div>
       <nav class="footer-links" aria-label="页脚导航"><a href="../../../classic/">旧版</a><a href="../../../daily-vnext/">Daily vNext</a><a href="../../../feed.xml">RSS</a></nav>
