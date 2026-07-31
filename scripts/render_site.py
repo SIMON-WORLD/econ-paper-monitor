@@ -28,7 +28,8 @@ CN_TZ = BEIJING_TZ
 # silent and never affect paper rendering.
 DEFAULT_PRESENCE_ENDPOINT = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence"
 LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
-LAZY_SHARD_SIZE = 100
+LAZY_SHARD_SIZE = 40
+ROUTE_BUCKETS = 32
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -1203,13 +1204,14 @@ LAZY_LIST_SCRIPT = """
 (() => {
   const jsonCache = new Map();
   const loadJson = (url) => {
-    if (!jsonCache.has(url)) {
-      jsonCache.set(url, fetch(url, {credentials: 'same-origin'}).then((response) => {
+    const key = String(url);
+    if (!jsonCache.has(key)) {
+      jsonCache.set(key, fetch(url, {credentials: 'same-origin'}).then((response) => {
         if (!response.ok) throw new Error('lazy data request failed: ' + response.status);
         return response.json();
       }));
     }
-    return jsonCache.get(url);
+    return jsonCache.get(key);
   };
   const debounce = (fn, delay) => {
     let timer;
@@ -1217,6 +1219,39 @@ LAZY_LIST_SCRIPT = """
       window.clearTimeout(timer);
       timer = window.setTimeout(fn, delay);
     };
+  };
+  const queryTokens = (value) => {
+    const text = String(value || '').trim().toLowerCase();
+    const tokens = new Set();
+    for (const word of text.match(/[a-z0-9]+/g) || []) {
+      tokens.add(word);
+      if (word.length >= 3) {
+        for (let index = 0; index <= word.length - 3; index += 1) tokens.add(word.slice(index, index + 3));
+      }
+    }
+    for (const run of text.match(/[\u3400-\u9fff]+/g) || []) {
+      for (const char of run) tokens.add(char);
+      for (let index = 0; index < run.length - 1; index += 1) tokens.add(run.slice(index, index + 2));
+    }
+    return [...tokens];
+  };
+  const routeTokens = (toolbar) => {
+    const params = new URLSearchParams(window.location.search);
+    const tokens = queryTokens(toolbar?.querySelector('[data-filter-role="search"]')?.value || '');
+    const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
+    const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
+    const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
+    const confidence = toolbar?.querySelector('[data-filter-role="confidence"]')?.value || '';
+    const sourceType = toolbar?.querySelector('[data-filter-role="sourceType"]')?.value || '';
+    const china = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
+    if (journal) tokens.push('journal:' + journal);
+    if (field) tokens.push('field:' + field);
+    if (dateType) tokens.push('date:' + dateType);
+    if (confidence) tokens.push('confidence:' + confidence);
+    if (sourceType) tokens.push('source:' + sourceType);
+    if (china) tokens.push('china');
+    if (params.get('onlineToday') === '1') tokens.push('online-today');
+    return [...new Set(tokens)];
   };
   const matchingItems = (items, toolbar) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
@@ -1230,7 +1265,7 @@ LAZY_LIST_SCRIPT = """
     return items.filter((item) => {
       if (query && !String(item.search || '').includes(query)) return false;
       if (journal && item.journal !== journal) return false;
-      if (field && !String(item.fields || '').split(/\\s+/).includes(field)) return false;
+      if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
       if (dateType && item.dateType !== dateType) return false;
       if (confidence && item.confidence !== confidence) return false;
       if (sourceType && item.sourceType !== sourceType) return false;
@@ -1239,107 +1274,158 @@ LAZY_LIST_SCRIPT = """
       return true;
     });
   };
-  const updateList = async (list, items, toolbar, manifestUrl) => {
-    const scope = list.dataset.lazyScope || 'default';
-    const matches = matchingItems(items, toolbar);
-    const batchSize = 40;
-    let rendered = 0;
+  const clearRendered = (list) => {
+    list.querySelectorAll('.lazy-initial, .lazy-paper, .lazy-more, .lazy-start').forEach((node) => node.remove());
+  };
+  const showError = (list, error) => {
+    console.error(error);
     const empty = list.querySelector('[data-lazy-empty]');
-    if (!matches.length) {
-      list.querySelectorAll('.lazy-initial, .lazy-paper, .lazy-more, .lazy-start').forEach((node) => node.remove());
-      if (empty) {
-        empty.hidden = false;
-        empty.textContent = '没有符合当前筛选条件的论文。';
-      }
-    } else if (empty) {
-      empty.hidden = true;
+    if (empty) {
+      empty.hidden = false;
+      empty.textContent = '检索内容暂时无法载入，请稍后重试。';
     }
-    const renderBatch = async () => {
-      const end = Math.min(rendered + batchSize, matches.length);
-      const batch = matches.slice(rendered, end);
-      const shardNames = [...new Set(batch.map((item) => item.shard))];
-      const payloads = await Promise.all(shardNames.map((name) => loadJson(new URL(name + '.json', manifestUrl).href)));
-      const cards = new Map(payloads.flat().map((item) => [item.key, item.html]));
-      if (rendered === 0) {
-        list.querySelectorAll('.lazy-initial, .lazy-paper, .lazy-more, .lazy-start').forEach((node) => node.remove());
-      }
-      const fragment = document.createDocumentFragment();
-      for (const item of batch) {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = String(cards.get(item.key) || '').replaceAll('__PAPER_BASE__', list.dataset.lazyBase || '.');
-        const nodes = Array.from(wrapper.childNodes);
-        nodes.forEach((node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) node.classList.add('lazy-paper');
-        });
-        fragment.append(...nodes);
-      }
-      rendered = end;
-      list.querySelector('.lazy-more')?.remove();
-      list.append(fragment);
-      if (rendered < matches.length) {
-        const more = document.createElement('button');
-        more.type = 'button';
-        more.className = 'control lazy-more';
-        more.textContent = '加载更多';
-        more.setAttribute('aria-label', '加载更多论文');
-        more.addEventListener('click', () => renderBatch().catch(showError));
-        list.append(more);
-      }
-    };
-    if (matches.length) {
-      await renderBatch();
-      list.querySelectorAll('.lazy-initial, .lazy-start').forEach((node) => node.remove());
+  };
+  const loadManifest = (state) => state.manifestPromise || (state.manifestPromise = loadJson(state.manifestUrl));
+  const loadNextShard = async (state) => {
+    const manifest = await loadManifest(state);
+    if (state.nextShard >= manifest.shards.length) return false;
+    const descriptor = manifest.shards[state.nextShard];
+    state.nextShard += 1;
+    const items = await loadJson(new URL('shards/' + descriptor.name + '.json', state.manifestUrl).href);
+    const known = new Set(state.items.map((item) => item.key));
+    state.items.push(...items.filter((item) => !known.has(item.key)));
+    return true;
+  };
+  const ROUTE_BUCKETS = 32;
+  const routeBucket = (token) => token.charCodeAt(0) % ROUTE_BUCKETS;
+  const loadRouted = async (state, tokens) => {
+    const byBucket = new Map();
+    for (const token of tokens) {
+      const bucket = routeBucket(token);
+      if (!byBucket.has(bucket)) byBucket.set(bucket, []);
+      byBucket.get(bucket).push(token);
     }
-    const counter = document.querySelector('[data-filter-counter="' + scope + '"]');
+    const routePayloads = (await Promise.all([...byBucket.entries()].map(async ([bucket, bucketTokens]) => {
+      const payload = await loadJson(new URL('route/' + String(bucket).padStart(2, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
+      return bucketTokens.map((token) => payload[token] || []);
+    }))).flat();
+    if (!routePayloads.length || routePayloads.some((payload) => !payload.length)) {
+      state.items = [];
+      state.routed = true;
+      state.nextShard = 0;
+      return;
+    }
+    const sets = routePayloads.map((payload) => new Map(payload.map((entry) => [entry.key, entry.shard])));
+    const first = [...sets].sort((left, right) => left.size - right.size)[0];
+    const keys = [...first.keys()].filter((key) => sets.every((set) => set.has(key)));
+    const references = keys.map((key) => ({key, shard: first.get(key)}));
+    const shardNames = [...new Set(references.map((entry) => entry.shard))];
+    const payloads = await Promise.all(shardNames.map((name) => loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href)));
+    const byKey = new Map(payloads.flat().map((item) => [item.key, item]));
+    state.items = references.map((entry) => byKey.get(entry.key)).filter(Boolean);
+    state.routed = true;
+    state.nextShard = 0;
+  };
+  const render = async (list, state, toolbar, replace) => {
+    if (replace) {
+      clearRendered(list);
+      state.rendered = 0;
+    }
+    const matches = matchingItems(state.items, toolbar);
+    const empty = list.querySelector('[data-lazy-empty]');
+    empty.hidden = !matches.length;
+    if (!matches.length) empty.textContent = '没有符合当前筛选条件的论文。';
+    const start = state.rendered;
+    const end = Math.min(start + 40, matches.length);
+    const fragment = document.createDocumentFragment();
+    for (const item of matches.slice(start, end)) {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = String(item.html || '').replaceAll('__PAPER_BASE__', list.dataset.lazyBase || '.');
+      const nodes = Array.from(wrapper.childNodes);
+      nodes.forEach((node) => {
+        if (node.nodeType === Node.ELEMENT_NODE) node.classList.add('lazy-paper');
+      });
+      fragment.append(...nodes);
+    }
+    state.rendered = end;
+    list.querySelector('.lazy-more')?.remove();
+    list.append(fragment);
+    if (state.rendered < matches.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
+      const more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'control lazy-more';
+      more.textContent = '加载更多';
+      more.setAttribute('aria-label', '加载更多论文');
+      more.addEventListener('click', async () => {
+        try {
+          if (state.rendered >= matches.length && !state.routed) await loadNextShard(state);
+          await render(list, state, toolbar, false);
+        } catch (error) {
+          showError(list, error);
+        }
+      });
+      list.append(more);
+    }
+    const counter = document.querySelector('[data-filter-counter="' + (list.dataset.lazyScope || 'default') + '"]');
     if (counter) counter.textContent = '当前显示 ' + matches.length + ' 篇';
   };
-  const showError = (error) => console.error(error);
+  const apply = async (list, state, toolbar) => {
+    const requestId = ++state.requestId;
+    const tokens = routeTokens(toolbar);
+    try {
+      if (tokens.length) {
+        await loadRouted(state, tokens);
+      } else {
+        state.routed = false;
+        state.items = [];
+        state.nextShard = 0;
+        await loadNextShard(state);
+      }
+      if (requestId !== state.requestId) return;
+      await render(list, state, toolbar, true);
+    } catch (error) {
+      if (requestId === state.requestId) showError(list, error);
+    }
+  };
   const initList = (list) => {
     const scope = list.dataset.lazyScope || 'default';
     const toolbar = document.querySelector('.toolbar[data-filter-scope="' + scope + '"]');
-    const manifestUrl = new URL(list.dataset.lazyManifest, window.location.href).href;
-    let itemsPromise;
-    const activate = () => itemsPromise || (itemsPromise = loadJson(manifestUrl));
-    const rerender = debounce(() => activate().then((items) => updateList(list, items, toolbar, manifestUrl)).catch(showError), 140);
-    const bind = () => {
-      for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
-        const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');
-        control?.addEventListener(role === 'search' ? 'input' : 'change', rerender);
-      }
-      const china = toolbar?.querySelector('[data-filter-role="china"]');
-      china?.addEventListener('click', () => {
-        const active = china.getAttribute('aria-pressed') === 'true';
-        china.setAttribute('aria-pressed', String(!active));
-        china.classList.toggle('active', !active);
-        rerender();
-      });
-    };
+    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
+    const rerender = debounce(() => apply(list, state, toolbar), 140);
+    for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
+      const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');
+      control?.addEventListener(role === 'search' ? 'input' : 'change', rerender);
+    }
+    const china = toolbar?.querySelector('[data-filter-role="china"]');
+    china?.addEventListener('click', () => {
+      const active = china.getAttribute('aria-pressed') === 'true';
+      china.setAttribute('aria-pressed', String(!active));
+      china.classList.toggle('active', !active);
+      rerender();
+    });
     const params = new URLSearchParams(window.location.search);
     if (toolbar) {
-        const search = toolbar.querySelector('[data-filter-role="search"]');
-        if (params.get('q')) search.value = params.get('q');
-        if (params.get('journal')) toolbar.querySelector('[data-filter-role="journal"]').value = params.get('journal');
-        if (params.get('field')) toolbar.querySelector('[data-filter-role="field"]').value = params.get('field');
-        if (params.get('dateType')) toolbar.querySelector('[data-filter-role="dateType"]').value = params.get('dateType');
-        if (params.get('confidence')) toolbar.querySelector('[data-filter-role="confidence"]').value = params.get('confidence');
-        if (params.get('sourceType')) toolbar.querySelector('[data-filter-role="sourceType"]').value = params.get('sourceType');
-        if (params.get('china') === '1') {
-          const button = toolbar.querySelector('[data-filter-role="china"]');
-          button?.setAttribute('aria-pressed', 'true');
-          button?.classList.add('active');
-        }
+      const search = toolbar.querySelector('[data-filter-role="search"]');
+      if (params.get('q')) search.value = params.get('q');
+      if (params.get('journal')) toolbar.querySelector('[data-filter-role="journal"]').value = params.get('journal');
+      if (params.get('field')) toolbar.querySelector('[data-filter-role="field"]').value = params.get('field');
+      if (params.get('dateType')) toolbar.querySelector('[data-filter-role="dateType"]').value = params.get('dateType');
+      if (params.get('confidence')) toolbar.querySelector('[data-filter-role="confidence"]').value = params.get('confidence');
+      if (params.get('sourceType')) toolbar.querySelector('[data-filter-role="sourceType"]').value = params.get('sourceType');
+      if (params.get('china') === '1') {
+        const button = toolbar.querySelector('[data-filter-role="china"]');
+        button?.setAttribute('aria-pressed', 'true');
+        button?.classList.add('active');
+      }
     }
-    bind();
-    list.querySelector('.lazy-start')?.addEventListener('click', rerender);
     const hasPreset = [...params.keys()].some((key) => ['q', 'journal', 'field', 'dateType', 'confidence', 'sourceType', 'china', 'onlineToday'].includes(key));
-    if (list.dataset.lazyDefer !== 'true' || hasPreset) rerender();
+    if (list.dataset.lazyDefer !== 'true' || hasPreset) apply(list, state, toolbar);
+    list.querySelector('.lazy-start')?.addEventListener('click', () => apply(list, state, toolbar));
   };
   document.querySelectorAll('[data-lazy-list]').forEach(initList);
 })();
 </script>
 """;
-
-
 
 def page(
     title: str,
@@ -1885,13 +1971,34 @@ def lazy_list_markup(scope: str, records: list[dict[str, Any]], *, extra_class: 
     )
 
 
+def lazy_route_tokens(value: str) -> set[str]:
+    normalized = normalize_attr(value).lower()
+    tokens = set(re.findall(r"[a-z0-9]+", normalized))
+    for word in list(tokens):
+        if len(word) >= 3:
+            tokens.update(word[index:index + 3] for index in range(len(word) - 2))
+    for run in re.findall(r"[\u3400-\u9fff]+", normalized):
+        tokens.update(run)
+        tokens.update(run[index] for index in range(len(run)))
+        tokens.update(run[index:index + 2] for index in range(len(run) - 1))
+    return tokens
+
+
+def route_bucket(token: str) -> int:
+    return ord(token[0]) % ROUTE_BUCKETS
+
+
 def write_lazy_indexes(docs_dir: Path) -> None:
-    """Write scoped manifests and content shards after every page is registered."""
+    """Write compact catalogs, routed metadata, and content shards."""
     index_root = docs_dir / "paper-index"
     for dataset_id, (records, extra_class) in LAZY_DATASETS.items():
         dataset_dir = index_root / dataset_id
-        manifest: list[dict[str, Any]] = []
-        shards: dict[str, list[dict[str, str]]] = defaultdict(list)
+        route_dir = dataset_dir / "route"
+        shard_dir = dataset_dir / "shards"
+        route_dir.mkdir(parents=True, exist_ok=True)
+        shard_dir.mkdir(parents=True, exist_ok=True)
+        shards: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        routes: dict[str, list[dict[str, str]]] = defaultdict(list)
         for position, record in enumerate(records):
             key = detail_key(record)
             topics = article_topics(record)
@@ -1904,29 +2011,53 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                     " ".join(topic_label(topic) for topic in topics), " ".join(topics),
                 ]
             )
-            manifest.append(
-                {
-                    "key": key,
-                    "shard": shard,
-                    "search": normalize_attr(search_text),
-                    "journal": normalize_attr(record.get("journal_id")),
-                    "fields": normalize_attr(" ".join(topics)),
-                    "china": bool(is_china_related(record) or "china" in topics),
-                    "onlineToday": today_str() in {
-                        str(record.get("available_online") or ""),
-                        str(record.get("published_online") or ""),
-                    },
-                    "dateType": date_type(record),
-                    "confidence": confidence_value(record),
-                    "sourceType": source_type_value(record),
-                }
-            )
+            online_today = today_str() in {
+                str(record.get("available_online") or ""),
+                str(record.get("published_online") or ""),
+            }
+            metadata = {
+                "key": key,
+                "shard": shard,
+                "search": normalize_attr(search_text),
+                "journal": normalize_attr(record.get("journal_id")),
+                "fields": normalize_attr(" ".join(topics)),
+                "china": bool(is_china_related(record) or "china" in topics),
+                "onlineToday": online_today,
+                "dateType": date_type(record),
+                "confidence": confidence_value(record),
+                "sourceType": source_type_value(record),
+            }
             snippet = paper_events([record], scope="lazy", extra_class=extra_class).replace(BASE, "__PAPER_BASE__")
-            shards[shard].append({"key": key, "html": snippet})
+            metadata["html"] = snippet
+            shards[shard].append(metadata)
+            route_values = lazy_route_tokens(search_text)
+            route_values.add("journal:" + normalize_attr(record.get("journal_id")))
+            route_values.update("field:" + topic for topic in topics)
+            route_values.update({
+                "date:" + date_type(record),
+                "confidence:" + confidence_value(record),
+                "source:" + source_type_value(record),
+            })
+            if metadata["china"]:
+                route_values.add("china")
+            if online_today:
+                route_values.add("online-today")
+            for token in route_values:
+                if token:
+                    routes[token].append({"key": key, "shard": shard})
+        manifest = {
+            "version": 2,
+            "count": len(records),
+            "shards": [{"name": shard, "count": len(items)} for shard, items in sorted(shards.items())],
+        }
         write_text(dataset_dir / "manifest.json", json.dumps(manifest, ensure_ascii=False, separators=(",", ":")))
         for shard, items in shards.items():
-            write_text(dataset_dir / f"{shard}.json", json.dumps(items, ensure_ascii=False, separators=(",", ":")))
-
+            write_text(shard_dir / f"{shard}.json", json.dumps(items, ensure_ascii=False, separators=(",", ":")))
+        bucketed: dict[int, dict[str, list[dict[str, str]]]] = defaultdict(dict)
+        for token, entries in routes.items():
+            bucketed[route_bucket(token)][token] = entries
+        for bucket, payload in sorted(bucketed.items()):
+            write_text(route_dir / f"{bucket:02d}.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
 
 
 def search_body(records: list[dict[str, Any]]) -> str:

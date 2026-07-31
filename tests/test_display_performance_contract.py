@@ -20,7 +20,7 @@ def _tree_hash(root: Path) -> str:
     return digest.hexdigest()
 
 
-def _manifest_for(output: Path, relative: str) -> tuple[str, list[dict]]:
+def _manifest_for(output: Path, relative: str) -> tuple[str, dict]:
     page_path = output / relative
     html = page_path.read_text(encoding="utf-8")
     match = re.search(r'data-lazy-manifest="([^"]+)"', html)
@@ -49,36 +49,53 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
         ("working-papers/index.html", 750_000),
         ("topics/china/index.html", 750_000),
     )
-    manifests: dict[str, list[dict]] = {}
+    manifests: dict[str, dict] = {}
     for relative, size_limit in pages:
         html, manifest = _manifest_for(output, relative)
         manifests[relative] = manifest
         assert len(html.encode("utf-8")) <= size_limit, relative
         assert html.count('<article class="event"') <= 40, relative
-        assert all("html" not in item for item in manifest), relative
-        assert all({"key", "search", "shard"} <= set(item) for item in manifest), relative
+        assert {"version", "count", "shards"} <= set(manifest), relative
+        assert "html" not in manifest, relative
+        assert len(json.dumps(manifest, ensure_ascii=False)) < 20_000, relative
+        assert manifest["count"] >= 0, relative
 
     search_html = (output / "search" / "index.html").read_text(encoding="utf-8")
     assert 'data-lazy-defer="true"' in search_html
-    assert len(manifests["search/index.html"]) > len(manifests["working-papers/index.html"])
-    assert len(manifests["search/index.html"]) > len(manifests["topics/china/index.html"])
+    assert manifests["search/index.html"]["count"] >= manifests["working-papers/index.html"]["count"]
+    assert manifests["search/index.html"]["count"] >= manifests["topics/china/index.html"]["count"]
 
-    for shard_path in (output / "paper-index").glob("*/*.json"):
-        if shard_path.name == "manifest.json":
-            continue
+    for shard_path in (output / "paper-index").glob("*/shards/*.json"):
         shard = json.loads(shard_path.read_text(encoding="utf-8"))
-        assert len(shard) <= 100
-        assert all({"key", "html"} <= set(item) for item in shard)
+        assert len(shard) <= 40
+        assert all({"key", "html", "search"} <= set(item) for item in shard)
         assert all("__BASE__" not in item["html"] for item in shard)
         assert all("__PAPER_BASE__/paper.html?key=" in item["html"] for item in shard)
+
+    for dataset_dir in (output / "paper-index").iterdir():
+        route_files = list((dataset_dir / "route").glob("*.json"))
+        assert len(route_files) <= 32, f"{dataset_dir} has too many route files"
+
+    for route_path in (output / "paper-index").glob("*/route/*.json"):
+        route = json.loads(route_path.read_text(encoding="utf-8"))
+        assert isinstance(route, dict)
+        assert len(route) >= 1
+        for entries in route.values():
+            assert isinstance(entries, list)
+            assert all({"key", "shard"} <= set(item) for item in entries)
 
 
 def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     renderer = (ROOT / "scripts" / "render_site.py").read_text(encoding="utf-8")
     assert "len(public) > 40" in renderer
-    assert "LAZY_SHARD_SIZE = 100" in renderer
+    assert "LAZY_SHARD_SIZE = 40" in renderer
     assert "data-lazy-defer" in renderer
     assert "if (list.dataset.lazyDefer !== 'true' || hasPreset)" in renderer
-    assert "new URL(name + '.json', manifestUrl)" in renderer
-    assert "batchSize = 40" in renderer
+    assert "route/" in renderer
+    assert "shards/" in renderer
+    assert "queryTokens" in renderer
+    assert "ROUTE_BUCKETS" in renderer
+    assert "routeBucket" in renderer
+    assert "String(bucket).padStart(2, '0')" in renderer
+    assert "Math.min(start + 40, matches.length)" in renderer
     assert 'docs_dir / "paper-index.json"' not in renderer
