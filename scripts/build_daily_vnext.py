@@ -20,7 +20,7 @@ from display_contract import display_titles
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 DAILY_DIR = DATA_DIR / "daily"
-DEFAULT_TEMPLATE = ROOT / "docs" / "daily-vnext" / "template.html"
+DEFAULT_TEMPLATE = ROOT / "scripts" / "templates" / "daily_vnext.html"
 DEFAULT_OUTPUT = ROOT / "docs" / "daily-vnext" / "index.html"
 DEFAULT_REPORT = DATA_DIR / "daily_vnext_build_report.json"
 BEIJING = ZoneInfo("Asia/Shanghai")
