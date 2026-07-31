@@ -29,7 +29,7 @@ CN_TZ = BEIJING_TZ
 # silent and never affect paper rendering.
 DEFAULT_PRESENCE_ENDPOINT = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence"
 LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
-LAZY_SHARD_SIZE = 100
+LAZY_SHARD_SIZE = 40
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
