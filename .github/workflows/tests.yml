@@ -113,7 +113,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          template = Path('docs/daily-vnext/template.html').read_text(encoding='utf-8')
+          template = Path('scripts/templates/daily_vnext.html').read_text(encoding='utf-8')
           required = ['data-motion="hero"', 'data-motion="title"', 'class="hero-lede"', 'data-motion="discovery"', 'data-motion="stat-line"']
           missing = [item for item in required if item not in template]
           assert not missing, missing

@@ -28,7 +28,7 @@ def test_root_and_vnext_share_the_new_daily_generation_contract(tmp_path):
         for path in archives
         if path.read_text(encoding="utf-8").strip() not in {"", "[]"}
     )
-    template = ROOT / "docs" / "daily-vnext" / "template.html"
+    template = ROOT / "scripts" / "templates" / "daily_vnext.html"
     root = tmp_path / "index.html"
     vnext = tmp_path / "daily-vnext" / "index.html"
     build(date_value, template, root, tmp_path / "root-report.json")

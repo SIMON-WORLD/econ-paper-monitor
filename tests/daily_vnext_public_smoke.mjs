@@ -76,6 +76,33 @@ async function checkSecondaryPages(browser) {
   await feedPage.close();
 }
 
+async function checkDetailPage(browser) {
+  const listing = await browser.newPage();
+  await listing.goto(new URL("recent72/", root).href, { waitUntil: "networkidle", timeout: 60000 });
+  const detailHref = await listing.locator('a[href*="paper.html?key="]').first().getAttribute('href');
+  assert.ok(detailHref, "Recent72 does not expose a detail-page link");
+  const detailUrl = new URL(detailHref, listing.url()).href;
+  await listing.close();
+
+  const mobile = Number(process.env.VIEWPORT_WIDTH || 0);
+  const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(String(error)));
+  const response = await page.goto(detailUrl, { waitUntil: "networkidle", timeout: 60000 });
+  await page.waitForFunction(() => !document.querySelector('#paperRoot')?.classList.contains('detail-loading'));
+  assert.equal(response?.status(), 200, `${detailUrl} did not return 200`);
+  assert.equal(errors.length, 0, `${detailUrl} page errors: ${errors.join(" | ")}`);
+  assert.ok(await page.locator('.detail-page h1').isVisible(), `${detailUrl} detail title is missing`);
+  assert.notEqual((await page.locator('.detail-page h1').innerText()).trim(), '正在载入论文详情');
+  assert.ok(await page.locator('.site-header').isVisible(), `${detailUrl} vNext header is missing`);
+  assert.equal(await page.locator('.sidebar').count(), 0, `${detailUrl} legacy sidebar leaked`);
+  assert.equal(await page.locator('a[href*="archive/"]').count(), 0, `${detailUrl} archive navigation leaked`);
+  if (mobile) {
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${detailUrl} has horizontal overflow`);
+  }
+  await page.close();
+}
+
 async function checkGsapFallback(browser) {
   const page = await browser.newPage();
   const errors = [];
@@ -98,6 +125,7 @@ const browser = await chromium.launch({
 try {
   for (const url of urls) await checkPage(browser, url);
   await checkSecondaryPages(browser);
+  await checkDetailPage(browser);
   await checkGsapFallback(browser);
   console.log(`Daily vNext public smoke passed for ${urls.join(" and ")}`);
 } finally {

@@ -22,9 +22,11 @@ display line must never fetch sources or modify `data/**`.
 | `data/seen.json` | Data line | Canonical historical ledger; secondary search/list pages may restore only records absent from a daily archive |
 | `data/*audit*.json` and ledgers | Data line | Quality and provenance artifacts |
 | `docs/index.html` | `scripts/build_daily_vnext.py` | Sole homepage writer |
-| `docs/daily-vnext/**` | Display line | Same generator, template, and data as root |
+| `scripts/templates/daily_vnext.html` | Display line | Private shared template for root and Daily vNext |
+| `docs/daily-vnext/index.html` | Display line | Same generator, template, and data as root |
 | `docs/classic/**` | Classic surface | Preserved and never written by the legacy renderer |
-| Other `docs/**` | Display line | Secondary pages and feed outputs |
+| `docs/paper.html` and `docs/paper-data/**` | `scripts/render_site.py` | Generated detail shell and canonical detail payloads |
+| Other `docs/**` | Display line | Secondary pages and feed outputs; public admin/quality pages are forbidden |
 
 ## Production call chain
 
@@ -56,9 +58,9 @@ never evidence of continuous or fully independent source coverage.
 scripts remain available for secondary or local uses. They are not permitted
 to write `docs/index.html` or to be called by the data monitoring workflow.
 
-`.maturity` is the integration source for the current architecture until its
-changes are merged. `.codex-*` worktrees and `.local-cnki-standalone` are
-non-production copies and must not be used for Pages deployment.
+`.maturity`, `.codex-*` worktrees, and `.local-cnki-standalone` are
+non-production copies and must not be used for Pages deployment. The promoted
+production implementation lives under `scripts/**` and `.github/workflows/**`.
 
 ## Failure policy
 

@@ -132,6 +132,8 @@ SECONDARY_STYLE = """
 :root{color-scheme:light;--paper:#f4f1ea;--ink:#202426;--muted:#6f716d;--line:#d8d3c9;--blue:#1d5f83;--blue-deep:#16445e;--red:#a94236;--white:#fbfaf7;--soft:#ece7dc;--mono:"IBM Plex Mono",Consolas,monospace;--serif:Georgia,"Noto Serif SC","Songti SC",serif;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.62}a{color:inherit;text-decoration:none}a:hover{color:var(--blue)}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #84b8d3;outline-offset:3px}.skip-link{position:absolute;left:1rem;top:-3rem;background:var(--blue-deep);color:#fff;padding:.6rem 1rem;z-index:5}.skip-link:focus{top:1rem}.site-header{position:sticky;top:0;z-index:4;border-bottom:1px solid var(--line);background:rgba(244,241,234,.94);backdrop-filter:blur(12px)}.header-inner{max-width:1280px;margin:auto;padding:1rem 2rem;display:flex;align-items:center;gap:2rem}.wordmark{font-family:var(--serif);font-size:1.2rem;line-height:1.05;white-space:nowrap}.wordmark small{display:block;font:600 .66rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}.nav{display:flex;gap:1.35rem;margin-left:auto;font-size:.88rem;color:var(--muted);align-items:center}.nav a.active{color:var(--blue);font-weight:700}.presence{font-size:.76rem;white-space:nowrap;color:var(--muted)}.presence::before{content:"";display:inline-block;width:.45rem;height:.45rem;border-radius:50%;background:#3e8b61;margin-right:.4rem;vertical-align:1px}.presence-dot{display:none}.menu{display:none;border:0;background:transparent;color:var(--ink);font-size:1.35rem;min-width:44px;min-height:44px}.secondary-page{max-width:1280px;margin:auto;padding:0 2rem}.page-hero{padding:4.7rem 0 2.4rem;border-bottom:1px solid var(--ink);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end}.page-eyebrow{font:600 .72rem var(--mono);letter-spacing:.15em;color:var(--blue);text-transform:uppercase;margin:0 0 .85rem}.page-hero h1{font:400 clamp(2.6rem,6vw,5.6rem)/.94 var(--serif);letter-spacing:-.03em;margin:0;overflow-wrap:anywhere}.page-hero p{max-width:680px;color:var(--muted);margin:.95rem 0 0;font:400 1.05rem/1.55 var(--serif)}.context-nav{display:flex;gap:.55rem;flex-wrap:wrap;padding:1rem 0 0}.context-nav a{border:1px solid var(--line);min-height:36px;padding:.42rem .7rem;font-size:.78rem;color:var(--muted);display:inline-flex;align-items:center}.context-nav a:hover,.context-nav a.active{border-color:var(--blue);color:var(--blue);background:rgba(29,95,131,.05)}.wrap{padding:2.5rem 0 4rem}.section-head{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;border-bottom:1px solid var(--line);padding:2.2rem 0 1rem;margin:0}.section-head.split-section{margin-top:3rem}.section-head h2{font:400 clamp(1.7rem,3vw,2.5rem)/1.05 var(--serif);margin:0}.section-head p{margin:.45rem 0 0;color:var(--muted);font-size:.86rem;max-width:720px}.stats,.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:1.3rem 0;background:var(--line)}.stat,.audit-card{background:var(--paper);padding:1rem .9rem;color:var(--muted);min-width:0}.stat:hover{background:rgba(251,250,247,.55);text-decoration:none}.stat strong,.audit-card strong{display:block;color:var(--ink);font:400 1.65rem/1 var(--serif);overflow-wrap:anywhere}.stat span,.audit-card span{display:block;font-size:.78rem;margin-top:.25rem}.stat.china strong,.pill.china{color:var(--red)}.toolbar{display:flex;gap:.55rem;flex-wrap:wrap;align-items:center;margin:1.35rem 0}.control{min-height:44px;border:1px solid var(--line);background:var(--white);color:var(--muted);padding:.58rem .75rem;font:500 .82rem var(--sans);max-width:100%;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease}.control:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(29,95,131,.14);outline:0}.control.primary,.control.toggle.active{background:var(--blue);border-color:var(--blue);color:#fff}.control.rss-link{font-weight:700}.view-tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin:1rem 0}.view-tab{border:1px solid var(--line);padding:.5rem .75rem;color:var(--muted);font-size:.82rem;min-height:38px;display:inline-flex;align-items:center}.view-tab.active,.view-tab:hover{border-color:var(--blue);color:var(--blue);background:rgba(29,95,131,.05)}.event{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr);gap:1.4rem;padding:1.65rem 0;border-bottom:1px solid var(--line);background:transparent;min-width:0}.event:before{content:"";position:absolute;left:87px;top:1.95rem;width:8px;height:8px;border:1px solid #9eb7c3;border-radius:50%;background:var(--paper)}.event:after{content:"";position:absolute;left:91px;top:2.6rem;bottom:-.4rem;width:1px;background:rgba(29,95,131,.2)}.event:last-of-type:after{display:none}.event[data-china="true"]:before{border-color:var(--red)}.event:hover:before{background:var(--blue);border-color:var(--blue)}.event[data-china="true"]:hover:before{background:var(--red);border-color:var(--red)}.event[hidden]{display:none}.time{font:600 .76rem var(--mono);color:var(--blue);padding-top:.24rem}.date-note{font:.68rem var(--mono);color:var(--muted);margin-top:.2rem}.event h3{font:400 clamp(1.25rem,2vw,1.85rem)/1.25 var(--serif);margin:0 0 .45rem;max-width:920px;overflow-wrap:anywhere}.title-original{font:400 .96rem/1.5 var(--serif);color:var(--muted);margin:0 0 .5rem;overflow-wrap:anywhere}.authors{font-size:.85rem;color:var(--muted);margin:0 0 .95rem;overflow-wrap:anywhere}.meta-block{display:grid;gap:.42rem;font-size:.78rem;color:var(--muted);min-width:0}.meta-line{display:flex;gap:.65rem;align-items:flex-start;min-width:0}.meta-label{flex:0 0 4.5rem;color:var(--ink);font-weight:700}.meta-values{display:flex;flex-wrap:wrap;gap:.45rem;min-width:0}.journal-chip,.date-chip,.pill,.source-status{border:1px solid var(--line);background:rgba(251,250,247,.7);color:var(--muted);padding:.14rem .45rem;font-size:.72rem;line-height:1.4;overflow-wrap:anywhere}.journal-chip{color:var(--blue-deep);border-color:#a8c0ca}.date-chip.pending{border-color:#d3bd70;color:#7d4e00}.date-chip.issue{background:var(--soft)}.pill.fresh{border-color:#92bd9e;color:#286942}.pill.lag{border-color:#d3bd70;color:#7d4e00}.doi{font-family:var(--mono);word-break:break-word}.empty{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:2.2rem 0;color:var(--muted);background:transparent}.home-note{padding:1rem 0}.journal-table{width:100%;border-collapse:collapse;margin-top:1.3rem;font-size:.86rem}.journal-table th,.journal-table td{border-bottom:1px solid var(--line);padding:.78rem .65rem;text-align:left;vertical-align:top;overflow-wrap:anywhere}.journal-table th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}.muted{color:var(--muted)}.archive-list{padding-left:1.1rem}.archive-list li{margin:.45rem 0}.audit-list{display:grid;gap:0;border-top:1px solid var(--line)}.audit-item{border-bottom:1px solid var(--line);padding:1.3rem 0}.audit-item h3{font:400 1.3rem/1.3 var(--serif);margin:0 0 .45rem}.audit-meta,.audit-reason{color:var(--muted);font-size:.84rem;margin-top:.35rem}.gate{max-width:640px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);padding:1.6rem 0}.gate input{width:100%;border:1px solid var(--line);background:var(--white);min-height:44px;padding:.65rem;margin:.8rem 0}.gate button{border:1px solid var(--blue);background:var(--blue);color:#fff;min-height:42px;padding:.55rem .85rem}.gate-note{color:var(--muted);font-size:.82rem}.hidden{display:none!important}.site-footer{margin-top:5rem;border-top:1px solid var(--ink);padding:2.5rem 0 3.5rem}.footer-inner{display:flex;justify-content:space-between;gap:2rem;align-items:end}.footer-brand{font:400 1.9rem var(--serif)}.footer-note{color:var(--muted);font-size:.84rem;margin-top:.35rem}.footer-links{display:flex;gap:1rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
 @media(max-width:900px){.header-inner,.secondary-page{padding-left:1rem;padding-right:1rem}.nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:1rem;flex-direction:column;align-items:flex-start;gap:.7rem}.nav.open{display:flex}.menu{display:block;margin-left:auto}.presence{display:none}.page-hero{display:block;padding:3.4rem 0 1.7rem}.page-hero p{font-size:1rem}.wrap{padding-top:1.7rem}.section-head{display:block;padding-top:1.8rem}.section-head>p{margin-top:.65rem}.toolbar{display:grid;grid-template-columns:1fr}.control{width:100%}.event{grid-template-columns:1fr;gap:.4rem;padding:1.35rem 0 1.45rem}.event:before{left:0;top:1.72rem}.event:after{left:4px;top:2.35rem}.time,.date-note{padding-left:1.25rem;display:inline-block}.date-note{margin-left:.4rem}.meta-line{display:block}.meta-label{display:block;margin-bottom:.2rem}.journal-table{display:block;overflow-x:auto;max-width:100%}.footer-inner{align-items:flex-start;flex-direction:column}}
+.detail-page{max-width:920px;margin:0 auto}.detail-kicker{font:600 .72rem var(--mono);letter-spacing:.08em;color:var(--blue);margin:0 0 1rem;text-transform:uppercase}.detail-page h1{font:400 clamp(2rem,5vw,4rem)/1.08 var(--serif);margin:0;overflow-wrap:anywhere}.detail-title-secondary{font:400 1.08rem/1.55 var(--serif);color:var(--muted);margin:.85rem 0 0;overflow-wrap:anywhere}.detail-authors{color:var(--muted);margin:1rem 0 1.5rem;overflow-wrap:anywhere}.detail-links{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.25rem 0 1.8rem}.detail-links a{border:1px solid var(--line);background:var(--white);padding:.55rem .75rem;overflow-wrap:anywhere}.detail-links a.primary{background:var(--blue);border-color:var(--blue);color:#fff}.detail-meta{display:grid;grid-template-columns:140px minmax(0,1fr);border-top:1px solid var(--ink);margin:1.5rem 0 2.2rem}.detail-meta>div{padding:.75rem 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.detail-meta .label{font-weight:700}.detail-abstract{border-top:1px solid var(--ink);padding-top:1rem;margin-top:2rem}.detail-abstract h2{font:400 1.55rem var(--serif);margin:0 0 .65rem}.detail-abstract p{white-space:pre-line;line-height:1.8}.detail-loading{min-height:280px}.related-list{display:grid;gap:.55rem;padding-left:1.2rem}
+@media(max-width:900px){.detail-meta{grid-template-columns:1fr}.detail-meta .label{padding-bottom:0;border-bottom:0}.detail-meta .label+div{padding-top:.25rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 """
 
@@ -406,6 +408,9 @@ def display_key(record: dict[str, Any]) -> str:
 
 def detail_key(record: dict[str, Any]) -> str:
     """Return the stable public key used by ``docs/paper.html``."""
+    canonical_key = str(record.get("detail_key") or "").strip()
+    if re.search(r"-[0-9a-f]{12}$", canonical_key, re.IGNORECASE):
+        return canonical_key
     title = str(record.get("title") or "paper").casefold()
     slug = re.sub(r"[^a-z0-9]+", "-", title).strip("-") or "paper"
     slug = slug[:88].rstrip("-")
@@ -1200,8 +1205,17 @@ def page(
     *,
     sidebar_records: list[dict[str, Any]] | None = None,
     sidebar_date: str | None = None,
+    show_hero: bool = True,
 ) -> str:
     lede = secondary_page_lede(title)
+    hero = f"""<section class="page-hero">
+      <div>
+        <p class="page-eyebrow">Research Discovery</p>
+        <h1>{html_escape(title)}</h1>
+        <p>{html_escape(lede)}</p>
+      </div>
+      <nav class="context-nav" aria-label="页面导航">{secondary_context_nav(active)}</nav>
+    </section>""" if show_hero else ""
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -1229,14 +1243,7 @@ def page(
     <button class="menu" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="打开导航">☰</button>
   </div></header>
   <main class="secondary-page" id="main-content">
-    <section class="page-hero">
-      <div>
-        <p class="page-eyebrow">Research Discovery</p>
-        <h1>{html_escape(title)}</h1>
-        <p>{html_escape(lede)}</p>
-      </div>
-      <nav class="context-nav" aria-label="页面导航">{secondary_context_nav(active)}</nav>
-    </section>
+    {hero}
     <div class="wrap">{body}</div>
     <footer class="site-footer"><div class="footer-inner">
       <div><div class="footer-brand">Academic Door</div><div class="footer-note">读好文献，用好论文。Econ Papers Daily 是每日之门里的研究发现流。</div></div>
@@ -2158,10 +2165,13 @@ def write_detail_data(docs_dir: Path, records: list[dict[str, Any]]) -> None:
     shards: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in unique_records(public_records(records)):
         key = detail_key(record)
+        title_primary, title_secondary = display_titles(record)
         item = {
             "key": key,
             "title": record.get("title") or "",
             "title_zh": record.get("title_zh") or "",
+            "title_primary": title_primary,
+            "title_secondary": title_secondary,
             "authors": authors(record),
             "source": record.get("journal") or record.get("source") or "",
             "source_type": source_type_label(record),
@@ -2183,6 +2193,80 @@ def write_detail_data(docs_dir: Path, records: list[dict[str, Any]]) -> None:
         write_text(detail_dir / name, json.dumps(shards.get(name[:2], []), ensure_ascii=False, separators=(",", ":")))
 
 
+def paper_detail_body() -> str:
+    """Return the client-rendered detail view owned by the secondary renderer."""
+    return r'''<article class="detail-page detail-loading" id="paperRoot" aria-busy="true">
+  <p class="detail-kicker">Econ Papers Daily / 论文详情</p>
+  <h1>正在载入论文详情</h1>
+</article>
+<script>
+(() => {
+  const key = new URLSearchParams(window.location.search).get('key') || '';
+  const root = document.getElementById('paperRoot');
+  const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const abstractMessage = (status) => {
+    const value = String(status || '').toLowerCase();
+    if (value.includes('blocked') || value.includes('forbidden') || value.includes('proxy')) return '出版社页面暂时无法读取摘要，系统会继续尝试补全。';
+    if (value.includes('no-abstract') || value.includes('not-exposed') || value.includes('route-missing')) return '上游暂未公开摘要，系统会继续尝试补全。';
+    return '摘要暂未公开，系统会继续尝试补全。';
+  };
+  const message = (title, copy) => {
+    root.classList.remove('detail-loading');
+    root.removeAttribute('aria-busy');
+    root.innerHTML = `<p class="detail-kicker">Econ Papers Daily / 论文详情</p><h1>${escapeHTML(title)}</h1><p class="muted">${escapeHTML(copy)}</p><div class="detail-links"><a class="primary" href="./search/">进入全站检索</a><a href="./">返回首页</a></div>`;
+  };
+  const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+  const loadShard = async (shard, attempts = 3) => {
+    let lastError;
+    for (let attempt = 0; attempt < attempts; attempt += 1) {
+      try {
+        const response = await fetch(`./paper-data/${shard}.json?v=${Date.now()}-${attempt}`, {cache: 'no-cache'});
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error('Invalid shard payload');
+        return data;
+      } catch (error) {
+        lastError = error;
+        if (attempt < attempts - 1) await wait(350 * (attempt + 1));
+      }
+    }
+    throw lastError || new Error('Shard unavailable');
+  };
+  const load = async () => {
+    const match = key.match(/([0-9a-f]{12})$/i);
+    if (!match) return message('未找到这篇论文', '该链接无效，或记录已被去重。');
+    try {
+      const shard = match[1].slice(0, 2).toLowerCase();
+      let data = await loadShard(shard);
+      let item = data.find((record) => record.key === key);
+      if (!item) {
+        await wait(450);
+        data = await loadShard(shard, 2);
+        item = data.find((record) => record.key === key);
+      }
+      if (!item) return message('未找到这篇论文', '该记录可能已被合并，请通过全站检索查找最新版本。');
+      const primary = item.title_primary || item.title_zh || item.title || '未命名记录';
+      const secondary = item.title_secondary && item.title_secondary.toLowerCase() !== primary.toLowerCase()
+        ? `<p class="detail-title-secondary">${escapeHTML(item.title_secondary)}</p>` : '';
+      document.title = `${primary} | Econ Papers Daily`;
+      const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
+      const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
+      const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
+      const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract"><h2>摘要</h2><p class="muted">${escapeHTML(abstractMessage(item.abstract_status))}</p></section>`;
+      const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
+      const accepted = item.accepted ? `<div class="label">接受日期</div><div>${escapeHTML(item.accepted)} · 编辑流程日期，不等同于正式上线</div>` : '';
+      root.classList.remove('detail-loading');
+      root.removeAttribute('aria-busy');
+      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(item.detected)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
+    } catch (error) {
+      message('论文详情暂时无法载入', '请刷新页面重试，或进入全站检索。');
+    }
+  };
+  load();
+})();
+</script>'''
+
+
 def main() -> None:
     global DOCS_DIR
     parser = argparse.ArgumentParser()
@@ -2192,7 +2276,8 @@ def main() -> None:
 
     # Secondary-page rendering is read-only against the data-line interface.
     # Empty-day records are created by the data workflow, not by this renderer.
-    DOCS_DIR = args.docs_dir.resolve()
+    args.docs_dir = args.docs_dir.resolve()
+    DOCS_DIR = args.docs_dir
     records = load_all_daily(args.daily_dir)
     today_records = [record for record in records if record_is_on_date(record, today_str())]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
@@ -2200,6 +2285,10 @@ def main() -> None:
     recent72_records = recent_detected_records(records, 3)
     write_exports(args.docs_dir, recent72_records)
     write_detail_data(args.docs_dir, records)
+    write_page(
+        args.docs_dir / "paper.html",
+        page("论文详情", records, paper_detail_body(), show_hero=False),
+    )
     write_page(
         args.docs_dir / "recent72" / "index.html",
         page(
@@ -2218,27 +2307,6 @@ def main() -> None:
             records,
             working_paper_sources_body(records),
             active="working-papers",
-            sidebar_records=home_flow_records,
-            sidebar_date=home_flow_date,
-        ),
-    )
-    write_page(
-        args.docs_dir / "quality" / "china-relevance" / "index.html",
-        page(
-            "中国相关判定抽检",
-            records,
-            china_quality_body(records),
-            active="china",
-            sidebar_records=home_flow_records,
-            sidebar_date=home_flow_date,
-        ),
-    )
-    write_page(
-        args.docs_dir / "admin" / "status" / "index.html",
-        page(
-            "线上后台状态",
-            records,
-            admin_status_body(records),
             sidebar_records=home_flow_records,
             sidebar_date=home_flow_date,
         ),
