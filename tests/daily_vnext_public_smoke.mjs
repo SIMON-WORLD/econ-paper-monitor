@@ -54,8 +54,13 @@ async function checkSecondaryPages(browser) {
     const url = new URL(path, root).href;
     const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
     const errors = [];
+    const indexRequests = [];
     page.on("pageerror", (error) => errors.push(String(error)));
+    page.on("request", (request) => {
+      if (request.url().includes("/paper-index/")) indexRequests.push(request.url());
+    });
     const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+    await page.waitForTimeout(500);
     assert.equal(response?.status(), 200, `${url} did not return 200`);
     assert.equal(errors.length, 0, `${url} page errors: ${errors.join(" | ")}`);
     if (path === "classic/") {
@@ -64,6 +69,28 @@ async function checkSecondaryPages(browser) {
       assert.ok(await page.locator('.site-header').isVisible(), `${url} vNext header is missing`);
       assert.equal(await page.locator('.sidebar').count(), 0, `${url} legacy sidebar leaked`);
       assert.ok(await page.locator('.secondary-page').isVisible(), `${url} secondary shell is missing`);
+    }
+    assert.equal(indexRequests.some((requestUrl) => requestUrl.endsWith("/paper-index.json")), false, `${url} requested the legacy full index`);
+    if (path === "search/") {
+      assert.equal(indexRequests.length, 0, `${url} downloaded search data before user interaction`);
+      const initialEntries = await page.locator('.event').count();
+      const browse = page.locator('.lazy-start').first();
+      if (await browse.count()) {
+        await browse.click();
+        await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, initialEntries);
+        assert.ok(indexRequests.some((requestUrl) => requestUrl.endsWith("/manifest.json")), `${url} did not load its search manifest on demand`);
+        assert.ok(indexRequests.some((requestUrl) => /\/\d{4}\.json$/.test(requestUrl)), `${url} did not load a result shard on demand`);
+      }
+    }
+    if (path === "working-papers/") {
+      assert.ok(indexRequests.some((requestUrl) => requestUrl.endsWith("/manifest.json")), `${url} did not load its scoped manifest`);
+      assert.ok(indexRequests.length <= 3, `${url} loaded too many initial index files: ${indexRequests.length}`);
+      const before = await page.locator('.event').count();
+      const more = page.locator('.lazy-more').first();
+      if (await more.count()) {
+        await more.click();
+        await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, before);
+      }
     }
     if (mobile) {
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);

@@ -27,6 +27,8 @@ CN_TZ = BEIJING_TZ
 # optional repository variable has not been added yet; request failures remain
 # silent and never affect paper rendering.
 DEFAULT_PRESENCE_ENDPOINT = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence"
+LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
+LAZY_SHARD_SIZE = 100
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -1196,6 +1198,148 @@ def menu_script() -> str:
 })();
 </script>"""
 
+LAZY_LIST_SCRIPT = """
+<script>
+(() => {
+  const jsonCache = new Map();
+  const loadJson = (url) => {
+    if (!jsonCache.has(url)) {
+      jsonCache.set(url, fetch(url, {credentials: 'same-origin'}).then((response) => {
+        if (!response.ok) throw new Error('lazy data request failed: ' + response.status);
+        return response.json();
+      }));
+    }
+    return jsonCache.get(url);
+  };
+  const debounce = (fn, delay) => {
+    let timer;
+    return () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(fn, delay);
+    };
+  };
+  const matchingItems = (items, toolbar) => {
+    const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
+    const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
+    const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
+    const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
+    const confidence = toolbar?.querySelector('[data-filter-role="confidence"]')?.value || '';
+    const sourceType = toolbar?.querySelector('[data-filter-role="sourceType"]')?.value || '';
+    const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
+    const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
+    return items.filter((item) => {
+      if (query && !String(item.search || '').includes(query)) return false;
+      if (journal && item.journal !== journal) return false;
+      if (field && !String(item.fields || '').split(/\\s+/).includes(field)) return false;
+      if (dateType && item.dateType !== dateType) return false;
+      if (confidence && item.confidence !== confidence) return false;
+      if (sourceType && item.sourceType !== sourceType) return false;
+      if (chinaOnly && !item.china) return false;
+      if (onlineTodayOnly && !item.onlineToday) return false;
+      return true;
+    });
+  };
+  const updateList = async (list, items, toolbar, manifestUrl) => {
+    const scope = list.dataset.lazyScope || 'default';
+    const matches = matchingItems(items, toolbar);
+    const batchSize = 40;
+    let rendered = 0;
+    const empty = list.querySelector('[data-lazy-empty]');
+    if (!matches.length) {
+      list.querySelectorAll('.lazy-initial, .lazy-paper, .lazy-more, .lazy-start').forEach((node) => node.remove());
+      if (empty) {
+        empty.hidden = false;
+        empty.textContent = '没有符合当前筛选条件的论文。';
+      }
+    } else if (empty) {
+      empty.hidden = true;
+    }
+    const renderBatch = async () => {
+      const end = Math.min(rendered + batchSize, matches.length);
+      const batch = matches.slice(rendered, end);
+      const shardNames = [...new Set(batch.map((item) => item.shard))];
+      const payloads = await Promise.all(shardNames.map((name) => loadJson(new URL(name + '.json', manifestUrl).href)));
+      const cards = new Map(payloads.flat().map((item) => [item.key, item.html]));
+      if (rendered === 0) {
+        list.querySelectorAll('.lazy-initial, .lazy-paper, .lazy-more, .lazy-start').forEach((node) => node.remove());
+      }
+      const fragment = document.createDocumentFragment();
+      for (const item of batch) {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = String(cards.get(item.key) || '').replaceAll('__PAPER_BASE__', list.dataset.lazyBase || '.');
+        const nodes = Array.from(wrapper.childNodes);
+        nodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) node.classList.add('lazy-paper');
+        });
+        fragment.append(...nodes);
+      }
+      rendered = end;
+      list.querySelector('.lazy-more')?.remove();
+      list.append(fragment);
+      if (rendered < matches.length) {
+        const more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'control lazy-more';
+        more.textContent = '加载更多';
+        more.setAttribute('aria-label', '加载更多论文');
+        more.addEventListener('click', () => renderBatch().catch(showError));
+        list.append(more);
+      }
+    };
+    if (matches.length) {
+      await renderBatch();
+      list.querySelectorAll('.lazy-initial, .lazy-start').forEach((node) => node.remove());
+    }
+    const counter = document.querySelector('[data-filter-counter="' + scope + '"]');
+    if (counter) counter.textContent = '当前显示 ' + matches.length + ' 篇';
+  };
+  const showError = (error) => console.error(error);
+  const initList = (list) => {
+    const scope = list.dataset.lazyScope || 'default';
+    const toolbar = document.querySelector('.toolbar[data-filter-scope="' + scope + '"]');
+    const manifestUrl = new URL(list.dataset.lazyManifest, window.location.href).href;
+    let itemsPromise;
+    const activate = () => itemsPromise || (itemsPromise = loadJson(manifestUrl));
+    const rerender = debounce(() => activate().then((items) => updateList(list, items, toolbar, manifestUrl)).catch(showError), 140);
+    const bind = () => {
+      for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
+        const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');
+        control?.addEventListener(role === 'search' ? 'input' : 'change', rerender);
+      }
+      const china = toolbar?.querySelector('[data-filter-role="china"]');
+      china?.addEventListener('click', () => {
+        const active = china.getAttribute('aria-pressed') === 'true';
+        china.setAttribute('aria-pressed', String(!active));
+        china.classList.toggle('active', !active);
+        rerender();
+      });
+    };
+    const params = new URLSearchParams(window.location.search);
+    if (toolbar) {
+        const search = toolbar.querySelector('[data-filter-role="search"]');
+        if (params.get('q')) search.value = params.get('q');
+        if (params.get('journal')) toolbar.querySelector('[data-filter-role="journal"]').value = params.get('journal');
+        if (params.get('field')) toolbar.querySelector('[data-filter-role="field"]').value = params.get('field');
+        if (params.get('dateType')) toolbar.querySelector('[data-filter-role="dateType"]').value = params.get('dateType');
+        if (params.get('confidence')) toolbar.querySelector('[data-filter-role="confidence"]').value = params.get('confidence');
+        if (params.get('sourceType')) toolbar.querySelector('[data-filter-role="sourceType"]').value = params.get('sourceType');
+        if (params.get('china') === '1') {
+          const button = toolbar.querySelector('[data-filter-role="china"]');
+          button?.setAttribute('aria-pressed', 'true');
+          button?.classList.add('active');
+        }
+    }
+    bind();
+    list.querySelector('.lazy-start')?.addEventListener('click', rerender);
+    const hasPreset = [...params.keys()].some((key) => ['q', 'journal', 'field', 'dateType', 'confidence', 'sourceType', 'china', 'onlineToday'].includes(key));
+    if (list.dataset.lazyDefer !== 'true' || hasPreset) rerender();
+  };
+  document.querySelectorAll('[data-lazy-list]').forEach(initList);
+})();
+</script>
+""";
+
+
 
 def page(
     title: str,
@@ -1221,6 +1365,7 @@ def page(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="site-root" content="{BASE}">
   <link rel="icon" type="image/png" href="{BASE}/assets/academic-door-logo.png">
   <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分首次监测时间、官方在线日期和中国相关研究。">
   <title>{html_escape(title)}</title>
@@ -1250,13 +1395,15 @@ def page(
       <nav class="footer-links" aria-label="页脚导航"><a href="{BASE}/classic/">旧版</a><a href="{BASE}/daily-vnext/">Daily vNext</a><a href="{BASE}/feed.xml">RSS</a></nav>
     </div></footer>
   </main>
-{menu_script()}{presence_snippet()}</body>
+{menu_script()}{presence_snippet()}{LAZY_LIST_SCRIPT if "data-lazy-list" in body else ""}</body>
 </html>
 """
 
 
 def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, scope: str = "default", extra_class: str = "") -> str:
     public = public_records(records)
+    if limit is None and len(public) > 40:
+        return lazy_list_markup(scope, public, extra_class=extra_class)
     selected = public[:limit] if limit else public
     if not selected:
         return '<div class="empty">暂无符合条件的论文记录。</div>'
@@ -1310,6 +1457,7 @@ FILTER_SCRIPT = """
   const params = new URLSearchParams(window.location.search);
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
+    if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
     const search = toolbar.querySelector('[data-filter-role="search"]');
     const journal = toolbar.querySelector('[data-filter-role="journal"]');
     const field = toolbar.querySelector('[data-filter-role="field"]');
@@ -1720,6 +1868,65 @@ def china_quality_body(records: list[dict[str, Any]]) -> str:
 <div class="audit-list">{candidates_html}</div>
 <section id="rejected" class="section-head"><div><h2>排除样本</h2><p>抽查被排除记录，避免规则过严导致中国相关研究漏掉。</p></div></section>
 <div class="audit-list">{rejected_html}</div>"""
+
+def lazy_list_markup(scope: str, records: list[dict[str, Any]], *, extra_class: str = "") -> str:
+    public = unique_records(public_records(records))
+    keys = [detail_key(record) for record in public if detail_key(record)]
+    dataset_id = hashlib.sha256((extra_class + "\n" + "\n".join(keys)).encode("utf-8")).hexdigest()[:16]
+    LAZY_DATASETS.setdefault(dataset_id, (public, extra_class))
+    deferred = "true" if scope == "search" else "false"
+    return (
+        f'<div class="lazy-list" data-lazy-list data-lazy-scope="{html_escape(scope)}" '
+        f'data-lazy-base="{BASE}" data-lazy-defer="{deferred}" '
+        f'data-lazy-manifest="{BASE}/paper-index/{dataset_id}/manifest.json">'
+        f'<div class="lazy-initial">{paper_events(public[:10], scope=scope)}</div>'
+        f'<button class="control lazy-start" type="button">浏览全部 {len(public)} 篇</button>'
+        '<div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>'
+    )
+
+
+def write_lazy_indexes(docs_dir: Path) -> None:
+    """Write scoped manifests and content shards after every page is registered."""
+    index_root = docs_dir / "paper-index"
+    for dataset_id, (records, extra_class) in LAZY_DATASETS.items():
+        dataset_dir = index_root / dataset_id
+        manifest: list[dict[str, Any]] = []
+        shards: dict[str, list[dict[str, str]]] = defaultdict(list)
+        for position, record in enumerate(records):
+            key = detail_key(record)
+            topics = article_topics(record)
+            shard = f"{position // LAZY_SHARD_SIZE:04d}"
+            search_text = " ".join(
+                str(value or "")
+                for value in [
+                    record.get("title"), record.get("title_zh"), authors(record),
+                    record.get("journal"), record.get("doi"), record.get("url"),
+                    " ".join(topic_label(topic) for topic in topics), " ".join(topics),
+                ]
+            )
+            manifest.append(
+                {
+                    "key": key,
+                    "shard": shard,
+                    "search": normalize_attr(search_text),
+                    "journal": normalize_attr(record.get("journal_id")),
+                    "fields": normalize_attr(" ".join(topics)),
+                    "china": bool(is_china_related(record) or "china" in topics),
+                    "onlineToday": today_str() in {
+                        str(record.get("available_online") or ""),
+                        str(record.get("published_online") or ""),
+                    },
+                    "dateType": date_type(record),
+                    "confidence": confidence_value(record),
+                    "sourceType": source_type_value(record),
+                }
+            )
+            snippet = paper_events([record], scope="lazy", extra_class=extra_class).replace(BASE, "__PAPER_BASE__")
+            shards[shard].append({"key": key, "html": snippet})
+        write_text(dataset_dir / "manifest.json", json.dumps(manifest, ensure_ascii=False, separators=(",", ":")))
+        for shard, items in shards.items():
+            write_text(dataset_dir / f"{shard}.json", json.dumps(items, ensure_ascii=False, separators=(",", ":")))
+
 
 
 def search_body(records: list[dict[str, Any]]) -> str:
@@ -2278,6 +2485,7 @@ def main() -> None:
     # Empty-day records are created by the data workflow, not by this renderer.
     args.docs_dir = args.docs_dir.resolve()
     DOCS_DIR = args.docs_dir
+    LAZY_DATASETS.clear()
     records = load_all_daily(args.daily_dir)
     today_records = [record for record in records if record_is_on_date(record, today_str())]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
@@ -2497,6 +2705,7 @@ def main() -> None:
         args.docs_dir / "archive" / "index.html",
         archive_compatibility_page(),
     )
+    write_lazy_indexes(args.docs_dir)
     print(f"rendered {len(records)} records into {args.docs_dir}")
 
 
