@@ -7,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from artifact_paths import sanitize_record_paths
 from common import DATA_DIR, read_json, today_str, write_json
 from dedupe import build_seen_index, find_matching_seen_id, merge_daily, valid_iso_date
 from status import record_source
@@ -98,10 +99,16 @@ def main() -> None:
             existing = []
         write_json(restore_path, merge_daily(existing, restore_records))
         restored_count += len(restore_records)
+    existing_future = read_json(args.future_records, [])
+    existing_future = existing_future if isinstance(existing_future, list) else []
+    # This artifact merges with its own previous content, so a path written
+    # before sanitisation existed would otherwise be carried forward forever.
+    healed = sanitize_record_paths(existing_future)
+    sanitize_record_paths(future_records)
     if future_records:
-        existing_future = read_json(args.future_records, [])
-        existing_future = existing_future if isinstance(existing_future, list) else []
         write_json(args.future_records, merge_daily(existing_future, future_records))
+    elif healed:
+        write_json(args.future_records, existing_future)
     record_source(
         "remove-seen-backflow",
         ok=True,
