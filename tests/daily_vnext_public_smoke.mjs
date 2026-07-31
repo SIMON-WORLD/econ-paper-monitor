@@ -32,9 +32,14 @@ async function checkPage(browser, url) {
   assert.ok(await search.isVisible(), `${url} paper search is not visible`);
   assert.ok(await china.isVisible(), `${url} China filter is not visible`);
   assert.equal(await visibleEntries(page), total, `${url} default paper filter`);
-  await china.click();
-  await page.waitForTimeout(250);
-  assert.equal(await visibleEntries(page), await page.locator('.paper-entry[data-china="true"]').count(), `${url} China filter`);
+  if (await china.isDisabled()) {
+    const label = await china.getAttribute('aria-label');
+    assert.match(label, /0 项/, `${url} disabled China filter should report zero items`);
+  } else {
+    await china.click();
+    await page.waitForTimeout(250);
+    assert.equal(await visibleEntries(page), await page.locator('.paper-entry[data-china="true"]').count(), `${url} China filter`);
+  }
   await page.locator('.filter[data-filter="all"]').click();
   const searchable = total > 0
     ? await entries.first().getAttribute('data-search')
