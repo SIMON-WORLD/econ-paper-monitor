@@ -2161,7 +2161,7 @@ def write_detail_data(docs_dir: Path, records: list[dict[str, Any]]) -> None:
         item = {
             "key": key,
             "title": record.get("title") or "",
-            "title_zh": record.get("title_zh") or "",
+            "title_zh": record.get("title_zh") or "",\n            "title_primary": display_titles(record)[0],\n            "title_secondary": display_titles(record)[1],
             "authors": authors(record),
             "source": record.get("journal") or record.get("source") or "",
             "source_type": source_type_label(record),
@@ -2218,27 +2218,6 @@ def main() -> None:
             records,
             working_paper_sources_body(records),
             active="working-papers",
-            sidebar_records=home_flow_records,
-            sidebar_date=home_flow_date,
-        ),
-    )
-    write_page(
-        args.docs_dir / "quality" / "china-relevance" / "index.html",
-        page(
-            "中国相关判定抽检",
-            records,
-            china_quality_body(records),
-            active="china",
-            sidebar_records=home_flow_records,
-            sidebar_date=home_flow_date,
-        ),
-    )
-    write_page(
-        args.docs_dir / "admin" / "status" / "index.html",
-        page(
-            "线上后台状态",
-            records,
-            admin_status_body(records),
             sidebar_records=home_flow_records,
             sidebar_date=home_flow_date,
         ),
