@@ -2016,10 +2016,8 @@ def write_lazy_indexes(docs_dir: Path) -> None:
             metadata["html"] = snippet
             shards[shard].append(metadata)
             route_values = lazy_route_tokens(search_text)
-            route_values.update({
-                "journal:" + normalize_attr(record.get("journal_id")),
-                "field:" + topic for topic in topics
-            })
+            route_values.add("journal:" + normalize_attr(record.get("journal_id")))
+            route_values.update("field:" + topic for topic in topics)
             route_values.update({
                 "date:" + date_type(record),
                 "confidence:" + confidence_value(record),
