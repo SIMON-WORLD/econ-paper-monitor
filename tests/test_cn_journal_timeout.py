@@ -3,6 +3,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 from unittest.mock import Mock, patch
+import urllib.error
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
 
@@ -34,3 +35,25 @@ def test_remaining_timeout_never_runs_past_deadline() -> None:
     with patch.object(fetch_cn_journals.time, "monotonic", return_value=12.0):
         assert fetch_cn_journals.remaining_timeout(20.0, 5) == 5
         assert fetch_cn_journals.remaining_timeout(12.0, 5) is None
+
+
+def test_transient_cn_source_failure_is_retried() -> None:
+    journal = {"id": "journal-edcb877d78", "title": "数量经济技术经济研究"}
+    temporary = urllib.error.HTTPError("https://example.test", 502, "temporary", {}, None)
+    with patch.object(
+        fetch_cn_journals,
+        "fetch_journal",
+        side_effect=[temporary, ([{"title": "论文"}], "jqte-toc")],
+    ), patch.object(fetch_cn_journals.time, "sleep") as sleep_mock:
+        rows, mode, attempts = fetch_cn_journals.fetch_journal_with_retry(
+            journal,
+            "https://example.test",
+            20,
+            retries=2,
+            retry_delay=0.1,
+        )
+
+    assert rows == [{"title": "论文"}]
+    assert mode == "jqte-toc"
+    assert attempts == 2
+    sleep_mock.assert_called_once()

@@ -250,6 +250,8 @@ def main() -> None:
     selected = journals[: args.limit] if args.limit else journals
     registry = load_registry()
     failures = 0
+    failure_details: list[dict[str, Any]] = []
+    rate_limited = 0
 
     for journal in selected:
         registry_entry = registry.setdefault("journals", {}).setdefault(journal["id"], {})
@@ -262,9 +264,27 @@ def main() -> None:
             messages.append(f"{journal.get('title')}: {len(fetched)}")
         except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
             failures += 1
+            is_rate_limit = isinstance(exc, urllib.error.HTTPError) and exc.code == 429
+            rate_limited += int(is_rate_limit)
+            retryable = is_rate_limit or isinstance(exc, urllib.error.URLError) or (
+                isinstance(exc, urllib.error.HTTPError) and exc.code in {500, 502, 503, 504}
+            )
             registry_entry["last_crossref_count"] = 0
-            registry_entry["last_crossref_status"] = "error"
+            registry_entry["last_crossref_status"] = "rate_limited" if is_rate_limit else "error"
             registry_entry["last_crossref_error"] = f"{type(exc).__name__}: {exc}"
+            registry_entry["last_crossref_retryable"] = retryable
+            registry_entry["last_crossref_attempts"] = args.retries + 1
+            registry_entry["last_crossref_fallback"] = "preserve_seen_then_use_rss_priority_toc_openalex"
+            failure_details.append(
+                {
+                    "journal_id": journal.get("id"),
+                    "journal": journal.get("title"),
+                    "error": f"{type(exc).__name__}: {exc}",
+                    "retryable": retryable,
+                    "attempts": args.retries + 1,
+                    "fallback": "preserve_seen_then_use_rss_priority_toc_openalex",
+                }
+            )
             messages.append(f"{journal.get('title')}: error {type(exc).__name__}: {exc}")
             print(f"crossref error for {journal.get('title')}: {exc}")
         polite_sleep(args.sleep)
@@ -277,6 +297,13 @@ def main() -> None:
         count=len(records),
         message=(f"partial_success failures={failures}; " if failures else "")
         + ("; ".join(messages[-30:]) or str(output)),
+        details={
+            "failure_count": failures,
+            "rate_limited_count": rate_limited,
+            "retry_policy": {"attempts": args.retries + 1, "honor_retry_after": True},
+            "fallback": "preserve_seen_then_use_rss_priority_toc_openalex",
+            "failures": failure_details[:50],
+        },
     )
     print(f"wrote {len(records)} Crossref records to {output}")
     for message in messages:

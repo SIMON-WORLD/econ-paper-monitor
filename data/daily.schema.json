@@ -31,8 +31,20 @@
       "source_type": {"type": "string"},
       "url": {"type": "string"},
       "doi": {"type": ["string", "null"]},
+      "detail_key": {"type": "string", "minLength": 1},
       "abstract": {"type": ["string", "null"]},
       "abstract_zh": {"type": ["string", "null"]},
+      "abstract_status_code": {"type": ["string", "null"]},
+      "abstract_completeness": {"type": ["string", "null"], "enum": ["full", "preview", "missing", null]},
+      "abstract_truncated": {"type": ["boolean", "null"]},
+      "authors_status_code": {"type": ["string", "null"]},
+      "official_date_status": {"type": ["string", "null"]},
+      "version_group_key": {"type": ["string", "null"]},
+      "related_versions": {
+        "type": "array",
+        "items": {"type": "string"},
+        "uniqueItems": true
+      },
       "fields": {
         "type": "array",
         "items": {"type": "string"},

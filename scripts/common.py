@@ -93,14 +93,38 @@ def clean_abstract_text(value: Any) -> str:
     text = re.sub(r"<style\b[\s\S]*?</style>", " ", text, flags=re.I)
     text = re.sub(r"<[^>]+>", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
-    text = re.sub(r"^ABSTRACT\b[\s:：.\-–—]*", "", text).strip()
     text = re.sub(
-        r"^Abstract\s*(?:[:：.\-–—]\s*|\s+(?=(?:This|We|The|Using|Based|Drawing|Our|In|As|An?|To)\b))",
+        r"^(?:ABSTRACT|Abstract)\s*(?:[:：.\-–—]\s*|\s+(?=(?:This|We|The|Using|Based|Drawing|Our|In|As|An?|To)\b))",
         "",
         text,
     ).strip()
     text = re.sub(r"^摘要\s*(?:[:：]\s*|\s+(?=(?:本文|本研究|本论文|我们)\b))", "", text).strip()
     return text
+
+
+def normalized_url_identity_keys(value: Any) -> set[str]:
+    """Return URL identities while removing tracking parameters only.
+
+    Query values such as ``contentId`` and ``file_no`` identify articles on
+    Chinese journal sites and must never be dropped. Hash-router fragments can
+    also contain their own query string, so generic ``split('?')`` logic is
+    unsafe here.
+    """
+    raw = str(value or "").strip().rstrip("/").casefold()
+    if not raw:
+        return set()
+    keys = {raw}
+    parsed = urllib.parse.urlsplit(raw)
+    tracking = {"af", "dgcid", "utm_campaign", "utm_content", "utm_medium", "utm_source", "utm_term"}
+    query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+    filtered = [(key, item) for key, item in query if key.casefold() not in tracking]
+    if len(filtered) != len(query):
+        cleaned = urllib.parse.urlunsplit(
+            (parsed.scheme, parsed.netloc, parsed.path, urllib.parse.urlencode(filtered), parsed.fragment)
+        ).rstrip("/")
+        if cleaned:
+            keys.add(cleaned)
+    return keys
 
 
 def fetch_json(url: str, params: dict[str, str | int] | None = None, timeout: int = 30) -> Any:

@@ -104,7 +104,23 @@ This text must not be included.
 
         self.assertTrue(changed)
         self.assertEqual(record["abstract_status"], "摘要暂未公开，系统将自动重试")
+        self.assertEqual(record["abstract_status_code"], "missing_retry")
+        self.assertEqual(record["abstract_completeness"], "missing")
         self.assertEqual(record["abstract_enrichment_status"], "abstract-not-exposed")
+
+    @patch.object(enrich_metadata, "now", return_value="2026-07-31T00:00:00+00:00")
+    def test_publisher_failure_enters_auditable_retry_state(self, _now_mock) -> None:
+        record = {}
+
+        changed = enrich_metadata.queue_metadata_retry(record, "blocked-captcha")
+
+        self.assertTrue(changed)
+        self.assertEqual(record["metadata_retry_state"]["status"], "queued")
+        self.assertEqual(record["metadata_retry_state"]["reason"], "blocked-captcha")
+        self.assertEqual(
+            record["metadata_retry_state"]["fallbacks"],
+            ["crossref-doi", "openalex", "readonly-proxy"],
+        )
 
     @patch.object(enrich_metadata, "fetch_text")
     def test_proxy_reports_captcha_instead_of_missing_abstract(self, fetch_mock) -> None:

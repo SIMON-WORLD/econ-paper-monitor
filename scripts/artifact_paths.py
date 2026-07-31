@@ -33,14 +33,19 @@ def _basename(text: str) -> str:
 def repo_relative_path(path: Any) -> str:
     """Return a repository-relative POSIX path, or a bare file name."""
     text = str(path)
-    # A Windows path handled on POSIX is not recognised as absolute, so
-    # ``resolve()`` would anchor it inside the repository and defeat the
-    # sanitisation. Reduce those before resolving.
-    if _WINDOWS_PATH.match(text):
+    parsed = Path(text)
+    if _WINDOWS_PATH.match(text) and not parsed.is_absolute():
         return _basename(text)
     try:
-        return Path(text).resolve().relative_to(ROOT).as_posix()
+        candidate = parsed.resolve()
+        # On Windows, a path inside this checkout is still a legitimate
+        # repository-relative artifact path. Check containment before the
+        # generic drive-letter sanitizer below.
+        return candidate.relative_to(ROOT).as_posix()
     except (ValueError, OSError):
+        # A Windows path handled on POSIX is not recognised as absolute, so
+        # ``resolve()`` would anchor it inside the repository and defeat the
+        # sanitisation. Reduce those before returning the fallback.
         return _basename(text)
 
 
