@@ -21,6 +21,7 @@ import socket
 import time
 import http.cookiejar
 import urllib.parse
+import urllib.error
 import urllib.request
 from datetime import datetime
 from html.parser import HTMLParser
@@ -1008,6 +1009,33 @@ def fetch_journal(journal: dict[str, Any], url: str, limit: int) -> tuple[list[d
     return [], "unsupported"
 
 
+def fetch_journal_with_retry(
+    journal: dict[str, Any],
+    url: str,
+    limit: int,
+    *,
+    retries: int,
+    retry_delay: float,
+) -> tuple[list[dict[str, Any]], str, int]:
+    """Retry transient official-site failures before declaring degradation."""
+    last_error: Exception | None = None
+    for attempt in range(max(0, retries) + 1):
+        try:
+            records, mode = fetch_journal(journal, url, limit)
+            # A consumed Management World time budget is not a verified empty
+            # issue and retrying it would exceed the workflow's hard budget.
+            return records, mode, attempt + 1
+        except (TimeoutError, OSError, urllib.error.URLError, urllib.error.HTTPError) as exc:
+            last_error = exc
+            transient = not isinstance(exc, urllib.error.HTTPError) or exc.code in {429, 500, 502, 503, 504}
+            if not transient or attempt >= max(0, retries):
+                raise
+            time.sleep(max(0.0, retry_delay) * (attempt + 1))
+    if last_error:
+        raise last_error
+    raise RuntimeError("Chinese journal fetch returned no result")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -1016,6 +1044,8 @@ def main() -> None:
     parser.add_argument("--detail-limit", type=int, default=0)
     parser.add_argument("--only", action="append", default=[])
     parser.add_argument("--tier", default=None)
+    parser.add_argument("--retries", type=int, default=2)
+    parser.add_argument("--retry-delay", type=float, default=1.0)
     args = parser.parse_args()
     global DETAIL_LIMIT, DETAIL_ATTEMPTED
     DETAIL_LIMIT = args.detail_limit
@@ -1048,7 +1078,13 @@ def main() -> None:
             )
             continue
         try:
-            fetched, mode = fetch_journal(journal, url, args.limit_per_journal)
+            fetched, mode, attempts = fetch_journal_with_retry(
+                journal,
+                url,
+                args.limit_per_journal,
+                retries=args.retries,
+                retry_delay=args.retry_delay,
+            )
             if journal_id in CN_HOME_URLS:
                 before = len(fetched)
                 original = list(fetched)
@@ -1058,7 +1094,11 @@ def main() -> None:
                     mode = f"{mode}, {note}"
             records.extend(fetched)
             messages.append(f"{journal_id}: {len(fetched)} via {mode}")
-            source_ok = not (journal_id == "journal-379b4022ce" and not fetched and "current-year-empty" not in mode)
+            source_ok = not (
+                journal_id == "journal-379b4022ce"
+                and not fetched
+                and ("current-year-empty" not in mode or "time-budget-exhausted" in mode)
+            )
             journal_summaries.append(
                 {
                     "journal_id": journal_id,
@@ -1066,6 +1106,10 @@ def main() -> None:
                     "ok": source_ok,
                     "count": len(fetched),
                     "mode": mode,
+                    "attempts": attempts,
+                    "retryable": not source_ok,
+                    "fallback": "local-cnki-rss" if not source_ok else None,
+                    "fallback_status": "queued" if not source_ok else "not-needed",
                     "message": (
                         "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source"
                         if not source_ok
@@ -1082,6 +1126,10 @@ def main() -> None:
                     "ok": False,
                     "count": 0,
                     "mode": "error",
+                    "attempts": args.retries + 1,
+                    "retryable": True,
+                    "fallback": "local-cnki-rss",
+                    "fallback_status": "queued",
                     "message": f"{type(exc).__name__}: {exc}",
                 }
             )

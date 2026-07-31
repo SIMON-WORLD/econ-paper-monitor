@@ -8,7 +8,7 @@ from typing import Any
 
 import re
 
-from common import DATA_DIR, normalize_doi, read_json, stable_id, today_str, write_json
+from common import DATA_DIR, normalize_doi, normalized_url_identity_keys, read_json, stable_id, today_str, write_json
 from status import record_run, record_source
 
 
@@ -133,6 +133,7 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
         "issue information",
         "submission of manuscripts to ",
         "annual report of the president",
+        "report of the editor of ",
         "correction to",
         "distinguished fellow",
         "distinguished life member",
@@ -275,14 +276,8 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
     url = str(record.get("url") or "").strip().rstrip("/")
     if url:
         normalized_url = url.casefold()
-        keys.add(f"url:{normalized_url}")
-        # CNKI article URLs often share the same path and only differ by query
-        # parameters. Dropping the query collapses unrelated papers into one.
-        if (
-            "kns.cnki.net/kcms2/article/abstract" not in normalized_url
-            and "aeaweb.org/articles" not in normalized_url
-        ):
-            keys.add(f"url:{normalized_url.split('?', 1)[0]}")
+        for identity_url in normalized_url_identity_keys(url):
+            keys.add(f"url:{identity_url}")
         for pattern in (
             r"nber\.org/papers/(w\d+)",
             r"iza\.org/publications/dp/(\d+)",
@@ -298,11 +293,12 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
     journal = " ".join(str(record.get("journal") or "").casefold().split())
     if record.get("source_type") == "journal" and title and journal and len(title) > 20:
         keys.add(f"journal-title:{journal}:{title}")
-    if source == "working_papers" and title and len(title) > 20 and not is_repec_placeholder(title):
-        # Aggregators often rediscover the same paper under an issue anchor and
-        # a canonical RePEc URL. Title identity prevents the later alias from
-        # being restored as a fresh paper after the official-date copy exists.
-        keys.add(f"working-title:{title}")
+    source_scope = str(record.get("source_id") or record.get("journal_id") or source or journal).casefold()
+    if title and source_scope and len(title) > 20 and not is_repec_placeholder(title):
+        # Title identity is scoped to the journal or working-paper series. The
+        # same title at CEPR/NBER and in a journal is a version relationship,
+        # not a duplicate that should be deleted.
+        keys.add(f"source-title:{source_scope}:{title}")
     source_id = str(record.get("source_id") or "")
     paper_number = str(record.get("paper_number") or "")
     if source_id and paper_number:

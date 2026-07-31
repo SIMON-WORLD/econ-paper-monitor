@@ -53,6 +53,10 @@ def main() -> None:
                 "ok": bool(status_item.get("ok")) if status_item else exists,
                 "count": count,
                 "mode": status_item.get("mode") or "official-source",
+                "attempts": status_item.get("attempts") or 1,
+                "retryable": bool(status_item.get("retryable")),
+                "fallback": status_item.get("fallback"),
+                "fallback_status": status_item.get("fallback_status") or "not-needed",
                 "message": status_item.get("message") or ("ok" if exists else "missing output"),
             }
         )
@@ -72,6 +76,17 @@ def main() -> None:
         "ok": ok,
         "count": total,
         "updated_at": now(),
+        "successful": successful,
+        "configured": len(rows),
+        "retry_queue": [
+            {
+                "journal_id": row["journal_id"],
+                "reason": row["message"],
+                "fallback": row.get("fallback") or "local-cnki-rss",
+            }
+            for row in rows
+            if not row["ok"]
+        ],
         "journals": rows,
     }
     save_status(status)

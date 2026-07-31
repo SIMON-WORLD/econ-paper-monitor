@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, clean_abstract_text, read_json, today_str, write_json
+from public_integrity import repair_public_integrity
 from status import record_source
 
 
@@ -382,9 +383,15 @@ def record_keys(record: dict[str, Any]) -> set[str]:
         source_id = str(record.get("source_id") or "").casefold()
         if source_id.startswith("repec-nep-"):
             keys.add(f"repec-title:{source_id}:{title}")
-        source_type = str(record.get("source_type") or "").casefold()
-        if source_type in {"working_paper", "aggregator", "policy_commentary"}:
-            keys.add(f"working-title:{title}")
+        source_scope = str(
+            record.get("source_id")
+            or record.get("journal_id")
+            or record.get("source")
+            or record.get("journal")
+            or ""
+        ).casefold()
+        if source_scope:
+            keys.add(f"source-title:{source_scope}:{title}")
     return keys
 
 
@@ -486,8 +493,27 @@ def main() -> None:
         duplicate_removed, duplicate_files = remove_cross_day_duplicates(paths)
     seen_changed = normalize_seen_source_types() if not args.date else 0
     seen_abstracts = normalize_seen_abstracts() if not args.date else 0
-    record_source("normalize-records", ok=True, count=changed + duplicate_removed + seen_changed + seen_abstracts, message=f"files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed} seen_abstracts={seen_abstracts}")
-    print(f"normalize records changed={changed} files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} seen_source_types={seen_changed} seen_abstracts={seen_abstracts}")
+    integrity = repair_public_integrity(DATA_DIR) if not args.date else None
+    integrity_repairs = sum((integrity or {}).get("repairs", {}).get(key, 0) for key in (
+        "daily_duplicates_removed",
+        "seen_duplicates_removed",
+        "seen_records_seeded_from_daily",
+    ))
+    record_source(
+        "normalize-records",
+        ok=True,
+        count=changed + duplicate_removed + seen_changed + seen_abstracts + integrity_repairs,
+        message=(
+            f"files={touched} duplicates_removed={duplicate_removed} duplicate_files={duplicate_files} "
+            f"seen_source_types={seen_changed} seen_abstracts={seen_abstracts} "
+            f"public_integrity_repairs={integrity_repairs}"
+        ),
+    )
+    print(
+        f"normalize records changed={changed} files={touched} duplicates_removed={duplicate_removed} "
+        f"duplicate_files={duplicate_files} seen_source_types={seen_changed} "
+        f"seen_abstracts={seen_abstracts} public_integrity_repairs={integrity_repairs}"
+    )
 
 
 if __name__ == "__main__":

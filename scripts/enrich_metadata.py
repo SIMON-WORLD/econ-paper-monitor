@@ -893,6 +893,12 @@ def update_abstract_attempt_status(record: dict[str, Any], status: str) -> bool:
     """Expose an honest compact state while delayed metadata indexes catch up."""
     if str(record.get("abstract") or "").strip():
         changed = record.pop("abstract_status", None) is not None
+        if record.get("abstract_status_code") != "available":
+            record["abstract_status_code"] = "available"
+            changed = True
+        if record.get("abstract_completeness") != "full":
+            record["abstract_completeness"] = "full"
+            changed = True
         if record.get("abstract_enrichment_status") != "available":
             record["abstract_enrichment_status"] = "available"
             changed = True
@@ -903,10 +909,29 @@ def update_abstract_attempt_status(record: dict[str, Any], status: str) -> bool:
     if record.get("abstract_status") != public_status:
         record["abstract_status"] = public_status
         changed = True
+    if record.get("abstract_status_code") != "missing_retry":
+        record["abstract_status_code"] = "missing_retry"
+        changed = True
+    if record.get("abstract_completeness") != "missing":
+        record["abstract_completeness"] = "missing"
+        changed = True
     if record.get("abstract_enrichment_status") != status:
         record["abstract_enrichment_status"] = status
         changed = True
     return changed
+
+
+def queue_metadata_retry(record: dict[str, Any], status: str) -> bool:
+    state = {
+        "status": "queued",
+        "reason": status,
+        "attempted_at": now(),
+        "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
+    }
+    if record.get("metadata_retry_state") == state:
+        return False
+    record["metadata_retry_state"] = state
+    return True
 
 
 def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
@@ -985,6 +1010,9 @@ def record_publisher_group(stats: dict[str, dict[str, Any]]) -> None:
                 "ab_dates": ab_dates,
                 "success_rate": round(ab_dates / attempted, 4) if attempted else 0,
                 "failures": failures,
+                "degraded": failures > 0,
+                "retryable": failures > 0,
+                "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
                 "statuses": dict(sorted(status_counts.items())),
                 "message": top_status,
             }
@@ -1142,6 +1170,8 @@ def main() -> None:
             if error is not None:
                 stats["failures"] += 1
                 stats["status_counts"][status] += 1
+                if queue_metadata_retry(record, status):
+                    changed_paths.add(path)
                 messages.append(f"{path.stem} {record.get('journal')}: {status}")
                 continue
             changed += int(did_change)
@@ -1159,11 +1189,18 @@ def main() -> None:
 
     for path in sorted(changed_paths):
         write_json(path, records_by_path[path])
+    total_failures = sum(int(item.get("failures") or 0) for item in publisher_stats.values())
     record_source(
         "publisher-detail",
-        ok=True,
+        ok=total_failures == 0,
         count=changed,
         message=f"attempted={attempted}; proxy_abstract_attempted={proxy_abstract_attempted}; " + "; ".join(messages[-20:]),
+        details={
+            "attempted": attempted,
+            "failures": total_failures,
+            "retryable": total_failures > 0,
+            "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
+        },
     )
     record_publisher_group(publisher_stats)
     print(f"publisher detail attempted={attempted} changed={changed}")
