@@ -143,8 +143,16 @@ def is_source_navigation_noise(record: dict[str, Any]) -> bool:
         "summaries of doctoral dissertations",
         "prize in economic sciences in memory of alfred nobel",
         "学院简介",
+        "出版社重点系列书",
     )
-    return title in navigation_titles or any(fragment in title for fragment in navigation_fragments)
+    journal_annual_report = bool(
+        re.search(r"\breview of economics and statistics\b.*\bannual report\b", title)
+    )
+    return (
+        title in navigation_titles
+        or journal_annual_report
+        or any(fragment in title for fragment in navigation_fragments)
+    )
 
 
 def merge_daily(existing: list[dict[str, Any]], new_records: list[dict[str, Any]]) -> list[dict[str, Any]]:

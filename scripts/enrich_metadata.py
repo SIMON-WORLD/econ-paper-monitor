@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from common import BEIJING_TZ, DATA_DIR, clean_abstract_text, date_from_parts, fetch_json, fetch_text, normalize_doi, read_json, today_str, write_json
+from public_integrity import strong_identity_keys
 from status import load_status, now, record_source, save_status
 
 
@@ -655,8 +656,20 @@ def publisher_bucket(record: dict[str, Any]) -> str:
 def has_ab_date(record: dict[str, Any]) -> bool:
     confidence = str(record.get("date_confidence") or "")
     return confidence in {"A", "B"} and bool(
-        record.get("available_online") or record.get("published_online") or record.get("accepted_date")
+        record.get("official_date")
+        or record.get("available_online")
+        or record.get("published_online")
+        or record.get("issue_date")
     )
+
+
+def needs_date_recovery(record: dict[str, Any]) -> bool:
+    confidence = str(record.get("date_confidence") or "unknown")
+    has_official_date = any(
+        record.get(field)
+        for field in ("official_date", "available_online", "published_online", "issue_date")
+    )
+    return not has_official_date or confidence in {"", "C", "D", "F", "unknown"}
 
 
 def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, int, float]:
@@ -934,6 +947,23 @@ def queue_metadata_retry(record: dict[str, Any], status: str) -> bool:
     return True
 
 
+def load_retry_identity_keys(path: Path | None) -> set[str]:
+    if path is None:
+        return set()
+    payload = read_json(path, {"records": []})
+    records = payload.get("records") if isinstance(payload, dict) else []
+    keys: set[str] = set()
+    for record in records if isinstance(records, list) else []:
+        if not isinstance(record, dict):
+            continue
+        keys.update(str(value).casefold() for value in record.get("identity_keys") or [] if value)
+        identity = str(record.get("identity") or "").strip().casefold()
+        if identity:
+            keys.add(identity)
+        keys.update(strong_identity_keys(record))
+    return keys
+
+
 def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
     if record.get("authors"):
         return False, "authors-present"
@@ -1061,7 +1091,14 @@ def main() -> None:
     parser.add_argument("--proxy-abstract-limit", type=int, default=20)
     parser.add_argument("--abstract-only", action="store_true", help="Skip slow publisher HTML and only run abstract fallbacks.")
     parser.add_argument("--authors-only", action="store_true", help="Only backfill records whose author list is missing.")
+    parser.add_argument("--date-only", action="store_true", help="Only retry records with missing or weak official-date evidence.")
     parser.add_argument("--source-id", default=None, help="Only process records from one source id during a targeted retry.")
+    parser.add_argument(
+        "--retry-queue",
+        type=Path,
+        default=None,
+        help="Only process records whose durable identities occur in this metadata retry queue.",
+    )
     parser.add_argument("--timeout", type=int, default=15)
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
@@ -1080,6 +1117,11 @@ def main() -> None:
     records_by_path: dict[Path, Any] = {}
     candidates: list[tuple[Path, dict[str, Any]]] = []
     daily_identities: set[str] = set()
+    retry_identity_keys = load_retry_identity_keys(args.retry_queue)
+    retry_filter_enabled = args.retry_queue is not None
+
+    def selected_by_retry_queue(record: dict[str, Any]) -> bool:
+        return not retry_filter_enabled or bool(strong_identity_keys(record).intersection(retry_identity_keys))
 
     def identity(record: dict[str, Any]) -> str:
         doi = str(record.get("doi") or "").strip().casefold()
@@ -1097,8 +1139,10 @@ def main() -> None:
         candidates.extend(
             (path, record)
             for record in records
-            if (args.authors_only or args.abstract_only or should_enrich(record))
+            if (args.authors_only or args.abstract_only or args.date_only or should_enrich(record))
+            and selected_by_retry_queue(record)
             and (not args.authors_only or not record.get("authors"))
+            and (not args.date_only or needs_date_recovery(record))
             and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
             and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
         )
@@ -1116,10 +1160,16 @@ def main() -> None:
             except ValueError:
                 is_recent = False
             if (
-                (is_recent or (args.authors_only and not record.get("authors")))
-                and (args.authors_only or args.abstract_only or should_enrich(record))
+                (
+                    is_recent
+                    or (args.authors_only and not record.get("authors"))
+                    or (args.date_only and needs_date_recovery(record))
+                )
+                and (args.authors_only or args.abstract_only or args.date_only or should_enrich(record))
+                and selected_by_retry_queue(record)
                 and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
                 and (not args.authors_only or not record.get("authors"))
+                and (not args.date_only or needs_date_recovery(record))
                 and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
             ):
                 candidates.append((args.seen, record))
@@ -1151,6 +1201,11 @@ def main() -> None:
             elif args.abstract_only:
                 did_change, status = enrich_abstract_record(record, args.timeout)
                 did_change = update_abstract_attempt_status(record, status) or did_change
+            elif args.date_only:
+                if str(record.get("source_id") or "") in {"cepr-dp", "fed-feds"}:
+                    did_change, status = enrich_abstract_record(record, args.timeout)
+                else:
+                    did_change, status = enrich_record(record, args.timeout, allow_proxy_abstract=False)
             else:
                 did_change, status = enrich_record(record, args.timeout, allow_proxy_abstract=allow_proxy)
         except Exception as exc:  # noqa: BLE001
