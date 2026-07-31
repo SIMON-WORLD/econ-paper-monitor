@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="site-root" content="../..">
   <link rel="icon" type="image/png" href="../../assets/academic-door-logo.png">
   <meta name="description" content="每日追踪经济学重点期刊与工作论文，区分首次监测时间、官方在线日期和中国相关研究。">
   <title>2026-04-24 归档</title>
@@ -145,6 +146,7 @@
   const params = new URLSearchParams(window.location.search);
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
+    if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
     const search = toolbar.querySelector('[data-filter-role="search"]');
     const journal = toolbar.querySelector('[data-filter-role="journal"]');
     const field = toolbar.querySelector('[data-filter-role="field"]');
@@ -283,5 +285,144 @@
   heartbeat();
   window.setInterval(heartbeat, 60000);
 })();
-</script></body>
+</script>
+<script>
+(() => {
+  const jsonCache = new Map();
+  const loadJson = (url) => {
+    if (!jsonCache.has(url)) {
+      jsonCache.set(url, fetch(url, {credentials: 'same-origin'}).then((response) => {
+        if (!response.ok) throw new Error('lazy data request failed: ' + response.status);
+        return response.json();
+      }));
+    }
+    return jsonCache.get(url);
+  };
+  const debounce = (fn, delay) => {
+    let timer;
+    return () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(fn, delay);
+    };
+  };
+  const matchingItems = (items, toolbar) => {
+    const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
+    const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
+    const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
+    const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
+    const confidence = toolbar?.querySelector('[data-filter-role="confidence"]')?.value || '';
+    const sourceType = toolbar?.querySelector('[data-filter-role="sourceType"]')?.value || '';
+    const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
+    const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
+    return items.filter((item) => {
+      if (query && !String(item.search || '').includes(query)) return false;
+      if (journal && item.journal !== journal) return false;
+      if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
+      if (dateType && item.dateType !== dateType) return false;
+      if (confidence && item.confidence !== confidence) return false;
+      if (sourceType && item.sourceType !== sourceType) return false;
+      if (chinaOnly && !item.china) return false;
+      if (onlineTodayOnly && !item.onlineToday) return false;
+      return true;
+    });
+  };
+  const updateList = async (list, items, toolbar, manifestUrl) => {
+    const scope = list.dataset.lazyScope || 'default';
+    const matches = matchingItems(items, toolbar);
+    const batchSize = 40;
+    let rendered = 0;
+    const empty = list.querySelector('[data-lazy-empty]');
+    if (!matches.length) {
+      list.querySelectorAll('.lazy-initial, .lazy-paper, .lazy-more, .lazy-start').forEach((node) => node.remove());
+      if (empty) {
+        empty.hidden = false;
+        empty.textContent = '没有符合当前筛选条件的论文。';
+      }
+    } else if (empty) {
+      empty.hidden = true;
+    }
+    const renderBatch = async () => {
+      const end = Math.min(rendered + batchSize, matches.length);
+      const batch = matches.slice(rendered, end);
+      const shardNames = [...new Set(batch.map((item) => item.shard))];
+      const payloads = await Promise.all(shardNames.map((name) => loadJson(new URL(name + '.json', manifestUrl).href)));
+      const cards = new Map(payloads.flat().map((item) => [item.key, item.html]));
+      if (rendered === 0) {
+        list.querySelectorAll('.lazy-initial, .lazy-paper, .lazy-more, .lazy-start').forEach((node) => node.remove());
+      }
+      const fragment = document.createDocumentFragment();
+      for (const item of batch) {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = String(cards.get(item.key) || '').replaceAll('__PAPER_BASE__', list.dataset.lazyBase || '.');
+        const nodes = Array.from(wrapper.childNodes);
+        nodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) node.classList.add('lazy-paper');
+        });
+        fragment.append(...nodes);
+      }
+      rendered = end;
+      list.querySelector('.lazy-more')?.remove();
+      list.append(fragment);
+      if (rendered < matches.length) {
+        const more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'control lazy-more';
+        more.textContent = '加载更多';
+        more.setAttribute('aria-label', '加载更多论文');
+        more.addEventListener('click', () => renderBatch().catch(showError));
+        list.append(more);
+      }
+    };
+    if (matches.length) {
+      await renderBatch();
+      list.querySelectorAll('.lazy-initial, .lazy-start').forEach((node) => node.remove());
+    }
+    const counter = document.querySelector('[data-filter-counter="' + scope + '"]');
+    if (counter) counter.textContent = '当前显示 ' + matches.length + ' 篇';
+  };
+  const showError = (error) => console.error(error);
+  const initList = (list) => {
+    const scope = list.dataset.lazyScope || 'default';
+    const toolbar = document.querySelector('.toolbar[data-filter-scope="' + scope + '"]');
+    const manifestUrl = new URL(list.dataset.lazyManifest, window.location.href).href;
+    let itemsPromise;
+    const activate = () => itemsPromise || (itemsPromise = loadJson(manifestUrl));
+    const rerender = debounce(() => activate().then((items) => updateList(list, items, toolbar, manifestUrl)).catch(showError), 140);
+    const bind = () => {
+      for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
+        const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');
+        control?.addEventListener(role === 'search' ? 'input' : 'change', rerender);
+      }
+      const china = toolbar?.querySelector('[data-filter-role="china"]');
+      china?.addEventListener('click', () => {
+        const active = china.getAttribute('aria-pressed') === 'true';
+        china.setAttribute('aria-pressed', String(!active));
+        china.classList.toggle('active', !active);
+        rerender();
+      });
+    };
+    const params = new URLSearchParams(window.location.search);
+    if (toolbar) {
+        const search = toolbar.querySelector('[data-filter-role="search"]');
+        if (params.get('q')) search.value = params.get('q');
+        if (params.get('journal')) toolbar.querySelector('[data-filter-role="journal"]').value = params.get('journal');
+        if (params.get('field')) toolbar.querySelector('[data-filter-role="field"]').value = params.get('field');
+        if (params.get('dateType')) toolbar.querySelector('[data-filter-role="dateType"]').value = params.get('dateType');
+        if (params.get('confidence')) toolbar.querySelector('[data-filter-role="confidence"]').value = params.get('confidence');
+        if (params.get('sourceType')) toolbar.querySelector('[data-filter-role="sourceType"]').value = params.get('sourceType');
+        if (params.get('china') === '1') {
+          const button = toolbar.querySelector('[data-filter-role="china"]');
+          button?.setAttribute('aria-pressed', 'true');
+          button?.classList.add('active');
+        }
+    }
+    bind();
+    list.querySelector('.lazy-start')?.addEventListener('click', rerender);
+    const hasPreset = [...params.keys()].some((key) => ['q', 'journal', 'field', 'dateType', 'confidence', 'sourceType', 'china', 'onlineToday'].includes(key));
+    if (list.dataset.lazyDefer !== 'true' || hasPreset) rerender();
+  };
+  document.querySelectorAll('[data-lazy-list]').forEach(initList);
+})();
+</script>
+</body>
 </html>
