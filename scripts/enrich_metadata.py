@@ -20,7 +20,8 @@ from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, date_from_parts, fetch_json, fetch_text, normalize_doi, read_json, today_str, write_json
+from common import BEIJING_TZ, DATA_DIR, clean_abstract_text, date_from_parts, fetch_json, fetch_text, normalize_doi, read_json, today_str, write_json
+from public_integrity import strong_identity_keys
 from status import load_status, now, record_source, save_status
 
 
@@ -195,9 +196,9 @@ def extract_page_metadata(html: str) -> dict[str, Any]:
             result["date_source"] = f"publisher_{field}"
             result["date_confidence"] = "A"
     for key in ("citation_abstract", "dc.description", "description", "og:description"):
-        abstract = meta.get(key)
-        if abstract and len(clean_text(abstract)) > 80:
-            result.setdefault("abstract", clean_text(abstract))
+        abstract = clean_abstract_text(meta.get(key))
+        if len(abstract) > 80:
+            result.setdefault("abstract", abstract)
             result.setdefault("abstract_source", f"publisher_meta:{key}")
             break
     if "abstract" not in result:
@@ -207,7 +208,7 @@ def extract_page_metadata(html: str) -> dict[str, Any]:
         )
         for pattern in abstract_patterns:
             match = re.search(pattern, html, flags=re.I)
-            abstract = clean_text(match.group(1)) if match else ""
+            abstract = clean_abstract_text(match.group(1)) if match else ""
             if len(abstract) > 80:
                 result["abstract"] = abstract
                 result["abstract_source"] = "publisher_body:abstract"
@@ -223,7 +224,7 @@ def extract_markdown_abstract(markdown: str) -> str | None:
     abstract = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", abstract)
     abstract = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", abstract)
     abstract = re.sub(r"[*_`#>]", " ", abstract)
-    abstract = re.sub(r"\s+", " ", html_lib.unescape(abstract)).strip()
+    abstract = clean_abstract_text(abstract)
     return abstract if len(abstract) > 80 else None
 
 
@@ -275,7 +276,7 @@ def extract_elsevier_api_abstract(response: dict[str, Any], core: dict[str, Any]
         if match:
             candidates.append(match.group(1))
     for candidate in candidates:
-        abstract = nested_text(candidate)
+        abstract = clean_abstract_text(nested_text(candidate))
         if len(abstract) > 80:
             return abstract
     return None
@@ -298,58 +299,122 @@ def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
     if not isinstance(core, dict):
         return {}
     result: dict[str, str] = {}
-    abstract = extract_elsevier_api_abstract(response or {}, core)
+    pii = extract_elsevier_pii(str(core.get("prism:url") or ""), str(core.get("pii") or ""))
+    if pii:
+        result["pii"] = pii
+    display_date = str(core.get("prism:coverDisplayDate") or "")
+    cover_date = str(core.get("prism:coverDate") or "")
+    parsed = parse_date(display_date) or parse_date(cover_date)
+    if parsed and "available online" in display_date.casefold():
+        result["available_online"] = parsed
+        result["published_online"] = parsed
+        result["date_source"] = "elsevier_article_api"
+        result["date_confidence"] = "B"
+    abstract = extract_elsevier_api_abstract(response, core)
     if abstract:
         result["abstract"] = abstract
-        result["abstract_source"] = "elsevier_api"
-    authors = []
-    for creator in core.get("dc:creator") or []:
-        name = clean_text(str(creator.get("$") or "")) if isinstance(creator, dict) else ""
-        if name and name not in authors:
-            authors.append(name)
-    if authors:
-        result["authors"] = authors[:12]
-    # Date extraction from Elsevier API
-    date_fields = {
-        "available_online": core.get("prism:coverDate"),
-        "published_online": core.get("prism:coverDate"),
-    }
-    for field, value in date_fields.items():
-        parsed = parse_date(str(value)) if value else None
-        if parsed:
-            result[field] = parsed
-            result.setdefault("date_source", "elsevier_api")
-            result.setdefault("date_confidence", "A")
+        result["abstract_source"] = "elsevier_article_api_full" if api_key else "elsevier_article_api"
     return result
 
 
 def publisher_proxy_metadata(url: str, timeout: int) -> dict[str, str]:
+    parsed = urllib.parse.urlparse(url)
+    host = parsed.netloc.casefold()
+    allowed_hosts = {
+        "www.sciencedirect.com",
+        "sciencedirect.com",
+        "onlinelibrary.wiley.com",
+        "www.tandfonline.com",
+        "tandfonline.com",
+        "academic.oup.com",
+        "link.springer.com",
+    }
+    if host not in allowed_hosts:
+        return {}
+    target = f"http://{host}{parsed.path}"
+    if parsed.query:
+        target += f"?{parsed.query}"
     try:
-        html, final_url = fetch_text_and_url(url, timeout)
-    except Exception as e:
-        error_text = str(e).lower()
-        if "403" in error_text or "forbidden" in error_text:
-            return {"abstract": "CAPTCHA or access control blocked the publisher page.", "abstract_source": "proxy_blocked"}
+        markdown = fetch_text(f"https://r.jina.ai/{target}", timeout=timeout)
+    except Exception:
+        return {"_status": "proxy-request-failed"}
+    lowered = markdown.casefold()
+    if "are you a robot" in lowered or "requiring captcha" in lowered or "captcha challenge" in lowered:
+        return {"_status": "blocked-captcha"}
+    abstract = extract_markdown_abstract(markdown)
+    if not abstract:
+        return {"_status": "abstract-not-exposed"}
+    return {"abstract": abstract, "abstract_source": "publisher_page_via_readonly_proxy"}
+
+
+def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
+    try:
+        payload = fetch_json(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}", timeout=timeout)
+        item = payload.get("message") or {}
+    except Exception:
         return {}
-    result = extract_page_metadata(html)
-    if not result:
-        return {}
-    return result
+    published_online = date_from_parts(item.get("published-online"))
+    published = date_from_parts(item.get("published"))
+    published_print = date_from_parts(item.get("published-print"))
+    issued = date_from_parts(item.get("issued"))
+    created = crossref_created_date(item)
+    issue_date = published_print or published or issued
+    result: dict[str, Any] = {}
+    authors = []
+    for author in item.get("author") or []:
+        if not isinstance(author, dict):
+            continue
+        name = clean_text(" ".join(str(author.get(key) or "") for key in ("given", "family")))
+        if name and name not in authors:
+            authors.append(name)
+    if authors:
+        result["authors"] = authors[:12]
+    if published_online:
+        result["available_online"] = published_online
+        result["published_online"] = published_online
+        result["date_source"] = "crossref_doi_published_online"
+        result["date_confidence"] = "C"
+    elif doi.startswith("10.1016/") and created:
+        result["available_online"] = created
+        result["published_online"] = created
+        if issue_date:
+            result["issue_date"] = issue_date
+        result["date_source"] = "crossref_doi_elsevier_created_online"
+        result["date_confidence"] = "C"
+    elif published:
+        result["issue_date"] = published
+        result["date_source"] = "crossref_doi_published"
+        result["date_confidence"] = "C"
+    elif published_print or issued:
+        result["issue_date"] = published_print or issued or ""
+        result["date_source"] = "crossref_doi_issue"
+        result["date_confidence"] = "D"
+    elif created:
+        result["issue_date"] = created
+        result["date_source"] = "crossref_doi_created"
+        result["date_confidence"] = "D"
+    abstract = clean_abstract_text(item.get("abstract"))
+    if len(abstract) > 80:
+        result["abstract"] = abstract
+        result["abstract_source"] = "crossref_doi"
+    return {key: value for key, value in result.items() if value}
 
 
 def openalex_abstract(index: Any) -> str | None:
     if not isinstance(index, dict):
         return None
     positions: list[tuple[int, str]] = []
-    for word, pos_list in index.items():
-        if isinstance(pos_list, list):
-            for pos in pos_list:
-                if isinstance(pos, int):
-                    positions.append((pos, str(word)))
+    for word, indexes in index.items():
+        if not isinstance(indexes, list):
+            continue
+        for pos in indexes:
+            try:
+                positions.append((int(pos), str(word)))
+            except Exception:
+                continue
     if not positions:
         return None
-    positions.sort()
-    return " ".join(word for _, word in positions)
+    return " ".join(word for _, word in sorted(positions))
 
 
 def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
@@ -372,15 +437,11 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
         result["available_online"] = parsed
         result["published_online"] = parsed
         result["date_source"] = "openalex_publication_date"
-        # Upgrade to B when publication_date year is in a reasonable range
-        try:
-            year = int(parsed[:4])
-            result["date_confidence"] = "B" if 1990 <= year <= 2030 else "C"
-        except (ValueError, IndexError):
-            result["date_confidence"] = "C"
+        result["date_confidence"] = "C"
     abstract = openalex_abstract(payload.get("abstract_inverted_index"))
-    if abstract and len(clean_text(abstract)) > 80:
-        result["abstract"] = clean_text(abstract)
+    abstract = clean_abstract_text(abstract)
+    if len(abstract) > 80:
+        result["abstract"] = abstract
         result["abstract_source"] = "openalex"
     return result
 
@@ -395,7 +456,7 @@ def semantic_scholar_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     except Exception:
         return {}
     result: dict[str, Any] = {}
-    abstract = clean_text(str(payload.get("abstract") or ""))
+    abstract = clean_abstract_text(payload.get("abstract"))
     if len(abstract) > 80:
         result["abstract"] = abstract
         result["abstract_source"] = "semantic_scholar"
@@ -409,55 +470,6 @@ def semantic_scholar_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     published = parse_date(str(payload.get("publicationDate") or ""))
     if published:
         result["published_online"] = published
-        result["date_source"] = "semantic_scholar_publication_date"
-        result["date_confidence"] = "C"
-    return result
-
-
-def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
-    try:
-        payload = fetch_json(f"https://api.crossref.org/works/{urllib.parse.quote(doi)}", timeout=timeout)
-    except Exception:
-        return {}
-    item = (payload.get("message") or {}) if isinstance(payload, dict) else {}
-    result: dict[str, Any] = {}
-    authors = []
-    for author in item.get("author") or []:
-        if not isinstance(author, dict):
-            continue
-        name = clean_text(" ".join(str(author.get(key) or "") for key in ("given", "family")))
-        if name and name not in authors:
-            authors.append(name)
-    if authors:
-        result["authors"] = authors[:12]
-    abstract = clean_text(str(item.get("abstract") or ""))
-    if len(abstract) > 80:
-        result["abstract"] = abstract
-        result["abstract_source"] = "crossref"
-    # Date extraction
-    date_parts = (item.get("published-online") or {}).get("date-parts")
-    if date_parts:
-        parsed = date_from_parts({"date-parts": date_parts})
-        if parsed:
-            result["published_online"] = parsed
-            result["date_source"] = "crossref_online"
-            result["date_confidence"] = "A"
-    if not result.get("published_online"):
-        date_parts = (item.get("issued") or {}).get("date-parts")
-        if date_parts:
-            parsed = date_from_parts({"date-parts": date_parts})
-            if parsed:
-                result["published_online"] = parsed
-                result["date_source"] = "crossref_issued"
-                result["date_confidence"] = "B"
-    if not result.get("published_online"):
-        date_parts = (item.get("created") or {}).get("date-parts")
-        if date_parts:
-            parsed = date_from_parts({"date-parts": date_parts})
-            if parsed:
-                result["published_online"] = parsed
-                result["date_source"] = "crossref_created"
-                result["date_confidence"] = "C"
     return result
 
 
@@ -480,50 +492,60 @@ def crossref_title_metadata(title: str, timeout: int) -> dict[str, Any]:
             if name and name not in authors:
                 authors.append(name)
         result: dict[str, Any] = {"authors": authors[:12]} if authors else {}
-        doi = item.get("DOI")
+        doi = normalize_doi(item.get("DOI"))
         if doi:
-            result["doi"] = normalize_doi(str(doi))
+            result["doi"] = doi
         return result
     return {}
 
 
 def unpaywall_doi_metadata(doi: str, timeout: int) -> dict[str, str]:
-    email = os.environ.get("UNPAYWALL_EMAIL", "")
-    query = urllib.parse.urlencode({"email": email})
+    email = os.environ.get("UNPAYWALL_EMAIL") or os.environ.get("CROSSREF_MAILTO") or "econ-paper-monitor@example.com"
+    url = f"https://api.unpaywall.org/v2/{urllib.parse.quote(doi)}?email={urllib.parse.quote(email)}"
     try:
-        payload = fetch_json(f"https://api.unpaywall.org/v2/{urllib.parse.quote(doi)}?{query}", timeout=timeout)
+        payload = fetch_json(url, timeout=timeout)
     except Exception:
         return {}
     result: dict[str, str] = {}
-    title = (payload.get("title") or "") if isinstance(payload, dict) else ""
-    if title:
-        result["title"] = clean_text(str(title))
-    genre = (payload.get("genre") or "") if isinstance(payload, dict) else ""
-    if genre:
-        result["genre"] = clean_text(str(genre))
+    parsed = parse_date(str(payload.get("published_date") or "")) if payload.get("published_date") else None
+    if parsed:
+        result["available_online"] = parsed
+        result["published_online"] = parsed
+        result["date_source"] = "unpaywall_published_date"
+        result["date_confidence"] = "C"
     return result
 
 
 def append_date_evidence(record: dict[str, Any], source: str, metadata: dict[str, Any]) -> bool:
-    """Record date evidence without overwriting higher-confidence dates."""
-    confidence_rank = {"A": 0, "B": 1, "C": 2, "D": 3, "F": 4, "unknown": 5, "": 6}
-    existing_conf = str(record.get("date_confidence") or "")
-    incoming_conf = str(metadata.get("date_confidence") or "")
-
-    # Never downgrade
-    if confidence_rank.get(incoming_conf, 6) > confidence_rank.get(existing_conf, 6):
+    if not metadata:
         return False
-
-    changed = False
-    for date_field in ("available_online", "published_online"):
-        if metadata.get(date_field) and record.get(date_field) != metadata[date_field]:
-            record[date_field] = metadata[date_field]
-            changed = True
-    for meta_field in ("date_source", "date_confidence"):
-        if metadata.get(meta_field) and record.get(meta_field) != metadata[meta_field]:
-            record[meta_field] = metadata[meta_field]
-            changed = True
-    return changed
+    raw_data = record.setdefault("raw_data", {})
+    if not isinstance(raw_data, dict):
+        raw_data = {}
+        record["raw_data"] = raw_data
+    evidence = raw_data.setdefault("date_evidence", [])
+    if not isinstance(evidence, list):
+        evidence = []
+        raw_data["date_evidence"] = evidence
+    item = {
+        "source": source,
+        "date_source": metadata.get("date_source"),
+        "published_online": metadata.get("published_online"),
+        "available_online": metadata.get("available_online"),
+        "issue_date": metadata.get("issue_date"),
+        "accepted_date": metadata.get("accepted_date"),
+        "date_confidence": metadata.get("date_confidence"),
+    }
+    signature = (item["source"], item["date_source"], item["published_online"], item["issue_date"], item["accepted_date"])
+    existing = {
+        (entry.get("source"), entry.get("date_source"), entry.get("published_online"), entry.get("issue_date"), entry.get("accepted_date"))
+        for entry in evidence
+        if isinstance(entry, dict)
+    }
+    if signature not in existing:
+        evidence.append({key: value for key, value in item.items() if value})
+        return True
+    return False
 
 
 def api_fallback_metadata(record: dict[str, Any], doi: str, timeout: int) -> tuple[dict[str, Any], str]:
@@ -582,357 +604,575 @@ def merge_metadata(record: dict[str, Any], metadata: dict[str, Any]) -> bool:
 
 def should_enrich(record: dict[str, Any]) -> bool:
     source_type = str(record.get("source_type") or "")
-    if source_type == "journal":
-        return True
-    if source_type == "working_paper":
-        return True
-    return False
+    if str(record.get("source") or "") == "working_papers" or source_type in {"working_paper", "policy_paper", "aggregator"}:
+        return False
+    if record.get("date_confidence") == "A" and record.get("accepted_date"):
+        return False
+    url = record.get("url") or (f"https://doi.org/{record['doi']}" if record.get("doi") else None)
+    return bool(url and str(url).startswith(("http://", "https://")))
 
 
 def candidate_urls(record: dict[str, Any]) -> list[str]:
-    urls: list[str] = []
-    url = record.get("url") or record.get("source_url") or ""
-    if url and url.strip():
-        urls.append(url.strip())
+    urls = []
+    if record.get("url"):
+        urls.append(str(record["url"]))
     doi = record.get("doi")
     if doi:
-        doi_clean = normalize_doi(doi)
-        if doi_clean:
-            urls.append(f"https://doi.org/{doi_clean}")
-    for link in record.get("links") or []:
-        if isinstance(link, dict):
-            href = link.get("href") or link.get("url") or ""
-            if href and href.strip():
-                urls.append(href.strip())
-        elif isinstance(link, str) and link.strip():
-            urls.append(link.strip())
-    return urls[:5]
+        doi = str(doi).strip()
+        urls.append(f"https://doi.org/{doi}")
+        if doi.startswith("10.1080/"):
+            urls.append(f"https://www.tandfonline.com/doi/full/{doi}")
+        if doi.startswith("10.1016/"):
+            pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+            if pii:
+                urls.append(f"https://www.sciencedirect.com/science/article/pii/{pii}")
+        if doi.startswith("10.1093/"):
+            urls.append(f"https://academic.oup.com/search-results?page=1&q={doi}")
+        if doi.startswith("10.1111/") or doi.startswith("10.1002/"):
+            urls.append(f"https://onlinelibrary.wiley.com/doi/full/{doi}")
+        if doi.startswith("10.1007/"):
+            urls.append(f"https://link.springer.com/article/{doi}")
+    return list(dict.fromkeys(urls))
 
 
 def publisher_bucket(record: dict[str, Any]) -> str:
-    url = str(record.get("url") or record.get("source_url") or "")
-    journal = str(record.get("journal") or "")
-    doi = str(record.get("doi") or "")
-    combined = f"{url} {journal} {doi}".lower()
-    if "elsevier" in combined or "sciencedirect" in combined:
+    doi = str(record.get("doi") or "").strip().lower()
+    url = " ".join(str(record.get(key) or "").lower() for key in ("url", "source_url"))
+    journal = str(record.get("journal") or "").lower()
+    haystack = f"{doi} {url} {journal}"
+    if doi.startswith("10.1016/") or "sciencedirect.com" in haystack or "elsevier" in haystack:
         return "Elsevier"
-    if "springer" in combined or "link.springer" in combined:
-        return "Springer"
-    if "tandfonline" in combined or "taylor" in combined or "tandf" in combined:
+    if doi.startswith("10.1080/") or "tandfonline.com" in haystack or "taylor" in haystack:
         return "Taylor & Francis"
-    if "wiley" in combined:
+    if doi.startswith(("10.1111/", "10.1002/")) or "onlinelibrary.wiley.com" in haystack or "wiley" in haystack:
         return "Wiley"
-    if "oxford" in combined or "oup" in combined:
+    if doi.startswith("10.1093/") or "academic.oup.com" in haystack or "oxford" in haystack:
         return "OUP"
-    if "aeaweb" in combined:
-        return "AEA"
-    if "uchicago" in combined or "journals.uchicago" in combined:
-        return "Chicago"
-    if "mitpress" in combined or "direct.mit" in combined:
-        return "MIT"
-    if "aeaweb.org" in combined:
-        return "AEA"
-    return "other"
+    if doi.startswith("10.1007/") or "link.springer.com" in haystack or "springer" in haystack:
+        return "Springer"
+    return "Other"
 
 
 def has_ab_date(record: dict[str, Any]) -> bool:
-    return bool(record.get("available_online") or record.get("published_online"))
-
-
-def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, int, float]:
-    has_abstract = int(bool(str(record.get("abstract") or "").strip()))
-    has_authors = int(bool(record.get("authors")))
-    has_date = int(has_ab_date(record))
-    source_score = 1 if str(record.get("source_type") or "") == "journal" else 0
-    date_conf = {"A": 1.0, "B": 0.8, "C": 0.5, "": 0.2, "unknown": 0.1}.get(
-        str(record.get("date_confidence") or ""), 0.0
+    confidence = str(record.get("date_confidence") or "")
+    return confidence in {"A", "B"} and bool(
+        record.get("official_date")
+        or record.get("available_online")
+        or record.get("published_online")
+        or record.get("issue_date")
     )
-    return (has_abstract, has_authors, has_date, source_score, date_conf)
-
-
-def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, float, int]:
-    missing = 0 if str(record.get("abstract") or "").strip() else 1
-    date_conf = {"A": 1.0, "B": 0.8, "C": 0.5, "": 0.2, "unknown": 0.1}.get(
-        str(record.get("date_confidence") or ""), 0.0
-    )
-    source_score = 1 if str(record.get("source_type") or "") == "journal" else 0
-    return (missing, date_conf, source_score)
-
-
-def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bool = True) -> tuple[bool, str]:
-    doi = normalize_doi(record.get("doi"))
-    changed = False
-    status = "no-metadata"
-
-    # Try publisher page first
-    urls = candidate_urls(record)
-    for url in urls:
-        try:
-            page_md = publisher_proxy_metadata(url, timeout)
-            if page_md:
-                if merge_metadata(record, page_md):
-                    changed = True
-                    status = "updated"
-        except Exception:
-            continue
-
-    # Try CrossRef
-    if doi:
-        try:
-            cr_md = crossref_doi_metadata(doi, timeout)
-            if cr_md and merge_metadata(record, cr_md):
-                changed = True
-                status = "updated"
-        except Exception:
-            pass
-
-    # OpenAlex and Semantic Scholar as last resort
-    if doi:
-        try:
-            oa_md = openalex_doi_metadata(doi, timeout)
-            if oa_md and merge_metadata(record, oa_md):
-                changed = True
-                status = "updated"
-        except Exception:
-            pass
-
-        try:
-            ss_md = semantic_scholar_doi_metadata(doi, timeout)
-            if ss_md and merge_metadata(record, ss_md):
-                changed = True
-                status = "updated"
-        except Exception:
-            pass
-
-    if not changed:
-        status = "metadata-unchanged"
-    return changed, status
-
-
-def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
-    doi = normalize_doi(record.get("doi"))
-    if not doi:
-        return False, "no-doi"
-
-    changed = False
-    # Try OpenAlex first
-    try:
-        oa_md = openalex_doi_metadata(doi, timeout)
-        if oa_md.get("abstract"):
-            record["abstract"] = oa_md["abstract"]
-            record["abstract_source"] = oa_md.get("abstract_source", "openalex")
-            changed = True
-    except Exception:
-        pass
-
-    # Then Semantic Scholar
-    if not str(record.get("abstract") or "").strip():
-        try:
-            ss_md = semantic_scholar_doi_metadata(doi, timeout)
-            if ss_md.get("abstract"):
-                record["abstract"] = ss_md["abstract"]
-                record["abstract_source"] = ss_md.get("abstract_source", "semantic_scholar")
-                changed = True
-        except Exception:
-            pass
-
-    # Then publisher page for abstract only
-    if not str(record.get("abstract") or "").strip():
-        urls = candidate_urls(record)
-        for url in urls[:2]:
-            try:
-                page_md = publisher_proxy_metadata(url, timeout)
-                if page_md.get("abstract"):
-                    record["abstract"] = page_md["abstract"]
-                    record["abstract_source"] = page_md.get("abstract_source", "publisher_page")
-                    changed = True
-                    break
-            except Exception:
-                continue
-
-    return changed, "updated" if changed else "no-abstract-found"
-
-
-def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
-    doi = normalize_doi(record.get("doi"))
-    if not doi:
-        # Try title-based Crossref lookup
-        title = str(record.get("title") or "")
-        if title.strip():
-            try:
-                title_md = crossref_title_metadata(title, timeout)
-                if title_md.get("authors"):
-                    record["authors"] = title_md["authors"]
-                    return True, "updated-via-crossref-title"
-            except Exception:
-                pass
-        return False, "no-doi"
-
-    changed = False
-    # Try Crossref
-    try:
-        cr_md = crossref_doi_metadata(doi, timeout)
-        if cr_md.get("authors"):
-            record["authors"] = cr_md["authors"]
-            changed = True
-    except Exception:
-        pass
-
-    # OpenAlex
-    if not record.get("authors"):
-        try:
-            oa_md = openalex_doi_metadata(doi, timeout)
-            if oa_md.get("authors"):
-                record["authors"] = oa_md["authors"]
-                changed = True
-        except Exception:
-            pass
-
-    # Semantic Scholar
-    if not record.get("authors"):
-        try:
-            ss_md = semantic_scholar_doi_metadata(doi, timeout)
-            if ss_md.get("authors"):
-                record["authors"] = ss_md["authors"]
-                changed = True
-        except Exception:
-            pass
-
-    return changed, "updated" if changed else "no-authors-found"
 
 
 def needs_date_recovery(record: dict[str, Any]) -> bool:
-    conf = str(record.get("date_confidence") or "")
-    if conf in {"A", "B"}:
-        return False
-    return not has_ab_date(record)
+    confidence = str(record.get("date_confidence") or "unknown")
+    has_official_date = any(
+        record.get(field)
+        for field in ("official_date", "available_online", "published_online", "issue_date")
+    )
+    return not has_official_date or confidence in {"", "C", "D", "F", "unknown"}
 
 
-def queue_metadata_retry(record: dict[str, Any], status: str) -> bool:
-    """Record failed enrichment attempts for retry."""
-    retries = record.setdefault("_retries", {})
-    retries[status] = now()
-    return True
+def enrich_priority(record: dict[str, Any]) -> tuple[int, int, int, int, float]:
+    bucket = publisher_bucket(record)
+    core_rank = {"Elsevier": 0, "Springer": 1, "Taylor & Francis": 2, "Wiley": 3, "OUP": 4}.get(bucket, 8)
+    confidence = str(record.get("date_confidence") or "F")
+    weak_date = 0 if not has_ab_date(record) or confidence in {"C", "D", "F", "unknown"} else 1
+    missing_authors = 0 if not record.get("authors") else 1
+    missing_abstract = 0 if not str(record.get("abstract") or "").strip() else 1
+    try:
+        detected_rank = -datetime.fromisoformat(str(record.get("detected_at") or record.get("first_seen") or "").replace("Z", "+00:00")).timestamp()
+    except ValueError:
+        detected_rank = 0.0
+    return (missing_authors, weak_date, missing_abstract, core_rank, detected_rank)
+
+
+def abstract_enrich_priority(record: dict[str, Any]) -> tuple[int, float, int]:
+    missing_abstract = 0 if not str(record.get("abstract") or "").strip() else 1
+    try:
+        detected_rank = -datetime.fromisoformat(
+            str(record.get("detected_at") or record.get("first_seen") or "").replace("Z", "+00:00")
+        ).timestamp()
+    except ValueError:
+        detected_rank = 0.0
+    bucket = publisher_bucket(record)
+    core_rank = {"Elsevier": 0, "Taylor & Francis": 1, "Wiley": 2, "OUP": 3}.get(bucket, 8)
+    return (missing_abstract, detected_rank, core_rank)
+
+
+def enrich_record(record: dict[str, Any], timeout: int, allow_proxy_abstract: bool = True) -> tuple[bool, str]:
+    urls = candidate_urls(record)
+    if not urls:
+        return False, "missing-url"
+    metadata: dict[str, str] = {}
+    last_status = "no-metadata"
+    doi = str(record.get("doi") or "").strip()
+    resolved_elsevier_pii = False
+    elsevier_api_attempted = False
+    missing_abstract = not str(record.get("abstract") or "").strip()
+    changed = False
+    if doi.startswith("10.1016/") and not has_ab_date(record):
+        metadata = crossref_doi_metadata(doi, timeout)
+        evidence_changed = append_date_evidence(record, "crossref-doi", metadata)
+        if metadata:
+            metadata_changed = merge_metadata(record, metadata)
+            changed = evidence_changed or metadata_changed or changed
+            last_status = "crossref-doi-fallback"
+            if not missing_abstract:
+                return changed, last_status
+            metadata = {}
+        if evidence_changed:
+            changed = True
+            last_status = "crossref-doi-evidence"
+
+    if missing_abstract and publisher_bucket(record) == "Elsevier":
+        if doi.startswith("10.1016/"):
+            elsevier_api_attempted = True
+            elsevier_metadata = elsevier_api_metadata(doi, timeout)
+            if elsevier_metadata:
+                changed = append_date_evidence(record, "elsevier-article-api", elsevier_metadata) or changed
+                changed = merge_metadata(record, elsevier_metadata) or changed
+                if elsevier_metadata.get("pii"):
+                    resolved_elsevier_pii = True
+                last_status = "elsevier-article-api"
+        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+        if allow_proxy_abstract and pii:
+            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+            proxy_metadata = publisher_proxy_metadata(proxy_url, timeout)
+            if proxy_metadata.get("abstract"):
+                changed = merge_metadata(record, proxy_metadata) or changed
+                return changed, "publisher-proxy-abstract"
+            return changed, str(proxy_metadata.get("_status") or "abstract-proxy-empty")
+        if pii:
+            return changed, "elsevier-metadata-only"
+    for url in urls:
+        try:
+            html, final_url = fetch_text_and_url(str(url), timeout)
+            pii = extract_elsevier_pii(final_url, html) if doi.startswith("10.1016/") else None
+            if pii and record.get("pii") != pii:
+                record["pii"] = pii
+                resolved_elsevier_pii = True
+                pii_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+                if pii_url not in urls:
+                    urls.append(pii_url)
+            metadata = extract_page_metadata(html)
+            if metadata:
+                break
+        except Exception as exc:  # noqa: BLE001
+            last_status = type(exc).__name__
+            continue
+    if not metadata:
+        if doi:
+            metadata, api_status = api_fallback_metadata(record, doi, timeout)
+            if metadata:
+                last_status = api_status
+        if resolved_elsevier_pii:
+            changed = True
+    if metadata:
+        changed = merge_metadata(record, metadata) or changed
+
+    if not elsevier_api_attempted and doi.startswith("10.1016/") and (
+        missing_abstract or not has_ab_date(record) or str(record.get("date_confidence") or "") in {"C", "D", "F", "unknown"}
+    ):
+        elsevier_metadata = elsevier_api_metadata(doi, timeout)
+        if elsevier_metadata:
+            changed = append_date_evidence(record, "elsevier-article-api", elsevier_metadata) or changed
+            changed = merge_metadata(record, elsevier_metadata) or changed
+            if elsevier_metadata.get("pii"):
+                resolved_elsevier_pii = True
+            last_status = "elsevier-article-api"
+
+    if missing_abstract and allow_proxy_abstract and not str(record.get("abstract") or "").strip():
+        proxy_url = ""
+        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+        if pii:
+            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+        else:
+            for candidate in candidate_urls(record):
+                if urllib.parse.urlparse(candidate).netloc.casefold() in {
+                    "onlinelibrary.wiley.com",
+                    "www.tandfonline.com",
+                    "tandfonline.com",
+                    "academic.oup.com",
+                }:
+                    proxy_url = candidate
+                    break
+        proxy_metadata = publisher_proxy_metadata(proxy_url, timeout) if proxy_url else {}
+        if proxy_metadata:
+            changed = merge_metadata(record, proxy_metadata) or changed
+            last_status = "publisher-proxy-abstract"
+
+    if missing_abstract and doi and not str(record.get("abstract") or "").strip():
+        api_metadata, api_status = api_fallback_metadata(record, doi, timeout)
+        abstract = api_metadata.get("abstract")
+        if abstract:
+            record["abstract"] = abstract
+            record["abstract_source"] = api_metadata.get("abstract_source", api_status)
+            changed = True
+            last_status = "abstract-api-fallback"
+        elif api_metadata.get("_evidence_changed"):
+            changed = True
+            last_status = "abstract-api-no-abstract"
+    changed = correct_tandf_date(record) or changed
+    if resolved_elsevier_pii and not changed:
+        changed = True
+    if not metadata and not changed:
+        return False, last_status
+    if last_status.endswith("-fallback"):
+        return changed, last_status
+    return changed, "updated" if changed else "metadata-unchanged"
+
+
+def enrich_abstract_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
+    source_id = str(record.get("source_id") or "")
+    needs_readonly_date_retry = source_id in {"cepr-dp", "fed-feds"} and str(
+        record.get("date_confidence") or ""
+    ) in {"F", "unknown"}
+    if str(record.get("abstract") or "").strip() and record.get("authors") and not needs_readonly_date_retry:
+        return False, "abstract-present"
+    changed = False
+    if source_id in {"cepr-dp", "fed-feds"}:
+        from fetch_preprints import enrich_record_from_proxy
+
+        before_abstract = str(record.get("abstract") or "")
+        before_authors = list(record.get("authors") or [])
+        before_date = (
+            record.get("published_online"),
+            record.get("available_online"),
+            record.get("official_date"),
+            record.get("date_source"),
+            record.get("date_confidence"),
+        )
+        enrich_record_from_proxy(record, source_id, timeout=timeout)
+        if str(record.get("abstract") or "").strip() and str(record.get("abstract") or "") != before_abstract:
+            return True, "abstract-updated:readonly-proxy"
+        if list(record.get("authors") or []) != before_authors:
+            changed = True
+        after_date = (
+            record.get("published_online"),
+            record.get("available_online"),
+            record.get("official_date"),
+            record.get("date_source"),
+            record.get("date_confidence"),
+        )
+        if after_date != before_date:
+            changed = True
+    bucket = publisher_bucket(record)
+    doi = str(record.get("doi") or "").strip()
+    proxy_url = ""
+    if doi:
+        for source, getter in (
+            ("crossref-doi", crossref_doi_metadata),
+            ("openalex", openalex_doi_metadata),
+            ("semantic-scholar", semantic_scholar_doi_metadata),
+        ):
+            metadata = getter(doi, timeout)
+            if not metadata:
+                continue
+            changed = append_date_evidence(record, source, metadata) or changed
+            changed = merge_metadata(record, metadata) or changed
+            if str(record.get("abstract") or "").strip():
+                return changed, f"metadata-updated:{source}"
+    if bucket == "Elsevier":
+        if doi.startswith("10.1016/"):
+            metadata = elsevier_api_metadata(doi, timeout)
+            if metadata:
+                changed = append_date_evidence(record, "elsevier-article-api", metadata) or changed
+                changed = merge_metadata(record, metadata) or changed
+        pii = extract_elsevier_pii(record.get("pii"), record.get("url"), record.get("source_url"))
+        if pii:
+            proxy_url = f"https://www.sciencedirect.com/science/article/pii/{pii}"
+    elif bucket in {"Taylor & Francis", "Wiley", "OUP", "Springer"}:
+        for candidate in candidate_urls(record):
+            if urllib.parse.urlparse(candidate).netloc.casefold() in {
+                "onlinelibrary.wiley.com",
+                "www.tandfonline.com",
+                "tandfonline.com",
+                "academic.oup.com",
+                "link.springer.com",
+            }:
+                proxy_url = candidate
+                break
+    if not proxy_url:
+        return changed, "abstract-route-missing" if not changed else "metadata-only"
+    metadata = publisher_proxy_metadata(proxy_url, timeout)
+    if not metadata.get("abstract"):
+        proxy_status = str(metadata.get("_status") or "abstract-proxy-empty")
+        return changed, proxy_status if not changed else f"metadata-only:{proxy_status}"
+    changed = merge_metadata(record, metadata) or changed
+    return changed, "abstract-updated"
 
 
 def update_abstract_attempt_status(record: dict[str, Any], status: str) -> bool:
-    """Track abstract enrichment attempts."""
-    attempts = record.setdefault("_abstract_attempts", {})
-    attempts[status] = now()
-    return False  # This doesn't change the record's content data
+    """Expose an honest compact state while delayed metadata indexes catch up."""
+    if str(record.get("abstract") or "").strip():
+        changed = record.pop("abstract_status", None) is not None
+        if record.get("abstract_status_code") != "available":
+            record["abstract_status_code"] = "available"
+            changed = True
+        if record.get("abstract_completeness") != "full":
+            record["abstract_completeness"] = "full"
+            changed = True
+        if record.get("abstract_enrichment_status") != "available":
+            record["abstract_enrichment_status"] = "available"
+            changed = True
+        return changed
+
+    changed = False
+    public_status = "摘要暂未公开，系统将自动重试"
+    if record.get("abstract_status") != public_status:
+        record["abstract_status"] = public_status
+        changed = True
+    if record.get("abstract_status_code") != "missing_retry":
+        record["abstract_status_code"] = "missing_retry"
+        changed = True
+    if record.get("abstract_completeness") != "missing":
+        record["abstract_completeness"] = "missing"
+        changed = True
+    if record.get("abstract_enrichment_status") != status:
+        record["abstract_enrichment_status"] = status
+        changed = True
+    return changed
+
+
+def queue_metadata_retry(record: dict[str, Any], status: str) -> bool:
+    state = {
+        "status": "queued",
+        "reason": status,
+        "attempted_at": now(),
+        "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
+    }
+    if record.get("metadata_retry_state") == state:
+        return False
+    record["metadata_retry_state"] = state
+    return True
+
+
+def load_retry_identity_keys(path: Path | None) -> set[str]:
+    if path is None:
+        return set()
+    payload = read_json(path, {"records": []})
+    records = payload.get("records") if isinstance(payload, dict) else []
+    keys: set[str] = set()
+    for record in records if isinstance(records, list) else []:
+        if not isinstance(record, dict):
+            continue
+        keys.update(str(value).casefold() for value in record.get("identity_keys") or [] if value)
+        identity = str(record.get("identity") or "").strip().casefold()
+        if identity:
+            keys.add(identity)
+        keys.update(strong_identity_keys(record))
+    return keys
+
+
+def enrich_author_record(record: dict[str, Any], timeout: int) -> tuple[bool, str]:
+    if record.get("authors"):
+        return False, "authors-present"
+    doi = str(record.get("doi") or "").strip()
+    if not doi:
+        for url in candidate_urls(record):
+            match = re.search(r"10\.\d{4,9}/[-._;()/:A-Z0-9]+", url, flags=re.I)
+            if match:
+                doi = normalize_doi(match.group(0)) or ""
+                if doi:
+                    record["doi"] = doi
+                    break
+    if doi:
+        for source, getter in (("crossref-doi", crossref_doi_metadata), ("openalex", openalex_doi_metadata)):
+            metadata = getter(doi, timeout)
+            if metadata.get("authors"):
+                changed = merge_metadata(record, metadata)
+                return changed, f"authors-updated:{source}"
+    if not doi and str(record.get("source_id") or "") in {"oecd-working-papers", "cepr-dp"}:
+        metadata = crossref_title_metadata(str(record.get("title") or ""), timeout)
+        if metadata.get("authors"):
+            changed = merge_metadata(record, metadata)
+            return changed, "authors-updated:crossref-title"
+    for url in candidate_urls(record):
+        try:
+            page_html, _ = fetch_text_and_url(url, timeout)
+        except Exception:
+            continue
+        metadata = extract_page_metadata(page_html)
+        if not metadata.get("authors") and record.get("source_id") == "iza":
+            from fetch_preprints import iza_detail_authors
+
+            metadata["authors"] = iza_detail_authors(page_html)
+        if metadata.get("authors"):
+            changed = merge_metadata(record, metadata)
+            return changed, "authors-updated:publisher-page"
+    if record.get("source_id") in {"fed-feds", "cepr-dp"}:
+        from fetch_preprints import enrich_record_from_proxy
+
+        before = list(record.get("authors") or [])
+        enrich_record_from_proxy(record, str(record.get("source_id")), timeout=timeout)
+        if record.get("authors") and record.get("authors") != before:
+            return True, "authors-updated:readonly-proxy"
+    if not record.get("authors") and not record.get("authors_status"):
+        source_id = str(record.get("source_id") or "")
+        record["authors_status"] = (
+            "官方页面未列出个人作者"
+            if source_id == "oecd-working-papers"
+            else "作者信息待核验"
+        )
+        return True, "authors-status-marked"
+    return False, "authors-not-found"
 
 
 def record_publisher_group(stats: dict[str, dict[str, Any]]) -> None:
-    """Record publisher-level enrichment stats in status."""
-    current = load_status()
-    current.setdefault("publisher_detail", {})
-    current["publisher_detail"] = stats
-    save_status(current)
+    status = load_status()
+    publishers = []
+    for core_publisher in ("Elsevier", "Taylor & Francis", "Wiley", "OUP"):
+        stats.setdefault(
+            core_publisher,
+            {"attempted": 0, "changed": 0, "ab_dates": 0, "failures": 0, "status_counts": Counter()},
+        )
+    for publisher, item in sorted(stats.items()):
+        attempted = int(item.get("attempted") or 0)
+        ab_dates = int(item.get("ab_dates") or 0)
+        failures = int(item.get("failures") or 0)
+        status_counts = item.get("status_counts") or {}
+        top_status = ", ".join(f"{key}:{value}" for key, value in Counter(status_counts).most_common(4))
+        publishers.append(
+            {
+                "publisher": publisher,
+                "attempted": attempted,
+                "changed": int(item.get("changed") or 0),
+                "ab_dates": ab_dates,
+                "success_rate": round(ab_dates / attempted, 4) if attempted else 0,
+                "failures": failures,
+                "degraded": failures > 0,
+                "retryable": failures > 0,
+                "fallbacks": ["crossref-doi", "openalex", "readonly-proxy"],
+                "statuses": dict(sorted(status_counts.items())),
+                "message": top_status,
+            }
+        )
+    status.setdefault("source_groups", {})["publisher-detail"] = {
+        "updated_at": now(),
+        "publishers": publishers,
+    }
+    save_status(status)
 
 
 def correct_tandf_date(record: dict[str, Any]) -> bool:
-    """Fix T&F articles where online date mirrors accepted date."""
-    journal = str(record.get("journal") or "")
-    publisher = str(record.get("publisher") or "")
-    if "taylor" not in journal.lower() and "taylor" not in publisher.lower():
+    doi = str(record.get("doi") or "")
+    if not doi.startswith("10.1080/"):
         return False
-    if "tandf" not in journal.lower() and "tandfonline" not in str(record.get("url") or "").lower():
+    issue_date = record.get("issue_date")
+    current = record.get("available_online") or record.get("published_online")
+    if not issue_date or not current:
         return False
-    # T&F often has accepted=online dates; flag for review
-    if record.get("accepted_date") and record.get("available_online") == record.get("accepted_date"):
+    try:
+        issue = date.fromisoformat(str(issue_date))
+        online = date.fromisoformat(str(current))
+    except ValueError:
+        return False
+    if not (date(2020, 1, 1) <= issue <= online and (online - issue).days <= 14):
+        return False
+    changed = False
+    for field in ("available_online", "published_online"):
+        if record.get(field) != issue.isoformat():
+            record[field] = issue.isoformat()
+            changed = True
+    if changed:
+        record["date_source"] = "tandf_issue_date_fallback"
         record["date_confidence"] = "B"
-        record["date_source"] = "tandf_corrected"
-        return True
-    return False
+    return changed
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Enrich daily records with publisher metadata")
-    parser.add_argument("--abstract-only", action="store_true")
-    parser.add_argument("--authors-only", action="store_true")
-    parser.add_argument("--date-only", action="store_true")
-    parser.add_argument("--days", type=int, default=7, dest="latest_days")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--daily-dir", type=Path, default=DATA_DIR / "daily")
+    parser.add_argument("--seen", type=Path, default=DATA_DIR / "seen.json")
+    parser.add_argument("--date", default=today_str())
+    parser.add_argument("--doi", default=None, help="Only enrich the matching DOI (useful for retries and audits).")
+    parser.add_argument("--latest-days", type=int, default=1)
+    parser.add_argument("--limit", type=int, default=60)
+    parser.add_argument("--proxy-abstract-limit", type=int, default=20)
+    parser.add_argument("--abstract-only", action="store_true", help="Skip slow publisher HTML and only run abstract fallbacks.")
+    parser.add_argument("--authors-only", action="store_true", help="Only backfill records whose author list is missing.")
+    parser.add_argument("--date-only", action="store_true", help="Only retry records with missing or weak official-date evidence.")
+    parser.add_argument("--source-id", default=None, help="Only process records from one source id during a targeted retry.")
+    parser.add_argument(
+        "--retry-queue",
+        type=Path,
+        default=None,
+        help="Only process records whose durable identities occur in this metadata retry queue.",
+    )
+    parser.add_argument("--timeout", type=int, default=15)
     parser.add_argument("--workers", type=int, default=4)
-    parser.add_argument("--timeout", type=int, default=25)
-    parser.add_argument("--limit", type=int, default=200)
-    parser.add_argument("--source-id", type=str, default="")
-    parser.add_argument("--doi", type=str, default="")
-    parser.add_argument("--proxy-abstract-limit", type=int, default=15)
-    parser.add_argument("--seen", type=str, default="")
     args = parser.parse_args()
 
-    anchor = date.today()
-    oldest = anchor - timedelta(days=max(1, args.latest_days) - 1)
-    daily_dir = DATA_DIR / "daily"
-
-    records_by_path: dict[Path, dict[str, Any]] = {}
-    daily_identities: set[str] = set()
-    identity = strong_identity_keys if "strong_identity_keys" in dir() else lambda r: str(r.get("id", ""))  # noqa: E731
-
-    for path in sorted(daily_dir.glob("*.json")):
-        try:
-            file_date = date.fromisoformat(path.stem)
-        except ValueError:
-            continue
-        if file_date < oldest or file_date > anchor:
-            continue
-        records = read_json(path, [])
-        if not isinstance(records, list):
-            continue
-        records_by_path[path] = records
-        for record in records:
-            if isinstance(record, dict):
-                daily_identities.add(identity(record))
-
+    try:
+        anchor = date.fromisoformat(args.date)
+    except ValueError:
+        anchor = date.fromisoformat(today_str())
+    paths = [
+        args.daily_dir / f"{(anchor - timedelta(days=offset)).isoformat()}.json"
+        for offset in range(max(1, args.latest_days))
+    ]
+    attempted = changed = 0
+    messages: list[str] = []
+    publisher_stats: dict[str, dict[str, Any]] = {}
+    records_by_path: dict[Path, Any] = {}
     candidates: list[tuple[Path, dict[str, Any]]] = []
-    for path, records in records_by_path.items():
-        for record in records:
-            if not isinstance(record, dict):
-                continue
-            if identity(record) in daily_identities:
-                pass
-            if args.abstract_only and str(record.get("abstract") or "").strip():
-                continue
-            if args.authors_only and record.get("authors"):
-                continue
-            if args.date_only and has_ab_date(record) and str(record.get("date_confidence") or "") in {"A", "B"}:
-                continue
-            if args.date_only and not needs_date_recovery(record):
-                continue
-            if args.source_id and str(record.get("source_id") or "") != args.source_id:
-                continue
-            if args.doi and str(record.get("doi") or "").strip().casefold() != args.doi.strip().casefold():
-                continue
-            if should_enrich(record) or args.abstract_only or args.authors_only or args.date_only:
-                candidates.append((path, record))
+    daily_identities: set[str] = set()
+    retry_identity_keys = load_retry_identity_keys(args.retry_queue)
+    retry_filter_enabled = args.retry_queue is not None
 
-    if args.seen:
-        seen_payload = read_json(Path(args.seen), {})
-        seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
-        if isinstance(seen_papers, dict):
-            records_by_path[args.seen] = seen_payload
-            oldest = anchor - timedelta(days=max(1, args.latest_days) - 1)
-            for record in seen_papers.values():
-                if not isinstance(record, dict) or identity(record) in daily_identities:
-                    continue
-                seen_date = str(record.get("first_seen") or "")[:10]
-                try:
-                    is_recent = date.fromisoformat(seen_date) >= oldest
-                except ValueError:
-                    is_recent = False
-                if (
-                    (
-                        is_recent
-                        or (args.authors_only and not record.get("authors"))
-                        or (args.date_only and needs_date_recovery(record))
-                    )
-                    and (args.authors_only or args.abstract_only or args.date_only or should_enrich(record))
-                    and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
-                    and (not args.authors_only or not record.get("authors"))
-                    and (not args.date_only or needs_date_recovery(record))
-                    and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
-                ):
-                    candidates.append((args.seen, record))
+    def selected_by_retry_queue(record: dict[str, Any]) -> bool:
+        return not retry_filter_enabled or bool(strong_identity_keys(record).intersection(retry_identity_keys))
+
+    def identity(record: dict[str, Any]) -> str:
+        doi = str(record.get("doi") or "").strip().casefold()
+        if doi:
+            return f"doi:{doi}"
+        url = str(record.get("url") or "").strip().casefold()
+        if url:
+            return f"url:{url}"
+        return f"title:{str(record.get('journal') or '').casefold()}:{str(record.get('title') or '').casefold()}"
+
+    for path in paths:
+        records = read_json(path, [])
+        records_by_path[path] = records
+        daily_identities.update(identity(record) for record in records if isinstance(record, dict))
+        candidates.extend(
+            (path, record)
+            for record in records
+            if (args.authors_only or args.abstract_only or args.date_only or should_enrich(record))
+            and selected_by_retry_queue(record)
+            and (not args.authors_only or not record.get("authors"))
+            and (not args.date_only or needs_date_recovery(record))
+            and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
+            and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
+        )
+    seen_payload = read_json(args.seen, {"papers": {}})
+    seen_papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else None
+    if isinstance(seen_papers, dict):
+        records_by_path[args.seen] = seen_payload
+        oldest = anchor - timedelta(days=max(1, args.latest_days) - 1)
+        for record in seen_papers.values():
+            if not isinstance(record, dict) or identity(record) in daily_identities:
+                continue
+            seen_date = str(record.get("first_seen") or "")[:10]
+            try:
+                is_recent = date.fromisoformat(seen_date) >= oldest
+            except ValueError:
+                is_recent = False
+            if (
+                (
+                    is_recent
+                    or (args.authors_only and not record.get("authors"))
+                    or (args.date_only and needs_date_recovery(record))
+                )
+                and (args.authors_only or args.abstract_only or args.date_only or should_enrich(record))
+                and selected_by_retry_queue(record)
+                and (not args.source_id or str(record.get("source_id") or "") == args.source_id)
+                and (not args.authors_only or not record.get("authors"))
+                and (not args.date_only or needs_date_recovery(record))
+                and (not args.doi or str(record.get("doi") or "").strip().casefold() == args.doi.strip().casefold())
+            ):
+                candidates.append((args.seen, record))
     priority = abstract_enrich_priority if args.abstract_only else enrich_priority
     candidates.sort(key=lambda item: priority(item[1]))
 
@@ -971,11 +1211,6 @@ def main() -> None:
         except Exception as exc:  # noqa: BLE001
             return path, record, False, type(exc).__name__, exc
         return path, record, did_change, status, None
-
-    changed = 0
-    attempted = 0
-    messages: list[str] = []
-    publisher_stats: dict[str, dict[str, Any]] = {}
 
     attempted = len(selected)
     with ThreadPoolExecutor(max_workers=max(1, args.workers)) as executor:
