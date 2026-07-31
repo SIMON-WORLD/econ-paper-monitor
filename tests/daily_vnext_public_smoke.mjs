@@ -61,9 +61,19 @@ async function checkSecondaryPages(browser) {
     const page = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
     const errors = [];
     const indexRequests = [];
+    let indexBytes = 0;
     page.on("pageerror", (error) => errors.push(String(error)));
     page.on("request", (request) => {
       if (request.url().includes("/paper-index/")) indexRequests.push(request.url());
+    });
+    page.on("response", async (response) => {
+      if (response.url().includes("/paper-index/")) {
+        try {
+          indexBytes += (await response.body()).length;
+        } catch {
+          // response body is optional for request accounting
+        }
+      }
     });
     const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
     await page.waitForTimeout(500);
@@ -79,7 +89,9 @@ async function checkSecondaryPages(browser) {
     assert.equal(indexRequests.some((requestUrl) => requestUrl.endsWith("/paper-index.json")), false, `${url} requested the legacy full index`);
     if (path === "search/") {
       assert.equal(indexRequests.length, 0, `${url} downloaded search data before user interaction`);
+      assert.equal(indexBytes, 0, `${url} downloaded search bytes before user interaction`);
       const initialEntries = await page.locator('.event').count();
+      assert.ok(initialEntries <= 20, `${url} initial DOM exceeds fallback budget: ${initialEntries}`);
       const browse = page.locator('.lazy-start').first();
       if (await browse.count()) {
         await browse.click();
@@ -92,9 +104,10 @@ async function checkSecondaryPages(browser) {
           if (firstSearch) {
             await searchInput.fill(firstSearch.split(/\s+/)[0]);
             await page.waitForTimeout(1800);
-            assert.ok(indexRequests.some((requestUrl) => /\/route\/\d{2}\.json$/.test(requestUrl)), `${url} did not load a routed bucket on search`);
+            assert.ok(indexRequests.some((requestUrl) => /\/route\/\d{3}\.json$/.test(requestUrl)), `${url} did not load a routed bucket on search`);
             assert.ok(indexRequests.some((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)), `${url} did not load routed content shards on search`);
             assert.ok(await page.locator('.event').count() >= 1, `${url} search returned no result`);
+            assert.ok(indexBytes < 1_000_000, `${url} routed search transferred too many bytes: ${indexBytes}`);
           }
         }
       }

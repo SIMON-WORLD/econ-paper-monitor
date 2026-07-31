@@ -74,15 +74,16 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
 
     for dataset_dir in (output / "paper-index").iterdir():
         route_files = list((dataset_dir / "route").glob("*.json"))
-        assert len(route_files) <= 32, f"{dataset_dir} has too many route files"
+        assert len(route_files) <= 256, f"{dataset_dir} has too many route files"
 
     for route_path in (output / "paper-index").glob("*/route/*.json"):
         route = json.loads(route_path.read_text(encoding="utf-8"))
         assert isinstance(route, dict)
         assert len(route) >= 1
-        for entries in route.values():
-            assert isinstance(entries, list)
-            assert all({"key", "shard"} <= set(item) for item in entries)
+        for shard_list in route.values():
+            assert isinstance(shard_list, str)
+            assert shard_list
+            assert all(re.fullmatch(r"\d{4}", shard) for shard in shard_list.split(","))
 
 
 def test_runtime_contract_defers_search_and_loads_only_requested_shards():
@@ -96,6 +97,9 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "queryTokens" in renderer
     assert "ROUTE_BUCKETS" in renderer
     assert "routeBucket" in renderer
-    assert "String(bucket).padStart(2, '0')" in renderer
+    assert "ROUTED_INITIAL_SHARDS" in renderer
+    assert "loadNextRoutedShard" in renderer
+    assert "String(bucket).padStart(3, '0')" in renderer
+    assert "queryTokenList" in renderer
     assert "Math.min(start + 40, matches.length)" in renderer
     assert 'docs_dir / "paper-index.json"' not in renderer
