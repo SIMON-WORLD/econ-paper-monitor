@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import json
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -12,6 +13,56 @@ import enrich_metadata  # noqa: E402
 
 
 class EnrichMetadataTests(unittest.TestCase):
+    def test_retry_queue_loads_durable_identity_keys(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "queue.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "records": [
+                            {
+                                "identity": "doi:10.1234/example",
+                                "identity_keys": ["url:https://example.test/paper"],
+                                "title": "Queued paper",
+                                "journal": "Example Journal",
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            keys = enrich_metadata.load_retry_identity_keys(path)
+
+        self.assertIn("doi:10.1234/example", keys)
+        self.assertIn("url:https://example.test/paper", keys)
+        self.assertIn("source-title:example journal:queued paper", keys)
+
+    def test_date_recovery_targets_missing_and_low_confidence_evidence(self) -> None:
+        self.assertTrue(enrich_metadata.needs_date_recovery({"date_confidence": "F"}))
+        self.assertTrue(
+            enrich_metadata.needs_date_recovery(
+                {"issue_date": "2026-07-01", "date_confidence": "C"}
+            )
+        )
+        self.assertFalse(
+            enrich_metadata.needs_date_recovery(
+                {"available_online": "2026-07-01", "date_confidence": "B"}
+            )
+        )
+        self.assertTrue(
+            enrich_metadata.needs_date_recovery(
+                {"accepted_date": "2026-07-01", "date_confidence": "A"}
+            )
+        )
+        self.assertFalse(
+            enrich_metadata.has_ab_date(
+                {"accepted_date": "2026-07-01", "date_confidence": "A"}
+            )
+        )
+
     @patch.object(enrich_metadata, "fetch_elsevier_json")
     def test_elsevier_full_api_extracts_nested_abstract(self, fetch_mock) -> None:
         fetch_mock.return_value = {

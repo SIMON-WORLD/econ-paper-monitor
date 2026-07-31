@@ -78,7 +78,7 @@ ABSTRACT_BOILERPLATE_FRAGMENTS = (
     "access denied",
 )
 
-DATE_FIELDS = ("official_date", "available_online", "published_online", "accepted_date", "issue_date")
+DATE_FIELDS = ("official_date", "available_online", "published_online", "issue_date")
 RICH_TEXT_FIELDS = ("title_zh", "abstract_zh", "publisher", "source_issue", "pdf_url")
 
 

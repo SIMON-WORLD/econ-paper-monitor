@@ -294,6 +294,9 @@ jobs:
       - name: Audit external sentinel coverage
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_alohomora_coverage.py
+      - name: Build pre-enrichment metadata retry queue
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/build_metadata_retry_queue.py --recent-days 30 --limit 500
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_metadata.py --latest-days 7 --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
@@ -301,7 +304,7 @@ jobs:
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
-          if timeout 12m python scripts/enrich_metadata.py --abstract-only --latest-days 30 --limit 180 --workers 8 --timeout 12; then
+          if timeout 12m python scripts/enrich_metadata.py --abstract-only --retry-queue data/metadata_retry_queue.json --latest-days 5000 --limit 180 --workers 8 --timeout 12; then
             echo "Abstract and author backfill completed."
           else
             echo "::warning::Abstract and author backfill timed out or failed; preserving existing metadata."
@@ -317,6 +320,24 @@ jobs:
             echo "Today abstract retry completed."
           else
             echo "::warning::Today abstract retry timed out or failed; keeping the honest retry status."
+          fi
+      - name: Recover historical missing authors
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          if timeout 8m python scripts/enrich_metadata.py --authors-only --latest-days 5000 --limit 100 --workers 8 --timeout 12; then
+            echo "Historical author recovery completed."
+          else
+            echo "::warning::Historical author recovery timed out or failed; preserving explicit missing-author status."
+          fi
+      - name: Recover missing and weak official dates
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          if timeout 10m python scripts/enrich_metadata.py --date-only --latest-days 5000 --limit 120 --workers 8 --timeout 12; then
+            echo "Official-date recovery completed."
+          else
+            echo "::warning::Official-date recovery timed out or failed; preserving explicit weak-date status."
           fi
       - name: Normalize enriched metadata
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
@@ -346,12 +367,18 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+      - name: Reconcile durable ingestion retries
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/reconcile_retry_queues.py
       - name: Audit product quality
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/product_audit.py
       - name: Build metadata retry queue
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_metadata_retry_queue.py --recent-days 30 --limit 500
+      - name: Audit metadata recovery
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/audit_metadata_recovery.py
       - name: Enforce public release gate
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/release_gate.py
