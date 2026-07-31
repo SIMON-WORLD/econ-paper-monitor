@@ -82,7 +82,7 @@ class ChinaRelevanceAndNepTests(unittest.TestCase):
         self.assertEqual(key[-12:-10], key[-12:][:2])
         self.assertIn(
             "cache: 'no-cache'",
-            (ROOT / "docs" / "paper.html").read_text(encoding="utf-8"),
+            render_site.paper_detail_body(),
         )
 
     def test_renminbi_is_confirmed_as_direct_china_evidence(self) -> None:
@@ -114,10 +114,10 @@ class ChinaRelevanceAndNepTests(unittest.TestCase):
         """The acceptance-date caveat must stay on the paper detail page.
 
         This used to be asserted against ``render_site.paper_detail_body``.
-        Detail rendering has since moved to the client-side ``docs/paper.html``
-        template, so the guard follows it there rather than being dropped.
+        Detail rendering is emitted by the secondary-page renderer, so the
+        guard follows that production source rather than generated output.
         """
-        template = (Path(__file__).resolve().parents[1] / "docs" / "paper.html").read_text(encoding="utf-8")
+        template = render_site.paper_detail_body()
 
         self.assertIn("官方日期", template)
         self.assertIn("接受日期", template)
@@ -130,6 +130,14 @@ class ChinaRelevanceAndNepTests(unittest.TestCase):
     def test_detail_key_is_stable_and_uses_doi_identity(self) -> None:
         record = {"title": "DP515 Should Rules be Simple?", "doi": "https://doi.org/10.1007/bf00373063"}
         self.assertEqual(render_site.detail_key(record), "dp515-should-rules-be-simple-003f08625c04")
+
+    def test_detail_key_prefers_canonical_data_contract(self) -> None:
+        record = {
+            "title": "Changed title",
+            "doi": "10.1234/changed",
+            "detail_key": "canonical-paper-0123456789ab",
+        }
+        self.assertEqual(render_site.detail_key(record), record["detail_key"])
 
     def test_detail_key_falls_back_to_url_identity(self) -> None:
         record = {"title": "The Price of Borrowing for College", "url": "https://www.iza.org/publications/dp/18768/the-price-of-borrowing-for-college-student-loan-interest-rates-education"}

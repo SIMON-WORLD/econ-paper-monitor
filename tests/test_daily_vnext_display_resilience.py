@@ -50,7 +50,7 @@ def test_fixture_sizes_render_without_layout_contract_breaks(daily_builder, tmp_
     output = tmp_path / "docs" / "daily-vnext" / "index.html"
     report = tmp_path / "report.json"
 
-    result = builder.build("2026-07-29", ROOT / "docs" / "daily-vnext" / "template.html", output, report)
+    result = builder.build("2026-07-29", ROOT / "scripts" / "templates" / "daily_vnext.html", output, report)
 
     html = output.read_text(encoding="utf-8")
     assert len(re.findall(r'class="paper-entry\b', html)) == count
@@ -67,7 +67,7 @@ def test_missing_optional_fields_are_hidden_and_search_index_stays_compact(daily
     (daily_dir / "2026-07-29.json").write_text(json.dumps([record]), encoding="utf-8")
     output = tmp_path / "index.html"
 
-    builder.build("2026-07-29", ROOT / "docs" / "daily-vnext" / "template.html", output, tmp_path / "report.json")
+    builder.build("2026-07-29", ROOT / "scripts" / "templates" / "daily_vnext.html", output, tmp_path / "report.json")
     html = output.read_text(encoding="utf-8")
     entry = re.search(r'<article class="paper-entry".*?</article>', html, re.S).group(0)
     assert 'class="authors"' not in entry
@@ -82,7 +82,7 @@ def test_failed_generation_preserves_previous_valid_output(daily_builder, tmp_pa
     (daily_dir / "2026-07-29.json").write_text(json.dumps([make_record(1)]), encoding="utf-8")
     output = tmp_path / "index.html"
     report = tmp_path / "report.json"
-    template = ROOT / "docs" / "daily-vnext" / "template.html"
+    template = ROOT / "scripts" / "templates" / "daily_vnext.html"
     builder.build("2026-07-29", template, output, report)
     before = output.read_bytes()
     (daily_dir / "2026-07-29.json").write_text("{not valid json", encoding="utf-8")
@@ -108,7 +108,7 @@ def test_shared_title_contract_controls_primary_and_secondary_titles(
     record.update({"title": title, "title_zh": title_zh})
     (daily_dir / "2026-07-29.json").write_text(json.dumps([record]), encoding="utf-8")
     output = tmp_path / "index.html"
-    builder.build("2026-07-29", ROOT / "docs" / "daily-vnext" / "template.html", output, tmp_path / "report.json")
+    builder.build("2026-07-29", ROOT / "scripts" / "templates" / "daily_vnext.html", output, tmp_path / "report.json")
     html = output.read_text(encoding="utf-8")
     assert f">{primary}</a>" in html
     if secondary:
