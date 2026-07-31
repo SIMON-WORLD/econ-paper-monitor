@@ -79,7 +79,7 @@ async function checkSecondaryPages(browser) {
         await browse.click();
         await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, initialEntries);
         assert.ok(indexRequests.some((requestUrl) => requestUrl.endsWith("/manifest.json")), `${url} did not load its search manifest on demand`);
-        assert.ok(indexRequests.some((requestUrl) => /\/\d{4}\.json$/.test(requestUrl)), `${url} did not load a result shard on demand`);
+        assert.ok(indexRequests.some((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)), `${url} did not load a result shard on demand`);
       }
     }
     if (path === "working-papers/") {
