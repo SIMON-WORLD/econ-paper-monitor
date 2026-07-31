@@ -298,8 +298,25 @@ def set_metadata_statuses(record: dict[str, Any]) -> bool:
     return changed
 
 
+def normalize_public_authors(record: dict[str, Any]) -> bool:
+    authors = record.get("authors")
+    if not isinstance(authors, list):
+        return False
+    normalized: list[str] = []
+    for raw in authors:
+        for value in re.split(r"\s*;\s*", str(raw or "")):
+            value = value.strip()
+            if value and value not in normalized:
+                normalized.append(value)
+    if normalized == authors:
+        return False
+    record["authors"] = normalized[:20]
+    return True
+
+
 def normalize_public_record(record: dict[str, Any]) -> bool:
-    changed = strip_title_prefix(record)
+    changed = normalize_public_authors(record)
+    changed = strip_title_prefix(record) or changed
     changed = clean_abstract(record) or changed
     changed = set_metadata_statuses(record) or changed
     changed = ensure_detail_key(record) or changed
@@ -750,6 +767,22 @@ def _duplicate_counts(records: Iterable[dict[str, Any]]) -> tuple[int, int]:
     return duplicate_groups, duplicate_records
 
 
+def has_redundant_composite_authors(record: dict[str, Any]) -> bool:
+    authors = record.get("authors")
+    if not isinstance(authors, list) or len(authors) < 2:
+        return False
+    individual = {
+        str(author).strip().casefold()
+        for author in authors
+        if str(author).strip() and ";" not in str(author)
+    }
+    for author in authors:
+        parts = [part.strip().casefold() for part in str(author).split(";") if part.strip()]
+        if len(parts) > 1 and all(part in individual for part in parts):
+            return True
+    return False
+
+
 def audit_integrity(data_dir: Path = DATA_DIR) -> dict[str, Any]:
     daily_records = [record for _, record in iter_daily(data_dir / "daily")]
     seen_payload = read_json(data_dir / "seen.json", {"papers": {}})
@@ -792,6 +825,9 @@ def audit_integrity(data_dir: Path = DATA_DIR) -> dict[str, Any]:
         for record in daily_records + seen_records
     )
     boilerplate = sum(has_abstract_boilerplate(record.get("abstract")) for record in daily_records + seen_records)
+    redundant_composite_authors = sum(
+        has_redundant_composite_authors(record) for record in daily_records + seen_records
+    )
     machine_path_leaks = sum(
         1
         for record in daily_records + seen_records
@@ -835,6 +871,7 @@ def audit_integrity(data_dir: Path = DATA_DIR) -> dict[str, Any]:
         "orphan_keys": len(daily_orphans) + len(ledger_orphans),
         "title_zh_number_prefixes": prefix_count,
         "boilerplate_abstracts": boilerplate,
+        "redundant_composite_authors": redundant_composite_authors,
         "machine_path_leaks": machine_path_leaks,
         "metadata_missing_status": missing_status,
         "version_relationship_groups": len(version_groups),
@@ -947,6 +984,7 @@ def main() -> None:
                 current["ledger_orphan_keys"],
                 current["title_zh_number_prefixes"],
                 current["boilerplate_abstracts"],
+                current["redundant_composite_authors"],
                 current["machine_path_leaks"],
                 sum(current["metadata_missing_status"].values()),
             )

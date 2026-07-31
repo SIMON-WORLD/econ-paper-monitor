@@ -265,6 +265,18 @@ def test_title_prefix_boilerplate_preview_and_missing_metadata_are_explicit(tmp_
     assert row["official_date_status"] == "missing_retry"
 
 
+def test_redundant_composite_author_entry_is_split_and_deduplicated(tmp_path: Path) -> None:
+    item = record("Paper title", "paper", journal_id="example-journal")
+    item["authors"] = ["First Author", "Second Author", "First Author; Second Author"]
+    write_dataset(tmp_path, {"2026-07-01": [item]}, {"paper": dict(item)})
+
+    report = repair_public_integrity(tmp_path)
+
+    row = json.loads((tmp_path / "daily" / "2026-07-01.json").read_text(encoding="utf-8"))[0]
+    assert row["authors"] == ["First Author", "Second Author"]
+    assert report["current"]["redundant_composite_authors"] == 0
+
+
 def test_checked_in_public_data_has_zero_integrity_failures() -> None:
     report = audit_integrity(ROOT / "data")
     assert report["same_source_title_duplicate_records"] == 0
@@ -274,5 +286,6 @@ def test_checked_in_public_data_has_zero_integrity_failures() -> None:
     assert report["ledger_orphan_keys"] == 0
     assert report["title_zh_number_prefixes"] == 0
     assert report["boilerplate_abstracts"] == 0
+    assert report["redundant_composite_authors"] == 0
     assert report["machine_path_leaks"] == 0
     assert sum(report["metadata_missing_status"].values()) == 0
