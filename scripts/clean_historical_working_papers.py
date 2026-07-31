@@ -8,6 +8,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+from artifact_paths import sanitize_record_paths
 from common import DATA_DIR, read_json, stable_id, today_str, write_json
 
 
@@ -79,6 +80,7 @@ def main() -> None:
         if file_changed:
             write_json(path, kept)
             changed_files += 1
+    sanitize_record_paths(pending)
     write_json(args.pending, pending)
     print(f"historical working-paper cleanup: moved={moved} files={changed_files} pending={len(pending)} date={today_str()}")
 
