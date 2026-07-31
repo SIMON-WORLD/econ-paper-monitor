@@ -72,10 +72,17 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
         assert all("__BASE__" not in item["html"] for item in shard)
         assert all("__PAPER_BASE__/paper.html?key=" in item["html"] for item in shard)
 
+    for dataset_dir in (output / "paper-index").iterdir():
+        route_files = list((dataset_dir / "route").glob("*.json"))
+        assert len(route_files) <= 32, f"{dataset_dir} has too many route files"
+
     for route_path in (output / "paper-index").glob("*/route/*.json"):
         route = json.loads(route_path.read_text(encoding="utf-8"))
-        assert isinstance(route, list)
-        assert all({"key", "shard"} <= set(item) for item in route)
+        assert isinstance(route, dict)
+        assert len(route) >= 1
+        for entries in route.values():
+            assert isinstance(entries, list)
+            assert all({"key", "shard"} <= set(item) for item in entries)
 
 
 def test_runtime_contract_defers_search_and_loads_only_requested_shards():
@@ -87,5 +94,8 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "route/" in renderer
     assert "shards/" in renderer
     assert "queryTokens" in renderer
-    assert "batchSize = 40" in renderer
+    assert "ROUTE_BUCKETS" in renderer
+    assert "routeBucket" in renderer
+    assert "String(bucket).padStart(2, '0')" in renderer
+    assert "Math.min(start + 40, matches.length)" in renderer
     assert 'docs_dir / "paper-index.json"' not in renderer

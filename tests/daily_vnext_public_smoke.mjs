@@ -4,6 +4,7 @@ import { chromium } from "playwright";
 const root = process.env.SITE_ROOT_URL || process.env.DAILY_VNEXT_URL || "https://academic-door.github.io/econ-paper-monitor/";
 const dailyVnext = new URL("daily-vnext/", root).href;
 const urls = [root, dailyVnext];
+const isLocal = ["127.0.0.1", "localhost"].includes(new URL(root).hostname);
 
 async function visibleEntries(page, selector = '.paper-entry') {
   return page.locator(`${selector}:not([hidden])`).count();
@@ -79,7 +80,18 @@ async function checkSecondaryPages(browser) {
         await browse.click();
         await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, initialEntries);
         assert.ok(indexRequests.some((requestUrl) => requestUrl.endsWith("/manifest.json")), `${url} did not load its search manifest on demand`);
-        assert.ok(indexRequests.some((requestUrl) => /\/\d{4}\.json$/.test(requestUrl)), `${url} did not load a result shard on demand`);
+        assert.ok(indexRequests.some((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)), `${url} did not load a result shard on demand`);
+        if (isLocal) {
+          const firstSearch = await page.locator('.event').first().getAttribute('data-search');
+          const searchInput = page.locator('.toolbar[data-filter-scope="search"] [data-filter-role="search"]');
+          if (firstSearch) {
+            await searchInput.fill(firstSearch.split(/\s+/)[0]);
+            await page.waitForTimeout(1800);
+            assert.ok(indexRequests.some((requestUrl) => /\/route\/\d{2}\.json$/.test(requestUrl)), `${url} did not load a routed bucket on search`);
+            assert.ok(indexRequests.some((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)), `${url} did not load routed content shards on search`);
+            assert.ok(await page.locator('.event').count() >= 1, `${url} search returned no result`);
+          }
+        }
       }
     }
     if (path === "working-papers/") {

@@ -10,7 +10,6 @@ import re
 from collections import Counter, defaultdict
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
-from urllib.parse import quote
 from typing import Any
 
 from common import BEIJING_TZ, DATA_DIR, DOCS_DIR, html_escape, load_journals, normalize_doi, read_json, today_str, write_text
@@ -30,6 +29,7 @@ CN_TZ = BEIJING_TZ
 DEFAULT_PRESENCE_ENDPOINT = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence"
 LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
 LAZY_SHARD_SIZE = 40
+ROUTE_BUCKETS = 32
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -1296,8 +1296,19 @@ LAZY_LIST_SCRIPT = """
     state.items.push(...items.filter((item) => !known.has(item.key)));
     return true;
   };
+  const ROUTE_BUCKETS = 32;
+  const routeBucket = (token) => token.charCodeAt(0) % ROUTE_BUCKETS;
   const loadRouted = async (state, tokens) => {
-    const routePayloads = await Promise.all(tokens.map((token) => loadJson(new URL('route/' + encodeURIComponent(token) + '.json', state.manifestUrl).href).catch(() => [])));
+    const byBucket = new Map();
+    for (const token of tokens) {
+      const bucket = routeBucket(token);
+      if (!byBucket.has(bucket)) byBucket.set(bucket, []);
+      byBucket.get(bucket).push(token);
+    }
+    const routePayloads = (await Promise.all([...byBucket.entries()].map(async ([bucket, bucketTokens]) => {
+      const payload = await loadJson(new URL('route/' + String(bucket).padStart(2, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
+      return bucketTokens.map((token) => payload[token] || []);
+    }))).flat();
     if (!routePayloads.length || routePayloads.some((payload) => !payload.length)) {
       state.items = [];
       state.routed = true;
@@ -1973,6 +1984,10 @@ def lazy_route_tokens(value: str) -> set[str]:
     return tokens
 
 
+def route_bucket(token: str) -> int:
+    return ord(token[0]) % ROUTE_BUCKETS
+
+
 def write_lazy_indexes(docs_dir: Path) -> None:
     """Write compact catalogs, routed metadata, and content shards."""
     index_root = docs_dir / "paper-index"
@@ -2038,8 +2053,11 @@ def write_lazy_indexes(docs_dir: Path) -> None:
         write_text(dataset_dir / "manifest.json", json.dumps(manifest, ensure_ascii=False, separators=(",", ":")))
         for shard, items in shards.items():
             write_text(shard_dir / f"{shard}.json", json.dumps(items, ensure_ascii=False, separators=(",", ":")))
+        bucketed: dict[int, dict[str, list[dict[str, str]]]] = defaultdict(dict)
         for token, entries in routes.items():
-            write_text(route_dir / (quote(token, safe="") + ".json"), json.dumps(entries, ensure_ascii=False, separators=(",", ":")))
+            bucketed[route_bucket(token)][token] = entries
+        for bucket, payload in sorted(bucketed.items()):
+            write_text(route_dir / f"{bucket:02d}.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
 
 
 def search_body(records: list[dict[str, Any]]) -> str:
