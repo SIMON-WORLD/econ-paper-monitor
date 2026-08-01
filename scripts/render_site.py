@@ -30,6 +30,7 @@ DEFAULT_PRESENCE_ENDPOINT = "https://econ-paper-monitor-presence.academic-door.w
 LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
 LAZY_SHARD_SIZE = 40
 ROUTE_BUCKETS = 256
+ROUTE_SKIP_SHARD_LIMIT = 4
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -1199,7 +1200,7 @@ def menu_script() -> str:
 })();
 </script>"""
 
-LAZY_LIST_SCRIPT = """
+LAZY_LIST_SCRIPT = r"""
 <script>
 (() => {
   const jsonCache = new Map();
@@ -1301,6 +1302,17 @@ LAZY_LIST_SCRIPT = """
   const ROUTED_INITIAL_SHARDS = 2;
   const routeBucket = (token) => (token.charCodeAt(0) * 31 + (token.charCodeAt(1) || 0)) % ROUTE_BUCKETS;
   const loadRouted = async (state, tokens) => {
+    const manifest = await loadManifest(state);
+    if (manifest.routed === false) {
+      state.items = [];
+      state.pendingShards = [];
+      while (await loadNextShard(state)) {
+        // small datasets scan all shards locally; filters apply in render
+      }
+      state.routed = true;
+      state.nextShard = 0;
+      return;
+    }
     const byBucket = new Map();
     for (const token of tokens) {
       const bucket = routeBucket(token);
@@ -2012,8 +2024,10 @@ def write_lazy_indexes(docs_dir: Path) -> None:
         dataset_dir = index_root / dataset_id
         route_dir = dataset_dir / "route"
         shard_dir = dataset_dir / "shards"
-        route_dir.mkdir(parents=True, exist_ok=True)
         shard_dir.mkdir(parents=True, exist_ok=True)
+        routed = len(records) > ROUTE_SKIP_SHARD_LIMIT * LAZY_SHARD_SIZE
+        if routed:
+            route_dir.mkdir(parents=True, exist_ok=True)
         shards: dict[str, list[dict[str, Any]]] = defaultdict(list)
         routes: dict[str, set[str]] = defaultdict(set)
         for position, record in enumerate(records):
@@ -2047,34 +2061,37 @@ def write_lazy_indexes(docs_dir: Path) -> None:
             snippet = paper_events([record], scope="lazy", extra_class=extra_class).replace(BASE, "__PAPER_BASE__")
             metadata["html"] = snippet
             shards[shard].append(metadata)
-            route_values = lazy_route_tokens(search_text)
-            route_values.add("journal:" + normalize_attr(record.get("journal_id")))
-            route_values.update("field:" + topic for topic in topics)
-            route_values.update({
-                "date:" + date_type(record),
-                "confidence:" + confidence_value(record),
-                "source:" + source_type_value(record),
-            })
-            if metadata["china"]:
-                route_values.add("china")
-            if online_today:
-                route_values.add("online-today")
-            for token in route_values:
-                if token:
-                    routes[token].add(shard)
+            if routed:
+                route_values = lazy_route_tokens(search_text)
+                route_values.add("journal:" + normalize_attr(record.get("journal_id")))
+                route_values.update("field:" + topic for topic in topics)
+                route_values.update({
+                    "date:" + date_type(record),
+                    "confidence:" + confidence_value(record),
+                    "source:" + source_type_value(record),
+                })
+                if metadata["china"]:
+                    route_values.add("china")
+                if online_today:
+                    route_values.add("online-today")
+                for token in route_values:
+                    if token:
+                        routes[token].add(shard)
         manifest = {
             "version": 2,
             "count": len(records),
+            "routed": routed,
             "shards": [{"name": shard, "count": len(items)} for shard, items in sorted(shards.items())],
         }
         write_text(dataset_dir / "manifest.json", json.dumps(manifest, ensure_ascii=False, separators=(",", ":")))
         for shard, items in shards.items():
             write_text(shard_dir / f"{shard}.json", json.dumps(items, ensure_ascii=False, separators=(",", ":")))
-        bucketed: dict[int, dict[str, str]] = defaultdict(dict)
-        for token, shards in routes.items():
-            bucketed[route_bucket(token)][token] = ",".join(sorted(shards))
-        for bucket, payload in sorted(bucketed.items()):
-            write_text(route_dir / f"{bucket:03d}.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
+        if routed:
+            bucketed: dict[int, dict[str, str]] = defaultdict(dict)
+            for token, shards in routes.items():
+                bucketed[route_bucket(token)][token] = ",".join(sorted(shards))
+            for bucket, payload in sorted(bucketed.items()):
+                write_text(route_dir / f"{bucket:03d}.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
 
 
 def search_body(records: list[dict[str, Any]]) -> str:

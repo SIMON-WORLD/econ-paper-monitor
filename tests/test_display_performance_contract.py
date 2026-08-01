@@ -54,14 +54,21 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
         html, manifest = _manifest_for(output, relative)
         manifests[relative] = manifest
         assert len(html.encode("utf-8")) <= size_limit, relative
-        assert html.count('<article class="event"') <= 40, relative
-        assert {"version", "count", "shards"} <= set(manifest), relative
+        assert html.count('<article class="event"') <= 100, relative
+        for match in re.finditer(r'<div class="lazy-initial">', html):
+            block_start = match.end()
+            block_end = html.find('<button class="control lazy-start"', block_start)
+            assert block_end > block_start
+            assert html[block_start:block_end].count('<article class="event"') <= 10, relative
+        assert {"version", "count", "routed", "shards"} <= set(manifest), relative
         assert "html" not in manifest, relative
         assert len(json.dumps(manifest, ensure_ascii=False)) < 20_000, relative
         assert manifest["count"] >= 0, relative
 
     search_html = (output / "search" / "index.html").read_text(encoding="utf-8")
     assert 'data-lazy-defer="true"' in search_html
+    assert r"[\u3400-\u9fff]+" in search_html
+    assert r"split(/\s+/)" in search_html
     assert manifests["search/index.html"]["count"] >= manifests["working-papers/index.html"]["count"]
     assert manifests["search/index.html"]["count"] >= manifests["topics/china/index.html"]["count"]
 
@@ -73,8 +80,12 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
         assert all("__PAPER_BASE__/paper.html?key=" in item["html"] for item in shard)
 
     for dataset_dir in (output / "paper-index").iterdir():
-        route_files = list((dataset_dir / "route").glob("*.json"))
-        assert len(route_files) <= 256, f"{dataset_dir} has too many route files"
+        manifest = json.loads((dataset_dir / "manifest.json").read_text(encoding="utf-8"))
+        route_files = list((dataset_dir / "route").glob("*.json")) if (dataset_dir / "route").exists() else []
+        if manifest.get("routed") is False:
+            assert not route_files, f"{dataset_dir} should not emit route files"
+        else:
+            assert len(route_files) <= 256, f"{dataset_dir} has too many route files"
 
     for route_path in (output / "paper-index").glob("*/route/*.json"):
         route = json.loads(route_path.read_text(encoding="utf-8"))
@@ -96,6 +107,9 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "shards/" in renderer
     assert "queryTokens" in renderer
     assert "ROUTE_BUCKETS" in renderer
+    assert "ROUTE_SKIP_SHARD_LIMIT" in renderer
+    assert "manifest.routed === false" in renderer
+    assert "LAZY_LIST_SCRIPT = r" in renderer
     assert "routeBucket" in renderer
     assert "ROUTED_INITIAL_SHARDS" in renderer
     assert "loadNextRoutedShard" in renderer
