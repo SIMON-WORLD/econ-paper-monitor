@@ -3,6 +3,7 @@ from __future__ import annotations
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -47,6 +48,25 @@ class ScienceDirectSearchTests(unittest.TestCase):
 
     def test_month_only_issue_date_is_not_treated_as_online_date(self) -> None:
         self.assertIsNone(fetch_sciencedirect_search.parse_online_date("August 2026"))
+
+    @patch.object(fetch_sciencedirect_search, "fetch_text")
+    def test_captcha_page_is_reported_not_silently_empty(self, fetch_mock) -> None:
+        fetch_mock.return_value = (
+            "Title: Just a moment...\n# Are you a robot?\n"
+            "Please confirm you are a human by completing the captcha challenge."
+        )
+        journal = {
+            "id": "journal-of-development-economics",
+            "title": "Journal of Development Economics",
+            "issn": "0304-3878",
+        }
+        with self.assertRaisesRegex(ValueError, "blocked-captcha"):
+            fetch_sciencedirect_search.fetch_journal(
+                journal,
+                days=4,
+                timeout=5,
+                max_items=5,
+            )
 
 
 if __name__ == "__main__":
