@@ -108,6 +108,15 @@ async function checkSecondaryPages(browser) {
             assert.ok(indexRequests.some((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)), `${url} did not load routed content shards on search`);
             assert.ok(await page.locator('.event').count() >= 1, `${url} search returned no result`);
             assert.ok(indexBytes < 1_000_000, `${url} routed search transferred too many bytes: ${indexBytes}`);
+            const more = page.locator('.lazy-more').first();
+            if (await more.count()) {
+              const shardRequestsBefore = indexRequests.filter((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)).length;
+              await more.click();
+              await page.waitForTimeout(1500);
+              const shardRequestsAfter = indexRequests.filter((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)).length;
+              assert.ok(shardRequestsAfter > shardRequestsBefore, `${url} load more did not fetch the next shard`);
+              assert.ok(indexBytes < 2_000_000, `${url} load-more transfer too high: ${indexBytes}`);
+            }
           }
         }
       }
