@@ -133,8 +133,10 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "LAZY_LIST_SCRIPT = r" in renderer
     assert "renderCard" in renderer
     assert "escHtml" in renderer
+    assert "card.dt" in renderer
     assert "state.manifest = manifest" in renderer
     assert "more-filters" in renderer
+    assert "details.more-filters[open]" in renderer
     assert "detected_time" in renderer
     assert "scoped_shared_events" in renderer
     assert "register_lazy_dataset" in renderer

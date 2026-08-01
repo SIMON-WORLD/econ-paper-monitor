@@ -1380,7 +1380,7 @@ LAZY_LIST_SCRIPT = r"""
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');
@@ -1593,7 +1593,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         official_class = "pending" if official_line.startswith("官方日期待补") else ("issue" if public_date_label(record) in {"来源期次", "卷期日期"} else "")
         official_chip = f'<span class="date-chip {official_class}">{html_escape(official_line)}</span>'
         lag_chip = detection_lag_chip(record)
-        detected_chip = f'<span class="pill">首次监测 {html_escape(detected_date(record))}</span>'
+        detected_chip = f'<span class="pill">首次监测 {html_escape(detected_date(record))}{f" {html_escape(detected_time(record))}" if detected_time(record) else ""}</span>'
         search_text = " ".join(str(value or "") for value in [record.get("title"), record.get("title_zh"), authors(record), record.get("journal"), record.get("doi")])
         field_attr = " ".join(topics)
         type_tag = f'<span class="pill">{html_escape(source_type_label(record))}</span>' if is_working_paper(record) else ""
@@ -1618,6 +1618,11 @@ FILTER_SCRIPT = """
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
