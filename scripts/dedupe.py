@@ -9,6 +9,7 @@ from typing import Any
 import re
 
 from common import DATA_DIR, normalize_doi, normalized_url_identity_keys, read_json, stable_id, today_str, write_json
+from artifact_paths import repo_relative_path
 from status import record_run, record_source
 
 
@@ -73,7 +74,9 @@ def iter_raw_records(raw_dir: Path) -> list[dict[str, Any]]:
                 if isinstance(item, dict):
                     if is_source_navigation_noise(item):
                         continue
-                    item["_raw_file"] = str(path)
+                    # Keep an auditable repository-relative marker instead of an
+                    # operator/CI absolute path so it can never leak a machine.
+                    item["_raw_file"] = repo_relative_path(str(path))
                     records.append(item)
     return records
 

@@ -3,6 +3,8 @@ from __future__ import annotations
 import sys
 import json
 import unittest
+import urllib.error
+from email.message import Message
 from pathlib import Path
 from unittest.mock import patch
 
@@ -118,6 +120,73 @@ class EnrichMetadataTests(unittest.TestCase):
         self.assertEqual(fetch_mock.call_args.kwargs["api_key"], "")
         self.assertEqual(fetch_mock.call_args.kwargs["insttoken"], "")
         self.assertEqual(result["available_online"], "2026-07-16")
+
+
+class MetadataProviderRetryTests(unittest.TestCase):
+    def test_fetch_json_retry_backs_off_on_429(self) -> None:
+        import common
+
+        headers = Message()
+        headers.add_header("Retry-After", "0")
+        exc = urllib.error.HTTPError(
+            "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1234/x",
+            429,
+            "Too Many Requests",
+            headers,
+            None,
+        )
+        with patch("common.fetch_json", side_effect=[exc, exc, {"abstract": "ok"}]) as fetch_mock, patch.object(
+            common.time, "sleep"
+        ):
+            result = common.fetch_json_retry(
+                "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1234/x",
+                timeout=1,
+                retries=2,
+            )
+        self.assertEqual(fetch_mock.call_count, 3)
+        self.assertEqual(result, {"abstract": "ok"})
+
+    @patch.object(enrich_metadata, "fetch_json_retry")
+    def test_semantic_scholar_404_maps_to_not_found(self, fetch_mock) -> None:
+        fetch_mock.side_effect = urllib.error.HTTPError(
+            "https://api.semanticscholar.org/paper/DOI:10.1234/x",
+            404,
+            "Not Found",
+            Message(),
+            None,
+        )
+        result = enrich_metadata.semantic_scholar_doi_metadata("10.1234/x", timeout=1)
+        self.assertEqual(result.get("_status"), "not_found")
+
+    @patch.object(enrich_metadata, "fetch_json_retry")
+    def test_semantic_scholar_429_maps_to_rate_limited(self, fetch_mock) -> None:
+        fetch_mock.side_effect = urllib.error.HTTPError(
+            "https://api.semanticscholar.org/paper/DOI:10.1234/x",
+            429,
+            "Too Many Requests",
+            Message(),
+            None,
+        )
+        result = enrich_metadata.semantic_scholar_doi_metadata("10.1234/x", timeout=1)
+        self.assertEqual(result.get("_status"), "rate_limited")
+
+    @patch.object(enrich_metadata, "fetch_json_retry")
+    def test_semantic_scholar_success_extracts_fields(self, fetch_mock) -> None:
+        abstract = (
+            "This paper estimates the labor market effects of an education "
+            "reform using administrative data. Identification comes from a "
+            "policy change and the results are robust across specifications."
+        )
+        fetch_mock.return_value = {
+            "abstract": abstract,
+            "authors": [{"name": "Alice Author"}],
+            "publicationDate": "2026-07-28",
+        }
+        result = enrich_metadata.semantic_scholar_doi_metadata("10.1234/x", timeout=1)
+        self.assertEqual(result["abstract"], abstract)
+        self.assertEqual(result["abstract_source"], "semantic_scholar")
+        self.assertEqual(result["authors"], ["Alice Author"])
+        self.assertEqual(result["published_online"], "2026-07-28")
 
     def test_extract_markdown_abstract(self) -> None:
         markdown = """# Paper

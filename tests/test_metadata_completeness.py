@@ -96,9 +96,9 @@ class MetadataCompletenessTests(unittest.TestCase):
 
         self.assertEqual(metadata["authors"], ["Jose Apesteguia", "Miguel A. Ballester"])
 
-    @patch.object(enrich_metadata, "fetch_json")
-    def test_semantic_scholar_metadata_includes_abstract(self, fetch_json_mock) -> None:
-        fetch_json_mock.return_value = {
+    @patch.object(enrich_metadata, "fetch_json_retry")
+    def test_semantic_scholar_metadata_includes_abstract(self, fetch_retry_mock) -> None:
+        fetch_retry_mock.return_value = {
             "abstract": "A sufficiently detailed public abstract for a newly deposited paper that provides enough context to pass metadata quality checks.",
             "authors": [{"name": "First Author"}],
             "publicationDate": "2026-07-16",
