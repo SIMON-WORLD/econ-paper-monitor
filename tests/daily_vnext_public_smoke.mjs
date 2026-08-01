@@ -10,6 +10,18 @@ async function visibleEntries(page, selector = '.paper-entry') {
   return page.locator(`${selector}:not([hidden])`).count();
 }
 
+async function assertNoFilterLazyState(page, url) {
+  const lazyList = page.locator('[data-lazy-list]').first();
+  if (!(await lazyList.count())) return;
+  const manifestUrl = await lazyList.getAttribute('data-lazy-manifest');
+  const manifestResponse = await page.request.get(new URL(manifestUrl, page.url()).href);
+  const manifest = await manifestResponse.json();
+  if (!manifest.count) return;
+  await page.waitForTimeout(1200);
+  assert.ok(await page.locator('.event').count() >= 1, `${url} empty state despite records`);
+  assert.equal(await page.locator('[data-lazy-empty]:visible').count(), 0, `${url} empty state visible without filters`);
+}
+
 async function checkPage(browser, url) {
   const errors = [];
   const mobile = Number(process.env.VIEWPORT_WIDTH || 0);
@@ -85,6 +97,7 @@ async function checkSecondaryPages(browser) {
       assert.ok(await page.locator('.site-header').isVisible(), `${url} vNext header is missing`);
       assert.equal(await page.locator('.sidebar').count(), 0, `${url} legacy sidebar leaked`);
       assert.ok(await page.locator('.secondary-page').isVisible(), `${url} secondary shell is missing`);
+      await assertNoFilterLazyState(page, url);
     }
     assert.equal(indexRequests.some((requestUrl) => requestUrl.endsWith("/paper-index.json")), false, `${url} requested the legacy full index`);
     if (path === "search/") {
@@ -145,7 +158,33 @@ async function checkSecondaryPages(browser) {
       }
     }
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
+    if (mobile && path !== "classic/") {
+      const summary = page.locator('.toolbar .more-filters summary').first();
+      if (await summary.count()) {
+        await summary.click();
+        await page.waitForTimeout(300);
+        assert.ok(await page.locator('.toolbar .more-filters .more-filters-row').first().isVisible(), `${url} advanced filters did not open at 390px`);
+        assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} advanced filters caused overflow`);
+      }
+    }
     await page.close();
+  }
+  if (isLocal) {
+    const journalsPage = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+    await journalsPage.goto(new URL("journals/", root).href, { waitUntil: "networkidle", timeout: 60000 });
+    const journalLinks = await journalsPage.locator('.journal-table a[href*="/journals/"]').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('href')).filter(Boolean));
+    await journalsPage.close();
+    for (const href of journalLinks.slice(0, 8)) {
+      const journalUrl = new URL(href, new URL("journals/", root).href).href;
+      const journalPage = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+      const response = await journalPage.goto(journalUrl, { waitUntil: "networkidle", timeout: 60000 });
+      if (response?.status() === 200 && await journalPage.locator('[data-lazy-list]').count()) {
+        await assertNoFilterLazyState(journalPage, journalUrl);
+        await journalPage.close();
+        break;
+      }
+      await journalPage.close();
+    }
   }
   if (isLocal) {
     let sharedTopicFound = false;
