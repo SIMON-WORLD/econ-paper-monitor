@@ -49,7 +49,7 @@ from enrich_metadata import (
     openalex_doi_metadata,
     semantic_scholar_doi_metadata,
 )
-from public_integrity import has_abstract_boilerplate, strong_identity_keys
+from public_integrity import has_abstract_boilerplate, sanitize_record_paths, strong_identity_keys
 from audit_metadata_recovery import audit_metadata_recovery
 from reconcile_retry_queues import reconcile_retry_queue
 
@@ -309,6 +309,64 @@ def fetch_metadata_for_doi(
     return providers, errors
 
 
+def summarize_provider_health(
+    providers_by_doi: dict[str, dict[str, dict[str, Any]]],
+) -> dict[str, dict[str, Any]]:
+    """Summarize per-provider availability and failure statuses for auditing."""
+    names = ("openalex", "crossref", "semantic-scholar")
+    health: dict[str, dict[str, Any]] = {}
+    for name in names:
+        attempts = available = empty = 0
+        statuses: Counter[str] = Counter()
+        for providers in providers_by_doi.values():
+            metadata = providers.get(name) or {}
+            attempts += 1
+            status = str(metadata.get("_status") or "")
+            if status:
+                statuses[status] += 1
+            elif metadata:
+                available += 1
+            else:
+                empty += 1
+        health[name] = {
+            "attempts": attempts,
+            "available": available,
+            "empty": empty,
+            "statuses": dict(statuses),
+            "failed": attempts - available - empty,
+        }
+    return health
+
+
+def write_provider_health(
+    data_dir: Path,
+    provider_health: dict[str, dict[str, Any]],
+    *,
+    candidates: int,
+    recovered_fields: Counter[str],
+    checked_at: str,
+) -> None:
+    """Persist a bounded provider-health history for operational audit."""
+    path = data_dir / "metadata_provider_health.json"
+    payload = read_json(path, {"runs": []})
+    if not isinstance(payload, dict):
+        payload = {"runs": []}
+    runs = payload.get("runs")
+    if not isinstance(runs, list):
+        runs = []
+    runs.append(
+        {
+            "checked_at": checked_at,
+            "candidates": candidates,
+            "recovered": dict(recovered_fields),
+            "providers": provider_health,
+        }
+    )
+    payload["runs"] = runs[-20:]
+    payload["latest"] = runs[-1]
+    write_json(path, payload)
+
+
 def apply_recovery(
     record: dict[str, Any],
     providers: dict[str, dict[str, Any]],
@@ -549,6 +607,7 @@ def run_recovery(
         for future in as_completed(futures):
             doi, providers = future.result()
             providers_by_doi[doi] = providers
+    provider_health = summarize_provider_health(providers_by_doi)
 
     # Apply recovery to every canonical daily occurrence.
     for doi, occurrences in records_by_doi.items():
@@ -581,6 +640,7 @@ def run_recovery(
         for path, records in changed_records_by_path.items():
             payload = payloads_by_path.get(path)
             if isinstance(payload, list):
+                sanitize_record_paths(payload)
                 write_json(path, payload)
                 daily_changed += 1
         seen_changed, seen_updated = update_seen_records(
@@ -588,7 +648,12 @@ def run_recovery(
             records_by_doi,
             providers_by_doi,
         )
-        if seen_changed:
+        seen_sanitized = False
+        if isinstance(seen_payload, dict):
+            seen_papers = seen_payload.get("papers")
+            if isinstance(seen_papers, dict):
+                seen_sanitized = bool(sanitize_record_paths(list(seen_papers.values())))
+        if seen_changed or seen_sanitized:
             write_json(seen_path, seen_payload)
         queue_changed, queue_resolved = reconcile_metadata_queue(
             queue_path,
@@ -598,6 +663,13 @@ def run_recovery(
         )
         ledger_report = reconcile_retry_queue(data_dir)
         ledger_resolved = int(ledger_report.get("resolved_now") or 0)
+        write_provider_health(
+            data_dir,
+            provider_health,
+            candidates=len(candidate_dois),
+            recovered_fields=recovered_fields,
+            checked_at=now_iso(),
+        )
     else:
         daily_changed = 0
         seen_updated = 0
@@ -615,6 +687,7 @@ def run_recovery(
             name: sum(1 for providers in providers_by_doi.values() if providers.get(name))
             for name in ("openalex", "crossref", "semantic-scholar")
         },
+        "provider_health": provider_health,
         "recovered": dict(recovered_fields),
         "date_confidence_changes": dict(date_confidence_changes),
         "shortfall": dict(shortfall),
