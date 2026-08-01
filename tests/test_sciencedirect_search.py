@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import sys
 import unittest
+import urllib.error
+from email.message import Message
 from pathlib import Path
 from unittest.mock import patch
 
@@ -67,6 +69,61 @@ class ScienceDirectSearchTests(unittest.TestCase):
                 timeout=5,
                 max_items=5,
             )
+
+    @patch.object(fetch_sciencedirect_search, "fetch_text")
+    def test_run_journal_records_captcha_reason_in_source_health_message(self, fetch_mock) -> None:
+        fetch_mock.return_value = (
+            "Title: Just a moment...\n# Are you a robot?\n"
+            "Please complete the captcha challenge below."
+        )
+        journal = {
+            "id": "journal-of-development-economics",
+            "title": "Journal of Development Economics",
+            "issn": "0304-3878",
+        }
+        records, message, error = fetch_sciencedirect_search.run_journal(
+            journal,
+            days=4,
+            timeout=5,
+            max_items=5,
+        )
+        self.assertEqual(records, [])
+        self.assertIn("blocked-captcha", message)
+        self.assertIsInstance(error, ValueError)
+
+    def test_fetch_text_retries_with_jina_key_header(self) -> None:
+        class FakeResponse:
+            def __init__(self, payload):
+                self._payload = payload
+
+            def read(self):
+                return self._payload
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+        exc = urllib.error.HTTPError(
+            "https://r.jina.ai/http://www.sciencedirect.com/search",
+            429,
+            "Too Many Requests",
+            Message(),
+            None,
+        )
+        response = FakeResponse(
+            b"Title: ok\n## [A real result](http://www.sciencedirect.com/science/article/pii/S0000000000000000)\nAvailable online 1 August 2026"
+        )
+        with patch.object(fetch_sciencedirect_search, "time") as time_mock, patch.object(
+            fetch_sciencedirect_search.urllib.request, "urlopen", side_effect=[exc, response]
+        ) as urlopen_mock, patch.dict(fetch_sciencedirect_search.os.environ, {"JINA_API_KEY": "test-key"}, clear=False):
+            result = fetch_sciencedirect_search.fetch_text("https://r.jina.ai/x", timeout=5)
+
+        self.assertEqual(urlopen_mock.call_count, 2)
+        self.assertTrue(result.startswith("Title: ok"))
+        request_headers = urlopen_mock.call_args.args[0].headers
+        self.assertEqual(request_headers.get("Authorization"), "Bearer test-key")
 
 
 if __name__ == "__main__":
