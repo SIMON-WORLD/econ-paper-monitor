@@ -67,6 +67,8 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
 
     search_html = (output / "search" / "index.html").read_text(encoding="utf-8")
     assert 'data-lazy-defer="true"' in search_html
+    assert 'class="control more-filters"' in search_html
+    assert 'placeholder="搜索"' in search_html
     assert r"[\u3400-\u9fff]+" in search_html
     assert r"split(/\s+/)" in search_html
     search_manifest_url = re.search(r'data-lazy-manifest="([^"]+)"', search_html).group(1)
@@ -83,6 +85,11 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
         assert dataset_id == search_dataset_id, path
     assert manifests["search/index.html"]["count"] >= manifests["working-papers/index.html"]["count"]
     assert manifests["search/index.html"]["count"] >= manifests["topics/china/index.html"]["count"]
+
+    detail_shard = next((output / "paper-data").glob("*.json"))
+    detail_items = json.loads(detail_shard.read_text(encoding="utf-8"))
+    assert detail_items
+    assert all("detected_time" in item for item in detail_items)
 
     for shard_path in (output / "paper-index").glob("*/shards/*.json"):
         shard = json.loads(shard_path.read_text(encoding="utf-8"))
@@ -126,6 +133,9 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "LAZY_LIST_SCRIPT = r" in renderer
     assert "renderCard" in renderer
     assert "escHtml" in renderer
+    assert "state.manifest = manifest" in renderer
+    assert "more-filters" in renderer
+    assert "detected_time" in renderer
     assert "scoped_shared_events" in renderer
     assert "register_lazy_dataset" in renderer
     assert "data-lazy-filter" in renderer

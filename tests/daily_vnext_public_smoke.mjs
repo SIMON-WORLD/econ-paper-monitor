@@ -131,9 +131,20 @@ async function checkSecondaryPages(browser) {
         await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, before);
       }
     }
-    if (mobile) {
-      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
+    if (path === "recent72/") {
+      const lazyList = page.locator('[data-lazy-list]').first();
+      if (await lazyList.count()) {
+        const manifestUrl = await lazyList.getAttribute('data-lazy-manifest');
+        const manifestResponse = await page.request.get(new URL(manifestUrl, page.url()).href);
+        const manifest = await manifestResponse.json();
+        if (manifest.count > 0) {
+          await page.waitForTimeout(1500);
+          assert.ok(await page.locator('.event').count() >= 1, `${url} recent72 empty state despite records`);
+          assert.equal(await page.locator('[data-lazy-empty]').isVisible(), false, `${url} recent72 empty state visible without filters`);
+        }
+      }
     }
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
     await page.close();
   }
   if (isLocal) {
