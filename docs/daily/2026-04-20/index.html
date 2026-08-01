@@ -435,7 +435,7 @@
         for (let index = 0; index <= word.length - 3; index += 1) tokens.add(word.slice(index, index + 3));
       }
     }
-    for (const run of text.match(/[㐀-鿿]+/g) || []) {
+    for (const run of text.match(/[\u3400-\u9fff]+/g) || []) {
       for (const char of run) tokens.add(char);
       for (let index = 0; index < run.length - 1; index += 1) tokens.add(run.slice(index, index + 2));
     }
@@ -507,6 +507,17 @@
   const ROUTED_INITIAL_SHARDS = 2;
   const routeBucket = (token) => (token.charCodeAt(0) * 31 + (token.charCodeAt(1) || 0)) % ROUTE_BUCKETS;
   const loadRouted = async (state, tokens) => {
+    const manifest = await loadManifest(state);
+    if (manifest.routed === false) {
+      state.items = [];
+      state.pendingShards = [];
+      while (await loadNextShard(state)) {
+        // small datasets scan all shards locally; filters apply in render
+      }
+      state.routed = true;
+      state.nextShard = 0;
+      return;
+    }
     const byBucket = new Map();
     for (const token of tokens) {
       const bucket = routeBucket(token);
