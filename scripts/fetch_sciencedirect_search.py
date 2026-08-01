@@ -26,6 +26,12 @@ BROWSER_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126 Safari/537.36",
     "Accept": "text/plain,text/markdown;q=0.9,*/*;q=0.8",
 }
+CAPTCHA_MARKERS = (
+    "are you a robot",
+    "captcha challenge",
+    "requiring captcha",
+    "just a moment",
+)
 
 MONTHS = {
     "january": 1,
@@ -186,6 +192,11 @@ def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items
     query = urllib.parse.urlencode({"pub": journal["title"], "show": "100", "sortBy": "date"})
     source_url = f"{SEARCH_BASE}?{query}"
     markdown = fetch_text(source_url, timeout)
+    lowered = markdown.casefold()
+    if any(marker in lowered for marker in CAPTCHA_MARKERS):
+        raise ValueError("sciencedirect-search blocked-captcha")
+    if not markdown.strip():
+        raise RuntimeError("sciencedirect-search empty response")
     parsed = parse_search_results(markdown, journal)
     cutoff = date.fromisoformat(today_str()) - timedelta(days=max(1, days) - 1)
     records: list[dict[str, Any]] = []
