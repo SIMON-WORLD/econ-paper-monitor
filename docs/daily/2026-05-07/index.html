@@ -167,7 +167,7 @@
     </div>
   </div>
 </article>
-<article class="event" data-event-scope="default" data-search="measuring forest-related depth in preferential trade agreements: the forest provisions depth index 优惠贸易协定中森林相关深度的测量：森林条款深度指数 michelle márcia viana martins, alan leal, rodrigo fagundes cezar world development 10.1016/j.worlddev.2026.107442" data-journal="world-development" data-fields="environment development trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+<article class="event" data-event-scope="default" data-search="measuring forest-related depth in preferential trade agreements: the forest provisions depth index 优惠贸易协定中森林相关深度的测量：森林条款深度指数 michelle márcia viana martins, alan leal, rodrigo fagundes cezar world development 10.1016/j.worlddev.2026.107442" data-journal="world-development" data-fields="agriculture environment development finance" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="journal_article">
   <div><div class="time">02:16</div><div class="date-note">2026-05-07</div></div>
   <div>
     <h3><a href="../../paper.html?key=measuring-forest-related-depth-in-preferential-trade-agreements-the-forest-provisions-de-dfcfff4f3394">优惠贸易协定中森林相关深度的测量：森林条款深度指数</a></h3>
@@ -176,7 +176,7 @@
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="pill">首次监测 2026-05-07</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-05-07 · 来源：Crossref</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107442">10.1016/j.worlddev.2026.107442</a><span class="pill">环境与气候</span><span class="pill">发展经济学</span><span class="pill">国际贸易</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107442">10.1016/j.worlddev.2026.107442</a><span class="pill">农业与食品</span><span class="pill">环境与气候</span><span class="pill">发展经济学</span></span></div>
     </div>
   </div>
 </article>
@@ -641,6 +641,35 @@
     state.items.push(...items.filter((item) => !known.has(item.key)));
     return true;
   };
+  const escHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
+  const renderCard = (item, base) => {
+    const card = item.card || {};
+    const topics = (card.tp || []).map((label) => '<span class="pill">' + escHtml(label) + '</span>').join('');
+    const link = card.d
+      ? '<a class="doi" href="https://doi.org/' + escHtml(card.d) + '">' + escHtml(card.d) + '</a>'
+      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '<span class="doi">暂无 DOI</span>');
+    const typeTag = card.st ? '<span class="pill">' + escHtml(card.st) + '</span>' : '';
+    const chinaTag = card.cn ? '<span class="pill china">与中国相关</span>' : '';
+    const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
+    const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
+    const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
+    const metaLabel = card.wk ? '来源' : '期刊';
+    const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');
+    const href = String(card.hr || '#').replaceAll('__PAPER_BASE__', base);
+    return '<article class="' + classes + '" data-event-scope="lazy" data-search="' + escHtml(item.search || '') + '" data-journal="' + escHtml(item.journal || '') + '" data-fields="' + escHtml(item.fields || '') + '" data-china="' + (item.china ? 'true' : 'false') + '" data-online-today="' + (item.onlineToday ? 'true' : 'false') + '" data-date-type="' + escHtml(item.dateType || '') + '" data-confidence="' + escHtml(item.confidence || '') + '" data-source-type="' + escHtml(item.sourceType || '') + '">\n' +
+      '  <div><div class="time">' + escHtml(card.dt) + '</div><div class="date-note">' + escHtml(card.dd) + '</div></div>\n' +
+      '  <div>\n' +
+      '    <h3><a href="' + escHtml(href) + '">' + escHtml(card.p) + '</a></h3>' + originalTitle + authorsHtml + '\n' +
+      '    <div class="meta-block">\n' +
+      '      <div class="meta-line"><span class="meta-label">' + metaLabel + '</span><span class="meta-values">' + journalChip + typeTag + detectedChip + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">' + officialChip + (card.lg || '') + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + topics + chinaTag + '</span></div>\n' +
+      '    </div>\n' +
+      '  </div>\n' +
+      '</article>';
+  };
   const render = async (list, state, toolbar, replace) => {
     if (replace) {
       clearRendered(list);
@@ -655,7 +684,7 @@
     const fragment = document.createDocumentFragment();
     for (const item of matches.slice(start, end)) {
       const wrapper = document.createElement('div');
-      wrapper.innerHTML = String(item.html || '').replaceAll('__PAPER_BASE__', list.dataset.lazyBase || '.');
+      wrapper.innerHTML = renderCard(item, list.dataset.lazyBase || '.');
       const nodes = Array.from(wrapper.childNodes);
       nodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE) node.classList.add('lazy-paper');

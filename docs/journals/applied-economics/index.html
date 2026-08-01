@@ -480,6 +480,35 @@
     state.items.push(...items.filter((item) => !known.has(item.key)));
     return true;
   };
+  const escHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
+  const renderCard = (item, base) => {
+    const card = item.card || {};
+    const topics = (card.tp || []).map((label) => '<span class="pill">' + escHtml(label) + '</span>').join('');
+    const link = card.d
+      ? '<a class="doi" href="https://doi.org/' + escHtml(card.d) + '">' + escHtml(card.d) + '</a>'
+      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '<span class="doi">暂无 DOI</span>');
+    const typeTag = card.st ? '<span class="pill">' + escHtml(card.st) + '</span>' : '';
+    const chinaTag = card.cn ? '<span class="pill china">与中国相关</span>' : '';
+    const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
+    const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
+    const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
+    const metaLabel = card.wk ? '来源' : '期刊';
+    const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');
+    const href = String(card.hr || '#').replaceAll('__PAPER_BASE__', base);
+    return '<article class="' + classes + '" data-event-scope="lazy" data-search="' + escHtml(item.search || '') + '" data-journal="' + escHtml(item.journal || '') + '" data-fields="' + escHtml(item.fields || '') + '" data-china="' + (item.china ? 'true' : 'false') + '" data-online-today="' + (item.onlineToday ? 'true' : 'false') + '" data-date-type="' + escHtml(item.dateType || '') + '" data-confidence="' + escHtml(item.confidence || '') + '" data-source-type="' + escHtml(item.sourceType || '') + '">\n' +
+      '  <div><div class="time">' + escHtml(card.dt) + '</div><div class="date-note">' + escHtml(card.dd) + '</div></div>\n' +
+      '  <div>\n' +
+      '    <h3><a href="' + escHtml(href) + '">' + escHtml(card.p) + '</a></h3>' + originalTitle + authorsHtml + '\n' +
+      '    <div class="meta-block">\n' +
+      '      <div class="meta-line"><span class="meta-label">' + metaLabel + '</span><span class="meta-values">' + journalChip + typeTag + detectedChip + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">' + officialChip + (card.lg || '') + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + topics + chinaTag + '</span></div>\n' +
+      '    </div>\n' +
+      '  </div>\n' +
+      '</article>';
+  };
   const render = async (list, state, toolbar, replace) => {
     if (replace) {
       clearRendered(list);
@@ -494,7 +523,7 @@
     const fragment = document.createDocumentFragment();
     for (const item of matches.slice(start, end)) {
       const wrapper = document.createElement('div');
-      wrapper.innerHTML = String(item.html || '').replaceAll('__PAPER_BASE__', list.dataset.lazyBase || '.');
+      wrapper.innerHTML = renderCard(item, list.dataset.lazyBase || '.');
       const nodes = Array.from(wrapper.childNodes);
       nodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE) node.classList.add('lazy-paper');
