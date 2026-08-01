@@ -198,7 +198,10 @@ class TestDateDiscipline:
             date_confidence="C",
             date_source="publisher_page",
         )
-        update = decide_date_update(record, provider_metadata("2021-05-05"))
+        update = decide_date_update(
+            record,
+            {"openalex": provider_metadata("2021-05-05")["openalex"], "crossref": {}, "semantic-scholar": {}},
+        )
         assert update is None
         assert record["available_online"] == "2020-01-02"
         assert record["date_source"] == "publisher_page"
