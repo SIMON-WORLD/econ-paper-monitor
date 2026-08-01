@@ -291,6 +291,9 @@ jobs:
       - name: Audit formal source health
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_source_health.py
+      - name: Triage degraded sources
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/triage_source_health.py
       - name: Audit external sentinel coverage
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/audit_alohomora_coverage.py
@@ -348,6 +351,9 @@ jobs:
           else
             echo "::warning::Batch metadata recovery timed out or failed; preserving explicit missing status."
           fi
+      - name: Repair public data integrity
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        run: python scripts/public_integrity.py
       - name: Normalize enriched metadata
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py

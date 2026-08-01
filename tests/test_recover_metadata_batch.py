@@ -11,6 +11,7 @@ ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from recover_metadata_batch import (  # noqa: E402
+    apply_recovery,
     decide_date_update,
     is_placeholder_abstract,
     load_daily_candidates,
@@ -253,6 +254,23 @@ class TestDateDiscipline:
         update = decide_date_update(record, provider_metadata())
         assert update is None
 
+    def test_apply_recovery_single_source_never_overwrites_existing_c(self):
+        record = sample_record(
+            available_online="2020-01-02",
+            published_online="2020-01-02",
+            date_confidence="C",
+            date_source="publisher_page",
+        )
+        providers = {
+            "openalex": provider_metadata("2021-05-05")["openalex"],
+            "crossref": {},
+            "semantic-scholar": {},
+        }
+        changed, fields = apply_recovery(record, providers)
+        assert "date" not in fields
+        assert record["available_online"] == "2020-01-02"
+        assert record["date_source"] == "publisher_page"
+
 
 class TestCandidateSelection:
     def test_limit_and_doi_filter(self, tmp_path: Path):
@@ -350,3 +368,91 @@ class TestRecoveryPersistence:
                 dry_run=False,
             )
         assert tree_hash(ROOT / "docs") == before
+
+    def test_rerun_skips_already_resolved_dois(self, tmp_path: Path):
+        data_dir = make_data_dir(tmp_path)
+        with patch("recover_metadata_batch.openalex_doi_metadata", return_value=provider_metadata()["openalex"]), patch(
+            "recover_metadata_batch.crossref_doi_metadata", return_value=provider_metadata()["crossref"]
+        ), patch(
+            "recover_metadata_batch.semantic_scholar_doi_metadata",
+            return_value=provider_metadata()["semantic-scholar"],
+        ):
+            first = run_recovery(
+                data_dir=data_dir,
+                limit=50,
+                recent_days=5000,
+                timeout=10,
+                workers=2,
+                dry_run=False,
+            )
+            second = run_recovery(
+                data_dir=data_dir,
+                limit=50,
+                recent_days=5000,
+                timeout=10,
+                workers=2,
+                dry_run=False,
+            )
+
+        assert first["recovered"]["abstract"] == 1
+        assert second["candidates"] == 0
+        assert second["files"]["daily_changed"] == 0
+        assert second["files"]["queue_resolved"] == 0
+        queue = json.loads((data_dir / "metadata_retry_queue.json").read_text(encoding="utf-8"))
+        assert len(queue["resolved_records"]) == 1
+
+    def test_recovery_sanitizes_machine_paths(self, tmp_path: Path):
+        data_dir = make_data_dir(tmp_path)
+        daily_path = data_dir / "daily" / "2026-07-31.json"
+        daily = json.loads(daily_path.read_text(encoding="utf-8"))
+        daily[0]["_raw_file"] = r"E:\BaiduSyncdisk\Work\econ-paper-monitor\data\raw\2026-07-31\crossref.json"
+        daily_path.write_text(json.dumps(daily), encoding="utf-8")
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+        seen["papers"]["seen-test"]["source_file"] = "/home/runner/work/econ-paper-monitor/econ-paper-monitor/data/raw/x.json"
+        (data_dir / "seen.json").write_text(json.dumps(seen), encoding="utf-8")
+
+        with patch("recover_metadata_batch.openalex_doi_metadata", return_value=provider_metadata()["openalex"]), patch(
+            "recover_metadata_batch.crossref_doi_metadata", return_value=provider_metadata()["crossref"]
+        ), patch(
+            "recover_metadata_batch.semantic_scholar_doi_metadata",
+            return_value=provider_metadata()["semantic-scholar"],
+        ):
+            report = run_recovery(
+                data_dir=data_dir,
+                limit=50,
+                recent_days=5000,
+                timeout=10,
+                workers=2,
+                dry_run=False,
+            )
+
+        daily_after = json.dumps(json.loads(daily_path.read_text(encoding="utf-8")), ensure_ascii=False)
+        seen_after = json.dumps(json.loads((data_dir / "seen.json").read_text(encoding="utf-8")), ensure_ascii=False)
+        assert "BaiduSyncdisk" not in daily_after
+        assert "home/runner" not in seen_after
+        assert report["after"]["integrity"]["machine_path_leaks"] == 0
+
+    def test_provider_health_reports_semantic_scholar_status(self, tmp_path: Path):
+        data_dir = make_data_dir(tmp_path)
+        with patch("recover_metadata_batch.openalex_doi_metadata", return_value=provider_metadata()["openalex"]), patch(
+            "recover_metadata_batch.crossref_doi_metadata", return_value=provider_metadata()["crossref"]
+        ), patch(
+            "recover_metadata_batch.semantic_scholar_doi_metadata",
+            return_value={"_status": "not_found", "_provider": "semantic-scholar"},
+        ):
+            report = run_recovery(
+                data_dir=data_dir,
+                limit=50,
+                recent_days=5000,
+                timeout=10,
+                workers=2,
+                dry_run=False,
+            )
+
+        health = report["provider_health"]["semantic-scholar"]
+        assert health["attempts"] == 1
+        assert health["available"] == 0
+        assert health["failed"] == 1
+        assert health["statuses"]["not_found"] == 1
+        persisted = json.loads((data_dir / "metadata_provider_health.json").read_text(encoding="utf-8"))
+        assert persisted["latest"]["providers"]["semantic-scholar"]["statuses"]["not_found"] == 1

@@ -108,14 +108,19 @@ class TestTriageReport:
             },
         )
         report = triage(data_dir)
-        assert report["total_degraded"] == 3
+        assert report["total_degraded"] == 2
+        assert report["source_health_degraded_count"] == 2
+        assert report["status_json"]["aligned"] is True
+        assert report["status_json"]["degraded_source_failures"] == 1
         by_source = {entry["source"]: entry["category"] for entry in report["sources"]}
         assert by_source["Journal A"] == "rate_limited"
         assert by_source["Journal B"] == "page_structure_change"
-        assert by_source["journal-c"] == "transient_network"
+        assert "journal-c" not in by_source
+        status_failures = {entry["source"]: entry["category"] for entry in report["source_status_failures"]}
+        assert status_failures["journal-c"] == "transient_network"
 
         written = json.loads((data_dir / "source_health_triage.json").read_text(encoding="utf-8"))
-        assert written["total_degraded"] == 3
+        assert written["total_degraded"] == 2
 
     def test_empty_health_returns_empty_report(self, tmp_path: Path):
         data_dir = tmp_path / "data"
@@ -125,3 +130,58 @@ class TestTriageReport:
         report = triage(data_dir)
         assert report["total_degraded"] == 0
         assert report["sources"] == []
+        assert report["source_status_failures"] == []
+
+    def test_degraded_journals_without_failed_paths_are_still_triaged(self, tmp_path: Path):
+        data_dir = tmp_path / "data"
+        data_dir.mkdir(parents=True)
+        write_json(
+            data_dir / "source_health.json",
+            {
+                "counts": {"degraded": 3, "healthy": 0},
+                "degraded": [
+                    {"journal": "Journal A", "journal_id": "j-a", "coverage": "supplemental", "level": "degraded"},
+                    {"journal": "Journal B", "journal_id": "j-b", "coverage": "supplemental", "level": "degraded"},
+                    {
+                        "journal": "Journal C",
+                        "journal_id": "j-c",
+                        "coverage": "supplemental",
+                        "failed_paths": [{"message": "HTTP 429 Too Many Requests"}],
+                    },
+                ],
+            },
+        )
+        write_json(
+            data_dir / "status.json",
+            {
+                "sources": {
+                    "rss": {
+                        "ok": False,
+                        "last_error": "Journal B: 0 via configured; Journal C: timeout",
+                    }
+                }
+            },
+        )
+        report = triage(data_dir)
+        assert report["total_degraded"] == 3
+        assert report["status_json"]["aligned"] is True
+        by_source = {entry["source"]: entry for entry in report["sources"]}
+        assert by_source["Journal A"]["category"] == "needs_investigation"
+        assert by_source["Journal B"]["status_source"] == "rss"
+        assert by_source["Journal C"]["category"] == "rate_limited"
+
+    def test_alignment_flag_false_when_counts_differ(self, tmp_path: Path):
+        data_dir = tmp_path / "data"
+        data_dir.mkdir(parents=True)
+        write_json(
+            data_dir / "source_health.json",
+            {
+                "counts": {"degraded": 5, "healthy": 0},
+                "degraded": [{"journal": "Journal A", "journal_id": "j-a"}],
+            },
+        )
+        write_json(data_dir / "status.json", {"sources": {}})
+        report = triage(data_dir)
+        assert report["total_degraded"] == 1
+        assert report["source_health_degraded_count"] == 5
+        assert report["status_json"]["aligned"] is False

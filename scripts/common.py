@@ -23,6 +23,7 @@ DOCS_DIR = ROOT / "docs"
 
 USER_AGENT = "AcademicDoorPaperMonitor/1.0 (https://github.com/academic-door/econ-paper-monitor)"
 BEIJING_TZ = timezone(timedelta(hours=8))
+RETRYABLE_HTTP_STATUSES = frozenset({429, 500, 502, 503, 504})
 
 
 def today_str() -> str:
@@ -141,6 +142,46 @@ def fetch_json(url: str, params: dict[str, str | int] | None = None, timeout: in
         context = ssl._create_unverified_context()
         with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
             return json.loads(response.read().decode("utf-8"))
+
+
+def fetch_json_retry(
+    url: str,
+    *,
+    timeout: int = 30,
+    retries: int = 2,
+    backoff: float = 1.5,
+    retry_statuses: set[int] | None = None,
+) -> Any:
+    """Fetch JSON with bounded retries for rate limits and transient errors.
+
+    Kept separate from :func:`fetch_json` so routine enrichment calls do not
+    inherit extra latency. HTTP 429/5xx and network errors are retried with
+    exponential backoff; ``Retry-After`` is honoured when the server sends it.
+    """
+    statuses = set(retry_statuses) if retry_statuses else set(RETRYABLE_HTTP_STATUSES)
+    attempts = max(0, retries) + 1
+    last_error: Exception | None = None
+    for attempt in range(attempts):
+        try:
+            return fetch_json(url, timeout=timeout)
+        except urllib.error.HTTPError as exc:
+            last_error = exc
+            if exc.code not in statuses or attempt + 1 >= attempts:
+                raise
+            wait = backoff * (2**attempt)
+            retry_after = exc.headers.get("Retry-After") if exc.headers else None
+            if retry_after:
+                try:
+                    wait = max(wait, float(retry_after))
+                except ValueError:
+                    pass
+            time.sleep(min(wait, 30.0))
+        except urllib.error.URLError as exc:
+            last_error = exc
+            if attempt + 1 >= attempts:
+                raise
+            time.sleep(min(backoff * (2**attempt), 30.0))
+    raise last_error  # type: ignore[misc]
 
 
 def fetch_text(url: str, timeout: int = 30) -> str:
