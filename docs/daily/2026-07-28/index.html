@@ -50,7 +50,7 @@
   <select class="control" aria-label="筛选来源类型" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="journal_article">期刊论文</option><option value="policy_commentary">研究评论</option><option value="working_paper">工作论文</option></select>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
 </div>
-<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/3c83b4343999ab5b/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="reflections on adoption of new agricultural practices 关于采纳新农业实践的思考 david j. pannell journal of agricultural economics 10.1111/1477-9552.70064" data-journal="journal-of-agricultural-economics" data-fields="agriculture development public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="journal_article">
+<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/7452c27d3374076e/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="reflections on adoption of new agricultural practices 关于采纳新农业实践的思考 david j. pannell journal of agricultural economics 10.1111/1477-9552.70064" data-journal="journal-of-agricultural-economics" data-fields="agriculture development public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="journal_article">
   <div><div class="time">17:24</div><div class="date-note">2026-07-28</div></div>
   <div>
     <h3><a href="../../paper.html?key=reflections-on-adoption-of-new-agricultural-practices-94051f6cacc8">关于采纳新农业实践的思考</a></h3>
@@ -179,7 +179,7 @@
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70071">10.1111/jmcb.70071</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
   </div>
-</article></div><button class="control lazy-start" type="button">浏览全部 42 篇</button><div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>
+</article></div><button class="control lazy-start" type="button">浏览全部 43 篇</button><div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
@@ -380,6 +380,7 @@
   };
   const matchingItems = (items, toolbar) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
+    const queryTokenList = query ? queryTokens(query) : [];
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -388,7 +389,7 @@
     const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
     const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
     return items.filter((item) => {
-      if (query && !String(item.search || '').includes(query)) return false;
+      if (queryTokenList.length && !queryTokenList.every((token) => String(item.search || '').includes(token))) return false;
       if (journal && item.journal !== journal) return false;
       if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
       if (dateType && item.dateType !== dateType) return false;
@@ -421,8 +422,9 @@
     state.items.push(...items.filter((item) => !known.has(item.key)));
     return true;
   };
-  const ROUTE_BUCKETS = 32;
-  const routeBucket = (token) => token.charCodeAt(0) % ROUTE_BUCKETS;
+  const ROUTE_BUCKETS = 256;
+  const ROUTED_INITIAL_SHARDS = 2;
+  const routeBucket = (token) => (token.charCodeAt(0) * 31 + (token.charCodeAt(1) || 0)) % ROUTE_BUCKETS;
   const loadRouted = async (state, tokens) => {
     const byBucket = new Map();
     for (const token of tokens) {
@@ -431,25 +433,33 @@
       byBucket.get(bucket).push(token);
     }
     const routePayloads = (await Promise.all([...byBucket.entries()].map(async ([bucket, bucketTokens]) => {
-      const payload = await loadJson(new URL('route/' + String(bucket).padStart(2, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
-      return bucketTokens.map((token) => payload[token] || []);
+      const payload = await loadJson(new URL('route/' + String(bucket).padStart(3, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
+      return bucketTokens.map((token) => (payload[token] || '').split(',').filter(Boolean));
     }))).flat();
     if (!routePayloads.length || routePayloads.some((payload) => !payload.length)) {
       state.items = [];
+      state.pendingShards = [];
       state.routed = true;
       state.nextShard = 0;
       return;
     }
-    const sets = routePayloads.map((payload) => new Map(payload.map((entry) => [entry.key, entry.shard])));
-    const first = [...sets].sort((left, right) => left.size - right.size)[0];
-    const keys = [...first.keys()].filter((key) => sets.every((set) => set.has(key)));
-    const references = keys.map((key) => ({key, shard: first.get(key)}));
-    const shardNames = [...new Set(references.map((entry) => entry.shard))];
-    const payloads = await Promise.all(shardNames.map((name) => loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href)));
-    const byKey = new Map(payloads.flat().map((item) => [item.key, item]));
-    state.items = references.map((entry) => byKey.get(entry.key)).filter(Boolean);
+    const shardSets = routePayloads.map((payload) => new Set(payload));
+    const smallest = [...shardSets].sort((left, right) => left.size - right.size)[0];
+    const shardNames = [...smallest].filter((name) => shardSets.every((set) => set.has(name))).sort();
+    state.pendingShards = shardNames.slice(ROUTED_INITIAL_SHARDS);
+    const initialShards = shardNames.slice(0, ROUTED_INITIAL_SHARDS);
+    const payloads = await Promise.all(initialShards.map((name) => loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href)));
+    state.items = payloads.flat();
     state.routed = true;
     state.nextShard = 0;
+  };
+  const loadNextRoutedShard = async (state) => {
+    const name = state.pendingShards.shift();
+    if (!name) return false;
+    const items = await loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href);
+    const known = new Set(state.items.map((item) => item.key));
+    state.items.push(...items.filter((item) => !known.has(item.key)));
+    return true;
   };
   const render = async (list, state, toolbar, replace) => {
     if (replace) {
@@ -459,7 +469,7 @@
     const matches = matchingItems(state.items, toolbar);
     const empty = list.querySelector('[data-lazy-empty]');
     empty.hidden = !matches.length;
-    if (!matches.length) empty.textContent = '没有符合当前筛选条件的论文。';
+    if (!matches.length) empty.textContent = state.pendingShards.length ? '当前批次暂无匹配，点击加载更多继续检索。' : '没有符合当前筛选条件的论文。';
     const start = state.rendered;
     const end = Math.min(start + 40, matches.length);
     const fragment = document.createDocumentFragment();
@@ -475,7 +485,7 @@
     state.rendered = end;
     list.querySelector('.lazy-more')?.remove();
     list.append(fragment);
-    if (state.rendered < matches.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
+    if (state.rendered < matches.length || state.pendingShards.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
       const more = document.createElement('button');
       more.type = 'button';
       more.className = 'control lazy-more';
@@ -483,7 +493,11 @@
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
         try {
-          if (state.rendered >= matches.length && !state.routed) await loadNextShard(state);
+          const currentMatches = matchingItems(state.items, toolbar);
+          if (state.rendered >= currentMatches.length) {
+            if (state.routed) await loadNextRoutedShard(state);
+            else await loadNextShard(state);
+          }
           await render(list, state, toolbar, false);
         } catch (error) {
           showError(list, error);
@@ -503,6 +517,7 @@
       } else {
         state.routed = false;
         state.items = [];
+        state.pendingShards = [];
         state.nextShard = 0;
         await loadNextShard(state);
       }
@@ -515,7 +530,7 @@
   const initList = (list) => {
     const scope = list.dataset.lazyScope || 'default';
     const toolbar = document.querySelector('.toolbar[data-filter-scope="' + scope + '"]');
-    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
+    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], pendingShards: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
     const rerender = debounce(() => apply(list, state, toolbar), 140);
     for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
       const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');

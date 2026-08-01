@@ -323,6 +323,19 @@
     </div>
   </div>
 </article>
+<article class="event" data-event-scope="default" data-search="cropland abandonment threatens food security in rural nepal: understanding the role of long-term and seasonal migration 耕地撂荒威胁尼泊尔农村粮食安全：理解长期与季节性迁移的作用 qi zhang, conghe song, sophia a. graybill, erin o. sills, rajan parajuli 等 land use policy 10.1016/j.landusepol.2026.108225" data-journal="land-use-policy" data-fields="agriculture labor public" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+  <div><div class="time">04:14</div><div class="date-note">2026-07-25</div></div>
+  <div>
+    <h3><a href="../../paper.html?key=cropland-abandonment-threatens-food-security-in-rural-nepal-understanding-the-role-of-lo-461647ede822">耕地撂荒威胁尼泊尔农村粮食安全：理解长期与季节性迁移的作用</a></h3>
+    <p class="title-original">Cropland abandonment threatens food security in rural Nepal: Understanding the role of long-term and seasonal migration</p>
+    <p class="authors">Qi Zhang, Conghe Song, Sophia A. Graybill, Erin O. Sills, Rajan Parajuli 等</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Land Use Policy</span><span class="pill">首次监测 2026-07-25</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-07-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.landusepol.2026.108225">10.1016/j.landusepol.2026.108225</a><span class="pill">农业与食品</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
 <article class="event" data-event-scope="default" data-search="development approaches for preventing violent extremism: a systematic review of the empirical evidence 预防暴力极端主义的发展路径：实证证据的系统综述 leanne m. kelly, greg barton, anthony ware world development 10.1016/j.worlddev.2026.107510" data-journal="world-development" data-fields="development labor public trade" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
   <div><div class="time">01:43</div><div class="date-note">2026-07-25</div></div>
   <div>
@@ -333,6 +346,19 @@
       <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">World Development</span><span class="pill">首次监测 2026-07-25</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-07-25 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.worlddev.2026.107510">10.1016/j.worlddev.2026.107510</a><span class="pill">发展经济学</span><span class="pill">劳动</span><span class="pill">公共与政治经济学</span></span></div>
+    </div>
+  </div>
+</article>
+<article class="event" data-event-scope="default" data-search="effective tax rates, firm size and the global minimum tax 有效税率、企业规模与全球最低税 pierre bachas, anne brockmeyer, roel dom, camille semelet journal of public economics 10.1016/j.jpubeco.2026.105721" data-journal="journal-of-public-economics" data-fields="public trade firms" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="C" data-source-type="journal_article">
+  <div><div class="time">01:43</div><div class="date-note">2026-07-25</div></div>
+  <div>
+    <h3><a href="../../paper.html?key=effective-tax-rates-firm-size-and-the-global-minimum-tax-dff2b64351a3">有效税率、企业规模与全球最低税</a></h3>
+    <p class="title-original">Effective tax rates, firm size and the global minimum tax</p>
+    <p class="authors">Pierre Bachas, Anne Brockmeyer, Roel Dom, Camille Semelet</p>
+    <div class="meta-block">
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Public Economics</span><span class="pill">首次监测 2026-07-25</span></span></div>
+      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-07-25 · 来源：Crossref</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jpubeco.2026.105721">10.1016/j.jpubeco.2026.105721</a><span class="pill">公共与政治经济学</span><span class="pill">国际贸易</span><span class="pill">企业与产业</span></span></div>
     </div>
   </div>
 </article>
@@ -536,6 +562,7 @@
   };
   const matchingItems = (items, toolbar) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
+    const queryTokenList = query ? queryTokens(query) : [];
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -544,7 +571,7 @@
     const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
     const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
     return items.filter((item) => {
-      if (query && !String(item.search || '').includes(query)) return false;
+      if (queryTokenList.length && !queryTokenList.every((token) => String(item.search || '').includes(token))) return false;
       if (journal && item.journal !== journal) return false;
       if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
       if (dateType && item.dateType !== dateType) return false;
@@ -577,8 +604,9 @@
     state.items.push(...items.filter((item) => !known.has(item.key)));
     return true;
   };
-  const ROUTE_BUCKETS = 32;
-  const routeBucket = (token) => token.charCodeAt(0) % ROUTE_BUCKETS;
+  const ROUTE_BUCKETS = 256;
+  const ROUTED_INITIAL_SHARDS = 2;
+  const routeBucket = (token) => (token.charCodeAt(0) * 31 + (token.charCodeAt(1) || 0)) % ROUTE_BUCKETS;
   const loadRouted = async (state, tokens) => {
     const byBucket = new Map();
     for (const token of tokens) {
@@ -587,25 +615,33 @@
       byBucket.get(bucket).push(token);
     }
     const routePayloads = (await Promise.all([...byBucket.entries()].map(async ([bucket, bucketTokens]) => {
-      const payload = await loadJson(new URL('route/' + String(bucket).padStart(2, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
-      return bucketTokens.map((token) => payload[token] || []);
+      const payload = await loadJson(new URL('route/' + String(bucket).padStart(3, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
+      return bucketTokens.map((token) => (payload[token] || '').split(',').filter(Boolean));
     }))).flat();
     if (!routePayloads.length || routePayloads.some((payload) => !payload.length)) {
       state.items = [];
+      state.pendingShards = [];
       state.routed = true;
       state.nextShard = 0;
       return;
     }
-    const sets = routePayloads.map((payload) => new Map(payload.map((entry) => [entry.key, entry.shard])));
-    const first = [...sets].sort((left, right) => left.size - right.size)[0];
-    const keys = [...first.keys()].filter((key) => sets.every((set) => set.has(key)));
-    const references = keys.map((key) => ({key, shard: first.get(key)}));
-    const shardNames = [...new Set(references.map((entry) => entry.shard))];
-    const payloads = await Promise.all(shardNames.map((name) => loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href)));
-    const byKey = new Map(payloads.flat().map((item) => [item.key, item]));
-    state.items = references.map((entry) => byKey.get(entry.key)).filter(Boolean);
+    const shardSets = routePayloads.map((payload) => new Set(payload));
+    const smallest = [...shardSets].sort((left, right) => left.size - right.size)[0];
+    const shardNames = [...smallest].filter((name) => shardSets.every((set) => set.has(name))).sort();
+    state.pendingShards = shardNames.slice(ROUTED_INITIAL_SHARDS);
+    const initialShards = shardNames.slice(0, ROUTED_INITIAL_SHARDS);
+    const payloads = await Promise.all(initialShards.map((name) => loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href)));
+    state.items = payloads.flat();
     state.routed = true;
     state.nextShard = 0;
+  };
+  const loadNextRoutedShard = async (state) => {
+    const name = state.pendingShards.shift();
+    if (!name) return false;
+    const items = await loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href);
+    const known = new Set(state.items.map((item) => item.key));
+    state.items.push(...items.filter((item) => !known.has(item.key)));
+    return true;
   };
   const render = async (list, state, toolbar, replace) => {
     if (replace) {
@@ -615,7 +651,7 @@
     const matches = matchingItems(state.items, toolbar);
     const empty = list.querySelector('[data-lazy-empty]');
     empty.hidden = !matches.length;
-    if (!matches.length) empty.textContent = '没有符合当前筛选条件的论文。';
+    if (!matches.length) empty.textContent = state.pendingShards.length ? '当前批次暂无匹配，点击加载更多继续检索。' : '没有符合当前筛选条件的论文。';
     const start = state.rendered;
     const end = Math.min(start + 40, matches.length);
     const fragment = document.createDocumentFragment();
@@ -631,7 +667,7 @@
     state.rendered = end;
     list.querySelector('.lazy-more')?.remove();
     list.append(fragment);
-    if (state.rendered < matches.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
+    if (state.rendered < matches.length || state.pendingShards.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
       const more = document.createElement('button');
       more.type = 'button';
       more.className = 'control lazy-more';
@@ -639,7 +675,11 @@
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
         try {
-          if (state.rendered >= matches.length && !state.routed) await loadNextShard(state);
+          const currentMatches = matchingItems(state.items, toolbar);
+          if (state.rendered >= currentMatches.length) {
+            if (state.routed) await loadNextRoutedShard(state);
+            else await loadNextShard(state);
+          }
           await render(list, state, toolbar, false);
         } catch (error) {
           showError(list, error);
@@ -659,6 +699,7 @@
       } else {
         state.routed = false;
         state.items = [];
+        state.pendingShards = [];
         state.nextShard = 0;
         await loadNextShard(state);
       }
@@ -671,7 +712,7 @@
   const initList = (list) => {
     const scope = list.dataset.lazyScope || 'default';
     const toolbar = document.querySelector('.toolbar[data-filter-scope="' + scope + '"]');
-    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
+    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], pendingShards: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
     const rerender = debounce(() => apply(list, state, toolbar), 140);
     for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
       const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');
