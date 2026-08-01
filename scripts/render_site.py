@@ -29,7 +29,7 @@ CN_TZ = BEIJING_TZ
 DEFAULT_PRESENCE_ENDPOINT = "https://econ-paper-monitor-presence.academic-door.workers.dev/presence"
 LAZY_DATASETS: dict[str, tuple[list[dict[str, Any]], str]] = {}
 LAZY_SHARD_SIZE = 40
-ROUTE_BUCKETS = 32
+ROUTE_BUCKETS = 256
 
 CHINA_TITLE_PATTERNS = [
     r"\bchina\b",
@@ -1255,6 +1255,7 @@ LAZY_LIST_SCRIPT = """
   };
   const matchingItems = (items, toolbar) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
+    const queryTokenList = query ? queryTokens(query) : [];
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -1263,7 +1264,7 @@ LAZY_LIST_SCRIPT = """
     const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
     const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
     return items.filter((item) => {
-      if (query && !String(item.search || '').includes(query)) return false;
+      if (queryTokenList.length && !queryTokenList.every((token) => String(item.search || '').includes(token))) return false;
       if (journal && item.journal !== journal) return false;
       if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
       if (dateType && item.dateType !== dateType) return false;
@@ -1296,8 +1297,9 @@ LAZY_LIST_SCRIPT = """
     state.items.push(...items.filter((item) => !known.has(item.key)));
     return true;
   };
-  const ROUTE_BUCKETS = 32;
-  const routeBucket = (token) => token.charCodeAt(0) % ROUTE_BUCKETS;
+  const ROUTE_BUCKETS = 256;
+  const ROUTED_INITIAL_SHARDS = 2;
+  const routeBucket = (token) => (token.charCodeAt(0) * 31 + (token.charCodeAt(1) || 0)) % ROUTE_BUCKETS;
   const loadRouted = async (state, tokens) => {
     const byBucket = new Map();
     for (const token of tokens) {
@@ -1306,25 +1308,33 @@ LAZY_LIST_SCRIPT = """
       byBucket.get(bucket).push(token);
     }
     const routePayloads = (await Promise.all([...byBucket.entries()].map(async ([bucket, bucketTokens]) => {
-      const payload = await loadJson(new URL('route/' + String(bucket).padStart(2, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
-      return bucketTokens.map((token) => payload[token] || []);
+      const payload = await loadJson(new URL('route/' + String(bucket).padStart(3, '0') + '.json', state.manifestUrl).href).catch(() => ({}));
+      return bucketTokens.map((token) => (payload[token] || '').split(',').filter(Boolean));
     }))).flat();
     if (!routePayloads.length || routePayloads.some((payload) => !payload.length)) {
       state.items = [];
+      state.pendingShards = [];
       state.routed = true;
       state.nextShard = 0;
       return;
     }
-    const sets = routePayloads.map((payload) => new Map(payload.map((entry) => [entry.key, entry.shard])));
-    const first = [...sets].sort((left, right) => left.size - right.size)[0];
-    const keys = [...first.keys()].filter((key) => sets.every((set) => set.has(key)));
-    const references = keys.map((key) => ({key, shard: first.get(key)}));
-    const shardNames = [...new Set(references.map((entry) => entry.shard))];
-    const payloads = await Promise.all(shardNames.map((name) => loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href)));
-    const byKey = new Map(payloads.flat().map((item) => [item.key, item]));
-    state.items = references.map((entry) => byKey.get(entry.key)).filter(Boolean);
+    const shardSets = routePayloads.map((payload) => new Set(payload));
+    const smallest = [...shardSets].sort((left, right) => left.size - right.size)[0];
+    const shardNames = [...smallest].filter((name) => shardSets.every((set) => set.has(name))).sort();
+    state.pendingShards = shardNames.slice(ROUTED_INITIAL_SHARDS);
+    const initialShards = shardNames.slice(0, ROUTED_INITIAL_SHARDS);
+    const payloads = await Promise.all(initialShards.map((name) => loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href)));
+    state.items = payloads.flat();
     state.routed = true;
     state.nextShard = 0;
+  };
+  const loadNextRoutedShard = async (state) => {
+    const name = state.pendingShards.shift();
+    if (!name) return false;
+    const items = await loadJson(new URL('shards/' + name + '.json', state.manifestUrl).href);
+    const known = new Set(state.items.map((item) => item.key));
+    state.items.push(...items.filter((item) => !known.has(item.key)));
+    return true;
   };
   const render = async (list, state, toolbar, replace) => {
     if (replace) {
@@ -1334,7 +1344,7 @@ LAZY_LIST_SCRIPT = """
     const matches = matchingItems(state.items, toolbar);
     const empty = list.querySelector('[data-lazy-empty]');
     empty.hidden = !matches.length;
-    if (!matches.length) empty.textContent = '没有符合当前筛选条件的论文。';
+    if (!matches.length) empty.textContent = state.pendingShards.length ? '当前批次暂无匹配，点击加载更多继续检索。' : '没有符合当前筛选条件的论文。';
     const start = state.rendered;
     const end = Math.min(start + 40, matches.length);
     const fragment = document.createDocumentFragment();
@@ -1350,7 +1360,7 @@ LAZY_LIST_SCRIPT = """
     state.rendered = end;
     list.querySelector('.lazy-more')?.remove();
     list.append(fragment);
-    if (state.rendered < matches.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
+    if (state.rendered < matches.length || state.pendingShards.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
       const more = document.createElement('button');
       more.type = 'button';
       more.className = 'control lazy-more';
@@ -1358,7 +1368,11 @@ LAZY_LIST_SCRIPT = """
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
         try {
-          if (state.rendered >= matches.length && !state.routed) await loadNextShard(state);
+          const currentMatches = matchingItems(state.items, toolbar);
+          if (state.rendered >= currentMatches.length) {
+            if (state.routed) await loadNextRoutedShard(state);
+            else await loadNextShard(state);
+          }
           await render(list, state, toolbar, false);
         } catch (error) {
           showError(list, error);
@@ -1378,6 +1392,7 @@ LAZY_LIST_SCRIPT = """
       } else {
         state.routed = false;
         state.items = [];
+        state.pendingShards = [];
         state.nextShard = 0;
         await loadNextShard(state);
       }
@@ -1390,7 +1405,7 @@ LAZY_LIST_SCRIPT = """
   const initList = (list) => {
     const scope = list.dataset.lazyScope || 'default';
     const toolbar = document.querySelector('.toolbar[data-filter-scope="' + scope + '"]');
-    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
+    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], pendingShards: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
     const rerender = debounce(() => apply(list, state, toolbar), 140);
     for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
       const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');
@@ -1985,7 +2000,9 @@ def lazy_route_tokens(value: str) -> set[str]:
 
 
 def route_bucket(token: str) -> int:
-    return ord(token[0]) % ROUTE_BUCKETS
+    first = ord(token[0])
+    second = ord(token[1]) if len(token) > 1 else 0
+    return (first * 31 + second) % ROUTE_BUCKETS
 
 
 def write_lazy_indexes(docs_dir: Path) -> None:
@@ -1998,7 +2015,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
         route_dir.mkdir(parents=True, exist_ok=True)
         shard_dir.mkdir(parents=True, exist_ok=True)
         shards: dict[str, list[dict[str, Any]]] = defaultdict(list)
-        routes: dict[str, list[dict[str, str]]] = defaultdict(list)
+        routes: dict[str, set[str]] = defaultdict(set)
         for position, record in enumerate(records):
             key = detail_key(record)
             topics = article_topics(record)
@@ -2044,7 +2061,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 route_values.add("online-today")
             for token in route_values:
                 if token:
-                    routes[token].append({"key": key, "shard": shard})
+                    routes[token].add(shard)
         manifest = {
             "version": 2,
             "count": len(records),
@@ -2053,11 +2070,11 @@ def write_lazy_indexes(docs_dir: Path) -> None:
         write_text(dataset_dir / "manifest.json", json.dumps(manifest, ensure_ascii=False, separators=(",", ":")))
         for shard, items in shards.items():
             write_text(shard_dir / f"{shard}.json", json.dumps(items, ensure_ascii=False, separators=(",", ":")))
-        bucketed: dict[int, dict[str, list[dict[str, str]]]] = defaultdict(dict)
-        for token, entries in routes.items():
-            bucketed[route_bucket(token)][token] = entries
+        bucketed: dict[int, dict[str, str]] = defaultdict(dict)
+        for token, shards in routes.items():
+            bucketed[route_bucket(token)][token] = ",".join(sorted(shards))
         for bucket, payload in sorted(bucketed.items()):
-            write_text(route_dir / f"{bucket:02d}.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
+            write_text(route_dir / f"{bucket:03d}.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
 
 
 def search_body(records: list[dict[str, Any]]) -> str:
