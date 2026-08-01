@@ -235,6 +235,26 @@ def fetch_journal(journal: dict[str, Any], *, days: int, timeout: int, max_items
     return records, f"{journal['title']}: {len(records)}"
 
 
+def run_journal(
+    journal: dict[str, Any],
+    *,
+    days: int,
+    timeout: int,
+    max_items: int,
+) -> tuple[list[dict[str, Any]], str, Exception | None]:
+    """Run one journal and return (records, message, error) for aggregation."""
+    try:
+        items, message = fetch_journal(
+            journal,
+            days=days,
+            timeout=timeout,
+            max_items=max_items,
+        )
+        return items, message, None
+    except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
+        return [], f"{journal['title']}: {type(exc).__name__}: {exc}", exc
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -253,20 +273,16 @@ def main() -> None:
     messages: list[str] = []
     failures = 0
 
-    def run(journal: dict[str, Any]) -> tuple[list[dict[str, Any]], str, Exception | None]:
-        try:
-            items, message = fetch_journal(
+    with ThreadPoolExecutor(max_workers=max(1, args.workers)) as executor:
+        for items, message, error in executor.map(
+            lambda journal: run_journal(
                 journal,
                 days=args.days,
                 timeout=args.timeout,
                 max_items=args.max_items_per_journal,
-            )
-            return items, message, None
-        except Exception as exc:  # noqa: BLE001
-            return [], f"{journal['title']}: {type(exc).__name__}", exc
-
-    with ThreadPoolExecutor(max_workers=max(1, args.workers)) as executor:
-        for items, message, error in executor.map(run, journals):
+            ),
+            journals,
+        ):
             records.extend(items)
             messages.append(message)
             failures += int(error is not None)
@@ -277,11 +293,15 @@ def main() -> None:
         unique[pii] = record
     records = list(unique.values())
     write_json(output, records)
+    jina_key = os.environ.get("JINA_API_KEY") or ""
     record_source(
         "sciencedirect-search",
         ok=bool(records) or failures == 0,
         count=len(records),
-        message=f"journals={len(journals)} failures={failures}; " + "; ".join(messages[-12:]),
+        message=(
+            f"journals={len(journals)} failures={failures} "
+            f"jina_key={'on' if jina_key else 'off'}; " + "; ".join(messages[-12:])
+        ),
     )
     print(f"wrote {len(records)} ScienceDirect search records to {output}")
     for message in messages:

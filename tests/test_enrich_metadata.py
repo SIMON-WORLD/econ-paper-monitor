@@ -228,6 +228,36 @@ class MetadataProviderRetryTests(unittest.TestCase):
         self.assertEqual(fetch_mock.call_args.kwargs["headers"], {"x-api-key": "test-key"})
         enrich_metadata.reset_semantic_scholar_throttle()
 
+    @patch.object(enrich_metadata, "fetch_text")
+    def test_publisher_proxy_retries_with_jina_key(self, fetch_mock) -> None:
+        exc = urllib.error.HTTPError(
+            "https://r.jina.ai/http://www.sciencedirect.com/science/article/pii/S0000000000000000",
+            429,
+            "Too Many Requests",
+            Message(),
+            None,
+        )
+        markdown = (
+            "# Paper title\n\n"
+            "## Abstract\n\n"
+            "This publisher abstract is intentionally long enough to pass "
+            "validation and prove that the JINA API key retry path preserves "
+            "the Authorization header across retries for the monitor."
+        )
+        fetch_mock.side_effect = [exc, markdown]
+        with patch.object(enrich_metadata.time, "sleep"), patch.dict(
+            enrich_metadata.os.environ,
+            {"JINA_API_KEY": "test-key"},
+            clear=False,
+        ):
+            result = enrich_metadata.publisher_proxy_metadata(
+                "https://www.sciencedirect.com/science/article/pii/S0000000000000000",
+                timeout=1,
+            )
+        self.assertEqual(fetch_mock.call_count, 2)
+        self.assertIn("JINA API key retry path", result.get("abstract") or "")
+        self.assertEqual(fetch_mock.call_args.kwargs["headers"], {"Authorization": "Bearer test-key"})
+
     def test_extract_markdown_abstract(self) -> None:
         markdown = """# Paper
 
