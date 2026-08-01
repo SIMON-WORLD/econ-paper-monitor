@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import os
 import re
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -59,6 +60,12 @@ STRONG_DATE_CONFIDENCE = {"A", "B"}
 ABSTRACT_MIN_LEN = 50
 YEAR_MIN, YEAR_MAX = 1990, 2030
 DATE_FIELDS = ("official_date", "available_online", "published_online", "issue_date")
+PRIORITY_ABSTRACT_STATUSES = {
+    "blocked-captcha",
+    "elsevier-metadata-only",
+    "proxy-request-failed",
+    "abstract-not-exposed",
+}
 
 
 def is_placeholder_abstract(value: Any) -> bool:
@@ -109,6 +116,20 @@ def record_needs_date(record: dict[str, Any]) -> bool:
     return True
 
 
+def is_priority_abstract(record: dict[str, Any]) -> bool:
+    """True for recent in-press Elsevier / CAPTCHA-backed abstract debt."""
+    if not record_needs_abstract(record):
+        return False
+    status = str(record.get("abstract_enrichment_status") or "").strip()
+    if status in PRIORITY_ABSTRACT_STATUSES:
+        return True
+    publisher_text = " ".join(
+        str(record.get(field) or "")
+        for field in ("publisher", "journal", "source", "source_id")
+    ).casefold()
+    return "elsevier" in publisher_text or "sciencedirect" in publisher_text
+
+
 def needs_recovery(record: dict[str, Any]) -> tuple[bool, bool, bool]:
     return (
         record_needs_abstract(record),
@@ -132,13 +153,15 @@ def first_seen_timestamp(record: dict[str, Any]) -> float:
         return 0.0
 
 
-def record_priority(record: dict[str, Any]) -> tuple[int, int, int, float]:
+def record_priority(record: dict[str, Any]) -> tuple[int, int, int, int, int, float]:
     needs_abs, needs_auth, needs_date = needs_recovery(record)
-    # Fresh records and missing abstracts are processed first. Negate the
-    # timestamp so newer records sort before older ones.
+    # Fresh records, in-press Elsevier/CAPTCHA abstracts, and fully missing
+    # dates are processed first. Negate the timestamp so newer sorts first.
     return (
         0 if needs_abs else 1,
+        0 if is_priority_abstract(record) else 1,
         0 if needs_date else 1,
+        0 if not record_has_official_date(record) else 1,
         0 if needs_auth else 1,
         -first_seen_timestamp(record),
     )
@@ -333,8 +356,13 @@ def summarize_provider_health(
             "available": available,
             "empty": empty,
             "statuses": dict(statuses),
+            "rate_limited": int(statuses.get("rate_limited", 0)),
+            "skipped": int(statuses.get("skipped_rate_limited", 0)),
             "failed": attempts - available - empty,
         }
+    health["semantic-scholar"]["api_key_configured"] = bool(
+        (os.environ.get("S2_API_KEY") or os.environ.get("SEMANTIC_SCHOLAR_API_KEY") or "").strip()
+    )
     return health
 
 

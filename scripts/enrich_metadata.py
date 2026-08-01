@@ -12,6 +12,8 @@ import html as html_lib
 import json
 import os
 import re
+import threading
+import time
 import urllib.parse
 import urllib.request
 from collections import Counter
@@ -69,6 +71,12 @@ DATE_CAPTURE = (
     r"|\d{1,2}\s+[A-Za-z]{3,9}\s+20\d{2}"
     r"|20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?"
 )
+
+SS_MIN_INTERVAL_SECONDS = 0.25
+SS_RATE_LIMIT_SKIP_AFTER = 20
+_SS_LOCK = threading.Lock()
+_SS_LAST_REQUEST = 0.0
+_SS_RATE_LIMITED_COUNT = 0
 
 
 def clean_text(value: str) -> str:
@@ -346,10 +354,29 @@ def publisher_proxy_metadata(url: str, timeout: int) -> dict[str, str]:
     target = f"http://{host}{parsed.path}"
     if parsed.query:
         target += f"?{parsed.query}"
-    try:
-        markdown = fetch_text(f"https://r.jina.ai/{target}", timeout=timeout)
-    except Exception:
-        return {"_status": "proxy-request-failed"}
+    jina_key = os.environ.get("JINA_API_KEY") or ""
+    proxy_headers = {"Authorization": f"Bearer {jina_key}"} if jina_key else None
+    markdown = ""
+    last_error: Exception | None = None
+    for attempt in range(2):
+        try:
+            markdown = fetch_text(f"https://r.jina.ai/{target}", timeout=timeout, headers=proxy_headers)
+            break
+        except urllib.error.HTTPError as exc:
+            last_error = exc
+            if exc.code in {429, 500, 502, 503, 504} and attempt == 0:
+                time.sleep(2)
+                continue
+            if exc.code in {429, 500, 502, 503, 504}:
+                return {"_status": "proxy-rate-limited", "_status_code": exc.code}
+            return {"_status": "proxy-request-failed", "_status_code": exc.code}
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            if attempt == 0:
+                time.sleep(2)
+                continue
+    if not markdown and last_error is not None:
+        return {"_status": "proxy-request-failed", "_error": f"{type(last_error).__name__}: {last_error}"}
     lowered = markdown.casefold()
     if "are you a robot" in lowered or "requiring captcha" in lowered or "captcha challenge" in lowered:
         return {"_status": "blocked-captcha"}
@@ -458,18 +485,72 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     return result
 
 
+def reset_semantic_scholar_throttle() -> None:
+    """Reset Semantic Scholar throttle state (tests and targeted retries)."""
+    global _SS_LAST_REQUEST, _SS_RATE_LIMITED_COUNT
+    with _SS_LOCK:
+        _SS_LAST_REQUEST = 0.0
+        _SS_RATE_LIMITED_COUNT = 0
+
+
+def semantic_scholar_throttle_state() -> dict[str, Any]:
+    with _SS_LOCK:
+        return {
+            "min_interval_seconds": SS_MIN_INTERVAL_SECONDS,
+            "rate_limited_count": _SS_RATE_LIMITED_COUNT,
+            "skip_after": SS_RATE_LIMIT_SKIP_AFTER,
+        }
+
+
+def _semantic_scholar_gate() -> bool:
+    """Return True when a request may proceed; False when the burst is skipped."""
+    global _SS_LAST_REQUEST
+    with _SS_LOCK:
+        if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:
+            return False
+        now = time.monotonic()
+        wait = SS_MIN_INTERVAL_SECONDS - (now - _SS_LAST_REQUEST)
+        if wait > 0:
+            time.sleep(wait)
+        _SS_LAST_REQUEST = time.monotonic()
+    return True
+
+
+def _record_semantic_scholar_throttle() -> None:
+    global _SS_RATE_LIMITED_COUNT
+    with _SS_LOCK:
+        _SS_RATE_LIMITED_COUNT += 1
+
+
+def _reset_semantic_scholar_throttle_burst() -> None:
+    global _SS_RATE_LIMITED_COUNT
+    with _SS_LOCK:
+        _SS_RATE_LIMITED_COUNT = 0
+
+
 def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -> dict[str, Any]:
     fields = urllib.parse.urlencode({"fields": "abstract,authors,publicationDate,externalIds"})
+    api_key = (
+        os.environ.get("S2_API_KEY")
+        or os.environ.get("SEMANTIC_SCHOLAR_API_KEY")
+        or ""
+    ).strip()
+    headers = {"x-api-key": api_key} if api_key else {}
+    if not _semantic_scholar_gate():
+        return {"_status": "skipped_rate_limited", "_provider": "semantic-scholar"}
     try:
         payload = fetch_json_retry(
             f"https://api.semanticscholar.org/graph/v1/paper/DOI:{urllib.parse.quote(doi)}?{fields}",
             timeout=timeout,
             retries=retries,
+            headers=headers,
         )
+        _reset_semantic_scholar_throttle_burst()
     except urllib.error.HTTPError as exc:
         if exc.code == 404:
             return {"_status": "not_found", "_provider": "semantic-scholar"}
         if exc.code in {429, 500, 502, 503, 504}:
+            _record_semantic_scholar_throttle()
             return {"_status": "rate_limited", "_status_code": exc.code, "_provider": "semantic-scholar"}
         return {"_status": "http_error", "_status_code": exc.code, "_provider": "semantic-scholar"}
     except Exception as exc:  # noqa: BLE001

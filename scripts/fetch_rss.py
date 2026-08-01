@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import time
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,21 @@ from status import record_source
 
 
 ATOM = "{http://www.w3.org/2005/Atom}"
+
+
+def fetch_feed_with_retry(url: str, timeout: int = 30, attempts: int = 2) -> str:
+    """Fetch an RSS/Atom feed with one bounded retry for transient failures."""
+    last_error: Exception | None = None
+    for attempt in range(max(1, attempts)):
+        try:
+            return fetch_text(url, timeout=timeout)
+        except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
+            last_error = exc
+            if attempt + 1 < max(1, attempts):
+                time.sleep(2.0)
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("RSS feed returned no response")
 
 MONTHS = {
     "jan": 1,
@@ -385,7 +401,7 @@ def main() -> None:
         for source in feeds:
             attempted_feeds += 1
             try:
-                xml_text = fetch_text(source["url"])
+                xml_text = fetch_feed_with_retry(source["url"])
                 if not feed_identity_matches(xml_text, journal):
                     raise ValueError("RSS feed identity does not match configured journal")
                 fetched = parse_feed(xml_text, journal, source["url"])

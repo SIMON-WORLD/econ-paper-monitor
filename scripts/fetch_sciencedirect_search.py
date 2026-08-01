@@ -5,8 +5,10 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import re
 import ssl
+import time
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -69,15 +71,29 @@ def parse_online_date(value: str | None) -> str | None:
 
 
 def fetch_text(url: str, timeout: int) -> str:
-    request = urllib.request.Request(url, headers=BROWSER_HEADERS)
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            payload = response.read()
-    except Exception:
-        context = ssl._create_unverified_context()
-        with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
-            payload = response.read()
-    return payload.decode("utf-8", errors="replace")
+    headers = dict(BROWSER_HEADERS)
+    jina_key = os.environ.get("JINA_API_KEY") or ""
+    if jina_key:
+        headers["Authorization"] = f"Bearer {jina_key}"
+    last_error: Exception | None = None
+    for attempt in range(2):
+        try:
+            request = urllib.request.Request(url, headers=headers)
+            try:
+                with urllib.request.urlopen(request, timeout=timeout) as response:
+                    payload = response.read()
+            except Exception:
+                context = ssl._create_unverified_context()
+                with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+                    payload = response.read()
+            return payload.decode("utf-8", errors="replace")
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            if attempt == 0:
+                time.sleep(2)
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("ScienceDirect search fetch returned no response")
 
 
 def parse_search_results(markdown: str, journal: dict[str, Any]) -> list[dict[str, Any]]:

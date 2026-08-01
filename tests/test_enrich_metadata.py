@@ -188,6 +188,46 @@ class MetadataProviderRetryTests(unittest.TestCase):
         self.assertEqual(result["authors"], ["Alice Author"])
         self.assertEqual(result["published_online"], "2026-07-28")
 
+    def test_semantic_scholar_rate_limited_then_skipped_is_honest(self) -> None:
+        enrich_metadata.reset_semantic_scholar_throttle()
+        exc = urllib.error.HTTPError(
+            "https://api.semanticscholar.org/paper/DOI:10.1234/x",
+            429,
+            "Too Many Requests",
+            Message(),
+            None,
+        )
+        with patch.object(enrich_metadata, "SS_RATE_LIMIT_SKIP_AFTER", 2), patch.object(
+            enrich_metadata, "fetch_json_retry", side_effect=exc
+        ):
+            first = enrich_metadata.semantic_scholar_doi_metadata("10.1234/x", timeout=1)
+            second = enrich_metadata.semantic_scholar_doi_metadata("10.1234/y", timeout=1)
+            third = enrich_metadata.semantic_scholar_doi_metadata("10.1234/z", timeout=1)
+        self.assertEqual(first["_status"], "rate_limited")
+        self.assertEqual(second["_status"], "rate_limited")
+        self.assertEqual(third["_status"], "skipped_rate_limited")
+        self.assertNotEqual(third, {})
+        enrich_metadata.reset_semantic_scholar_throttle()
+
+    @patch.object(enrich_metadata, "fetch_json_retry")
+    def test_semantic_scholar_api_key_header(self, fetch_mock) -> None:
+        enrich_metadata.reset_semantic_scholar_throttle()
+        fetch_mock.return_value = {
+            "abstract": (
+                "A sufficiently detailed abstract for an API-key authenticated "
+                "Semantic Scholar response used by the monitor integration tests."
+            ),
+            "authors": [{"name": "Alice Author"}],
+        }
+        with patch.dict(
+            enrich_metadata.os.environ,
+            {"S2_API_KEY": "test-key"},
+            clear=False,
+        ):
+            enrich_metadata.semantic_scholar_doi_metadata("10.1234/x", timeout=1)
+        self.assertEqual(fetch_mock.call_args.kwargs["headers"], {"x-api-key": "test-key"})
+        enrich_metadata.reset_semantic_scholar_throttle()
+
     def test_extract_markdown_abstract(self) -> None:
         markdown = """# Paper
 
