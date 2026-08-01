@@ -20,7 +20,19 @@ from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Any
 
-from common import BEIJING_TZ, DATA_DIR, clean_abstract_text, date_from_parts, fetch_json, fetch_text, normalize_doi, read_json, today_str, write_json
+from common import (
+    BEIJING_TZ,
+    DATA_DIR,
+    clean_abstract_text,
+    date_from_parts,
+    fetch_json,
+    fetch_json_retry,
+    fetch_text,
+    normalize_doi,
+    read_json,
+    today_str,
+    write_json,
+)
 from public_integrity import strong_identity_keys
 from status import load_status, now, record_source, save_status
 
@@ -446,15 +458,22 @@ def openalex_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     return result
 
 
-def semantic_scholar_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
+def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -> dict[str, Any]:
     fields = urllib.parse.urlencode({"fields": "abstract,authors,publicationDate,externalIds"})
     try:
-        payload = fetch_json(
+        payload = fetch_json_retry(
             f"https://api.semanticscholar.org/graph/v1/paper/DOI:{urllib.parse.quote(doi)}?{fields}",
             timeout=timeout,
+            retries=retries,
         )
-    except Exception:
-        return {}
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            return {"_status": "not_found", "_provider": "semantic-scholar"}
+        if exc.code in {429, 500, 502, 503, 504}:
+            return {"_status": "rate_limited", "_status_code": exc.code, "_provider": "semantic-scholar"}
+        return {"_status": "http_error", "_status_code": exc.code, "_provider": "semantic-scholar"}
+    except Exception as exc:  # noqa: BLE001
+        return {"_status": "error", "_error": f"{type(exc).__name__}: {exc}", "_provider": "semantic-scholar"}
     result: dict[str, Any] = {}
     abstract = clean_abstract_text(payload.get("abstract"))
     if len(abstract) > 80:
