@@ -55,7 +55,7 @@
     <p class="title-original">Access to formal credit for women-owned enterprises in India’s unorganized sector: does technology adoption help close the gender gap?</p>
     <p class="authors">Swarna Parameswaran Ashay Kadam a Economics, General Management and Public Policy, Goa Institute of Management, Goa, Indiab Banking, Insurance and Financial Services 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-07-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-07-23 20:37</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-07-23 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.tandfonline.com/doi/full/10.1080/00036846.2025.2526853?af=R">文章链接</a><span class="pill">农业与食品</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
@@ -68,7 +68,7 @@
     <p class="title-original">A note on ‘The J-curve: evidence from commodity trade between US and China’ of Bahmani-Oskooee and Wang (2008) in Applied Economics, volume 40, issue 21</p>
     <p class="authors">Georgios Bertsatos George Agiomirgianakis Nicholas Tsounis a Centre of Planning and Economic Research, Athens, Greeceb Gulf One Lab for Computational &amp; Economic Research, Lancaster University Management School, Lancaster, UKc Department of Accounting and Finance, Hellenic Mediterranean University, Heraklion 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-07-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-07-23 12:32</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-07-23 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2025.2536749">10.1080/00036846.2025.2536749</a><span class="pill">国际贸易</span><span class="pill china">与中国相关</span></span></div>
     </div>
@@ -81,7 +81,7 @@
     <p class="title-original">Firm-level perception of economic policy uncertainty and digital transformation</p>
     <p class="authors">Ling Xiong Yahao Zhang Fei Wu a China Institute of Boundary and Ocean Studies, Wuhan University, Wuhan, Chinab Institute for International Studies, Chinac School of National Finance, Guangdong University of Finance, Guangzhou 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-07-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-07-23 12:32</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-07-23 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://www.tandfonline.com/doi/full/10.1080/00036846.2025.2532064?af=R">文章链接</a><span class="pill">公共与政治经济学</span><span class="pill">企业与产业</span></span></div>
     </div>
@@ -90,6 +90,11 @@
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
@@ -411,7 +416,7 @@
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');

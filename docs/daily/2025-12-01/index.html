@@ -55,7 +55,7 @@
     <p class="title-original">Does Deposit Insurance Promote Deposit Stability? Evidence from the Postal Savings System during the 1920s</p>
     <p class="authors">Lee K. Davison, Carlos D. Ramirez</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="pill">首次监测 2025-12-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="pill">首次监测 2025-12-01 12:39</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-12-01 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70019">10.1111/jmcb.70019</a><span class="pill">金融</span></span></div>
     </div>
@@ -68,7 +68,7 @@
     <p class="title-original">Herding in Mobile Payment: Evidence, Mechanism, and Heterogeneity</p>
     <p class="authors">Chun‐Yu Ho, Nayoung Kim, Ying Rong, Xin Tian</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="pill">首次监测 2025-12-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="pill">首次监测 2025-12-01 12:39</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-12-01 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70022">10.1111/jmcb.70022</a><span class="pill">金融</span><span class="pill">理论与博弈</span></span></div>
     </div>
@@ -81,7 +81,7 @@
     <p class="title-original">A series of (un)fortunate events: Commercial bank interest rates and deposit reallocation during the Great Depression in the Netherlands</p>
     <p class="authors">Ruben Peeters, Amaury de Vicq de Cumptich</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2025-12-01</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2025-12-01 12:39</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-12-01 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70070">10.1111/ehr.70070</a><span class="pill">金融</span><span class="pill">经济史</span></span></div>
     </div>
@@ -90,6 +90,11 @@
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
@@ -411,7 +416,7 @@
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');

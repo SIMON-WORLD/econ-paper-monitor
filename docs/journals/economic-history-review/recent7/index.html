@@ -59,7 +59,7 @@
     <p class="title-original">The role of structural transformation in regional convergence in Japan: 1874–2008</p>
     <p class="authors">Kyoji Fukao, Saumik Paul</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-07-23</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-07-23 17:11</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-07-23 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70138">10.1111/ehr.70138</a><span class="pill">宏观与货币</span><span class="pill">劳动</span><span class="pill">城市与区域</span></span></div>
     </div>
@@ -72,7 +72,7 @@
     <p class="title-original">Making an Industrial Revolution: Skill, Knowledge, Community and Innovation Gillian Cookson, (Woodbridge, the Boydell Press, 2025. Pp. 252. Hbk $85.23, Pbk $32.26).</p>
     <p class="authors">Joel Mokyr</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-07-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-07-22 17:07</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-07-22 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70143">10.1111/ehr.70143</a><span class="pill">企业与产业</span><span class="pill">经济史</span></span></div>
     </div>
@@ -85,7 +85,7 @@
     <p class="title-original">The Insatiable Machine: How Capitalism Conquered the World Trevor Jackson (W. W. Norton &amp; Company, 2026. Pp. 320. Hbk £21. ISBN 9781324106876).</p>
     <p class="authors">Sebastián Royo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-07-22</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-07-22 17:07</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-07-22 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70144">10.1111/ehr.70144</a><span class="pill">经济史</span></span></div>
     </div>
@@ -94,6 +94,11 @@
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
@@ -415,7 +420,7 @@
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');

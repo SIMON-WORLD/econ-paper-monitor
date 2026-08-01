@@ -55,7 +55,7 @@
     <p class="title-original">Forecasting the sustainability of workers pension systems in China: a comparative analysis of pre- and post-delay retirement policies</p>
     <p class="authors">Haiwei Yang, Yan Sun, Sumei Zeng, Renke Li, Yucong You</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-08-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-08-28 20:37</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-08-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2025.2548413">10.1080/00036846.2025.2548413</a><span class="pill">劳动</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
@@ -68,7 +68,7 @@
     <p class="title-original">Modelling and forecasting tourism revenue with quantile neural networks: an empirical study from China</p>
     <p class="authors">Qi Yang Yuzhu Tian Yijing Zhang Yue Wang a School of Mathematics and Statistics, Northwest Normal University, Lanzhou, Chinab Department of Mathematics and Information Technology, The Education University of Hong Kong, Hong Kong 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-08-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Applied Economics</span><span class="pill">首次监测 2025-08-28 20:37</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-08-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1080/00036846.2025.2553867">10.1080/00036846.2025.2553867</a><span class="pill">发展经济学</span><span class="pill">公共与政治经济学</span><span class="pill china">与中国相关</span></span></div>
     </div>
@@ -81,7 +81,7 @@
     <p class="title-original">A semiparametric Bayesian estimator of copula density</p>
     <p class="authors">Qiaoyu Wang, Ximing Wu, Taining Wang, Subal C. Kumbhakar, Sui Luo</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="pill">首次监测 2025-08-28</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Econometrics</span><span class="pill">首次监测 2025-08-28 18:36</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-08-28 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jeconom.2025.106085">10.1016/j.jeconom.2025.106085</a><span class="pill">计量方法</span></span></div>
     </div>
@@ -90,6 +90,11 @@
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
@@ -411,7 +416,7 @@
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');

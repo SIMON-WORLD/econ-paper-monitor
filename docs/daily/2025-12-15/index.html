@@ -55,7 +55,7 @@
     <p class="title-original">Central banker to the world: Foreign reserve management and U.S. money market liquidity</p>
     <p class="authors">Ron Alquist, R. Jay Kahn, Karlye Dilts Stedman</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2025-12-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of International Economics</span><span class="pill">首次监测 2025-12-15 18:36</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-12-15 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jinteco.2025.104203">10.1016/j.jinteco.2025.104203</a><span class="pill">金融</span></span></div>
     </div>
@@ -68,7 +68,7 @@
     <p class="title-original">Survey Expectations in the U.S. Phillips Curve</p>
     <p class="authors">CARLOS BEJAR‐GARCIA</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="pill">首次监测 2025-12-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Money, Credit and Banking</span><span class="pill">首次监测 2025-12-15 12:39</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-12-15 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jmcb.70027">10.1111/jmcb.70027</a><span class="pill">金融</span></span></div>
     </div>
@@ -81,7 +81,7 @@
     <p class="title-original">Quality Regulation and Unexpected Gaming: Evidence From Mandating Flight Delay Compensation</p>
     <p class="authors">Jingyi Xing</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2025-12-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Economics &amp; Management Strategy</span><span class="pill">首次监测 2025-12-15 12:39</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-12-15 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/jems.70019">10.1111/jems.70019</a><span class="pill">公共与政治经济学</span></span></div>
     </div>
@@ -94,7 +94,7 @@
     <p class="title-original">Dynamics of High‐Growth Young Firms and the Role of Venture Capitalists</p>
     <p class="authors">Yoshiki Ando</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Economic Review</span><span class="pill">首次监测 2025-12-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Economic Review</span><span class="pill">首次监测 2025-12-15 02:21</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2025-12-15 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/iere.70048">10.1111/iere.70048</a><span class="pill">宏观与货币</span><span class="pill">企业与产业</span></span></div>
     </div>
@@ -107,7 +107,7 @@
     <p class="title-original">Ambiguity and technology adoption under index insurance: Experimental evidence</p>
     <p class="authors">Jan Jozwik</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="pill">首次监测 2025-12-15</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Food Policy</span><span class="pill">首次监测 2025-12-15 03:53</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2025-12-15 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.foodpol.2025.102854">10.1016/j.foodpol.2025.102854</a><span class="pill">农业与食品</span><span class="pill">公共与政治经济学</span></span></div>
     </div>
@@ -116,6 +116,11 @@
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
@@ -437,7 +442,7 @@
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');

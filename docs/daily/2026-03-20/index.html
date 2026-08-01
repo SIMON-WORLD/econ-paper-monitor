@@ -55,7 +55,7 @@
     <p class="title-original">Leveraging Probability Distortion to Target Prevention: A Cardiovascular Screening Experiment in the Philippines</p>
     <p class="authors">Baillon, Aurélien, Capuno, Joseph, Kraft, Aleli, Kudymowa, Jenny, O 等</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">聚合源</span><span class="pill">首次监测 2026-03-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">来源</span><span class="meta-values"><span class="journal-chip">RePEc NEP Health Economics</span><span class="pill">聚合源</span><span class="pill">首次监测 2026-03-20 08:47</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-20 · 来源：出版社网页</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://econpapers.repec.org/RePEc:tin:wpaper:20260012">文章链接</a><span class="pill">理论与博弈</span><span class="pill">健康</span></span></div>
     </div>
@@ -68,7 +68,7 @@
     <p class="title-original">Success and failure in England&#x27;s patent system: New evidence from patent applications, 1783–1834</p>
     <p class="authors">Stephen D. Billington, Joe Lane</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-03-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Economic History Review</span><span class="pill">首次监测 2026-03-20 12:39</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-20 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/ehr.70108">10.1111/ehr.70108</a><span class="pill">经济史</span></span></div>
     </div>
@@ -81,7 +81,7 @@
     <p class="title-original">Dynamic Mode Decompositions and Vector Autoregressions</p>
     <p class="authors">Thomas J. Sargent, Yatheesan J. Selvakumar, Ziyue Yang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Economic Review</span><span class="pill">首次监测 2026-03-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">International Economic Review</span><span class="pill">首次监测 2026-03-20 02:21</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方在线 2026-03-20 · 来源：RSS</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1111/iere.70068">10.1111/iere.70068</a><span class="pill">计量方法</span></span></div>
     </div>
@@ -94,7 +94,7 @@
     <p class="title-original">Operational shorting and ETF liquidity provision</p>
     <p class="authors">Richard B. Evans, Rabih Moussawi, Michael S. Pagano, John Sedunov</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="pill">首次监测 2026-03-20</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Financial Economics</span><span class="pill">首次监测 2026-03-20 02:16</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-03-20 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1016/j.jfineco.2026.104241">10.1016/j.jfineco.2026.104241</a><span class="pill">金融</span></span></div>
     </div>
@@ -103,6 +103,11 @@
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
@@ -424,7 +429,7 @@
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');

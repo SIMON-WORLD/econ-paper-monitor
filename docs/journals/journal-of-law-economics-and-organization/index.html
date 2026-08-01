@@ -59,7 +59,7 @@
     <p class="title-original">Ideology and the scope of judicial discretion: evidence from the federal district courts</p>
     <p class="authors">Banks Miller, Brett Curry</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-07-18</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-07-18 09:12</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-07-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag028">10.1093/jleo/ewag028</a><span class="pill">行为与组织</span></span></div>
     </div>
@@ -72,7 +72,7 @@
     <p class="title-original">How judges’ social identity impacts reversal decisions: evidence from the transitory promotion of judges</p>
     <p class="authors">Patrick C Wu, Chang-Ching Lin, Yun-chien Chang</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-05-26</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-05-26 17:05</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-05-26 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag022">10.1093/jleo/ewag022</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
@@ -85,7 +85,7 @@
     <p class="title-original">The effects of fiscal rules on building permits and economic activity: quasi-experimental evidence</p>
     <p class="authors">Marco Fregoni, Marco Leonardi, Sauro Mocetti</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-05-21</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-05-21 17:05</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-05-21 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag015">10.1093/jleo/ewag015</a><span class="pill">发展经济学</span><span class="pill">金融</span><span class="pill">宏观与货币</span></span></div>
     </div>
@@ -98,7 +98,7 @@
     <p class="title-original">Norm-based enforcement of promises</p>
     <p class="authors">Nathan Atkinson, Rebecca Stone, Alexander Stremitzer</p>
     <div class="meta-block">
-      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-05-18</span></span></div>
+      <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">Journal of Law, Economics &amp; Organization</span><span class="pill">首次监测 2026-05-18 17:05</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">Crossref 元数据日期 2026-05-18 · 来源：Crossref</span></span></div>
       <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://doi.org/10.1093/jleo/ewag019">10.1093/jleo/ewag019</a><span class="pill">理论与博弈</span><span class="pill">行为与组织</span></span></div>
     </div>
@@ -107,6 +107,11 @@
 <script>
 (() => {
   const params = new URLSearchParams(window.location.search);
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.more-filters[open]').forEach((details) => {
+      if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
   document.querySelectorAll('.toolbar[data-filter-scope]').forEach((toolbar) => {
     const scope = toolbar.dataset.filterScope || 'default';
     if (document.querySelector('[data-lazy-list][data-lazy-scope="' + scope + '"]')) return;
@@ -428,7 +433,7 @@
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
     const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
     const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
-    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd + (card.dt ? ' ' + card.dt : '')) + '</span>';
     const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
     const metaLabel = card.wk ? '来源' : '期刊';
     const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');
