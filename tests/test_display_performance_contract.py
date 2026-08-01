@@ -69,6 +69,18 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
     assert 'data-lazy-defer="true"' in search_html
     assert r"[\u3400-\u9fff]+" in search_html
     assert r"split(/\s+/)" in search_html
+    search_manifest_url = re.search(r'data-lazy-manifest="([^"]+)"', search_html).group(1)
+    search_dataset_id = re.search(r"/paper-index/([0-9a-f]{16})/manifest.json", search_manifest_url).group(1)
+    shared_pages = [
+        path
+        for root_dir in ("topics", "fields", "journals")
+        for path in (output / root_dir).rglob("index.html")
+        if "data-lazy-filter=" in path.read_text(encoding="utf-8")
+    ]
+    for path in shared_pages[:3]:
+        html = path.read_text(encoding="utf-8")
+        dataset_id = re.search(r"/paper-index/([0-9a-f]{16})/manifest.json", html).group(1)
+        assert dataset_id == search_dataset_id, path
     assert manifests["search/index.html"]["count"] >= manifests["working-papers/index.html"]["count"]
     assert manifests["search/index.html"]["count"] >= manifests["topics/china/index.html"]["count"]
 
@@ -114,6 +126,10 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "LAZY_LIST_SCRIPT = r" in renderer
     assert "renderCard" in renderer
     assert "escHtml" in renderer
+    assert "scoped_shared_events" in renderer
+    assert "register_lazy_dataset" in renderer
+    assert "data-lazy-filter" in renderer
+    assert "presetTokenMatches" in renderer
     assert "routeBucket" in renderer
     assert "ROUTED_INITIAL_SHARDS" in renderer
     assert "loadNextRoutedShard" in renderer
