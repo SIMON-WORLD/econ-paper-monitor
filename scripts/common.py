@@ -128,11 +128,19 @@ def normalized_url_identity_keys(value: Any) -> set[str]:
     return keys
 
 
-def fetch_json(url: str, params: dict[str, str | int] | None = None, timeout: int = 30) -> Any:
+def fetch_json(
+    url: str,
+    params: dict[str, str | int] | None = None,
+    timeout: int = 30,
+    headers: dict[str, str] | None = None,
+) -> Any:
     if params:
         sep = "&" if "?" in url else "?"
         url = f"{url}{sep}{urllib.parse.urlencode(params)}"
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request_headers = {"User-Agent": USER_AGENT}
+    if headers:
+        request_headers.update(headers)
+    request = urllib.request.Request(url, headers=request_headers)
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             return json.loads(response.read().decode("utf-8"))
@@ -151,6 +159,7 @@ def fetch_json_retry(
     retries: int = 2,
     backoff: float = 1.5,
     retry_statuses: set[int] | None = None,
+    headers: dict[str, str] | None = None,
 ) -> Any:
     """Fetch JSON with bounded retries for rate limits and transient errors.
 
@@ -163,7 +172,7 @@ def fetch_json_retry(
     last_error: Exception | None = None
     for attempt in range(attempts):
         try:
-            return fetch_json(url, timeout=timeout)
+            return fetch_json(url, timeout=timeout, headers=headers)
         except urllib.error.HTTPError as exc:
             last_error = exc
             if exc.code not in statuses or attempt + 1 >= attempts:
@@ -184,8 +193,11 @@ def fetch_json_retry(
     raise last_error  # type: ignore[misc]
 
 
-def fetch_text(url: str, timeout: int = 30) -> str:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+def fetch_text(url: str, timeout: int = 30, headers: dict[str, str] | None = None) -> str:
+    request_headers = {"User-Agent": USER_AGENT}
+    if headers:
+        request_headers.update(headers)
+    request = urllib.request.Request(url, headers=request_headers)
     charset = None
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:

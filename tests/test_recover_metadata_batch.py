@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 from unittest.mock import patch
@@ -13,11 +14,15 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from recover_metadata_batch import (  # noqa: E402
     apply_recovery,
     decide_date_update,
+    is_priority_abstract,
     is_placeholder_abstract,
     load_daily_candidates,
+    record_priority,
     record_needs_date,
     run_recovery,
+    write_provider_health,
 )
+from public_integrity import sanitize_record_paths  # noqa: E402
 
 
 def write_json(path: Path, payload: object) -> None:
@@ -289,6 +294,107 @@ class TestCandidateSelection:
         assert len(records_by_doi) == 1
         assert "10.1234/missing" in records_by_doi
         assert candidates[0][1]["doi"] == "10.1234/missing"
+
+
+class TestPriorityAndPathHygiene:
+    def test_priority_prefers_captcha_elsevier_and_missing_dates(self):
+        captcha = sample_record(
+            abstract=None,
+            authors=[],
+            doi="10.1234/captcha",
+            abstract_enrichment_status="blocked-captcha",
+            publisher="Elsevier",
+            date_confidence="B",
+            available_online="2026-07-28",
+            published_online="2026-07-28",
+        )
+        plain = sample_record(
+            abstract=None,
+            authors=[],
+            doi="10.1234/plain",
+            date_confidence="B",
+            available_online="2026-07-28",
+            published_online="2026-07-28",
+        )
+        missing_date = sample_record(
+            abstract="A sufficiently long abstract that satisfies the completeness threshold for this test record.",
+            authors=["A. Author"],
+            doi="10.1234/date",
+            date_confidence="",
+            available_online=None,
+            published_online=None,
+        )
+        weak_c = sample_record(
+            abstract="A sufficiently long abstract that satisfies the completeness threshold for this test record.",
+            authors=["A. Author"],
+            doi="10.1234/weak",
+            date_confidence="C",
+            available_online="2026-07-28",
+            published_online="2026-07-28",
+        )
+        assert is_priority_abstract(captcha) is True
+        assert is_priority_abstract(plain) is False
+        assert record_priority(captcha)[:3] == (0, 0, 1)
+        assert record_priority(plain)[:3] == (0, 1, 1)
+        assert record_priority(missing_date)[2] == 0
+        assert record_priority(missing_date)[3] < record_priority(weak_c)[3]
+
+    def test_path_sanitize_preserves_detail_key(self):
+        record = sample_record(detail_key="stable-detail-key-abcdef123456")
+        record["_raw_file"] = r"E:\BaiduSyncdisk\Work\econ-paper-monitor\data\raw\2026-07-31\crossref.json"
+        changed = sanitize_record_paths([record])
+        assert changed == 1
+        assert record["detail_key"] == "stable-detail-key-abcdef123456"
+        assert "BaiduSyncdisk" not in record["_raw_file"]
+
+    def test_provider_health_history_is_bounded(self, tmp_path):
+        from collections import Counter
+
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        for index in range(25):
+            write_provider_health(
+                data_dir,
+                {
+                    "semantic-scholar": {
+                        "attempts": 1,
+                        "available": 0,
+                        "empty": 0,
+                        "statuses": {"rate_limited": 1},
+                        "rate_limited": 1,
+                        "skipped": 0,
+                        "failed": 1,
+                        "api_key_configured": False,
+                    }
+                },
+                candidates=1,
+                recovered_fields=Counter({"abstract": 0}),
+                checked_at=f"2026-08-01T{index:02d}:00:00+00:00",
+            )
+        payload = json.loads((data_dir / "metadata_provider_health.json").read_text(encoding="utf-8"))
+        assert len(payload["runs"]) == 20
+        assert payload["latest"] == payload["runs"][-1]
+
+    def test_provider_health_counts_skipped_and_api_key(self, tmp_path):
+        data_dir = make_data_dir(tmp_path)
+        with patch("recover_metadata_batch.openalex_doi_metadata", return_value=provider_metadata()["openalex"]), patch(
+            "recover_metadata_batch.crossref_doi_metadata", return_value=provider_metadata()["crossref"]
+        ), patch(
+            "recover_metadata_batch.semantic_scholar_doi_metadata",
+            return_value={"_status": "skipped_rate_limited", "_provider": "semantic-scholar"},
+        ), patch.dict(os.environ, {"S2_API_KEY": "test-key"}, clear=False):
+            report = run_recovery(
+                data_dir=data_dir,
+                limit=50,
+                recent_days=5000,
+                timeout=10,
+                workers=2,
+                dry_run=False,
+            )
+        health = report["provider_health"]["semantic-scholar"]
+        assert health["skipped"] == 1
+        assert health["api_key_configured"] is True
+        assert health["statuses"]["skipped_rate_limited"] == 1
 
 
 class TestRecoveryPersistence:
