@@ -1348,6 +1348,35 @@ LAZY_LIST_SCRIPT = r"""
     state.items.push(...items.filter((item) => !known.has(item.key)));
     return true;
   };
+  const escHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
+  const renderCard = (item, base) => {
+    const card = item.card || {};
+    const topics = (card.tp || []).map((label) => '<span class="pill">' + escHtml(label) + '</span>').join('');
+    const link = card.d
+      ? '<a class="doi" href="https://doi.org/' + escHtml(card.d) + '">' + escHtml(card.d) + '</a>'
+      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '<span class="doi">暂无 DOI</span>');
+    const typeTag = card.st ? '<span class="pill">' + escHtml(card.st) + '</span>' : '';
+    const chinaTag = card.cn ? '<span class="pill china">与中国相关</span>' : '';
+    const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
+    const authorsHtml = card.a ? '\n    <p class="authors">' + escHtml(card.a) + '</p>' : '';
+    const officialChip = '<span class="date-chip ' + escHtml(card.oc || '') + '">' + escHtml(card.od) + '</span>';
+    const detectedChip = '<span class="pill">首次监测 ' + escHtml(card.dd) + '</span>';
+    const journalChip = '<span class="journal-chip">' + escHtml(card.j) + '</span>';
+    const metaLabel = card.wk ? '来源' : '期刊';
+    const classes = 'event' + (card.ec ? ' ' + escHtml(card.ec) : '');
+    const href = String(card.hr || '#').replaceAll('__PAPER_BASE__', base);
+    return '<article class="' + classes + '" data-event-scope="lazy" data-search="' + escHtml(item.search || '') + '" data-journal="' + escHtml(item.journal || '') + '" data-fields="' + escHtml(item.fields || '') + '" data-china="' + (item.china ? 'true' : 'false') + '" data-online-today="' + (item.onlineToday ? 'true' : 'false') + '" data-date-type="' + escHtml(item.dateType || '') + '" data-confidence="' + escHtml(item.confidence || '') + '" data-source-type="' + escHtml(item.sourceType || '') + '">\n' +
+      '  <div><div class="time">' + escHtml(card.dt) + '</div><div class="date-note">' + escHtml(card.dd) + '</div></div>\n' +
+      '  <div>\n' +
+      '    <h3><a href="' + escHtml(href) + '">' + escHtml(card.p) + '</a></h3>' + originalTitle + authorsHtml + '\n' +
+      '    <div class="meta-block">\n' +
+      '      <div class="meta-line"><span class="meta-label">' + metaLabel + '</span><span class="meta-values">' + journalChip + typeTag + detectedChip + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">' + officialChip + (card.lg || '') + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + topics + chinaTag + '</span></div>\n' +
+      '    </div>\n' +
+      '  </div>\n' +
+      '</article>';
+  };
   const render = async (list, state, toolbar, replace) => {
     if (replace) {
       clearRendered(list);
@@ -1362,7 +1391,7 @@ LAZY_LIST_SCRIPT = r"""
     const fragment = document.createDocumentFragment();
     for (const item of matches.slice(start, end)) {
       const wrapper = document.createElement('div');
-      wrapper.innerHTML = String(item.html || '').replaceAll('__PAPER_BASE__', list.dataset.lazyBase || '.');
+      wrapper.innerHTML = renderCard(item, list.dataset.lazyBase || '.');
       const nodes = Array.from(wrapper.childNodes);
       nodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE) node.classList.add('lazy-paper');
@@ -2058,8 +2087,30 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 "confidence": confidence_value(record),
                 "sourceType": source_type_value(record),
             }
-            snippet = paper_events([record], scope="lazy", extra_class=extra_class).replace(BASE, "__PAPER_BASE__")
-            metadata["html"] = snippet
+            primary_title, secondary_title = display_titles(record)
+            author_text = authors(record)
+            official_line = public_date_line(record)
+            official_class = "pending" if official_line.startswith("官方日期待补") else ("issue" if public_date_label(record) in {"来源期次", "卷期日期"} else "")
+            metadata["card"] = {
+                "p": primary_title or "未命名记录",
+                "s": secondary_title or "",
+                "a": author_text,
+                "d": record.get("doi") or "",
+                "u": record.get("url") or "",
+                "j": record.get("journal") or "",
+                "tp": [topic_label(topic) for topic in topics[:3] if topic != "china"],
+                "cn": metadata["china"],
+                "on": online_today,
+                "dt": detected_time(record),
+                "dd": detected_date(record),
+                "od": official_line,
+                "oc": official_class,
+                "lg": detection_lag_chip(record),
+                "st": source_type_label(record) if is_working_paper(record) else "",
+                "wk": is_working_paper(record),
+                "hr": detail_url(record).replace(BASE, "__PAPER_BASE__"),
+                "ec": extra_class,
+            }
             shards[shard].append(metadata)
             if routed:
                 route_values = lazy_route_tokens(search_text)
