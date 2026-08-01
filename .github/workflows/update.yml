@@ -339,6 +339,15 @@ jobs:
           else
             echo "::warning::Official-date recovery timed out or failed; preserving explicit weak-date status."
           fi
+      - name: Batch recover metadata from independent indexes
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          if timeout 12m python scripts/recover_metadata_batch.py --limit 150 --recent-days 5000 --workers 8 --timeout 12; then
+            echo "Batch metadata recovery completed."
+          else
+            echo "::warning::Batch metadata recovery timed out or failed; preserving explicit missing status."
+          fi
       - name: Normalize enriched metadata
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/normalize_records.py
