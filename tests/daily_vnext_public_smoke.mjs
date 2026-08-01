@@ -136,6 +136,30 @@ async function checkSecondaryPages(browser) {
     }
     await page.close();
   }
+  if (isLocal) {
+    let sharedTopicFound = false;
+    for (const topic of ["agriculture", "development", "finance", "macro", "labor", "trade", "china"]) {
+      const topicUrl = new URL("topics/" + topic + "/", root).href;
+      const topicPage = await browser.newPage(mobile ? { viewport: { width: mobile, height: 844 } } : undefined);
+      const errors = [];
+      topicPage.on("pageerror", (error) => errors.push(String(error)));
+      const response = await topicPage.goto(topicUrl, { waitUntil: "networkidle", timeout: 60000 });
+      const shared = await topicPage.locator('.lazy-list[data-lazy-filter]').count();
+      if (response?.status() === 200 && shared > 0) {
+        await topicPage.waitForTimeout(1500);
+        assert.equal(errors.length, 0, `${topicUrl} page errors: ${errors.join(" | ")}`);
+        assert.ok(await topicPage.locator('.event').count() >= 1, `${topicUrl} shared topic page rendered no events`);
+        if (mobile) {
+          assert.ok(await topicPage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${topicUrl} has horizontal overflow`);
+        }
+        sharedTopicFound = true;
+        await topicPage.close();
+        break;
+      }
+      await topicPage.close();
+    }
+    assert.ok(sharedTopicFound, "no shared topic page found in local fixtures");
+  }
   const feedPage = await browser.newPage();
   const feed = await feedPage.request.get(new URL("feed.xml", root).href);
   assert.equal(feed.status(), 200, "feed.xml did not return 200");

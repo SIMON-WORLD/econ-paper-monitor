@@ -1236,9 +1236,10 @@ LAZY_LIST_SCRIPT = r"""
     }
     return [...tokens];
   };
-  const routeTokens = (toolbar) => {
+  const routeTokens = (list, toolbar) => {
     const params = new URLSearchParams(window.location.search);
     const tokens = queryTokens(toolbar?.querySelector('[data-filter-role="search"]')?.value || '');
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -1252,11 +1253,21 @@ LAZY_LIST_SCRIPT = r"""
     if (sourceType) tokens.push('source:' + sourceType);
     if (china) tokens.push('china');
     if (params.get('onlineToday') === '1') tokens.push('online-today');
+    tokens.push(...presetTokens);
     return [...new Set(tokens)];
   };
-  const matchingItems = (items, toolbar) => {
+  const presetTokenMatches = (item, token) => {
+    if (token.startsWith('journal:')) return item.journal === token.slice(8);
+    if (token.startsWith('field:')) return String(item.fields || '').split(/\s+/).includes(token.slice(6));
+    if (token.startsWith('source:')) return item.sourceType === token.slice(7);
+    if (token === 'china') return Boolean(item.china);
+    if (token === 'online-today') return Boolean(item.onlineToday);
+    return String(item.search || '').includes(token);
+  };
+  const matchingItems = (items, toolbar, list) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
     const queryTokenList = query ? queryTokens(query) : [];
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -1265,6 +1276,7 @@ LAZY_LIST_SCRIPT = r"""
     const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
     const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
     return items.filter((item) => {
+      if (!presetTokens.every((token) => presetTokenMatches(item, token))) return false;
       if (queryTokenList.length && !queryTokenList.every((token) => String(item.search || '').includes(token))) return false;
       if (journal && item.journal !== journal) return false;
       if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
@@ -1382,7 +1394,7 @@ LAZY_LIST_SCRIPT = r"""
       clearRendered(list);
       state.rendered = 0;
     }
-    const matches = matchingItems(state.items, toolbar);
+    const matches = matchingItems(state.items, toolbar, list);
     const empty = list.querySelector('[data-lazy-empty]');
     empty.hidden = !matches.length;
     if (!matches.length) empty.textContent = state.pendingShards.length ? '当前批次暂无匹配，点击加载更多继续检索。' : '没有符合当前筛选条件的论文。';
@@ -1409,7 +1421,7 @@ LAZY_LIST_SCRIPT = r"""
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
         try {
-          const currentMatches = matchingItems(state.items, toolbar);
+          const currentMatches = matchingItems(state.items, toolbar, list);
           if (state.rendered >= currentMatches.length) {
             if (state.routed) await loadNextRoutedShard(state);
             else await loadNextShard(state);
@@ -1426,7 +1438,7 @@ LAZY_LIST_SCRIPT = r"""
   };
   const apply = async (list, state, toolbar) => {
     const requestId = ++state.requestId;
-    const tokens = routeTokens(toolbar);
+    const tokens = routeTokens(list, toolbar);
     try {
       if (tokens.length) {
         await loadRouted(state, tokens);
@@ -2011,19 +2023,57 @@ def china_quality_body(records: list[dict[str, Any]]) -> str:
 <section id="rejected" class="section-head"><div><h2>排除样本</h2><p>抽查被排除记录，避免规则过严导致中国相关研究漏掉。</p></div></section>
 <div class="audit-list">{rejected_html}</div>"""
 
-def lazy_list_markup(scope: str, records: list[dict[str, Any]], *, extra_class: str = "") -> str:
+def lazy_list_markup(
+    scope: str,
+    records: list[dict[str, Any]],
+    *,
+    extra_class: str = "",
+    manifest_dataset_id: str | None = None,
+    filter_tokens: list[str] | None = None,
+) -> str:
+    public = unique_records(public_records(records))
+    keys = [detail_key(record) for record in public if detail_key(record)]
+    dataset_id = manifest_dataset_id or hashlib.sha256((extra_class + "\n" + "\n".join(keys)).encode("utf-8")).hexdigest()[:16]
+    if manifest_dataset_id is None:
+        LAZY_DATASETS.setdefault(dataset_id, (public, extra_class))
+    deferred = "true" if scope == "search" else "false"
+    filter_attr = f' data-lazy-filter="{html_escape(" ".join(filter_tokens))}"' if filter_tokens else ""
+    return (
+        f'<div class="lazy-list" data-lazy-list data-lazy-scope="{html_escape(scope)}" '
+        f'data-lazy-base="{BASE}" data-lazy-defer="{deferred}" '
+        f'data-lazy-manifest="{BASE}/paper-index/{dataset_id}/manifest.json"{filter_attr}>'
+        f'<div class="lazy-initial">{paper_events(public[:10], scope=scope)}</div>'
+        f'<button class="control lazy-start" type="button">浏览全部 {len(public)} 篇</button>'
+        '<div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>'
+    )
+
+
+def register_lazy_dataset(scope: str, records: list[dict[str, Any]], extra_class: str = "") -> str:
     public = unique_records(public_records(records))
     keys = [detail_key(record) for record in public if detail_key(record)]
     dataset_id = hashlib.sha256((extra_class + "\n" + "\n".join(keys)).encode("utf-8")).hexdigest()[:16]
     LAZY_DATASETS.setdefault(dataset_id, (public, extra_class))
-    deferred = "true" if scope == "search" else "false"
-    return (
-        f'<div class="lazy-list" data-lazy-list data-lazy-scope="{html_escape(scope)}" '
-        f'data-lazy-base="{BASE}" data-lazy-defer="{deferred}" '
-        f'data-lazy-manifest="{BASE}/paper-index/{dataset_id}/manifest.json">'
-        f'<div class="lazy-initial">{paper_events(public[:10], scope=scope)}</div>'
-        f'<button class="control lazy-start" type="button">浏览全部 {len(public)} 篇</button>'
-        '<div class="empty" data-lazy-empty hidden>没有符合当前筛选条件的论文。</div></div>'
+    return dataset_id
+
+
+def scoped_shared_events(
+    scope: str,
+    scoped_records: list[dict[str, Any]],
+    all_records: list[dict[str, Any]],
+    filter_tokens: list[str],
+    *,
+    extra_class: str = "",
+) -> str:
+    public = unique_records(public_records(scoped_records))
+    if len(public) <= 40:
+        return paper_events(scoped_records, scope=scope, extra_class=extra_class)
+    search_id = register_lazy_dataset("search", all_records)
+    return lazy_list_markup(
+        scope,
+        scoped_records,
+        extra_class=extra_class,
+        manifest_dataset_id=search_id,
+        filter_tokens=filter_tokens,
     )
 
 
@@ -2116,6 +2166,7 @@ def write_lazy_indexes(docs_dir: Path) -> None:
                 route_values = lazy_route_tokens(search_text)
                 route_values.add("journal:" + normalize_attr(record.get("journal_id")))
                 route_values.update("field:" + topic for topic in topics)
+                route_values.update("field:" + field for field in (record.get("fields") or []))
                 route_values.update({
                     "date:" + date_type(record),
                     "confidence:" + confidence_value(record),
@@ -2703,6 +2754,7 @@ def main() -> None:
     DOCS_DIR = args.docs_dir
     LAZY_DATASETS.clear()
     records = load_all_daily(args.daily_dir)
+    register_lazy_dataset("search", public_records(records))
     today_records = [record for record in records if record_is_on_date(record, today_str())]
     home_flow_records = [record for record in today_records if is_today_home_flow_record(record)]
     home_flow_date = today_str()
@@ -2845,7 +2897,7 @@ def main() -> None:
         latest_journal_date = detected_date(journal_records[0]) if journal_records else None
         latest_journal_records = [record for record in journal_records if detected_date(record) == latest_journal_date] if latest_journal_date else []
         view_links = journal_view_links(journal_id, journal_records, today_records)
-        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊历史发现记录。</p></div></section>{view_links}{filter_toolbar(journal_records)}{paper_events(journal_records)}{FILTER_SCRIPT}'
+        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该期刊历史发现记录。</p></div></section>{view_links}{filter_toolbar(journal_records)}{scoped_shared_events("default", journal_records, records, [f"journal:{journal_id}"])}{FILTER_SCRIPT}'
         write_page(
             args.docs_dir / "journals" / journal_id / "index.html",
             page(title, records, body, active="journals", sidebar_records=latest_journal_records, sidebar_date=latest_journal_date),
@@ -2888,7 +2940,7 @@ def main() -> None:
 
     for field, field_records in by_field.items():
         title = field_label(field)
-        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该领域历史发现记录。</p></div></section>{filter_toolbar(field_records)}{paper_events(field_records)}{FILTER_SCRIPT}'
+        body = f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>该领域历史发现记录。</p></div></section>{filter_toolbar(field_records)}{scoped_shared_events("default", field_records, records, [f"field:{field}"])}{FILTER_SCRIPT}'
         write_page(args.docs_dir / "fields" / field / "index.html", page(title, records, body))
 
     for topic, topic_records in by_topic.items():
@@ -2900,7 +2952,7 @@ def main() -> None:
         body = (
             china_topic_body(records, topic_records, today_records)
             if topic == "china"
-            else f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>{html_escape(note)}</p></div><p>{len(topic_records)} 篇</p></section>{topic_links}{filter_toolbar(topic_records)}{paper_events(topic_records)}{FILTER_SCRIPT}'
+            else f'<section class="section-head"><div><h2>{html_escape(title)}</h2><p>{html_escape(note)}</p></div><p>{len(topic_records)} 篇</p></section>{topic_links}{filter_toolbar(topic_records)}{scoped_shared_events("default", topic_records, records, [f"field:{topic}"])}{FILTER_SCRIPT}'
         )
         write_page(
             args.docs_dir / "topics" / topic / "index.html",
