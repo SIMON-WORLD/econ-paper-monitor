@@ -75,9 +75,11 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
     for shard_path in (output / "paper-index").glob("*/shards/*.json"):
         shard = json.loads(shard_path.read_text(encoding="utf-8"))
         assert len(shard) <= 40
-        assert all({"key", "html", "search"} <= set(item) for item in shard)
-        assert all("__BASE__" not in item["html"] for item in shard)
-        assert all("__PAPER_BASE__/paper.html?key=" in item["html"] for item in shard)
+        assert all({"key", "search", "card"} <= set(item) for item in shard)
+        assert all("html" not in item for item in shard)
+        assert all("__BASE__" not in item["card"]["hr"] for item in shard)
+        assert all("__PAPER_BASE__/paper.html?key=" in item["card"]["hr"] for item in shard)
+        assert all({"p", "s", "a", "d", "u", "j", "tp", "cn", "dt", "dd", "od", "lg", "hr"} <= set(item["card"]) for item in shard)
 
     for dataset_dir in (output / "paper-index").iterdir():
         manifest = json.loads((dataset_dir / "manifest.json").read_text(encoding="utf-8"))
@@ -110,6 +112,8 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "ROUTE_SKIP_SHARD_LIMIT" in renderer
     assert "manifest.routed === false" in renderer
     assert "LAZY_LIST_SCRIPT = r" in renderer
+    assert "renderCard" in renderer
+    assert "escHtml" in renderer
     assert "routeBucket" in renderer
     assert "ROUTED_INITIAL_SHARDS" in renderer
     assert "loadNextRoutedShard" in renderer
