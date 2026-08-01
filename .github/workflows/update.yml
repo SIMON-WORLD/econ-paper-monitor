@@ -153,6 +153,17 @@ jobs:
       - name: Discover and fetch RSS feeds
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/fetch_rss.py --discover
+      - name: Fetch ScienceDirect in-press search
+        if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        shell: bash
+        run: |
+          if timeout 10m python scripts/fetch_sciencedirect_search.py --days 4 --timeout 25 --workers 6 --max-items-per-journal 10; then
+            echo "ScienceDirect search completed."
+          else
+            echo "::warning::ScienceDirect search timed out or failed; keeping Crossref/RSS paths."
+          fi
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
       - name: Fetch Crossref priority metadata
         if: steps.mode.outputs.mode == 'light' && (github.event_name != 'schedule' || steps.watchdog.outputs.decision == 'run')
         shell: bash
@@ -303,6 +314,8 @@ jobs:
       - name: Enrich publisher detail pages
         if: steps.mode.outputs.detail_limit != '0' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/enrich_metadata.py --latest-days 7 --limit ${{ steps.mode.outputs.detail_limit }} --timeout 12
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
       - name: Backfill abstracts and authors from metadata indexes
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
@@ -312,6 +325,10 @@ jobs:
           else
             echo "::warning::Abstract and author backfill timed out or failed; preserving existing metadata."
           fi
+        env:
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
       - name: Re-apply historical working-paper quarantine after date enrichment
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_historical_working_papers.py
@@ -333,6 +350,9 @@ jobs:
           else
             echo "::warning::Historical author recovery timed out or failed; preserving explicit missing-author status."
           fi
+        env:
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
       - name: Recover missing and weak official dates
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
@@ -342,6 +362,10 @@ jobs:
           else
             echo "::warning::Official-date recovery timed out or failed; preserving explicit weak-date status."
           fi
+        env:
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
       - name: Batch recover metadata from independent indexes
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
@@ -351,6 +375,9 @@ jobs:
           else
             echo "::warning::Batch metadata recovery timed out or failed; preserving explicit missing status."
           fi
+        env:
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
       - name: Repair public data integrity
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/public_integrity.py
