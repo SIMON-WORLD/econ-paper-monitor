@@ -41,7 +41,7 @@
       </div>
       <nav class="context-nav" aria-label="页面导航"><a class="" href="../../recent72/">最近72小时</a><a class="" href="../../topics/china/">中国研究</a><a class="" href="../../journals/">期刊</a><a class="" href="../../working-papers/">工作论文</a><a class="" href="../../search/">搜索</a><a class="" href="../../feed.xml">RSS</a></nav>
     </section>
-    <div class="wrap"><section class="section-head"><div><h2>2026-06-01 监测记录</h2><p>本站首次监测日期：2026-06-01；官方/在线日期范围：2026-06-01。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
+    <div class="wrap"><section class="section-head"><div><h2>2026-06-01 监测记录</h2><p>本站首次监测日期：2026-06-01；官方/在线日期范围：2026-02-28 至 2026-06-01。支持按期刊、主题、日期类型、可信度和“与中国相关”筛选。</p></div></section><div class="toolbar" id="filters-default" data-filter-scope="default">
   <input class="control" aria-label="搜索标题、作者或 DOI" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选期刊</option><option value="american-economic-review">American Economic Review</option><option value="american-economic-review-insights">American Economic Review: Insights</option><option value="economic-journal">Economic Journal</option><option value="economica">Economica</option><option value="economics-letters">Economics Letters</option><option value="environmental-and-resource-economics">Environmental and Resource Economics</option><option value="european-economic-review">European Economic Review</option><option value="explorations-in-economic-history">Explorations in Economic History</option><option value="games-and-economic-behavior">Games and Economic Behavior</option><option value="international-journal-of-industrial-organization">International Journal of Industrial Organization</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-development-economics">Journal of Development Economics</option><option value="journal-of-economic-behavior-and-organization">Journal of Economic Behavior and Organization</option><option value="journal-of-economic-dynamics-and-control">Journal of Economic Dynamics and Control</option><option value="journal-of-economic-theory">Journal of Economic Theory</option><option value="journal-of-environmental-economics-and-management">Journal of Environmental Economics and Management</option><option value="journal-of-finance">Journal of Finance</option><option value="journal-of-political-economy">Journal of Political Economy</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="land-use-policy">Land Use Policy</option><option value="mathematical-social-sciences">Mathematical Social Sciences</option><option value="public-choice">Public Choice</option><option value="scandinavian-journal-of-economics">Scandinavian Journal of Economics</option><option value="the-world-economy">The World Economy</option></select>
   <select class="control" aria-label="筛选主题" data-filter-role="field"><option value="">筛选主题</option><option value="inequality">不平等</option><option value="china">与中国相关</option><option value="firms">企业与产业</option><option value="health">健康</option><option value="public">公共与政治经济学</option><option value="agriculture">农业与食品</option><option value="labor">劳动</option><option value="development">发展经济学</option><option value="trade">国际贸易</option><option value="urban">城市与区域</option><option value="macro">宏观与货币</option><option value="education">教育</option><option value="environment">环境与气候</option><option value="theory">理论与博弈</option><option value="history">经济史</option><option value="behavior">行为与组织</option><option value="econometrics">计量方法</option><option value="finance">金融</option></select>
@@ -50,7 +50,7 @@
   
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
 </div>
-<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/e34366ecfda6e36f/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="trade effects of
+<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/19659f6a147afc0c/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="trade effects of
                     eu
                     sanctions against russia: evidence from the visegrad group 欧盟对俄制裁的贸易效应：来自维谢格拉德集团的证据 agnieszka głodowska, agnieszka hajdukiewicz, bożena pera, csaba weiner the world economy 10.1111/twec.70110" data-journal="the-world-economy" data-fields="environment finance trade econometrics" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="journal_article">
   <div><div class="time">17:24</div><div class="date-note">2026-06-01</div></div>
@@ -364,9 +364,10 @@
     }
     return [...tokens];
   };
-  const routeTokens = (toolbar) => {
+  const routeTokens = (list, toolbar) => {
     const params = new URLSearchParams(window.location.search);
     const tokens = queryTokens(toolbar?.querySelector('[data-filter-role="search"]')?.value || '');
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -380,11 +381,21 @@
     if (sourceType) tokens.push('source:' + sourceType);
     if (china) tokens.push('china');
     if (params.get('onlineToday') === '1') tokens.push('online-today');
+    tokens.push(...presetTokens);
     return [...new Set(tokens)];
   };
-  const matchingItems = (items, toolbar) => {
+  const presetTokenMatches = (item, token) => {
+    if (token.startsWith('journal:')) return item.journal === token.slice(8);
+    if (token.startsWith('field:')) return String(item.fields || '').split(/\s+/).includes(token.slice(6));
+    if (token.startsWith('source:')) return item.sourceType === token.slice(7);
+    if (token === 'china') return Boolean(item.china);
+    if (token === 'online-today') return Boolean(item.onlineToday);
+    return String(item.search || '').includes(token);
+  };
+  const matchingItems = (items, toolbar, list) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
     const queryTokenList = query ? queryTokens(query) : [];
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -393,6 +404,7 @@
     const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
     const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
     return items.filter((item) => {
+      if (!presetTokens.every((token) => presetTokenMatches(item, token))) return false;
       if (queryTokenList.length && !queryTokenList.every((token) => String(item.search || '').includes(token))) return false;
       if (journal && item.journal !== journal) return false;
       if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
@@ -510,7 +522,7 @@
       clearRendered(list);
       state.rendered = 0;
     }
-    const matches = matchingItems(state.items, toolbar);
+    const matches = matchingItems(state.items, toolbar, list);
     const empty = list.querySelector('[data-lazy-empty]');
     empty.hidden = !matches.length;
     if (!matches.length) empty.textContent = state.pendingShards.length ? '当前批次暂无匹配，点击加载更多继续检索。' : '没有符合当前筛选条件的论文。';
@@ -537,7 +549,7 @@
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
         try {
-          const currentMatches = matchingItems(state.items, toolbar);
+          const currentMatches = matchingItems(state.items, toolbar, list);
           if (state.rendered >= currentMatches.length) {
             if (state.routed) await loadNextRoutedShard(state);
             else await loadNextShard(state);
@@ -554,7 +566,7 @@
   };
   const apply = async (list, state, toolbar) => {
     const requestId = ++state.requestId;
-    const tokens = routeTokens(toolbar);
+    const tokens = routeTokens(list, toolbar);
     try {
       if (tokens.length) {
         await loadRouted(state, tokens);

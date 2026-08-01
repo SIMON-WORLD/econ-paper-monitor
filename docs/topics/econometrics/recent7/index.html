@@ -44,7 +44,7 @@
     <div class="wrap"><section class="section-head"><div><h2>计量方法：最近 7 天</h2><p>基于标题、摘要和期刊信息生成的文章主题标签。</p></div><p>43 篇</p></section><div class="toolbar">
   <a class="control primary" href="../../../daily/2026-08-01/?field=econometrics">今日 2</a>
   <a class="control" href="../../../topics/econometrics/recent7/">最近 7 天 43</a>
-  <a class="control" href="../../../topics/econometrics/">全部历史 432</a>
+  <a class="control" href="../../../topics/econometrics/">全部历史 435</a>
 </div><div class="toolbar" id="filters-default" data-filter-scope="default">
   <input class="control" aria-label="搜索标题、作者或 DOI" data-filter-role="search" type="search" placeholder="搜索标题/作者/DOI">
   <select class="control" aria-label="筛选期刊" data-filter-role="journal"><option value="">筛选期刊</option><option value="american-economic-journal-microeconomics">American Economic Journal: Microeconomics</option><option value="american-economic-review">American Economic Review</option><option value="applied-economic-perspectives-and-policy">Applied Economic Perspectives and Policy</option><option value="applied-economics">Applied Economics</option><option value="australian-journal-of-agricultural-and-resource-economics">Australian Journal of Agricultural and Resource Economics</option><option value="source-cepr-dp">CEPR Discussion Papers</option><option value="econometrica">Econometrica</option><option value="economics-letters">Economics Letters</option><option value="source-imf-working-papers">IMF Working Papers</option><option value="journal-of-applied-econometrics">Journal of Applied Econometrics</option><option value="journal-of-econometrics">Journal of Econometrics</option><option value="journal-of-money-credit-and-banking">Journal of Money, Credit and Banking</option><option value="journal-of-public-economics">Journal of Public Economics</option><option value="land-use-policy">Land Use Policy</option><option value="source-nber">NBER Working Papers</option><option value="public-choice">Public Choice</option><option value="review-of-financial-studies">Review of Financial Studies</option><option value="the-world-economy">The World Economy</option><option value="source-world-bank-prwp">World Bank Policy Research Working Papers</option></select>
@@ -364,9 +364,10 @@
     }
     return [...tokens];
   };
-  const routeTokens = (toolbar) => {
+  const routeTokens = (list, toolbar) => {
     const params = new URLSearchParams(window.location.search);
     const tokens = queryTokens(toolbar?.querySelector('[data-filter-role="search"]')?.value || '');
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -380,11 +381,21 @@
     if (sourceType) tokens.push('source:' + sourceType);
     if (china) tokens.push('china');
     if (params.get('onlineToday') === '1') tokens.push('online-today');
+    tokens.push(...presetTokens);
     return [...new Set(tokens)];
   };
-  const matchingItems = (items, toolbar) => {
+  const presetTokenMatches = (item, token) => {
+    if (token.startsWith('journal:')) return item.journal === token.slice(8);
+    if (token.startsWith('field:')) return String(item.fields || '').split(/\s+/).includes(token.slice(6));
+    if (token.startsWith('source:')) return item.sourceType === token.slice(7);
+    if (token === 'china') return Boolean(item.china);
+    if (token === 'online-today') return Boolean(item.onlineToday);
+    return String(item.search || '').includes(token);
+  };
+  const matchingItems = (items, toolbar, list) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
     const queryTokenList = query ? queryTokens(query) : [];
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -393,6 +404,7 @@
     const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
     const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
     return items.filter((item) => {
+      if (!presetTokens.every((token) => presetTokenMatches(item, token))) return false;
       if (queryTokenList.length && !queryTokenList.every((token) => String(item.search || '').includes(token))) return false;
       if (journal && item.journal !== journal) return false;
       if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
@@ -510,7 +522,7 @@
       clearRendered(list);
       state.rendered = 0;
     }
-    const matches = matchingItems(state.items, toolbar);
+    const matches = matchingItems(state.items, toolbar, list);
     const empty = list.querySelector('[data-lazy-empty]');
     empty.hidden = !matches.length;
     if (!matches.length) empty.textContent = state.pendingShards.length ? '当前批次暂无匹配，点击加载更多继续检索。' : '没有符合当前筛选条件的论文。';
@@ -537,7 +549,7 @@
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
         try {
-          const currentMatches = matchingItems(state.items, toolbar);
+          const currentMatches = matchingItems(state.items, toolbar, list);
           if (state.rendered >= currentMatches.length) {
             if (state.routed) await loadNextRoutedShard(state);
             else await loadNextShard(state);
@@ -554,7 +566,7 @@
   };
   const apply = async (list, state, toolbar) => {
     const requestId = ++state.requestId;
-    const tokens = routeTokens(toolbar);
+    const tokens = routeTokens(list, toolbar);
     try {
       if (tokens.length) {
         await loadRouted(state, tokens);

@@ -50,7 +50,7 @@
   <select class="control" aria-label="筛选来源类型" data-filter-role="sourceType"><option value="">筛选来源类型</option><option value="aggregator">聚合源</option><option value="journal_article">期刊论文</option><option value="policy_paper">机构研究</option><option value="working_paper">工作论文</option></select>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">与中国相关</button>
 </div>
-<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/f41dce5beddc8ad2/manifest.json"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="measuring macroeconomic stars: a framework with scarring effects 衡量宏观经济之星：具有疤痕效应的分析框架 manuel gonzalez-astudillo, jean-philippe laforte, antoine lepetit federal reserve feds working papers " data-journal="source-fed-feds" data-fields="development macro labor public" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
+<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/ee55c2d885a181ad/manifest.json" data-lazy-filter="field:labor"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="measuring macroeconomic stars: a framework with scarring effects 衡量宏观经济之星：具有疤痕效应的分析框架 manuel gonzalez-astudillo, jean-philippe laforte, antoine lepetit federal reserve feds working papers " data-journal="source-fed-feds" data-fields="development macro labor public" data-china="false" data-online-today="false" data-date-type="first_seen" data-confidence="F" data-source-type="working_paper">
   <div><div class="time">04:12</div><div class="date-note">2026-07-31</div></div>
   <div>
     <h3><a href="../../paper.html?key=measuring-macroeconomic-stars-a-framework-with-scarring-effects-d3cfd591c933">衡量宏观经济之星：具有疤痕效应的分析框架</a></h3>
@@ -360,9 +360,10 @@
     }
     return [...tokens];
   };
-  const routeTokens = (toolbar) => {
+  const routeTokens = (list, toolbar) => {
     const params = new URLSearchParams(window.location.search);
     const tokens = queryTokens(toolbar?.querySelector('[data-filter-role="search"]')?.value || '');
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -376,11 +377,21 @@
     if (sourceType) tokens.push('source:' + sourceType);
     if (china) tokens.push('china');
     if (params.get('onlineToday') === '1') tokens.push('online-today');
+    tokens.push(...presetTokens);
     return [...new Set(tokens)];
   };
-  const matchingItems = (items, toolbar) => {
+  const presetTokenMatches = (item, token) => {
+    if (token.startsWith('journal:')) return item.journal === token.slice(8);
+    if (token.startsWith('field:')) return String(item.fields || '').split(/\s+/).includes(token.slice(6));
+    if (token.startsWith('source:')) return item.sourceType === token.slice(7);
+    if (token === 'china') return Boolean(item.china);
+    if (token === 'online-today') return Boolean(item.onlineToday);
+    return String(item.search || '').includes(token);
+  };
+  const matchingItems = (items, toolbar, list) => {
     const query = toolbar ? (toolbar.querySelector('[data-filter-role="search"]')?.value || '').trim().toLowerCase() : '';
     const queryTokenList = query ? queryTokens(query) : [];
+    const presetTokens = String(list?.dataset?.lazyFilter || '').trim().split(/\s+/).filter(Boolean);
     const journal = toolbar?.querySelector('[data-filter-role="journal"]')?.value || '';
     const field = toolbar?.querySelector('[data-filter-role="field"]')?.value || '';
     const dateType = toolbar?.querySelector('[data-filter-role="dateType"]')?.value || '';
@@ -389,6 +400,7 @@
     const chinaOnly = toolbar?.querySelector('[data-filter-role="china"]')?.getAttribute('aria-pressed') === 'true';
     const onlineTodayOnly = new URLSearchParams(window.location.search).get('onlineToday') === '1';
     return items.filter((item) => {
+      if (!presetTokens.every((token) => presetTokenMatches(item, token))) return false;
       if (queryTokenList.length && !queryTokenList.every((token) => String(item.search || '').includes(token))) return false;
       if (journal && item.journal !== journal) return false;
       if (field && !String(item.fields || '').split(/\s+/).includes(field)) return false;
@@ -506,7 +518,7 @@
       clearRendered(list);
       state.rendered = 0;
     }
-    const matches = matchingItems(state.items, toolbar);
+    const matches = matchingItems(state.items, toolbar, list);
     const empty = list.querySelector('[data-lazy-empty]');
     empty.hidden = !matches.length;
     if (!matches.length) empty.textContent = state.pendingShards.length ? '当前批次暂无匹配，点击加载更多继续检索。' : '没有符合当前筛选条件的论文。';
@@ -533,7 +545,7 @@
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
         try {
-          const currentMatches = matchingItems(state.items, toolbar);
+          const currentMatches = matchingItems(state.items, toolbar, list);
           if (state.rendered >= currentMatches.length) {
             if (state.routed) await loadNextRoutedShard(state);
             else await loadNextShard(state);
@@ -550,7 +562,7 @@
   };
   const apply = async (list, state, toolbar) => {
     const requestId = ++state.requestId;
-    const tokens = routeTokens(toolbar);
+    const tokens = routeTokens(list, toolbar);
     try {
       if (tokens.length) {
         await loadRouted(state, tokens);
