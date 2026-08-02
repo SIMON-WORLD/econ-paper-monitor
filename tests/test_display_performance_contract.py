@@ -98,7 +98,7 @@ def test_large_pages_use_scoped_shards_and_keep_repository_boundaries(tmp_path):
         assert all("html" not in item for item in shard)
         assert all("__BASE__" not in item["card"]["hr"] for item in shard)
         assert all("__PAPER_BASE__/paper.html?key=" in item["card"]["hr"] for item in shard)
-        assert all({"p", "s", "a", "d", "u", "j", "tp", "cn", "dt", "dd", "od", "lg", "hr"} <= set(item["card"]) for item in shard)
+        assert all({"p", "s", "a", "d", "u", "j", "tp", "cn", "dt", "dd", "dl", "od", "lg", "hr"} <= set(item["card"]) for item in shard)
 
     for dataset_dir in (output / "paper-index").iterdir():
         manifest = json.loads((dataset_dir / "manifest.json").read_text(encoding="utf-8"))
@@ -134,9 +134,14 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "renderCard" in renderer
     assert "escHtml" in renderer
     assert "card.dt" in renderer
+    assert "card.dl" in renderer
+    assert "detected_label" in renderer
     assert "state.manifest = manifest" in renderer
     assert "more-filters" in renderer
     assert "details.more-filters[open]" in renderer
+    assert "'Escape'" in renderer
+    assert "max-height:70vh" in renderer
+    assert "overflow-y:auto" in renderer
     assert "detected_time" in renderer
     assert "scoped_shared_events" in renderer
     assert "register_lazy_dataset" in renderer
