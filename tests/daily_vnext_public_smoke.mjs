@@ -164,7 +164,11 @@ async function checkSecondaryPages(browser) {
         await summary.click();
         await page.waitForTimeout(300);
         assert.ok(await page.locator('.toolbar .more-filters .more-filters-row').first().isVisible(), `${url} advanced filters did not open at 390px`);
+        assert.ok(await page.locator('.toolbar .more-filters .more-filters-row select').count() >= 1, `${url} advanced filters have no readable selects`);
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} advanced filters caused overflow`);
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(200);
+        assert.equal(await page.locator('.toolbar .more-filters[open]').count(), 0, `${url} advanced filters did not close on Escape`);
       }
     }
     await page.close();
@@ -199,6 +203,18 @@ async function checkSecondaryPages(browser) {
         await topicPage.waitForTimeout(1500);
         assert.equal(errors.length, 0, `${topicUrl} page errors: ${errors.join(" | ")}`);
         assert.ok(await topicPage.locator('.event').count() >= 1, `${topicUrl} shared topic page rendered no events`);
+        const counter = topicPage.locator('[data-filter-counter]').first();
+        if (await counter.count()) {
+          const counterText = await counter.innerText();
+          assert.ok(!/当前显示 0 篇/.test(counterText), `${topicUrl} shared counter shows zero despite events`);
+        }
+        const sharedMore = topicPage.locator('.lazy-more').first();
+        if (await sharedMore.count()) {
+          const before = await topicPage.locator('.event').count();
+          await sharedMore.click();
+          await topicPage.waitForTimeout(1500);
+          assert.ok(await topicPage.locator('.event').count() >= before, `${topicUrl} load more did not keep events stable`);
+        }
         if (mobile) {
           assert.ok(await topicPage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${topicUrl} has horizontal overflow`);
         }
