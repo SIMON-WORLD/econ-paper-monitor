@@ -91,6 +91,48 @@ class ScienceDirectSearchTests(unittest.TestCase):
         self.assertIn("blocked-captcha", message)
         self.assertIsInstance(error, ValueError)
 
+    def test_status_message_reflects_jina_key_state(self) -> None:
+        with patch.dict(fetch_sciencedirect_search.os.environ, {"JINA_API_KEY": "test-key"}, clear=False):
+            on_message = fetch_sciencedirect_search.build_status_message(2, 0, ["Journal A: 1"])
+        with patch.dict(fetch_sciencedirect_search.os.environ, {}, clear=True):
+            off_message = fetch_sciencedirect_search.build_status_message(2, 1, ["Journal A: blocked"])
+        self.assertIn("jina_key=on", on_message)
+        self.assertIn("failures=0", on_message)
+        self.assertIn("jina_key=off", off_message)
+        self.assertIn("failures=1", off_message)
+
+    @patch.object(fetch_sciencedirect_search, "fetch_text")
+    @patch.object(fetch_sciencedirect_search, "elsevier_core_metadata")
+    def test_run_journal_success_with_jina_key(self, core_mock, fetch_mock) -> None:
+        fetch_mock.return_value = (
+            "## [A test paper](http://www.sciencedirect.com/science/article/pii/S0000000000000000)\n"
+            "[Journal of Development Economics](http://www.sciencedirect.com/science/journal/03043878)Available online 1 August 2026\n"
+            "    1. Alice Author\n"
+        )
+        core_mock.return_value = {
+            "doi": "10.1016/j.jdeveco.2026.103892",
+            "title": "A test paper",
+            "journal": "Journal of Development Economics",
+            "available_online": "2026-08-01",
+        }
+        journal = {
+            "id": "journal-of-development-economics",
+            "title": "Journal of Development Economics",
+            "issn": "0304-3878",
+            "publisher": "Elsevier",
+        }
+        with patch.dict(fetch_sciencedirect_search.os.environ, {"JINA_API_KEY": "test-key"}, clear=False):
+            records, message, error = fetch_sciencedirect_search.run_journal(
+                journal,
+                days=4,
+                timeout=5,
+                max_items=5,
+            )
+        self.assertEqual(error, None)
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]["raw_data"]["pii"], "S0000000000000000")
+        self.assertIn("Journal of Development Economics: 1", message)
+
     def test_fetch_text_retries_with_jina_key_header(self) -> None:
         class FakeResponse:
             def __init__(self, payload):
