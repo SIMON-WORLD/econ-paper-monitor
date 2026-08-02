@@ -90,6 +90,7 @@
       document.title = `${primary} | Econ Papers Daily`;
       const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
       const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
+      const missingDoi = item.doi ? '' : '<span class="muted">暂无 DOI</span>';
       const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
       const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract"><h2>摘要</h2><p class="muted">${escapeHTML(abstractMessage(item.abstract_status))}</p></section>`;
       const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
@@ -97,7 +98,7 @@
       root.classList.remove('detail-loading');
       root.removeAttribute('aria-busy');
       const detectedLabel = item.detected + (item.detected_time ? ' ' + item.detected_time : '');
-      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(detectedLabel)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
+      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}${missingDoi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(detectedLabel)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
     } catch (error) {
       message('论文详情暂时无法载入', '请刷新页面重试，或进入全站检索。');
     }

@@ -56,7 +56,7 @@
     <div class="meta-block">
       <div class="meta-line"><span class="meta-label">期刊</span><span class="meta-values"><span class="journal-chip">数量经济技术经济研究</span><span class="pill">首次监测 2026-05-11 12:13</span></span></div>
       <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values"><span class="date-chip ">官方发布 2026-05-11 · 来源：CNKI RSS</span></span></div>
-      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://kns.cnki.net/kcms2/article/abstract?v=YwS3ffssB6hQrDVByj48K4SnlvVeRxqPwEhRLL1RMQbjNIjLfLPoPrX4Fi7B6hl-vVl4R1bJt8m_IirqB1Iit5KQmCZNUik80fGZGaQMwvWT6yYevjnAiFJV16O8y73y-1_U1uHlrcgs8OAoXsg4c2_HT2soHcmAM_4s6-F57dHCAh_N4Hx4oQ==&amp;uniplatform=NZKPT&amp;language=CHS">文章链接</a><span class="pill china">与中国相关</span></span></div>
+      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values"><a class="doi" href="https://kns.cnki.net/kcms2/article/abstract?v=YwS3ffssB6hQrDVByj48K4SnlvVeRxqPwEhRLL1RMQbjNIjLfLPoPrX4Fi7B6hl-vVl4R1bJt8m_IirqB1Iit5KQmCZNUik80fGZGaQMwvWT6yYevjnAiFJV16O8y73y-1_U1uHlrcgs8OAoXsg4c2_HT2soHcmAM_4s6-F57dHCAh_N4Hx4oQ==&amp;uniplatform=NZKPT&amp;language=CHS">文章链接</a><span class="doi">暂无 DOI</span><span class="pill china">与中国相关</span></span></div>
     </div>
   </div>
 </article>
@@ -622,7 +622,8 @@
     const topics = (card.tp || []).map((label) => '<span class="pill">' + escHtml(label) + '</span>').join('');
     const link = card.d
       ? '<a class="doi" href="https://doi.org/' + escHtml(card.d) + '">' + escHtml(card.d) + '</a>'
-      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '<span class="doi">暂无 DOI</span>');
+      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '');
+    const missingDoi = card.d ? '' : '<span class="doi">暂无 DOI</span>';
     const typeTag = card.st ? '<span class="pill">' + escHtml(card.st) + '</span>' : '';
     const chinaTag = card.cn ? '<span class="pill china">与中国相关</span>' : '';
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
@@ -640,7 +641,7 @@
       '    <div class="meta-block">\n' +
       '      <div class="meta-line"><span class="meta-label">' + metaLabel + '</span><span class="meta-values">' + journalChip + typeTag + detectedChip + '</span></div>\n' +
       '      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">' + officialChip + (card.lg || '') + '</span></div>\n' +
-      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + topics + chinaTag + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + missingDoi + topics + chinaTag + '</span></div>\n' +
       '    </div>\n' +
       '  </div>\n' +
       '</article>';

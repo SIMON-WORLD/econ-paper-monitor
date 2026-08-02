@@ -52,7 +52,7 @@
   <details class="control more-filters"><summary>高级筛选</summary><div class="more-filters-row"><select class="control" aria-label="筛选日期类型" data-filter-role="dateType"><option value="">日期类型</option><option value="published_online">官方发布</option><option value="available_online">官方在线</option></select><select class="control" aria-label="筛选可信度" data-filter-role="confidence"><option value="">可信度</option><option value="B">B：RSS/出版社备选日期</option><option value="C">C：Crossref 元数据</option></select></div></details>
   <button class="control toggle" data-filter-role="china" type="button" aria-pressed="false">中国</button>
 </div>
-<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/206c7e4c06e89a38/manifest.json" data-lazy-filter="journal:review-of-economic-studies"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="when is separate sales optimal? 何时单独销售是最优的？ changhyun kwak review of economic studies 10.1093/restud/rdag073" data-journal="review-of-economic-studies" data-fields="behavior inequality" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="journal_article">
+<div class="empty" data-filter-empty="default" hidden>没有符合当前筛选条件的论文。</div><div class="lazy-list" data-lazy-list data-lazy-scope="default" data-lazy-base="../.." data-lazy-defer="false" data-lazy-manifest="../../paper-index/b609585a6a8647aa/manifest.json" data-lazy-filter="journal:review-of-economic-studies"><div class="lazy-initial"><article class="event" data-event-scope="default" data-search="when is separate sales optimal? 何时单独销售是最优的？ changhyun kwak review of economic studies 10.1093/restud/rdag073" data-journal="review-of-economic-studies" data-fields="behavior inequality" data-china="false" data-online-today="false" data-date-type="available_online" data-confidence="B" data-source-type="journal_article">
   <div><div class="time">04:05</div><div class="date-note">2026-07-27</div></div>
   <div>
     <h3><a href="../../paper.html?key=when-is-separate-sales-optimal-e7debfae9b32">何时单独销售是最优的？</a></h3>
@@ -510,7 +510,8 @@
     const topics = (card.tp || []).map((label) => '<span class="pill">' + escHtml(label) + '</span>').join('');
     const link = card.d
       ? '<a class="doi" href="https://doi.org/' + escHtml(card.d) + '">' + escHtml(card.d) + '</a>'
-      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '<span class="doi">暂无 DOI</span>');
+      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '');
+    const missingDoi = card.d ? '' : '<span class="doi">暂无 DOI</span>';
     const typeTag = card.st ? '<span class="pill">' + escHtml(card.st) + '</span>' : '';
     const chinaTag = card.cn ? '<span class="pill china">与中国相关</span>' : '';
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
@@ -528,7 +529,7 @@
       '    <div class="meta-block">\n' +
       '      <div class="meta-line"><span class="meta-label">' + metaLabel + '</span><span class="meta-values">' + journalChip + typeTag + detectedChip + '</span></div>\n' +
       '      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">' + officialChip + (card.lg || '') + '</span></div>\n' +
-      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + topics + chinaTag + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + missingDoi + topics + chinaTag + '</span></div>\n' +
       '    </div>\n' +
       '  </div>\n' +
       '</article>';

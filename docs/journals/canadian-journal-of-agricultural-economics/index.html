@@ -497,7 +497,8 @@
     const topics = (card.tp || []).map((label) => '<span class="pill">' + escHtml(label) + '</span>').join('');
     const link = card.d
       ? '<a class="doi" href="https://doi.org/' + escHtml(card.d) + '">' + escHtml(card.d) + '</a>'
-      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '<span class="doi">暂无 DOI</span>');
+      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '');
+    const missingDoi = card.d ? '' : '<span class="doi">暂无 DOI</span>';
     const typeTag = card.st ? '<span class="pill">' + escHtml(card.st) + '</span>' : '';
     const chinaTag = card.cn ? '<span class="pill china">与中国相关</span>' : '';
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
@@ -515,7 +516,7 @@
       '    <div class="meta-block">\n' +
       '      <div class="meta-line"><span class="meta-label">' + metaLabel + '</span><span class="meta-values">' + journalChip + typeTag + detectedChip + '</span></div>\n' +
       '      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">' + officialChip + (card.lg || '') + '</span></div>\n' +
-      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + topics + chinaTag + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + missingDoi + topics + chinaTag + '</span></div>\n' +
       '    </div>\n' +
       '  </div>\n' +
       '</article>';
