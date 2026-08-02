@@ -183,3 +183,43 @@ class TestManualImport:
             assert "manual-" in str(exc)
         else:
             raise AssertionError("expected ValueError")
+
+    def test_doi_is_merged_into_existing_manual_record_idempotently(self, tmp_path: Path):
+        data_dir = make_data_dir(tmp_path)
+        write_json(
+            data_dir / "seen.json",
+            {
+                "papers": {
+                    "manual:cnki_gljj_2026-07_manual_supplement:0": {
+                        "id": "manual:cnki_gljj_2026-07_manual_supplement:0",
+                        "title": "数据财政的前景研究：企业需求视角",
+                        "source": "manual-cnki",
+                        "journal": "管理世界",
+                        "journal_id": "journal-379b4022ce",
+                        "abstract": "已有完整摘要",
+                        "abstract_completeness": "full",
+                    }
+                }
+            },
+        )
+        source = tmp_path / "cnki_gljj_2026-07_manual_supplement.json"
+        pkg = package()
+        pkg["records"][0]["doi"] = "10.1000/gljj.2026.07001"
+        write_json(source, pkg)
+
+        report = import_package(source, data_dir=data_dir)
+
+        assert report["doi_merged"] == 1
+        assert report["added"] == 1
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+        record = seen["papers"]["manual:cnki_gljj_2026-07_manual_supplement:0"]
+        assert record["doi"] == "10.1000/gljj.2026.07001"
+        assert "doi:10.1000/gljj.2026.07001" in record["identity_aliases"]
+
+        # Second run must not re-merge or duplicate.
+        second = import_package(source, data_dir=data_dir)
+        assert second["doi_merged"] == 0
+        assert second["skipped"] == 2
+        assert second["added"] == 0
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+        assert len(seen["papers"]) == 2
