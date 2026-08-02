@@ -153,6 +153,23 @@ def apply_backfill(record: dict[str, Any], item: dict[str, Any], package: dict[s
     return True
 
 
+def merge_doi_identity(record: dict[str, Any], doi: Any) -> bool:
+    """Merge a verified DOI into an existing record's identity, never fabricating."""
+    doi = str(doi or "").strip().casefold()
+    if not doi:
+        return False
+    changed = False
+    if not str(record.get("doi") or "").strip():
+        record["doi"] = doi
+        changed = True
+    aliases = set(record.get("identity_aliases") or [])
+    if f"doi:{doi}" not in aliases:
+        aliases.add(f"doi:{doi}")
+        record["identity_aliases"] = sorted(aliases)
+        changed = True
+    return changed
+
+
 def import_package(
     input_path: Path,
     *,
@@ -192,6 +209,7 @@ def import_package(
     matched_backfilled = 0
     added = 0
     skipped = 0
+    doi_merged = 0
     missing_doi: list[str] = []
     changed = False
 
@@ -205,15 +223,22 @@ def import_package(
             continue
         norm = normalized_manual_title(title)
 
-        # Idempotency: a manual-cnki record for the same title already exists.
-        already_manual = any(
-            isinstance(record, dict)
-            and str(record.get("source") or "") == source
-            and normalized_manual_title(record.get("title")) == norm
-            for record in papers.values()
+        manual_key = next(
+            (
+                key
+                for key, record in papers.items()
+                if isinstance(record, dict)
+                and str(record.get("source") or "") == source
+                and normalized_manual_title(record.get("title")) == norm
+            ),
+            None,
         )
-        if already_manual:
-            skipped += 1
+        if manual_key is not None:
+            if merge_doi_identity(papers[manual_key], item.get("doi")):
+                doi_merged += 1
+                changed = True
+            else:
+                skipped += 1
             continue
 
         owner_key = by_title.get(norm)
@@ -223,11 +248,16 @@ def import_package(
                 changed = True
             else:
                 skipped += 1
+            if merge_doi_identity(papers[owner_key], item.get("doi")):
+                doi_merged += 1
+                changed = True
         else:
             record = build_manual_record(item, package, slug, journal, index)
             papers[record["id"]] = record
             by_title[norm] = record["id"]
             added += 1
+            if str(item.get("doi") or "").strip():
+                doi_merged += 1
             changed = True
 
         if not str(item.get("doi") or "").strip():
@@ -247,6 +277,7 @@ def import_package(
         "package_records": len(records),
         "matched_backfilled": matched_backfilled,
         "added": added,
+        "doi_merged": doi_merged,
         "skipped": skipped,
         "missing_doi_count": len(missing_doi),
         "missing_doi_titles": missing_doi,
