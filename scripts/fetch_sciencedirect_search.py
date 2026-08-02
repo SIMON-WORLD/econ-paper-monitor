@@ -255,6 +255,15 @@ def run_journal(
         return [], f"{journal['title']}: {type(exc).__name__}: {exc}", exc
 
 
+def build_status_message(journal_count: int, failures: int, messages: list[str]) -> str:
+    """Compose the source-health status message with the JINA key state."""
+    jina_key = os.environ.get("JINA_API_KEY") or ""
+    return (
+        f"journals={journal_count} failures={failures} "
+        f"jina_key={'on' if jina_key else 'off'}; " + "; ".join(messages[-12:])
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--journals", type=Path, default=DATA_DIR / "journals.yml")
@@ -293,15 +302,11 @@ def main() -> None:
         unique[pii] = record
     records = list(unique.values())
     write_json(output, records)
-    jina_key = os.environ.get("JINA_API_KEY") or ""
     record_source(
         "sciencedirect-search",
         ok=bool(records) or failures == 0,
         count=len(records),
-        message=(
-            f"journals={len(journals)} failures={failures} "
-            f"jina_key={'on' if jina_key else 'off'}; " + "; ".join(messages[-12:])
-        ),
+        message=build_status_message(len(journals), failures, messages),
     )
     print(f"wrote {len(records)} ScienceDirect search records to {output}")
     for message in messages:
