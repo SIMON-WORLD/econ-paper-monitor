@@ -1,25 +1,25 @@
 {
   "after": {
     "abstracts": {
-      "full": 2214,
-      "missing": 2039,
+      "full": 2218,
+      "missing": 2036,
       "preview": 189
     },
     "authors": {
-      "available": 4442,
+      "available": 4443,
       "missing": 0
     },
-    "canonical_records": 4442,
-    "checked_at": "2026-08-02T19:02:55+00:00",
+    "canonical_records": 4443,
+    "checked_at": "2026-08-02T19:54:43+00:00",
     "integrity": {
       "boilerplate_abstracts": 0,
       "canonical_detail_key_duplicate": 0,
       "canonical_detail_key_missing": 0,
-      "daily_records": 4442,
+      "daily_records": 4443,
       "daily_same_source_title_duplicate_records": 0,
       "daily_seen_orphan_keys": 0,
       "ledger_orphan_keys": 0,
-      "machine_path_leaks": 0,
+      "machine_path_leaks": 4125,
       "metadata_missing_status": {
         "abstract": 0,
         "authors": 0,
@@ -37,16 +37,16 @@
       "version_relationship_groups": 19
     },
     "official_dates": {
-      "available": 4388,
+      "available": 4389,
       "confidence_counts": {
         "A": 50,
-        "B": 3331,
-        "C": 831,
+        "B": 3342,
+        "C": 821,
         "D": 19,
         "F": 211
       },
       "missing": 54,
-      "weak_confidence": 1061
+      "weak_confidence": 1051
     },
     "retry_queues": {
       "ingestion_pending": 0,
@@ -56,40 +56,40 @@
     },
     "source_health": {
       "counts": {
-        "degraded": 24,
-        "healthy": 63,
+        "degraded": 26,
+        "healthy": 61,
         "stale": 0,
         "unavailable": 0
       },
       "coverage_counts": {
-        "crossref_only": 23,
-        "official_or_specialized": 64,
-        "supplemental": 0,
+        "crossref_only": 0,
+        "official_or_specialized": 63,
+        "supplemental": 24,
         "unavailable": 0
       }
     }
   },
   "before": {
     "abstracts": {
-      "full": 2214,
+      "full": 2215,
       "missing": 2039,
       "preview": 189
     },
     "authors": {
-      "available": 4442,
+      "available": 4443,
       "missing": 0
     },
-    "canonical_records": 4442,
-    "checked_at": "2026-08-02T18:58:42+00:00",
+    "canonical_records": 4443,
+    "checked_at": "2026-08-02T19:54:06+00:00",
     "integrity": {
       "boilerplate_abstracts": 0,
       "canonical_detail_key_duplicate": 0,
       "canonical_detail_key_missing": 0,
-      "daily_records": 4442,
+      "daily_records": 4443,
       "daily_same_source_title_duplicate_records": 0,
       "daily_seen_orphan_keys": 0,
       "ledger_orphan_keys": 0,
-      "machine_path_leaks": 0,
+      "machine_path_leaks": 4125,
       "metadata_missing_status": {
         "abstract": 0,
         "authors": 0,
@@ -107,10 +107,10 @@
       "version_relationship_groups": 19
     },
     "official_dates": {
-      "available": 4388,
+      "available": 4389,
       "confidence_counts": {
         "A": 50,
-        "B": 3331,
+        "B": 3332,
         "C": 831,
         "D": 19,
         "F": 211
@@ -126,82 +126,91 @@
     },
     "source_health": {
       "counts": {
-        "degraded": 24,
-        "healthy": 63,
+        "degraded": 26,
+        "healthy": 61,
         "stale": 0,
         "unavailable": 0
       },
       "coverage_counts": {
-        "crossref_only": 23,
-        "official_or_specialized": 64,
-        "supplemental": 0,
+        "crossref_only": 0,
+        "official_or_specialized": 63,
+        "supplemental": 24,
         "unavailable": 0
       }
     }
   },
   "candidates": 150,
-  "checked_at": "2026-08-02T19:02:55+00:00",
+  "checked_at": "2026-08-02T19:54:43+00:00",
   "daily_occurrences": 150,
-  "date_confidence_changes": {},
+  "date_confidence_changes": {
+    "B": 10
+  },
   "errors": {
     "api": {},
     "no_doi": 0
   },
   "failure_reasons": {
-    "api_no_usable_metadata": 150
+    "api_no_usable_metadata": 138
   },
   "files": {
-    "daily_changed": 0,
+    "daily_changed": 10,
     "ledger_resolved": 0,
     "queue_resolved": 0,
-    "seen_updated": 0
+    "seen_updated": 12
   },
   "mode": "write",
-  "provider_empty_burst": {
-    "openalex": true
-  },
+  "provider_empty_burst": {},
   "provider_health": {
     "crossref": {
       "attempts": 150,
-      "available": 150,
-      "empty": 0,
+      "available": 117,
+      "empty": 33,
+      "empty_burst": false,
       "failed": 0,
       "rate_limited": 0,
+      "retried_after_empty": false,
       "skipped": 0,
       "statuses": {}
     },
     "openalex": {
       "attempts": 150,
-      "available": 0,
-      "empty": 150,
-      "empty_burst": true,
+      "available": 144,
+      "empty": 6,
+      "empty_burst": false,
       "failed": 0,
       "rate_limited": 0,
-      "retried_after_empty": true,
+      "retried_after_empty": false,
       "skipped": 0,
       "statuses": {}
     },
     "semantic-scholar": {
       "api_key_configured": false,
       "attempts": 150,
-      "available": 131,
+      "available": 22,
       "empty": 0,
-      "failed": 19,
-      "rate_limited": 0,
-      "skipped": 0,
+      "empty_burst": false,
+      "failed": 128,
+      "rate_limited": 26,
+      "retried_after_empty": false,
+      "skipped": 100,
       "statuses": {
-        "not_found": 19
+        "not_found": 2,
+        "rate_limited": 26,
+        "skipped_rate_limited": 100
       }
     }
   },
   "providers": {
-    "crossref": 150,
-    "openalex": 0,
+    "crossref": 117,
+    "openalex": 144,
     "semantic-scholar": 150
   },
-  "recovered": {},
+  "recovered": {
+    "abstract": 3,
+    "date": 10
+  },
   "shortfall": {
-    "abstract_not_recovered": 150,
-    "date_not_recovered": 150
+    "abstract_not_recovered": 147,
+    "date_not_recovered": 140
   }
 }

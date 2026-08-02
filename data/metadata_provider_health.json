@@ -1,42 +1,51 @@
 {
   "latest": {
     "candidates": 150,
-    "checked_at": "2026-08-02T19:02:52+00:00",
+    "checked_at": "2026-08-02T19:54:39+00:00",
     "providers": {
       "crossref": {
         "attempts": 150,
-        "available": 150,
-        "empty": 0,
+        "available": 117,
+        "empty": 33,
+        "empty_burst": false,
         "failed": 0,
         "rate_limited": 0,
+        "retried_after_empty": false,
         "skipped": 0,
         "statuses": {}
       },
       "openalex": {
         "attempts": 150,
-        "available": 0,
-        "empty": 150,
-        "empty_burst": true,
+        "available": 144,
+        "empty": 6,
+        "empty_burst": false,
         "failed": 0,
         "rate_limited": 0,
-        "retried_after_empty": true,
+        "retried_after_empty": false,
         "skipped": 0,
         "statuses": {}
       },
       "semantic-scholar": {
         "api_key_configured": false,
         "attempts": 150,
-        "available": 131,
+        "available": 22,
         "empty": 0,
-        "failed": 19,
-        "rate_limited": 0,
-        "skipped": 0,
+        "empty_burst": false,
+        "failed": 128,
+        "rate_limited": 26,
+        "retried_after_empty": false,
+        "skipped": 100,
         "statuses": {
-          "not_found": 19
+          "not_found": 2,
+          "rate_limited": 26,
+          "skipped_rate_limited": 100
         }
       }
     },
-    "recovered": {}
+    "recovered": {
+      "abstract": 3,
+      "date": 10
+    }
   },
   "runs": [
     {
@@ -676,6 +685,54 @@
         }
       },
       "recovered": {}
+    },
+    {
+      "candidates": 150,
+      "checked_at": "2026-08-02T19:54:39+00:00",
+      "providers": {
+        "crossref": {
+          "attempts": 150,
+          "available": 117,
+          "empty": 33,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "openalex": {
+          "attempts": 150,
+          "available": 144,
+          "empty": 6,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "semantic-scholar": {
+          "api_key_configured": false,
+          "attempts": 150,
+          "available": 22,
+          "empty": 0,
+          "empty_burst": false,
+          "failed": 128,
+          "rate_limited": 26,
+          "retried_after_empty": false,
+          "skipped": 100,
+          "statuses": {
+            "not_found": 2,
+            "rate_limited": 26,
+            "skipped_rate_limited": 100
+          }
+        }
+      },
+      "recovered": {
+        "abstract": 3,
+        "date": 10
+      }
     }
   ]
 }
