@@ -30,6 +30,7 @@ import argparse
 import copy
 import os
 import re
+import time
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
@@ -66,6 +67,8 @@ PRIORITY_ABSTRACT_STATUSES = {
     "proxy-request-failed",
     "abstract-not-exposed",
 }
+EMPTY_BURST_RETRY_AFTER = 10
+EMPTY_BURST_WAIT_SECONDS = 5.0
 
 
 def is_placeholder_abstract(value: Any) -> bool:
@@ -637,6 +640,43 @@ def run_recovery(
             providers_by_doi[doi] = providers
     provider_health = summarize_provider_health(providers_by_doi)
 
+    # A provider that returns only empty responses for the whole batch is most
+    # likely a transient API outage. Retry it once after a short backoff and
+    # record the empty burst honestly in provider health.
+    retried_after_empty: dict[str, bool] = {}
+    for name in ("openalex",):
+        health = provider_health.get(name) or {}
+        attempts = int(health.get("attempts") or 0)
+        if (
+            attempts > 0
+            and int(health.get("available") or 0) == 0
+            and int(health.get("empty") or 0) >= min(EMPTY_BURST_RETRY_AFTER, attempts)
+        ):
+            time.sleep(EMPTY_BURST_WAIT_SECONDS)
+            with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
+                retry_futures = {
+                    executor.submit(openalex_doi_metadata, doi, timeout): doi for doi in candidate_dois
+                }
+                for future in as_completed(retry_futures):
+                    doi = retry_futures[future]
+                    metadata = future.result() or {}
+                    if isinstance(metadata, dict) and metadata:
+                        providers_by_doi[doi][name] = metadata
+            retried_after_empty[name] = True
+    if retried_after_empty:
+        provider_health = summarize_provider_health(providers_by_doi)
+        for name in retried_after_empty:
+            provider_health[name]["empty_burst"] = True
+            provider_health[name]["retried_after_empty"] = True
+    else:
+        for name, health in provider_health.items():
+            health["empty_burst"] = bool(
+                int(health.get("attempts") or 0) > 0
+                and int(health.get("available") or 0) == 0
+                and int(health.get("empty") or 0) > 0
+            )
+            health["retried_after_empty"] = False
+
     # Apply recovery to every canonical daily occurrence.
     for doi, occurrences in records_by_doi.items():
         if doi not in providers_by_doi:
@@ -716,6 +756,7 @@ def run_recovery(
             for name in ("openalex", "crossref", "semantic-scholar")
         },
         "provider_health": provider_health,
+        "provider_empty_burst": retried_after_empty,
         "recovered": dict(recovered_fields),
         "date_confidence_changes": dict(date_confidence_changes),
         "shortfall": dict(shortfall),

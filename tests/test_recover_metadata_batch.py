@@ -7,9 +7,10 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
-
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+
+import recover_metadata_batch  # noqa: E402
 
 from recover_metadata_batch import (  # noqa: E402
     apply_recovery,
@@ -395,6 +396,42 @@ class TestPriorityAndPathHygiene:
         assert health["skipped"] == 1
         assert health["api_key_configured"] is True
         assert health["statuses"]["skipped_rate_limited"] == 1
+
+    def test_openalex_empty_burst_retries_and_records(self, tmp_path):
+        data_dir = make_data_dir(tmp_path)
+        openalex_calls = {"count": 0}
+
+        def fake_openalex(doi, timeout):
+            openalex_calls["count"] += 1
+            if openalex_calls["count"] <= 1:
+                return {}
+            return provider_metadata()["openalex"]
+
+        with patch("recover_metadata_batch.openalex_doi_metadata", side_effect=fake_openalex), patch(
+            "recover_metadata_batch.crossref_doi_metadata", return_value=provider_metadata()["crossref"]
+        ), patch(
+            "recover_metadata_batch.semantic_scholar_doi_metadata",
+            return_value=provider_metadata()["semantic-scholar"],
+        ), patch.object(recover_metadata_batch, "EMPTY_BURST_RETRY_AFTER", 2), patch.object(
+            recover_metadata_batch.time, "sleep"
+        ):
+            report = run_recovery(
+                data_dir=data_dir,
+                limit=50,
+                recent_days=5000,
+                timeout=10,
+                workers=2,
+                dry_run=False,
+            )
+
+        assert openalex_calls["count"] == 2
+        assert report["provider_empty_burst"]["openalex"] is True
+        health = report["provider_health"]["openalex"]
+        assert health["available"] == 1
+        assert health["empty_burst"] is True
+        assert health["retried_after_empty"] is True
+        persisted = json.loads((data_dir / "metadata_provider_health.json").read_text(encoding="utf-8"))
+        assert persisted["latest"]["providers"]["openalex"]["retried_after_empty"] is True
 
 
 class TestRecoveryPersistence:
