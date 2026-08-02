@@ -135,6 +135,9 @@ def test_runtime_contract_defers_search_and_loads_only_requested_shards():
     assert "escHtml" in renderer
     assert "card.dt" in renderer
     assert "card.dl" in renderer
+    assert "missingDoi" in renderer
+    assert "暂无 DOI" in renderer
+    assert '文章链接</a><span class="doi">暂无 DOI</span>' in renderer
     assert "detected_label" in renderer
     assert "state.manifest = manifest" in renderer
     assert "more-filters" in renderer
