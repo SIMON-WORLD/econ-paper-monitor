@@ -121,6 +121,8 @@ async function checkSecondaryPages(browser) {
             assert.ok(indexRequests.some((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)), `${url} did not load routed content shards on search`);
             assert.ok(await page.locator('.event').count() >= 1, `${url} search returned no result`);
             assert.ok(indexBytes < 1_000_000, `${url} routed search transferred too many bytes: ${indexBytes}`);
+            const lazyCardHtml = await page.locator('.event').evaluateAll((nodes) => nodes.map((node) => node.innerHTML));
+            assert.ok(lazyCardHtml.every((html) => html.includes('https://doi.org/') || html.includes('暂无 DOI')), `${url} lazy card missing DOI status`);
             const more = page.locator('.lazy-more').first();
             if (await more.count()) {
               const shardRequestsBefore = indexRequests.filter((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)).length;
@@ -253,6 +255,8 @@ async function checkDetailPage(browser) {
   assert.ok(await page.locator('.site-header').isVisible(), `${detailUrl} vNext header is missing`);
   assert.equal(await page.locator('.sidebar').count(), 0, `${detailUrl} legacy sidebar leaked`);
   assert.equal(await page.locator('a[href*="archive/"]').count(), 0, `${detailUrl} archive navigation leaked`);
+  const detailLinks = await page.locator('.detail-links').innerHTML();
+  assert.ok(detailLinks.includes('https://doi.org/') || detailLinks.includes('暂无 DOI'), `${detailUrl} detail missing DOI status`);
   if (mobile) {
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${detailUrl} has horizontal overflow`);
   }
