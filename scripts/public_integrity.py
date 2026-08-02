@@ -878,8 +878,45 @@ def audit_integrity(data_dir: Path = DATA_DIR) -> dict[str, Any]:
     }
 
 
+def count_leak_fields(records: Iterable[dict[str, Any]]) -> int:
+    """Count machine-path leaks in one batch of records (口径复用)."""
+    total = 0
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        for field in PATH_FIELDS:
+            value = record.get(field)
+            if isinstance(value, str) and value and repo_relative_path(value) != value:
+                total += 1
+    return total
+
+
+def audit_machine_path_leaks(data_dir: Path = DATA_DIR) -> dict[str, Any]:
+    """Per-layer machine_path_leaks audit used for the 4134 口径复核."""
+    daily_records = [record for _, record in iter_daily(data_dir / "daily")]
+    seen_payload = read_json(data_dir / "seen.json", {"papers": {}})
+    papers = seen_payload.get("papers") if isinstance(seen_payload, dict) else {}
+    seen_records = [record for record in papers.values() if isinstance(record, dict)]
+    ledger_records: list[dict[str, Any]] = []
+    for name in LEDGER_PATHS:
+        payload = read_json(data_dir / name, {})
+        ledger_records.extend(iter_ledger_records(payload))
+    counts = {
+        "daily": count_leak_fields(daily_records),
+        "seen": count_leak_fields(seen_records),
+        "ledgers": count_leak_fields(ledger_records),
+    }
+    counts["total"] = sum(counts.values())
+    return {
+        "checked_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        "method": "PATH_FIELDS=(_raw_file,raw_file,source_file) + repo_relative_path per daily/seen/ledger record",
+        "counts": counts,
+    }
+
+
 def repair_public_integrity(data_dir: Path = DATA_DIR, *, write_report: bool = True) -> dict[str, Any]:
     before = audit_integrity(data_dir)
+    leak_before = audit_machine_path_leaks(data_dir)
     daily_dir = data_dir / "daily"
     seen_path = data_dir / "seen.json"
     daily_removed, daily_files = collapse_daily(daily_dir)
@@ -908,6 +945,20 @@ def repair_public_integrity(data_dir: Path = DATA_DIR, *, write_report: bool = T
     ledger_requeued, ledger_relinked, ledger_noise = repair_false_seen_ledger(data_dir, seen_path)
     ledger_files = normalize_ledgers(data_dir)
     after = audit_integrity(data_dir)
+    leak_after = audit_machine_path_leaks(data_dir)
+    write_json(
+        data_dir / "machine_path_leak_audit.json",
+        {
+            "checked_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+            "method": leak_before["method"],
+            "before": leak_before["counts"],
+            "after": leak_after["counts"],
+            "removed": {
+                layer: max(0, leak_before["counts"][layer] - leak_after["counts"][layer])
+                for layer in ("daily", "seen", "ledgers", "total")
+            },
+        },
+    )
     report_path = data_dir / "public_integrity_audit.json"
     previous = read_json(report_path, {})
     migration_baseline = copy.deepcopy(previous.get("migration_baseline") or before)
@@ -974,7 +1025,10 @@ def main() -> None:
     args = parser.parse_args()
     if args.audit_only:
         current = audit_integrity(args.data_dir)
+        leak_audit = audit_machine_path_leaks(args.data_dir)
+        write_json(args.data_dir / "machine_path_leak_audit.json", leak_audit)
         print(current)
+        print(leak_audit)
         if any(
             (
                 current["same_source_title_duplicate_records"],

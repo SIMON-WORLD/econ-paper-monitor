@@ -8,7 +8,11 @@ from pathlib import Path
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from public_integrity import audit_integrity, repair_public_integrity  # noqa: E402
+from public_integrity import (  # noqa: E402
+    audit_integrity,
+    audit_machine_path_leaks,
+    repair_public_integrity,
+)
 
 
 def record(
@@ -289,3 +293,23 @@ def test_checked_in_public_data_has_zero_integrity_failures() -> None:
     assert report["redundant_composite_authors"] == 0
     assert report["machine_path_leaks"] == 0
     assert sum(report["metadata_missing_status"].values()) == 0
+
+
+def test_machine_path_leak_audit_counts_by_layer(tmp_path: Path) -> None:
+    daily_rec = record("Daily paper", "daily-1", journal_id="example-journal")
+    daily_rec["_raw_file"] = r"E:\BaiduSyncdisk\Work\econ-paper-monitor\data\raw\2026-07-01\x.json"
+    seen_rec = record("Seen paper", "seen-1", journal_id="example-journal")
+    seen_rec["source_file"] = "/home/runner/work/econ-paper-monitor/econ-paper-monitor/data/raw/y.json"
+    write_dataset(tmp_path, {"2026-07-01": [daily_rec]}, {"seen-1": seen_rec})
+    ledger = tmp_path / "ingestion_exclusion_ledger.json"
+    ledger.write_text(
+        json.dumps({"records": [{"title": "Ledger paper", "raw_file": r"C:\Users\local\data\raw\z.json"}]}),
+        encoding="utf-8",
+    )
+
+    leak = audit_machine_path_leaks(tmp_path)
+    assert leak["counts"]["daily"] == 1
+    assert leak["counts"]["seen"] == 1
+    assert leak["counts"]["ledgers"] == 1
+    assert leak["counts"]["total"] == 3
+    assert audit_integrity(tmp_path)["machine_path_leaks"] == leak["counts"]["total"]
