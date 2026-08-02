@@ -1379,7 +1379,8 @@ LAZY_LIST_SCRIPT = r"""
     const topics = (card.tp || []).map((label) => '<span class="pill">' + escHtml(label) + '</span>').join('');
     const link = card.d
       ? '<a class="doi" href="https://doi.org/' + escHtml(card.d) + '">' + escHtml(card.d) + '</a>'
-      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '<span class="doi">暂无 DOI</span>');
+      : (card.u ? '<a class="doi" href="' + escHtml(card.u) + '">文章链接</a>' : '');
+    const missingDoi = card.d ? '' : '<span class="doi">暂无 DOI</span>';
     const typeTag = card.st ? '<span class="pill">' + escHtml(card.st) + '</span>' : '';
     const chinaTag = card.cn ? '<span class="pill china">与中国相关</span>' : '';
     const originalTitle = card.s ? '\n    <p class="title-original">' + escHtml(card.s) + '</p>' : '';
@@ -1397,7 +1398,7 @@ LAZY_LIST_SCRIPT = r"""
       '    <div class="meta-block">\n' +
       '      <div class="meta-line"><span class="meta-label">' + metaLabel + '</span><span class="meta-values">' + journalChip + typeTag + detectedChip + '</span></div>\n' +
       '      <div class="meta-line"><span class="meta-label">官方日期</span><span class="meta-values">' + officialChip + (card.lg || '') + '</span></div>\n' +
-      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + topics + chinaTag + '</span></div>\n' +
+      '      <div class="meta-line"><span class="meta-label">链接/DOI</span><span class="meta-values">' + link + missingDoi + topics + chinaTag + '</span></div>\n' +
       '    </div>\n' +
       '  </div>\n' +
       '</article>';
@@ -1581,7 +1582,7 @@ def paper_events(records: list[dict[str, Any]], limit: int | None = None, *, sco
         if record.get("doi"):
             link_or_doi = f'<a class="doi" href="https://doi.org/{html_escape(record.get("doi"))}">{html_escape(record.get("doi"))}</a>'
         elif record.get("url"):
-            link_or_doi = f'<a class="doi" href="{html_escape(record.get("url"))}">文章链接</a>'
+            link_or_doi = f'<a class="doi" href="{html_escape(record.get("url"))}">文章链接</a><span class="doi">暂无 DOI</span>'
         else:
             link_or_doi = '<span class="doi">暂无 DOI</span>'
         topics = article_topics(record)
@@ -2755,6 +2756,7 @@ def paper_detail_body() -> str:
       document.title = `${primary} | Econ Papers Daily`;
       const topics = (item.topics || []).map((topic) => `<span class="pill">${escapeHTML(topic)}</span>`).join('');
       const doi = item.doi ? `<a href="https://doi.org/${encodeURI(item.doi)}" target="_blank" rel="noreferrer">DOI：${escapeHTML(item.doi)}</a>` : '';
+      const missingDoi = item.doi ? '' : '<span class="muted">暂无 DOI</span>';
       const original = item.url && item.url !== '#' ? `<a class="primary" href="${escapeHTML(item.url)}" target="_blank" rel="noreferrer">打开原文页面</a>` : '';
       const abstract = item.abstract ? `<section class="detail-abstract"><h2>摘要</h2><p>${escapeHTML(item.abstract)}</p></section>` : `<section class="detail-abstract"><h2>摘要</h2><p class="muted">${escapeHTML(abstractMessage(item.abstract_status))}</p></section>`;
       const abstractZh = item.abstract_zh && item.abstract_zh !== item.abstract ? `<section class="detail-abstract"><h2>中文摘要</h2><p>${escapeHTML(item.abstract_zh)}</p></section>` : '';
@@ -2762,7 +2764,7 @@ def paper_detail_body() -> str:
       root.classList.remove('detail-loading');
       root.removeAttribute('aria-busy');
       const detectedLabel = item.detected + (item.detected_time ? ' ' + item.detected_time : '');
-      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(detectedLabel)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
+      root.innerHTML = `<p class="detail-kicker"><a href="./">Econ Papers Daily</a> / ${escapeHTML(item.source_type)}</p><h1>${escapeHTML(primary)}</h1>${secondary}<p class="detail-authors">${escapeHTML(item.authors)}</p><div class="detail-links">${original}${doi}${missingDoi}</div><div class="detail-meta"><div class="label">来源</div><div>${escapeHTML(item.source)} · ${escapeHTML(item.source_type)}</div><div class="label">首次监测</div><div>${escapeHTML(detectedLabel)}</div><div class="label">官方日期</div><div>${escapeHTML(item.official)}</div>${accepted}<div class="label">主题</div><div class="meta-values">${topics || '<span class="muted">暂无主题标签</span>'}</div></div>${abstract}${abstractZh}`;
     } catch (error) {
       message('论文详情暂时无法载入', '请刷新页面重试，或进入全站检索。');
     }
