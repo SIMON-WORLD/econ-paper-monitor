@@ -37,7 +37,7 @@
 - **临时/一次性目录**：一律进 `local_admin/scratch/<YYYY-MM-DD>-<slug>/`，任务结束即删。
 - **跨线交付物**（人工补录包、审计交付）：`local_admin/manual-supplements/<YYYY-MM-DD>-<slug>.json`，不用系统 Temp。
 - **归档**：`local_admin/archives/<YYYY-MM-DD>-<slug>/`。
-- **集成 worktree**：放到项目目录之外（如 `E:\BaiduSyncdisk\Work\Agent_automation\vibe_coding\econ-paper-monitor-worktrees\<name>`），**禁止**放进项目根目录。
+- **集成 worktree**：优先放到项目目录之外（如 `E:\BaiduSyncdisk\Work\Agent_automation\vibe_coding\econ-paper-monitor-worktrees\<name>`）；若文件系统 ACL 拒绝项目外写入，回退到仓库内 `local_admin/worktrees/<name>/`（gitignored），**用完即删，禁止在根目录散落**。
 
 ## 4. 文件生命周期规则（防堆积）
 
