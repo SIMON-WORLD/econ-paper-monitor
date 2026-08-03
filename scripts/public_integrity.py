@@ -941,6 +941,12 @@ def repair_public_integrity(data_dir: Path = DATA_DIR, *, write_report: bool = T
     if seen_changed:
         write_json(seen_path, seen_payload)
 
+    from repair_seen_only_archives import repair_seen_only_archives as _archive_seen_only
+
+    archive_report = _archive_seen_only(data_dir=data_dir)
+    seen_only_archived = int(archive_report.get("archived_count") or 0)
+    seen_only_changed_files = len(archive_report.get("changed_files") or [])
+
     version_groups = apply_version_relationships(daily_dir, seen_path)
     ledger_requeued, ledger_relinked, ledger_noise = repair_false_seen_ledger(data_dir, seen_path)
     ledger_files = normalize_ledgers(data_dir)
@@ -1010,6 +1016,8 @@ def repair_public_integrity(data_dir: Path = DATA_DIR, *, write_report: bool = T
             "ledger_records_requeued": ledger_requeued,
             "ledger_records_relinked": ledger_relinked,
             "ledger_nonpaper_reclassified": ledger_noise,
+            "seen_only_archived": seen_only_archived,
+            "seen_only_changed_files": seen_only_changed_files,
             "version_relationship_groups": version_groups,
         },
     }
