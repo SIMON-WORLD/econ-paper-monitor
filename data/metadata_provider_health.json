@@ -1,12 +1,12 @@
 {
   "latest": {
     "candidates": 150,
-    "checked_at": "2026-08-03T01:02:57+00:00",
+    "checked_at": "2026-08-03T02:03:33+00:00",
     "providers": {
       "crossref": {
         "attempts": 150,
-        "available": 42,
-        "empty": 108,
+        "available": 150,
+        "empty": 0,
         "empty_burst": false,
         "failed": 0,
         "rate_limited": 0,
@@ -16,8 +16,8 @@
       },
       "openalex": {
         "attempts": 150,
-        "available": 83,
-        "empty": 67,
+        "available": 148,
+        "empty": 2,
         "empty_burst": false,
         "failed": 0,
         "rate_limited": 0,
@@ -28,21 +28,22 @@
       "semantic-scholar": {
         "api_key_configured": false,
         "attempts": 150,
-        "available": 0,
+        "available": 127,
         "empty": 0,
         "empty_burst": false,
-        "failed": 150,
-        "rate_limited": 27,
+        "failed": 23,
+        "rate_limited": 0,
         "retried_after_empty": false,
-        "skipped": 123,
+        "skipped": 0,
         "statuses": {
-          "rate_limited": 27,
-          "skipped_rate_limited": 123
+          "error": 1,
+          "not_found": 22
         }
       }
     },
     "recovered": {
-      "date": 2
+      "abstract": 11,
+      "date": 27
     }
   },
   "runs": [
@@ -776,6 +777,53 @@
       },
       "recovered": {
         "date": 2
+      }
+    },
+    {
+      "candidates": 150,
+      "checked_at": "2026-08-03T02:03:33+00:00",
+      "providers": {
+        "crossref": {
+          "attempts": 150,
+          "available": 150,
+          "empty": 0,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "openalex": {
+          "attempts": 150,
+          "available": 148,
+          "empty": 2,
+          "empty_burst": false,
+          "failed": 0,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {}
+        },
+        "semantic-scholar": {
+          "api_key_configured": false,
+          "attempts": 150,
+          "available": 127,
+          "empty": 0,
+          "empty_burst": false,
+          "failed": 23,
+          "rate_limited": 0,
+          "retried_after_empty": false,
+          "skipped": 0,
+          "statuses": {
+            "error": 1,
+            "not_found": 22
+          }
+        }
+      },
+      "recovered": {
+        "abstract": 11,
+        "date": 27
       }
     }
   ]
