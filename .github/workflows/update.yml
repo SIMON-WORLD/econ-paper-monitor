@@ -15,6 +15,10 @@ on:
         description: "Crossref lookback days"
         required: false
         default: "14"
+      recovery_limit:
+        description: "Batch recovery candidate limit (0 = unlimited)"
+        required: false
+        default: "150"
   schedule:
     # Fast monitor wakeup: every 15 minutes; the script skips recent duplicate runs.
     - cron: "*/15 * * * *"
@@ -56,6 +60,7 @@ jobs:
         run: |
           MODE="${{ github.event.inputs.mode || 'light' }}"
           DAYS="${{ github.event.inputs.days || '14' }}"
+          RECOVERY_LIMIT="${{ github.event.inputs.recovery_limit || '150' }}"
           if [ "${{ github.event_name }}" = "schedule" ]; then
             case "${{ github.event.schedule }}" in
               "30 18 * * *"|"30 0 * * *"|"30 6 * * *"|"30 12 * * *")
@@ -99,6 +104,7 @@ jobs:
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "days=$DAYS" >> "$GITHUB_OUTPUT"
+          echo "recovery_limit=$RECOVERY_LIMIT" >> "$GITHUB_OUTPUT"
           echo "rows=$ROWS" >> "$GITHUB_OUTPUT"
           echo "detail_limit=$DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
           echo "cn_detail_limit=$CN_DETAIL_LIMIT" >> "$GITHUB_OUTPUT"
@@ -333,6 +339,8 @@ jobs:
           S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
       - name: Re-apply historical working-paper quarantine after date enrichment
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/clean_historical_working_papers.py
@@ -374,7 +382,7 @@ jobs:
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
-          if timeout 12m python scripts/recover_metadata_batch.py --limit 150 --recent-days 5000 --workers 8 --timeout 12; then
+          if timeout 20m python scripts/recover_metadata_batch.py --limit "${{ steps.mode.outputs.recovery_limit }}" --recent-days 5000 --workers 8 --timeout 12; then
             echo "Batch metadata recovery completed."
           else
             echo "::warning::Batch metadata recovery timed out or failed; preserving explicit missing status."
@@ -382,6 +390,8 @@ jobs:
         env:
           S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
       - name: Repair public data integrity
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/public_integrity.py

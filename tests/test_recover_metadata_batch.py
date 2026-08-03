@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import sys
+import urllib.error
 from pathlib import Path
 from unittest.mock import patch
 
@@ -599,3 +600,182 @@ class TestRecoveryPersistence:
         assert health["statuses"]["not_found"] == 1
         persisted = json.loads((data_dir / "metadata_provider_health.json").read_text(encoding="utf-8"))
         assert persisted["latest"]["providers"]["semantic-scholar"]["statuses"]["not_found"] == 1
+
+
+class TestElsevierProvider:
+    def _payload(self) -> str:
+        core = {
+            "dc:title": "Example Elsevier Paper",
+            "prism:url": "https://api.elsevier.com/content/article/pii/S1234567890123456",
+            "pii": "S1234567890123456",
+            "dc:description": (
+                "This is a sufficiently long Elsevier abstract that describes the methods "
+                "and results of the paper in enough detail to pass the minimum length "
+                "threshold required for metadata recovery."
+            ),
+        }
+        return json.dumps({"full-text-retrieval-response": {"coredata": core}})
+
+    def test_parses_title_abstract_and_rate_headers(self):
+        headers = {
+            "X-RateLimit-Limit": "2000",
+            "X-RateLimit-Remaining": "1998",
+            "X-RateLimit-Reset": "1700000000",
+        }
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k", "ELSEVIER_INST_TOKEN": "t"}, clear=False), patch(
+            "recover_metadata_batch._els_request", return_value=(self._payload(), headers)
+        ), patch.object(recover_metadata_batch.time, "sleep"):
+            meta = recover_metadata_batch.elsevier_doi_metadata("10.1016/j.jdeveco.2026.103880", 10)
+
+        assert meta["_status"] == "available"
+        assert meta["title"] == "Example Elsevier Paper"
+        assert "sufficiently long Elsevier abstract" in meta["abstract"]
+        assert meta["abstract_source"] == "elsevier_article_api_full"
+        assert meta["_rate_limit"]["X-RateLimit-Remaining"] == "1998"
+
+    def test_not_configured_skips_network(self):
+        with patch.dict(os.environ, {}, clear=True):
+            meta = recover_metadata_batch.elsevier_doi_metadata("10.1016/j.x.1", 10)
+        assert meta["_status"] == "not_configured"
+
+    def test_404_maps_not_found(self):
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k"}, clear=False), patch(
+            "recover_metadata_batch._els_request",
+            side_effect=urllib.error.HTTPError("https://api.elsevier.com/x", 404, "Not Found", {}, None),
+        ), patch.object(recover_metadata_batch.time, "sleep"):
+            meta = recover_metadata_batch.elsevier_doi_metadata("10.1016/j.x.404", 10)
+        assert meta["_status"] == "not_found"
+
+    def test_429_retries_once_then_succeeds(self):
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k"}, clear=False), patch(
+            "recover_metadata_batch._els_request",
+            side_effect=[
+                urllib.error.HTTPError(
+                    "https://api.elsevier.com/x",
+                    429,
+                    "Too Many Requests",
+                    {"Retry-After": "2"},
+                    None,
+                ),
+                (self._payload(), {"X-RateLimit-Remaining": "1999"}),
+            ],
+        ), patch.object(recover_metadata_batch.time, "sleep") as sleep_mock:
+            meta = recover_metadata_batch.elsevier_doi_metadata("10.1016/j.x.429", 10)
+
+        assert meta["_status"] == "available"
+        sleep_mock.assert_any_call(2.0)
+
+    def test_429_twice_marks_rate_limited(self):
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k"}, clear=False), patch(
+            "recover_metadata_batch._els_request",
+            side_effect=[
+                urllib.error.HTTPError(
+                    "https://api.elsevier.com/x",
+                    429,
+                    "Too Many Requests",
+                    {"Retry-After": "2"},
+                    None,
+                ),
+                urllib.error.HTTPError(
+                    "https://api.elsevier.com/x",
+                    429,
+                    "Too Many Requests",
+                    {"X-RateLimit-Remaining": "0"},
+                    None,
+                ),
+            ],
+        ), patch.object(recover_metadata_batch.time, "sleep"):
+            meta = recover_metadata_batch.elsevier_doi_metadata("10.1016/j.x.429", 10)
+
+        assert meta["_status"] == "rate_limited"
+
+    def test_apply_recovery_uses_elsevier_abstract_when_others_empty(self):
+        record = sample_record(abstract=None)
+        providers = {
+            "openalex": {},
+            "crossref": {},
+            "semantic-scholar": {},
+            "elsevier": {
+                "abstract": provider_metadata()["openalex"]["abstract"],
+                "abstract_source": "elsevier_article_api_full",
+                "_status": "available",
+            },
+        }
+
+        changed, fields = apply_recovery(record, providers)
+
+        assert changed is True
+        assert "abstract" in fields
+        assert record["abstract_source"] == "elsevier_article_api_full"
+
+    def test_apply_recovery_never_overwrites_manual_abstract(self):
+        record = sample_record(
+            abstract="Manual preview text.",
+            abstract_source="manual-publisher",
+            abstract_completeness="preview",
+            abstract_truncated=True,
+            abstract_status_code="preview_truncated",
+            date_confidence="B",
+            available_online="2026-07-28",
+            published_online="2026-07-28",
+            date_source="publisher_published_online",
+        )
+        before = record["abstract"]
+        providers = {
+            "openalex": {"abstract": provider_metadata()["openalex"]["abstract"]},
+            "crossref": {},
+            "semantic-scholar": {},
+            "elsevier": {
+                "abstract": provider_metadata()["openalex"]["abstract"],
+                "abstract_source": "elsevier_article_api_full",
+                "_status": "available",
+            },
+        }
+
+        changed, fields = apply_recovery(record, providers)
+
+        assert changed is False
+        assert record["abstract"] == before
+        assert "abstract" not in fields
+
+    def test_summarize_health_records_elsevier_rate_limits(self):
+        providers_by_doi = {
+            "10.1016/a": {
+                "elsevier": {
+                    "_status": "available",
+                    "_rate_limit": {"X-RateLimit-Limit": "2000", "X-RateLimit-Remaining": "1500"},
+                }
+            },
+            "10.1016/b": {
+                "elsevier": {
+                    "_status": "available",
+                    "_rate_limit": {"X-RateLimit-Limit": "2000", "X-RateLimit-Remaining": "1200"},
+                }
+            },
+        }
+
+        health = recover_metadata_batch.summarize_provider_health(providers_by_doi)
+        elsevier = health["elsevier"]
+
+        assert elsevier["available"] == 2
+        assert elsevier["rate_limit_headers"]["X-RateLimit-Remaining"] == "1200"
+
+    def test_fetch_metadata_only_uses_elsevier_for_10_1016(self):
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k"}, clear=False), patch(
+            "recover_metadata_batch.openalex_doi_metadata", return_value={}
+        ), patch("recover_metadata_batch.crossref_doi_metadata", return_value={}), patch(
+            "recover_metadata_batch.semantic_scholar_doi_metadata", return_value={}
+        ), patch(
+            "recover_metadata_batch.elsevier_doi_metadata",
+            return_value={"_status": "available"},
+        ) as els_mock:
+            providers, _ = recover_metadata_batch.fetch_metadata_for_doi("10.1111/x.1", 10)
+            assert "elsevier" not in providers
+            els_mock.assert_not_called()
+
+            providers_elsevier, _ = recover_metadata_batch.fetch_metadata_for_doi(
+                "10.1016/j.jdeveco.2026.103880",
+                10,
+            )
+            assert "elsevier" in providers_elsevier
+            assert els_mock.call_count == 1
