@@ -15,6 +15,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from date_provenance import provenance_text
 from display_contract import display_titles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -284,7 +285,7 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tu
     original = str(record.get("url") or record.get("source_url") or "#")
     doi = str(record.get("doi") or "").strip()
     official = official_date(record)
-    official_markup = f"官方日期：{esc(official)}" if official else "官方日期暂未获取"
+    official_markup = esc(provenance_text(record, official))
     detail_kind = type_label(kind)
     if kind == "working" and "cepr" in source_name(record).lower():
         detail_kind += " · CEPR Discussion Paper"
