@@ -117,6 +117,14 @@ def test_shared_title_contract_controls_primary_and_secondary_titles(
         assert 'class="english-title"' not in html
 
 
+def test_homepage_template_defers_offscreen_rendering_and_lazy_motion():
+    template = (ROOT / "scripts" / "templates" / "daily_vnext.html").read_text(encoding="utf-8")
+    assert "content-visibility:auto" in template
+    assert "contain-intrinsic-size:auto 220px" in template
+    assert "IntersectionObserver" in template
+    assert "rootMargin: '1200px 0px'" in template
+
+
 def test_display_build_does_not_modify_data(tmp_path):
     data_files = sorted((ROOT / "data").rglob("*"))
     before = {
