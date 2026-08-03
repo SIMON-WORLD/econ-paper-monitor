@@ -461,8 +461,9 @@ def fetch_metadata_for_doi(
         ("openalex", openalex_doi_metadata),
         ("crossref", crossref_doi_metadata),
         ("semantic-scholar", semantic_scholar_doi_metadata),
-        ("elsevier", elsevier_doi_metadata),
     )
+    if doi.startswith("10.1016/"):
+        getters = getters + (("elsevier", elsevier_doi_metadata),)
     for name, getter in getters:
         try:
             metadata = getter(doi, timeout) or {}

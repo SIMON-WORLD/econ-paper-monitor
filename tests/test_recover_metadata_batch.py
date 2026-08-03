@@ -759,3 +759,23 @@ class TestElsevierProvider:
 
         assert elsevier["available"] == 2
         assert elsevier["rate_limit_headers"]["X-RateLimit-Remaining"] == "1200"
+
+    def test_fetch_metadata_only_uses_elsevier_for_10_1016(self):
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k"}, clear=False), patch(
+            "recover_metadata_batch.openalex_doi_metadata", return_value={}
+        ), patch("recover_metadata_batch.crossref_doi_metadata", return_value={}), patch(
+            "recover_metadata_batch.semantic_scholar_doi_metadata", return_value={}
+        ), patch(
+            "recover_metadata_batch.elsevier_doi_metadata",
+            return_value={"_status": "available"},
+        ) as els_mock:
+            providers, _ = recover_metadata_batch.fetch_metadata_for_doi("10.1111/x.1", 10)
+            assert "elsevier" not in providers
+            els_mock.assert_not_called()
+
+            providers_elsevier, _ = recover_metadata_batch.fetch_metadata_for_doi(
+                "10.1016/j.jdeveco.2026.103880",
+                10,
+            )
+            assert "elsevier" in providers_elsevier
+            assert els_mock.call_count == 1

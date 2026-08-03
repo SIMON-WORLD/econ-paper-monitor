@@ -6,10 +6,13 @@ on:
       limit:
         description: "Recovery candidate limit (0 = unlimited)"
         required: false
-        default: "50"
+        default: "0"
   pull_request:
     branches:
       - main
+    paths:
+      - "scripts/recover_metadata_batch.py"
+      - ".github/workflows/elsevier-recovery-probe.yml"
 
 permissions:
   contents: read
@@ -31,7 +34,7 @@ jobs:
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
         run: |
           python scripts/recover_metadata_batch.py --dry-run \
-            --limit "${{ github.event.inputs.limit || '50' }}" \
+            --limit "${{ github.event.inputs.limit || '0' }}" \
             --recent-days 5000 --workers 8 --timeout 12 \
             --output /tmp/elsevier-probe.json
           python - <<'PY'
