@@ -1,0 +1,50 @@
+name: Elsevier Recovery Probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Recovery candidate limit (0 = unlimited)"
+        required: false
+        default: "50"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Dry-run recovery with Elsevier provider
+        env:
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+        run: |
+          python scripts/recover_metadata_batch.py --dry-run \
+            --limit "${{ github.event.inputs.limit || '50' }}" \
+            --recent-days 5000 --workers 8 --timeout 12 \
+            --output /tmp/elsevier-probe.json
+          python - <<'PY'
+          import json
+          report = json.load(open('/tmp/elsevier-probe.json', encoding='utf-8'))
+          health = (report.get('provider_health') or {}).get('elsevier', {})
+          keys = (
+              'attempts',
+              'available',
+              'statuses',
+              'rate_limited',
+              'api_key_configured',
+              'inst_token_configured',
+              'rate_limit_headers',
+          )
+          print('elsevier_provider_health=' + json.dumps(
+              {key: health.get(key) for key in keys}, ensure_ascii=False
+          ))
+          PY

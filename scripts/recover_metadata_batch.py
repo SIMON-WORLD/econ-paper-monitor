@@ -8,6 +8,7 @@ Recovery uses three independent metadata indexes:
 * OpenAlex
 * Crossref
 * Semantic Scholar
+* Elsevier Article API (when ELSEVIER_API_KEY is configured)
 
 Date confidence is strict:
 
@@ -28,9 +29,14 @@ from __future__ import annotations
 
 import argparse
 import copy
+import json
 import os
 import re
+import threading
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
@@ -48,6 +54,8 @@ from common import (
 )
 from enrich_metadata import (
     crossref_doi_metadata,
+    extract_elsevier_api_abstract,
+    extract_elsevier_pii,
     openalex_doi_metadata,
     semantic_scholar_doi_metadata,
 )
@@ -69,6 +77,12 @@ PRIORITY_ABSTRACT_STATUSES = {
 }
 EMPTY_BURST_RETRY_AFTER = 10
 EMPTY_BURST_WAIT_SECONDS = 5.0
+ELSEVIER_MIN_INTERVAL_SECONDS = 0.3
+ELSEVIER_MAX_RETRIES = 1
+ELSEVIER_MAX_BACKOFF_SECONDS = 60.0
+_ELSEVIER_LOCK = threading.Lock()
+_ELSEVIER_LAST_REQUEST = 0.0
+_URLOPEN = urllib.request.urlopen
 
 
 def is_placeholder_abstract(value: Any) -> bool:
@@ -219,7 +233,7 @@ def load_daily_candidates(
 
     # Deterministic, recovery-priority sort, then apply the limit.
     candidate_dois.sort(key=lambda doi: record_priority(records_by_doi[doi][0][1]))
-    selected = candidate_dois[: max(0, limit)]
+    selected = candidate_dois if limit <= 0 else candidate_dois[: max(0, limit)]
     records_by_doi = {
         doi: records_by_doi[doi]
         for doi in selected
@@ -313,17 +327,141 @@ def decide_date_update(
     return None
 
 
+def elsevier_env_credentials() -> tuple[str, str]:
+    api_key = (os.environ.get("ELSEVIER_API_KEY") or os.environ.get("ELS_API_KEY") or "").strip()
+    inst_token = (
+        os.environ.get("ELSEVIER_INST_TOKEN")
+        or os.environ.get("ELSEVIER_INSTTOKEN")
+        or ""
+    ).strip()
+    return api_key, inst_token
+
+
+def _els_throttle() -> None:
+    global _ELSEVIER_LAST_REQUEST
+    with _ELSEVIER_LOCK:
+        wait = ELSEVIER_MIN_INTERVAL_SECONDS - (time.monotonic() - _ELSEVIER_LAST_REQUEST)
+        if wait > 0:
+            time.sleep(wait)
+        _ELSEVIER_LAST_REQUEST = time.monotonic()
+
+
+def _els_request(
+    url: str,
+    timeout: int,
+    api_key: str,
+    inst_token: str,
+) -> tuple[str, dict[str, str]]:
+    headers = {
+        "Accept": "application/json",
+        "User-Agent": "econ-paper-monitor/1.0 (https://github.com/academic-door/econ-paper-monitor)",
+    }
+    if api_key:
+        headers["X-ELS-APIKey"] = api_key
+    if inst_token:
+        headers["X-ELS-Insttoken"] = inst_token
+    request = urllib.request.Request(url, headers=headers)
+    with _URLOPEN(request, timeout=timeout) as response:
+        body = response.read().decode("utf-8", errors="replace")
+        response_headers = dict(response.headers.items())
+    return body, response_headers
+
+
+def _els_retry_after(value: Any) -> float:
+    try:
+        return max(0.0, float(str(value or "").strip()))
+    except ValueError:
+        return 0.0
+
+
+def _els_rate_limit(headers: Any) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for key in (
+        "X-RateLimit-Limit",
+        "X-RateLimit-Remaining",
+        "X-RateLimit-Reset",
+        "X-RateLimit-Used",
+    ):
+        value = (headers or {}).get(key)
+        if value is not None:
+            result[key] = str(value)
+    return result
+
+
+def elsevier_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
+    """Fetch title/abstract from the Elsevier Article API.
+
+    Returns ``_status`` in available/not_found/http_error/rate_limited/
+    not_configured and never prints credentials.  A 429 is retried once with
+    ``Retry-After`` backoff; ``X-RateLimit-*`` headers are returned for
+    provider-health aggregation.
+    """
+    api_key, inst_token = elsevier_env_credentials()
+    if not api_key:
+        return {"_status": "not_configured"}
+    encoded_doi = urllib.parse.quote(doi, safe="")
+    url = (
+        "https://api.elsevier.com/content/article/doi/"
+        f"{encoded_doi}?httpAccept=application%2Fjson"
+    )
+    body = ""
+    response_headers: dict[str, str] = {}
+    for attempt in range(ELSEVIER_MAX_RETRIES + 1):
+        _els_throttle()
+        try:
+            body, response_headers = _els_request(url, timeout, api_key, inst_token)
+            break
+        except urllib.error.HTTPError as exc:
+            if exc.code == 429 and attempt < ELSEVIER_MAX_RETRIES:
+                retry_after = _els_retry_after((exc.headers or {}).get("Retry-After"))
+                if retry_after:
+                    time.sleep(min(retry_after, ELSEVIER_MAX_BACKOFF_SECONDS))
+                continue
+            status = (
+                "rate_limited"
+                if exc.code == 429
+                else ("not_found" if exc.code == 404 else "http_error")
+            )
+            return {"_status": status, "_rate_limit": _els_rate_limit(exc.headers)}
+        except Exception:
+            return {"_status": "http_error"}
+    try:
+        payload = json.loads(body) if body else {}
+    except ValueError:
+        return {"_status": "http_error", "_rate_limit": _els_rate_limit(response_headers)}
+    response = payload.get("full-text-retrieval-response") if isinstance(payload, dict) else None
+    core = response.get("coredata") if isinstance(response, dict) else None
+    if not isinstance(core, dict):
+        return {"_status": "not_found", "_rate_limit": _els_rate_limit(response_headers)}
+    result: dict[str, Any] = {
+        "_status": "available",
+        "_rate_limit": _els_rate_limit(response_headers),
+    }
+    title = str(core.get("dc:title") or "").strip()
+    if title:
+        result["title"] = title
+    pii = extract_elsevier_pii(str(core.get("prism:url") or ""), str(core.get("pii") or ""))
+    if pii:
+        result["pii"] = pii
+    abstract = extract_elsevier_api_abstract(response, core)
+    if abstract:
+        result["abstract"] = abstract
+        result["abstract_source"] = "elsevier_article_api_full" if api_key else "elsevier_article_api"
+    return result
+
+
 def fetch_metadata_for_doi(
     doi: str,
     timeout: int,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
-    """Fetch OpenAlex, Crossref, and Semantic Scholar metadata for one DOI."""
+    """Fetch metadata from every configured provider for one DOI."""
     providers: dict[str, dict[str, Any]] = {}
     errors: dict[str, str] = {}
     getters = (
         ("openalex", openalex_doi_metadata),
         ("crossref", crossref_doi_metadata),
         ("semantic-scholar", semantic_scholar_doi_metadata),
+        ("elsevier", elsevier_doi_metadata),
     )
     for name, getter in getters:
         try:
@@ -339,21 +477,28 @@ def summarize_provider_health(
     providers_by_doi: dict[str, dict[str, dict[str, Any]]],
 ) -> dict[str, dict[str, Any]]:
     """Summarize per-provider availability and failure statuses for auditing."""
-    names = ("openalex", "crossref", "semantic-scholar")
+    names = ("openalex", "crossref", "semantic-scholar", "elsevier")
     health: dict[str, dict[str, Any]] = {}
     for name in names:
         attempts = available = empty = 0
         statuses: Counter[str] = Counter()
+        rate_limits: list[dict[str, str]] = []
         for providers in providers_by_doi.values():
             metadata = providers.get(name) or {}
             attempts += 1
             status = str(metadata.get("_status") or "")
-            if status:
+            if status == "available":
+                statuses[status] += 1
+                available += 1
+            elif status:
                 statuses[status] += 1
             elif metadata:
                 available += 1
             else:
                 empty += 1
+            rate_limit = metadata.get("_rate_limit")
+            if isinstance(rate_limit, dict) and rate_limit:
+                rate_limits.append(rate_limit)
         health[name] = {
             "attempts": attempts,
             "available": available,
@@ -363,10 +508,25 @@ def summarize_provider_health(
             "skipped": int(statuses.get("skipped_rate_limited", 0)),
             "failed": attempts - available - empty,
         }
+        if rate_limits:
+            health[name]["rate_limit_headers"] = min(
+                rate_limits,
+                key=lambda item: _rate_limit_remaining(item),
+            )
     health["semantic-scholar"]["api_key_configured"] = bool(
         (os.environ.get("S2_API_KEY") or os.environ.get("SEMANTIC_SCHOLAR_API_KEY") or "").strip()
     )
+    elsevier_api_key, elsevier_inst_token = elsevier_env_credentials()
+    health["elsevier"]["api_key_configured"] = bool(elsevier_api_key)
+    health["elsevier"]["inst_token_configured"] = bool(elsevier_inst_token)
     return health
+
+
+def _rate_limit_remaining(rate_limit: dict[str, str]) -> int:
+    try:
+        return int(rate_limit.get("X-RateLimit-Remaining") or 0)
+    except ValueError:
+        return 0
 
 
 def write_provider_health(
@@ -406,12 +566,17 @@ def apply_recovery(
     changed = False
     recovered: list[str] = []
     needs_abs, needs_auth, needs_date = needs_recovery(record)
+    manual_abstract = bool(
+        str(record.get("abstract_source") or "").startswith("manual-")
+        and str(record.get("abstract") or "").strip()
+    )
 
-    if needs_abs:
+    if needs_abs and not manual_abstract:
         for source, metadata in (
             ("openalex", providers.get("openalex", {})),
             ("crossref", providers.get("crossref", {})),
             ("semantic-scholar", providers.get("semantic-scholar", {})),
+            ("elsevier", providers.get("elsevier", {})),
         ):
             abstract = clean_abstract_text(metadata.get("abstract"))
             if is_placeholder_abstract(abstract):
@@ -753,7 +918,7 @@ def run_recovery(
         "daily_occurrences": len(candidates),
         "providers": {
             name: sum(1 for providers in providers_by_doi.values() if providers.get(name))
-            for name in ("openalex", "crossref", "semantic-scholar")
+            for name in ("openalex", "crossref", "semantic-scholar", "elsevier")
         },
         "provider_health": provider_health,
         "provider_empty_burst": retried_after_empty,
