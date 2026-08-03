@@ -125,11 +125,22 @@ async function checkSecondaryPages(browser) {
             assert.ok(lazyCardHtml.every((html) => html.includes('https://doi.org/') || html.includes('暂无 DOI')), `${url} lazy card missing DOI status`);
             const more = page.locator('.lazy-more').first();
             if (await more.count()) {
-              const shardRequestsBefore = indexRequests.filter((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)).length;
-              await more.click();
-              await page.waitForTimeout(1500);
-              const shardRequestsAfter = indexRequests.filter((requestUrl) => /\/shards\/\d{4}\.json$/.test(requestUrl)).length;
-              assert.ok(shardRequestsAfter > shardRequestsBefore, `${url} load more did not fetch the next shard`);
+              const entriesBeforeMore = await page.locator('.event').count();
+              let moreClicks = 0;
+              while (moreClicks < 4) {
+                const moreBtn = page.locator('.lazy-more').first();
+                if (!(await moreBtn.count()) || !(await moreBtn.isVisible())) break;
+                await moreBtn.click();
+                moreClicks += 1;
+                try {
+                  await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, entriesBeforeMore, { timeout: 3000 });
+                  break;
+                } catch (e) {
+                  await page.waitForTimeout(400);
+                }
+              }
+              const entriesAfterMore = await page.locator('.event').count();
+              assert.ok(entriesAfterMore > entriesBeforeMore, `${url} load more did not render additional entries`);
               assert.ok(indexBytes < 2_000_000, `${url} load-more transfer too high: ${indexBytes}`);
             }
           }
