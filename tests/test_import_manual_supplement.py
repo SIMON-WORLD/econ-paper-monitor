@@ -12,6 +12,7 @@ from import_manual_supplement import (  # noqa: E402
     build_manual_record,
     import_package,
     issue_date_from_label,
+    normalize_publisher_abstract,
     parse_manual_authors,
 )
 
@@ -47,6 +48,37 @@ def package() -> dict:
     }
 
 
+def publisher_package() -> dict:
+    return {
+        "journal": None,
+        "source": "manual-publisher",
+        "method": "in-app-browser + ZJU institutional session",
+        "extracted_at": "2026-08-02T19:30:00Z",
+        "batch": "2026-08-02-sd-abstract-batch-1",
+        "records": [
+            {
+                "journal": "Economics Letters",
+                "doi": "10.1016/j.econlet.2026.113122",
+                "title": "Peer-confirming equilibrium in anchor games",
+                "authors": ["Shinya Sugiura"],
+                "abstract": "Abstract\nPeer-confirming equilibrium is the paper's core result.",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0165176526003186",
+            },
+            {
+                "journal": "Games and Economic Behavior",
+                "doi": "10.1016/j.geb.2026.07.005",
+                "title": "Information paths and learning in games",
+                "authors": ["Peiran Jiao a", "Heinrich H. Nax b"],
+                "abstract": (
+                    "Highlights\n• A highlight.\nAbstract\n"
+                    "Information paths shape learning outcomes."
+                ),
+                "url": "https://www.sciencedirect.com/science/article/pii/S0899825626001156",
+            },
+        ],
+    }
+
+
 def make_data_dir(tmp_path: Path) -> Path:
     data_dir = tmp_path / "data"
     write_json(data_dir / "seen.json", {"papers": {}})
@@ -54,6 +86,23 @@ def make_data_dir(tmp_path: Path) -> Path:
 
 
 class TestManualHelpers:
+    def test_normalize_publisher_abstract(self):
+        assert (
+            normalize_publisher_abstract(
+                "Highlights\n• A highlight.\nAbstract\nReal abstract text."
+            )
+            == "Real abstract text."
+        )
+        assert normalize_publisher_abstract("Abstract\nPeer result text.") == "Peer result text."
+        assert normalize_publisher_abstract(None) == ""
+
+    def test_parse_manual_authors_affiliation_letters(self):
+        assert parse_manual_authors(["Shinya Sugiura", "Meng Liu a", "Elie Bouri a j"]) == [
+            "Shinya Sugiura",
+            "Meng Liu",
+            "Elie Bouri",
+        ]
+
     def test_issue_date_from_label(self):
         assert issue_date_from_label("2026年07期") == "2026-07-01"
         assert issue_date_from_label("") == ""
@@ -223,3 +272,136 @@ class TestManualImport:
         assert second["added"] == 0
         seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
         assert len(seen["papers"]) == 2
+
+    def test_multi_journal_package_uses_record_journal(self, tmp_path: Path):
+        data_dir = make_data_dir(tmp_path)
+        source = tmp_path / "2026-08-02-sd-abstract-batch-1.json"
+        write_json(source, publisher_package())
+
+        report = import_package(source, data_dir=data_dir)
+
+        assert report["added"] == 2
+        assert "Economics Letters" in report["journals_used"]
+        assert "Games and Economic Behavior" in report["journals_used"]
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+        by_doi = {
+            str(record.get("doi") or "").casefold(): record
+            for record in seen["papers"].values()
+            if record.get("doi")
+        }
+        assert by_doi["10.1016/j.econlet.2026.113122"]["journal_id"] == "economics-letters"
+        assert by_doi["10.1016/j.geb.2026.07.005"]["journal_id"] == "games-and-economic-behavior"
+        assert by_doi["10.1016/j.geb.2026.07.005"]["abstract"] == (
+            "Information paths shape learning outcomes."
+        )
+
+    def test_unresolved_record_journal_is_reported_not_dropped(self, tmp_path: Path):
+        data_dir = make_data_dir(tmp_path)
+        source = tmp_path / "bad-journal.json"
+        pkg = {
+            "journal": None,
+            "source": "manual-publisher",
+            "records": [
+                {
+                    "journal": "Not A Real Journal",
+                    "title": "Untitled paper",
+                    "doi": "10.1016/j.abc.2026.000001",
+                    "abstract": "Real abstract.",
+                }
+            ],
+        }
+        write_json(source, pkg)
+
+        report = import_package(source, data_dir=data_dir)
+
+        assert report["skipped"] == 1
+        assert report["unresolved_journal_count"] == 1
+        assert report["added"] == 0
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+        assert len(seen["papers"]) == 0
+
+    def test_doi_exact_match_backfills_seen_and_daily_idempotently(self, tmp_path: Path):
+        data_dir = tmp_path / "data"
+        write_json(
+            data_dir / "seen.json",
+            {
+                "papers": {
+                    "existing-1": {
+                        "id": "existing-1",
+                        "title": "Peer-confirming equilibrium in anchor games",
+                        "doi": "10.1016/j.econlet.2026.113122",
+                        "journal": "Economics Letters",
+                        "journal_id": "economics-letters",
+                        "abstract": None,
+                        "abstract_completeness": "missing",
+                    }
+                }
+            },
+        )
+        daily_dir = data_dir / "daily"
+        daily_dir.mkdir(parents=True)
+        write_json(
+            daily_dir / "2026-07-11.json",
+            [
+                {
+                    "id": "daily-1",
+                    "title": "Peer-confirming equilibrium in anchor games",
+                    "doi": "10.1016/j.econlet.2026.113122",
+                    "journal": "Economics Letters",
+                    "abstract": None,
+                    "abstract_completeness": "missing",
+                }
+            ],
+        )
+        source = tmp_path / "2026-08-02-sd-abstract-batch-1.json"
+        write_json(source, publisher_package())
+
+        report = import_package(source, data_dir=data_dir)
+
+        assert report["matched_by_doi"] == 1
+        assert report["matched_backfilled"] == 1
+        assert report["daily_backfilled"] == 1
+        assert report["daily_files_changed"] == 1
+        assert report["added"] == 1
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+        assert seen["papers"]["existing-1"]["abstract"] == "Peer-confirming equilibrium is the paper's core result."
+        assert seen["papers"]["existing-1"]["abstract_source"] == "manual-publisher"
+        daily = json.loads((daily_dir / "2026-07-11.json").read_text(encoding="utf-8"))
+        assert daily[0]["abstract"] == "Peer-confirming equilibrium is the paper's core result."
+
+        second = import_package(source, data_dir=data_dir)
+        assert second["added"] == 0
+        assert second["matched_backfilled"] == 0
+        assert second["daily_backfilled"] == 0
+        assert second["skipped"] == 2
+
+    def test_doi_merges_into_url_only_seen_record(self, tmp_path: Path):
+        data_dir = tmp_path / "data"
+        write_json(
+            data_dir / "seen.json",
+            {
+                "papers": {
+                    "url:abc123": {
+                        "id": "url:abc123",
+                        "title": "Peer-confirming equilibrium in anchor games",
+                        "url": "https://www.sciencedirect.com/science/article/pii/S0165176526003186",
+                        "journal": "Economics Letters",
+                        "abstract": None,
+                    }
+                }
+            },
+        )
+        source = tmp_path / "single.json"
+        pkg = publisher_package()
+        pkg["records"] = [pkg["records"][0]]
+        write_json(source, pkg)
+
+        report = import_package(source, data_dir=data_dir)
+
+        assert report["matched_by_title"] == 1
+        assert report["doi_merged"] == 1
+        assert report["added"] == 0
+        seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+        record = seen["papers"]["url:abc123"]
+        assert record["doi"] == "10.1016/j.econlet.2026.113122"
+        assert "doi:10.1016/j.econlet.2026.113122" in record["identity_aliases"]
