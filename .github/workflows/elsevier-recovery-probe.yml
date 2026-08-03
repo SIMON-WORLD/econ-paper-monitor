@@ -53,4 +53,10 @@ jobs:
           print('elsevier_provider_health=' + json.dumps(
               {key: health.get(key) for key in keys}, ensure_ascii=False
           ))
+          print('recovery_recovered=' + json.dumps(
+              report.get('recovered', {}), ensure_ascii=False
+          ))
+          print('recovery_shortfall=' + json.dumps(
+              report.get('shortfall', {}), ensure_ascii=False
+          ))
           PY
