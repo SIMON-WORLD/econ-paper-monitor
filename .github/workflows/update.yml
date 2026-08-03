@@ -123,6 +123,10 @@ jobs:
       - name: Skip recent scheduled light run
         if: github.event_name == 'schedule' && !contains(env.FULL_SCHEDULES, github.event.schedule) && startsWith(steps.watchdog.outputs.decision, 'skip:')
         run: echo "Recent light monitor exists; skipping this watchdog wakeup."
+      - name: Check Elsevier secrets configured
+        run: |
+          echo "elsevier_api_key_configured=${{ secrets.ELSEVIER_API_KEY != '' }}"
+          echo "elsevier_inst_token_configured=${{ secrets.ELSEVIER_INST_TOKEN != '' }}"
       - name: Build source registry
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/build_source_registry.py
