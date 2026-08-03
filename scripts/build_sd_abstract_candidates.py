@@ -29,9 +29,9 @@ def is_missing_abstract(record: dict[str, Any]) -> bool:
     return not str(record.get("abstract") or "").strip()
 
 
-def is_sd_doi(doi: Any) -> bool:
+def is_sd_doi(doi: Any, prefixes: tuple[str, ...] = SD_DOI_PREFIXES) -> bool:
     value = str(doi or "").strip().casefold()
-    return any(value.startswith(prefix) for prefix in SD_DOI_PREFIXES)
+    return any(value.startswith(prefix) for prefix in prefixes)
 
 
 def record_date_fields(record: dict[str, Any]) -> list[str]:
@@ -70,7 +70,12 @@ def pii_from_record(record: dict[str, Any]) -> str:
     return match.group(1).upper() if match else ""
 
 
-def build_candidates(data_dir: Path = DATA_DIR, *, limit: int = 150) -> dict[str, Any]:
+def build_candidates(
+    data_dir: Path = DATA_DIR,
+    *,
+    limit: int = 150,
+    doi_prefixes: tuple[str, ...] = SD_DOI_PREFIXES,
+) -> dict[str, Any]:
     seen = read_json(data_dir / "seen.json", {"papers": {}})
     papers = seen.get("papers") if isinstance(seen, dict) else {}
     candidates = [
@@ -78,7 +83,7 @@ def build_candidates(data_dir: Path = DATA_DIR, *, limit: int = 150) -> dict[str
         for record in papers.values()
         if isinstance(record, dict)
         and is_missing_abstract(record)
-        and is_sd_doi(record.get("doi"))
+        and is_sd_doi(record.get("doi"), doi_prefixes)
     ]
     candidates.sort(
         key=lambda record: (
@@ -87,7 +92,7 @@ def build_candidates(data_dir: Path = DATA_DIR, *, limit: int = 150) -> dict[str
         ),
         reverse=True,
     )
-    selected = candidates[: max(0, limit)]
+    selected = candidates if limit <= 0 else candidates[: max(0, limit)]
 
     by_journal: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in selected:
@@ -116,7 +121,7 @@ def build_candidates(data_dir: Path = DATA_DIR, *, limit: int = 150) -> dict[str
     return {
         "generated_for": today_str(),
         "source_filters": {
-            "doi_prefixes": list(SD_DOI_PREFIXES),
+            "doi_prefixes": list(doi_prefixes),
             "missing_abstract": True,
             "recent_first": ">= 2026-01-01",
         },
@@ -131,12 +136,19 @@ def main() -> None:
     parser.add_argument("--data-dir", type=Path, default=DATA_DIR)
     parser.add_argument("--limit", type=int, default=150)
     parser.add_argument(
+        "--doi-prefix",
+        action="append",
+        default=[],
+        help="Restrict to these DOI prefixes; repeatable (default: 10.1016/10.1017/10.1111).",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=ROOT / "local_admin" / "manual-supplements" / "candidates" / "2026-08-02-sd-abstract-candidates.json",
     )
     args = parser.parse_args()
-    report = build_candidates(args.data_dir, limit=args.limit)
+    prefixes = tuple(args.doi_prefix) if args.doi_prefix else SD_DOI_PREFIXES
+    report = build_candidates(args.data_dir, limit=args.limit, doi_prefixes=prefixes)
     write_json(args.output, report)
     print(
         f"sd abstract candidates={report['total_candidates']} "
