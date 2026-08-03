@@ -281,6 +281,25 @@ def test_redundant_composite_author_entry_is_split_and_deduplicated(tmp_path: Pa
     assert report["current"]["redundant_composite_authors"] == 0
 
 
+def test_repair_archives_seen_only_journal_record_into_daily(tmp_path: Path) -> None:
+    seen_rec = record(
+        "Seen only economics paper",
+        "doi:10.1234/seen-only",
+        journal_id="example-journal",
+        doi="10.1234/seen-only",
+    )
+    seen_rec["abstract"] = "Complete abstract for the seen only economics paper."
+    write_dataset(tmp_path, {}, {"doi:10.1234/seen-only": seen_rec})
+
+    report = repair_public_integrity(tmp_path)
+
+    rows = json.loads((tmp_path / "daily" / "2026-07-01.json").read_text(encoding="utf-8"))
+    assert len(rows) == 1
+    assert rows[0]["doi"] == "10.1234/seen-only"
+    assert rows[0]["abstract"].startswith("Complete abstract")
+    assert report["repairs"]["seen_only_archived"] == 1
+
+
 def test_checked_in_public_data_has_zero_integrity_failures() -> None:
     report = audit_integrity(ROOT / "data")
     assert report["same_source_title_duplicate_records"] == 0
