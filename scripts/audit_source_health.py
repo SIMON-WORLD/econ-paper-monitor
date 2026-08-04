@@ -182,6 +182,14 @@ def inspect_journal(
     checked_age = status_age_days(checked, now)
     stale = checked_age is None or checked_age > max_age
     reliable_paths = [path for path in paths if path not in SUPPLEMENTAL_SOURCE_IDS]
+    if failed_paths:
+        degradation_reason = "failed_path"
+    elif not reliable_paths:
+        degradation_reason = "no_reliable_path"
+    elif len(reliable_paths) == 1:
+        degradation_reason = "single_path"
+    else:
+        degradation_reason = None
     if not reliable_paths:
         level = "unavailable" if not paths else "degraded"
     elif stale:
@@ -205,6 +213,7 @@ def inspect_journal(
         "journal": journal.get("title"),
         "publisher": journal.get("publisher"),
         "level": level,
+        "degradation_reason": degradation_reason,
         "coverage": coverage,
         "usable_paths": paths,
         "rss_status": rss_status,

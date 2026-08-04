@@ -213,3 +213,40 @@ def test_blocked_priority_publisher_does_not_count_crossref_fallback_as_speciali
     )
     assert result["usable_paths"] == ["crossref"]
     assert result["coverage"] == "crossref_only"
+
+
+def test_single_path_degradation_reason_is_single_path():
+    result = inspect_journal(
+        journal(),
+        {"journals": {"j1": {"last_rss_status": "none", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+    )
+    assert result["level"] == "degraded"
+    assert result["degradation_reason"] == "single_path"
+
+
+def test_failed_path_degradation_reason_is_failed_path():
+    result = inspect_journal(
+        {"id": "journal-edcb877d78", "title": "数量经济技术经济研究", "publisher": "CN"},
+        {"journals": {"journal-edcb877d78": {"last_rss_status": "none", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+        {"source_groups": {"cn-journals": {"ok": True, "updated_at": "2026-07-27T11:30:00+00:00", "journals": [{"journal_id": "journal-edcb877d78", "ok": False}]}}},
+    )
+    assert result["level"] == "degraded"
+    assert result["degradation_reason"] == "failed_path"
+
+
+def test_healthy_has_no_degradation_reason():
+    result = inspect_journal(
+        journal(),
+        {"journals": {"j1": {"last_rss_status": "official-generated", "last_crossref_status": "ok", "updated_at": "2026-07-27T11:00:00+00:00"}}},
+        date(2026, 7, 27),
+        now(),
+        1.5,
+    )
+    assert result["level"] == "healthy"
+    assert result["degradation_reason"] is None
