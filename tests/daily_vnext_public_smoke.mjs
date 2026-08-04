@@ -33,6 +33,7 @@ async function checkPage(browser, url) {
   assert.ok(await page.locator('.hero h1').isVisible(), `${url} Hero title is not visible`);
   assert.ok(await page.locator('.hero-lede').isVisible(), `${url} Hero lede is not visible`);
   assert.ok((await page.locator('.hero-total').count()) >= 1);
+  assert.ok(await page.locator('.nav a[href*="feed.xml"], .footer-links a[href*="feed.xml"]').count() >= 1, `${url} RSS link missing`);
   if (mobile) {
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${url} has horizontal overflow`);
   }
@@ -97,6 +98,7 @@ async function checkSecondaryPages(browser) {
       assert.ok(await page.locator('.site-header').isVisible(), `${url} vNext header is missing`);
       assert.equal(await page.locator('.sidebar').count(), 0, `${url} legacy sidebar leaked`);
       assert.ok(await page.locator('.secondary-page').isVisible(), `${url} secondary shell is missing`);
+      assert.ok(await page.locator('.nav a[href*="feed.xml"], .footer-links a[href*="feed.xml"]').count() >= 1, `${url} RSS link missing`);
       await assertNoFilterLazyState(page, url);
     }
     assert.equal(indexRequests.some((requestUrl) => requestUrl.endsWith("/paper-index.json")), false, `${url} requested the legacy full index`);

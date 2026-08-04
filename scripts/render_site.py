@@ -1552,6 +1552,7 @@ def page(
       <a class="{ 'active' if active == 'journals' else '' }" href="{BASE}/journals/">期刊</a>
       <a class="{ 'active' if active == 'search' else '' }" href="{BASE}/search/">搜索</a>
       <a class="{ 'active' if active == 'working-papers' else '' }" href="{BASE}/working-papers/">工作论文</a>
+      <a href="{BASE}/feed.xml">RSS</a>
     </nav>
     <span class="presence" data-presence-count title="匿名在线人数，按短时心跳统计">在线</span>
     <button class="menu" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="打开导航">☰</button>
