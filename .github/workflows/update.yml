@@ -33,6 +33,7 @@ on:
 permissions:
   actions: write
   contents: write
+  issues: write
 
 env:
   FULL_SCHEDULES: "30 18 * * *|30 0 * * *|30 6 * * *|30 12 * * *"
@@ -392,6 +393,7 @@ jobs:
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
           ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+
       - name: Repair public data integrity
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         run: python scripts/public_integrity.py
@@ -438,6 +440,11 @@ jobs:
       - name: Enforce public release gate
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/release_gate.py
+      - name: Open health anomaly issues
+        if: always() && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
+        run: python scripts/open_health_issues.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Build consolidated monitor health
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/monitor_health.py
