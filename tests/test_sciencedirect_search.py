@@ -104,16 +104,21 @@ class ScienceDirectSearchTests(unittest.TestCase):
     @patch.object(fetch_sciencedirect_search, "fetch_text")
     @patch.object(fetch_sciencedirect_search, "elsevier_core_metadata")
     def test_run_journal_success_with_jina_key(self, core_mock, fetch_mock) -> None:
+        from datetime import datetime, timedelta, timezone
+
+        beijing = timezone(timedelta(hours=8))
+        online = (datetime.now(beijing).date() - timedelta(days=1))
+        online_label = f"{online.day} {online.strftime('%B')} {online.year}"
         fetch_mock.return_value = (
             "## [A test paper](http://www.sciencedirect.com/science/article/pii/S0000000000000000)\n"
-            "[Journal of Development Economics](http://www.sciencedirect.com/science/journal/03043878)Available online 1 August 2026\n"
+            f"[Journal of Development Economics](http://www.sciencedirect.com/science/journal/03043878)Available online {online_label}\n"
             "    1. Alice Author\n"
         )
         core_mock.return_value = {
             "doi": "10.1016/j.jdeveco.2026.103892",
             "title": "A test paper",
             "journal": "Journal of Development Economics",
-            "available_online": "2026-08-01",
+            "available_online": online.isoformat(),
         }
         journal = {
             "id": "journal-of-development-economics",
