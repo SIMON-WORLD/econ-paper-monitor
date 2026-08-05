@@ -228,6 +228,23 @@ class MetadataProviderRetryTests(unittest.TestCase):
         self.assertEqual(fetch_mock.call_args.kwargs["headers"], {"x-api-key": "test-key"})
         enrich_metadata.reset_semantic_scholar_throttle()
 
+    def test_semantic_scholar_throttle_interval_tracks_api_key(self) -> None:
+        enrich_metadata.reset_semantic_scholar_throttle()
+        with patch.dict(enrich_metadata.os.environ, {}, clear=True):
+            without_key = enrich_metadata.semantic_scholar_throttle_state()
+        self.assertFalse(without_key["key_configured"])
+        self.assertEqual(without_key["min_interval_seconds"], enrich_metadata.SS_MIN_INTERVAL_SECONDS)
+
+        with patch.dict(
+            enrich_metadata.os.environ,
+            {"SEMANTIC_SCHOLAR_API_KEY": "test-key"},
+            clear=True,
+        ):
+            with_key = enrich_metadata.semantic_scholar_throttle_state()
+        self.assertTrue(with_key["key_configured"])
+        self.assertEqual(with_key["min_interval_seconds"], enrich_metadata.SS_KEY_MIN_INTERVAL_SECONDS)
+        enrich_metadata.reset_semantic_scholar_throttle()
+
     @patch.object(enrich_metadata, "fetch_text")
     def test_publisher_proxy_retries_with_jina_key(self, fetch_mock) -> None:
         exc = urllib.error.HTTPError(

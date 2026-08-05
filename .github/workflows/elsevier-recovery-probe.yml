@@ -53,6 +53,18 @@ jobs:
           print('elsevier_provider_health=' + json.dumps(
               {key: health.get(key) for key in keys}, ensure_ascii=False
           ))
+          ss_health = (report.get('provider_health') or {}).get('semantic-scholar', {})
+          ss_keys = (
+              'attempts',
+              'available',
+              'statuses',
+              'rate_limited',
+              'skipped',
+              'api_key_configured',
+          )
+          print('semantic_scholar_health=' + json.dumps(
+              {key: ss_health.get(key) for key in ss_keys}, ensure_ascii=False
+          ))
           print('recovery_recovered=' + json.dumps(
               report.get('recovered', {}), ensure_ascii=False
           ))
