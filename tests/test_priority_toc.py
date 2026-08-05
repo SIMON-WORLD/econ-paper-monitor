@@ -276,6 +276,7 @@ class JinaHeaderTests(unittest.TestCase):
         with mock.patch.dict("os.environ", {"JINA_API_KEY": "secret-key"}, clear=False):
             headers = fetch_priority_toc.jina_headers("https://r.jina.ai/http://academic.oup.com/qje/advance-articles")
         self.assertEqual(headers.get("Authorization"), "Bearer secret-key")
+        self.assertIn("text/markdown", headers.get("Accept", ""))
 
     def test_non_jina_url_has_no_auth_header(self):
         with mock.patch.dict("os.environ", {"JINA_API_KEY": "secret-key"}, clear=False):

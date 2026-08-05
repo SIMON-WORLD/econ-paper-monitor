@@ -72,3 +72,30 @@ class RssRecordTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_fetch_journal_feed_retries_transient_failure(self):
+        xml = (
+            '<?xml version="1.0"?><rss version="2.0"><channel><item>'
+            "<title>T</title><link>https://example.com/a</link><pubDate>2026-08-01</pubDate></item>"
+            "</channel></rss>"
+        )
+        real = fetch_rss.fetch_feed_with_retry
+        calls = {"n": 0}
+
+        def flaky_once(url, **kwargs):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise ConnectionError("transient")
+            return xml
+
+        with unittest.mock.patch.object(fetch_rss, "fetch_feed_with_retry", side_effect=flaky_once):
+            records, error = fetch_rss.fetch_journal_feed(JOURNAL, {"url": "https://example.com/feed"})
+        self.assertIsNone(error)
+        self.assertEqual(len(records), 1)
+        self.assertEqual(calls["n"], 2)
+
+    def test_fetch_journal_feed_returns_error_after_retries(self):
+        with unittest.mock.patch.object(fetch_rss, "fetch_feed_with_retry", side_effect=ConnectionError("blocked")):
+            records, error = fetch_rss.fetch_journal_feed(JOURNAL, {"url": "https://example.com/feed"})
+        self.assertEqual(records, [])
+        self.assertIn("ConnectionError", error)

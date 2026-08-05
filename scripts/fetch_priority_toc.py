@@ -16,6 +16,7 @@ import os
 import re
 import ssl
 import json
+import time
 from datetime import date, timedelta
 from typing import Any
 from urllib.parse import urlencode
@@ -249,11 +250,40 @@ BROWSER_HEADERS = {
 
 
 def jina_headers(url: str) -> dict[str, str]:
-    """Attach the JINA API key to r.jina.ai mirror requests when configured."""
+    """Prepare r.jina.ai mirror headers (markdown Accept + bearer key)."""
     headers = dict(BROWSER_HEADERS)
-    if os.environ.get("JINA_API_KEY") and url.startswith("https://r.jina.ai/"):
-        headers["Authorization"] = f"Bearer {os.environ['JINA_API_KEY']}"
+    if url.startswith("https://r.jina.ai/"):
+        headers["Accept"] = "text/plain,text/markdown;q=0.9,*/*;q=0.8"
+        if os.environ.get("JINA_API_KEY"):
+            headers["Authorization"] = f"Bearer {os.environ['JINA_API_KEY']}"
     return headers
+
+
+def fetch_one(url: str, timeout: int) -> str:
+    """Fetch one candidate URL and return decoded page text."""
+    request = urllib.request.Request(url, headers=jina_headers(url))
+    try:
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                payload = response.read()
+                charset = response.headers.get_content_charset() or "utf-8"
+        except Exception:
+            context = ssl._create_unverified_context()
+            with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+                payload = response.read()
+                charset = response.headers.get_content_charset() or "utf-8"
+        for encoding in dict.fromkeys([charset, "utf-8", "latin-1"]):
+            try:
+                text = payload.decode(encoding)
+                if text.strip():
+                    if is_challenge_page(text):
+                        raise ValueError("publisher returned an anti-bot challenge page")
+                    return text
+            except Exception:
+                continue
+        raise ValueError("empty or undecodable publisher response")
+    except Exception:
+        raise
 
 
 def is_challenge_page(text: str) -> bool:
@@ -278,29 +308,15 @@ def fetch_toc_text(url: str, timeout: int, fallback_urls: list[str] | None = Non
     urls = [url, *(fallback_urls or [])]
     last_error: Exception | None = None
     for candidate in dict.fromkeys(urls):
-        request = urllib.request.Request(candidate, headers=jina_headers(candidate))
-        try:
+        # JINA mirrors occasionally rate-limit the first request; retry once.
+        attempts = 2 if candidate.startswith("https://r.jina.ai/") else 1
+        for attempt in range(attempts):
             try:
-                with urllib.request.urlopen(request, timeout=timeout) as response:
-                    payload = response.read()
-                    charset = response.headers.get_content_charset() or "utf-8"
-            except Exception:
-                context = ssl._create_unverified_context()
-                with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
-                    payload = response.read()
-                    charset = response.headers.get_content_charset() or "utf-8"
-            for encoding in dict.fromkeys([charset, "utf-8", "latin-1"]):
-                try:
-                    text = payload.decode(encoding)
-                    if text.strip():
-                        if is_challenge_page(text):
-                            raise ValueError("publisher returned an anti-bot challenge page")
-                        return text
-                except Exception:
-                    continue
-            raise ValueError("empty or undecodable publisher response")
-        except Exception as exc:  # noqa: BLE001 - try the next acquisition path.
-            last_error = exc
+                return fetch_one(candidate, timeout)
+            except Exception as exc:  # noqa: BLE001 - try the next acquisition path.
+                last_error = exc
+                if attempt + 1 < attempts:
+                    time.sleep(2.0)
     raise last_error or RuntimeError("no TOC acquisition URL")
 
 
