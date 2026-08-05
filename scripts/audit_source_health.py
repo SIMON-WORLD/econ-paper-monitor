@@ -1,9 +1,10 @@
 """Audit acquisition-path health for the formal journal registry.
 
-This is an operational report, not a public-facing error page.  A journal is
-usable when at least one configured acquisition path was checked successfully;
-publisher blocks on one path are therefore reported as degraded rather than
-as a false complete outage.
+This is an operational report, not a public-facing error page.  A journal is usable when at least two independent reliable acquisition paths
+were checked successfully. A blocked publisher page on a tertiary path is
+recorded as evidence (failed_paths) but no longer degrades a journal that
+already has two reliable paths; a journal with only one reliable path is
+degraded rather than reported as a false complete outage.
 """
 
 from __future__ import annotations
@@ -159,7 +160,11 @@ def inspect_journal(
     entry = ((registry.get("journals") or {}).get(journal_id) or {})
     rss_status = str(entry.get("last_rss_status") or "")
     crossref_status = str(entry.get("last_crossref_status") or "")
-    rss_ok = rss_status in GOOD_RSS and not entry.get("last_rss_error")
+    rss_ok = (
+        rss_status in GOOD_RSS
+        and not entry.get("last_rss_error")
+        and (entry.get("last_rss_count") or 0) > 0
+    )
     crossref_ok = crossref_status == "ok"
     paths = [name for name, ok in (("rss", rss_ok), ("crossref", crossref_ok)) if ok]
     specialized, specialized_checked, failed_paths = specialized_paths(journal_id, status or {}, now, max_age)
@@ -194,7 +199,7 @@ def inspect_journal(
         level = "unavailable" if not paths else "degraded"
     elif stale:
         level = "stale"
-    elif len(reliable_paths) == 1 or failed_paths:
+    elif len(reliable_paths) == 1:
         level = "degraded"
     else:
         level = "healthy"

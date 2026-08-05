@@ -267,3 +267,22 @@ class AdditionalEconometricSocietyTargetTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class JinaHeaderTests(unittest.TestCase):
+    """The JINA mirror only helps when the API key is attached in CI."""
+
+    def test_jina_url_gets_bearer_when_key_set(self):
+        with mock.patch.dict("os.environ", {"JINA_API_KEY": "secret-key"}, clear=False):
+            headers = fetch_priority_toc.jina_headers("https://r.jina.ai/http://academic.oup.com/qje/advance-articles")
+        self.assertEqual(headers.get("Authorization"), "Bearer secret-key")
+
+    def test_non_jina_url_has_no_auth_header(self):
+        with mock.patch.dict("os.environ", {"JINA_API_KEY": "secret-key"}, clear=False):
+            headers = fetch_priority_toc.jina_headers("https://academic.oup.com/qje/advance-articles")
+        self.assertNotIn("Authorization", headers)
+
+    def test_no_key_no_auth_header(self):
+        with mock.patch.dict("os.environ", {}, clear=True):
+            headers = fetch_priority_toc.jina_headers("https://r.jina.ai/http://example.com")
+        self.assertNotIn("Authorization", headers)

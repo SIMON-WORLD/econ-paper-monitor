@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import html
+import os
 import re
 import ssl
 import json
@@ -247,6 +248,14 @@ BROWSER_HEADERS = {
 }
 
 
+def jina_headers(url: str) -> dict[str, str]:
+    """Attach the JINA API key to r.jina.ai mirror requests when configured."""
+    headers = dict(BROWSER_HEADERS)
+    if os.environ.get("JINA_API_KEY") and url.startswith("https://r.jina.ai/"):
+        headers["Authorization"] = f"Bearer {os.environ['JINA_API_KEY']}"
+    return headers
+
+
 def is_challenge_page(text: str) -> bool:
     """Reject HTTP-200 anti-bot interstitials as source success."""
     lowered = re.sub(r"\s+", " ", text or "").casefold()
@@ -269,7 +278,7 @@ def fetch_toc_text(url: str, timeout: int, fallback_urls: list[str] | None = Non
     urls = [url, *(fallback_urls or [])]
     last_error: Exception | None = None
     for candidate in dict.fromkeys(urls):
-        request = urllib.request.Request(candidate, headers=BROWSER_HEADERS)
+        request = urllib.request.Request(candidate, headers=jina_headers(candidate))
         try:
             try:
                 with urllib.request.urlopen(request, timeout=timeout) as response:

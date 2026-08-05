@@ -19,6 +19,19 @@ GOOD_RSS = {"official-generated", "configured", "feed", "html", "specialized-api
 SUPPLEMENTAL_SOURCE_IDS = {"openalex-recall"}
 
 
+# Journals verified to have no usable official feed (checked 2026-08-05).
+# They keep the degraded/single-path marker with an explicit supplemental
+# source policy instead of an open-ended search for an official feed.
+NO_OFFICIAL_FEED_NOTES = {
+    "journal-of-the-association-of-environmental-and-resource-economists": (
+        "UChicago 平台未提供 JAERE 的 etoc RSS（jc=jaere 404）；按补充源口径封口：Crossref + OpenAlex recall 兜底。"
+    ),
+    "journal-of-agricultural-and-resource-economics": (
+        "官方站 jareonline.org 的 WordPress feed 为空；按补充源口径封口：Crossref + OpenAlex recall 兜底。"
+    ),
+}
+
+
 def classify_failure(row: dict[str, Any]) -> dict[str, str]:
     failed = row.get("failed_paths") or []
     failed_groups = [str(item.get("path") or "?") for item in failed]
@@ -81,6 +94,8 @@ def build_triage(source_health: dict[str, Any]) -> dict[str, Any]:
     rows = []
     for row in degraded:
         cls = classify_failure(row)
+        note = NO_OFFICIAL_FEED_NOTES.get(str(row.get("journal_id") or ""))
+        group = "supplemental-closed" if note else cls["group"]
         failed = row.get("failed_paths") or []
         rows.append(
             {
@@ -95,9 +110,9 @@ def build_triage(source_health: dict[str, Any]) -> dict[str, Any]:
                 ],
                 "crossref_status": row.get("crossref_status"),
                 "rss_status": row.get("rss_status"),
-                "group": cls["group"],
-                "failure_summary": cls["summary"],
-                "suggested_action": cls["action"],
+                "group": group,
+                "failure_summary": note or cls["summary"],
+                "suggested_action": note or cls["action"],
             }
         )
     groups: dict[str, int] = {}
