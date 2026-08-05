@@ -869,7 +869,7 @@ def fetch_glsj(journal: dict[str, Any], limit: int) -> list[dict[str, Any]]:  # 
             if record:
                 if date_value:
                     record["available_online"] = date_value
-                    record["date_confidence"] = "B"
+                    record["date_confidence"] = "A"
                 enrich_cn_detail(record)
                 records.append(record)
             if len(records) >= limit:

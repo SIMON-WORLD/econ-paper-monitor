@@ -258,7 +258,7 @@ def parse_feed(
             published_online=rss_date,
             available_online=rss_date,
             date_source="cnki_rss_pubdate" if rss_date else "cnki_rss_undated",
-            date_confidence="B" if rss_date else "F",
+            date_confidence="A" if rss_date else "F",
             raw_data={
                 "cnki_code": source.get("code"),
                 "cnki_feed_url": source.get("url"),

@@ -166,7 +166,7 @@ def metadata_from_description(description: str | None) -> dict[str, Any]:
         result["published_online"] = parsed_date
         result["available_online"] = parsed_date
         result["date_source"] = "rss_description_online"
-        result["date_confidence"] = "B"
+        result["date_confidence"] = "A"
     publication_match = re.search(r"Publication date:\s*(.+?20\d{2})", text, flags=re.I)
     publication_value = publication_match.group(1) if publication_match else None
     issue_date = parse_date(publication_value) or parse_month_date(publication_value)
