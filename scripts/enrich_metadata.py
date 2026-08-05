@@ -330,7 +330,7 @@ def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
         result["available_online"] = parsed
         result["published_online"] = parsed
         result["date_source"] = "elsevier_article_api"
-        result["date_confidence"] = "B"
+        result["date_confidence"] = "A"
     abstract = extract_elsevier_api_abstract(response, core)
     if abstract:
         result["abstract"] = abstract

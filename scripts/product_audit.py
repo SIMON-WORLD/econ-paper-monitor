@@ -206,7 +206,9 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
     future_official_records = [
         record
         for record in records
-        if canonical_online_date_age(record) is not None and canonical_online_date_age(record) < 0
+        if online_date(record)
+        and online_date(record) > today
+        and str(record.get("date_confidence") or "") not in {"F", "unknown"}
     ]
     nonpaper_records = [record for record in records if is_source_navigation_noise(record)]
     required_fields = ("id", "title", "authors", "journal", "source", "source_type", "url", "fields")

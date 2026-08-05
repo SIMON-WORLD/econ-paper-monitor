@@ -196,7 +196,7 @@ def fetch_journal(journal: dict, code: str, *, timeout: int, detail_limit: int, 
                     issue_date=detail.get("issue_date") if isinstance(detail.get("issue_date"), str) else None,
                     source_issue=detail.get("source_issue") if isinstance(detail.get("source_issue"), str) else None,
                     date_source="aea_forthcoming" if page_kind == "forthcoming" else "aea_current_issue",
-                    date_confidence="C",
+                    date_confidence="A" if page_kind == "forthcoming" else "C",
                     raw_data={"aea_code": code, "aea_page": page_kind},
                 )
             )

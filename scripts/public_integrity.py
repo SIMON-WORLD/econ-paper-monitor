@@ -942,10 +942,13 @@ def repair_public_integrity(data_dir: Path = DATA_DIR, *, write_report: bool = T
         write_json(seen_path, seen_payload)
 
     from repair_seen_only_archives import repair_seen_only_archives as _archive_seen_only
+    from regrade_date_confidence import regrade_daily_and_seen as _regrade_dates
 
     archive_report = _archive_seen_only(data_dir=data_dir)
     seen_only_archived = int(archive_report.get("archived_count") or 0)
     seen_only_changed_files = len(archive_report.get("changed_files") or [])
+
+    date_report = _regrade_dates(data_dir=data_dir)
 
     version_groups = apply_version_relationships(daily_dir, seen_path)
     ledger_requeued, ledger_relinked, ledger_noise = repair_false_seen_ledger(data_dir, seen_path)
@@ -1019,6 +1022,9 @@ def repair_public_integrity(data_dir: Path = DATA_DIR, *, write_report: bool = T
             "seen_only_archived": seen_only_archived,
             "seen_only_changed_files": seen_only_changed_files,
             "version_relationship_groups": version_groups,
+            "date_confidence_daily_files": date_report["daily_files_changed"],
+            "date_confidence_daily_records": date_report["daily_records_changed"],
+            "date_confidence_seen_records": date_report["seen_records_changed"],
         },
     }
     if write_report:
