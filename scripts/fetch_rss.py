@@ -33,6 +33,27 @@ def fetch_feed_with_retry(url: str, timeout: int = 30, attempts: int = 2) -> str
         raise last_error
     raise RuntimeError("RSS feed returned no response")
 
+
+def fetch_journal_feed(journal: dict[str, Any], source: dict[str, str]) -> tuple[list[dict[str, Any]], str | None]:
+    """Fetch one feed, retrying once after a pause when a publisher blocks.
+
+    Publisher WAFs (UChicago/Atypon, Springer) intermittently return 403 or a
+    challenge page to shared CI IPs; a single bounded retry clears most
+    transient blocks without hammering the endpoint.
+    """
+    last_error = ""
+    for attempt in range(2):
+        try:
+            xml_text = fetch_feed_with_retry(source["url"])
+            if not feed_identity_matches(xml_text, journal):
+                raise ValueError("RSS feed identity does not match configured journal")
+            return parse_feed(xml_text, journal, source["url"]), None
+        except Exception as exc:  # noqa: BLE001 - retry once, then surface.
+            last_error = f"{type(exc).__name__}: {exc}"
+            if attempt == 0:
+                time.sleep(3.0)
+    return [], last_error
+
 MONTHS = {
     "jan": 1,
     "january": 1,
@@ -410,19 +431,17 @@ def main() -> None:
         errors: list[str] = []
         for source in feeds:
             attempted_feeds += 1
-            try:
-                xml_text = fetch_feed_with_retry(source["url"])
-                if not feed_identity_matches(xml_text, journal):
-                    raise ValueError("RSS feed identity does not match configured journal")
-                fetched = parse_feed(xml_text, journal, source["url"])
+            fetched, error = fetch_journal_feed(journal, source)
+            if error is None:
                 successful_feeds += 1
                 if args.max_items_per_feed:
                     fetched = fetched[: args.max_items_per_feed]
                 records.extend(fetched)
                 journal_count += len(fetched)
-            except Exception as exc:  # noqa: BLE001 - keep the scheduled job moving.
-                error = f"{type(exc).__name__}: {exc}"
+            else:
                 errors.append(error)
+            # Polite pacing: publishers commonly rate-limit rapid same-host bursts.
+            time.sleep(0.6)
         registry_entry["last_rss_count"] = journal_count
         if errors and not journal_count:
             registry_entry["last_rss_error"] = errors[-1]
