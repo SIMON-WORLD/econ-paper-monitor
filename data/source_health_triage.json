@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 24
+    "needs_investigation": 15
   },
-  "checked_at": "2026-08-06T02:50:54.821174+08:00",
-  "source_health_degraded_count": 24,
+  "checked_at": "2026-08-06T03:13:04.583572+08:00",
+  "source_health_degraded_count": 15,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,13 +11,18 @@
       "source": "cn-journals"
     },
     {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=1; Journal of Finance: 6; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 12; Economic Development and Cultural Change: 1;",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Journal of Urban Economics: elsevier-metadata-only; 2026-06-22 Journal of Development Economics: elsevier-metadata-only; 2026-06-22 Journal of De",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; ",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=47/91; Journal of Labor Economics: 0 via configured; Journal of Econometrics: 50 via official-generated; Journal of Environmental Economics and Management: 43 via official-generated; Experimenta",
+      "sample_error": "feeds=24/40; Journal of Finance: 29 via official-generated; Journal of Financial Economics: 23 via official-generated; Journal of Development Economics: 51 via official-generated; Economic Development",
       "source": "rss"
     },
     {
@@ -44,11 +49,6 @@
       "category": "transient_network",
       "sample_error": "URLError: <urlopen error [Errno 104] Connection reset by peer>",
       "source": "working-paper:repec-nep-mac"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=4; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: URLError: <urlopen error _ssl.c:999",
-      "source": "working-papers"
     }
   ],
   "sources": [
@@ -60,8 +60,8 @@
       "journal_id": "applied-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Applied Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -75,8 +75,8 @@
       "journal_id": "economic-development-and-cultural-change",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Economic Development and Cultural Change",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -88,25 +88,10 @@
         "needs_investigation": 1
       },
       "journal_id": "economic-journal",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
       "source": "Economic Journal",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economic-theory",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "Economic Theory",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -118,10 +103,10 @@
         "needs_investigation": 1
       },
       "journal_id": "environmental-and-resource-economics",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
       "source": "Environmental and Resource Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -133,38 +118,8 @@
         "needs_investigation": 1
       },
       "journal_id": "european-review-of-agricultural-economics",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
       "source": "European Review of Agricultural Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "international-journal-of-game-theory",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "International Journal of Game Theory",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "international-tax-and-public-finance",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "International Tax and Public Finance",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
@@ -180,21 +135,6 @@
       "journal_id": "journal-of-agricultural-and-resource-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Agricultural and Resource Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-economic-growth",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "Journal of Economic Growth",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
@@ -210,23 +150,8 @@
       "journal_id": "journal-of-labor-economics",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Labor Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-law-and-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Law & Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -238,7 +163,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-law-economics-and-organization",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
       "source": "Journal of Law, Economics & Organization",
       "status_category": null,
       "status_source": null,
@@ -267,26 +192,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-population-economics",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "Journal of Population Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of the Association of Environmental and Resource Economists",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -298,7 +208,7 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-the-european-economic-association",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
       "source": "Journal of the European Economic Association",
       "status_category": null,
       "status_source": null,
@@ -312,13 +222,13 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "public-choice",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "Public Choice",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "land-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Land Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
-        "crossref",
+        "rss",
         "openalex-recall"
       ]
     },
@@ -328,7 +238,7 @@
         "needs_investigation": 1
       },
       "journal_id": "quarterly-journal-of-economics",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
       "source": "Quarterly Journal of Economics",
       "status_category": null,
       "status_source": null,
@@ -342,101 +252,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "review-of-economic-design",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "Review of Economic Design",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ],
-      "degradation_reason": "failed_path",
-      "failed_paths": [
-        {
-          "message": "journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; i",
-          "path": "priority-toc"
-        }
-      ],
-      "failure_summary": "priority-toc 出版社页面结构性失败（HTTPError/URLError/0），Crossref fallback 已兜底",
-      "group": "priority-toc-blocked",
-      "journal": "Economic Journal",
-      "journal_id": "economic-journal",
-      "publisher": "Oxford University Press",
-      "rss_status": "none",
-      "suggested_action": "复测确认仍被拦；接入官方 RSS（OUP/MIT/Springer）或保持降级标记并依赖 Crossref fallback"
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "review-of-economics-and-statistics",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
       "source": "Review of Economics and Statistics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ],
-      "degradation_reason": "failed_path",
-      "failed_paths": [
-        {
-          "message": "journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; i",
-          "path": "priority-toc"
-        }
-      ],
-      "failure_summary": "priority-toc 出版社页面结构性失败（HTTPError/URLError/0），Crossref fallback 已兜底",
-      "group": "priority-toc-blocked",
-      "journal": "Journal of the European Economic Association",
-      "journal_id": "journal-of-the-european-economic-association",
-      "publisher": "Oxford University Press",
-      "rss_status": "none",
-      "suggested_action": "复测确认仍被拦；接入官方 RSS（OUP/MIT/Springer）或保持降级标记并依赖 Crossref fallback"
-    },
-    {
-      "crossref_status": "ok",
-      "current_paths": [
-        "crossref",
-        "openalex-recall"
-      ],
-      "degradation_reason": "failed_path",
-      "failed_paths": [
-        {
-          "message": "journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; i",
-          "path": "priority-toc"
-        }
-      ],
-      "failure_summary": "priority-toc 出版社页面结构性失败（HTTPError/URLError/0），Crossref fallback 已兜底",
-      "group": "priority-toc-blocked",
-      "journal": "Journal of Law, Economics & Organization",
-      "journal_id": "journal-of-law-economics-and-organization",
-      "publisher": "Oxford University Press",
-      "rss_status": "none",
-      "suggested_action": "复测确认仍被拦；接入官方 RSS（OUP/MIT/Springer）或保持降级标记并依赖 Crossref fallback"
-    },
-    {
-      "crossref_status": "ok",
-      "current_paths": [
-        "crossref",
-        "openalex-recall"
-      ],
-      "degradation_reason": "failed_path",
-      "failed_paths": [
-        {
-          "message": "journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; i",
-          "path": "priority-toc"
-        }
-      ],
-      "failure_summary": "priority-toc 出版社页面结构性失败（HTTPError/URLError/0），Crossref fallback 已兜底",
-      "group": "priority-toc-blocked",
-      "journal": "Review of Financial Studies",
-      "journal_id": "review-of-financial-studies",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "Review of Financial Studies",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -447,33 +267,12 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "social-choice-and-welfare",
-      "sample_error": "european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/spri",
-      "source": "Social Choice and Welfare",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "review-of-financial-studies",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; european-review-of-agricultural-economics/oup_advance_ar",
+      "source": "Review of Financial Studies",
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ],
-      "degradation_reason": "failed_path",
-      "failed_paths": [
-        {
-          "message": "journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 1; international-journal-of-game-theory/springer_online_first: 0; i",
-          "path": "priority-toc"
-        }
-      ],
-      "failure_summary": "priority-toc 出版社页面结构性失败（HTTPError/URLError/0），Crossref fallback 已兜底",
-      "group": "priority-toc-blocked",
-      "journal": "Review of Economics and Statistics",
-      "journal_id": "review-of-economics-and-statistics",
-      "publisher": "MIT Press",
-      "rss_status": "none",
-      "suggested_action": "复测确认仍被拦；接入官方 RSS（OUP/MIT/Springer）或保持降级标记并依赖 Crossref fallback"
-    },
-    {
-      "crossref_status": "ok",
-      "current_paths": [
         "crossref",
         "openalex-recall"
       ]
@@ -483,5 +282,5 @@
     "aligned": true,
     "degraded_source_failures": 9
   },
-  "total_degraded": 24
+  "total_degraded": 15
 }
