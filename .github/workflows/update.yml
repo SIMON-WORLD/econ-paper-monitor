@@ -385,6 +385,8 @@ jobs:
         env:
           S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+      - name: Build Semantic Scholar usage report
+        run: python scripts/build_semantic_scholar_usage.py
       - name: Batch recover metadata from independent indexes
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
