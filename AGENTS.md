@@ -70,3 +70,12 @@
 3. 不修改不属于自己业务线的文件（数据线不碰 docs/展示脚本，展示线不碰 data/抓取逻辑）。
 4. 提交前 `git status` 确认没有混入生成页、临时文件或未授权目录。
 5. 需要删除历史遗留目录时，提交清单给总控，不自行删除。
+
+## 8. 渠道策略（数据线采源纪律）
+
+- RSS / 出版社页 = 实时主通道；Crossref 为在线出版日期的通用兜底。
+- Elsevier API 仅用于被 CAPTCHA/反爬拦截的 ScienceDirect 记录元数据恢复与摘要补全，不用于首发现。
+- Semantic Scholar 仅用于历史摘要/作者补全，严格 1 RPS，并保留保活任务（约 60 天空置会被回收）。
+- OpenAlex recall 为召回补充，不计入 source health 可靠路径。
+- 配额监测：Semantic Scholar / Elsevier 用量见 `data/semantic_scholar_usage.json` 与 `docs/usage/`；接近阈值自动告警（Elsevier 周配额 16,000 预警 / 20,000 上限）。
+- 新增采源先判断"是否官方、是否实时"，再决定是否接入；确无官方源的期刊按 triage 的"补充源口径"封口，不无限期挂起。

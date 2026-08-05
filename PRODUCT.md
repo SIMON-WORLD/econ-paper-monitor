@@ -43,3 +43,25 @@ Credible, restrained, and useful. The voice should feel like a calm research des
 ## Accessibility & Inclusion
 
 The public site should meet WCAG AA contrast for text and controls. It should remain usable without JavaScript for reading core records, while JavaScript may enhance filtering. Motion should be limited to short state transitions and respect reduced-motion preferences.
+
+## Channel Strategy
+
+Acquisition channels are layered by freshness and cost; never reverse the hierarchy.
+
+- **RSS / publisher pages（实时主通道）**: official RSS feeds, TOC/advance-article pages,
+  and publisher-specific adapters are the primary first-discovery path. Crossref is the
+  universal fallback for online-publication dates and journal recall.
+- **Elsevier API（兜底，不替代首发现）**: the institutional Elsevier keys recover metadata
+  and abstracts for ScienceDirect/Elsevier records when publisher search is blocked by
+  CAPTCHA or when abstracts are missing. They do not drive first discovery.
+- **Semantic Scholar（历史补全）**: historical abstract/author backfill at a strict 1 RPS,
+  with a keep-alive job so the institutional key is not reclaimed after ~60 idle days.
+- **OpenAlex recall（召回补充）**: supplemental recall coverage only; it never counts as a
+  reliable acquisition path in source health.
+
+Quota discipline:
+
+- Semantic Scholar: 1 request/second; keep-alive on schedule; usage at docs/usage/.
+- Elsevier: weekly quota resets; warn at 16,000, hard ceiling 20,000 (see provider usage page).
+- JINA mirror: only used when the publisher page blocks direct fetch; bearer key injected in CI.
+
