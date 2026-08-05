@@ -808,9 +808,9 @@ def confidence_value(record: dict[str, Any]) -> str:
 
 def confidence_label(value: str) -> str:
     return {
-        "A": "A：出版社/PDF 明确日期",
-        "B": "B：RSS/出版社备选日期",
-        "C": "C：Crossref 元数据",
+        "A": "A：官方渠道明确日期",
+        "B": "B：官方渠道备选/推断日期",
+        "C": "C：Crossref/聚合登记日期",
         "D": "D：卷期/印刷日期",
         "F": "F：仅首次监测",
     }.get(value, value)
@@ -2459,7 +2459,7 @@ def admin_status_body(records: list[dict[str, Any]]) -> str:
 </tbody></table>
 <section class="section-head"><div><h2>今日疑似漏抓源</h2><p>只统计“未在历史 seen 中出现、且看起来应进入今日归档”的新候选；已见过旧文和日期不合格记录不再作为漏抓报警。</p></div></section>
 <table class="journal-table"><thead><tr><th>来源</th><th>新候选</th><th>今日入库</th><th>样例</th><th>说明</th></tr></thead><tbody>{suspected_rows}</tbody></table>
-<section class="section-head"><div><h2>日期可信度</h2><p>A/B 越多，说明越接近出版社或来源页面的明确日期；C/D/F 需要继续补强。</p></div></section>
+<p>A 为官方渠道明确日期，B 为官方渠道推断；C/D/F 需要继续补强。</p>
 <table class="journal-table"><thead><tr><th>可信度</th><th>数量</th></tr></thead><tbody>{confidence_rows}</tbody></table>
 <section class="section-head"><div><h2>日期来源</h2><p>用于判断“今日新发现”和“官方/在线日期”的证据链。</p></div></section>
 <table class="journal-table"><thead><tr><th>来源</th><th>数量</th></tr></thead><tbody>{date_source_rows}</tbody></table>
