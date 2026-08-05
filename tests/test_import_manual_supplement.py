@@ -405,3 +405,48 @@ class TestManualImport:
         record = seen["papers"]["url:abc123"]
         assert record["doi"] == "10.1016/j.econlet.2026.113122"
         assert "doi:10.1016/j.econlet.2026.113122" in record["identity_aliases"]
+
+def test_no_doi_record_matches_existing_seen_by_url_idempotently(tmp_path: Path):
+    data_dir = tmp_path / "data"
+    write_json(
+        data_dir / "seen.json",
+        {
+            "papers": {
+                "url:abc123": {
+                    "id": "url:abc123",
+                    "title": "Land economics paper with a real title",
+                    "url": "https://uwpress.wisc.edu/journals/land-economics/12345?utm_source=x",
+                    "journal": "Land Economics",
+                    "abstract": None,
+                }
+            }
+        },
+    )
+    source = tmp_path / "nodoi.json"
+    pkg = {
+        "journal": None,
+        "source": "manual-publisher",
+        "records": [
+            {
+                "journal": "Land Economics",
+                "title": "Land economics paper with a real title",
+                "url": "https://uwpress.wisc.edu/journals/land-economics/12345?dgcid=abc",
+                "abstract": "A complete abstract recovered by the browser extraction workflow.",
+            }
+        ],
+    }
+    write_json(source, pkg)
+
+    report = import_package(source, data_dir=data_dir)
+
+    assert report["matched_backfilled"] == 1
+    assert report["added"] == 0
+    seen = json.loads((data_dir / "seen.json").read_text(encoding="utf-8"))
+    record = seen["papers"]["url:abc123"]
+    assert record["abstract"].startswith("A complete abstract")
+    assert record["abstract_source"] == "manual-publisher"
+
+    second = import_package(source, data_dir=data_dir)
+    assert second["matched_backfilled"] == 0
+    assert second["added"] == 0
+    assert second["skipped"] == 1
