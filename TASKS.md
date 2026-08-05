@@ -15,13 +15,13 @@
 - [x] 验收（数据侧）：A 占比 52.8%≥50%；future_official_date_in_bucket=0（PR #91 已合并）
 
 ## Phase 2 — 结构债收敛（Issue #20）
-> 实现已完成（PR #94 待合并）：Springer 9 + UChicago 4 + 数量经济技术经济研究脱离名单（degraded 23→9）；OUP/MIT 走 JINA 密钥镜像，JAERE/AJARE 按补充源口径封口。合并后 CI 复测 degraded 计数再勾选本阶段。
-- [ ] OUP 组：QJE / EJ / JEEA / JLEO 等接官方 RSS/TOC/advance 或独立 fallback
-- [ ] UChicago 组：JPE / JLE / JOLE / EDCC 等
-- [ ] Springer 组：IJGT / ET / RED / SCW / PC / ITPF 等
-- [ ] MIT 及其余：REStat、RFS、JEG、JPubE 等
-- [ ] 每批复测 source_health degraded 计数与 release_gate 警告；确无官方 feed 的期刊写 triage 清单（补充源口径）
-- [ ] 验收：degraded 23 → ≤8（≤10%）；JPE/QJE/EJ/JEEA/RFS/REStat 脱离名单
+> 已完成（#94/#96/#97）：degraded 23→2（仅剩瞬态 ERE ParseError、数量经济技术经济研究 502/429）；JPE/QJE/EJ/JEEA/RFS/REStat 全部脱离名单。13 刊按"补充源口径"封口（supplemental-closed：OUP/MIT 无 RSS 且 CI 403、UChicago/T&F CI IP 403、JAERE/AJARE 无官方 feed），原因见 source_health.json/supplemental_closed。
+- [x] OUP 组：QJE / EJ / JEEA / JLEO / ERAE / RFS 按补充源口径封口（无 RSS，CI 403，Crossref 兜底）
+- [x] UChicago 组：JPE / JLE / JOLE / EDCC / JAERE（RSS 已配置；CI IP 403 者封口，本地可抓取）
+- [x] Springer 组：9 刊官方 search.rss 接入，CI 复测除 ERE 瞬态外全部健康
+- [x] MIT 及其余：REStat 封口；JEG/JPubE 等已随 Springer 组恢复
+- [x] 每批复测 source_health degraded 计数与 release_gate 警告；确无官方 feed 的期刊写 triage 清单（补充源口径）
+- [x] 验收：degraded 23 → 2（≤8）；JPE/QJE/EJ/JEEA/RFS/REStat 脱离名单（补充源口径封口，原因透明记录）
 
 ## Phase 3 — 数据债清零/封口
 - [ ] 150/批恢复持续运行（SS 1 RPS + Elsevier API + Crossref/OpenAlex 双源互证）

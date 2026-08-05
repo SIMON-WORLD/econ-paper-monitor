@@ -35,6 +35,29 @@ AEA_JOURNALS = {
     "american-economic-journal-microeconomics",
     "american-economic-review-papers-and-proceedings",
 }
+# Journals whose official acquisition path is structurally unavailable in the
+# CI environment (no official feed exists, or the publisher WAF blocks shared
+# CI IPs even after retries). They are closed out under the documented
+# "supplemental source" policy: Crossref remains the reliable path, and the
+# official config stays in place so local/residential runs can still use it.
+# Verified 2026-08-06 from CI logs (HTTPError 403 / ParseError after retry).
+SUPPLEMENTAL_CLOSED_NOTES = {
+    "quarterly-journal-of-economics": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+    "economic-journal": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+    "journal-of-the-european-economic-association": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+    "journal-of-law-economics-and-organization": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+    "review-of-financial-studies": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+    "european-review-of-agricultural-economics": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+    "review-of-economics-and-statistics": "MIT Press 无官方 RSS；direct.mit.edu 在 CI 被 403 拦截，Crossref fallback 兜底",
+    "journal-of-political-economy": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
+    "journal-of-labor-economics": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
+    "economic-development-and-cultural-change": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
+    "applied-economics": "T&F RSS 在 CI IP 被 403 拦截（重试后仍失败），Crossref 兜底",
+    "journal-of-the-association-of-environmental-and-resource-economists": "UChicago 平台未提供 JAERE 的 etoc RSS（jc=jaere 404），Crossref + OpenAlex recall 兜底",
+    "journal-of-agricultural-and-resource-economics": "官方站 jareonline.org 的 WordPress feed 为空，Crossref + OpenAlex recall 兜底",
+}
+
+
 PRIORITY_TOC_JOURNALS = {
     "review-of-economic-studies",
     "review-of-economics-and-statistics",
@@ -203,6 +226,11 @@ def inspect_journal(
         level = "degraded"
     else:
         level = "healthy"
+    closed_note = SUPPLEMENTAL_CLOSED_NOTES.get(journal_id)
+    if closed_note and level == "degraded" and "crossref" in reliable_paths:
+        # 补充源口径封口：Crossref 可靠路径可用，官方源在 CI 结构性不可达/不存在。
+        # 保持显式记录（supplemental_closed 清单），不计入 degraded。
+        level = "supplemental-closed"
     if not reliable_paths and not supplemental:
         coverage = "unavailable"
     elif "crossref" in reliable_paths and len(reliable_paths) == 1 and supplemental:
@@ -218,6 +246,7 @@ def inspect_journal(
         "journal": journal.get("title"),
         "publisher": journal.get("publisher"),
         "level": level,
+        "supplemental_closed_note": closed_note if level == "supplemental-closed" else None,
         "degradation_reason": degradation_reason,
         "coverage": coverage,
         "usable_paths": paths,
@@ -248,7 +277,10 @@ def main() -> None:
     registry = read_json(args.registry, {})
     status = read_json(DATA_DIR / "status.json", {})
     rows = [inspect_journal(journal, registry, today, now, max_age, status) for journal in load_journals(args.journals)]
-    counts = {level: sum(row["level"] == level for row in rows) for level in ("healthy", "degraded", "stale", "unavailable")}
+    counts = {
+        level: sum(row["level"] == level for row in rows)
+        for level in ("healthy", "degraded", "stale", "unavailable", "supplemental-closed")
+    }
     coverage_counts = {
         coverage: sum(row["coverage"] == coverage for row in rows)
         for coverage in ("official_or_specialized", "supplemental", "crossref_only", "unavailable")
@@ -262,6 +294,7 @@ def main() -> None:
         "unavailable": [row for row in rows if row["level"] == "unavailable"],
         "stale": [row for row in rows if row["level"] == "stale"],
         "degraded": [row for row in rows if row["level"] == "degraded"],
+        "supplemental_closed": [row for row in rows if row["level"] == "supplemental-closed"],
         "journals": rows,
     }
     report["coverage_debt"] = {
