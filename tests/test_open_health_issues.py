@@ -234,10 +234,35 @@ def test_elsevier_quota_weekly_warning_creates_anomaly(tmp_path: Path):
         },
     )
 
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
+    anomalies = build_anomalies(
+        data_dir,
+        now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc),
+        elsevier_weekly_warning=4500,
+    )
 
     issue = next(item for item in anomalies if item["slug"] == "elsevier-quota")
     assert "weekly_requests_7d=5000" in issue["body"]
+
+
+def test_elsevier_weekly_below_default_threshold_has_no_anomaly(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    write_json(
+        data_dir / "semantic_scholar_usage.json",
+        {
+            "providers": {
+                "elsevier": {
+                    "api_key_configured": True,
+                    "inst_token_configured": True,
+                    "weekly_requests_7d": 5000,
+                    "rate_limit_headers": None,
+                }
+            }
+        },
+    )
+
+    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
+
+    assert not any(item["slug"] == "elsevier-quota" for item in anomalies)
 
 
 def test_elsevier_quota_low_remaining_creates_anomaly(tmp_path: Path):
@@ -359,10 +384,35 @@ def test_elsevier_quota_weekly_warning_creates_anomaly(tmp_path: Path):
         },
     )
 
-    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
+    anomalies = build_anomalies(
+        data_dir,
+        now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc),
+        elsevier_weekly_warning=4500,
+    )
 
     issue = next(item for item in anomalies if item["slug"] == "elsevier-quota")
     assert "weekly_requests_7d=5000" in issue["body"]
+
+
+def test_elsevier_weekly_below_default_threshold_has_no_anomaly(tmp_path: Path):
+    data_dir = make_data_dir(tmp_path)
+    write_json(
+        data_dir / "semantic_scholar_usage.json",
+        {
+            "providers": {
+                "elsevier": {
+                    "api_key_configured": True,
+                    "inst_token_configured": True,
+                    "weekly_requests_7d": 5000,
+                    "rate_limit_headers": None,
+                }
+            }
+        },
+    )
+
+    anomalies = build_anomalies(data_dir, now=datetime(2026, 8, 4, 12, 0, tzinfo=timezone.utc))
+
+    assert not any(item["slug"] == "elsevier-quota" for item in anomalies)
 
 
 def test_elsevier_quota_low_remaining_creates_anomaly(tmp_path: Path):
