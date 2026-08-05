@@ -4,46 +4,47 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>Semantic Scholar API 用量</title>
+<title>学术 API 用量</title>
 <style>
-  :root { --ink:#1f2430; --muted:#6b7280; --line:#e5e7eb; --avail:#16a34a; --rate:#dc2626; --nf:#d97706; --other:#9ca3af; }
+  :root { --paper:#fafafa; --ink:#1f2430; --muted:#6b7280; --line:#e5e7eb; --blue:#2563eb; --avail:#16a34a; --rate:#dc2626; --nf:#d97706; --skip:#9ca3af; --empty:#eab308; }
   * { box-sizing:border-box; }
-  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; color:var(--ink); background:#fafafa; }
-  .wrap { max-width:960px; margin:0 auto; padding:28px 20px 64px; }
-  a { color:#2563eb; text-decoration:none; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.6; }
+  .wrap { max-width:1100px; margin:0 auto; padding:28px 20px 64px; }
+  a { color:var(--blue); text-decoration:none; }
   h1 { font-size:26px; margin:12px 0 4px; }
-  .sub { color:var(--muted); margin:0 0 20px; font-size:14px; }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:20px 0; }
-  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:4px; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  h2 { font-size:19px; margin:28px 0 12px; }
+  .pill { font-size:12px; color:#16a34a; font-weight:600; }
+  .cards { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin:16px 0; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; display:flex; flex-direction:column; gap:3px; min-width:0; }
   .card .k { color:var(--muted); font-size:12px; }
-  .card .v { font-size:18px; font-weight:600; word-break:break-all; }
-  h2 { font-size:18px; margin:28px 0 12px; }
-  .legend { display:flex; gap:14px; font-size:12px; color:var(--muted); margin-bottom:8px; }
-  .lg { display:inline-flex; align-items:center; gap:5px; }
-  .lg::before { content:""; width:10px; height:10px; border-radius:3px; display:inline-block; }
+  .card .v { font-size:16px; font-weight:600; font-variant-numeric:tabular-nums; word-break:break-all; }
+  .leg { display:flex; gap:14px; font-size:12px; color:var(--muted); margin-bottom:8px; }
+  .leg i { width:10px; height:10px; border-radius:3px; display:inline-block; margin-right:4px; vertical-align:-1px; }
+  .lg-avail { background:var(--avail); } .lg-rate { background:var(--rate); }
+  .lg-nf { background:var(--nf); } .lg-skip { background:var(--skip); } .lg-empty { background:var(--empty); }
   .table-wrap { overflow-x:auto; background:#fff; border:1px solid var(--line); border-radius:10px; }
-  table { border-collapse:collapse; width:100%; min-width:640px; font-size:13px; }
+  table { border-collapse:collapse; width:100%; min-width:680px; font-size:13px; }
   th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
   th { background:#f3f4f6; font-weight:600; }
   td.num { text-align:right; font-variant-numeric:tabular-nums; }
   .bar { height:14px; border-radius:7px; overflow:hidden; display:flex; background:#f3f4f6; min-width:2px; }
-  .seg { height:100%; }
-  .seg-avail { background:var(--avail); }
-  .seg-rate { background:var(--rate); }
-  .seg-notfound { background:var(--nf); }
-  .seg-other { background:var(--other); }
+  .s { height:100%; }
+  .s-avail { background:var(--avail); } .s-rate { background:var(--rate); }
+  .s-nf { background:var(--nf); } .s-skip { background:var(--skip); } .s-other { background:#d1d5db; }
   .note { margin-top:24px; padding:12px 14px; background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; font-size:13px; color:#7c2d12; line-height:1.6; }
   footer { margin-top:28px; color:var(--muted); font-size:12px; }
+  @media (max-width: 900px) { .cards { grid-template-columns:repeat(3,1fr); } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <p><a href="../index.html">← 返回首页</a></p>
-  <h1>Semantic Scholar API 用量</h1>
-  <p class="sub">更新时间：2026-08-05T14:14:18+00:00</p>
-  <div class="cards"><div class="card"><span class="k">Key 状态</span><span class="v">已配置</span></div><div class="card"><span class="k">累计请求</span><span class="v">5095</span></div><div class="card"><span class="k">成功返回</span><span class="v">1356</span></div><div class="card"><span class="k">被限流</span><span class="v">405</span></div><div class="card"><span class="k">最近使用</span><span class="v">2026-08-05T12:53:27+00:00</span></div><div class="card"><span class="k">距上次使用</span><span class="v">0 天</span></div><div class="card"><span class="k">最近保活</span><span class="v">2026-08-05T14:14:18+00:00</span></div></div><h2>按日用量</h2><div class="legend"><span class="lg seg-avail">成功</span><span class="lg seg-rate">限流</span><span class="lg seg-notfound">未找到</span><span class="lg seg-other">其他</span></div><div class="table-wrap"><table><thead><tr><th>日期</th><th>运行</th><th>请求</th><th>成功</th><th>未找到</th><th>限流</th><th>跳过</th><th>构成</th></tr></thead><tbody><tr><td>2026-08-03</td><td class="num">6</td><td class="num">2845</td><td class="num">233</td><td class="num">34</td><td class="num">130</td><td class="num">2448</td><td><div class="bar" style="width:100.00%"><div class="seg seg-avail" style="width:8.2%"></div><div class="seg seg-rate" style="width:4.6%"></div><div class="seg seg-notfound" style="width:1.2%"></div><div class="seg seg-other" style="width:0.0%"></div></div></td></tr><tr><td>2026-08-04</td><td class="num">6</td><td class="num">900</td><td class="num">471</td><td class="num">113</td><td class="num">158</td><td class="num">158</td><td><div class="bar" style="width:31.63%"><div class="seg seg-avail" style="width:52.3%"></div><div class="seg seg-rate" style="width:17.6%"></div><div class="seg seg-notfound" style="width:12.6%"></div><div class="seg seg-other" style="width:0.0%"></div></div></td></tr><tr><td>2026-08-05</td><td class="num">9</td><td class="num">1350</td><td class="num">652</td><td class="num">567</td><td class="num">117</td><td class="num">14</td><td><div class="bar" style="width:47.45%"><div class="seg seg-avail" style="width:48.3%"></div><div class="seg seg-rate" style="width:8.7%"></div><div class="seg seg-notfound" style="width:42.0%"></div><div class="seg seg-other" style="width:0.0%"></div></div></td></tr></tbody></table></div>
-  <div class="note">Semantic Scholar 官方政策：API key 档位限速 1 请求/秒；未认证共享 1000 RPS 池并会在高峰节流；官方发布说明（2024-11）明确闲置约 60 天的 API key 会被自动回收。本页每次数据更新自动刷新，来源为本仓库每日落盘的 provider health 与 keep-alive 记录。</div>
-  <footer>数据来源：<code>data/metadata_provider_health.json</code> 与 <code>data/semantic_scholar_keepalive.json</code>（由数据线每日生成）。</footer>
+  <h1>学术 API 用量</h1>
+  <p class="sub">更新时间：2026-08-05 22:14 北京时间</p>
+  <h2>Semantic Scholar <span class="pill">已配置</span></h2><div class="cards"><div class="card"><span class="k">Key 状态</span><span class="v">已配置</span></div><div class="card"><span class="k">本周请求</span><span class="v">5,095</span></div><div class="card"><span class="k">累计请求</span><span class="v">5,095</span></div><div class="card"><span class="k">成功返回</span><span class="v">1,356</span></div><div class="card"><span class="k">被限流</span><span class="v">405</span></div><div class="card"><span class="k">最近使用</span><span class="v">08-05 20:53</span></div></div><div class="leg"><span><i class="lg-avail"></i>成功</span><span><i class="lg-rate"></i>限流</span><span><i class="lg-nf"></i>未找到</span><span><i class="lg-skip"></i>跳过</span></div><div class="table-wrap"><table><thead><tr><th>日期</th><th>请求</th><th>成功</th><th>未找到</th><th>跳过</th><th>限流</th><th>构成</th></tr></thead><tbody><tr><td>2026-08-03</td><td class="num">2,845</td><td class="num">233</td><td class="num">34</td><td class="num">2,448</td><td class="num">130</td><td><div class="bar" style="width:100.00%"><span class="s s-avail" style="width:8.2%"></span><span class="s s-rate" style="width:4.6%"></span><span class="s s-nf" style="width:1.2%"></span><span class="s s-skip" style="width:86.0%"></span><span class="s s-other" style="width:0.0%"></span></div></td></tr><tr><td>2026-08-04</td><td class="num">900</td><td class="num">471</td><td class="num">113</td><td class="num">158</td><td class="num">158</td><td><div class="bar" style="width:31.63%"><span class="s s-avail" style="width:52.3%"></span><span class="s s-rate" style="width:17.6%"></span><span class="s s-nf" style="width:12.6%"></span><span class="s s-skip" style="width:17.6%"></span><span class="s s-other" style="width:0.0%"></span></div></td></tr><tr><td>2026-08-05</td><td class="num">1,350</td><td class="num">652</td><td class="num">567</td><td class="num">14</td><td class="num">117</td><td><div class="bar" style="width:47.45%"><span class="s s-avail" style="width:48.3%"></span><span class="s s-rate" style="width:8.7%"></span><span class="s s-nf" style="width:42.0%"></span><span class="s s-skip" style="width:1.0%"></span><span class="s s-other" style="width:0.0%"></span></div></td></tr></tbody></table></div><h2>Elsevier <span class="pill">已配置</span></h2><div class="cards"><div class="card"><span class="k">Key 状态</span><span class="v">APIKey + InstToken</span></div><div class="card"><span class="k">本周请求</span><span class="v">4,495</span></div><div class="card"><span class="k">累计请求</span><span class="v">4,495</span></div><div class="card"><span class="k">成功返回</span><span class="v">1,594</span></div><div class="card"><span class="k">被限流</span><span class="v">0</span></div><div class="card"><span class="k">最近使用</span><span class="v">08-05 20:53</span></div></div><div class="leg"><span><i class="lg-avail"></i>成功</span><span><i class="lg-empty"></i>空响应</span></div><div class="table-wrap"><table><thead><tr><th>日期</th><th>请求</th><th>成功</th><th>空响应</th><th>限流</th><th>构成</th></tr></thead><tbody><tr><td>2026-08-03</td><td class="num">2,245</td><td class="num">971</td><td class="num">1,274</td><td class="num">0</td><td><div class="bar" style="width:100.00%"><span class="s s-avail" style="width:43.3%"></span><span class="s s-rate" style="width:0.0%"></span><span class="s s-nf" style="width:0.0%"></span><span class="s s-skip" style="width:0.0%"></span><span class="s s-other" style="width:0.0%"></span></div></td></tr><tr><td>2026-08-04</td><td class="num">900</td><td class="num">127</td><td class="num">773</td><td class="num">0</td><td><div class="bar" style="width:40.09%"><span class="s s-avail" style="width:14.1%"></span><span class="s s-rate" style="width:0.0%"></span><span class="s s-nf" style="width:0.0%"></span><span class="s s-skip" style="width:0.0%"></span><span class="s s-other" style="width:0.0%"></span></div></td></tr><tr><td>2026-08-05</td><td class="num">1,350</td><td class="num">496</td><td class="num">854</td><td class="num">0</td><td><div class="bar" style="width:60.13%"><span class="s s-avail" style="width:36.7%"></span><span class="s s-rate" style="width:0.0%"></span><span class="s s-nf" style="width:0.0%"></span><span class="s s-skip" style="width:0.0%"></span><span class="s s-other" style="width:0.0%"></span></div></td></tr></tbody></table></div>
+  <div class="note">配额说明：Elsevier 配额按 7 天重置（按 20,000 次/周估算，预警阈值 16,000；响应若带 X-RateLimit-* 头则以官方剩余额度为准）；Semantic Scholar 为 1 RPS、闲置约 60 天会被官方回收。本页每次数据更新自动刷新，来源为本仓库每日落盘的 provider health 与 keep-alive 记录。</div>
+  <footer>数据来源：<code>data/semantic_scholar_usage.json</code>（由数据线每日生成）。</footer>
 </div>
 </body>
 </html>
