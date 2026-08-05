@@ -1,286 +1,262 @@
 {
-  "categories": {
-    "needs_investigation": 15
+  "checked_at": "2026-08-05T19:47:32+00:00",
+  "degraded_count": 15,
+  "group_counts": {
+    "cn-endpoint": 1,
+    "priority-toc-blocked": 1,
+    "supplemental-closed": 13
   },
-  "checked_at": "2026-08-06T03:41:47.501997+08:00",
-  "source_health_degraded_count": 15,
-  "source_status_failures": [
+  "markdown_table": "| 期刊 | 当前路径 | 失败原因 | 建议动作 |\n| --- | --- | --- | --- |\n| Environmental and Resource Economics | crossref, openalex-recall | priority-toc | 复测确认仍被拦；接入官方 RSS（OUP/MIT/Springer）或保持降级标记并依赖 Crossref fallback |\n| 数量经济技术经济研究 | cnki-rss, openalex-recall | cn-journals | 等待出版社恢复并复测；保持显式降级标记 |\n| Journal of Political Economy | crossref, openalex-recall | single_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Quarterly Journal of Economics | crossref, openalex-recall | failed_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Economic Journal | crossref, openalex-recall | failed_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Journal of the European Economic Association | crossref, openalex-recall | failed_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Journal of Law, Economics & Organization | crossref, openalex-recall | failed_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Review of Financial Studies | crossref, openalex-recall | failed_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Economic Development and Cultural Change | crossref, openalex-recall | single_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Review of Economics and Statistics | crossref, openalex-recall | failed_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Applied Economics | crossref, openalex-recall | single_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Journal of Labor Economics | crossref, openalex-recall | single_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Journal of the Association of Environmental and Resource Economists | crossref, openalex-recall | single_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| European Review of Agricultural Economics | crossref, openalex-recall | failed_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |\n| Journal of Agricultural and Resource Economics | crossref, openalex-recall | single_path | 保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径 |",
+  "rows": [
     {
-      "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 8; 数量经济技术经济研究: 0",
-      "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 6; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 12; Economic Development and Cultural Change: 1;",
-      "source": "crossref"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; ",
-      "source": "publisher-detail"
-    },
-    {
-      "category": "page_structure_change",
-      "sample_error": "feeds=24/40; Journal of Finance: 29 via official-generated; Journal of Financial Economics: 23 via official-generated; Journal of Development Economics: 51 via official-generated; Economic Development",
-      "source": "rss"
-    },
-    {
-      "category": "needs_investigation",
-      "sample_error": "journals=24 failures=24 jina_key=on; Journal of Development Economics: HTTPError: HTTP Error 402: Payment Required; World Development: HTTPError: HTTP Error 402: Payment Required; China Economic Revie",
-      "source": "sciencedirect-search"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
-      "source": "working-paper:repec-nep-cna"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
-      "source": "working-paper:repec-nep-dev"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
-      "source": "working-paper:repec-nep-hea"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "URLError: <urlopen error [Errno 104] Connection reset by peer>",
-      "source": "working-paper:repec-nep-mac"
-    }
-  ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "applied-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Applied Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
+      "crossref_status": "ok",
+      "current_paths": [
         "crossref",
         "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economic-development-and-cultural-change",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Economic Development and Cultural Change",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economic-journal",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Economic Journal",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [
+        {
+          "message": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/",
+          "path": "priority-toc"
+        }
+      ],
+      "failure_summary": "priority-toc 出版社页面结构性失败（HTTPError/URLError/0），Crossref fallback 已兜底",
+      "group": "priority-toc-blocked",
+      "journal": "Environmental and Resource Economics",
       "journal_id": "environmental-and-resource-economics",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Environmental and Resource Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
+      "publisher": "Springer-Verlag",
+      "rss_status": "configured",
+      "suggested_action": "复测确认仍被拦；接入官方 RSS（OUP/MIT/Springer）或保持降级标记并依赖 Crossref fallback"
     },
     {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "european-review-of-agricultural-economics",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "European Review of Agricultural Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-agricultural-and-resource-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Agricultural and Resource Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-labor-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Labor Economics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-law-economics-and-organization",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Journal of Law, Economics & Organization",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-political-economy",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Political Economy",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of the Association of Environmental and Resource Economists",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-the-european-economic-association",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Journal of the European Economic Association",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "quarterly-journal-of-economics",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Quarterly Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "review-of-economics-and-statistics",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Review of Economics and Statistics",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "review-of-financial-studies",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Review of Financial Studies",
-      "status_category": "rate_limited",
-      "status_source": "crossref",
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
+      "crossref_status": "rate_limited",
+      "current_paths": [
         "cnki-rss",
         "openalex-recall"
-      ]
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [
+        {
+          "message": "HTTPError: HTTP Error 502: Bad Gateway",
+          "path": "cn-journals"
+        }
+      ],
+      "failure_summary": "CN 期刊端点失败（如 502），cnki-rss/crossref 已兜底",
+      "group": "cn-endpoint",
+      "journal": "数量经济技术经济研究",
+      "journal_id": "journal-edcb877d78",
+      "publisher": "中国社会科学院数量经济与技术经济研究所",
+      "rss_status": "none",
+      "suggested_action": "等待出版社恢复并复测；保持显式降级标记"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "failure_summary": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
+      "group": "supplemental-closed",
+      "journal": "Journal of Political Economy",
+      "journal_id": "journal-of-political-economy",
+      "publisher": "The University of Chicago Press",
+      "rss_status": "configured",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [],
+      "failure_summary": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+      "group": "supplemental-closed",
+      "journal": "Quarterly Journal of Economics",
+      "journal_id": "quarterly-journal-of-economics",
+      "publisher": "Oxford University Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [],
+      "failure_summary": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+      "group": "supplemental-closed",
+      "journal": "Economic Journal",
+      "journal_id": "economic-journal",
+      "publisher": "Oxford University Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [],
+      "failure_summary": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+      "group": "supplemental-closed",
+      "journal": "Journal of the European Economic Association",
+      "journal_id": "journal-of-the-european-economic-association",
+      "publisher": "Oxford University Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [],
+      "failure_summary": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+      "group": "supplemental-closed",
+      "journal": "Journal of Law, Economics & Organization",
+      "journal_id": "journal-of-law-economics-and-organization",
+      "publisher": "Oxford University Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [],
+      "failure_summary": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+      "group": "supplemental-closed",
+      "journal": "Review of Financial Studies",
+      "journal_id": "review-of-financial-studies",
+      "publisher": "Oxford University Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "failure_summary": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
+      "group": "supplemental-closed",
+      "journal": "Economic Development and Cultural Change",
+      "journal_id": "economic-development-and-cultural-change",
+      "publisher": "The University of Chicago Press",
+      "rss_status": "configured",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [],
+      "failure_summary": "MIT Press 无官方 RSS；direct.mit.edu 在 CI 被 403 拦截，Crossref fallback 兜底",
+      "group": "supplemental-closed",
+      "journal": "Review of Economics and Statistics",
+      "journal_id": "review-of-economics-and-statistics",
+      "publisher": "MIT Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "failure_summary": "T&F RSS 在 CI IP 被 403 拦截（重试后仍失败），Crossref 兜底",
+      "group": "supplemental-closed",
+      "journal": "Applied Economics",
+      "journal_id": "applied-economics",
+      "publisher": "Informa UK (Taylor & Francis)",
+      "rss_status": "configured",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "failure_summary": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
+      "group": "supplemental-closed",
+      "journal": "Journal of Labor Economics",
+      "journal_id": "journal-of-labor-economics",
+      "publisher": "The University of Chicago Press",
+      "rss_status": "configured",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "failure_summary": "UChicago 平台未提供 JAERE 的 etoc RSS（jc=jaere 404），Crossref + OpenAlex recall 兜底",
+      "group": "supplemental-closed",
+      "journal": "Journal of the Association of Environmental and Resource Economists",
+      "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
+      "publisher": "The University of Chicago Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "failed_path",
+      "failed_paths": [],
+      "failure_summary": "OUP 无官方 RSS；advance 页直连与 JINA 镜像在 CI 均 403，Crossref fallback 兜底",
+      "group": "supplemental-closed",
+      "journal": "European Review of Agricultural Economics",
+      "journal_id": "european-review-of-agricultural-economics",
+      "publisher": "Oxford University Press",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
+    },
+    {
+      "crossref_status": "ok",
+      "current_paths": [
+        "crossref",
+        "openalex-recall"
+      ],
+      "degradation_reason": "single_path",
+      "failed_paths": [],
+      "failure_summary": "官方站 jareonline.org 的 WordPress feed 为空，Crossref + OpenAlex recall 兜底",
+      "group": "supplemental-closed",
+      "journal": "Journal of Agricultural and Resource Economics",
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "publisher": "Western Agricultural Economics Association",
+      "rss_status": "none",
+      "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径"
     }
-  ],
-  "status_json": {
-    "aligned": true,
-    "degraded_source_failures": 9
-  },
-  "total_degraded": 15
+  ]
 }
