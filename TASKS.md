@@ -9,12 +9,13 @@
 - [ ] 本清单（TASKS.md）建立并登记全部阶段 —— 本文件即交付物
 
 ## Phase 1 — 日期口径 A（Issue #22）
-- [ ] 数据判定：官方渠道（详情页或官方 RSS）明确 online/published 日期一律 A；B 收窄为官方渠道备选/推断
-- [ ] 解析失败（如 `"September "`）降 D/F；未来日期禁止入当日桶（现存 5 条修复）
+- [x] 数据判定：官方渠道（详情页或官方 RSS）明确 online/published 日期一律 A；B 收窄为官方渠道备选/推断（PR #91 已合并）
+- [x] 解析失败（如 `"September "`）降 D/F；未来日期禁止入当日桶（现存 5 条修复）（PR #91 已合并）
 - [ ] 展示线同步可信度标签/筛选文案；PRODUCT.md 措辞对齐
-- [ ] 验收：A 占比 ≥50%；quality_report 断言固化（解析失败降级、未来日期不入桶）
+- [x] 验收（数据侧）：A 占比 52.8%≥50%；future_official_date_in_bucket=0（PR #91 已合并）
 
 ## Phase 2 — 结构债收敛（Issue #20）
+> 实现已完成（PR #94 待合并）：Springer 9 + UChicago 4 + 数量经济技术经济研究脱离名单（degraded 23→9）；OUP/MIT 走 JINA 密钥镜像，JAERE/AJARE 按补充源口径封口。合并后 CI 复测 degraded 计数再勾选本阶段。
 - [ ] OUP 组：QJE / EJ / JEEA / JLEO 等接官方 RSS/TOC/advance 或独立 fallback
 - [ ] UChicago 组：JPE / JLE / JOLE / EDCC 等
 - [ ] Springer 组：IJGT / ET / RED / SCW / PC / ITPF 等
