@@ -65,8 +65,11 @@ class InspectJournalTests(unittest.TestCase):
         self.assertTrue(row["failed_paths"])
 
     def test_failed_tertiary_path_with_single_reliable_is_degraded(self):
-        status = make_status({"count": 3, "ok": True, "publisher_ok": False}, journal_id="quarterly-journal-of-economics")
-        row = self._row(registry_entry(), status, journal=PRIORITY_JOURNAL, journal_id="quarterly-journal-of-economics")
+        # review-of-economic-studies is in the priority-toc set but not in the
+        # supplemental-closure list, so a blocked publisher page still degrades it.
+        journal = {"id": "review-of-economic-studies", "title": "Review of Economic Studies", "publisher": "Oxford University Press"}
+        status = make_status({"count": 3, "ok": True, "publisher_ok": False}, journal_id="review-of-economic-studies")
+        row = self._row(registry_entry(), status, journal=journal, journal_id="review-of-economic-studies")
         self.assertEqual(row["level"], "degraded")
         self.assertEqual(row["degradation_reason"], "failed_path")
 
@@ -74,6 +77,17 @@ class InspectJournalTests(unittest.TestCase):
         row = self._row(registry_entry())
         self.assertEqual(row["level"], "degraded")
         self.assertEqual(row["degradation_reason"], "single_path")
+
+    def test_crossref_only_with_supplemental_closure_is_closed_not_degraded(self):
+        entry = registry_entry()
+        row = self._row(entry, journal=PRIORITY_JOURNAL, journal_id="quarterly-journal-of-economics")
+        self.assertEqual(row["level"], "supplemental-closed")
+        self.assertIsNotNone(row["supplemental_closed_note"])
+
+    def test_crossref_only_without_closure_is_degraded(self):
+        row = self._row(registry_entry())
+        self.assertEqual(row["level"], "degraded")
+        self.assertIsNone(row["supplemental_closed_note"])
 
 
 if __name__ == "__main__":

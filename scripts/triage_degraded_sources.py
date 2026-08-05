@@ -91,6 +91,7 @@ def classify_failure(row: dict[str, Any]) -> dict[str, str]:
 
 def build_triage(source_health: dict[str, Any]) -> dict[str, Any]:
     degraded = source_health.get("degraded") or []
+    closed = source_health.get("supplemental_closed") or []
     rows = []
     for row in degraded:
         cls = classify_failure(row)
@@ -113,6 +114,23 @@ def build_triage(source_health: dict[str, Any]) -> dict[str, Any]:
                 "group": group,
                 "failure_summary": note or cls["summary"],
                 "suggested_action": note or cls["action"],
+            }
+        )
+    for row in closed:
+        note = row.get("supplemental_closed_note") or "按补充源口径封口：Crossref 兜底，官方源在 CI 结构性不可达/不存在"
+        rows.append(
+            {
+                "journal": row.get("journal"),
+                "journal_id": row.get("journal_id"),
+                "publisher": row.get("publisher"),
+                "current_paths": row.get("usable_paths") or [],
+                "degradation_reason": row.get("degradation_reason"),
+                "failed_paths": [],
+                "crossref_status": row.get("crossref_status"),
+                "rss_status": row.get("rss_status"),
+                "group": "supplemental-closed",
+                "failure_summary": note,
+                "suggested_action": "保持配置；若 CI IP 解封或接入本地/住宅 IP runner，官方源自动恢复为可靠路径",
             }
         )
     groups: dict[str, int] = {}
