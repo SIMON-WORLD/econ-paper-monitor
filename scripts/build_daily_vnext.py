@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import os
@@ -16,6 +17,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from date_provenance import provenance_text
+from common import normalize_doi
 from display_contract import display_titles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -266,7 +268,22 @@ scripts.forEach(source => new Function(source));
         html_path.unlink(missing_ok=True)
 
 
-def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tuple[str, str]:
+def detail_key(record: dict) -> str:
+    """Return the stable public key used by ``docs/paper.html`` (mirrors render_site)."""
+    canonical_key = str(record.get("detail_key") or "").strip()
+    if re.search(r"-[0-9a-f]{12}$", canonical_key, re.IGNORECASE):
+        return canonical_key
+    title = str(record.get("title") or "paper").casefold()
+    slug = re.sub(r"[^a-z0-9]+", "-", title).strip("-") or "paper"
+    slug = slug[:88].rstrip("-")
+    identity = normalize_doi(record.get("doi")) or str(record.get("url") or "")
+    if not identity:
+        identity = f"{record.get('title') or ''}|{record.get('journal') or ''}"
+    digest = hashlib.sha1(identity.encode("utf-8")).hexdigest()[:12]
+    return f"{slug}-{digest}"
+
+
+def paper_markup(record: dict, date_value: str, previous_date: str | None, root_output: bool = True) -> tuple[str, str]:
     kind = content_type(record)
     labels = topic_values(record)
     china = is_china_related(record)
@@ -283,6 +300,7 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tu
         topic_markup += '<span class="tag tag-china">与中国相关</span>'
     tags_markup = f'<div class="tags">{topic_markup}</div>' if topic_markup else ""
     original = str(record.get("url") or record.get("source_url") or "#")
+    detail_href = f"{'' if root_output else '../'}paper.html?key={detail_key(record)}"
     doi = str(record.get("doi") or "").strip()
     official = official_date(record)
     official_markup = esc(provenance_text(record, official))
@@ -298,7 +316,7 @@ def paper_markup(record: dict, date_value: str, previous_date: str | None) -> tu
         <div class="paper-time"><time>{esc(seen_time)}</time>{date_markup}</div><div class="timeline-rail"><span class="timeline-dot" aria-hidden="true"></span></div>
         <div class="paper-body">
           <div class="paper-kicker"><span>{esc(detail_kind)}</span><span>{esc(source_name(record))}</span></div>
-          <h3><a href="{esc(original)}" target="_blank" rel="noreferrer">{esc(title_primary)}</a></h3>
+          <h3><a href="{esc(detail_href)}">{esc(title_primary)}</a></h3>
           {f'<p class="english-title">{esc(title_secondary)}</p>' if title_secondary else ''}
 {author_markup}          <div class="paper-foot">{tags_markup}<a class="read-link" href="{esc(original)}" target="_blank" rel="noreferrer">打开原文 <span aria-hidden="true">↗</span></a></div>
           <details class="paper-details"><summary>查看来源与日期</summary><p>{details}</p></details><span class="paper-divider" aria-hidden="true"></span>
@@ -365,7 +383,7 @@ def build(date_value: str, template_path: Path, output_path: Path, report_path: 
         paper_parts: list[str] = []
         previous_date: str | None = None
         for record in records:
-            part, current_date = paper_markup(record, date_value, previous_date)
+            part, current_date = paper_markup(record, date_value, previous_date, root_output)
             paper_parts.append(part)
             previous_date = current_date
         paper_html = "\n".join(paper_parts)
