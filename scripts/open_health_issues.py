@@ -50,7 +50,7 @@ def build_anomalies(
     degraded_threshold: int = 25,
     cnki_max_age_hours: float = 30.0,
     ss_key_max_age_hours: float = 7 * 24.0,
-    elsevier_weekly_warning: int = 4500,
+    elsevier_weekly_warning: int = 16000,  # 80% of the 20,000/week Elsevier quota
     quota_remaining_ratio: float = 0.2,
     ss_throttle_ratio: float = 0.3,
     now: datetime | None = None,
@@ -371,7 +371,7 @@ def main() -> None:
     parser.add_argument("--degraded-threshold", type=int, default=25)
     parser.add_argument("--cnki-max-age-hours", type=float, default=30.0)
     parser.add_argument("--ss-key-max-age-hours", type=float, default=7 * 24.0)
-    parser.add_argument("--elsevier-weekly-warning", type=int, default=4500)
+    parser.add_argument("--elsevier-weekly-warning", type=int, default=16000)
     parser.add_argument("--quota-remaining-ratio", type=float, default=0.2)
     parser.add_argument("--ss-throttle-ratio", type=float, default=0.3)
     parser.add_argument("--token-env", default="GITHUB_TOKEN")
