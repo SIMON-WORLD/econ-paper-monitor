@@ -23,7 +23,7 @@ from pathlib import Path
 
 from common import DATA_DIR, USER_AGENT, now_iso, read_json, write_json
 
-KEEPALIVE_DOI = "10.1038/nature14539"  # stable paper indexed by Semantic Scholar
+KEEPALIVE_DOI = "10.1002/jae.2791"  # J. Applied Econometrics paper; verified indexed
 KEEPALIVE_URL = (
     "https://api.semanticscholar.org/graph/v1/paper/"
     f"DOI:{KEEPALIVE_DOI}?fields=paperId"
