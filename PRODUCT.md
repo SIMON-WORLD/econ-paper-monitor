@@ -36,6 +36,7 @@ Credible, restrained, and useful. The voice should feel like a calm research des
 
 1. First discovery is the product's timeline.
 2. Official dates are evidence, not decoration.
+   - 日期证据分级：A=官方渠道明确 online/published 日期（出版社详情/API、官方 RSS 解析日期、CNKI 明确日期、AEA forthcoming、PDF）；B=官方渠道备选/推断日期；C=Crossref/OpenAlex 登记日期；D=卷期/期次日期；F=仅首次监测或未来官方日期未到（按首次监测展示）。数据层与展示层共用此口径。
 3. China-related records should be visually unmistakable but not over-labeled.
 4. Public pages stay calm and readable; backend pages carry operational detail.
 5. Search and archive must preserve everything, even records excluded from today's first-discovery stream.

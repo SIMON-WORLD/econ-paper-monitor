@@ -78,3 +78,27 @@ class PublicDateViewTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+    def test_confidence_labels_follow_policy_a(self) -> None:
+        expected = {
+            "A": "A：官方渠道明确日期",
+            "B": "B：官方渠道备选/推断日期",
+            "C": "C：Crossref/聚合登记日期",
+            "D": "D：卷期/印刷日期",
+            "F": "F：仅首次监测",
+        }
+        for value, label in expected.items():
+            self.assertEqual(render_site.confidence_label(value), label)
+
+
+    def test_confidence_labels_follow_policy_a(self) -> None:
+        expected = {
+            "A": "A：官方渠道明确日期",
+            "B": "B：官方渠道备选/推断日期",
+            "C": "C：Crossref/聚合登记日期",
+            "D": "D：卷期/印刷日期",
+            "F": "F：仅首次监测",
+        }
+        for value, label in expected.items():
+            self.assertEqual(render_site.confidence_label(value), label)
