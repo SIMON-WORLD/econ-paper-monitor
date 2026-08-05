@@ -50,6 +50,9 @@ def build_anomalies(
     degraded_threshold: int = 25,
     cnki_max_age_hours: float = 30.0,
     ss_key_max_age_hours: float = 7 * 24.0,
+    elsevier_weekly_warning: int = 4500,
+    quota_remaining_ratio: float = 0.2,
+    ss_throttle_ratio: float = 0.3,
     now: datetime | None = None,
 ) -> list[dict[str, str]]:
     """Return anomaly descriptors with stable slugs and issue bodies."""
@@ -183,6 +186,66 @@ def build_anomalies(
             }
         )
 
+    provider_usage = read_json(data_dir / "semantic_scholar_usage.json", {})
+    providers_usage = provider_usage.get("providers") if isinstance(provider_usage, dict) else {}
+    health_latest = read_json(data_dir / "metadata_provider_health.json", {}).get("latest") or {}
+    health_providers = health_latest.get("providers") if isinstance(health_latest, dict) else {}
+
+    els_usage = providers_usage.get("elsevier") if isinstance(providers_usage, dict) else {}
+    els_triggers: list[str] = []
+    if isinstance(els_usage, dict) and els_usage:
+        headers = els_usage.get("rate_limit_headers")
+        if isinstance(headers, dict) and headers:
+            try:
+                limit = int(headers.get("X-RateLimit-Limit") or 0)
+                remaining = int(headers.get("X-RateLimit-Remaining") or 0)
+            except (TypeError, ValueError):
+                limit = remaining = 0
+            if limit > 0 and remaining < max(1, int(limit * quota_remaining_ratio)):
+                els_triggers.append(f"X-RateLimit-Remaining low: {remaining}/{limit}")
+        weekly = int(els_usage.get("weekly_requests_7d") or 0)
+        if weekly >= elsevier_weekly_warning:
+            els_triggers.append(
+                f"weekly_requests_7d={weekly} >= warning threshold {elsevier_weekly_warning}"
+            )
+    els_latest = health_providers.get("elsevier") if isinstance(health_providers, dict) else {}
+    if isinstance(els_latest, dict) and int(els_latest.get("rate_limited") or 0) > 0:
+        els_triggers.append(f"latest run rate_limited={els_latest.get('rate_limited')}")
+    if els_triggers:
+        anomalies.append(
+            {
+                "slug": "elsevier-quota",
+                "title": "Elsevier API quota warning",
+                "body": (
+                    "Elsevier API key usage is approaching or hitting limits:\n\n"
+                    + "\n".join(f"- {item}" for item in els_triggers)
+                    + "\n\nQuota resets every 7 days; check the usage page "
+                    "(docs/usage/index.html) and the key settings on the "
+                    "Elsevier Developer Portal.\n\n"
+                    f"checked_at={now_iso()}"
+                ),
+            }
+        )
+
+    ss_latest = health_providers.get("semantic-scholar") if isinstance(health_providers, dict) else {}
+    if isinstance(ss_latest, dict):
+        ss_attempts = int(ss_latest.get("attempts") or 0)
+        ss_rate = int(ss_latest.get("rate_limited") or 0)
+        if ss_attempts > 0 and (ss_rate / ss_attempts) >= ss_throttle_ratio:
+            anomalies.append(
+                {
+                    "slug": "semantic-scholar-throttled",
+                    "title": "Semantic Scholar rate-limited",
+                    "body": (
+                        f"Latest run rate_limited={ss_rate}/{ss_attempts} "
+                        f"(ratio {ss_rate / ss_attempts:.1%} >= {ss_throttle_ratio:.0%}). "
+                        "The key is configured at 1 RPS; check the pacing and the "
+                        "usage page.\n\n"
+                        f"checked_at={now_iso()}"
+                    ),
+                }
+            )
+
     return anomalies
 
 
@@ -308,6 +371,9 @@ def main() -> None:
     parser.add_argument("--degraded-threshold", type=int, default=25)
     parser.add_argument("--cnki-max-age-hours", type=float, default=30.0)
     parser.add_argument("--ss-key-max-age-hours", type=float, default=7 * 24.0)
+    parser.add_argument("--elsevier-weekly-warning", type=int, default=4500)
+    parser.add_argument("--quota-remaining-ratio", type=float, default=0.2)
+    parser.add_argument("--ss-throttle-ratio", type=float, default=0.3)
     parser.add_argument("--token-env", default="GITHUB_TOKEN")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -317,6 +383,9 @@ def main() -> None:
         degraded_threshold=args.degraded_threshold,
         cnki_max_age_hours=args.cnki_max_age_hours,
         ss_key_max_age_hours=args.ss_key_max_age_hours,
+        elsevier_weekly_warning=args.elsevier_weekly_warning,
+        quota_remaining_ratio=args.quota_remaining_ratio,
+        ss_throttle_ratio=args.ss_throttle_ratio,
     )
     if not args.repo:
         raise SystemExit("missing repo: pass --repo or set GITHUB_REPOSITORY")
