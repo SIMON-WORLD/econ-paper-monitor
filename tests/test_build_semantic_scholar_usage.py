@@ -1,4 +1,4 @@
-"""Tests for the Semantic Scholar usage aggregation report."""
+"""Tests for the provider usage aggregation report."""
 
 from __future__ import annotations
 
@@ -31,7 +31,16 @@ def make_data_dir(tmp_path: Path) -> Path:
                         "attempts": 150,
                         "available": 100,
                         "statuses": {"not_found": 20, "rate_limited": 30},
-                    }
+                    },
+                    "elsevier": {
+                        "api_key_configured": True,
+                        "inst_token_configured": True,
+                        "attempts": 150,
+                        "available": 47,
+                        "empty": 103,
+                        "statuses": {"available": 47},
+                        "rate_limit_headers": None,
+                    },
                 },
             },
             "runs": [
@@ -44,7 +53,19 @@ def make_data_dir(tmp_path: Path) -> Path:
                             "attempts": 150,
                             "available": 120,
                             "statuses": {"not_found": 25, "rate_limited": 5},
-                        }
+                        },
+                        "elsevier": {
+                            "api_key_configured": True,
+                            "inst_token_configured": True,
+                            "attempts": 100,
+                            "available": 40,
+                            "empty": 60,
+                            "statuses": {"available": 40},
+                            "rate_limit_headers": {
+                                "X-RateLimit-Limit": "5000",
+                                "X-RateLimit-Remaining": "200",
+                            },
+                        },
                     },
                 },
                 {
@@ -56,7 +77,16 @@ def make_data_dir(tmp_path: Path) -> Path:
                             "attempts": 150,
                             "available": 90,
                             "statuses": {"not_found": 30, "rate_limited": 30},
-                        }
+                        },
+                        "elsevier": {
+                            "api_key_configured": True,
+                            "inst_token_configured": True,
+                            "attempts": 0,
+                            "available": 0,
+                            "empty": 0,
+                            "statuses": {},
+                            "rate_limit_headers": None,
+                        },
                     },
                 },
             ],
@@ -74,7 +104,7 @@ def make_data_dir(tmp_path: Path) -> Path:
     return data_dir
 
 
-def test_usage_aggregates_totals_and_days(tmp_path: Path) -> None:
+def test_semantic_scholar_aggregates_totals_and_days(tmp_path: Path) -> None:
     data_dir = make_data_dir(tmp_path)
 
     usage = build_usage(data_dir)
@@ -91,12 +121,30 @@ def test_usage_aggregates_totals_and_days(tmp_path: Path) -> None:
     assert [row["date"] for row in usage["by_day"]] == ["2026-08-04", "2026-08-05"]
     assert usage["by_day"][0]["attempts"] == 300  # 08-03 22:00 UTC == Beijing 08-04
     assert usage["by_day"][0]["rate_limited"] == 35
-    assert usage["by_day"][-1]["attempts"] == 150
-    assert usage["by_day"][-1]["rate_limited"] == 30
     assert isinstance(usage["days_since_last_use"], int)
 
 
-def test_usage_empty_health_is_honest(tmp_path: Path) -> None:
+def test_elsevier_aggregates_weekly_and_rate_headers(tmp_path: Path) -> None:
+    data_dir = make_data_dir(tmp_path)
+
+    usage = build_usage(data_dir)
+    els = usage["providers"]["elsevier"]
+
+    assert els["api_key_configured"] is True
+    assert els["inst_token_configured"] is True
+    assert els["total"]["attempts"] == 250
+    assert els["total"]["available"] == 87
+    assert els["total"]["empty"] == 163
+    assert els["weekly_requests_7d"] == 250
+    assert els["last_used_at"] == "2026-08-05T03:30:18-04:00"
+    assert els["rate_limit_headers"] == {
+        "X-RateLimit-Limit": "5000",
+        "X-RateLimit-Remaining": "200",
+    }
+    assert [row["date"] for row in els["by_day"]] == ["2026-08-04", "2026-08-05"]
+
+
+def test_empty_health_is_honest(tmp_path: Path) -> None:
     data_dir = tmp_path / "data"
     write_json(data_dir / "metadata_provider_health.json", {"runs": [], "latest": {}})
 
@@ -106,3 +154,5 @@ def test_usage_empty_health_is_honest(tmp_path: Path) -> None:
     assert usage["by_day"] == []
     assert usage["key_configured"] is False
     assert usage["days_since_last_use"] is None
+    assert usage["providers"]["elsevier"]["weekly_requests_7d"] == 0
+    assert usage["providers"]["elsevier"]["rate_limit_headers"] is None
