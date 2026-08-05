@@ -36,6 +36,7 @@ from common import (
     clean_abstract_text,
     load_journals,
     normalize_doi,
+    normalized_url_identity_keys,
     now_iso,
     read_json,
     write_json,
@@ -293,6 +294,7 @@ def import_package(
 
     by_title: dict[str, str] = {}
     by_doi: dict[str, list[str]] = defaultdict(list)
+    by_url: dict[str, list[str]] = defaultdict(list)
     for key, record in papers.items():
         if not isinstance(record, dict):
             continue
@@ -305,6 +307,8 @@ def import_package(
                 alias_doi = normalize_doi(alias.removeprefix("doi:"))
                 if alias_doi:
                     by_doi[alias_doi].append(key)
+        for url_key in normalized_url_identity_keys(record.get("url") or record.get("source_url")):
+            by_url[url_key].append(key)
 
     daily_dir = data_dir / "daily"
     daily_by_doi, daily_by_title, daily_payloads = build_daily_index(daily_dir)
@@ -363,6 +367,15 @@ def import_package(
             )
         if target_key is None:
             target_key = by_title.get(norm)
+        item_url = str(item.get("url") or item.get("source_url") or "").strip()
+        if target_key is None and item_url:
+            for url_key in normalized_url_identity_keys(item_url):
+                for key in by_url.get(url_key, []):
+                    if isinstance(papers.get(key), dict):
+                        target_key = key
+                        break
+                if target_key is not None:
+                    break
 
         if target_key is not None and isinstance(papers.get(target_key), dict):
             target = papers[target_key]
@@ -384,6 +397,9 @@ def import_package(
             by_title[norm] = record["id"]
             if item_doi:
                 by_doi[item_doi].append(record["id"])
+            if item_url:
+                for url_key in normalized_url_identity_keys(item_url):
+                    by_url[url_key].append(record["id"])
             added += 1
             if item_doi:
                 doi_merged += 1
