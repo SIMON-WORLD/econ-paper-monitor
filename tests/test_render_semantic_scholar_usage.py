@@ -1,4 +1,4 @@
-"""Tests for the Semantic Scholar usage page renderer."""
+"""Tests for the API usage page renderer."""
 
 from __future__ import annotations
 
@@ -21,38 +21,71 @@ def sample_usage() -> dict:
     return {
         "updated_at": "2026-08-05T12:00:00+00:00",
         "key_configured": True,
-        "last_used_at": "2026-08-05T03:30:18-04:00",
-        "last_keepalive_at": "2026-08-05T03:30:20-04:00",
-        "last_keepalive_ok": True,
-        "last_keepalive_reason": "ok",
-        "days_since_last_use": 0,
-        "total": {"attempts": 450, "available": 310, "not_found": 75, "rate_limited": 65, "skipped": 0, "http_error": 0, "runs": 3},
-        "by_day": [
-            {
-                "date": "2026-08-04",
-                "attempts": 300,
-                "available": 210,
-                "not_found": 55,
-                "rate_limited": 35,
-                "skipped": 0,
-                "http_error": 0,
-                "runs": 2,
+        "providers": {
+            "semantic-scholar": {
+                "api_key_configured": True,
+                "last_used_at": "2026-08-05T08:00:00+00:00",
+                "weekly_requests_7d": 5095,
+                "rate_limit_headers": None,
+                "total": {
+                    "attempts": 5095,
+                    "available": 1356,
+                    "not_found": 714,
+                    "rate_limited": 405,
+                    "skipped": 2620,
+                    "http_error": 0,
+                    "empty": 0,
+                    "runs": 21,
+                },
+                "by_day": [
+                    {
+                        "date": "2026-08-05",
+                        "attempts": 1350,
+                        "available": 652,
+                        "not_found": 567,
+                        "rate_limited": 117,
+                        "skipped": 14,
+                        "http_error": 0,
+                        "empty": 0,
+                        "runs": 9,
+                    }
+                ],
             },
-            {
-                "date": "2026-08-05",
-                "attempts": 150,
-                "available": 100,
-                "not_found": 20,
-                "rate_limited": 30,
-                "skipped": 0,
-                "http_error": 0,
-                "runs": 1,
+            "elsevier": {
+                "api_key_configured": True,
+                "inst_token_configured": True,
+                "last_used_at": "2026-08-05T08:00:00+00:00",
+                "weekly_requests_7d": 4495,
+                "rate_limit_headers": None,
+                "total": {
+                    "attempts": 4495,
+                    "available": 1594,
+                    "empty": 2901,
+                    "not_found": 0,
+                    "rate_limited": 0,
+                    "skipped": 0,
+                    "http_error": 0,
+                    "runs": 17,
+                },
+                "by_day": [
+                    {
+                        "date": "2026-08-05",
+                        "attempts": 1350,
+                        "available": 496,
+                        "empty": 854,
+                        "not_found": 0,
+                        "rate_limited": 0,
+                        "skipped": 0,
+                        "http_error": 0,
+                        "runs": 9,
+                    }
+                ],
             },
-        ],
+        },
     }
 
 
-def test_renders_usage_page(tmp_path: Path) -> None:
+def test_renders_both_providers_with_one_row_cards_and_beijing_time(tmp_path: Path) -> None:
     data_dir = tmp_path / "data"
     docs_dir = tmp_path / "docs"
     write_json(data_dir / "semantic_scholar_usage.json", sample_usage())
@@ -61,11 +94,12 @@ def test_renders_usage_page(tmp_path: Path) -> None:
 
     assert out == docs_dir / "usage" / "index.html"
     html = out.read_text(encoding="utf-8")
-    assert "Semantic Scholar API 用量" in html
-    assert "450" in html and "310" in html and "65" in html
-    assert "2026-08-05" in html
-    assert "60 天" in html  # policy note
-    assert "已配置" in html
+    assert "学术 API 用量" in html
+    assert "Semantic Scholar" in html and "Elsevier" in html
+    assert "grid-template-columns:repeat(6,1fr)" in html  # six KPI cards on one row
+    assert "2026-08-05 20:00 北京时间" in html  # Beijing time for 12:00 UTC
+    assert "5,095" in html and "4,495" in html
+    assert "16,000" in html and "20,000" in html and "60 天" in html
 
 
 def test_missing_usage_renders_placeholder(tmp_path: Path) -> None:
@@ -76,15 +110,45 @@ def test_missing_usage_renders_placeholder(tmp_path: Path) -> None:
 
     html = out.read_text(encoding="utf-8")
     assert "用量数据尚未生成" in html
-    assert "Semantic Scholar API 用量" in html
+    assert "学术 API 用量" in html
+
+
+def test_old_shape_without_providers_falls_back(tmp_path: Path) -> None:
+    data_dir = tmp_path / "data"
+    docs_dir = tmp_path / "docs"
+    old = {
+        "updated_at": "2026-08-05T12:00:00+00:00",
+        "key_configured": True,
+        "total": {"attempts": 5095, "available": 1356},
+        "by_day": [
+            {
+                "date": "2026-08-05",
+                "attempts": 1350,
+                "available": 652,
+                "not_found": 567,
+                "rate_limited": 117,
+                "skipped": 14,
+                "http_error": 0,
+                "empty": 0,
+                "runs": 9,
+            }
+        ],
+    }
+    write_json(data_dir / "semantic_scholar_usage.json", old)
+
+    html = render_usage(data_dir, docs_dir).read_text(encoding="utf-8")
+
+    assert "Semantic Scholar" in html
+    assert "5,095" in html
+    assert "Elsevier" in html  # placeholder section, page must not crash
 
 
 def test_usage_values_are_escaped(tmp_path: Path) -> None:
     data_dir = tmp_path / "data"
     docs_dir = tmp_path / "docs"
     usage = sample_usage()
-    usage["updated_at"] = '<script>alert(1)</script>'
-    usage["by_day"][0]["date"] = '<img src=x onerror=alert(1)>'
+    usage["updated_at"] = "<script>alert(1)</script>"
+    usage["providers"]["semantic-scholar"]["by_day"][0]["date"] = "<img src=x onerror=alert(1)>"
     write_json(data_dir / "semantic_scholar_usage.json", usage)
 
     html = render_usage(data_dir, docs_dir).read_text(encoding="utf-8")
