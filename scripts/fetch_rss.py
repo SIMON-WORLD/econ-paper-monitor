@@ -76,8 +76,15 @@ def child_text(node: ElementTree.Element, names: list[str]) -> str | None:
 def child_text_any(node: ElementTree.Element, names: list[str]) -> str | None:
     wanted = {name.casefold() for name in names}
     for child in list(node):
-        if local_name(child.tag) in wanted and child.text:
+        if local_name(child.tag) not in wanted:
+            continue
+        if child.text and child.text.strip():
             return child.text.strip()
+        # Some feeds (e.g. Springer search.rss) nest the payload in element
+        # children such as <description><p>...</p></description>.
+        nested = " ".join(part for part in child.itertext() if part and part.strip())
+        if nested.strip():
+            return nested.strip()
     return None
 
 
@@ -340,7 +347,10 @@ def make_record(
     description_metadata = metadata_from_description(description)
     parsed_authors = normalize_authors(authors or []) or description_metadata.get("authors")
     pii = extract_pii(link, guid, description)
-    doi = extract_doi(identifier, link, description)
+    guid_doi = None
+    if guid and re.fullmatch(r"10\.\d{4,9}/[^\s]+", guid.strip()):
+        guid_doi = guid.strip().rstrip(".,;)").casefold()
+    doi = extract_doi(identifier, link, description) or guid_doi
     record = {
         **article_record(
             journal,
@@ -355,7 +365,7 @@ def make_record(
             issue_date=description_metadata.get("issue_date"),
             source_issue=description_metadata.get("source_issue"),
             date_source="rss_published" if published else description_metadata.get("date_source"),
-            date_confidence="B" if published else description_metadata.get("date_confidence", "F"),
+            date_confidence="A" if published else description_metadata.get("date_confidence", "F"),
             raw_data={"rss_feed_url": feed_url, "rss_guid": guid, "pii": pii},
         )
     }

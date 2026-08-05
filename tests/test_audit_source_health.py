@@ -1,0 +1,80 @@
+"""Unit tests for the formal source-health decision logic."""
+
+from __future__ import annotations
+
+import sys
+import unittest
+from datetime import date, datetime, timezone
+from pathlib import Path
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+
+import audit_source_health  # noqa: E402
+
+
+NOW = datetime(2026, 8, 5, 12, 0, 0, tzinfo=timezone.utc)
+TODAY = date(2026, 8, 5)
+JOURNAL = {"id": "test-j", "title": "Test Journal", "publisher": "Test Press"}
+# A journal that belongs to the priority-toc target set.
+PRIORITY_JOURNAL = {"id": "quarterly-journal-of-economics", "title": "Quarterly Journal of Economics", "publisher": "Oxford University Press"}
+
+
+def registry_entry(rss_status="none", rss_count=0, rss_error=None, crossref_status="ok"):
+    return {
+        "last_rss_status": rss_status,
+        "last_rss_count": rss_count,
+        "last_rss_error": rss_error,
+        "last_crossref_status": crossref_status,
+        "last_checked_at": "2026-08-05",
+        "updated_at": "2026-08-05T10:00:00+00:00",
+    }
+
+
+def make_status(priority_state=None, journal_id="test-j"):
+    sources = {}
+    if priority_state is not None:
+        sources["priority-toc"] = {
+            "ok": True,
+            "updated_at": "2026-08-05T10:00:00+00:00",
+            "journals": {journal_id: priority_state},
+        }
+    return {"sources": sources}
+
+
+class InspectJournalTests(unittest.TestCase):
+    def _row(self, entry=None, status=None, journal=JOURNAL, journal_id="test-j"):
+        registry = {"journals": {journal_id: entry or registry_entry()}}
+        return audit_source_health.inspect_journal(journal, registry, TODAY, NOW, 36, status or make_status())
+
+    def test_rss_and_crossref_healthy(self):
+        row = self._row(registry_entry(rss_status="configured", rss_count=20))
+        self.assertEqual(row["level"], "healthy")
+
+    def test_empty_configured_rss_is_not_reliable(self):
+        row = self._row(registry_entry(rss_status="configured", rss_count=0))
+        self.assertEqual(row["level"], "degraded")
+        self.assertNotIn("rss", row["usable_paths"])
+        self.assertEqual(row["degradation_reason"], "single_path")
+
+    def test_failed_tertiary_path_keeps_healthy_with_two_reliable(self):
+        entry = registry_entry(rss_status="configured", rss_count=20)
+        status = make_status({"count": 3, "ok": True, "publisher_ok": False}, journal_id="quarterly-journal-of-economics")
+        row = self._row(entry, status, journal=PRIORITY_JOURNAL, journal_id="quarterly-journal-of-economics")
+        self.assertEqual(row["level"], "healthy")
+        self.assertTrue(row["failed_paths"])
+
+    def test_failed_tertiary_path_with_single_reliable_is_degraded(self):
+        status = make_status({"count": 3, "ok": True, "publisher_ok": False}, journal_id="quarterly-journal-of-economics")
+        row = self._row(registry_entry(), status, journal=PRIORITY_JOURNAL, journal_id="quarterly-journal-of-economics")
+        self.assertEqual(row["level"], "degraded")
+        self.assertEqual(row["degradation_reason"], "failed_path")
+
+    def test_crossref_only_is_degraded(self):
+        row = self._row(registry_entry())
+        self.assertEqual(row["level"], "degraded")
+        self.assertEqual(row["degradation_reason"], "single_path")
+
+
+if __name__ == "__main__":
+    unittest.main()
