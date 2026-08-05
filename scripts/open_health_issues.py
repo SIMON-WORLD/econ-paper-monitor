@@ -12,6 +12,8 @@ Rules:
   -> degraded-sources / source-unavailable issue
 * ``data/local_cnki_status.json`` ``last_success_at`` older than the max age
   -> local-cnki-stale issue
+* ``data/semantic_scholar_keepalive.json`` missing / stale / invalid
+  -> semantic-scholar-key issue (Semantic Scholar prunes keys inactive ~60 days)
 
 The script never prints credentials.  GitHub access uses ``GITHUB_TOKEN``.
 """
@@ -47,6 +49,7 @@ def build_anomalies(
     *,
     degraded_threshold: int = 25,
     cnki_max_age_hours: float = 30.0,
+    ss_key_max_age_hours: float = 7 * 24.0,
     now: datetime | None = None,
 ) -> list[dict[str, str]]:
     """Return anomaly descriptors with stable slugs and issue bodies."""
@@ -123,6 +126,58 @@ def build_anomalies(
                 "body": (
                     f"Local CNKI last_success_at={last_success or 'missing'} "
                     f"age_hours={age_text} (max {cnki_max_age_hours}).\n\n"
+                    f"checked_at={now_iso()}"
+                ),
+            }
+        )
+
+    keepalive = read_json(data_dir / "semantic_scholar_keepalive.json", {})
+    if not isinstance(keepalive, dict) or not keepalive:
+        keepalive = {}
+    ss_reason = str(keepalive.get("reason") or "missing")
+    ss_ok = keepalive.get("ok") is True
+    ss_checked = keepalive.get("checked_at")
+    ss_status = keepalive.get("status_code")
+    ss_age = _age_hours(ss_checked, now)
+    if ss_reason == "not_configured":
+        anomalies.append(
+            {
+                "slug": "semantic-scholar-key",
+                "title": "Semantic Scholar key not configured",
+                "body": (
+                    "SEMANTIC_SCHOLAR_API_KEY / S2_API_KEY is not configured in the "
+                    "workflow. Metadata recovery falls back to the shared "
+                    "unauthenticated quota and the key is at risk of being pruned "
+                    "(Semantic Scholar removes keys inactive ~60 days).\n\n"
+                    f"checked_at={now_iso()}"
+                ),
+            }
+        )
+    elif ss_reason in {"invalid_key", "http_error", "network_error"}:
+        anomalies.append(
+            {
+                "slug": "semantic-scholar-key",
+                "title": f"Semantic Scholar key unhealthy ({ss_reason})",
+                "body": (
+                    f"keepalive ok={ss_ok} reason={ss_reason} "
+                    f"status_code={ss_status} checked_at={ss_checked}.\n\n"
+                    "Verify the key in GitHub org/repo secrets and the keep-alive "
+                    "workflow step before the key is pruned.\n\n"
+                    f"checked_at={now_iso()}"
+                ),
+            }
+        )
+    elif ss_age is None or ss_age > ss_key_max_age_hours:
+        age_text = f"{ss_age:.1f}" if ss_age is not None else "unknown"
+        anomalies.append(
+            {
+                "slug": "semantic-scholar-key",
+                "title": "Semantic Scholar key idle",
+                "body": (
+                    f"Semantic Scholar key keep-alive last_success_at={ss_checked} "
+                    f"age_hours={age_text} (max {ss_key_max_age_hours}). "
+                    "Semantic Scholar prunes keys inactive ~60 days; keep the key "
+                    "used daily.\n\n"
                     f"checked_at={now_iso()}"
                 ),
             }
@@ -252,6 +307,7 @@ def main() -> None:
     parser.add_argument("--issue-prefix", default="[Monitor Health]")
     parser.add_argument("--degraded-threshold", type=int, default=25)
     parser.add_argument("--cnki-max-age-hours", type=float, default=30.0)
+    parser.add_argument("--ss-key-max-age-hours", type=float, default=7 * 24.0)
     parser.add_argument("--token-env", default="GITHUB_TOKEN")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -260,6 +316,7 @@ def main() -> None:
         args.data_dir,
         degraded_threshold=args.degraded_threshold,
         cnki_max_age_hours=args.cnki_max_age_hours,
+        ss_key_max_age_hours=args.ss_key_max_age_hours,
     )
     if not args.repo:
         raise SystemExit("missing repo: pass --repo or set GITHUB_REPOSITORY")

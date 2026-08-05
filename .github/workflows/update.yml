@@ -379,6 +379,12 @@ jobs:
           S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+      - name: Semantic Scholar key keep-alive
+        shell: bash
+        run: python scripts/semantic_scholar_keepalive.py
+        env:
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
       - name: Batch recover metadata from independent indexes
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash

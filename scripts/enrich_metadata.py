@@ -73,6 +73,7 @@ DATE_CAPTURE = (
 )
 
 SS_MIN_INTERVAL_SECONDS = 0.25
+SS_KEY_MIN_INTERVAL_SECONDS = 1.0  # Semantic Scholar API-key tier: 1 request per second
 SS_RATE_LIMIT_SKIP_AFTER = 20
 _SS_LOCK = threading.Lock()
 _SS_LAST_REQUEST = 0.0
@@ -496,10 +497,22 @@ def reset_semantic_scholar_throttle() -> None:
 def semantic_scholar_throttle_state() -> dict[str, Any]:
     with _SS_LOCK:
         return {
-            "min_interval_seconds": SS_MIN_INTERVAL_SECONDS,
+            "key_configured": bool(_semantic_scholar_api_key()),
+            "min_interval_seconds": (
+                SS_KEY_MIN_INTERVAL_SECONDS if _semantic_scholar_api_key() else SS_MIN_INTERVAL_SECONDS
+            ),
             "rate_limited_count": _SS_RATE_LIMITED_COUNT,
             "skip_after": SS_RATE_LIMIT_SKIP_AFTER,
         }
+
+
+def _semantic_scholar_api_key() -> str:
+    """Return the configured Semantic Scholar API key, if any (never logged)."""
+    return (
+        os.environ.get("S2_API_KEY")
+        or os.environ.get("SEMANTIC_SCHOLAR_API_KEY")
+        or ""
+    ).strip()
 
 
 def _semantic_scholar_gate() -> bool:
@@ -508,8 +521,11 @@ def _semantic_scholar_gate() -> bool:
     with _SS_LOCK:
         if _SS_RATE_LIMITED_COUNT >= SS_RATE_LIMIT_SKIP_AFTER:
             return False
+        interval = (
+            SS_KEY_MIN_INTERVAL_SECONDS if _semantic_scholar_api_key() else SS_MIN_INTERVAL_SECONDS
+        )
         now = time.monotonic()
-        wait = SS_MIN_INTERVAL_SECONDS - (now - _SS_LAST_REQUEST)
+        wait = interval - (now - _SS_LAST_REQUEST)
         if wait > 0:
             time.sleep(wait)
         _SS_LAST_REQUEST = time.monotonic()
@@ -530,11 +546,7 @@ def _reset_semantic_scholar_throttle_burst() -> None:
 
 def semantic_scholar_doi_metadata(doi: str, timeout: int, *, retries: int = 2) -> dict[str, Any]:
     fields = urllib.parse.urlencode({"fields": "abstract,authors,publicationDate,externalIds"})
-    api_key = (
-        os.environ.get("S2_API_KEY")
-        or os.environ.get("SEMANTIC_SCHOLAR_API_KEY")
-        or ""
-    ).strip()
+    api_key = _semantic_scholar_api_key()
     headers = {"x-api-key": api_key} if api_key else {}
     if not _semantic_scholar_gate():
         return {"_status": "skipped_rate_limited", "_provider": "semantic-scholar"}
