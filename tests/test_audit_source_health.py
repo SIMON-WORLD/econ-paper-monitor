@@ -89,6 +89,15 @@ class InspectJournalTests(unittest.TestCase):
         self.assertEqual(row["level"], "degraded")
         self.assertIsNone(row["supplemental_closed_note"])
 
+    def test_springer_ci_blocked_rss_is_closed_not_degraded(self):
+        # public-choice is in SUPPLEMENTAL_CLOSED_NOTES; when its RSS fails in
+        # CI and only Crossref works, it must be supplemental-closed, not degraded.
+        entry = registry_entry(rss_status="configured", rss_count=0, rss_error="ParseError: not well-formed")
+        journal = {"id": "public-choice", "title": "Public Choice", "publisher": "Springer-Verlag"}
+        row = self._row(entry, journal=journal, journal_id="public-choice")
+        self.assertEqual(row["level"], "supplemental-closed")
+        self.assertIsNotNone(row["supplemental_closed_note"])
+
 
 if __name__ == "__main__":
     unittest.main()
