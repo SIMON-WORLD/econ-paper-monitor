@@ -376,11 +376,11 @@
             "openalex",
             "readonly-proxy"
           ],
-          "message": "crossref-doi-fallback:5",
+          "message": "abstract-present:5",
           "publisher": "Elsevier",
           "retryable": true,
           "statuses": {
-            "crossref-doi-fallback": 5
+            "abstract-present": 5
           },
           "success_rate": 0.2
         },
@@ -395,34 +395,35 @@
             "openalex",
             "readonly-proxy"
           ],
-          "message": "crossref-doi-fallback:1",
+          "message": "abstract-present:1",
           "publisher": "OUP",
           "retryable": true,
           "statuses": {
-            "crossref-doi-fallback": 1
+            "abstract-present": 1
           },
           "success_rate": 0.0
         },
         {
-          "ab_dates": 16,
-          "attempted": 16,
-          "changed": 10,
-          "degraded": false,
-          "failures": 0,
+          "ab_dates": 32,
+          "attempted": 33,
+          "changed": 15,
+          "degraded": true,
+          "failures": 1,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "updated:7, crossref-doi-fallback:5, no-metadata:4",
+          "message": "abstract-present:21, metadata-only:6, abstract-route-missing:4, metadata-updated:crossref-doi:2",
           "publisher": "Other",
-          "retryable": false,
+          "retryable": true,
           "statuses": {
-            "crossref-doi-fallback": 5,
-            "no-metadata": 4,
-            "updated": 7
+            "abstract-present": 21,
+            "abstract-route-missing": 4,
+            "metadata-only": 6,
+            "metadata-updated:crossref-doi": 2
           },
-          "success_rate": 1.0
+          "success_rate": 0.9697
         },
         {
           "ab_dates": 0,
@@ -452,16 +453,16 @@
             "openalex",
             "readonly-proxy"
           ],
-          "message": "crossref-doi-fallback:1",
+          "message": "abstract-present:1",
           "publisher": "Wiley",
           "retryable": true,
           "statuses": {
-            "crossref-doi-fallback": 1
+            "abstract-present": 1
           },
           "success_rate": 0.0
         }
       ],
-      "updated_at": "2026-08-06T10:13:56+00:00"
+      "updated_at": "2026-08-06T10:14:29+00:00"
     }
   },
   "sources": {
@@ -512,9 +513,9 @@
     },
     "china-relevance": {
       "count": 1474,
-      "message": "candidates=399 changed=0",
+      "message": "candidates=399 changed=1",
       "ok": true,
-      "updated_at": "2026-08-06T10:14:07+00:00"
+      "updated_at": "2026-08-06T10:15:05+00:00"
     },
     "clean-cn-noise": {
       "count": 140,
@@ -570,7 +571,7 @@
       "count": 87,
       "message": "formal=87 raw_today=10 daily_today=4 missed=0",
       "ok": true,
-      "updated_at": "2026-08-06T10:14:08+00:00"
+      "updated_at": "2026-08-06T10:15:07+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -591,16 +592,16 @@
       "updated_at": "2026-08-06T09:23:25+00:00"
     },
     "local-cnki-publish": {
-      "count": 1,
-      "message": "published to origin/main",
-      "ok": true,
-      "updated_at": "2026-08-06T10:14:18+00:00"
+      "count": 0,
+      "message": "pending",
+      "ok": false,
+      "updated_at": "2026-08-06T10:15:08+00:00"
     },
     "local-cnki-run": {
       "count": 1,
       "message": "finished; log=local_admin/logs/local-cnki-update.log",
       "ok": true,
-      "updated_at": "2026-08-06T10:14:10+00:00"
+      "updated_at": "2026-08-06T10:15:07+00:00"
     },
     "manual-overrides": {
       "count": 2,
@@ -609,10 +610,10 @@
       "updated_at": "2026-08-06T09:23:11+00:00"
     },
     "normalize-records": {
-      "count": 672,
+      "count": 671,
       "message": "files=124 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=6 public_integrity_repairs=0",
       "ok": true,
-      "updated_at": "2026-08-06T10:13:58+00:00"
+      "updated_at": "2026-08-06T10:14:57+00:00"
     },
     "openalex-recall": {
       "count": 99,
@@ -851,24 +852,24 @@
       "updated_at": "2026-08-06T09:18:23+00:00"
     },
     "publisher-detail": {
-      "attempted": 23,
-      "count": 10,
-      "failures": 6,
+      "attempted": 40,
+      "count": 15,
+      "failures": 7,
       "fallbacks": [
         "crossref-doi",
         "openalex",
         "readonly-proxy"
       ],
-      "message": "attempted=23; proxy_abstract_attempted=0; 2026-08-06 Journal of Financial Economics: crossref-doi-fallback; 2026-08-06 Journal of Public Economics: crossref-doi-fallback; 2026-08-06 Land Use Policy: crossref-doi-fallback; 2026-08-06 Journal of Public Economics: crossref-doi-fallback; seen Economica: crossref-doi-fallback; seen Journal of the European Economic Association: crossref-doi-fallback; seen 世界经济: updated; seen 世界经济: updated; seen 世界经济: updated; seen 世界经济: updated; seen 世界经济: updated; seen 世界经济: updated; seen 世界经济: updated; seen Economic Development and Cultural Change: crossref-doi-fallback; seen Journal of Political Economy: crossref-doi-fallback; seen Journal of Political Economy: crossref-doi-fallback; seen Economics Letters: crossref-doi-fallback; 2026-08-06 Journal of Economic History: crossref-doi-fallback; seen Economic Development and Cultural Change: crossref-doi-fallback",
+      "message": "attempted=40; proxy_abstract_attempted=0; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen Economics Letters: abstract-present; seen CEPR Discussion Papers: abstract-present; seen 世界经济: abstract-present; seen 世界经济: abstract-present; seen 世界经济: abstract-present; seen 世界经济: abstract-present; seen 世界经济: abstract-present; seen 世界经济: abstract-present; seen 世界经济: abstract-present; seen Economica: abstract-present; 2026-08-06 VoxEU / CEPR Columns: abstract-present; 2026-08-06 VoxEU / CEPR Columns: abstract-present; seen CEPR Discussion Papers: metadata-updated:crossref-doi; 2026-08-06 Journal of Financial Economics: abstract-present; 2026-08-06 Journal of Public Economics: abstract-present; seen Journal of the European Economic Association: abstract-present; 2026-08-06 Land Use Policy: abstract-present; 2026-08-06 Journal of Public Economics: abstract-present",
       "ok": false,
       "retryable": true,
-      "updated_at": "2026-08-06T10:13:56+00:00"
+      "updated_at": "2026-08-06T10:14:29+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
       "message": "dates=2026-08-06,2026-08-05,2026-08-04 raw=158 daily=66 covered=0 seen=151 missing=0",
       "ok": true,
-      "updated_at": "2026-08-06T10:14:08+00:00"
+      "updated_at": "2026-08-06T10:15:06+00:00"
     },
     "remove-seen-backflow": {
       "count": 2,
@@ -1024,8 +1025,17 @@
   "workflow": {
     "date": "2026-08-06",
     "event": "local-cnki",
-    "finished_at": "2026-08-06T10:14:10+00:00",
+    "finished_at": "2026-08-06T10:15:07+00:00",
     "history": [
+      {
+        "event": "local-cnki",
+        "finished_at": "2026-08-06T10:15:07+00:00",
+        "mode": "light",
+        "mode_label": "本地中文补充",
+        "run_id": "",
+        "run_url": "",
+        "schedule": ""
+      },
       {
         "event": "local-cnki",
         "finished_at": "2026-08-06T10:14:10+00:00",
@@ -1286,24 +1296,15 @@
         "run_id": "30984380516",
         "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/30984380516",
         "schedule": ""
-      },
-      {
-        "event": "schedule",
-        "finished_at": "2026-08-05T05:31:39+00:00",
-        "mode": "light",
-        "mode_label": "快速监测",
-        "run_id": "30977966766",
-        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/30977966766",
-        "schedule": "*/15 * * * *"
       }
     ],
     "last_full_finished_at": "2026-08-06T06:59:41+00:00",
-    "last_light_finished_at": "2026-08-06T10:14:10+00:00",
+    "last_light_finished_at": "2026-08-06T10:15:07+00:00",
     "mode": "light",
     "mode_label": "本地中文补充",
     "run_id": "",
     "run_url": "",
     "schedule": "",
-    "updated_at": "2026-08-06T10:14:10+00:00"
+    "updated_at": "2026-08-06T10:15:07+00:00"
   }
 }
