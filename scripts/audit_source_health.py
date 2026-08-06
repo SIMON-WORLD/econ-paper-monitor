@@ -55,6 +55,16 @@ SUPPLEMENTAL_CLOSED_NOTES = {
     "applied-economics": "T&F RSS 在 CI IP 被 403 拦截（重试后仍失败），Crossref 兜底",
     "journal-of-the-association-of-environmental-and-resource-economists": "UChicago 平台未提供 JAERE 的 etoc RSS（jc=jaere 404），Crossref + OpenAlex recall 兜底",
     "journal-of-agricultural-and-resource-economics": "官方站 jareonline.org 的 WordPress feed 为空，Crossref + OpenAlex recall 兜底",
+    "international-journal-of-game-theory": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "economic-theory": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "review-of-economic-design": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "social-choice-and-welfare": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "public-choice": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "international-tax-and-public-finance": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "journal-of-economic-growth": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "journal-of-population-economics": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "environmental-and-resource-economics": "Springer search.rss 在 CI IP 返回挑战页（ParseError，2026-08-06 复测持续）；本地/住宅 IP 可抓取，Crossref 兜底",
+    "journal-of-law-and-economics": "UChicago etoc RSS 在 CI IP 被 403 拦截（重试后仍失败；本地/住宅 IP 可抓取），Crossref 兜底",
 }
 
 
