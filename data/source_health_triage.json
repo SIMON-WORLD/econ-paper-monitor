@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-08-06T15:16:56.894727+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-08-06T16:32:51.469219+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,8 +11,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "partial_success failures=1; Journal of Finance: 6; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 12; Economic Development and Cultural Change: 1;",
+      "category": "transient_network",
+      "sample_error": "partial_success failures=2; Journal of Finance: 6; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 12; Economic Development and Cultural Change: 1;",
       "source": "crossref"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=24/40; Journal of Finance: 29 via official-generated; Journal of Financial Economics: 23 via official-generated; Journal of Development Economics: 51 via official-generated; Economic Development",
+      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 17 via official-generated; Journal of Finance: 29 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -37,12 +37,28 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "quarterly-journal-of-economics",
-      "sample_error": "review-of-financial-studies/oup_advance_articles: HTTPError; crossref fallback 16; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallbac",
-      "source": "Quarterly Journal of Economics",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "journal-of-labor-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Labor Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-urban-economics",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Urban Economics",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "rss",
         "openalex-recall"
       ]
     }
@@ -51,5 +67,5 @@
     "aligned": true,
     "degraded_source_failures": 5
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
