@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-07T06:06:16.004388+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-08-07T06:25:21.058176+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -15,19 +17,50 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 17 via official-generated; Journal of Finance: 29 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=51/91; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 11 via configured; Journal of Econometrics: 51 via official-generated; Journal of Environmental Economics an",
       "source": "rss"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journals=24 failures=24 jina_key=on; Journal of Development Economics: HTTPError: HTTP Error 402: Payment Required; World Development: HTTPError: HTTP Error 402: Payment Required; China Economic Revie",
       "source": "sciencedirect-search"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
+      "source": "working-paper:repec-nep-ifn"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
+      "source": "working-paper:repec-nep-mac"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=2; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 30 via nep-issue; repec-nep-dev: 30",
+      "source": "working-papers"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economic-studies",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
+      "source": "Review of Economic Studies",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 7
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
