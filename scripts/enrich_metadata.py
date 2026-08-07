@@ -18,7 +18,7 @@ import urllib.parse
 import urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -107,7 +107,7 @@ def parse_date(value: str | None) -> str | None:
     return None
 
 
-def crossref_created_date(item: dict[str, Any]) -> str | None:
+def crossref_created_date(item: dict[str, Any], *, utc: bool = False) -> str | None:
     created = item.get("created")
     if not isinstance(created, dict):
         return None
@@ -115,7 +115,8 @@ def crossref_created_date(item: dict[str, Any]) -> str | None:
     if isinstance(date_time, str) and date_time:
         try:
             parsed = datetime.fromisoformat(date_time.replace("Z", "+00:00"))
-            return parsed.astimezone(BEIJING_TZ).date().isoformat()
+            target_tz = timezone.utc if utc else BEIJING_TZ
+            return parsed.astimezone(target_tz).date().isoformat()
         except ValueError:
             pass
     return date_from_parts(created)
@@ -303,6 +304,20 @@ def extract_elsevier_api_abstract(response: dict[str, Any], core: dict[str, Any]
     return None
 
 
+def elsevier_api_online_date(core: dict[str, Any]) -> dict[str, str]:
+    """Return the publisher online date from Elsevier coredata when exposed."""
+    result: dict[str, str] = {}
+    display_date = str(core.get("prism:coverDisplayDate") or "")
+    cover_date = str(core.get("prism:coverDate") or "")
+    parsed = parse_date(display_date) or parse_date(cover_date)
+    if parsed and "available online" in display_date.casefold():
+        result["available_online"] = parsed
+        result["published_online"] = parsed
+        result["date_source"] = "elsevier_article_api"
+        result["date_confidence"] = "A"
+    return result
+
+
 def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
     encoded_doi = urllib.parse.quote(doi, safe="")
     api_key = (os.environ.get("ELSEVIER_API_KEY") or os.environ.get("ELS_API_KEY") or "").strip()
@@ -323,14 +338,7 @@ def elsevier_api_metadata(doi: str, timeout: int) -> dict[str, str]:
     pii = extract_elsevier_pii(str(core.get("prism:url") or ""), str(core.get("pii") or ""))
     if pii:
         result["pii"] = pii
-    display_date = str(core.get("prism:coverDisplayDate") or "")
-    cover_date = str(core.get("prism:coverDate") or "")
-    parsed = parse_date(display_date) or parse_date(cover_date)
-    if parsed and "available online" in display_date.casefold():
-        result["available_online"] = parsed
-        result["published_online"] = parsed
-        result["date_source"] = "elsevier_article_api"
-        result["date_confidence"] = "A"
+    result.update(elsevier_api_online_date(core))
     abstract = extract_elsevier_api_abstract(response, core)
     if abstract:
         result["abstract"] = abstract
@@ -398,6 +406,7 @@ def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     published_print = date_from_parts(item.get("published-print"))
     issued = date_from_parts(item.get("issued"))
     created = crossref_created_date(item)
+    created_online_utc = crossref_created_date(item, utc=True)
     issue_date = published_print or published or issued
     result: dict[str, Any] = {}
     authors = []
@@ -414,9 +423,9 @@ def crossref_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
         result["published_online"] = published_online
         result["date_source"] = "crossref_doi_published_online"
         result["date_confidence"] = "C"
-    elif doi.startswith("10.1016/") and created:
-        result["available_online"] = created
-        result["published_online"] = created
+    elif doi.startswith("10.1016/") and created_online_utc:
+        result["available_online"] = created_online_utc
+        result["published_online"] = created_online_utc
         if issue_date:
             result["issue_date"] = issue_date
         result["date_source"] = "crossref_doi_elsevier_created_online"

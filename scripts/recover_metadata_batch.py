@@ -54,6 +54,7 @@ from common import (
 )
 from enrich_metadata import (
     crossref_doi_metadata,
+    elsevier_api_online_date,
     extract_elsevier_api_abstract,
     extract_elsevier_pii,
     openalex_doi_metadata,
@@ -443,6 +444,7 @@ def elsevier_doi_metadata(doi: str, timeout: int) -> dict[str, Any]:
     pii = extract_elsevier_pii(str(core.get("prism:url") or ""), str(core.get("pii") or ""))
     if pii:
         result["pii"] = pii
+    result.update(elsevier_api_online_date(core))
     abstract = extract_elsevier_api_abstract(response, core)
     if abstract:
         result["abstract"] = abstract

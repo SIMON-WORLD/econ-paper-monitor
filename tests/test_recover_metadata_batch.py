@@ -633,6 +633,25 @@ class TestElsevierProvider:
         assert meta["abstract_source"] == "elsevier_article_api_full"
         assert meta["_rate_limit"]["X-RateLimit-Remaining"] == "1998"
 
+    def test_extracts_publisher_available_online_date(self):
+        core = {
+            "dc:title": "Example Elsevier Paper",
+            "prism:url": "https://api.elsevier.com/content/article/pii/S1234567890123456",
+            "pii": "S1234567890123456",
+            "prism:coverDisplayDate": "Available online 6 August 2026",
+        }
+        payload = json.dumps({"full-text-retrieval-response": {"coredata": core}})
+        with patch.dict(os.environ, {"ELSEVIER_API_KEY": "k", "ELSEVIER_INST_TOKEN": "t"}, clear=False), patch(
+            "recover_metadata_batch._els_request", return_value=(payload, {})
+        ), patch.object(recover_metadata_batch.time, "sleep"):
+            meta = recover_metadata_batch.elsevier_doi_metadata("10.1016/j.jdeveco.2026.103880", 10)
+
+        assert meta["_status"] == "available"
+        assert meta["available_online"] == "2026-08-06"
+        assert meta["published_online"] == "2026-08-06"
+        assert meta["date_source"] == "elsevier_article_api"
+        assert meta["date_confidence"] == "A"
+
     def test_not_configured_skips_network(self):
         with patch.dict(os.environ, {}, clear=True):
             meta = recover_metadata_batch.elsevier_doi_metadata("10.1016/j.x.1", 10)
