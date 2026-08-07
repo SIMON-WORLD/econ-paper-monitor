@@ -121,6 +121,24 @@ class EnrichMetadataTests(unittest.TestCase):
         self.assertEqual(fetch_mock.call_args.kwargs["insttoken"], "")
         self.assertEqual(result["available_online"], "2026-07-16")
 
+    @patch.object(enrich_metadata, "fetch_json")
+    def test_crossref_doi_elsevier_created_fallback_uses_utc_date(self, fetch_mock) -> None:
+        fetch_mock.return_value = {
+            "message": {
+                "DOI": "10.1016/j.foodpol.2026.103163",
+                "title": ["Ozone pollution, cash crop production, and farmer adaptation: evidence from China"],
+                "created": {"date-time": "2026-08-06T21:59:13Z", "date-parts": [[2026, 8, 6]]},
+                "issued": {"date-parts": [[2026, 9]]},
+            }
+        }
+
+        result = enrich_metadata.crossref_doi_metadata("10.1016/j.foodpol.2026.103163", timeout=1)
+
+        self.assertEqual(result["available_online"], "2026-08-06")
+        self.assertEqual(result["published_online"], "2026-08-06")
+        self.assertEqual(result["date_source"], "crossref_doi_elsevier_created_online")
+        self.assertEqual(result["date_confidence"], "C")
+
 
 class MetadataProviderRetryTests(unittest.TestCase):
     def test_fetch_json_retry_backs_off_on_429(self) -> None:

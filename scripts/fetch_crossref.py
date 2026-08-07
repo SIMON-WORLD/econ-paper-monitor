@@ -10,7 +10,7 @@ from typing import Any
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone
 
 from common import (
     BEIJING_TZ,
@@ -36,7 +36,7 @@ def author_name(author: dict[str, Any]) -> str:
     return name or str(author.get("name") or "")
 
 
-def crossref_created_date(item: dict[str, Any]) -> str | None:
+def crossref_created_date(item: dict[str, Any], *, utc: bool = False) -> str | None:
     created = item.get("created")
     if not isinstance(created, dict):
         return None
@@ -44,7 +44,8 @@ def crossref_created_date(item: dict[str, Any]) -> str | None:
     if isinstance(date_time, str) and date_time:
         try:
             parsed = datetime.fromisoformat(date_time.replace("Z", "+00:00"))
-            return parsed.astimezone(BEIJING_TZ).date().isoformat()
+            target_tz = timezone.utc if utc else BEIJING_TZ
+            return parsed.astimezone(target_tz).date().isoformat()
         except ValueError:
             pass
     return date_from_parts(created)
@@ -56,17 +57,20 @@ def parse_item(item: dict[str, Any], journal: dict[str, Any]) -> dict[str, Any]:
     published_print = date_from_parts(item.get("published-print"))
     issued = date_from_parts(item.get("issued"))
     created = crossref_created_date(item)
+    created_online_utc = crossref_created_date(item, utc=True)
     doi = str(item.get("DOI") or "")
     issue_date = published_print or published or issued
     if published_online:
         date_source = "crossref_published_online"
         confidence = "C"
-    elif doi.startswith("10.1016/") and created:
+    elif doi.startswith("10.1016/") and created_online_utc:
         # Elsevier often omits published-online from Crossref while the DOI
         # registration date matches ScienceDirect's "Available online" date.
-        # Keep the issue/print date separately, but surface created as
-        # a provisional online date until publisher-page parsing succeeds.
-        published_online = created
+        # Keep the issue/print date separately, but surface the UTC calendar
+        # date of created as a provisional online date until publisher-page
+        # parsing succeeds. A late-UTC registration must not shift into the
+        # next Beijing calendar day.
+        published_online = created_online_utc
         date_source = "crossref_elsevier_created_online"
         confidence = "C"
     elif published:
