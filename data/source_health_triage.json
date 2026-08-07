@@ -1,8 +1,8 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-08-07T06:25:21.058176+08:00",
+  "checked_at": "2026-08-07T08:16:41.235208+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -11,13 +11,18 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Finance: 3; Journal of Financial Economics: 8; Review of Financial Studies: 6; Journal of Development Economics: 13; Economic Development and Cultural Change: 1;",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
       "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; ",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=51/91; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 11 via configured; Journal of Econometrics: 51 via official-generated; Journal of Environmental Economics an",
+      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 17 via official-generated; Journal of Finance: 29 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -34,26 +39,21 @@
       "category": "transient_network",
       "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
       "source": "working-paper:repec-nep-mac"
-    },
-    {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=2; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 30 via nep-issue; repec-nep-dev: 30",
-      "source": "working-papers"
     }
   ],
   "sources": [
     {
-      "category": "needs_investigation",
+      "category": "permanently_unavailable",
       "category_counts": {
-        "needs_investigation": 1
+        "permanently_unavailable": 1
       },
-      "journal_id": "review-of-economic-studies",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Review of Economic Studies",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
       "usable_paths": [
-        "crossref",
+        "cnki-rss",
         "openalex-recall"
       ]
     }
