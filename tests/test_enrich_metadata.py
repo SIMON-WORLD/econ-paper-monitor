@@ -139,6 +139,31 @@ class EnrichMetadataTests(unittest.TestCase):
         self.assertEqual(result["date_source"], "crossref_doi_elsevier_created_online")
         self.assertEqual(result["date_confidence"], "C")
 
+    @patch.object(enrich_metadata, "fetch_elsevier_json")
+    def test_elsevier_display_date_without_phrase_is_provisional(self, fetch_mock) -> None:
+        fetch_mock.return_value = {
+            "full-text-retrieval-response": {
+                "coredata": {
+                    "pii": "S0306919226001326",
+                    "prism:coverDisplayDate": "6 August 2026",
+                }
+            }
+        }
+        with patch.dict(
+            enrich_metadata.os.environ,
+            {"ELSEVIER_API_KEY": "test-key"},
+            clear=False,
+        ):
+            result = enrich_metadata.elsevier_api_metadata("10.1016/j.foodpol.2026.103163", timeout=1)
+
+        self.assertEqual(result["available_online"], "2026-08-06")
+        self.assertEqual(result["date_source"], "elsevier_article_api_display_date")
+        self.assertEqual(result["date_confidence"], "C")
+
+    def test_elsevier_no_date_fields_returns_nothing(self) -> None:
+        result = enrich_metadata.elsevier_api_online_date({"dc:title": "Example paper"})
+        self.assertEqual(result, {})
+
 
 class MetadataProviderRetryTests(unittest.TestCase):
     def test_fetch_json_retry_backs_off_on_429(self) -> None:
