@@ -1,16 +1,24 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-08T18:19:26.526155+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1,
+    "permanently_unavailable": 1
+  },
+  "checked_at": "2026-08-08T19:31:43.369735+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=4; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 6; Journal of Development Economics: 13; Economic Development and Cultural Change: 1;",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; ",
+      "sample_error": "attempted=18; proxy_abstract_attempted=0; seen Economic Development and Cultural Change: metadata-only; seen 数量经济技术经济研究: abstract-present; seen 数量经济技术经济研究: abstract-present; seen 中国工业经济: abstract-rout",
       "source": "publisher-detail"
     },
     {
@@ -24,10 +32,41 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "permanently_unavailable",
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
-  "total_degraded": 0
+  "total_degraded": 2
 }
