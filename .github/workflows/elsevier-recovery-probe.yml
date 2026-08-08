@@ -33,8 +33,16 @@ jobs:
           S2_API_KEY: ${{ secrets.S2_API_KEY }}
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
         run: |
+          LIMIT="${{ github.event.inputs.limit }}"
+          if [ -z "$LIMIT" ]; then
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              LIMIT=50
+            else
+              LIMIT=0
+            fi
+          fi
           python scripts/recover_metadata_batch.py --dry-run \
-            --limit "${{ github.event.inputs.limit || '0' }}" \
+            --limit "$LIMIT" \
             --recent-days 5000 --workers 8 --timeout 12 \
             --output /tmp/elsevier-probe.json
           python - <<'PY'
@@ -72,3 +80,27 @@ jobs:
               report.get('shortfall', {}), ensure_ascii=False
           ))
           PY
+      - name: Inspect Elsevier Article API date fields
+        env:
+          ELSEVIER_API_KEY: ${{ secrets.ELSEVIER_API_KEY }}
+          ELSEVIER_INST_TOKEN: ${{ secrets.ELSEVIER_INST_TOKEN }}
+        run: |
+          python scripts/inspect_elsevier_dates.py \
+            --data-dir data --limit 50 \
+            --output /tmp/elsevier-date-inspection.json
+          python - <<'PY'
+          import json
+          report = json.load(open('/tmp/elsevier-date-inspection.json', encoding='utf-8'))
+          print('inspection_statuses=' + json.dumps(report.get('status_counts', {}), ensure_ascii=False))
+          print('inspection_total=' + str(report.get('total')))
+          for item in report.get('items', [])[:10]:
+              print('sample=' + json.dumps(
+                  {key: item.get(key) for key in ('doi', 'status', 'date_keys', 'date_values')},
+                  ensure_ascii=False,
+              ))
+          PY
+      - name: Upload Elsevier date-field inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: elsevier-date-inspection
+          path: /tmp/elsevier-date-inspection.json

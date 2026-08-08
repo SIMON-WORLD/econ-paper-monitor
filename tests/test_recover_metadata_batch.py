@@ -221,6 +221,59 @@ class TestDateDiscipline:
         assert update["date_source"] == "openalex+crossref_crossvalidated"
         assert update["available_online"] == "2026-07-28"
 
+    def test_elsevier_phrase_date_is_not_downgraded(self):
+        record = sample_record()
+        metadata = provider_metadata("2026-08-06")
+        metadata["elsevier"] = {
+            "available_online": "2026-08-06",
+            "published_online": "2026-08-06",
+            "date_source": "elsevier_article_api",
+            "date_confidence": "A",
+        }
+        update = decide_date_update(record, metadata)
+        assert update["date_confidence"] == "A"
+        assert update["date_source"] == "elsevier_article_api"
+        assert update["available_online"] == "2026-08-06"
+
+    def test_elsevier_provisional_date_upgrades_with_crossref(self):
+        record = sample_record()
+        metadata = provider_metadata("2026-08-06")
+        metadata["openalex"] = {}
+        metadata["elsevier"] = {
+            "available_online": "2026-08-06",
+            "published_online": "2026-08-06",
+            "date_source": "elsevier_article_api_display_date",
+            "date_confidence": "C",
+        }
+        update = decide_date_update(record, metadata)
+        assert update["date_confidence"] == "B"
+        assert update["date_source"] == "elsevier+crossref_crossvalidated"
+        assert update["available_online"] == "2026-08-06"
+
+    def test_single_elsevier_provisional_date_fills_missing_at_c(self):
+        record = sample_record(
+            available_online="",
+            published_online="",
+            date_confidence="F",
+        )
+        update = decide_date_update(
+            record,
+            {
+                "openalex": {},
+                "crossref": {},
+                "semantic-scholar": {},
+                "elsevier": {
+                    "available_online": "2026-08-06",
+                    "published_online": "2026-08-06",
+                    "date_source": "elsevier_article_api_display_date",
+                    "date_confidence": "C",
+                },
+            },
+        )
+        assert update["date_confidence"] == "C"
+        assert update["date_source"] == "elsevier_article_api_display_date"
+        assert update["available_online"] == "2026-08-06"
+
     def test_conflicting_sources_stay_c(self):
         record = sample_record()
         metadata = provider_metadata("2026-07-28")

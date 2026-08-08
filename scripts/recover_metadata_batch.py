@@ -269,7 +269,7 @@ def online_date_from_metadata(provider: str, metadata: dict[str, Any]) -> str | 
             or metadata.get("published_online")
             or ""
         ).strip() or None
-    if provider in {"openalex", "semantic-scholar"}:
+    if provider in {"openalex", "semantic-scholar", "elsevier"}:
         return str(
             metadata.get("available_online")
             or metadata.get("published_online")
@@ -290,20 +290,36 @@ def decide_date_update(
     oa_date = online_date_from_metadata("openalex", providers.get("openalex", {}))
     cr_date = online_date_from_metadata("crossref", providers.get("crossref", {}))
     ss_date = online_date_from_metadata("semantic-scholar", providers.get("semantic-scholar", {}))
+    els_date = online_date_from_metadata("elsevier", providers.get("elsevier", {}))
+    els_confidence = str(providers.get("elsevier", {}).get("date_confidence") or "")
+
+    # Elsevier's explicit "Available online" phrase is publisher-official and
+    # must never be downgraded by cross-validation.
+    if els_confidence == "A" and els_date and reasonable_year(els_date):
+        return {
+            "available_online": els_date,
+            "published_online": els_date,
+            "date_source": "elsevier_article_api",
+            "date_confidence": "A",
+        }
 
     # Two independent sources agreeing on the same plausible date upgrade to B.
-    if (
-        oa_date
-        and cr_date
-        and oa_date == cr_date
-        and reasonable_year(oa_date)
+    for left, right, source in (
+        (oa_date, cr_date, "openalex+crossref_crossvalidated"),
+        (els_date, cr_date, "elsevier+crossref_crossvalidated"),
     ):
-        return {
-            "available_online": oa_date,
-            "published_online": oa_date,
-            "date_source": "openalex+crossref_crossvalidated",
-            "date_confidence": "B",
-        }
+        if (
+            left
+            and right
+            and left == right
+            and reasonable_year(left)
+        ):
+            return {
+                "available_online": left,
+                "published_online": left,
+                "date_source": source,
+                "date_confidence": "B",
+            }
 
     # A single source may only fill a missing date, staying at C. It can never
     # replace or upgrade an existing C and must never touch an A/B date.
@@ -317,6 +333,7 @@ def decide_date_update(
         (oa_date, "openalex_publication_date"),
         (cr_date, "crossref_doi_published_online"),
         (ss_date, "semantic_scholar_publication_date"),
+        (els_date, "elsevier_article_api_display_date"),
     ):
         if candidate and reasonable_year(candidate):
             return {

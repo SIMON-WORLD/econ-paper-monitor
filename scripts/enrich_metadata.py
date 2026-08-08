@@ -309,12 +309,20 @@ def elsevier_api_online_date(core: dict[str, Any]) -> dict[str, str]:
     result: dict[str, str] = {}
     display_date = str(core.get("prism:coverDisplayDate") or "")
     cover_date = str(core.get("prism:coverDate") or "")
-    parsed = parse_date(display_date) or parse_date(cover_date)
-    if parsed and "available online" in display_date.casefold():
-        result["available_online"] = parsed
-        result["published_online"] = parsed
+    display_parsed = parse_date(display_date)
+    cover_parsed = parse_date(cover_date)
+    if display_parsed and "available online" in display_date.casefold():
+        result["available_online"] = display_parsed
+        result["published_online"] = display_parsed
         result["date_source"] = "elsevier_article_api"
         result["date_confidence"] = "A"
+    elif display_parsed and (not cover_parsed or display_parsed != cover_parsed):
+        # A full display date without the phrase is a provisional publisher
+        # date. coverDate is usually the issue date and must not be surfaced.
+        result["available_online"] = display_parsed
+        result["published_online"] = display_parsed
+        result["date_source"] = "elsevier_article_api_display_date"
+        result["date_confidence"] = "C"
     return result
 
 
