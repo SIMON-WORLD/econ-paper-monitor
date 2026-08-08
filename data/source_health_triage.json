@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-08T12:20:03.608121+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-08-08T13:23:00.402500+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -10,7 +12,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 13; Economic Development and Cultural Change: 1;",
+      "sample_error": "partial_success failures=3; Journal of Finance: 3; Journal of Financial Economics: 8; Review of Financial Studies: 6; Journal of Development Economics: 13; Economic Development and Cultural Change: 1;",
       "source": "crossref"
     },
     {
@@ -20,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 18 via official-generated; Journal of Finance: 29 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=24/40; Journal of Finance: 29 via official-generated; Journal of Financial Economics: 24 via official-generated; Journal of Development Economics: 52 via official-generated; Economic Development",
       "source": "rss"
     },
     {
@@ -29,10 +31,26 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 5
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
