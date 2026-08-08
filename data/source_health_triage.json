@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-08-08T13:23:00.402500+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-08-08T14:46:02.230725+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,7 +12,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=3; Journal of Finance: 3; Journal of Financial Economics: 8; Review of Financial Studies: 6; Journal of Development Economics: 13; Economic Development and Cultural Change: 1;",
+      "sample_error": "partial_success failures=3; Journal of Finance: 1; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 13; Economic Development and Cultural Change: 1;",
       "source": "crossref"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=24/40; Journal of Finance: 29 via official-generated; Journal of Financial Economics: 24 via official-generated; Journal of Development Economics: 52 via official-generated; Economic Development",
+      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 18 via official-generated; Journal of Finance: 29 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -37,13 +37,28 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
+      "journal_id": "american-economic-journal-economic-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Economic Policy",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
-        "cnki-rss",
+        "aea-toc",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "games-and-economic-behavior",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Games and Economic Behavior",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
         "openalex-recall"
       ]
     }
@@ -52,5 +67,5 @@
     "aligned": true,
     "degraded_source_failures": 5
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
