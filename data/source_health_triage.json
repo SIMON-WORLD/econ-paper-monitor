@@ -1,9 +1,7 @@
 {
-  "categories": {
-    "needs_investigation": 1
-  },
-  "checked_at": "2026-08-08T20:57:35.851075+08:00",
-  "source_health_degraded_count": 1,
+  "categories": {},
+  "checked_at": "2026-08-08T21:44:31.461227+08:00",
+  "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,13 +9,8 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Economic Growth: 2; Journal of Money, Credit and Banking: 8; Review of Economic Dynamics: 12; Journal of Economic Dynamics and Control: 40; Journal of Population",
-      "source": "crossref"
-    },
-    {
       "category": "needs_investigation",
-      "sample_error": "attempted=18; proxy_abstract_attempted=0; seen Economic Development and Cultural Change: metadata-only; seen 数量经济技术经济研究: abstract-present; seen 数量经济技术经济研究: abstract-present; seen 中国工业经济: abstract-rout",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; ",
       "source": "publisher-detail"
     },
     {
@@ -31,14 +24,19 @@
       "source": "sciencedirect-search"
     },
     {
+      "category": "transient_network",
+      "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
+      "source": "working-paper:repec-nep-cna"
+    },
+    {
       "category": "needs_investigation",
       "sample_error": "URLError: <urlopen error [Errno 101] Network is unreachable>",
-      "source": "working-paper:repec-nep-cna"
+      "source": "working-paper:repec-nep-dev"
     },
     {
       "category": "transient_network",
       "sample_error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
-      "source": "working-paper:repec-nep-dev"
+      "source": "working-paper:repec-nep-hea"
     },
     {
       "category": "transient_network",
@@ -46,31 +44,20 @@
       "source": "working-paper:repec-nep-ifn"
     },
     {
+      "category": "needs_investigation",
+      "sample_error": "URLError: <urlopen error [Errno 101] Network is unreachable>",
+      "source": "working-paper:repec-nep-mac"
+    },
+    {
       "category": "transient_network",
-      "sample_error": "partial_success failures=3; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: URLError: <urlopen error [Errno 101",
+      "sample_error": "partial_success failures=5; nber: 30 via specialized-api; iza: 20 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: URLError: <urlopen error _ssl.c:999",
       "source": "working-papers"
     }
   ],
-  "sources": [
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "cnki-rss",
-        "openalex-recall"
-      ]
-    }
-  ],
+  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 9
+    "degraded_source_failures": 10
   },
-  "total_degraded": 1
+  "total_degraded": 0
 }
