@@ -1,21 +1,23 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-10T21:57:32.642249+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-08-10T22:23:26.423764+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=53; proxy_abstract_attempted=0; 2026-08-10 NBER Working Papers: abstract-present; 2026-08-10 NBER Working Papers: abstract-present; 2026-08-10 NBER Working Papers: abstract-present; 2026-08-",
+      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; ",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=51/90; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 11 via configured; Journal of Econometrics: 53 via official-generated; Journal of Environmental Economics an",
+      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 19 via official-generated; Journal of Finance: 30 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -24,10 +26,26 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economic-studies",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 6; european-review-of-agricultural-economics/oup_advance_ar",
+      "source": "Review of Economic Studies",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 4
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
