@@ -1,9 +1,10 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 1,
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-08-12T11:56:19.033106+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-08-12T13:31:55.945398+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -17,7 +18,7 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; ",
+      "sample_error": "attempted=12; proxy_abstract_attempted=0; seen 中国工业经济: abstract-present; seen 中国工业经济: abstract-route-missing; seen 中国工业经济: abstract-present; seen 数量经济技术经济研究: abstract-present; seen 中国工业经济: abstract-pr",
       "source": "publisher-detail"
     },
     {
@@ -37,9 +38,24 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-edcb877d78",
-      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
-      "source": "数量经济技术经济研究",
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "permanently_unavailable",
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
       "status_category": "needs_investigation",
       "status_source": "cn-journals",
       "usable_paths": [
@@ -52,5 +68,5 @@
     "aligned": true,
     "degraded_source_failures": 5
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
