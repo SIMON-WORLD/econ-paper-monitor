@@ -2,13 +2,18 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-08-13T22:09:12.459479+08:00",
+  "checked_at": "2026-08-13T22:44:30.652906+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Finance: 3; Journal of Financial Economics: 8; Review of Financial Studies: 5; Journal of Development Economics: 15; Economic Development and Cultural Change: 1;",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -17,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=51/90; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 13 via configured; Journal of Econometrics: 55 via official-generated; Journal of Environmental Economics an",
+      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 19 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
@@ -32,20 +37,20 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "review-of-economic-studies",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theor",
-      "source": "Review of Economic Studies",
-      "status_category": null,
-      "status_source": null,
+      "journal_id": "china-economic-review",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "China Economic Review",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
       "usable_paths": [
-        "crossref",
+        "rss",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
   "total_degraded": 1
 }
