@@ -1,6 +1,15 @@
 {
   "runs": [
     {
+      "daily_total": 42,
+      "enriched": 783,
+      "new": 6,
+      "pruned": 17,
+      "seen": 6143,
+      "suppressed": 1,
+      "updated_at": "2026-08-13T13:43:53+00:00"
+    },
+    {
       "daily_total": 38,
       "enriched": 342,
       "new": 10,
@@ -170,15 +179,6 @@
       "seen": 6058,
       "suppressed": 0,
       "updated_at": "2026-08-12T14:51:09+00:00"
-    },
-    {
-      "daily_total": 23,
-      "enriched": 789,
-      "new": 11,
-      "pruned": 17,
-      "seen": 6058,
-      "suppressed": 1,
-      "updated_at": "2026-08-12T14:12:41+00:00"
     }
   ],
   "source_groups": {
@@ -268,7 +268,7 @@
         }
       ],
       "successful": 5,
-      "updated_at": "2026-08-13T12:17:58+00:00"
+      "updated_at": "2026-08-13T13:43:50+00:00"
     },
     "cnki-rss": {
       "count": 101,
@@ -362,69 +362,28 @@
       "publishers": [
         {
           "ab_dates": 0,
-          "attempted": 2,
-          "changed": 1,
+          "attempted": 115,
+          "changed": 2,
           "degraded": true,
-          "failures": 2,
+          "failures": 115,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "metadata-only:abstract-not-exposed:1, abstract-present:1",
+          "message": "elsevier-metadata-only:112, HTTPError:2, crossref-doi-fallback:1",
           "publisher": "Elsevier",
           "retryable": true,
           "statuses": {
-            "abstract-present": 1,
-            "metadata-only:abstract-not-exposed": 1
+            "HTTPError": 2,
+            "crossref-doi-fallback": 1,
+            "elsevier-metadata-only": 112
           },
           "success_rate": 0.0
         },
         {
           "ab_dates": 0,
-          "attempted": 1,
-          "changed": 0,
-          "degraded": true,
-          "failures": 1,
-          "fallbacks": [
-            "crossref-doi",
-            "openalex",
-            "readonly-proxy"
-          ],
-          "message": "abstract-present:1",
-          "publisher": "OUP",
-          "retryable": true,
-          "statuses": {
-            "abstract-present": 1
-          },
-          "success_rate": 0.0
-        },
-        {
-          "ab_dates": 18,
-          "attempted": 29,
-          "changed": 18,
-          "degraded": true,
-          "failures": 11,
-          "fallbacks": [
-            "crossref-doi",
-            "openalex",
-            "readonly-proxy"
-          ],
-          "message": "abstract-route-missing:11, abstract-present:11, metadata-only:5, abstract-updated:readonly-proxy:1",
-          "publisher": "Other",
-          "retryable": true,
-          "statuses": {
-            "abstract-present": 11,
-            "abstract-route-missing": 11,
-            "abstract-updated:readonly-proxy": 1,
-            "metadata-only": 5,
-            "metadata-updated:crossref-doi": 1
-          },
-          "success_rate": 0.6207
-        },
-        {
-          "ab_dates": 1,
-          "attempted": 1,
+          "attempted": 0,
           "changed": 0,
           "degraded": false,
           "failures": 0,
@@ -433,59 +392,73 @@
             "openalex",
             "readonly-proxy"
           ],
-          "message": "abstract-present:1",
-          "publisher": "Springer",
+          "message": "",
+          "publisher": "OUP",
           "retryable": false,
-          "statuses": {
-            "abstract-present": 1
-          },
-          "success_rate": 1.0
+          "statuses": {},
+          "success_rate": 0
         },
         {
           "ab_dates": 0,
-          "attempted": 1,
-          "changed": 1,
+          "attempted": 5,
+          "changed": 0,
           "degraded": true,
-          "failures": 1,
+          "failures": 5,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "abstract-present:1",
-          "publisher": "Taylor & Francis",
+          "message": "HTTPError:3, crossref-doi-fallback:2",
+          "publisher": "Other",
           "retryable": true,
           "statuses": {
-            "abstract-present": 1
+            "HTTPError": 3,
+            "crossref-doi-fallback": 2
           },
           "success_rate": 0.0
         },
         {
-          "ab_dates": 4,
-          "attempted": 5,
+          "ab_dates": 0,
+          "attempted": 0,
           "changed": 0,
-          "degraded": true,
-          "failures": 1,
+          "degraded": false,
+          "failures": 0,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "abstract-present:5",
+          "message": "",
+          "publisher": "Taylor & Francis",
+          "retryable": false,
+          "statuses": {},
+          "success_rate": 0
+        },
+        {
+          "ab_dates": 0,
+          "attempted": 0,
+          "changed": 0,
+          "degraded": false,
+          "failures": 0,
+          "fallbacks": [
+            "crossref-doi",
+            "openalex",
+            "readonly-proxy"
+          ],
+          "message": "",
           "publisher": "Wiley",
-          "retryable": true,
-          "statuses": {
-            "abstract-present": 5
-          },
-          "success_rate": 0.8
+          "retryable": false,
+          "statuses": {},
+          "success_rate": 0
         }
       ],
-      "updated_at": "2026-08-13T10:14:40+00:00"
+      "updated_at": "2026-08-13T13:46:04+00:00"
     }
   },
   "sources": {
     "aea-toc": {
-      "count": 247,
+      "count": 306,
       "journals": {
         "american-economic-journal-applied-economics": {
           "count": 40,
@@ -516,42 +489,52 @@
           "count": 33,
           "message": "ok",
           "ok": true
+        },
+        "journal-of-economic-literature": {
+          "count": 47,
+          "message": "ok",
+          "ok": true
+        },
+        "journal-of-economic-perspectives": {
+          "count": 12,
+          "message": "forthcoming: HTTPError: HTTP Error 404: Not Found",
+          "ok": true
         }
       },
-      "message": "american-economic-review: 41; american-economic-review-insights: 33; american-economic-journal-microeconomics: 44; american-economic-journal-applied-economics: 40; american-economic-journal-economic-policy: 46; american-economic-journal-macroeconomics: 43",
+      "message": "american-economic-review: 41; journal-of-economic-perspectives: 12 (forthcoming: HTTPError: HTTP Error 404: Not Found); journal-of-economic-literature: 47; american-economic-review-insights: 33; american-economic-journal-microeconomics: 44; american-economic-journal-applied-economics: 40; american-economic-journal-economic-policy: 46; american-economic-journal-macroeconomics: 43",
       "ok": true,
-      "partial_failures": 0,
-      "updated_at": "2026-08-13T12:12:32+00:00"
+      "partial_failures": 1,
+      "updated_at": "2026-08-13T13:25:58+00:00"
     },
     "ai-china-relevance": {
       "count": 0,
       "message": "attempted=0 changed=0 auto_no=0 files=0",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:47+00:00"
+      "updated_at": "2026-08-13T13:49:39+00:00"
     },
     "china-relevance": {
-      "count": 1571,
-      "message": "candidates=406 changed=27",
+      "count": 1575,
+      "message": "candidates=406 changed=25",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:47+00:00"
+      "updated_at": "2026-08-13T13:49:39+00:00"
     },
     "clean-cn-noise": {
       "count": 150,
       "message": "daily_removed=0 seen_removed=150",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:02+00:00"
+      "updated_at": "2026-08-13T13:43:55+00:00"
     },
     "clean-rss-backfill": {
       "count": 0,
       "message": "date=2026-08-13 moved=0 suppressed=0 files=0",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:02+00:00"
+      "updated_at": "2026-08-13T13:43:55+00:00"
     },
     "cn-journals": {
       "count": 36,
       "message": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "ok": false,
-      "updated_at": "2026-08-13T12:17:58+00:00"
+      "updated_at": "2026-08-13T13:43:50+00:00"
     },
     "cnki-rss": {
       "count": 101,
@@ -560,36 +543,36 @@
       "updated_at": "2026-08-13T10:12:28+00:00"
     },
     "crossref": {
-      "count": 176,
+      "count": 1282,
       "failure_count": 0,
       "failures": [],
       "fallback": "preserve_seen_then_use_rss_priority_toc_openalex",
-      "message": "Journal of Finance: 2; Journal of Financial Economics: 8; Review of Financial Studies: 4; Journal of Development Economics: 15; Economic Development and Cultural Change: 0; World Development: 12; The World Economy: 6; China Economic Review: 0; Review of Economics and Statistics: 0; American Economic Journal: Applied Economics: 0; American Economic Journal: Economic Policy: 0; Quantitative Economics: 0; Journal of Urban Economics: 0; Journal of Monetary Economics: 5; American Economic Journal: Macroeconomics: 0; Journal of Labor Economics: 0; Journal of Econometrics: 11; Journal of Environmental Economics and Management: 8; American Journal of Agricultural Economics: 1; Food Policy: 8; Journal of the Association of Environmental and Resource Economists: 10; Land Economics: 0; Land Use Policy: 12; Environmental and Resource Economics: 0; 经济研究: 0; 管理世界: 0; 世界经济: 0; 数量经济技术经济研究: 0; 中国工业经济: 0; 中国农村经济: 0",
+      "message": "Journal of Economic Growth: 2; Journal of Money, Credit and Banking: 8; Review of Economic Dynamics: 14; Journal of Economic Dynamics and Control: 40; Journal of Population Economics: 9; Journal of Labor Economics: 15; Journal of Econometrics: 40; Journal of Environmental Economics and Management: 40; Experimental Economics: 1; Journal of Law & Economics: 0; Journal of Comparative Economics: 3; American Journal of Agricultural Economics: 3; Food Policy: 40; Journal of Agricultural Economics: 8; Agricultural Economics: 12; Journal of the Association of Environmental and Resource Economists: 26; Land Economics: 8; Land Use Policy: 40; European Review of Agricultural Economics: 4; Environmental and Resource Economics: 12; Canadian Journal of Agricultural Economics: 6; Australian Journal of Agricultural and Resource Economics: 25; Journal of Agricultural and Resource Economics: 0; Applied Economic Perspectives and Policy: 19; 经济研究: 0; 管理世界: 0; 世界经济: 0; 数量经济技术经济研究: 0; 中国工业经济: 0; 中国农村经济: 0",
       "ok": true,
       "rate_limited_count": 0,
       "retry_policy": {
-        "attempts": 2,
+        "attempts": 3,
         "honor_retry_after": true
       },
-      "updated_at": "2026-08-13T12:15:01+00:00"
+      "updated_at": "2026-08-13T13:35:36+00:00"
     },
     "dedupe": {
-      "count": 10,
-      "message": "daily_total=38 seen=6136 enriched=342 suppressed=0 pruned=17",
+      "count": 6,
+      "message": "daily_total=42 seen=6143 enriched=783 suppressed=1 pruned=17",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:01+00:00"
+      "updated_at": "2026-08-13T13:43:53+00:00"
     },
     "external-sentinel:alohomora": {
       "count": 73,
       "message": "alo=110 matched=37 in_monitor=0 china_like=8 old_backflow=0 local_only=80",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:22+00:00"
+      "updated_at": "2026-08-13T13:44:15+00:00"
     },
     "formal-journal-audit": {
       "count": 87,
-      "message": "formal=87 raw_today=59 daily_today=7 missed=0",
+      "message": "formal=87 raw_today=84 daily_today=8 missed=0",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:20+00:00"
+      "updated_at": "2026-08-13T13:44:13+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -604,10 +587,10 @@
       "updated_at": "2026-07-24T21:53:02+00:00"
     },
     "ingestion-audit": {
-      "count": 2171,
-      "message": "raw=2171 daily=36 new_today=0 missed=0 seen=2114 suppressed=57",
+      "count": 4315,
+      "message": "raw=4315 daily=42 new_today=0 missed=0 seen=4183 suppressed=131",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:19+00:00"
+      "updated_at": "2026-08-13T13:44:11+00:00"
     },
     "local-cnki-publish": {
       "count": 1,
@@ -625,13 +608,13 @@
       "count": 2,
       "message": "files=1",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:03+00:00"
+      "updated_at": "2026-08-13T13:43:56+00:00"
     },
     "normalize-records": {
-      "count": 665,
-      "message": "files=124 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=0",
+      "count": 666,
+      "message": "files=125 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=0",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:38+00:00"
+      "updated_at": "2026-08-13T13:49:30+00:00"
     },
     "openalex-recall": {
       "count": 99,
@@ -738,10 +721,10 @@
         }
       },
       "recall_only": true,
-      "updated_at": "2026-08-13T12:15:11+00:00"
+      "updated_at": "2026-08-13T13:35:48+00:00"
     },
     "priority-toc": {
-      "count": 313,
+      "count": 326,
       "journals": {
         "econometrica": {
           "count": 36,
@@ -834,10 +817,10 @@
           "publisher_ok": false
         },
         "review-of-economic-studies": {
-          "count": 25,
-          "fallback_count": 19,
+          "count": 38,
+          "fallback_count": 38,
           "ok": true,
-          "publisher_ok": true
+          "publisher_ok": false
         },
         "review-of-economics-and-statistics": {
           "count": 80,
@@ -864,187 +847,196 @@
           "publisher_ok": true
         }
       },
-      "message": "international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 9; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 3; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 4; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 10; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 9; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 12; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 4; review-of-economic-studies/restud_official_accepted: 6",
+      "message": "journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 2; international-journal-of-game-theory/springer_online_first: 0; international-journal-of-game-theory/springer_online_first: crossref fallback 5; economic-theory/springer_online_first: 0; economic-theory/springer_online_first: crossref fallback 9; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 3; social-choice-and-welfare/springer_online_first: 0; social-choice-and-welfare/springer_online_first: crossref fallback 4; public-choice/springer_online_first: 0; public-choice/springer_online_first: crossref fallback 16; international-tax-and-public-finance/springer_online_first: 0; international-tax-and-public-finance/springer_online_first: crossref fallback 10; journal-of-economic-growth/springer_online_first: 0; journal-of-economic-growth/springer_online_first: crossref fallback 2; environmental-and-resource-economics/springer_online_first: 0; environmental-and-resource-economics/springer_online_first: crossref fallback 12; journal-of-population-economics/springer_online_first: 0; journal-of-population-economics/springer_online_first: crossref fallback 9; review-of-economic-studies/restud_official_accepted: HTTPError; crossref fallback 19",
       "ok": true,
       "partial_failures": 0,
-      "updated_at": "2026-08-13T12:12:59+00:00"
+      "updated_at": "2026-08-13T13:26:44+00:00"
     },
     "publisher-detail": {
-      "attempted": 39,
-      "count": 20,
-      "failures": 16,
+      "attempted": 120,
+      "count": 2,
+      "failures": 120,
       "fallbacks": [
         "crossref-doi",
         "openalex",
         "readonly-proxy"
       ],
-      "message": "attempted=39; proxy_abstract_attempted=1; seen 中国工业经济: abstract-present; seen 管理世界: abstract-present; seen CEPR Discussion Papers: metadata-updated:crossref-doi; seen CEPR Discussion Papers: abstract-route-missing; seen CEPR Discussion Papers: metadata-only; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: abstract-present; seen CEPR Discussion Papers: metadata-only; seen Australian Journal of Agricultural and Resource Economics: abstract-present; 2026-08-13 Journal of Population Economics: abstract-present; seen Applied Economics: abstract-present; seen Journal of Industrial Economics: abstract-present; seen Economic Inquiry: abstract-present; seen Economic Inquiry: abstract-present; seen The World Economy: abstract-present; seen Review of Financial Studies: abstract-present; 2026-08-13 Journal of Public Economics: abstract-present; 2026-08-13 VoxEU / CEPR Columns: abstract-present; 2026-08-13 VoxEU / CEPR Columns: abstract-present",
+      "message": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only",
       "ok": false,
       "retryable": true,
-      "updated_at": "2026-08-13T10:14:40+00:00"
+      "updated_at": "2026-08-13T13:46:04+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
-      "message": "dates=2026-08-13,2026-08-12,2026-08-11 raw=2309 daily=88 covered=93 seen=2147 missing=0",
+      "message": "dates=2026-08-13,2026-08-12,2026-08-11 raw=4453 daily=94 covered=128 seen=4181 missing=0",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:20+00:00"
+      "updated_at": "2026-08-13T13:44:13+00:00"
     },
     "remove-seen-backflow": {
       "count": 0,
-      "message": "date=2026-08-13 kept=36 removed=0 restored=0 future=0",
+      "message": "date=2026-08-13 kept=42 removed=0 restored=0 future=0",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:18+00:00"
+      "updated_at": "2026-08-13T13:44:11+00:00"
     },
     "rss": {
-      "count": 1051,
-      "message": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 19 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economics: 26 via official-generated; Journal of Development Economics: 58 via official-generated; Economic Development and Cultural Change: 27 via configured; World Development: 41 via official-generated; The World Economy: 34 via official-generated; China Economic Review: 20 via configured; Journal of Urban Economics: 30 via official-generated; Journal of Monetary Economics: 17 via official-generated; Journal of Labor Economics: 13 via configured; Journal of Econometrics: 55 via official-generated; Journal of Environmental Economics and Management: 46 via official-generated; American Journal of Agricultural Economics: 62 via official-generated; Food Policy: 39 via official-generated; Land Economics: 43 via configured; Land Use Policy: 91 via official-generated; Environmental and Resource Economics: ParseError: not well-formed (invalid token): line 14, column 4; Environmental and Resource Economics: 0 via configured",
+      "count": 1901,
+      "message": "feeds=51/90; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 13 via configured; Journal of Econometrics: 55 via official-generated; Journal of Environmental Economics and Management: 46 via official-generated; Experimental Economics: 7 via configured; Journal of Law & Economics: 8 via configured; Journal of Comparative Economics: 62 via official-generated; American Journal of Agricultural Economics: 62 via official-generated; Food Policy: 39 via official-generated; Journal of Agricultural Economics: 51 via official-generated; Agricultural Economics: 9 via official-generated; Land Economics: 43 via configured; Land Use Policy: 91 via official-generated; Environmental and Resource Economics: ParseError: not well-formed (invalid token): line 14, column 4; Environmental and Resource Economics: 0 via configured; Canadian Journal of Agricultural Economics: 12 via official-generated; Australian Journal of Agricultural and Resource Economics: 60 via official-generated; Applied Economic Perspectives and Policy: 57 via official-generated; 世界经济: ParseError: not well-formed (invalid token): line 36, column 46; 世界经济: 0 via discovered",
       "ok": false,
-      "updated_at": "2026-08-13T12:11:56+00:00"
+      "updated_at": "2026-08-13T13:33:08+00:00"
     },
     "sciencedirect-search": {
       "count": 0,
       "message": "journals=24 failures=24 jina_key=on; Journal of Development Economics: HTTPError: HTTP Error 402: Payment Required; World Development: HTTPError: HTTP Error 402: Payment Required; China Economic Review: HTTPError: HTTP Error 402: Payment Required; Journal of Urban Economics: HTTPError: HTTP Error 402: Payment Required; Journal of Monetary Economics: HTTPError: HTTP Error 402: Payment Required; Review of Economic Dynamics: HTTPError: HTTP Error 402: Payment Required; Journal of Economic Dynamics and Control: HTTPError: HTTP Error 402: Payment Required; Journal of Econometrics: HTTPError: HTTP Error 402: Payment Required; Journal of Environmental Economics and Management: HTTPError: HTTP Error 402: Payment Required; Journal of Comparative Economics: HTTPError: HTTP Error 402: Payment Required; Food Policy: HTTPError: HTTP Error 402: Payment Required; Land Use Policy: HTTPError: HTTP Error 402: Payment Required",
       "ok": false,
-      "updated_at": "2026-08-13T08:08:22+00:00"
+      "updated_at": "2026-08-13T13:33:20+00:00"
     },
     "source-health": {
       "count": 87,
-      "message": "healthy=68 degraded=0 stale=0 unavailable=0",
+      "message": "healthy=67 degraded=1 stale=0 unavailable=0",
       "ok": true,
-      "updated_at": "2026-08-13T12:18:20+00:00"
+      "updated_at": "2026-08-13T13:44:14+00:00"
     },
     "translation": {
-      "count": 42,
-      "message": "title_attempted=10 abstract_attempted=11 changed=42 title_cached=10 abstract_cached=11",
+      "count": 34,
+      "message": "title_attempted=6 abstract_attempted=12 changed=34 title_cached=6 abstract_cached=10",
       "ok": true,
-      "updated_at": "2026-08-13T12:19:15+00:00"
+      "updated_at": "2026-08-13T13:50:14+00:00"
     },
     "workflow": {
       "count": 1,
-      "message": "快速监测 finished",
+      "message": "全量监测 finished",
       "ok": true,
-      "updated_at": "2026-08-13T12:19:19+00:00"
+      "updated_at": "2026-08-13T13:50:18+00:00"
     },
     "working-paper:bank-of-england-working-papers": {
       "count": 1,
       "message": "specialized-html",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:13+00:00"
+      "updated_at": "2026-08-13T13:43:46+00:00"
     },
     "working-paper:bis-working-papers": {
       "count": 0,
       "message": "feed",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:11+00:00"
+      "updated_at": "2026-08-13T13:43:44+00:00"
     },
     "working-paper:brookings-economic-studies": {
       "count": 0,
       "message": "html",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:05+00:00"
+      "updated_at": "2026-08-13T13:43:39+00:00"
     },
     "working-paper:cepr-dp": {
       "count": 11,
       "message": "specialized-html",
       "ok": true,
-      "updated_at": "2026-08-13T12:17:50+00:00"
+      "updated_at": "2026-08-13T13:43:36+00:00"
     },
     "working-paper:cesifo-working-papers": {
       "count": 1,
       "message": "specialized-html",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:06+00:00"
+      "updated_at": "2026-08-13T13:43:40+00:00"
     },
     "working-paper:ecb-working-papers": {
       "count": 1,
       "message": "specialized-html",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:12+00:00"
+      "updated_at": "2026-08-13T13:43:46+00:00"
     },
     "working-paper:fed-feds": {
       "count": 30,
       "message": "html",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:09+00:00"
+      "updated_at": "2026-08-13T13:43:43+00:00"
     },
     "working-paper:imf-working-papers": {
-      "count": 12,
+      "count": 30,
       "message": "html",
       "ok": true,
-      "updated_at": "2026-08-13T12:17:42+00:00"
+      "updated_at": "2026-08-13T13:41:20+00:00"
     },
     "working-paper:iza": {
-      "count": 12,
+      "count": 19,
       "message": "html",
       "ok": true,
-      "updated_at": "2026-08-13T12:17:25+00:00"
+      "updated_at": "2026-08-13T13:38:17+00:00"
     },
     "working-paper:nber": {
-      "count": 12,
+      "count": 30,
       "message": "specialized-api",
       "ok": true,
-      "updated_at": "2026-08-13T12:17:16+00:00"
+      "updated_at": "2026-08-13T13:37:57+00:00"
     },
     "working-paper:oecd-working-papers": {
       "count": 1,
       "message": "specialized-html",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:11+00:00"
+      "updated_at": "2026-08-13T13:43:45+00:00"
     },
     "working-paper:repec-nep-cna": {
       "count": 30,
       "message": "nep-issue",
       "ok": true,
-      "updated_at": "2026-08-13T08:19:59+00:00"
+      "updated_at": "2026-08-13T13:41:45+00:00"
     },
     "working-paper:repec-nep-dev": {
       "count": 30,
       "message": "nep-issue",
       "ok": true,
-      "updated_at": "2026-08-13T08:20:22+00:00"
+      "updated_at": "2026-08-13T13:42:09+00:00"
     },
     "working-paper:repec-nep-hea": {
       "count": 30,
       "message": "nep-issue",
       "ok": true,
-      "updated_at": "2026-08-13T08:20:45+00:00"
+      "updated_at": "2026-08-13T13:42:33+00:00"
     },
     "working-paper:repec-nep-ifn": {
       "count": 20,
       "message": "nep-issue",
       "ok": true,
-      "updated_at": "2026-08-13T08:21:29+00:00"
+      "updated_at": "2026-08-13T13:43:16+00:00"
     },
     "working-paper:repec-nep-mac": {
       "count": 30,
       "message": "nep-issue",
       "ok": true,
-      "updated_at": "2026-08-13T08:21:09+00:00"
+      "updated_at": "2026-08-13T13:42:58+00:00"
     },
     "working-paper:voxeu-cepr-columns": {
       "count": 30,
       "message": "feed",
       "ok": true,
-      "updated_at": "2026-08-13T08:22:05+00:00"
+      "updated_at": "2026-08-13T13:43:38+00:00"
     },
     "working-paper:world-bank-prwp": {
-      "count": 12,
-      "message": "specialized-api",
-      "ok": true,
-      "updated_at": "2026-08-13T12:17:30+00:00"
+      "count": 0,
+      "message": "URLError: <urlopen error timed out>",
+      "ok": false,
+      "updated_at": "2026-08-13T13:40:57+00:00"
     },
     "working-papers": {
-      "count": 59,
-      "message": "nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: 11 via specialized-html",
-      "ok": true,
-      "updated_at": "2026-08-13T12:17:50+00:00"
+      "count": 294,
+      "message": "partial_success failures=1; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: URLError: <urlopen error timed out>; imf-working-papers: 30 via html; repec-nep-cna: 30 via nep-issue; repec-nep-dev: 30 via nep-issue; repec-nep-hea: 30 via nep-issue; repec-nep-mac: 30 via nep-issue; repec-nep-ifn: 20 via nep-issue; cepr-dp: 11 via specialized-html; voxeu-cepr-columns: 30 via feed; brookings-economic-studies: 0 via html; cesifo-working-papers: 1 via specialized-html; fed-feds: 30 via html; bis-working-papers: 0 via feed; oecd-working-papers: 1 via specialized-html; ecb-working-papers: 1 via specialized-html; bank-of-england-working-papers: 1 via specialized-html",
+      "ok": false,
+      "updated_at": "2026-08-13T13:43:46+00:00"
     }
   },
   "workflow": {
     "date": "2026-08-13",
-    "event": "schedule",
-    "finished_at": "2026-08-13T12:19:19+00:00",
+    "event": "workflow_dispatch",
+    "finished_at": "2026-08-13T13:50:18+00:00",
     "history": [
+      {
+        "event": "workflow_dispatch",
+        "finished_at": "2026-08-13T13:50:18+00:00",
+        "mode": "full",
+        "mode_label": "全量监测",
+        "run_id": "31704792016",
+        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/31704792016",
+        "schedule": ""
+      },
       {
         "event": "schedule",
         "finished_at": "2026-08-13T12:19:19+00:00",
@@ -1305,24 +1297,15 @@
         "run_id": "31579835747",
         "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/31579835747",
         "schedule": ""
-      },
-      {
-        "event": "schedule",
-        "finished_at": "2026-08-12T08:19:31+00:00",
-        "mode": "full",
-        "mode_label": "全量监测",
-        "run_id": "31576282070",
-        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/31576282070",
-        "schedule": "30 6 * * *"
       }
     ],
-    "last_full_finished_at": "2026-08-13T08:28:04+00:00",
+    "last_full_finished_at": "2026-08-13T13:50:18+00:00",
     "last_light_finished_at": "2026-08-13T12:19:19+00:00",
-    "mode": "light",
-    "mode_label": "快速监测",
-    "run_id": "31698736845",
-    "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/31698736845",
-    "schedule": "*/15 * * * *",
-    "updated_at": "2026-08-13T12:19:19+00:00"
+    "mode": "full",
+    "mode_label": "全量监测",
+    "run_id": "31704792016",
+    "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/31704792016",
+    "schedule": "",
+    "updated_at": "2026-08-13T13:50:18+00:00"
   }
 }
