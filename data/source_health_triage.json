@@ -1,12 +1,19 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-13T07:49:13.274685+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-08-13T08:50:56.304929+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=1; Journal of Finance: 2; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 15; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
     },
     {
       "category": "page_structure_change",
@@ -19,10 +26,26 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "american-economic-journal-economic-policy",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
+      "source": "American Economic Journal: Economic Policy",
+      "status_category": "transient_network",
+      "status_source": "crossref",
+      "usable_paths": [
+        "aea-toc",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 4
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
