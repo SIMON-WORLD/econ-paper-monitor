@@ -9,12 +9,23 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from datetime import date
 from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
 from dedupe import record_match_keys
+
+
+def valid_date_value(field: str, value: Any) -> bool:
+    text = str(value or "").strip()
+    if field == "issue_date" and re.fullmatch(r"\d{4}-\d{2}", text):
+        return True
+    try:
+        return len(text) == 10 and date.fromisoformat(text).isoformat() == text
+    except ValueError:
+        return False
 
 
 def load_records(path: Path) -> list[dict[str, Any]]:
@@ -119,12 +130,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             source_type_errors.append(record.get("title"))
         for field in ("accepted_date", "available_online", "published_online", "issue_date"):
             value = str(record.get(field) or "").strip()
-            if value:
-                try:
-                    if len(value) != 10 or date.fromisoformat(value).isoformat() != value:
-                        malformed_dates.append({"title": record.get("title"), "field": field, "value": value})
-                except ValueError:
-                    malformed_dates.append({"title": record.get("title"), "field": field, "value": value})
+            if value and not valid_date_value(field, value):
+                malformed_dates.append({"title": record.get("title"), "field": field, "value": value})
     if source_type_errors:
         failures.append({"code": "source_type_mismatch", "count": len(source_type_errors), "examples": source_type_errors[:10]})
     if malformed_dates:
