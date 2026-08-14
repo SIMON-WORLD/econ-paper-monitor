@@ -7,6 +7,7 @@ reader sees on the public site, not crawler implementation details.
 from __future__ import annotations
 
 import argparse
+import re
 from collections import Counter, defaultdict
 from datetime import date, datetime
 from pathlib import Path
@@ -64,16 +65,23 @@ def parse_iso_date(value: str | None) -> date | None:
         return None
 
 
+def valid_date_value(field: str, value: Any) -> bool:
+    text = str(value or "").strip()
+    if field == "issue_date" and re.fullmatch(r"\d{4}-\d{2}", text):
+        return True
+    try:
+        return len(text) == 10 and date.fromisoformat(text).isoformat() == text
+    except ValueError:
+        return False
+
+
 def malformed_dates(record: dict[str, Any]) -> list[str]:
     bad: list[str] = []
     for field in ("accepted_date", "available_online", "published_online", "issue_date"):
         value = str(record.get(field) or "").strip()
         if not value:
             continue
-        try:
-            if len(value) != 10 or date.fromisoformat(value).isoformat() != value:
-                bad.append(field)
-        except ValueError:
+        if not valid_date_value(field, value):
             bad.append(field)
     return bad
 
