@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime as _datetime
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -20,6 +22,12 @@ _TS_RUN2 = f"{_BJ_DATE - timedelta(days=1)}T10:00:00+00:00"
 _TS_RUN3 = f"{_BJ_DATE - timedelta(days=2)}T22:00:00+00:00"
 _TS_KEEPALIVE = f"{_BJ_DATE}T03:30:20-04:00"
 _EXPECTED_DAYS = [str(_BJ_DATE - timedelta(days=1)), str(_BJ_DATE)]
+
+
+class _FixedNow(_datetime):
+    @classmethod
+    def now(cls, tz=None):
+        return _datetime(2026, 8, 6, tzinfo=tz)
 
 
 def write_json(path: Path, payload: object) -> None:
@@ -137,7 +145,8 @@ def test_semantic_scholar_aggregates_totals_and_days(tmp_path: Path) -> None:
 def test_elsevier_aggregates_weekly_and_rate_headers(tmp_path: Path) -> None:
     data_dir = make_data_dir(tmp_path)
 
-    usage = build_usage(data_dir)
+    with patch("build_semantic_scholar_usage.datetime", _FixedNow):
+        usage = build_usage(data_dir)
     els = usage["providers"]["elsevier"]
 
     assert els["api_key_configured"] is True

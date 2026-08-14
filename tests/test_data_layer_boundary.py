@@ -34,6 +34,13 @@ def test_github_monitor_workflow_does_not_generate_or_commit_pages():
     assert "git add data" in workflow
 
 
+def test_full_and_single_crossref_fetch_include_created_days():
+    workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+    # Priority already passes created-days; full and single now must too so
+    # in-press records without a published date are not skipped by deep runs.
+    assert workflow.count("--created-days 7") >= 3
+
+
 def test_local_cnki_monitor_does_not_generate_or_commit_pages():
     script = (ROOT / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
 
