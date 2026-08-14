@@ -201,7 +201,7 @@ jobs:
         if: steps.mode.outputs.mode == 'full' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
-          if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
+          if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --days ${{ steps.mode.outputs.days }} --created-days 7 --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
             echo "Crossref full metadata fetch completed."
           else
             echo "::warning::Crossref full metadata fetch timed out or failed; continuing with the rest of the monitor."
@@ -210,7 +210,7 @@ jobs:
         if: steps.mode.outputs.mode == 'single' && github.event.inputs.journal != '' && (github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run')
         shell: bash
         run: |
-          if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
+          if timeout ${{ steps.mode.outputs.crossref_wall_timeout }} python scripts/fetch_crossref.py --only "${{ github.event.inputs.journal }}" --days ${{ steps.mode.outputs.days }} --created-days 7 --rows ${{ steps.mode.outputs.rows }} --sleep 0.1 --timeout ${{ steps.mode.outputs.crossref_request_timeout }} --retries ${{ steps.mode.outputs.crossref_retries }}; then
             echo "Single-journal Crossref fetch completed."
           else
             echo "::warning::Single-journal Crossref fetch timed out or failed; continuing with the rest of the monitor."
