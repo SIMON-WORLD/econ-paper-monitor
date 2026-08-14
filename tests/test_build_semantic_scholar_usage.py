@@ -11,6 +11,16 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_semantic_scholar_usage import build_usage  # noqa: E402
 
+from datetime import datetime, timedelta, timezone  # noqa: E402
+
+_UTC_NOW = datetime.now(timezone.utc)
+_BJ_DATE = (_UTC_NOW + timedelta(hours=8)).date()
+_TS_LATEST = f"{_BJ_DATE}T03:30:18-04:00"
+_TS_RUN2 = f"{_BJ_DATE - timedelta(days=1)}T10:00:00+00:00"
+_TS_RUN3 = f"{_BJ_DATE - timedelta(days=2)}T22:00:00+00:00"
+_TS_KEEPALIVE = f"{_BJ_DATE}T03:30:20-04:00"
+_EXPECTED_DAYS = [str(_BJ_DATE - timedelta(days=1)), str(_BJ_DATE)]
+
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -24,7 +34,7 @@ def make_data_dir(tmp_path: Path) -> Path:
         {
             "latest": {
                 "candidates": 150,
-                "checked_at": "2026-08-05T03:30:18-04:00",
+                "checked_at": _TS_LATEST,
                 "providers": {
                     "semantic-scholar": {
                         "api_key_configured": True,
@@ -46,7 +56,7 @@ def make_data_dir(tmp_path: Path) -> Path:
             "runs": [
                 {
                     "candidates": 150,
-                    "checked_at": "2026-08-04T10:00:00+00:00",
+                    "checked_at": _TS_RUN2,
                     "providers": {
                         "semantic-scholar": {
                             "api_key_configured": True,
@@ -70,7 +80,7 @@ def make_data_dir(tmp_path: Path) -> Path:
                 },
                 {
                     "candidates": 150,
-                    "checked_at": "2026-08-03T22:00:00+00:00",
+                    "checked_at": _TS_RUN3,
                     "providers": {
                         "semantic-scholar": {
                             "api_key_configured": False,
@@ -95,7 +105,7 @@ def make_data_dir(tmp_path: Path) -> Path:
     write_json(
         data_dir / "semantic_scholar_keepalive.json",
         {
-            "checked_at": "2026-08-05T03:30:20-04:00",
+            "checked_at": _TS_KEEPALIVE,
             "ok": True,
             "status_code": 200,
             "reason": "ok",
@@ -115,10 +125,10 @@ def test_semantic_scholar_aggregates_totals_and_days(tmp_path: Path) -> None:
     assert usage["total"]["rate_limited"] == 65
     assert usage["total"]["not_found"] == 75
     assert usage["total"]["runs"] == 3
-    assert usage["last_used_at"] == "2026-08-05T03:30:18-04:00"
+    assert usage["last_used_at"] == _TS_LATEST
     assert usage["last_keepalive_ok"] is True
     assert usage["last_keepalive_reason"] == "ok"
-    assert [row["date"] for row in usage["by_day"]] == ["2026-08-04", "2026-08-05"]
+    assert [row["date"] for row in usage["by_day"]] == _EXPECTED_DAYS
     assert usage["by_day"][0]["attempts"] == 300  # 08-03 22:00 UTC == Beijing 08-04
     assert usage["by_day"][0]["rate_limited"] == 35
     assert isinstance(usage["days_since_last_use"], int)
@@ -136,12 +146,12 @@ def test_elsevier_aggregates_weekly_and_rate_headers(tmp_path: Path) -> None:
     assert els["total"]["available"] == 87
     assert els["total"]["empty"] == 163
     assert els["weekly_requests_7d"] == 250
-    assert els["last_used_at"] == "2026-08-05T03:30:18-04:00"
+    assert els["last_used_at"] == _TS_LATEST
     assert els["rate_limit_headers"] == {
         "X-RateLimit-Limit": "5000",
         "X-RateLimit-Remaining": "200",
     }
-    assert [row["date"] for row in els["by_day"]] == ["2026-08-04", "2026-08-05"]
+    assert [row["date"] for row in els["by_day"]] == _EXPECTED_DAYS
 
 
 def test_empty_health_is_honest(tmp_path: Path) -> None:

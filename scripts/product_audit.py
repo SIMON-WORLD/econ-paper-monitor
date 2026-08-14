@@ -54,6 +54,16 @@ def online_date(record: dict[str, Any]) -> str:
     return str(record.get("available_online") or record.get("published_online") or "")
 
 
+def parse_iso_date(value: str | None) -> date | None:
+    """Parse a full ISO date; month-year labels (e.g. ``August 2026``) are not dates."""
+    if not value:
+        return None
+    try:
+        return date.fromisoformat(str(value).strip()[:10])
+    except ValueError:
+        return None
+
+
 def malformed_dates(record: dict[str, Any]) -> list[str]:
     bad: list[str] = []
     for field in ("accepted_date", "available_online", "published_online", "issue_date"):
@@ -164,6 +174,7 @@ def record_label(record: dict[str, Any]) -> dict[str, Any]:
 
 def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = None) -> dict[str, Any]:
     today = today_str()
+    today_date = date.fromisoformat(today)
     today_records = [record for record in records if record.get("_daily_date") == today]
     journal_today = [record for record in today_records if not is_working_paper(record)]
     working_today = [record for record in today_records if is_working_paper(record)]
@@ -206,8 +217,8 @@ def audit(records: list[dict[str, Any]], formal_journal_ids: set[str] | None = N
     future_official_records = [
         record
         for record in records
-        if online_date(record)
-        and online_date(record) > today
+        if (parsed_online := parse_iso_date(online_date(record))) is not None
+        and parsed_online > today_date
         and str(record.get("date_confidence") or "") not in {"F", "unknown"}
     ]
     nonpaper_records = [record for record in records if is_source_navigation_noise(record)]
