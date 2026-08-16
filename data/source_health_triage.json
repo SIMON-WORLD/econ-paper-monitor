@@ -1,12 +1,19 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-16T19:51:12.052081+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-08-16T21:04:52.712296+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Economic Growth: 2; Journal of Money, Credit and Banking: 8; Review of Economic Dynamics: 14; Journal of Economic Dynamics and Control: 36; Journal of Population",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -15,7 +22,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 20 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=51/90; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 13 via configured; Journal of Econometrics: 55 via official-generated; Journal of Environmental Economics an",
       "source": "rss"
     },
     {
@@ -24,10 +31,26 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
