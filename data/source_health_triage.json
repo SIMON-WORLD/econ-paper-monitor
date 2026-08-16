@@ -1,12 +1,19 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-17T03:59:58.293300+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-08-17T05:04:51.528778+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
       "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Finance: 2; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 13; Economic Development and Cultural Change: 1;",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -22,12 +29,38 @@
       "category": "needs_investigation",
       "sample_error": "journals=24 failures=24 jina_key=on; Journal of Development Economics: HTTPError: HTTP Error 402: Payment Required; World Development: HTTPError: HTTP Error 402: Payment Required; China Economic Revie",
       "source": "sciencedirect-search"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "TimeoutError: The read operation timed out",
+      "source": "working-paper:cepr-dp"
+    },
+    {
+      "category": "transient_network",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: 12 via html; cepr-dp: TimeoutError: The read operation timed ou",
+      "source": "working-papers"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 7
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
