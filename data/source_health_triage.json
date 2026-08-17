@@ -1,6 +1,6 @@
 {
   "categories": {},
-  "checked_at": "2026-08-17T21:30:04.445789+08:00",
+  "checked_at": "2026-08-17T22:07:31.737864+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
@@ -15,13 +15,18 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=51/91; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 13 via configured; Journal of Econometrics: 55 via official-generated; Journal of Environmental Economics an",
+      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 20 via official-generated; Journal of Finance: 31 via official-generated; Journal of Financial Economic",
       "source": "rss"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journals=24 failures=24 jina_key=on; Journal of Development Economics: HTTPError: HTTP Error 402: Payment Required; World Development: HTTPError: HTTP Error 402: Payment Required; China Economic Revie",
       "source": "sciencedirect-search"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "HTTPError: HTTP Error 504: Gateway Time-out",
+      "source": "working-paper:imf-working-papers"
     },
     {
       "category": "transient_network",
@@ -34,15 +39,15 @@
       "source": "working-paper:repec-nep-dev"
     },
     {
-      "category": "transient_network",
-      "sample_error": "partial_success failures=2; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: URLError: <urlopen error _ssl.c:999",
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=1; nber: 12 via specialized-api; iza: 12 via html; world-bank-prwp: 12 via specialized-api; imf-working-papers: HTTPError: HTTP Error 504: Gateway Time-out; cepr-dp: 12 via sp",
       "source": "working-papers"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 8
   },
   "total_degraded": 0
 }
