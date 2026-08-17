@@ -1,9 +1,9 @@
 {
   "categories": {
-    "permanently_unavailable": 1
+    "needs_investigation": 2
   },
-  "checked_at": "2026-08-18T03:36:13.045319+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-08-18T04:57:25.666273+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,7 +12,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 2; Journal of Financial Economics: 9; Review of Financial Studies: 4; Journal of Development Economics: 14; Economic Development and Cultural Change: 1;",
+      "sample_error": "partial_success failures=4; Journal of Finance: 2; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 14; Economic Development and Cultural Change: 1;",
       "source": "crossref"
     },
     {
@@ -33,13 +33,28 @@
   ],
   "sources": [
     {
-      "category": "permanently_unavailable",
+      "category": "needs_investigation",
       "category_counts": {
-        "permanently_unavailable": 1
+        "needs_investigation": 1
       },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
       "status_category": "needs_investigation",
       "status_source": "cn-journals",
       "usable_paths": [
@@ -52,5 +67,5 @@
     "aligned": true,
     "degraded_source_failures": 5
   },
-  "total_degraded": 1
+  "total_degraded": 2
 }
