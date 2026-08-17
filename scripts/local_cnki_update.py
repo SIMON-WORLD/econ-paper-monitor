@@ -312,6 +312,10 @@ def main() -> None:
             run_step([python, "scripts/merge_local_cnki.py", "--input", str(cnki_temp)])
         else:
             log("No CNKI RSS records available; preserving existing paper catalogue.")
+        # The local runner may start without today's bucket when the fetch
+        # degraded; release_gate and product_audit must never treat that as a
+        # canonical-data failure.
+        run_step([python, "scripts/ensure_today_daily.py"])
         run_step(
             [
                 python,
