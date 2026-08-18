@@ -356,35 +356,52 @@
       "ok": true,
       "selected_sources": 6,
       "successful_sources": 6,
-      "updated_at": "2026-08-18T04:11:08+00:00"
+      "updated_at": "2026-08-18T10:11:08+00:00"
     },
     "publisher-detail": {
       "publishers": [
         {
           "ab_dates": 1,
-          "attempted": 115,
-          "changed": 3,
+          "attempted": 2,
+          "changed": 1,
           "degraded": true,
-          "failures": 114,
+          "failures": 1,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "elsevier-metadata-only:112, HTTPError:2, metadata-only:proxy-request-failed:1",
+          "message": "abstract-present:2",
           "publisher": "Elsevier",
           "retryable": true,
           "statuses": {
-            "HTTPError": 2,
-            "elsevier-metadata-only": 112,
-            "metadata-only:proxy-request-failed": 1
+            "abstract-present": 2
           },
-          "success_rate": 0.0087
+          "success_rate": 0.5
         },
         {
           "ab_dates": 0,
-          "attempted": 0,
+          "attempted": 3,
           "changed": 0,
+          "degraded": true,
+          "failures": 3,
+          "fallbacks": [
+            "crossref-doi",
+            "openalex",
+            "readonly-proxy"
+          ],
+          "message": "abstract-present:3",
+          "publisher": "OUP",
+          "retryable": true,
+          "statuses": {
+            "abstract-present": 3
+          },
+          "success_rate": 0.0
+        },
+        {
+          "ab_dates": 10,
+          "attempted": 10,
+          "changed": 8,
           "degraded": false,
           "failures": 0,
           "fallbacks": [
@@ -392,31 +409,33 @@
             "openalex",
             "readonly-proxy"
           ],
-          "message": "",
-          "publisher": "OUP",
+          "message": "abstract-present:9, abstract-route-missing:1",
+          "publisher": "Other",
           "retryable": false,
-          "statuses": {},
-          "success_rate": 0
+          "statuses": {
+            "abstract-present": 9,
+            "abstract-route-missing": 1
+          },
+          "success_rate": 1.0
         },
         {
-          "ab_dates": 0,
-          "attempted": 5,
-          "changed": 0,
-          "degraded": true,
-          "failures": 5,
+          "ab_dates": 1,
+          "attempted": 1,
+          "changed": 1,
+          "degraded": false,
+          "failures": 0,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "HTTPError:3, crossref-doi-fallback:2",
-          "publisher": "Other",
-          "retryable": true,
+          "message": "abstract-present:1",
+          "publisher": "Springer",
+          "retryable": false,
           "statuses": {
-            "HTTPError": 3,
-            "crossref-doi-fallback": 2
+            "abstract-present": 1
           },
-          "success_rate": 0.0
+          "success_rate": 1.0
         },
         {
           "ab_dates": 0,
@@ -437,23 +456,25 @@
         },
         {
           "ab_dates": 0,
-          "attempted": 0,
+          "attempted": 2,
           "changed": 0,
-          "degraded": false,
-          "failures": 0,
+          "degraded": true,
+          "failures": 2,
           "fallbacks": [
             "crossref-doi",
             "openalex",
             "readonly-proxy"
           ],
-          "message": "",
+          "message": "abstract-present:2",
           "publisher": "Wiley",
-          "retryable": false,
-          "statuses": {},
-          "success_rate": 0
+          "retryable": true,
+          "statuses": {
+            "abstract-present": 2
+          },
+          "success_rate": 0.0
         }
       ],
-      "updated_at": "2026-08-18T07:30:48+00:00"
+      "updated_at": "2026-08-18T10:12:30+00:00"
     }
   },
   "sources": {
@@ -503,10 +524,10 @@
       "updated_at": "2026-08-18T09:10:05+00:00"
     },
     "china-relevance": {
-      "count": 1613,
-      "message": "candidates=417 changed=3",
+      "count": 1621,
+      "message": "candidates=417 changed=11",
       "ok": true,
-      "updated_at": "2026-08-18T09:10:05+00:00"
+      "updated_at": "2026-08-18T10:13:16+00:00"
     },
     "clean-cn-noise": {
       "count": 150,
@@ -530,7 +551,7 @@
       "count": 99,
       "message": "经济研究: accepted=17 filtered=3 stale=0 latest_research=2026-06-20; 管理世界: accepted=15 filtered=5 stale=0 latest_research=2026-07-05; 世界经济: accepted=14 filtered=4 stale=2 latest_research=2026-07-10; 数量经济技术经济研究: accepted=18 filtered=2 stale=0 latest_research=2026-08-12; 中国工业经济: accepted=19 filtered=1 stale=0 latest_research=2026-08-11; 中国农村经济: accepted=16 filtered=4 stale=0 latest_research=2026-07-15",
       "ok": true,
-      "updated_at": "2026-08-18T04:11:08+00:00"
+      "updated_at": "2026-08-18T10:11:08+00:00"
     },
     "crossref": {
       "count": 166,
@@ -560,9 +581,9 @@
     },
     "formal-journal-audit": {
       "count": 87,
-      "message": "formal=87 raw_today=59 daily_today=3 missed=0",
+      "message": "formal=87 raw_today=10 daily_today=3 missed=0",
       "ok": true,
-      "updated_at": "2026-08-18T09:09:38+00:00"
+      "updated_at": "2026-08-18T10:13:36+00:00"
     },
     "historical-backfill-quarantine": {
       "count": 1,
@@ -583,16 +604,16 @@
       "updated_at": "2026-08-18T09:09:38+00:00"
     },
     "local-cnki-publish": {
-      "count": 1,
-      "message": "published to origin/main",
-      "ok": true,
-      "updated_at": "2026-08-18T04:12:30+00:00"
+      "count": 0,
+      "message": "pending",
+      "ok": false,
+      "updated_at": "2026-08-18T10:13:57+00:00"
     },
     "local-cnki-run": {
       "count": 1,
       "message": "finished; log=local_admin/logs/local-cnki-update.log",
       "ok": true,
-      "updated_at": "2026-08-18T04:12:19+00:00"
+      "updated_at": "2026-08-18T10:13:57+00:00"
     },
     "manual-overrides": {
       "count": 2,
@@ -601,10 +622,10 @@
       "updated_at": "2026-08-18T09:09:23+00:00"
     },
     "normalize-records": {
-      "count": 369,
-      "message": "files=117 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=0 public_integrity_repairs=0",
+      "count": 375,
+      "message": "files=120 duplicates_removed=0 duplicate_files=0 seen_source_types=0 seen_abstracts=1 public_integrity_repairs=1",
       "ok": true,
-      "updated_at": "2026-08-18T09:09:56+00:00"
+      "updated_at": "2026-08-18T10:13:04+00:00"
     },
     "openalex-recall": {
       "count": 99,
@@ -843,24 +864,24 @@
       "updated_at": "2026-08-18T09:05:34+00:00"
     },
     "publisher-detail": {
-      "attempted": 120,
-      "count": 3,
-      "failures": 119,
+      "attempted": 18,
+      "count": 10,
+      "failures": 6,
       "fallbacks": [
         "crossref-doi",
         "openalex",
         "readonly-proxy"
       ],
-      "message": "attempted=120; proxy_abstract_attempted=20; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Land Use Policy: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only; 2026-06-22 Journal of Environmental Economics and Management: elsevier-metadata-only",
+      "message": "attempted=18; proxy_abstract_attempted=0; seen 中国工业经济: abstract-route-missing; seen 中国工业经济: abstract-present; seen 中国工业经济: abstract-present; seen 中国工业经济: abstract-present; seen 中国工业经济: abstract-present; seen 中国工业经济: abstract-present; seen 管理世界: abstract-present; 2026-08-18 Journal of Population Economics: abstract-present; 2026-08-18 CEPR Discussion Papers: abstract-present; 2026-08-18 Journal of Comparative Economics: abstract-present; seen Canadian Journal of Economics: abstract-present; 2026-08-18 Journal of Econometrics: abstract-present; seen Journal of the European Economic Association: abstract-present; seen Economic Journal: abstract-present; seen Economic Journal: abstract-present; 2026-08-18 VoxEU / CEPR Columns: abstract-present; 2026-08-18 VoxEU / CEPR Columns: abstract-present; seen Canadian Journal of Economics: abstract-present",
       "ok": false,
       "retryable": true,
-      "updated_at": "2026-08-18T07:30:48+00:00"
+      "updated_at": "2026-08-18T10:12:30+00:00"
     },
     "recent72-coverage-audit": {
       "count": 0,
-      "message": "dates=2026-08-18,2026-08-17,2026-08-16 raw=2181 daily=144 covered=49 seen=2080 missing=0",
+      "message": "dates=2026-08-18,2026-08-17,2026-08-16 raw=369 daily=144 covered=0 seen=352 missing=0",
       "ok": true,
-      "updated_at": "2026-08-18T09:09:39+00:00"
+      "updated_at": "2026-08-18T10:13:23+00:00"
     },
     "remove-seen-backflow": {
       "count": 0,
@@ -1015,9 +1036,18 @@
   },
   "workflow": {
     "date": "2026-08-18",
-    "event": "schedule",
-    "finished_at": "2026-08-18T09:10:14+00:00",
+    "event": "local-cnki",
+    "finished_at": "2026-08-18T10:13:57+00:00",
     "history": [
+      {
+        "event": "local-cnki",
+        "finished_at": "2026-08-18T10:13:57+00:00",
+        "mode": "light",
+        "mode_label": "本地中文补充",
+        "run_id": "",
+        "run_url": "",
+        "schedule": ""
+      },
       {
         "event": "schedule",
         "finished_at": "2026-08-18T09:10:14+00:00",
@@ -1278,24 +1308,15 @@
         "run_id": "32004865087",
         "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/32004865087",
         "schedule": "*/15 * * * *"
-      },
-      {
-        "event": "schedule",
-        "finished_at": "2026-08-17T06:09:25+00:00",
-        "mode": "light",
-        "mode_label": "快速监测",
-        "run_id": "31999897664",
-        "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/31999897664",
-        "schedule": "*/15 * * * *"
       }
     ],
     "last_full_finished_at": "2026-08-18T07:34:23+00:00",
-    "last_light_finished_at": "2026-08-18T09:10:14+00:00",
+    "last_light_finished_at": "2026-08-18T10:13:57+00:00",
     "mode": "light",
-    "mode_label": "快速监测",
-    "run_id": "32119430474",
-    "run_url": "https://github.com/academic-door/econ-paper-monitor/actions/runs/32119430474",
-    "schedule": "*/15 * * * *",
-    "updated_at": "2026-08-18T09:10:14+00:00"
+    "mode_label": "本地中文补充",
+    "run_id": "",
+    "run_url": "",
+    "schedule": "",
+    "updated_at": "2026-08-18T10:13:57+00:00"
   }
 }
