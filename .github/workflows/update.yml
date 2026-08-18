@@ -438,6 +438,9 @@ jobs:
       - name: Reconcile durable ingestion retries
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/reconcile_retry_queues.py
+      - name: Build upstream missing abstract list
+        if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
+        run: python scripts/build_upstream_missing_abstracts.py
       - name: Audit product quality
         if: github.event_name != 'schedule' || contains(env.FULL_SCHEDULES, github.event.schedule) || steps.watchdog.outputs.decision == 'run'
         run: python scripts/product_audit.py
