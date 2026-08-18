@@ -356,6 +356,9 @@ def main() -> None:
         # a malformed upstream label cannot reach the release gate or canonical data.
         run_step([python, "scripts/normalize_records.py"])
         run_step([python, "scripts/enrich_china_relevance.py", "--all"])
+        # Regenerate the upstream missing-abstract list so the local supplement
+        # keeps it consistent with the just-updated daily/seen data.
+        run_step([python, "scripts/build_upstream_missing_abstracts.py"])
         run_step([python, "scripts/product_audit.py"])
         run_step([python, "scripts/audit_recent72_coverage.py"])
         # Do not recompute the global formal-journal health here. This local

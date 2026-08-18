@@ -107,3 +107,11 @@ def test_repo_upstream_list_matches_daily_missing_abstracts_without_doi():
                 daily_missing_without_doi += 1
 
     assert upstream["without_doi_upstream"] == daily_missing_without_doi
+
+
+def test_generation_step_is_wired_into_ci_and_local_pipelines():
+    root = ROOT
+    workflow = (root / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+    local = (root / "scripts" / "local_cnki_update.py").read_text(encoding="utf-8")
+    assert "build_upstream_missing_abstracts.py" in workflow
+    assert 'run_step([python, "scripts/build_upstream_missing_abstracts.py"])' in local
