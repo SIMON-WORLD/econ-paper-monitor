@@ -1,18 +1,19 @@
 {
   "categories": {
-    "needs_investigation": 37
+    "needs_investigation": 25,
+    "transient_network": 4
   },
-  "checked_at": "2026-08-20T22:37:53.506989+08:00",
-  "source_health_degraded_count": 37,
+  "checked_at": "2026-08-21T00:13:58.927623+08:00",
+  "source_health_degraded_count": 29,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
       "category": "transient_network",
-      "sample_error": "partial_success failures=34; Journal of Finance: error TimeoutError: The read operation timed out; Journal of Financial Economics: error TimeoutError: The read operation timed out; Review of Financial",
+      "sample_error": "partial_success failures=7; Econometrica: 0; American Economic Review: 0; Review of Economic Studies: 5; Journal of Political Economy: error TimeoutError: The read operation timed out; Quarterly Journ",
       "source": "crossref"
     },
     {
@@ -22,7 +23,7 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 21 via official-generated; Journal of Finance: 33 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=23/35; Journal of Finance: HTTPError: HTTP Error 404: Not Found; Journal of Finance: 0 via official-generated; Journal of Financial Economics: 27 via official-generated; Journal of Development E",
       "source": "rss"
     },
     {
@@ -55,23 +56,8 @@
       "journal_id": "american-economic-journal-economic-policy",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
       "source": "American Economic Journal: Economic Policy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "aea-toc",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "american-economic-journal-macroeconomics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=aea-toc,openalex-recall",
-      "source": "American Economic Journal: Macroeconomics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "aea-toc",
         "openalex-recall"
@@ -113,12 +99,11 @@
         "needs_investigation": 1
       },
       "journal_id": "american-journal-of-agricultural-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
       "source": "American Journal of Agricultural Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
@@ -130,8 +115,8 @@
       "journal_id": "china-economic-review",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "China Economic Review",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -145,53 +130,24 @@
       "journal_id": "economic-development-and-cultural-change",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Economic Development and Cultural Change",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "rss",
         "openalex-recall"
       ]
     },
     {
-      "category": "needs_investigation",
+      "category": "transient_network",
       "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "economic-journal",
-      "sample_error": "review-of-economic-studies/restud_official_accepted: 6; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_on",
-      "source": "Economic Journal",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
+        "transient_network": 1
       },
       "journal_id": "environmental-and-resource-economics",
-      "sample_error": "review-of-economic-studies/restud_official_accepted: 6; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_on",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 7; journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 2; review-of-economic-desi",
       "source": "Environmental and Resource Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "european-economic-review",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "European Economic Review",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
@@ -203,8 +159,8 @@
       "journal_id": "food-policy",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Food Policy",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -231,27 +187,11 @@
         "needs_investigation": 1
       },
       "journal_id": "international-economic-review",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
       "source": "International Economic Review",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-development-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Development Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
@@ -263,8 +203,8 @@
       "journal_id": "journal-of-econometrics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Journal of Econometrics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -308,8 +248,8 @@
       "journal_id": "journal-of-environmental-economics-and-management",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Journal of Environmental Economics and Management",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -321,12 +261,11 @@
         "needs_investigation": 1
       },
       "journal_id": "journal-of-finance",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
       "source": "Journal of Finance",
       "status_category": "transient_network",
       "status_source": "crossref",
       "usable_paths": [
-        "rss",
         "openalex-recall"
       ]
     },
@@ -350,9 +289,9 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-international-economics",
+      "journal_id": "journal-of-labor-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of International Economics",
+      "source": "Journal of Labor Economics",
       "status_category": "page_structure_change",
       "status_source": "rss",
       "usable_paths": [
@@ -365,9 +304,9 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-labor-economics",
+      "journal_id": "journal-of-political-economy",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Labor Economics",
+      "source": "Journal of Political Economy",
       "status_category": "transient_network",
       "status_source": "crossref",
       "usable_paths": [
@@ -376,27 +315,12 @@
       ]
     },
     {
-      "category": "needs_investigation",
+      "category": "transient_network",
       "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-monetary-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Monetary Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
+        "transient_network": 1
       },
       "journal_id": "journal-of-population-economics",
-      "sample_error": "review-of-economic-studies/restud_official_accepted: 6; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_on",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 7; journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 2; review-of-economic-desi",
       "source": "Journal of Population Economics",
       "status_category": null,
       "status_source": null,
@@ -409,26 +333,11 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "journal-of-public-economics",
-      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
-      "source": "Journal of Public Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "rss",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
       "journal_id": "journal-of-urban-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
       "source": "Journal of Urban Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "rss",
         "openalex-recall"
@@ -442,20 +351,6 @@
       "journal_id": "journal-of-the-association-of-environmental-and-resource-economists",
       "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
       "source": "Journal of the Association of Environmental and Resource Economists",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-the-european-economic-association",
-      "sample_error": "review-of-economic-studies/restud_official_accepted: 6; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_on",
-      "source": "Journal of the European Economic Association",
       "status_category": null,
       "status_source": null,
       "usable_paths": [
@@ -470,23 +365,23 @@
       "journal_id": "quantitative-economics",
       "sample_error": "degraded coverage=official_or_specialized level=degraded usable=priority-toc,openalex-recall",
       "source": "Quantitative Economics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "priority-toc",
         "openalex-recall"
       ]
     },
     {
-      "category": "needs_investigation",
+      "category": "transient_network",
       "category_counts": {
-        "needs_investigation": 1
+        "transient_network": 1
       },
       "journal_id": "quarterly-journal-of-economics",
-      "sample_error": "review-of-economic-studies/restud_official_accepted: 6; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_on",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 7; journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 2; review-of-economic-desi",
       "source": "Quarterly Journal of Economics",
-      "status_category": null,
-      "status_source": null,
+      "status_category": "transient_network",
+      "status_source": "crossref",
       "usable_paths": [
         "openalex-recall"
       ]
@@ -522,29 +417,15 @@
       ]
     },
     {
-      "category": "needs_investigation",
+      "category": "transient_network",
       "category_counts": {
-        "needs_investigation": 1
+        "transient_network": 1
       },
       "journal_id": "review-of-economics-and-statistics",
-      "sample_error": "review-of-economic-studies/restud_official_accepted: 6; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_on",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 7; journal-of-law-economics-and-organization/oup_advance_articles: HTTPError; crossref fallback 2; review-of-economic-desi",
       "source": "Review of Economics and Statistics",
-      "status_category": "transient_network",
-      "status_source": "crossref",
-      "usable_paths": [
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "review-of-financial-studies",
-      "sample_error": "review-of-economic-studies/restud_official_accepted: 6; european-review-of-agricultural-economics/oup_advance_articles: HTTPError; crossref fallback 3; international-journal-of-game-theory/springer_on",
-      "source": "Review of Financial Studies",
-      "status_category": "transient_network",
-      "status_source": "crossref",
+      "status_category": null,
+      "status_source": null,
       "usable_paths": [
         "openalex-recall"
       ]
@@ -584,5 +465,5 @@
     "aligned": true,
     "degraded_source_failures": 5
   },
-  "total_degraded": 37
+  "total_degraded": 29
 }
