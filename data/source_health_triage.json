@@ -1,13 +1,14 @@
 {
   "categories": {
-    "needs_investigation": 2
+    "needs_investigation": 2,
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-08-23T11:41:03.935741+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-08-23T13:07:49.536634+08:00",
+  "source_health_degraded_count": 3,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
@@ -55,11 +56,26 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "permanently_unavailable",
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 4
   },
-  "total_degraded": 2
+  "total_degraded": 3
 }
