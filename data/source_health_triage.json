@@ -1,20 +1,14 @@
 {
   "categories": {
-    "needs_investigation": 1,
-    "permanently_unavailable": 1
+    "needs_investigation": 1
   },
-  "checked_at": "2026-08-23T23:07:21.400204+08:00",
-  "source_health_degraded_count": 2,
+  "checked_at": "2026-08-24T00:22:54.931881+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
-    },
-    {
-      "category": "rate_limited",
-      "sample_error": "journal-of-the-european-economic-association: HTTPError: HTTP Error 429: Too Many Requests; public-choice: HTTPError: HTTP Error 429: Too Many Requests; quantitative-economics: HTTPError: HTTP Error 4",
-      "source": "openalex-recall"
     },
     {
       "category": "needs_investigation",
@@ -44,27 +38,14 @@
       "status_category": "needs_investigation",
       "status_source": "cn-journals",
       "usable_paths": [
-        "crossref"
-      ]
-    },
-    {
-      "category": "permanently_unavailable",
-      "category_counts": {
-        "permanently_unavailable": 1
-      },
-      "journal_id": "journal-379b4022ce",
-      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
-      "source": "管理世界",
-      "status_category": "needs_investigation",
-      "status_source": "cn-journals",
-      "usable_paths": [
-        "crossref"
+        "crossref",
+        "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 5
+    "degraded_source_failures": 4
   },
-  "total_degraded": 2
+  "total_degraded": 1
 }
