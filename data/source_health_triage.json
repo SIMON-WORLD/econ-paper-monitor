@@ -1,16 +1,23 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-24T17:20:02.923360+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "permanently_unavailable": 1
+  },
+  "checked_at": "2026-08-24T19:26:18.566283+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=3; Journal of Finance: 4; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 14; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "attempted=57; proxy_abstract_attempted=0; 2026-08-24 NBER Working Papers: abstract-present; 2026-08-24 NBER Working Papers: abstract-present; 2026-08-24 NBER Working Papers: abstract-present; 2026-08-",
+      "sample_error": "attempted=60; proxy_abstract_attempted=1; 2026-08-24 NBER Working Papers: abstract-present; 2026-08-24 NBER Working Papers: abstract-present; 2026-08-24 NBER Working Papers: abstract-present; 2026-08-",
       "source": "publisher-detail"
     },
     {
@@ -24,10 +31,26 @@
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "permanently_unavailable",
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
