@@ -30,6 +30,12 @@ class JournalIdentityTests(unittest.TestCase):
         journal = self.journals["journal-of-finance"]
         self.assertEqual(fetch_crossref.journal_issns(journal), ["0022-1082"])
 
+    def test_jebo_print_issn_included(self) -> None:
+        journal = self.journals["journal-of-economic-behavior-and-organization"]
+        issns = fetch_crossref.journal_issns(journal)
+        self.assertIn("1879-1751", issns)
+        self.assertIn("0167-2681", issns)
+
 
 if __name__ == "__main__":
     unittest.main()

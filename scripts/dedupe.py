@@ -273,6 +273,15 @@ def is_repec_placeholder(value: Any) -> bool:
     text = str(value or "")
     return "RePEc NEP" in text and " item p" in text
 
+_FULLWIDTH_TO_ASCII = str.maketrans({
+    "：": ":", "，": ",", "（": "(", "）": ")", "；": ";", "、": ",", "　": " ",
+})
+
+
+def title_key_text(value: Any) -> str:
+    """Collapse whitespace and unify common fullwidth punctuation for identity keys."""
+    return " ".join(str(value or "").casefold().translate(_FULLWIDTH_TO_ASCII).split())
+
 
 def record_match_keys(record: dict[str, Any]) -> set[str]:
     keys: set[str] = {record.get("id") or stable_id(record)}
@@ -300,8 +309,8 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
             match = re.search(pattern, normalized_url, flags=re.I)
             if match:
                 keys.add(f"urlpaper:{match.group(1).strip('/').casefold()}")
-    title = " ".join(str(record.get("title") or "").casefold().split())
-    journal = " ".join(str(record.get("journal") or "").casefold().split())
+    title = title_key_text(record.get("title"))
+    journal = title_key_text(record.get("journal"))
     if record.get("source_type") == "journal" and title and journal and len(title) > 20:
         keys.add(f"journal-title:{journal}:{title}")
     source_scope = str(record.get("source_id") or record.get("journal_id") or source or journal).casefold()
@@ -322,7 +331,7 @@ def record_match_keys(record: dict[str, Any]) -> set[str]:
                 keys.add(f"paper:{source_id.casefold()}:{issue_url}:{paper_number.casefold()}")
         else:
             keys.add(f"paper:{source_id.casefold()}:{paper_number.casefold()}")
-    if source == "cnki-rss":
+    if source in {"cnki-rss", "cn-official"}:
         if title and journal:
             keys.add(f"cnki-title:{journal}:{title}")
     return keys
