@@ -69,6 +69,14 @@ SUPPLEMENTAL_CLOSED_NOTES = {
 }
 
 
+
+UCHICAGO_LOCAL_JOURNAL_IDS = {
+    "journal-of-political-economy",
+    "journal-of-labor-economics",
+    "economic-development-and-cultural-change",
+    "journal-of-law-and-economics",
+}
+
 PRIORITY_TOC_JOURNALS = {
     "review-of-economic-studies",
     "review-of-economics-and-statistics",
@@ -189,6 +197,7 @@ def inspect_journal(
     now: datetime,
     max_age: int,
     status: dict[str, Any] | None = None,
+    local_uchicago_status: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     journal_id = str(journal.get("id") or "")
     entry = ((registry.get("journals") or {}).get(journal_id) or {})
@@ -203,6 +212,17 @@ def inspect_journal(
     paths = [name for name, ok in (("rss", rss_ok), ("crossref", crossref_ok)) if ok]
     specialized, specialized_checked, failed_paths = specialized_paths(journal_id, status or {}, now, max_age)
     paths.extend(path for path in specialized if path not in paths)
+
+    if (
+        journal_id in UCHICAGO_LOCAL_JOURNAL_IDS
+        and isinstance(local_uchicago_status, dict)
+        and status_entry_is_fresh(local_uchicago_status, now, max_age)
+        and bool(local_uchicago_status.get("ok"))
+    ):
+        if "uchicago-local" not in paths:
+            paths.append("uchicago-local")
+        if "uchicago-local" not in specialized:
+            specialized.append("uchicago-local")
     supplemental: list[str] = []
     supplemental_entry = (status.get("sources") or {}).get("openalex-recall") if status else None
     if isinstance(supplemental_entry, dict) and status_entry_is_fresh(supplemental_entry, now, max_age):
@@ -248,7 +268,7 @@ def inspect_journal(
         coverage = "supplemental"
     elif "crossref" in reliable_paths and len(reliable_paths) == 1:
         coverage = "crossref_only"
-    elif any(path in reliable_paths for path in ("rss", "aea-toc", "priority-toc", "cn-journals", "cnki-rss")):
+    elif any(path in reliable_paths for path in ("rss", "aea-toc", "priority-toc", "cn-journals", "cnki-rss", "uchicago-local")):
         coverage = "official_or_specialized"
     else:
         coverage = "supplemental"

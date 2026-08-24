@@ -101,3 +101,20 @@ class InspectJournalTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_local_uchicago_status_marks_uchicago_healthy(self):
+        journal = {"id": "journal-of-political-economy", "title": "Journal of Political Economy", "publisher": "The University of Chicago Press"}
+        registry = {"journals": {"journal-of-political-economy": registry_entry()}}
+        local = {"ok": True, "updated_at": "2026-08-05T10:00:00+00:00"}
+        row = audit_source_health.inspect_journal(journal, registry, TODAY, NOW, 36, make_status(), local)
+        self.assertEqual(row["level"], "healthy")
+        self.assertIn("uchicago-local", row["usable_paths"])
+        self.assertEqual(row["coverage"], "official_or_specialized")
+
+    def test_stale_local_uchicago_status_stays_supplemental_closed(self):
+        journal = {"id": "journal-of-political-economy", "title": "Journal of Political Economy", "publisher": "The University of Chicago Press"}
+        registry = {"journals": {"journal-of-political-economy": registry_entry()}}
+        local = {"ok": True, "updated_at": "2026-08-01T10:00:00+00:00"}
+        row = audit_source_health.inspect_journal(journal, registry, TODAY, NOW, 36, make_status(), local)
+        self.assertEqual(row["level"], "supplemental-closed")
+        self.assertNotIn("uchicago-local", row["usable_paths"])
