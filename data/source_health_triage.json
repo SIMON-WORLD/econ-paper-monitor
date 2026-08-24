@@ -2,7 +2,7 @@
   "categories": {
     "needs_investigation": 1
   },
-  "checked_at": "2026-08-24T09:12:24.042927+08:00",
+  "checked_at": "2026-08-24T10:20:06.641325+08:00",
   "source_health_degraded_count": 1,
   "source_status_failures": [
     {
@@ -17,13 +17,43 @@
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 23 via official-generated; Journal of Finance: 35 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=51/90; Journal of Population Economics: 0 via configured; Journal of Labor Economics: 14 via configured; Journal of Econometrics: 56 via official-generated; Journal of Environmental Economics an",
       "source": "rss"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journals=24 failures=24 jina_key=on; Journal of Development Economics: HTTPError: HTTP Error 402: Payment Required; World Development: HTTPError: HTTP Error 402: Payment Required; China Economic Revie",
       "source": "sciencedirect-search"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "URLError: <urlopen error [Errno 101] Network is unreachable>",
+      "source": "working-paper:repec-nep-cna"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "URLError: <urlopen error [Errno 101] Network is unreachable>",
+      "source": "working-paper:repec-nep-dev"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "URLError: <urlopen error [Errno 101] Network is unreachable>",
+      "source": "working-paper:repec-nep-hea"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "URLError: <urlopen error [Errno 101] Network is unreachable>",
+      "source": "working-paper:repec-nep-ifn"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "URLError: <urlopen error [Errno 101] Network is unreachable>",
+      "source": "working-paper:repec-nep-mac"
+    },
+    {
+      "category": "needs_investigation",
+      "sample_error": "partial_success failures=5; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: URLError: <urlopen error [Errno 101",
+      "source": "working-papers"
     }
   ],
   "sources": [
@@ -45,7 +75,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 10
   },
   "total_degraded": 1
 }
