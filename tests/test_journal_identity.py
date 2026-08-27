@@ -55,6 +55,28 @@ class JournalIdentityTests(unittest.TestCase):
                 self.assertEqual(journal["issn"], issn)
                 self.assertEqual(journal.get("eissn"), eissn)
 
+    def test_render_journals_yml_preserves_optional_issns(self) -> None:
+        from common import render_journals_yml
+
+        journals = [{
+            "id": "test-j",
+            "title": "Test Journal",
+            "short_name": "TJ",
+            "aliases": ["TJ"],
+            "chinese_name": "测试期刊",
+            "fields": ["general"],
+            "public_group": "综合",
+            "priority_private": "A",
+            "issn": "0000-0000",
+            "eissn": "1111-1111",
+            "print_issn": "2222-2222",
+            "publisher": "Test Press",
+            "sources": [{"type": "crossref", "issn": "0000-0000"}],
+        }]
+        text = render_journals_yml(journals)
+        self.assertIn('eissn: "1111-1111"', text)
+        self.assertIn('print_issn: "2222-2222"', text)
+
 
 if __name__ == "__main__":
     unittest.main()

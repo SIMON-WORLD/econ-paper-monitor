@@ -98,6 +98,21 @@ class InspectJournalTests(unittest.TestCase):
         self.assertEqual(row["level"], "supplemental-closed")
         self.assertIsNotNone(row["supplemental_closed_note"])
 
+    def test_batch1_ci_blocked_rss_is_closed_not_degraded(self) -> None:
+        cases = {
+            "management-science": ("HTTPError: HTTP Error 403: Forbidden", "Management Science", "INFORMS"),
+            "journal-of-business-and-economic-statistics": ("HTTPError: HTTP Error 403: Forbidden", "Journal of Business & Economic Statistics", "Taylor & Francis"),
+            "review-of-accounting-studies": ("ParseError: not well-formed", "Review of Accounting Studies", "Springer"),
+            "journal-of-risk-and-uncertainty": ("ParseError: not well-formed", "Journal of Risk and Uncertainty", "Springer"),
+        }
+        for journal_id, (rss_error, title, publisher) in cases.items():
+            with self.subTest(journal_id=journal_id):
+                entry = registry_entry(rss_status="configured", rss_count=0, rss_error=rss_error)
+                journal = {"id": journal_id, "title": title, "publisher": publisher}
+                row = self._row(entry, journal=journal, journal_id=journal_id)
+                self.assertEqual(row["level"], "supplemental-closed")
+                self.assertIsNotNone(row["supplemental_closed_note"])
+
 
 if __name__ == "__main__":
     unittest.main()
@@ -123,3 +138,13 @@ if __name__ == "__main__":
 def test_jhr_is_priority_toc_and_supplemental_closed() -> None:
     assert "journal-of-human-resources" in audit_source_health.PRIORITY_TOC_JOURNALS
     assert "journal-of-human-resources" in audit_source_health.SUPPLEMENTAL_CLOSED_NOTES
+
+
+def test_batch1_ci_blocked_journals_have_supplemental_closure() -> None:
+    expected = {
+        "management-science",
+        "journal-of-business-and-economic-statistics",
+        "review-of-accounting-studies",
+        "journal-of-risk-and-uncertainty",
+    }
+    assert expected.issubset(audit_source_health.SUPPLEMENTAL_CLOSED_NOTES)

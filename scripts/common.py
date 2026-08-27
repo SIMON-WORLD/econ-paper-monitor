@@ -365,6 +365,9 @@ def render_journals_yml(journals: list[dict[str, Any]]) -> str:
                 f"    public_group: {yaml_quote(str(journal.get('public_group') or '未分类'))}",
                 f"    priority_private: {yaml_quote(str(journal.get('priority_private') or ''))}",
                 f"    issn: {yaml_quote(str(journal['issn'])) if journal.get('issn') else 'null'}",
+                f"    eissn: {yaml_quote(str(journal['eissn'])) if journal.get('eissn') else 'null'}",
+                f"    print_issn: {yaml_quote(str(journal['print_issn'])) if journal.get('print_issn') else 'null'}",
+                f"    online_issn: {yaml_quote(str(journal['online_issn'])) if journal.get('online_issn') else 'null'}",
                 f"    publisher: {yaml_quote(str(journal['publisher'])) if journal.get('publisher') else 'null'}",
                 "    sources:",
             ]
