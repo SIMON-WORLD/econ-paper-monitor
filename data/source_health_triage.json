@@ -1,7 +1,9 @@
 {
-  "categories": {},
-  "checked_at": "2026-08-28T01:49:59.465150+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 6
+  },
+  "checked_at": "2026-08-28T03:20:14.004223+08:00",
+  "source_health_degraded_count": 6,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -9,20 +11,115 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Comparative Economics: 0; American Journal of Agricultural Economics: 1; Food Policy: 14; Journal of Agricultural Economics: 3; Agricultural Economics: 3; Journa",
+      "source": "crossref"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 24 via official-generated; Journal of Finance: 37 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=56/102; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 61 via official-generated; Applied Economic Perspectives ",
       "source": "rss"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "journals=24 failures=24 jina_key=on; Journal of Development Economics: HTTPError: HTTP Error 402: Payment Required; World Development: HTTPError: HTTP Error 402: Payment Required; China Economic Revie",
+      "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: HTTPError: HTTP Error 402: Payment Required; Review of Economic Dynamics: HTTPError: HTTP Error 402: Payment Required; Journal of Ec",
       "source": "sciencedirect-search"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-agricultural-and-resource-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=openalex-recall",
+      "source": "Journal of Agricultural and Resource Economics",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-business-and-economic-statistics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "Journal of Business & Economic Statistics",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-risk-and-uncertainty",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "Journal of Risk and Uncertainty",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "management-science",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "Management Science",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-accounting-studies",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "Review of Accounting Studies",
+      "status_category": "rate_limited",
+      "status_source": "crossref",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economic-studies",
+      "sample_error": "economic-theory/springer_online_first: crossref fallback 6; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback 2; social-choice-and-",
+      "source": "Review of Economic Studies",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 3
+    "degraded_source_failures": 4
   },
-  "total_degraded": 0
+  "total_degraded": 6
 }
