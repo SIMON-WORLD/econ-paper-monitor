@@ -592,8 +592,15 @@
         try {
           const currentMatches = matchingItems(state.items, toolbar, list);
           if (state.rendered >= currentMatches.length) {
-            if (state.routed) await loadNextRoutedShard(state);
-            else await loadNextShard(state);
+            let loaded = 0;
+            while (state.pendingShards.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
+              if (state.routed) await loadNextRoutedShard(state);
+              else await loadNextShard(state);
+              loaded += 1;
+              const nextMatches = matchingItems(state.items, toolbar, list);
+              if (nextMatches.length > currentMatches.length) break;
+              if (loaded >= 8) break;
+            }
           }
           await render(list, state, toolbar, false);
         } catch (error) {
