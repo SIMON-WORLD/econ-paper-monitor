@@ -236,6 +236,24 @@ TARGETS = {
         "date_source": "springer_online_first",
         "date_confidence": "B",
     }],
+    "journal-of-human-resources": [
+        {
+            "kind": "jhr_early_recent",
+            "url": "https://jhr.uwpress.org/content/early/recent",
+            "fallback_urls": ["https://r.jina.ai/http://jhr.uwpress.org/content/early/recent"],
+            "date_source": "jhr_early_recent",
+            "date_confidence": "B",
+            "fallback_issn": "0022-166X",
+        },
+        {
+            "kind": "jhr_current",
+            "url": "https://jhr.uwpress.org/content/current",
+            "fallback_urls": ["https://r.jina.ai/http://jhr.uwpress.org/content/current"],
+            "date_source": "jhr_current",
+            "date_confidence": "B",
+            "fallback_issn": "0022-166X",
+        },
+    ],
 }
 
 BROWSER_HEADERS = {
@@ -506,6 +524,89 @@ def article_links(html_text: str, base_url: str) -> list[tuple[str, str]]:
     return links
 
 
+def jhr_article_blocks(html_text: str, base_url: str) -> list[dict[str, Any]]:
+    """Parse Journal of Human Resources Atypon early/current TOC cards."""
+    blocks: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    anchor_pattern = re.compile(
+        r'<a[^>]+href=["\'](?P<href>[^"\']*/(?:content/early|content/current)/[^"\']+)["\'][^>]*>'
+        r'\s*<span[^>]+class=["\'][^"\']*highwire-cite-title["\'][^>]*>(?P<title>.*?)</span>\s*</a>',
+        flags=re.I | re.S,
+    )
+    anchors = list(anchor_pattern.finditer(html_text))
+    for index, link_match in enumerate(anchors):
+        href = html.unescape(link_match.group("href")).strip()
+        url = urljoin(base_url, href)
+        key = url.split("?", 1)[0].rstrip("/")
+        if key in seen:
+            continue
+        title = clean_text(link_match.group("title"))
+        if not title or len(title) < 8:
+            continue
+        seen.add(key)
+        context_end = anchors[index + 1].start() if index + 1 < len(anchors) else min(len(html_text), link_match.end() + 2500)
+        context = html_text[link_match.end():context_end]
+        authors = [
+            clean_text(part)
+            for part in re.findall(
+                r'<span[^>]+class=["\'][^"\']*highwire-citation-author[^"\']*["\'][^>]*>(.*?)</span>',
+                context,
+                flags=re.I | re.S,
+            )
+        ]
+        authors = [author for author in authors if author]
+        published: str | None = None
+        date_match = re.search(
+            r"highwire-cite-metadata-date[^>]*>\s*([A-Za-z]{3,9}\s+\d{1,2},\s+20\d{2})",
+            context,
+            flags=re.I,
+        )
+        if date_match:
+            published = parse_date(date_match.group(1))
+        doi: str | None = None
+        doi_match = re.search(
+            r"DOI:\s*(?:https?://doi\.org/)?(?P<doi>10\.\d{4,9}/[^\s<]+)",
+            context,
+            flags=re.I,
+        )
+        if doi_match:
+            doi = doi_match.group("doi").rstrip(".,;").casefold()
+        blocks.append(
+            {
+                "url": url,
+                "title": title,
+                "authors": authors[:12],
+                "published_online": published,
+                "doi": doi,
+            }
+        )
+    if blocks:
+        return blocks
+    # r.jina.ai mirror returns Markdown rather than HTML.
+    for match in re.finditer(r"\[(?P<title>[^\]]{8,240})\]\((?P<href>https?://[^)]+)\)", html_text):
+        href = html.unescape(match.group("href")).strip()
+        url = urljoin(base_url, href)
+        if "jhr.uwpress.org" not in url.lower() and "10.3368/" not in url.lower():
+            continue
+        title = clean_text(match.group("title"))
+        if not title or len(title) < 8:
+            continue
+        key = url.split("?", 1)[0].rstrip("/")
+        if key in seen:
+            continue
+        seen.add(key)
+        blocks.append(
+            {
+                "url": url,
+                "title": title,
+                "authors": [],
+                "published_online": None,
+                "doi": doi_from_text(url),
+            }
+        )
+    return blocks
+
+
 def restud_author_map(html_text: str, base_url: str) -> dict[str, list[str]]:
     """Read the clean author-short field from the official REStud cards."""
     if "restud.com" not in base_url.lower():
@@ -620,6 +721,28 @@ def enrich_detail(url: str, fallback_title: str, timeout: int) -> dict[str, obje
 def fetch_target(journal: dict, target: dict[str, str], *, timeout: int, detail_limit: int, max_items: int) -> list[dict]:
     page_url = target["url"]
     html_text = fetch_toc_text(page_url, timeout=timeout, fallback_urls=target.get("fallback_urls"))
+    if target["kind"].startswith("jhr_"):
+        records: list[dict] = []
+        for block in jhr_article_blocks(html_text, page_url):
+            records.append(
+                article_record(
+                    journal,
+                    title=block["title"],
+                    url=block["url"],
+                    source="priority_toc",
+                    source_url=page_url,
+                    doi=block["doi"],
+                    authors=block["authors"] or [],
+                    published_online=block["published_online"],
+                    available_online=block["published_online"],
+                    date_source=target["date_source"],
+                    date_confidence=target["date_confidence"],
+                    raw_data={"priority_toc_kind": target["kind"]},
+                )
+            )
+            if len(records) >= max_items:
+                break
+        return records
     author_map = restud_author_map(html_text, page_url)
     author_map.update(econometric_society_author_map(html_text, page_url))
     records: list[dict] = []

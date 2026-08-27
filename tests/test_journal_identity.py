@@ -36,6 +36,25 @@ class JournalIdentityTests(unittest.TestCase):
         self.assertIn("1879-1751", issns)
         self.assertIn("0167-2681", issns)
 
+    def test_batch1_journal_identities(self) -> None:
+        expected = {
+            "management-science": ("0025-1909", "1526-5501"),
+            "journal-of-accounting-and-economics": ("0165-4101", None),
+            "journal-of-health-economics": ("0167-6296", None),
+            "journal-of-financial-and-quantitative-analysis": ("0022-1090", "1756-6916"),
+            "journal-of-human-resources": ("0022-166X", "1548-8004"),
+            "journal-of-business-and-economic-statistics": ("0735-0015", "1537-2707"),
+            "journal-of-financial-intermediation": ("1042-9573", "1096-0473"),
+            "review-of-accounting-studies": ("1380-6653", "1573-7136"),
+            "journal-of-risk-and-uncertainty": ("0895-5646", "1573-0476"),
+            "journal-of-corporate-finance": ("0929-1199", None),
+        }
+        for journal_id, (issn, eissn) in expected.items():
+            with self.subTest(journal_id=journal_id):
+                journal = self.journals[journal_id]
+                self.assertEqual(journal["issn"], issn)
+                self.assertEqual(journal.get("eissn"), eissn)
+
 
 if __name__ == "__main__":
     unittest.main()
