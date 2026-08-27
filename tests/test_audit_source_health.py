@@ -118,3 +118,8 @@ if __name__ == "__main__":
         row = audit_source_health.inspect_journal(journal, registry, TODAY, NOW, 36, make_status(), local)
         self.assertEqual(row["level"], "supplemental-closed")
         self.assertNotIn("uchicago-local", row["usable_paths"])
+
+
+def test_jhr_is_priority_toc_and_supplemental_closed() -> None:
+    assert "journal-of-human-resources" in audit_source_health.PRIORITY_TOC_JOURNALS
+    assert "journal-of-human-resources" in audit_source_health.SUPPLEMENTAL_CLOSED_NOTES

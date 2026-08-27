@@ -265,6 +265,36 @@ class AdditionalEconometricSocietyTargetTests(unittest.TestCase):
         self.assertEqual(authors[links[0][0]], ["Brandl, Florian"])
 
 
+class JhrTargetTests(unittest.TestCase):
+    def test_jhr_targets_are_configured(self) -> None:
+        self.assertIn("journal-of-human-resources", fetch_priority_toc.TARGETS)
+        kinds = [target["kind"] for target in fetch_priority_toc.TARGETS["journal-of-human-resources"]]
+        self.assertEqual(kinds, ["jhr_early_recent", "jhr_current"])
+        self.assertEqual(
+            fetch_priority_toc.TARGETS["journal-of-human-resources"][0]["fallback_issn"],
+            "0022-166X",
+        )
+
+    def test_jhr_early_card_parses_title_authors_doi_date(self) -> None:
+        html = """<li class="highwire-cite">
+          <a href="/content/early/2026/08/07/jhr.0925-14532R2" class="highwire-cite-linked-title"><span class="highwire-cite-title">Monopsony, Efficiency, and the Regularization of Undocumented Immigrants</span></a>
+          <div class="highwire-cite-authors"><span class="highwire-citation-authors"><span class="highwire-citation-author first" data-delta="0">George J. Borjas</span> and <span class="highwire-citation-author" data-delta="1">Anthony Edo</span></span></div>
+          <div class="highwire-cite-metadata"><span class="highwire-cite-metadata-journal highwire-cite-metadata">Published online before print </span><span class="highwire-cite-metadata-date highwire-cite-metadata">August 11, 2026, </span><span class="highwire-cite-metadata-pages highwire-cite-metadata">jhr.0925-14532R2; </span><span class="highwire-cite-metadata-doi highwire-cite-metadata">DOI: https://doi.org/10.3368/jhr.0925-14532R2 </span></div>
+        </li>"""
+        blocks = fetch_priority_toc.jhr_article_blocks(
+            html,
+            "https://jhr.uwpress.org/content/early/recent",
+        )
+        self.assertEqual(len(blocks), 1)
+        self.assertEqual(
+            blocks[0]["title"],
+            "Monopsony, Efficiency, and the Regularization of Undocumented Immigrants",
+        )
+        self.assertEqual(blocks[0]["authors"], ["George J. Borjas", "Anthony Edo"])
+        self.assertEqual(blocks[0]["doi"], "10.3368/jhr.0925-14532r2")
+        self.assertEqual(blocks[0]["published_online"], "2026-08-11")
+
+
 if __name__ == "__main__":
     unittest.main()
 
