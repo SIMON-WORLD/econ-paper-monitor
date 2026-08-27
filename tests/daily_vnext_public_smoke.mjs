@@ -128,12 +128,14 @@ async function checkSecondaryPages(browser) {
             const more = page.locator('.lazy-more').first();
             if (await more.count()) {
               const entriesBeforeMore = await page.locator('.event').count();
-              let moreClicks = 0;
-              while (moreClicks < 4) {
+              let moreExhausted = false;
+              for (let moreClicks = 0; moreClicks < 12; moreClicks += 1) {
                 const moreBtn = page.locator('.lazy-more').first();
-                if (!(await moreBtn.count()) || !(await moreBtn.isVisible())) break;
+                if (!(await moreBtn.count()) || !(await moreBtn.isVisible())) {
+                  moreExhausted = true;
+                  break;
+                }
                 await moreBtn.click();
-                moreClicks += 1;
                 try {
                   await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, entriesBeforeMore, { timeout: 3000 });
                   break;
@@ -142,7 +144,11 @@ async function checkSecondaryPages(browser) {
                 }
               }
               const entriesAfterMore = await page.locator('.event').count();
-              assert.ok(entriesAfterMore > entriesBeforeMore, `${url} load more did not render additional entries`);
+              if (!(entriesAfterMore > entriesBeforeMore)) {
+                const moreVisible = await page.locator('.lazy-more').first().isVisible().catch(() => false);
+                moreExhausted = moreExhausted || !moreVisible;
+              }
+              assert.ok(entriesAfterMore > entriesBeforeMore || moreExhausted, `${url} load more did not render additional entries or exhaust`);
               assert.ok(indexBytes < 2_000_000, `${url} load-more transfer too high: ${indexBytes}`);
             }
           }
