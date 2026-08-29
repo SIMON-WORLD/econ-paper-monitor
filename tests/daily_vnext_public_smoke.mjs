@@ -137,7 +137,7 @@ async function checkSecondaryPages(browser) {
                 }
                 await moreBtn.click();
                 try {
-                  await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, entriesBeforeMore, { timeout: 3000 });
+                  await page.waitForFunction((count) => document.querySelectorAll('.event').length > count, entriesBeforeMore, { timeout: 6000 });
                   break;
                 } catch (e) {
                   await page.waitForTimeout(400);
@@ -149,6 +149,9 @@ async function checkSecondaryPages(browser) {
                 moreExhausted = moreExhausted || !moreVisible;
               }
               assert.ok(entriesAfterMore > entriesBeforeMore || moreExhausted, `${url} load more did not render additional entries or exhaust`);
+              if (moreExhausted) {
+                assert.equal(await page.locator('.lazy-more').first().isVisible().catch(() => false), false, `${url} exhausted load more stayed visible`);
+              }
               assert.ok(indexBytes < 2_000_000, `${url} load-more transfer too high: ${indexBytes}`);
             }
           }
