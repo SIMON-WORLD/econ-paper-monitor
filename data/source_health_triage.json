@@ -1,33 +1,48 @@
 {
   "categories": {},
-  "checked_at": "2026-08-29T16:00:09.050532+08:00",
+  "checked_at": "2026-08-29T21:48:37.668134+08:00",
   "source_health_degraded_count": 0,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Comparative Economics: 2; American Journal of Agricultural Economics: 3; Food Policy: 40; Journal of Agricultural Economics: 11; Agricultural Economics: 7; Journ",
+      "source": "crossref"
+    },
+    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
+      "sample_error": "attempted=11; proxy_abstract_attempted=0; seen Journal of Labor Economics: metadata-only; seen 中国工业经济: abstract-present; seen 中国工业经济: abstract-present; seen 中国工业经济: abstract-present; seen 管理世界: abstra",
       "source": "publisher-detail"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=27/40; Journal of Economic History: 19 via configured; Journal of International Economics: 24 via official-generated; Journal of Finance: 37 via official-generated; Journal of Financial Economic",
+      "sample_error": "feeds=56/102; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 61 via official-generated; Applied Economic Perspectives ",
       "source": "rss"
     },
     {
       "category": "needs_investigation",
       "sample_error": "journals=28 failures=28 jina_key=on; Journal of Monetary Economics: HTTPError: HTTP Error 402: Payment Required; Review of Economic Dynamics: HTTPError: HTTP Error 402: Payment Required; Journal of Ec",
       "source": "sciencedirect-search"
+    },
+    {
+      "category": "permanently_unavailable",
+      "sample_error": "HTTPError: HTTP Error 404: Not Found",
+      "source": "working-paper:bis-working-papers"
+    },
+    {
+      "category": "permanently_unavailable",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "source": "working-papers"
     }
   ],
   "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 7
   },
   "total_degraded": 0
 }
