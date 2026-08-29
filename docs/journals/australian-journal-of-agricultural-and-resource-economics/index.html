@@ -571,22 +571,23 @@
       more.textContent = '加载更多';
       more.setAttribute('aria-label', '加载更多论文');
       more.addEventListener('click', async () => {
+        if (state.loadingMore) return;
+        state.loadingMore = true;
         try {
           const currentMatches = matchingItems(state.items, toolbar, list);
           if (state.rendered >= currentMatches.length) {
-            let loaded = 0;
             while (state.pendingShards.length || (!state.routed && state.nextShard < state.manifest?.shards.length)) {
               if (state.routed) await loadNextRoutedShard(state);
               else await loadNextShard(state);
-              loaded += 1;
               const nextMatches = matchingItems(state.items, toolbar, list);
               if (nextMatches.length > currentMatches.length) break;
-              if (loaded >= 8) break;
             }
           }
           await render(list, state, toolbar, false);
         } catch (error) {
           showError(list, error);
+        } finally {
+          state.loadingMore = false;
         }
       });
       list.append(more);
@@ -616,7 +617,7 @@
   const initList = (list) => {
     const scope = list.dataset.lazyScope || 'default';
     const toolbar = document.querySelector('.toolbar[data-filter-scope="' + scope + '"]');
-    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], pendingShards: [], nextShard: 0, rendered: 0, routed: false, requestId: 0};
+    const state = {manifestUrl: new URL(list.dataset.lazyManifest, window.location.href).href, manifestPromise: null, manifest: null, items: [], pendingShards: [], nextShard: 0, rendered: 0, routed: false, requestId: 0, loadingMore: false};
     const rerender = debounce(() => apply(list, state, toolbar), 140);
     for (const role of ['search', 'journal', 'field', 'dateType', 'confidence', 'sourceType']) {
       const control = toolbar?.querySelector('[data-filter-role="' + role + '"]');
