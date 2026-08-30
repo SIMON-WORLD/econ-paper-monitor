@@ -381,3 +381,20 @@ def test_legacy_unambiguous_record_no_churn():
     assert rec.get("canonical_detail_key") is None
     key=rs.detail_key(rec)
     assert rs.detail_key(rec)==key
+def test_canonical_route_key_distinct_dois_do_not_collide():
+    import public_integrity as pi, render_site as rs
+    a={"title":"Book Reviews","journal":"Journal of Economic Literature","source":"journal","detail_key":"book-reviews-b0eeb21102be","doi":"10.1257/jel.45.4.1024.r23"}
+    b={"title":"Book Reviews","journal":"Journal of Economic Literature","source":"journal","detail_key":"book-reviews-b0eeb21102be","doi":"10.1257/jel.45.4.1024.r26"}
+    ka=pi.canonical_route_key(a, a.get("detail_key"))
+    kb=pi.canonical_route_key(b, b.get("detail_key"))
+    assert ka != kb
+    a["canonical_detail_key"]=ka; b["canonical_detail_key"]=kb
+    assert rs.detail_url(a) != rs.detail_url(b)
+
+def test_canonical_route_key_idempotent_and_fallback():
+    import public_integrity as pi
+    r={"detail_key":"legacy-key","doi":"10.1000/abc"}
+    k1=pi.canonical_route_key(r, "legacy-key"); k2=pi.canonical_route_key(dict(r), "legacy-key")
+    assert k1 == k2 == pi.calculate_detail_key(r)
+    nodoi={"detail_key":"legacy-key","title":"T","journal":"J"}
+    assert pi.canonical_route_key(nodoi, "legacy-key") == "legacy-key"
