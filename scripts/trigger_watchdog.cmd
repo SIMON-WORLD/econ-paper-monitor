@@ -1,4 +1,5 @@
 @echo off
 setlocal
-cd /d E:\BaiduSyncdisk\Work\Agent_automation\vibe_coding\econ-paper-monitor
-"D:\Software\GitHub CLI\gh.exe" workflow run watchdog.yml --repo academic-door/econ-paper-monitor
+rem Repo root = parent of this scripts dir, so the trigger works from any checkout.
+cd /d "%~dp0.."
+gh workflow run watchdog.yml --repo academic-door/econ-paper-monitor

@@ -35,6 +35,8 @@ The scheduled task uses a dedicated checkout under
 development worktree: the runner always follows the public `origin/main`, while
 the main development checkout may contain unpublished commits.
 
+> Note (Phase 0): the ACTIVE registered task is `Econ Papers Daily - Local Supplement`, which runs `<checkout>\local_admin\runner\run_local_supplements.ps1` (see `Runtime Ownership & Path Dependency (Phase 0)`). The `%LOCALAPPDATA%` dedicated runner documented here is a separate/alternate install.
+
 Run once manually without pushing from the dedicated runner:
 
 ```powershell
@@ -140,3 +142,13 @@ For the local Chinese supplement, verify the Windows task itself rather than
 inferring health from the public page: confirm the task is `Ready`, its last
 result is `0`, and its next run is one of the four configured times. A successful
 CNKI fetch is published only after all six configured feeds succeed.
+
+## Runtime Ownership & Path Dependency (Phase 0)
+
+- **Active Windows scheduled task**: `Econ Papers Daily - Local Supplement` (TaskPath `\`, State `Ready`). It runs `powershell.exe ... -File "<canonical-checkout>\local_admin\runner\run_local_supplements.ps1"` with `WorkingDirectory` = that `local_admin\runner` folder (the launcher file is gitignored/local).
+- **Launcher** (`<canonical-checkout>\local_admin\runner\run_local_supplements.ps1`, local/gitignored) runs CNKI (`scripts\local_cnki_update.py`) and UChicago (`scripts\fetch_uchicago_local.py`) inside `C:\Users\Administrator\Work\econ-paper-monitor\runner-worktree` (a hardcoded local checkout; verified: branch `main`, remote = `academic-door/econ-paper-monitor.git`, clean). It fetches `origin/main` -> resets `--hard` -> runs both supplements -> commits/pushes `data/raw/uchicago-local` + `data/local_uchicago_status.json` to `origin/main` (UChicago), then dispatches `watchdog.yml` via `gh` resolved from `PATH`/`GH_EXE` (the fixed `D:\Software\GitHub CLI\gh.exe` dependency was removed; original preserved at `local_admin\runner\run_local_supplements.ps1.bak.20260830`).
+- **CURRENT_CHECKOUT_PATH_PINNED**: the canonical `E:` checkout is pinned — the active task entrypoint lives in its `local_admin\runner` folder, and the launcher hardcodes the `C:\...\runner-worktree`. **Do NOT move the canonical `E:` checkout before this pinned runtime is deliberately migrated.**
+- **Watchdog** itself runs on GitHub Actions (`watchdog.yml`: `workflow_dispatch` + cron `*/15`); the local `scripts/trigger_watchdog.{cmd,ps1}` are optional manual triggers, path-hardened (repo-root + PATH `gh`), and are NOT used by the active task.
+- The documented `%LOCALAPPDATA%\AcademicDoor\econ-paper-monitor-cnki-runner` (see "Local CNKI RSS Supplement") is a separate/alternate install; the ACTIVE registered task is the `run_local_supplements.ps1` one above.
+
+> Execution-env note: this sandbox runs as a non-Administrator user and cannot enumerate the real Task Scheduler registrations; the facts above were confirmed from the real Windows account (`Get-ScheduledTask`/`schtasks`) and by reading the gitignored launcher.
