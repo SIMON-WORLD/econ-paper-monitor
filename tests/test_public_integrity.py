@@ -332,3 +332,55 @@ def test_machine_path_leak_audit_counts_by_layer(tmp_path: Path) -> None:
     assert leak["counts"]["ledgers"] == 1
     assert leak["counts"]["total"] == 3
     assert audit_integrity(tmp_path)["machine_path_leaks"] == leak["counts"]["total"]
+
+def test_detail_key_upgraded_after_doi_added():
+    import public_integrity as pi
+    rec = {"title": "Book Reviews", "journal": "Journal of Economic Literature", "detail_key": "book-reviews-b0eeb21102be"}
+    rec["doi"] = "10.1257/jel.45.4.1024.r19"
+    assert pi.ensure_detail_key(rec) is True
+    assert rec["detail_key"] == pi.calculate_detail_key(rec)
+    assert rec["detail_key"] != "book-reviews-b0eeb21102be"
+
+
+def test_same_title_distinct_dois_get_distinct_detail_keys():
+    import public_integrity as pi
+    a = {"title": "Book Reviews", "journal": "Journal of Economic Literature", "detail_key": "book-reviews-b0eeb21102be", "doi": "10.1257/jel.45.4.1024.r19"}
+    b = {"title": "Book Reviews", "journal": "Journal of Economic Literature", "detail_key": "book-reviews-b0eeb21102be", "doi": "10.1257/jel.45.4.1024.r26"}
+    pi.ensure_detail_key(a)
+    pi.ensure_detail_key(b)
+    assert a["detail_key"] != b["detail_key"]
+
+
+def test_unchanged_identity_keeps_stable_detail_key():
+    import public_integrity as pi
+    rec = {"title": "Stable", "journal": "J", "doi": "10.1000/stable"}
+    pi.ensure_detail_key(rec)
+    first = rec["detail_key"]
+    assert pi.ensure_detail_key(rec) is False
+    assert rec["detail_key"] == first
+
+def test_duplicate_counts_distinct_dois_not_duplicates():
+    import public_integrity as pi
+    recs = [
+        {"title": "Book Reviews", "journal": "Journal of Economic Literature", "source": "journal", "doi": "10.1257/jel.45.4.1024.r19"},
+        {"title": "Book Reviews", "journal": "Journal of Economic Literature", "source": "journal", "doi": "10.1257/jel.45.4.1024.r26"},
+    ]
+    assert pi._duplicate_counts(recs) == (0, 0)
+
+
+def test_duplicate_counts_same_doi_is_duplicate():
+    import public_integrity as pi
+    recs = [
+        {"title": "A paper", "journal": "J", "source": "journal", "doi": "10.1000/abc"},
+        {"title": "A paper", "journal": "J", "source": "journal", "doi": "10.1000/abc"},
+    ]
+    assert pi._duplicate_counts(recs) == (1, 1)
+
+
+def test_duplicate_counts_no_doi_same_title_is_duplicate():
+    import public_integrity as pi
+    recs = [
+        {"title": "Same title", "journal": "J", "source": "journal"},
+        {"title": "Same title", "journal": "J", "source": "journal"},
+    ]
+    assert pi._duplicate_counts(recs) == (1, 1)

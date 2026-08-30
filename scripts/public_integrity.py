@@ -155,10 +155,18 @@ def calculate_detail_key(record: dict[str, Any]) -> str:
 
 
 def ensure_detail_key(record: dict[str, Any]) -> bool:
-    if str(record.get("detail_key") or "").strip():
-        return False
-    record["detail_key"] = calculate_detail_key(record)
-    return True
+    current = str(record.get("detail_key") or "").strip()
+    if not current:
+        record["detail_key"] = calculate_detail_key(record)
+        return True
+    # Upgrade a stale title/journal fallback key when a stronger DOI identity is
+    # now present and the stored key was not derived from that DOI. Keys stay
+    # stable when identity did not change; this resolves route collisions for
+    # same-source/same-title records that later gained a distinct DOI.
+    if normalize_doi(record.get("doi")) and calculate_detail_key(record) != current:
+        record["detail_key"] = calculate_detail_key(record)
+        return True
+    return False
 
 
 def strip_title_prefix(record: dict[str, Any]) -> bool:
@@ -757,11 +765,18 @@ def repair_false_seen_ledger(data_dir: Path, seen_path: Path) -> tuple[int, int,
 
 
 def _duplicate_counts(records: Iterable[dict[str, Any]]) -> tuple[int, int]:
-    groups: dict[tuple[str, str], int] = defaultdict(int)
+    groups: dict[tuple[Any, ...], int] = defaultdict(int)
     for record in records:
+        # Records with a distinct non-empty DOI are canonical-identity distinct:
+        # group them by DOI so same-title/same-source records with different DOIs
+        # are NOT rejected as duplicates, while true duplicates (same DOI) remain.
+        doi = normalize_doi(record.get("doi"))
+        if doi:
+            groups[("doi", doi)] += 1
+            continue
         title = normalized_title(record.get("title"))
         if title:
-            groups[(source_scope(record), title)] += 1
+            groups[("src", source_scope(record), title)] += 1
     duplicate_groups = sum(count > 1 for count in groups.values())
     duplicate_records = sum(max(0, count - 1) for count in groups.values())
     return duplicate_groups, duplicate_records
