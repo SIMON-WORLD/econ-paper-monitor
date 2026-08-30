@@ -1,13 +1,15 @@
-﻿# econ-paper-monitor 项目交接说明
+# econ-paper-monitor 项目交接说明
 
-更新时间：2026-08-05（收尾计划 Phase 4 更新；历史章节保留供追溯）
+> 注意（Phase 0 运行时）：本 canonical E: checkout 为 CURRENT_CHECKOUT_PATH_PINNED。本机 Windows 计划任务 Econ Papers Daily - Local Supplement 从 local_admin/runner/run_local_supplements.ps1 启动本地补录（CNKI + UChicago，落地 checkout C:\Users\Administrator\Work\econ-paper-monitor\runner-worktree）。**在有意迁移该固定任务之前，不要移动 canonical E: checkout。** 详见 README Runtime Ownership & Path Dependency (Phase 0)。
+
+更新时间：2026-08-05（历史交接快照；当前正式期刊基线与运行时事实见 README 与 data/journals.yml）
 
 ## 0. 当前状态（2026-08-05）
 
-- 架构：数据线（抓取/清洗/canonical/审计，只写 `data/**`）与展示线（渲染 `docs/**`，`render_site.py` 为唯一根首页写入口）分离；正式期刊范围 87 种，见 `data/journals.yml`。
+- 架构：数据线（抓取/清洗/canonical/审计，只写 `data/**`）与展示线（渲染 `docs/**`，`render_site.py` 为唯一根首页写入口）分离；正式期刊范围 97 种（当前生产基线），见 `data/journals.yml`。
 - 数据健康：source_health degraded=9（OUP/MIT 7 个待 CI 注入 JINA 密钥后转 healthy；JAERE/AJARE 2 个按"补充源口径"封口）；缺作者 0、缺官方日期 54、缺摘要全库收敛中；日期口径 A 已落地（A 占比约 53%，解析失败不再标 B，未来日期不入当日桶）。
 - 运营入口：
-  - 收尾任务清单：`TASKS.md`（Phase 0–6，单一事实来源）
+  - 收尾任务清单：`TASKS.md`（Phase 0–6，**建设收尾阶段的历史任务记录**；当前非 SSOT，见 README）
   - 健康报告：`data/source_health.json`、`data/source_health_triage.json`、`data/release_gate.json`、`data/status.json`
   - 用量页：`docs/usage/`（Semantic Scholar + Elsevier 双提供方，北京时间展示）
   - 告警闭环：`scripts/open_health_issues.py`（按 `[Monitor Health]` 前缀自动开/关 Issue）
