@@ -60,7 +60,7 @@ from enrich_metadata import (
     openalex_doi_metadata,
     semantic_scholar_doi_metadata,
 )
-from public_integrity import has_abstract_boilerplate, sanitize_record_paths, strong_identity_keys
+from public_integrity import canonical_route_key, has_abstract_boilerplate, sanitize_record_paths, strong_identity_keys
 from audit_metadata_recovery import audit_metadata_recovery
 from reconcile_retry_queues import reconcile_retry_queue
 
@@ -735,7 +735,7 @@ def reconcile_metadata_queue(
                             "resolved_at": resolved_at,
                             "resolution_identity": identity,
                             "resolution_location": "seen",
-                            "canonical_detail_key": canonical.get("detail_key"),
+                            "canonical_detail_key": canonical_route_key(item, canonical.get("detail_key")),
                         }
                     )
                     resolved.append(resolved_item)

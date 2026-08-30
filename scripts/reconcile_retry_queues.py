@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from common import DATA_DIR, read_json, write_json
-from public_integrity import catalogue_identity_keys, iter_ledger_records
+from public_integrity import canonical_route_key, catalogue_identity_keys, iter_ledger_records
 
 
 def iter_daily(daily_dir: Path) -> Iterable[tuple[str, dict[str, Any]]]:
@@ -94,7 +94,7 @@ def reconcile_retry_queue(data_dir: Path = DATA_DIR) -> dict[str, Any]:
                 "resolved_at": resolved_at,
                 "resolution_identity": identity,
                 "resolution_location": location,
-                "canonical_detail_key": owner.get("detail_key"),
+                "canonical_detail_key": canonical_route_key(record, owner.get("detail_key")),
                 "matched_seen_key": location.removeprefix("seen:") if location.startswith("seen:") else None,
             }
         )
@@ -130,7 +130,7 @@ def reconcile_retry_queue(data_dir: Path = DATA_DIR) -> dict[str, Any]:
         record["resolved_at"] = matched["resolved_at"]
         record["resolution_identity"] = matched["resolution_identity"]
         record["resolution_location"] = matched["resolution_location"]
-        record["canonical_detail_key"] = matched.get("canonical_detail_key")
+        record["canonical_detail_key"] = canonical_route_key(record, matched.get("canonical_detail_key"))
         if matched.get("matched_seen_key"):
             record["matched_seen_key"] = matched["matched_seen_key"]
         ledger_changed += 1

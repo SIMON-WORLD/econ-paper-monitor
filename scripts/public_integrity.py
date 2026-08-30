@@ -161,6 +161,14 @@ def ensure_detail_key(record: dict[str, Any]) -> bool:
     return True
 
 
+def canonical_route_key(record: dict[str, Any], fallback: str = "") -> str:
+    """Strong public route key: record-derived (DOI) key when a distinct non-empty
+    normalized DOI exists, else the legacy fallback. Prevents distinct-DOI records
+    from sharing a route key via an ambiguous legacy fallback detail_key."""
+    if normalize_doi(record.get("doi")):
+        return calculate_detail_key(record)
+    return fallback
+
 def strip_title_prefix(record: dict[str, Any]) -> bool:
     title_zh = str(record.get("title_zh") or "").strip()
     if not title_zh:
