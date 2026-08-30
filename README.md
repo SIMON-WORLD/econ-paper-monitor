@@ -144,7 +144,7 @@ CNKI fetch is published only after all six configured feeds succeed.
 
 ## Runtime Ownership & Path Dependency (Phase 0)
 
-- **Watchdog** runs on GitHub Actions (`watchdog.yml`: `workflow_dispatch` + cron `*/15`). The local `scripts/trigger_watchdog.{cmd,ps1}` were obsolete (no in-repo reference; hardcoded machine `E:`/gh.exe paths) and were retired.
+- **Watchdog** runs on GitHub Actions (`watchdog.yml`: `workflow_dispatch` + cron `*/15`). Local `scripts/trigger_watchdog.{cmd,ps1}` remain as an optional manual trigger and were path-hardened (repo-root from `%~dp0..`/`$PSScriptRoot`, `gh` from PATH with `GH_EXE` override); their obsolescence in the local Windows scheduler was not proven, so they were restored rather than retired.
 - **UChicago local supplement** entrypoint: `scripts/fetch_uchicago_local.py` (checkout-relative; writes `data/raw/uchicago-local/` + `data/local_uchicago_status.json`). It is scheduled externally (Windows task) and publishes to `origin/main`; it is checkout-relative and **NOT pinned** to the canonical `E:` development checkout.
 - **CNKI runner** uses a dedicated checkout `%LOCALAPPDATA%\AcademicDoor\econ-paper-monitor-cnki-runner`, follows `origin/main`, and is independent of the canonical `E:` checkout.
 
