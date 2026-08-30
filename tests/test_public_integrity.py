@@ -4,7 +4,6 @@ import json
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
@@ -13,7 +12,6 @@ from public_integrity import (  # noqa: E402
     audit_machine_path_leaks,
     repair_public_integrity,
 )
-
 
 def record(
     title: str,
@@ -43,7 +41,6 @@ def record(
         "date_source": "publisher_published_online",
     }
 
-
 def write_dataset(root: Path, daily: dict[str, list[dict]], seen: dict[str, dict]) -> None:
     (root / "daily").mkdir(parents=True)
     for day, rows in daily.items():
@@ -56,7 +53,6 @@ def write_dataset(root: Path, daily: dict[str, list[dict]], seen: dict[str, dict
         "metadata_retry_queue.json",
     ):
         (root / name).write_text('{"records": []}', encoding="utf-8")
-
 
 def test_doi_backfill_merges_same_source_title_and_repairs_orphan(tmp_path: Path) -> None:
     title = "A sufficiently specific economics paper title"
@@ -88,7 +84,6 @@ def test_doi_backfill_merges_same_source_title_and_repairs_orphan(tmp_path: Path
     assert report["current"]["orphan_keys"] == 0
     assert report["migration_delta"]["canonical_records_removed"] == 1
 
-
 def test_working_paper_and_journal_versions_are_retained_and_related(tmp_path: Path) -> None:
     title = "A paper that later appeared in a peer reviewed journal"
     working = record(title, "wp", journal_id="cepr-dp", source_type="working_paper")
@@ -109,7 +104,6 @@ def test_working_paper_and_journal_versions_are_retained_and_related(tmp_path: P
     assert len({row["version_group_key"] for row in rows}) == 1
     assert all(len(row["related_versions"]) == 1 for row in rows)
     assert report["current"]["version_relationship_groups"] == 1
-
 
 def test_repec_nep_issue_positions_are_not_stable_paper_numbers(tmp_path: Path) -> None:
     first = record(
@@ -140,7 +134,6 @@ def test_repec_nep_issue_positions_are_not_stable_paper_numbers(tmp_path: Path) 
     assert report["current"]["seen_records"] == 2
     rows = json.loads((tmp_path / "daily" / "2026-06-08.json").read_text(encoding="utf-8"))
     assert "second" not in rows[0].get("identity_aliases", [])
-
 
 def test_unresolved_legacy_seen_dedupe_is_requeued(tmp_path: Path) -> None:
     kept = record("Canonical paper", "kept", journal_id="example-journal")
@@ -179,7 +172,6 @@ def test_unresolved_legacy_seen_dedupe_is_requeued(tmp_path: Path) -> None:
     assert queue["records"][0]["official_date_status"] == "available"
     assert row["raw_file"] == "candidate.json"
     assert report["current"]["ledger_orphan_keys"] == 0
-
 
 def test_ledger_relinks_by_journal_title_when_seen_has_internal_journal_id(tmp_path: Path) -> None:
     kept = record("A journal paper already in the catalogue", "kept", journal_id="journal-internal-id")
@@ -223,7 +215,6 @@ def test_ledger_relinks_by_journal_title_when_seen_has_internal_journal_id(tmp_p
     assert second["repairs"]["ledger_records_requeued"] == 0
     assert second["repairs"]["ledger_records_relinked"] == 0
 
-
 def test_editor_report_is_excluded_instead_of_requeued(tmp_path: Path) -> None:
     kept = record("Canonical paper", "kept", journal_id="example-journal")
     write_dataset(tmp_path, {"2026-07-01": [kept]}, {"kept": dict(kept)})
@@ -246,7 +237,6 @@ def test_editor_report_is_excluded_instead_of_requeued(tmp_path: Path) -> None:
     assert report["repairs"]["ledger_records_requeued"] == 0
     assert report["repairs"]["ledger_nonpaper_reclassified"] == 1
 
-
 def test_title_prefix_boilerplate_preview_and_missing_metadata_are_explicit(tmp_path: Path) -> None:
     item = record("Paper title", "paper", journal_id="cepr-dp", source_type="working_paper")
     item["title_zh"] = "DP21768 论文中文标题"
@@ -268,7 +258,6 @@ def test_title_prefix_boilerplate_preview_and_missing_metadata_are_explicit(tmp_
     assert row["authors_status_code"] == "missing_retry"
     assert row["official_date_status"] == "missing_retry"
 
-
 def test_redundant_composite_author_entry_is_split_and_deduplicated(tmp_path: Path) -> None:
     item = record("Paper title", "paper", journal_id="example-journal")
     item["authors"] = ["First Author", "Second Author", "First Author; Second Author"]
@@ -279,7 +268,6 @@ def test_redundant_composite_author_entry_is_split_and_deduplicated(tmp_path: Pa
     row = json.loads((tmp_path / "daily" / "2026-07-01.json").read_text(encoding="utf-8"))[0]
     assert row["authors"] == ["First Author", "Second Author"]
     assert report["current"]["redundant_composite_authors"] == 0
-
 
 def test_repair_archives_seen_only_journal_record_into_daily(tmp_path: Path) -> None:
     seen_rec = record(
@@ -299,7 +287,6 @@ def test_repair_archives_seen_only_journal_record_into_daily(tmp_path: Path) -> 
     assert rows[0]["abstract"].startswith("Complete abstract")
     assert report["repairs"]["seen_only_archived"] == 1
 
-
 def test_checked_in_public_data_has_zero_integrity_failures() -> None:
     report = audit_integrity(ROOT / "data")
     assert report["same_source_title_duplicate_records"] == 0
@@ -312,7 +299,6 @@ def test_checked_in_public_data_has_zero_integrity_failures() -> None:
     assert report["redundant_composite_authors"] == 0
     assert report["machine_path_leaks"] == 0
     assert sum(report["metadata_missing_status"].values()) == 0
-
 
 def test_machine_path_leak_audit_counts_by_layer(tmp_path: Path) -> None:
     daily_rec = record("Daily paper", "daily-1", journal_id="example-journal")
@@ -333,24 +319,6 @@ def test_machine_path_leak_audit_counts_by_layer(tmp_path: Path) -> None:
     assert leak["counts"]["total"] == 3
     assert audit_integrity(tmp_path)["machine_path_leaks"] == leak["counts"]["total"]
 
-def test_detail_key_upgraded_after_doi_added():
-    import public_integrity as pi
-    rec = {"title": "Book Reviews", "journal": "Journal of Economic Literature", "detail_key": "book-reviews-b0eeb21102be"}
-    rec["doi"] = "10.1257/jel.45.4.1024.r19"
-    assert pi.ensure_detail_key(rec) is True
-    assert rec["detail_key"] == pi.calculate_detail_key(rec)
-    assert rec["detail_key"] != "book-reviews-b0eeb21102be"
-
-
-def test_same_title_distinct_dois_get_distinct_detail_keys():
-    import public_integrity as pi
-    a = {"title": "Book Reviews", "journal": "Journal of Economic Literature", "detail_key": "book-reviews-b0eeb21102be", "doi": "10.1257/jel.45.4.1024.r19"}
-    b = {"title": "Book Reviews", "journal": "Journal of Economic Literature", "detail_key": "book-reviews-b0eeb21102be", "doi": "10.1257/jel.45.4.1024.r26"}
-    pi.ensure_detail_key(a)
-    pi.ensure_detail_key(b)
-    assert a["detail_key"] != b["detail_key"]
-
-
 def test_unchanged_identity_keeps_stable_detail_key():
     import public_integrity as pi
     rec = {"title": "Stable", "journal": "J", "doi": "10.1000/stable"}
@@ -367,7 +335,6 @@ def test_duplicate_counts_distinct_dois_not_duplicates():
     ]
     assert pi._duplicate_counts(recs) == (0, 0)
 
-
 def test_duplicate_counts_same_doi_is_duplicate():
     import public_integrity as pi
     recs = [
@@ -376,7 +343,6 @@ def test_duplicate_counts_same_doi_is_duplicate():
     ]
     assert pi._duplicate_counts(recs) == (1, 1)
 
-
 def test_duplicate_counts_no_doi_same_title_is_duplicate():
     import public_integrity as pi
     recs = [
@@ -384,3 +350,34 @@ def test_duplicate_counts_no_doi_same_title_is_duplicate():
         {"title": "Same title", "journal": "J", "source": "journal"},
     ]
     assert pi._duplicate_counts(recs) == (1, 1)
+
+
+def test_effective_route_collision_disambiguated():
+    import public_integrity as pi, render_site as rs
+    a={"title":"Book Reviews","journal":"Journal of Economic Literature","source":"journal","detail_key":"book-reviews-b0eeb21102be","doi":"10.1257/jel.45.4.1024.r19"}
+    b={"title":"Book Reviews","journal":"Journal of Economic Literature","source":"journal","detail_key":"book-reviews-b0eeb21102be","doi":"10.1257/jel.45.4.1024.r26"}
+    # legacy linkage detail_key preserved; distinct strong route key in canonical_detail_key
+    a["canonical_detail_key"]=pi.calculate_detail_key(a)
+    b["canonical_detail_key"]=pi.calculate_detail_key(b)
+    assert a["detail_key"]==b["detail_key"]
+    assert rs.detail_url(a)!=rs.detail_url(b)
+    assert rs.detail_key(a)!=rs.detail_key(b)
+
+def test_route_producer_parity():
+    import render_site as rs, build_daily_vnext as bdv
+    rec={"title":"Book Reviews","journal":"Journal of Economic Literature","doi":"10.1257/jel.45.4.1024.r19","detail_key":"book-reviews-b0eeb21102be","canonical_detail_key":"book-reviews-5c9d0e9fff10"}
+    assert rs.detail_key(rec)==bdv.detail_key(rec)
+
+def test_same_doi_same_route():
+    import render_site as rs
+    a={"doi":"10.1000/abc","title":"X","detail_key":"d-x"}
+    b={"doi":"10.1000/abc","title":"X","detail_key":"d-x"}
+    assert rs.detail_key(a)==rs.detail_key(b)
+
+def test_legacy_unambiguous_record_no_churn():
+    import public_integrity as pi, render_site as rs
+    rec={"title":"Unique title","journal":"J","doi":"10.1000/xyz"}
+    pi.ensure_detail_key(rec)
+    assert rec.get("canonical_detail_key") is None
+    key=rs.detail_key(rec)
+    assert rs.detail_key(rec)==key

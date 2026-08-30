@@ -155,18 +155,10 @@ def calculate_detail_key(record: dict[str, Any]) -> str:
 
 
 def ensure_detail_key(record: dict[str, Any]) -> bool:
-    current = str(record.get("detail_key") or "").strip()
-    if not current:
-        record["detail_key"] = calculate_detail_key(record)
-        return True
-    # Upgrade a stale title/journal fallback key when a stronger DOI identity is
-    # now present and the stored key was not derived from that DOI. Keys stay
-    # stable when identity did not change; this resolves route collisions for
-    # same-source/same-title records that later gained a distinct DOI.
-    if normalize_doi(record.get("doi")) and calculate_detail_key(record) != current:
-        record["detail_key"] = calculate_detail_key(record)
-        return True
-    return False
+    if str(record.get("detail_key") or "").strip():
+        return False
+    record["detail_key"] = calculate_detail_key(record)
+    return True
 
 
 def strip_title_prefix(record: dict[str, Any]) -> bool:
@@ -832,8 +824,8 @@ def audit_integrity(data_dir: Path = DATA_DIR) -> dict[str, Any]:
 
     daily_duplicate_groups, daily_duplicate_records = _duplicate_counts(daily_records)
     seen_duplicate_groups, seen_duplicate_records = _duplicate_counts(seen_records)
-    daily_detail = [str(record.get("detail_key") or "") for record in daily_records]
-    seen_detail = [str(record.get("detail_key") or "") for record in seen_records]
+    daily_detail = [str(record.get("canonical_detail_key") or record.get("detail_key") or "") for record in daily_records]
+    seen_detail = [str(record.get("canonical_detail_key") or record.get("detail_key") or "") for record in seen_records]
     prefix_count = sum(
         bool(str(record.get("title_zh") or ""))
         and any(pattern.match(str(record.get("title_zh") or "")) for pattern in TITLE_PREFIX_PATTERNS)

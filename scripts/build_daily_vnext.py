@@ -270,7 +270,7 @@ scripts.forEach(source => new Function(source));
 
 def detail_key(record: dict) -> str:
     """Return the stable public key used by ``docs/paper.html`` (mirrors render_site)."""
-    canonical_key = str(record.get("detail_key") or "").strip()
+    canonical_key = str(record.get("canonical_detail_key") or record.get("detail_key") or "").strip()
     if re.search(r"-[0-9a-f]{12}$", canonical_key, re.IGNORECASE):
         return canonical_key
     title = str(record.get("title") or "paper").casefold()
