@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, load_journals, read_json, today_str, write_json
-from dedupe import archive_date_for_new_record, is_source_navigation_noise, record_match_keys
+from dedupe import archive_date_for_new_record, covered_by_derived_doi, is_source_navigation_noise, record_match_keys
 from status import record_source
 
 
@@ -74,7 +74,11 @@ def main() -> None:
         for record in raw_today:
             if is_source_navigation_noise(record) or set(record_match_keys(record)) & seen_keys:
                 continue
-            if archive_date_for_new_record(record, args.date) == args.date and not set(record_match_keys(record)) & daily_keys:
+            if (
+                archive_date_for_new_record(record, args.date) == args.date
+                and not set(record_match_keys(record)) & daily_keys
+                and not covered_by_derived_doi(record, daily_today)
+            ):
                 missing.append({"title": record.get("title"), "doi": record.get("doi"), "url": record.get("url")})
 
         row = {

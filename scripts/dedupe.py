@@ -345,6 +345,18 @@ def find_matching_record_id(records: dict[str, dict[str, Any]], incoming: dict[s
     return None
 
 
+def covered_by_derived_doi(record: dict[str, Any], daily_records: list[dict[str, Any]]) -> bool:
+    """True when a combined Crossref item (e.g. JEL 'Book Reviews') is covered
+    by split child records in the daily archive whose DOIs derive from the
+    parent DOI (parent + '.rN'). Prevents ingestion/formal audits from flagging
+    the parent as a missing candidate after dedupe split it into children."""
+    doi = normalize_doi(record.get("doi"))
+    if not doi:
+        return False
+    prefix = f"{doi}."
+    return any(str(item.get("doi") or "").startswith(prefix) for item in daily_records)
+
+
 def build_seen_index(seen_papers: dict[str, dict[str, Any]]) -> dict[str, str]:
     index: dict[str, str] = {}
     for record_id, record in seen_papers.items():

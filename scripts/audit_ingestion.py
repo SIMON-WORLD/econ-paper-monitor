@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, read_json, today_str, write_json
-from dedupe import archive_date_for_new_record, is_source_navigation_noise, record_match_keys
+from dedupe import archive_date_for_new_record, covered_by_derived_doi, is_source_navigation_noise, record_match_keys
 from status import load_status, record_source
 
 
@@ -189,7 +189,7 @@ def main() -> None:
             new_other_date_candidates.append(record)
             continue
         new_today_candidates.append(record)
-        if not intersects(keys, daily_keys):
+        if not intersects(keys, daily_keys) and not covered_by_derived_doi(record, daily_records):
             missing_new_today.append(record)
 
     missed_by_source: dict[str, dict[str, Any]] = {}
