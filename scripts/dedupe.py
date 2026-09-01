@@ -676,9 +676,18 @@ def main() -> None:
                     if enrich_record(existing, record):
                         enriched += 1
                         touched_daily_paths.add(path)
-            elif ensure_daily_archive(args.daily_dir, record, args.date):
-                enriched += 1
-                daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
+            else:
+                # A record already discovered before the run date is backflow
+                # from an RSS/TOC re-publication, not a new discovery. Do not
+                # re-archive it into today's bucket: that pollutes the daily
+                # archive and forces remove_seen_backflow to move it out again,
+                # leaving the bucket empty and tripping ingestion gates at
+                # month boundaries (issue-dated papers from a new volume).
+                seen_first = str((seen_entry or {}).get('first_seen') or '')[:10]
+                is_backflow = bool(seen_first and seen_first < args.date)
+                if not is_backflow and ensure_daily_archive(args.daily_dir, record, args.date):
+                    enriched += 1
+                    daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
             continue
         seen_papers[record_id] = {
             "title": record.get("title"),
