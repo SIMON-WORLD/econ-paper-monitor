@@ -345,6 +345,18 @@ def find_matching_record_id(records: dict[str, dict[str, Any]], incoming: dict[s
     return None
 
 
+def covered_by_derived_doi(record: dict[str, Any], daily_records: list[dict[str, Any]]) -> bool:
+    """True when a combined Crossref item (e.g. JEL 'Book Reviews') is covered
+    by split child records in the daily archive whose DOIs derive from the
+    parent DOI (parent + '.rN'). Prevents ingestion/formal audits from flagging
+    the parent as a missing candidate after dedupe split it into children."""
+    doi = normalize_doi(record.get("doi"))
+    if not doi:
+        return False
+    prefix = f"{doi}."
+    return any(str(item.get("doi") or "").startswith(prefix) for item in daily_records)
+
+
 def build_seen_index(seen_papers: dict[str, dict[str, Any]]) -> dict[str, str]:
     index: dict[str, str] = {}
     for record_id, record in seen_papers.items():
@@ -676,9 +688,18 @@ def main() -> None:
                     if enrich_record(existing, record):
                         enriched += 1
                         touched_daily_paths.add(path)
-            elif ensure_daily_archive(args.daily_dir, record, args.date):
-                enriched += 1
-                daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
+            else:
+                # A record already discovered before the run date is backflow
+                # from an RSS/TOC re-publication, not a new discovery. Do not
+                # re-archive it into today's bucket: that pollutes the daily
+                # archive and forces remove_seen_backflow to move it out again,
+                # leaving the bucket empty and tripping ingestion gates at
+                # month boundaries (issue-dated papers from a new volume).
+                seen_first = str((seen_entry or {}).get('first_seen') or '')[:10]
+                is_backflow = bool(seen_first and seen_first < args.date)
+                if not is_backflow and ensure_daily_archive(args.daily_dir, record, args.date):
+                    enriched += 1
+                    daily_records_by_path, daily_index = build_daily_index(args.daily_dir)
             continue
         seen_papers[record_id] = {
             "title": record.get("title"),
