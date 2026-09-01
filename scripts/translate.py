@@ -17,10 +17,21 @@ from pathlib import Path
 from typing import Any
 
 from common import DATA_DIR, ROOT, read_json, stable_id, write_json
+from public_integrity import strip_title_prefix
 from status import record_source
 
 
 CACHE_PATH = DATA_DIR / "translation_cache.json"
+
+
+def clean_title_zh(record: dict[str, Any]) -> bool:
+    """Strip working-paper number prefixes (e.g. 'DP21895 ') from a translated
+    title_zh. Translation carries the source title verbatim, so a CEPR/NBER
+    number prefix can leak into the Chinese title and trip the public data
+    integrity gate; paper_number is filled from the prefix when missing."""
+    if not record.get("title_zh"):
+        return False
+    return strip_title_prefix(record)
 
 
 def has_chinese(value: str | None) -> bool:
@@ -178,6 +189,9 @@ def translate_records(
                 record["translation_status"] = f"title_failed: {exc}"
                 if args.stop_on_error:
                     raise
+
+        if record.get("title_zh") and clean_title_zh(record):
+            changed += 1
 
         abstract = str(record.get("abstract") or "").strip()
         if not abstract or has_chinese(abstract) or record.get("abstract_zh"):
