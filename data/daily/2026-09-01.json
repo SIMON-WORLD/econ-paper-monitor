@@ -1,5 +1,845 @@
 [
   {
+    "abstract": "Unstructured text provides decision makers with a rich data source in many domains, ranging from product reviews in retail to nursing notes in healthcare. To leverage this information, words are typically translated into word embeddings—vectors that encode the semantic relationships between words—through unsupervised learning algorithms such as matrix factorization. However, learning word embeddings from new domains with limited training data can be challenging because the meaning/usage may be different in the new domain; for example, the word “positive” typically has positive sentiment, but often has negative sentiment in medical notes because it may imply that a patient tested positive for a disease. In practice, we expect that only a small number of domain-specific words may have new meanings. We propose an intuitive two-stage estimator that exploits this structure via a group-sparse penalty to efficiently transfer learn domain-specific word embeddings by combining large-scale text corpora (such as Wikipedia) with limited domain-specific text data. We bound the generalization error of our transfer learning estimator, proving that it can achieve high accuracy with substantially less domain-specific data when only a small number of embeddings are altered between domains. Furthermore, we prove that all local minima identified by our nonconvex objective function are statistically indistinguishable from the global minimum under standard regularization conditions, implying that our estimator can be computed efficiently. Our results provide the first bounds on group-sparse matrix factorization, which may be of independent interest. We empirically evaluate our approach compared with state-of-the-art fine-tuning heuristics from natural language processing. This paper was accepted by Chung Piaw Teo, optimization. Funding: The authors gratefully acknowledge indispensable financial support from the Wharton Analytics Initiative and the Wharton Dean’s Fund. Supplemental Material: The online appendix and data files are available at https://doi.org/10.1287/mnsc.2022.01740 .",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_status_code": "available",
+    "abstract_zh": "非结构化文本为决策者在众多领域提供了丰富的数据来源，从零售中的产品评论到医疗保健中的护理记录。为利用这些信息，词语通常通过无监督学习算法（如矩阵分解）转换为词嵌入——编码词语间语义关系的向量。然而，在新领域中使用有限训练数据学习词嵌入可能具有挑战性，因为新领域中词语的含义或用法可能有所不同；例如，“positive”一词通常带有积极情感，但在医疗记录中往往带有消极情感，因为它可能暗示患者检测出某种疾病阳性。在实践中，我们预期只有少数领域特定词语可能具有新含义。我们提出一种直观的两阶段估计器，利用这种结构，通过组稀疏惩罚，结合大规模文本语料库（如维基百科）与有限的领域特定文本数据，高效地迁移学习领域特定词嵌入。我们限定了迁移学习估计器的泛化误差，证明当仅少量嵌入在领域间发生变化时，它能以显著更少的领域特定数据实现高精度。此外，我们证明在标准正则化条件下，我们的非凸目标函数所识别的所有局部最小值在统计上与全局最小值不可区分，这意味着我们的估计器可以高效计算。我们的结果首次提供了组稀疏矩阵分解的界限，这可能具有独立的研究价值。我们通过实证评估，将我们的方法与自然语言处理中最先进的微调启发式方法进行比较。本文由Chung Piaw Teo（优化方向）接受。资助：作者衷心感谢沃顿分析计划及沃顿院长基金提供的不可或缺的财务支持。补充材料：在线附录和数据文件可在https://doi.org/10.1287/mnsc.2022.01740获取。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Kan Xu",
+      "Xuanyi Zhao",
+      "Hamsa Bastani",
+      "Osbert Bastani"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "C",
+    "date_source": "crossref_published_online",
+    "detail_key": "group-sparse-matrix-factorization-for-transfer-learning-of-word-embeddings-6ee99a029530",
+    "detected_at": "2026-09-01T19:47:31+00:00",
+    "doi": "10.1287/mnsc.2022.01740",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-09-01T19:47:31+00:00",
+    "id": "doi:10.1287/mnsc.2022.01740",
+    "identity_aliases": [
+      "10.1287/mnsc.2022.01740",
+      "group-sparse-matrix-factorization-for-transfer-learning-of-word-embeddings-6ee99a029530",
+      "https://doi.org/10.1287/mnsc.2022.01740"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Management Science",
+    "journal_id": "management-science",
+    "journal_short": "MgtSci",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-09-01",
+    "publisher": "Institute for Operations Research and the Management Sciences (INFORMS)",
+    "raw_data": {
+      "crossref_date_source": "crossref_published_online"
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Group-Sparse Matrix Factorization for Transfer Learning of Word Embeddings",
+    "title_zh": "词嵌入迁移学习的群稀疏矩阵分解",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1287/mnsc.2022.01740"
+  },
+  {
+    "abstract": "Gender-anonymous hiring practices have been widely advocated as a means to reduce labor market inequalities, such as the gender wage gap and the underrepresentation of women in leadership. However, their effectiveness remains debated. This paper studies an experimental labor market where employee candidates set their own performance targets for a real-effort task and employers hire based on these self-set targets. In many professional settings, such targets serve as performance indicators and influence hiring and promotion decisions. In an online experiment with 4,674 participants, we vary in a 2 × 2 design (1) whether employers know the candidates’ genders and (2) the severity of the payoff consequences if the hired employee misses their target. This allows us to examine the interaction effects of gender anonymity in hiring and the performance target’s payoff relevance. We find that given equal ability, women set lower targets than men. Higher targets increase the likelihood of being hired, whereas a larger expected target-performance gap reduces hiring chances, particularly when missing the target has severe consequences for the employer. Importantly, our findings suggest that gender-anonymous applications may have unintended consequences. When gender is revealed, employers appear to adjust for gender differences in target setting, expecting a smaller target-performance gap for women than for men. As a result, women are more likely to be hired and receive higher payoffs when their gender is known. These results indicate that gender-anonymous hiring may backfire for women by preventing employers from accounting for behavioral gender differences (e.g., in self-promotion), ultimately reducing women’s hiring prospects. This paper was accepted by Dorothea Kübler, behavioral economics and decision analysis. Funding: This work was supported by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany’s Excellence Strategy [Grant EXC 2126/1–390838866]. Supplemental Material: The online appendix and data files are available at https://doi.org/10.1287/mnsc.2024.07050 .",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_status_code": "available",
+    "abstract_zh": "性别匿名招聘作为一种减少劳动力市场不平等（如性别工资差距和女性在领导层中代表性不足）的手段已被广泛提倡。然而，其有效性仍存在争议。本文研究了一个实验性劳动力市场，其中求职者为自己设定真实努力任务的绩效目标，雇主根据这些自设目标进行招聘。在许多专业环境中，此类目标作为绩效指标，影响招聘和晋升决策。在一项包含4，674名参与者的在线实验中，我们采用2×2设计，变化（1）雇主是否知晓求职者的性别，以及（2）若被雇佣员工未达目标时薪酬后果的严重程度。这使我们能够考察招聘中性别匿名性与绩效目标薪酬相关性的交互效应。我们发现，在能力相同的情况下，女性设定的目标低于男性。更高的目标增加被雇佣的可能性，而更大的预期目标-绩效差距则降低雇佣机会，尤其是当未达目标对雇主产生严重后果时。重要的是，我们的发现表明，性别匿名申请可能产生意想不到的后果。当性别被揭示时，雇主似乎会调整对性别差异的考量，预期女性比男性有更小的目标-绩效差距。因此，当性别已知时，女性更有可能被雇佣并获得更高的薪酬。这些结果表明，性别匿名招聘可能对女性产生反效果，因为它阻止了雇主考虑行为上的性别差异（例如，在自我推销方面），最终降低了女性的就业前景。本文由Dorothea Kübler在行为经济学与决策分析领域接受。资助：本研究由德国研究联合会（DFG，德国研究基金会）在德国卓越战略下资助[Grant EXC 2126/1–390838866]。补充材料：在线附录和数据文件可在https://doi.org/10.1287/mnsc.2024.07050获取。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Katharina Werner",
+      "Susanna Grundmann",
+      "Bettina Rockenbach"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "C",
+    "date_source": "crossref_published_online",
+    "detail_key": "the-impact-of-gender-information-on-hiring-decisions-based-on-self-set-performance-targe-5253c09fcf93",
+    "detected_at": "2026-09-01T19:47:31+00:00",
+    "doi": "10.1287/mnsc.2024.07050",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-09-01T19:47:31+00:00",
+    "id": "doi:10.1287/mnsc.2024.07050",
+    "identity_aliases": [
+      "10.1287/mnsc.2024.07050",
+      "https://doi.org/10.1287/mnsc.2024.07050",
+      "the-impact-of-gender-information-on-hiring-decisions-based-on-self-set-performance-targe-5253c09fcf93"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Management Science",
+    "journal_id": "management-science",
+    "journal_short": "MgtSci",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "published_online": "2026-09-01",
+    "publisher": "Institute for Operations Research and the Management Sciences (INFORMS)",
+    "raw_data": {
+      "crossref_date_source": "crossref_published_online"
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "The Impact of Gender Information on Hiring Decisions Based on Self-Set Performance Targets",
+    "title_zh": "性别信息对基于自设绩效目标的招聘决策的影响",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1287/mnsc.2024.07050"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "As illustrated by the Great Recession, the COVID-19 pandemic and the global decline in GDP growth since the mid-2000s, economists need to account for sudden and deep recessions, shifts in macroeconomic volatility, and longer-term fluctuations in GDP growth. This paper puts forward a Mean-Variance Markov-Switching Dynamic Factor Model (MV-MS-DFM) that accounts for these stylised facts by allowing the mean and the volatility of macroeconomic variables to switch abruptly, and trend GDP growth to vary smoothly over time. We show that allowing for different volatility regimes improves the detection of turning points in the US business cycle, that the Great Recession and the COVID-19 pandemic only led to temporary increases in volatility, and that US trend GDP growth has declined by around 1 percentage point since the early 2000s. Information criteria and marginal likelihood comparisons support our model specification. The model also provides a unified framework connecting the literature on turning-point detection to the more recent literature on Growth-at-Risk in macroeconomic forecasting. While tightening financial conditions are shown to increase the probability of falling into recession, the model can generate left-skewed density forecasts without including any financial variable in the information set. The paper finally discusses how to deal with the COVID-19 period when estimating the model.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "正如大衰退、新冠疫情以及自2000年代中期以来全球GDP增长的放缓所展示的，经济学家需要解释突然而深度的衰退、宏观经济波动性的变化以及GDP增长的长期波动。本文提出了一种均值-方差马尔可夫转换动态因子模型（MV-MS-DFM），该模型通过允许宏观经济变量的均值和波动性发生突变，以及趋势GDP增长随时间平滑变化，来适应这些典型事实。我们证明，允许不同的波动性制度存在，能提高对美国商业周期转折点的识别能力；大衰退和新冠疫情仅导致了波动性的暂时上升；而自2000年代初以来，美国趋势GDP增长已下降了约1个百分点。信息准则和边际似然比较支持我们的模型设定。该模型还提供了一个统一框架，将转折点检测的文献与宏观经济预测中较新的增长风险文献联系起来。虽然金融状况收紧被证明会增加陷入衰退的概率，但该模型无需在信息集中包含任何金融变量，就能生成左偏的密度预测。最后，本文讨论了在估计模型时如何处理新冠疫情时期。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Catherine Doz",
+      "Laurent Ferrara",
+      "Pierre-Alain Pionnier"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "switching-macroeconomic-growth-and-volatility-evidence-from-a-mean-variance-markov-switc-c67501d4a8dc",
+    "detected_at": "2026-09-01T19:47:11+00:00",
+    "doi": "10.1016/j.jedc.2026.105410",
+    "fields": [
+      "macroeconomics"
+    ],
+    "first_seen": "2026-09-01T19:47:11+00:00",
+    "id": "doi:10.1016/j.jedc.2026.105410",
+    "identity_aliases": [
+      "10.1016/j.jedc.2026.105410",
+      "https://doi.org/10.1016/j.jedc.2026.105410",
+      "switching-macroeconomic-growth-and-volatility-evidence-from-a-mean-variance-markov-switc-c67501d4a8dc"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Journal of Economic Dynamics and Control",
+    "journal_id": "journal-of-economic-dynamics-and-control",
+    "journal_short": "JEDC",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0165188926001557",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Switching Macroeconomic Growth and Volatility: Evidence from a Mean-Variance Markov-Switching Dynamic Factor Model",
+    "title_zh": "宏观经济增速与波动的区制转换：基于均值-方差马尔可夫区制转换动态因子模型的证据",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.jedc.2026.105410"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "This paper develops a model of dynamic pricing with boundedly rational consumer search. Consumers observe one price, can choose to engage in costly search to learn the other prices, and then purchase from the firm with the lowest observed price. Each consumer searches only if the observed price exceeds their dynamically tuned reservation price. Firms optimize given the current distribution of reservation prices. Short run pricing is characterized by Edgeworth cycles. Rather than resetting as a mixed strategy, each cycle resets when the firm with the larger installed base relents by monopolizing its residual demand. Both the lower and upper bounds of the cycles move with consumer search, though not necessarily in the same direction. Whether these cycles persist in the long run or the pricing dynamic converges to the Diamond paradox, the Bertrand paradox, or a kinked-demand equilibrium depends on exogenous conditions that we outline.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "本文构建了一个包含有限理性消费者搜寻的动态定价模型。消费者观察到一种价格后，可选择进行成本性搜寻以了解其他价格，随后从提供最低观察价格的厂商处购买。每位消费者仅在观察到的价格超过其动态调整的保留价格时才会进行搜寻。厂商根据当前保留价格的分布进行优化定价。短期定价表现为埃奇沃斯循环特征。并非以混合策略重置，每个循环在拥有较大安装基数的厂商通过垄断其剩余需求而让步时结束。循环的下界与上界均随消费者搜寻行为变动，尽管变动方向未必一致。这些循环在长期内是否持续，或定价动态是否收敛于戴蒙德悖论、伯特兰悖论或弯折需求均衡，取决于我们所概述的外生条件。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Blake Allison",
+      "Michael Sacks"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "dynamic-price-competition-and-evolutionary-behavior-with-search-36f390105373",
+    "detected_at": "2026-09-01T19:46:45+00:00",
+    "doi": "10.1016/j.ijindorg.2026.103337",
+    "fields": [
+      "industrial_organization"
+    ],
+    "first_seen": "2026-09-01T19:46:45+00:00",
+    "id": "doi:10.1016/j.ijindorg.2026.103337",
+    "identity_aliases": [
+      "10.1016/j.ijindorg.2026.103337",
+      "dynamic-price-competition-and-evolutionary-behavior-with-search-36f390105373",
+      "https://doi.org/10.1016/j.ijindorg.2026.103337"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "International Journal of Industrial Organization",
+    "journal_id": "international-journal-of-industrial-organization",
+    "journal_short": "IJIO",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0167718726000895",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Dynamic Price Competition and Evolutionary Behavior with Search",
+    "title_zh": "搜索条件下的动态价格竞争与演化行为",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.ijindorg.2026.103337"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "Several economically relevant events, such as policy interventions or nominal adjustments, occur at irregular intervals. This paper extends the martingale difference reduction technique to multivariate rational expectations (RE) models on non-periodic time domains. We establish an invariance property showing that, under constant parameters, the recursive solution structure depends on the ordering of events rather than their calendar spacing. Standard likelihood-based estimation therefore applies without modification to irregularly timed observations. We also characterize equilibrium multiplicity by distinguishing components associated with arbitrary initial conditions and non-fundamental forecast errors. Monte Carlo evidence illustrates these results and shows that interpolation onto a regular grid can introduce substantial bias and distort inference.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "若干与经济相关的重大事件，如政策干预或名义调整，往往在不规则的时间间隔内发生。本文将对鞅差缩减技术扩展到非周期时间域上的多元理性预期（RE）模型中。我们确立了一个不变性性质，表明在参数恒定的情况下，递归解的结构取决于事件的顺序而非其日历间隔。因此，基于似然的标准估计方法无需修改即可适用于不规则时间观测数据。我们还通过区分与任意初始条件及非基本面预测误差相关的组成部分，刻画了均衡多重性。蒙特卡洛证据验证了这些结果，并表明将数据插值到规则网格上可能引入显著偏差，扭曲推断结果。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Marco M. Sorge"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "solving-rational-expectations-models-on-non-periodic-time-domains-3cc971e38566",
+    "detected_at": "2026-09-01T19:46:43+00:00",
+    "doi": "10.1016/j.mathsocsci.2026.102569",
+    "fields": [
+      "theory"
+    ],
+    "first_seen": "2026-09-01T19:46:43+00:00",
+    "id": "doi:10.1016/j.mathsocsci.2026.102569",
+    "identity_aliases": [
+      "10.1016/j.mathsocsci.2026.102569",
+      "https://doi.org/10.1016/j.mathsocsci.2026.102569",
+      "solving-rational-expectations-models-on-non-periodic-time-domains-3cc971e38566"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Mathematical Social Sciences",
+    "journal_id": "mathematical-social-sciences",
+    "journal_short": "MSS",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0165489626000764",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Solving rational expectations models on non-periodic time domains",
+    "title_zh": "非周期时间域上理性预期模型的求解",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.mathsocsci.2026.102569"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "We consider a large population aggregative game with strategic complementarities. The game has multiple Nash equilibria, which can be Pareto ranked. We apply the k − sampling best response dynamic to this game. This dynamic is generated when agents best respond to the strategies of k randomly sampled opponents. We establish conditions under which the Pareto efficient equilibrium is almost globally asymptotically stable under this dynamic. Results depend upon the relationship between benefits and costs in the game and the sample size.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "我们考虑一个具有策略互补性的大规模总体聚合博弈。该博弈存在多个纳什均衡，且这些均衡可按帕累托排序。我们将k-抽样最优反应动态应用于此博弈。该动态产生于当参与者对随机抽取的k个对手的策略作出最优反应时。我们建立了在此动态下帕累托有效均衡几乎全局渐近稳定的条件。结果取决于博弈中的收益与成本关系以及样本大小。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "A. Arun",
+      "Ratul Lahkar",
+      "Souvik Roy"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "equilibrium-selection-in-a-class-of-aggregative-games-under-sampling-dynamics-97bccc1be55c",
+    "detected_at": "2026-09-01T19:46:43+00:00",
+    "doi": "10.1016/j.mathsocsci.2026.102572",
+    "fields": [
+      "theory"
+    ],
+    "first_seen": "2026-09-01T19:46:43+00:00",
+    "id": "doi:10.1016/j.mathsocsci.2026.102572",
+    "identity_aliases": [
+      "10.1016/j.mathsocsci.2026.102572",
+      "equilibrium-selection-in-a-class-of-aggregative-games-under-sampling-dynamics-97bccc1be55c",
+      "https://doi.org/10.1016/j.mathsocsci.2026.102572"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Mathematical Social Sciences",
+    "journal_id": "mathematical-social-sciences",
+    "journal_short": "MSS",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S016548962600079X",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Equilibrium selection in a class of aggregative games under sampling dynamics",
+    "title_zh": "一类聚合博弈在抽样动态下的均衡选择",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.mathsocsci.2026.102572"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "In an agency model, we compare the use of an insider versus an outsider agent when the principal can restrict their choice sets. The insider is familiar with the old project but not with the new project, whereas the outsider is unfamiliar with both. The principal chooses between the insider and the outsider, and the selected agent manages the project—deciding between the old and the new project, as well as choosing the project’s attribute. Gathering information about a project is costly to an agent. We show the following. Restricting the selected agent’s choice set allows the principal to induce information gathering more effectively. Under sequential learning, the principal (weakly) prefers the insider. Under simultaneous learning, however, the outsider may be preferred. Moreover, restricting the agent’s choice set enlarges the parameter range where the outsider is preferred. Sequential learning is dominated by simultaneous learning from the principal’s perspective.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "在代理模型中，我们比较了当委托人能限制其选择集时，使用内部代理人还是外部代理人的情况。内部代理人熟悉旧项目但不熟悉新项目，而外部代理人对两者都不熟悉。委托人需在内部与外部代理人之间做出选择，被选中的代理人负责管理项目——决定采用旧项目还是新项目，并选择项目的属性。对代理人而言，收集项目信息是有成本的。我们的研究结果显示：限制所选代理人的选择集能使委托人更有效地促使信息收集。在序贯学习下，委托人（弱）偏好内部代理人。然而，在同时学习下，外部代理人可能更受青睐。此外，限制代理人的选择集扩大了偏好外部代理人的参数范围。从委托人的角度看，序贯学习不如同时学习。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Dongsoo Shin",
+      "Sungho Yun"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "restrictions-and-agent-selection-07e304ce4712",
+    "detected_at": "2026-09-01T19:46:42+00:00",
+    "doi": "10.1016/j.jmateco.2026.103297",
+    "fields": [
+      "theory"
+    ],
+    "first_seen": "2026-09-01T19:46:42+00:00",
+    "id": "doi:10.1016/j.jmateco.2026.103297",
+    "identity_aliases": [
+      "10.1016/j.jmateco.2026.103297",
+      "https://doi.org/10.1016/j.jmateco.2026.103297",
+      "restrictions-and-agent-selection-07e304ce4712"
+    ],
+    "issue_date": "2026-09-02",
+    "journal": "Journal of Mathematical Economics",
+    "journal_id": "journal-of-mathematical-economics",
+    "journal_short": "JMathE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0304406826000844",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Restrictions and agent selection",
+    "title_zh": "限制与代理人选择",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.jmateco.2026.103297"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "We study value allocation in two-sided markets (such as payment cards, streaming platforms, online travel booking sites, ride-sharing apps, and search engines). We characterize two focal classes of allocation rules (premium-augmented Shapley solutions and premium-augmented equal-division solutions) with strong normative underpinnings. A common feature of these classes is that they permit favorable treatment to only one side of the market. Our characterized rules provide rationale for familiar practices of platforms in real life, which charge one side (say, sellers) of the market while subsidizing the other side (buyers) in various ways (e.g., coupons and discounts).",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "我们研究双边市场（如支付卡、流媒体平台、在线旅行预订网站、拼车应用和搜索引擎）中的价值分配问题。我们刻画了两类具有坚实规范基础的分配规则（溢价增强的沙普利解和溢价增强的均分解）。这两类规则的共同特点是允许仅对市场一方给予优惠待遇。我们所刻画的规则为现实中平台常见的做法提供了理论依据，即向市场一方（如卖家）收费，同时以各种方式（如优惠券和折扣）补贴另一方（买家）。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Wonki Jo Cho",
+      "Juan D. Moreno-Ternero"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "value-allocation-in-two-sided-markets-376676313b11",
+    "detected_at": "2026-09-01T19:46:42+00:00",
+    "doi": "10.1016/j.jmateco.2026.103292",
+    "fields": [
+      "theory"
+    ],
+    "first_seen": "2026-09-01T19:46:42+00:00",
+    "id": "doi:10.1016/j.jmateco.2026.103292",
+    "identity_aliases": [
+      "10.1016/j.jmateco.2026.103292",
+      "https://doi.org/10.1016/j.jmateco.2026.103292",
+      "value-allocation-in-two-sided-markets-376676313b11"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Journal of Mathematical Economics",
+    "journal_id": "journal-of-mathematical-economics",
+    "journal_short": "JMathE",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0304406826000790",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Value allocation in two-sided markets",
+    "title_zh": "双边市场中的价值分配",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.jmateco.2026.103292"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "Amidst heightened policy uncertainty, understanding the drivers of global macroeconomic instability becomes increasingly critical. This paper studies the determinants of output volatility synchronization using data for 42 economies worldwide. We construct a bilateral time-varying index of volatility synchronization and infer its drivers using Bayesian Model Averaging, complemented by Weighted Average Least Squares and LASSO. We find that differences in Total Factor Productivity, interest rate, and fiscal policy volatility robustly explain cross-country synchronization, with nuances between developed and developing countries. Overall, the results highlight the role of technological divergence and macroeconomic policy uncertainty in shaping the international co-movement of output volatility.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "在政策不确定性加剧的背景下，理解全球宏观经济不稳定的驱动因素变得日益关键。本文利用全球42个经济体的数据，研究产出波动同步性的决定因素。我们构建了一个双边时变波动同步性指数，并采用贝叶斯模型平均法，辅以加权平均最小二乘法和LASSO方法，推断其驱动因素。研究发现，全要素生产率、利率及财政政策波动性的差异稳健地解释了跨国同步性，且发达国家与发展中国家之间存在细微差别。总体而言，结果凸显了技术分化与宏观经济政策不确定性在塑造产出波动国际联动中的作用。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Javier Adrián López Artero",
+      "Lorenzo Ductor",
+      "Danilo Leiva-León"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "what-ties-us-together-explaining-synchronized-gdp-volatility-5a48470759e4",
+    "detected_at": "2026-09-01T19:46:36+00:00",
+    "doi": "10.1016/j.econlet.2026.113204",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-09-01T19:46:36+00:00",
+    "id": "doi:10.1016/j.econlet.2026.113204",
+    "identity_aliases": [
+      "10.1016/j.econlet.2026.113204",
+      "https://doi.org/10.1016/j.econlet.2026.113204",
+      "what-ties-us-together-explaining-synchronized-gdp-volatility-5a48470759e4"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Economics Letters",
+    "journal_id": "economics-letters",
+    "journal_short": "Letters",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0165176526004003",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "What ties us together? Explaining synchronized GDP volatility",
+    "title_zh": "什么将我们联系在一起？解释同步的GDP波动",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.econlet.2026.113204"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "Institutional legacies are associated not only with the scale of finance but also with the organizational forms that emerge. Using prefecture-level data from early twentieth-century China, where indigenous money houses based on relational contracting coexisted with modern banks operating under codified law, we document that prefectures more deeply embedded in the imperial administrative system had more money houses and lower private borrowing costs, consistent with lower information and enforcement costs in relational finance. Treaty-port prefectures instead had more modern banks, with this concentration widening from 1910 to 1935. The analysis is descriptive and does not establish causality.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "制度遗产不仅与金融规模相关，还与涌现出的组织形式相关联。利用二十世纪初中国府级数据，当时基于关系契约的本土钱庄与依据成文法运营的现代银行并存，我们发现，更深入融入帝国行政体系的府拥有更多钱庄，且私人借贷成本更低，这与关系金融中较低的信息和执行成本相符。相反，通商口岸府则拥有更多现代银行，且这一集中趋势在1910年至1935年间不断扩大。本分析为描述性研究，并未确立因果关系。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Wanda Wang"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_related": true,
+    "china_related_source": "rule",
+    "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
+    "china_relevance_status": "confirmed",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "different-institutions-different-finance-evidence-from-early-twentieth-century-china-39b42c7877eb",
+    "detected_at": "2026-09-01T19:46:36+00:00",
+    "doi": "10.1016/j.econlet.2026.113216",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-09-01T19:46:36+00:00",
+    "id": "doi:10.1016/j.econlet.2026.113216",
+    "identity_aliases": [
+      "10.1016/j.econlet.2026.113216",
+      "different-institutions-different-finance-evidence-from-early-twentieth-century-china-39b42c7877eb",
+      "https://doi.org/10.1016/j.econlet.2026.113216"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Economics Letters",
+    "journal_id": "economics-letters",
+    "journal_short": "Letters",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S016517652600412X",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Different Institutions, Different Finance: Evidence from Early Twentieth-Century China",
+    "title_zh": "不同制度，不同金融：来自二十世纪初中国的证据",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.econlet.2026.113216"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "Geopolitical tensions and military threats increasingly shape global financial markets. Using geopolitical threat signals associated with President Donald Trump, we distinguish between threats that later escalated into military action and those that did not. We find a clear asymmetry in stock market responses. Threats that do not materialize are associated with positive abnormal returns, whereas threats followed by military escalation generate weaker or negative effects, particularly in Latin American stock markets, while responses in G7 economies remain muted. These findings suggest that markets price not only geopolitical threats themselves, but also their perceived credibility and eventual realization, highlighting the role of credibility in asset pricing.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "地缘政治紧张局势与军事威胁日益塑造全球金融市场。利用与唐纳德·特朗普总统相关的地缘政治威胁信号，我们区分了后来升级为军事行动的威胁与未升级的威胁。我们发现股市反应存在明显的非对称性。未实现的威胁与正异常收益相关，而随后发生军事升级的威胁则产生较弱或负面的效应，尤其是在拉丁美洲股市中，而七国集团经济体的反应则较为平淡。这些发现表明，市场不仅对地缘政治威胁本身进行定价，还对其感知可信度及最终实现情况进行定价，凸显了可信度在资产定价中的作用。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Boris Pastén-Henríquez",
+      "Carlos P. Maquieira"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "do-stock-markets-price-words-or-actions-president-donald-trump-s-geopolitical-signals-an-6335f260ea3a",
+    "detected_at": "2026-09-01T19:46:36+00:00",
+    "doi": "10.1016/j.econlet.2026.113206",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-09-01T19:46:36+00:00",
+    "id": "doi:10.1016/j.econlet.2026.113206",
+    "identity_aliases": [
+      "10.1016/j.econlet.2026.113206",
+      "do-stock-markets-price-words-or-actions-president-donald-trump-s-geopolitical-signals-an-6335f260ea3a",
+      "https://doi.org/10.1016/j.econlet.2026.113206"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Economics Letters",
+    "journal_id": "economics-letters",
+    "journal_short": "Letters",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0165176526004027",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Do stock Markets Price Words or Actions? President Donald Trump´s Geopolitical Signals and Conflict Risk",
+    "title_zh": "股市定价的是言辞还是行动？唐纳德·特朗普总统的地缘政治信号与冲突风险",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.econlet.2026.113206"
+  },
+  {
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "We investigate the impact of common ownership in a spatial price discrimination model with sequential location choice. In contrast to simultaneous location choice, an increase in common ownership need not reduce locational efficiency. Common ownership by the location leader improves locational efficiency, even restoring the first best.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
+    "abstract_zh": "我们研究了在序贯选址的空间价格歧视模型中，共同所有权的影响。与同时选址不同，共同所有权的增加未必会降低选址效率。选址领导者拥有的共同所有权能提升选址效率，甚至恢复最优状态。",
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Kenneth Fjell",
+      "John S. Heywood",
+      "Debashis Pal"
+    ],
+    "authors_status_code": "available",
+    "available_online": "2026-09-01",
+    "china_relevance_status": "none",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
+    "detail_key": "common-ownership-with-a-location-leader-cf1d5b483086",
+    "detected_at": "2026-09-01T19:46:36+00:00",
+    "doi": "10.1016/j.econlet.2026.113214",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-09-01T19:46:36+00:00",
+    "id": "doi:10.1016/j.econlet.2026.113214",
+    "identity_aliases": [
+      "10.1016/j.econlet.2026.113214",
+      "common-ownership-with-a-location-leader-cf1d5b483086",
+      "https://doi.org/10.1016/j.econlet.2026.113214"
+    ],
+    "issue_date": "2026-09-01",
+    "journal": "Economics Letters",
+    "journal_id": "economics-letters",
+    "journal_short": "Letters",
+    "official_date_status": "available",
+    "pdf_url": null,
+    "pii": "S0165176526004106",
+    "published_online": "2026-09-01",
+    "publisher": "Elsevier BV",
+    "raw_data": {
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "crossref",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://api.crossref.org",
+    "title": "Common Ownership with a Location Leader",
+    "title_zh": "共同所有权与区位领导者",
+    "translation_status": "abstract_translated_cached",
+    "url": "https://doi.org/10.1016/j.econlet.2026.113214"
+  },
+  {
     "_restored_from_backflow": "2026-09-02",
     "abstract": "How can middle-income economies convert trade openness and productivity-enhancing reforms into higher real income and welfare? This paper develops a quantitative trade model with input-output linkages and labor market frictions to assess the impact of trade and productivity reforms on real income, wages, trade, and production. Thailand and ASEAN provide a useful case because the region spans economies with very different approaches to growth: some deeply embedded in Asian manufacturing value chains, others focused on commodities, export-led industrializers, and countries pursuing more selective integration. This variation allows assessing when openness yields large welfare gains, when productivity reforms matter more, and when the two are complementary. The results show that openness gains depend on domestic capabilities, while productivity gains depend on access to inputs and markets. The policy implication is a twin agenda: reduce trade frictions in connectivity, customs, logistics, standards, certification, and regulatory recognition, while strengthening firm productivity, supplier capabilities, and manufacturing-related services in high-growth sectors and global value chains.",
     "abstract_completeness": "full",
@@ -12,8 +852,10 @@
     ],
     "authors_status_code": "available",
     "available_online": "2026-09-01",
-    "china_relevance_reason": "工作论文摘要包含中国研究常见主题词，需要 AI 确认",
-    "china_relevance_status": "candidate",
+    "china_related": false,
+    "china_related_source": "ai",
+    "china_relevance_reason": "研究对象为泰国及东盟中等收入经济体，未涉及中国、中国企业或中国地区，故判定为非中国研究。",
+    "china_relevance_status": "none",
     "date_confidence": "A",
     "date_source": "world_bank_detail_api",
     "detail_key": "openness-and-productivity-reform-lessons-for-middle-income-economies-from-thailand-and-o-016cf47994a9",
@@ -44,13 +886,19 @@
     "source_type": "policy_paper",
     "source_url": "https://hdl.handle.net/10986/45503",
     "title": "Openness and Productivity Reform: Lessons for Middle-Income Economies from Thailand and other ASEAN",
+    "title_zh": "开放与生产率改革：泰国及其他东盟国家对中等收入经济体的启示",
+    "translation_status": "title_translated_cached",
     "url": "https://openknowledge.worldbank.org/entities/publication/f6ae867d-8f31-4a55-b133-2cc10b089ceb"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "As countries phase out coal, natural gas is often promoted as a transitional fuel, but incomplete policies and price distortions can cause emissions leakage, undermining coal reduction efforts. This paper examines China’s 2017 coal-to-gas transition policy, which banned coal in central heating across 28 northern cities, triggering a 70% increase in natural gas prices while coal prices remained stable due to price distortions. Using a comprehensive dataset of hourly pollution measures from 1563 monitors and firm-level data covering around 50% coal consumption in China, we find that instead of reducing coal consumption, the policy led to substantial leakage. Baseline industry composition, the stringency of environmental regulations, and uneven enforcement across polluting firms all contribute to leakage. Back-of-the-envelope calculations suggest that for every ton of coal reduced in the heating sector, coal use increased by 0.19 tons in targeted cities, 2.18 tons in northern non-targeted cities, and 2.32 tons in southern cities. We estimate that 42.9% of the coal consumption rebound could have been prevented if coal prices had been liberalized to fluctuate with natural gas prices, as in European markets. Alternatively, a carbon price of 16.61 RMB (approximately 2.4 USD) per ton of CO2 would achieve an equivalent reduction in coal use while preventing leakage. These findings highlight the importance of addressing market distortions to enhance the effectiveness of coal phase-out policies.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -65,8 +913,8 @@
     "china_related_source": "rule",
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "coal-phase-out-in-a-second-best-setting-evidence-from-china-s-coal-to-gas-transition-cb0b195180cc",
     "detected_at": "2026-09-01T16:42:54+00:00",
     "doi": "10.1016/j.jeem.2026.103417",
@@ -86,25 +934,48 @@
     "journal_short": "JEEM",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0095069626001373",
     "published_online": "2026-09-01",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Coal phase-out in a second-best setting: Evidence from China’s coal-to-gas transition",
-    "title_zh": null,
-    "translation_status": "missing_abstract",
+    "title_zh": "次优情境下的煤炭退出：来自中国煤改气转型的证据",
+    "translation_status": "title_translated_cached",
     "url": "https://doi.org/10.1016/j.jeem.2026.103417"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "We examine how wage flexibility affects the transmission of economic shocks within a monetary union using a two-agent New Keynesian small open economy model. We show that, in the presence of financially constrained households, greater wage flexibility can amplify shocks rather than mitigate them. This amplification arises through an income channel that dominates the standard expenditure-switching mechanism when price flexibility is limited. The critical threshold of price flexibility required to offset this effect depends on the economy’s trade openness and the share of constrained households, but not on wage flexibility itself. These findings challenge the conventional view that wage flexibility inherently enhances macroeconomic stability within a monetary union.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -115,8 +986,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-01",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "recessionary-wage-flexibility-in-a-monetary-union-664ec44cc678",
     "detected_at": "2026-09-01T16:42:53+00:00",
     "doi": "10.1016/j.jmoneco.2026.103988",
@@ -136,25 +1007,48 @@
     "journal_short": "JME",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0304393226001030",
     "published_online": "2026-09-01",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Recessionary wage flexibility in a monetary union",
-    "title_zh": null,
-    "translation_status": "missing_abstract",
+    "title_zh": "货币联盟中的衰退期工资灵活性",
+    "translation_status": "title_translated_cached",
     "url": "https://doi.org/10.1016/j.jmoneco.2026.103988"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_provider": "semantic-scholar",
+    "_status": "not_found",
+    "abstract": "Can international anti-corruption monitoring stimulate private investment? We examine staggered reviews across jurisdictions under the United Nations Convention against Corruption (UNCAC), using firm-year observations from 84 economies over 2003–2023. We document that reviews are followed by improvements in economy-level corruption-control indicators. Local-projections difference-in-differences estimates indicate that reviews raise firms’ capital expenditure relative to assets by 1.2126 percentage points, equivalent to 20% of the sample mean. Dynamic estimates show no systematic pre-review adjustment, and the result is robust to influential-economy exclusions, economy-level reweighting, alternative sample restrictions, lagged-outcome controls, and alternative staggered-adoption estimators. Investment responses are stronger in high-corruption economies and developing economies and among firms that are more financially constrained, government dependent, domestically concentrated, or reliant on irreversible capital. These patterns are consistent with international oversight reducing corruption-related institutional risk, financing frictions, and the value of delaying investment. UNCAC reviews are also followed by increases in employment, R&D investment, and leverage. Additional analyses provide no evidence that the increase in investment is accompanied by a systematic decline in investment efficiency. Overall, the findings show that a non-punitive international peer-review mechanism can affect firms’ real activity, particularly where initial institutional frictions are greater.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -164,8 +1058,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-01",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "corruption-and-capital-investment-worldwide-evidence-f1b8f3d518f3",
     "detected_at": "2026-09-01T16:42:49+00:00",
     "doi": "10.1016/j.jdeveco.2026.103928",
@@ -186,25 +1080,49 @@
     "journal_short": "JDE",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0304387826002117",
     "published_online": "2026-09-01",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "Corruption and Capital Investment: Worldwide Evidence",
-    "title_zh": null,
-    "translation_status": "missing_abstract",
+    "title_zh": "腐败与资本投资：全球证据",
+    "translation_status": "title_translated_cached",
     "url": "https://doi.org/10.1016/j.jdeveco.2026.103928"
   },
   {
-    "abstract": null,
-    "abstract_completeness": "missing",
-    "abstract_status": "摘要暂未公开，系统将自动重试",
-    "abstract_status_code": "missing_retry",
+    "_provider": "semantic-scholar",
+    "_status": "rate_limited",
+    "_status_code": 429,
+    "abstract": "What are the long-run economic consequences of short-lived but intense institutional shocks? We study the post–World War II occupation of Austria, where the country was divided into Soviet and Western Allied zones for ten years before reunification. Using a spatial regression discontinuity design combined with a difference-in-differences approach, we show that areas initially occupied by Soviet forces remain significantly less economically developed today. These regions are less populated, host fewer and lower-paying jobs, and exhibit substantially higher rates of out-commuting than comparable areas in the former Western zones. We show that these persistent differences are driven by a large population flight triggered by the onset of the Soviet occupation, which durably shifted the spatial distribution of economic activity. This initial migration shock altered local agglomeration forces, leading to sustained regional divergence despite the restoration of a unified institutional framework. Our findings highlight how even temporary institutional shocks can have long-lasting economic effects.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_source": "elsevier_article_api_full",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -216,8 +1134,8 @@
     "authors_status_code": "available",
     "available_online": "2026-09-01",
     "china_relevance_status": "none",
-    "date_confidence": "C",
-    "date_source": "crossref_elsevier_created_online",
+    "date_confidence": "A",
+    "date_source": "elsevier_article_api",
     "detail_key": "the-long-term-effects-of-military-occupations-evidence-from-post-world-war-ii-austria-ccc9bf654be5",
     "detected_at": "2026-09-01T16:42:44+00:00",
     "doi": "10.1016/j.euroecorev.2026.105461",
@@ -237,18 +1155,38 @@
     "journal_short": "EER",
     "official_date_status": "available",
     "pdf_url": null,
+    "pii": "S0014292126002059",
     "published_online": "2026-09-01",
     "publisher": "Elsevier BV",
     "raw_data": {
-      "crossref_date_source": "crossref_elsevier_created_online"
+      "crossref_date_source": "crossref_elsevier_created_online",
+      "date_evidence": [
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "C",
+          "date_source": "crossref_doi_elsevier_created_online",
+          "published_online": "2026-09-01",
+          "source": "crossref-doi"
+        },
+        {
+          "available_online": "2026-09-01",
+          "date_confidence": "A",
+          "date_source": "elsevier_article_api",
+          "published_online": "2026-09-01",
+          "source": "elsevier-article-api"
+        },
+        {
+          "source": "semantic-scholar"
+        }
+      ]
     },
     "source": "crossref",
     "source_issue": null,
     "source_type": "journal",
     "source_url": "https://api.crossref.org",
     "title": "The long-term effects of military occupations: Evidence from post-world war II Austria",
-    "title_zh": null,
-    "translation_status": "missing_abstract",
+    "title_zh": "军事占领的长期效应：来自二战后奥地利的证据",
+    "translation_status": "title_translated_cached",
     "url": "https://doi.org/10.1016/j.euroecorev.2026.105461"
   },
   {
@@ -416,7 +1354,7 @@
     "china_relevance_reason": "标题、摘要或元数据包含中国相关关键词",
     "china_relevance_status": "confirmed",
     "date_confidence": "C",
-    "date_source": "crossref_published_online",
+    "date_source": "crossref_doi_published_online",
     "detail_key": "humid-heat-health-and-behavioral-adaptation-evidence-from-china-be43c5489050",
     "detected_at": "2026-09-01T16:06:12+00:00",
     "doi": "10.1007/s10640-026-01114-0",
@@ -468,7 +1406,7 @@
     "_status": "not_found",
     "abstract": "This article examines unequal access to coastal land in Mahajanga, Madagascar, under legal pluralism and growing tourism pressure. It analyses the gap between state land law, customary tenure practices and effective control over coastal space. The study uses a mixed-methods single-case design. Primary data come from 300 participants: 180 completed structured questionnaires and 120 took part in semi-structured interviews. Additional primary evidence includes observations across 16 sites, georeferenced records, field photographs and 100 locally collected taratasy, or informal land deeds. Secondary data include 47 land registration files, legal texts, cadastral records, census data and satellite imagery. Formal tenure security rarely matches widespread customary occupation. Among the 200 local household and resident participants, 72.0% relied mainly on customary arrangements, while only 15.0% held a registered land title. Coastal sectors with greater tourism development also show higher land values, a stronger concentration of formal transactions near the shoreline and more conflicts over access, enclosure and territorial control. Formal registration remains easier for actors with greater financial resources and stronger administrative networks. Within the Amborovy coastal sector, particularly in Marohala, Petite Plage and Grand Pavois, fences and tourism facilities restrict public access to the shore and reduce spaces used by fishing households. Existing land management tools therefore give limited protection to long-established occupants during rapid market change. The findings support closer coordination between land administration, local land uses and public coastal access. The case extends debates on legal pluralism and tourism-led land restructuring to secondary coastal cities in the Global South.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": "本文考察了马达加斯加马哈赞加在法律多元主义和旅游业日益增长的压力下，沿海土地获取的不平等现象。文章分析了国家土地法、习惯保有制度与沿海空间实际控制之间的差距。研究采用混合方法的单案例设计。一手数据来自300名参与者：180人完成了结构化问卷，120人参与了半结构化访谈。其他一手证据包括16个地点的观察记录、地理参照数据、实地照片以及100份当地收集的非正式土地契约（taratasy）。二手数据包括47份土地登记档案、法律文本、地籍记录、人口普查数据和卫星影像。正式保有权的保障程度很少能与普遍的习惯占有相匹配。在200名当地家庭和居民参与者中，72.0%主要依赖习惯安排，而仅有15.0%持有注册土地所有权。旅游业发展程度较高的沿海区域也显示出更高的土地价值、更集中的近岸正式交易，以及更多关于通行权、圈占和领土控制的冲突。正式登记对于拥有更多财政资源和更强行政网络的行动者而言更为容易。在安博罗维沿海区域，特别是在马罗哈拉、小海滩和大帕瓦瓦，围栏和旅游设施限制了公众进入海岸的通道，并减少了渔业家庭使用的空间。因此，现有的土地管理工具在市场快速变化时期对长期定居者的保护十分有限。研究结果支持土地管理、地方土地利用和公共沿海通行权之间更紧密的协调。该案例将法律多元主义和旅游导向的土地重组的讨论扩展至全球南方的次级沿海城市。",
@@ -537,7 +1475,7 @@
     "_status_code": 429,
     "abstract": "Customary land governance is widely studied in Northern Ghana for its failures, yet its contributions to social cohesion, community development, and resource management are underexplored. This study bridges that gap using a qualitative case of the Bole Traditional Area in the Savannah Region of Ghana, where customary land governance remains active and legitimate despite pressures from land commercialisation, small-scale mining and urbanisation. Drawing on twenty key informant interviews (KII) with land custodians (tindanas), chiefs, and community members, with eight focus group discussions, two each across the four communities (Kalba, Gbeniyiri, Soma, and Datompilayiri). The study employed thematic data analysis to examine how traditional values shape land governance, conflict resolution, environmental stewardship, and access equity. This study builds on Ostrom’s Common Pool Resource Theory, expanding it by showing how spiritual legitimacy is central and not periphery to effective customary governance, a dimension historically neglected by the framework. The study reveals that, land spiritual framing makes conflict resolution a moral process that sustains compliance beyond coercion, it also revealed that, indigenous conservation practices function as adaptive resource management strategies underrecognised by statutory frameworks, also gendered and generational hierarchies persistently constrain women and youth land access, with reforms failing to dismantle underlying inequalities. The study suggests a hybrid governance framework that honours indigenous strategies while addressing exclusion.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -607,7 +1545,7 @@
     "_status": "not_found",
     "abstract": "Urban expansion is strongly determined by changes in urban population and the density in which new residents settle. Consequently, assessments of future changes in urban area depend on population and density projections. While the former are well-established, the latter have received much less research attention. To fill this void, we set up a time series representing most countries around the globe describing urban population density and several explanatory variables. Using a panel regression approach with country-fixed effects we explain the variation in density levels over time. The results indicate that urban density increases with growing total urban population and decreases with increasing levels of urbanisation. The latter effect diminishes, however, when the urban population fraction increases even further. These results indicate a sequence of increasing, decreasing and stabilising urban densities with increasing urban population shares. This succession can be linked to subsequent development stages of urbanisation, suburbanisation and eventually reurbanisation. The latter stage remains rare in our time series, however, as only a few countries reach the corresponding high urbanisation rates. Furthermore, we find that urban densities decrease with growing national income per capita. This may indicate that higher incomes enable suburbanisation to more dispersed urban areas with larger residences but can also be associated with the advent of smaller households and the growth of non-residential sectors such as industry and commerce. Conversely, urban density increases with higher agricultural land values that we proxy with a novel primary production intensity variable. We use our explanatory results to determine country-specific future urban areas following a commonly applied socio-economic scenario (SSP2) and suggest the total global urban area may triple from 2015 to 2100.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -678,7 +1616,7 @@
     "_status": "not_found",
     "abstract": "Land degradation poses a critical threat to global food production systems, yet policy responses have focused mainly on agricultural-sector interventions, leaving the cross-sectoral spillovers of industrial environmental regulation on soil quality largely understudied. This paper exploits China’s 2006 shift to hard enforcement of the Two Control Zones (TCZ) policy, an industrial environmental regulation in designated regions, to examine its impacts on land quality and agricultural growth. We find that the policy reduced soil erosion intensity by approximately 1.8%, an effect most pronounced in counties with higher cropland shares, steeper slopes, and higher pre-reform exposure to industrial pollution. This reduction is mainly driven by two mechanisms: direct biophysical restoration through the abatement of acid deposition, and an indirect behavioral adaptation in which farmers reduce chemical input use. Incorporating these estimates into an agricultural production function, we show that this policy-driven improvement in land quality accounts for a 1.4% increase in aggregate agricultural value added. Our findings offer valuable insights for policymakers to ensure food security and advance sustainable development through cross-sectoral environmental regulation.",
     "abstract_completeness": "full",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "available",
     "abstract_source": "elsevier_article_api_full",
     "abstract_status_code": "available",
     "abstract_zh": null,
@@ -747,7 +1685,8 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "not_found",
+    "_status": "rate_limited",
+    "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
     "abstract_enrichment_status": "metadata-only:proxy-request-failed",
@@ -821,7 +1760,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -883,7 +1822,7 @@
   },
   {
     "_provider": "semantic-scholar",
-    "_status": "rate_limited",
+    "_status": "not_found",
     "_status_code": 429,
     "abstract": null,
     "abstract_completeness": "missing",
@@ -953,7 +1892,7 @@
     "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
-    "abstract_enrichment_status": "metadata-only:proxy-request-failed",
+    "abstract_enrichment_status": "proxy-request-failed",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
     "abstract_zh": null,
@@ -1169,11 +2108,73 @@
     "url": "https://openknowledge.worldbank.org/entities/publication/a175e5e7-af81-4b4e-8813-3316124200fd"
   },
   {
+    "_provider": "semantic-scholar",
     "_restored_from_backflow": "2026-09-02",
+    "_status": "not_found",
     "abstract": null,
     "abstract_completeness": "missing",
+    "abstract_enrichment_status": "metadata-only",
     "abstract_status": "摘要暂未公开，系统将自动重试",
     "abstract_status_code": "missing_retry",
+    "abstract_zh": null,
+    "accepted_date": null,
+    "ai_tags": [],
+    "authors": [
+      "Melander, Eric"
+    ],
+    "authors_status_code": "available",
+    "available_online": null,
+    "china_relevance_status": "none",
+    "date_confidence": "F",
+    "date_source": "unknown",
+    "detail_key": "the-laissez-faire-experiment-why-britain-embraced-and-then-abandoned-small-government-18-302e41dd6f3f",
+    "detected_at": "2026-09-01T19:36:51+00:00",
+    "doi": "10.1257/jel.20260016",
+    "fields": [
+      "general"
+    ],
+    "first_seen": "2026-09-01T19:36:51+00:00",
+    "id": "doi:10.1257/jel.20260016",
+    "identity_aliases": [
+      "10.1257/jel.20260016",
+      "https://www.aeaweb.org/articles?id=10.1257/jel.20260016",
+      "the-laissez-faire-experiment-why-britain-embraced-and-then-abandoned-small-government-18-302e41dd6f3f"
+    ],
+    "issue_date": null,
+    "journal": "Journal of Economic Literature",
+    "journal_id": "journal-of-economic-literature",
+    "journal_short": "JEL",
+    "official_date_status": "missing_retry",
+    "pdf_url": null,
+    "published_online": null,
+    "publisher": "American Economic Association",
+    "raw_data": {
+      "aea_code": "jel",
+      "aea_first_observed": true,
+      "aea_page": "forthcoming",
+      "aea_snapshot_baseline": false,
+      "date_evidence": [
+        {
+          "source": "semantic-scholar"
+        }
+      ]
+    },
+    "source": "aea_toc",
+    "source_issue": null,
+    "source_type": "journal",
+    "source_url": "https://www.aeaweb.org/journals/jel/forthcoming",
+    "title": "The Laissez-Faire Experiment: Why Britain Embraced and Then Abandoned Small Government, 1800–1914 by W. Walker Hanlon",
+    "title_zh": "自由放任实验：为何英国在1800至1914年间拥抱又放弃了小政府——W. 沃克·汉隆",
+    "translation_status": "title_translated_cached",
+    "url": "https://www.aeaweb.org/articles?id=10.1257/jel.20260016"
+  },
+  {
+    "_restored_from_backflow": "2026-09-02",
+    "abstract": "We present a model of associative networks that captures how decision makers expand their consideration set through mental associations between alternatives. Our model provides a tractable approach to study how associations shape choice when some alternatives are available and others are merely observable but unavailable. We characterize the model within a random attention framework and demonstrate unique identification of all parameters. This framework delivers a unified account of several prominent choice anomalies, including classic menu effects and their “phantom” counterparts. We illustrate how associative links serve as a strategic variable in applications such as branding, imitation, and platform design.",
+    "abstract_completeness": "full",
+    "abstract_enrichment_status": "available",
+    "abstract_source": "publisher_body:abstract",
+    "abstract_status_code": "available",
     "abstract_zh": null,
     "accepted_date": null,
     "ai_tags": [],
@@ -1219,8 +2220,8 @@
     "source_type": "journal",
     "source_url": "https://www.aeaweb.org/journals/aer/forthcoming",
     "title": "Associative Networks in Decision Making",
-    "title_zh": null,
-    "translation_status": "missing_abstract",
+    "title_zh": "决策中的联想网络",
+    "translation_status": "title_translated_cached",
     "url": "https://www.aeaweb.org/articles?id=10.1257/aer.20250578"
   },
   {
