@@ -368,8 +368,8 @@ def make_record(
     description_metadata = metadata_from_description(description)
     parsed_authors = normalize_authors(authors or []) or description_metadata.get("authors")
     pii = extract_pii(link, guid, description)
-    guid_doi = None
-    if guid and re.fullmatch(r"10\.\d{4,9}/[^\s]+", guid.strip()):
+    guid_doi = extract_doi(guid)
+    if guid_doi is None and guid and re.fullmatch(r"10\.\d{4,9}/[^\s]+", guid.strip()):
         guid_doi = guid.strip().rstrip(".,;)").casefold()
     doi = extract_doi(identifier, link, description) or guid_doi
     record = {
