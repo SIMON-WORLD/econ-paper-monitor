@@ -1,9 +1,10 @@
 {
   "categories": {
-    "needs_investigation": 19
+    "needs_investigation": 20,
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-09-04T01:22:49.772732+08:00",
-  "source_health_degraded_count": 19,
+  "checked_at": "2026-09-04T03:20:46.887515+08:00",
+  "source_health_degraded_count": 21,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -12,7 +13,7 @@
     },
     {
       "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Finance: 2; Journal of Financial Economics: 8; Review of Financial Studies: 3; Journal of Development Economics: 16; Economic Development and Cultural Change: 0;",
+      "sample_error": "partial_success failures=3; Journal of Finance: 2; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 14; Economic Development and Cultural Change: 0;",
       "source": "crossref"
     },
     {
@@ -222,6 +223,21 @@
       "category_counts": {
         "needs_investigation": 1
       },
+      "journal_id": "journal-of-economic-behavior-and-organization",
+      "sample_error": "degraded coverage=official_or_specialized level=degraded usable=rss,openalex-recall",
+      "source": "Journal of Economic Behavior and Organization",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "rss",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
       "journal_id": "journal-of-economics-and-management-strategy",
       "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
       "source": "Journal of Economics & Management Strategy",
@@ -321,11 +337,26 @@
         "crossref",
         "openalex-recall"
       ]
+    },
+    {
+      "category": "permanently_unavailable",
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
     }
   ],
   "status_json": {
     "aligned": true,
     "degraded_source_failures": 6
   },
-  "total_degraded": 19
+  "total_degraded": 21
 }
