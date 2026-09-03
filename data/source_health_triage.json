@@ -1,12 +1,19 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-03T17:28:50.884902+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1
+  },
+  "checked_at": "2026-09-03T18:02:46.100466+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
-      "sample_error": "partial_success successful=5/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
+      "sample_error": "partial_success successful=4/6; 中国农村经济: 9; 世界经济: 7; 经济研究: 11; 管理世界: 0; 中国工业经济: 9; 数量经济技术经济研究: 0",
       "source": "cn-journals"
+    },
+    {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=1; Journal of Comparative Economics: 3; American Journal of Agricultural Economics: 4; Food Policy: 40; Journal of Agricultural Economics: 11; Agricultural Economics: 9; Journ",
+      "source": "crossref"
     },
     {
       "category": "needs_investigation",
@@ -15,12 +22,12 @@
     },
     {
       "category": "needs_investigation",
-      "sample_error": "dates=2026-09-03,2026-09-02,2026-09-01 raw=2256 daily=91 covered=99 seen=2089 missing=2",
+      "sample_error": "dates=2026-09-03,2026-09-02,2026-09-01 raw=4511 daily=97 covered=145 seen=4176 missing=5",
       "source": "recent72-coverage-audit"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=24/40; Journal of Finance: 37 via official-generated; Journal of Financial Economics: 30 via official-generated; Journal of Development Economics: 74 via official-generated; Economic Development",
+      "sample_error": "feeds=52/102; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 61 via official-generated; Applied Economic Perspectives ",
       "source": "rss"
     },
     {
@@ -34,15 +41,31 @@
       "source": "working-paper:bis-working-papers"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "HTTPError: HTTP Error 504: Gateway Time-out",
-      "source": "working-paper:oecd-working-papers"
+      "category": "permanently_unavailable",
+      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
+      "source": "working-papers"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "review-of-economic-studies",
+      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 7; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback ",
+      "source": "Review of Economic Studies",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    }
+  ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 7
+    "degraded_source_failures": 8
   },
-  "total_degraded": 0
+  "total_degraded": 1
 }
