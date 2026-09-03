@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 1
+    "needs_investigation": 5
   },
-  "checked_at": "2026-09-03T18:02:46.100466+08:00",
-  "source_health_degraded_count": 1,
+  "checked_at": "2026-09-03T21:50:36.426075+08:00",
+  "source_health_degraded_count": 5,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,23 +11,18 @@
       "source": "cn-journals"
     },
     {
-      "category": "rate_limited",
-      "sample_error": "partial_success failures=1; Journal of Comparative Economics: 3; American Journal of Agricultural Economics: 4; Food Policy: 40; Journal of Agricultural Economics: 11; Agricultural Economics: 9; Journ",
-      "source": "crossref"
-    },
-    {
       "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
+      "sample_error": "attempted=28; proxy_abstract_attempted=0; seen Applied Economics: abstract-present; 2026-09-03 Journal of Mathematical Economics: abstract-present; seen Agricultural Economics: abstract-present; seen ",
       "source": "publisher-detail"
     },
     {
       "category": "needs_investigation",
-      "sample_error": "dates=2026-09-03,2026-09-02,2026-09-01 raw=4511 daily=97 covered=145 seen=4176 missing=5",
+      "sample_error": "dates=2026-09-03,2026-09-02,2026-09-01 raw=2033 daily=111 covered=115 seen=1864 missing=2",
       "source": "recent72-coverage-audit"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=52/102; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 61 via official-generated; Applied Economic Perspectives ",
+      "sample_error": "feeds=19/41; Journal of Development Economics: 76 via official-generated; Economic Development and Cultural Change: HTTPError: HTTP Error 403: Forbidden; Economic Development and Cultural Change: 0 vi",
       "source": "rss"
     },
     {
@@ -39,11 +34,6 @@
       "category": "permanently_unavailable",
       "sample_error": "HTTPError: HTTP Error 404: Not Found",
       "source": "working-paper:bis-working-papers"
-    },
-    {
-      "category": "permanently_unavailable",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
-      "source": "working-papers"
     }
   ],
   "sources": [
@@ -52,11 +42,71 @@
       "category_counts": {
         "needs_investigation": 1
       },
-      "journal_id": "review-of-economic-studies",
-      "sample_error": "international-journal-of-game-theory/springer_online_first: crossref fallback 7; review-of-economic-design/springer_online_first: 0; review-of-economic-design/springer_online_first: crossref fallback ",
-      "source": "Review of Economic Studies",
+      "journal_id": "american-journal-of-agricultural-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "American Journal of Agricultural Economics",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "international-economic-review",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "International Economic Review",
+      "status_category": "needs_investigation",
+      "status_source": "publisher-detail",
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-of-finance",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "Journal of Finance",
       "status_category": null,
       "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "rand-journal-of-economics",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "RAND Journal of Economics",
+      "status_category": null,
+      "status_source": null,
+      "usable_paths": [
+        "crossref",
+        "openalex-recall"
+      ]
+    },
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "the-world-economy",
+      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
+      "source": "The World Economy",
+      "status_category": "page_structure_change",
+      "status_source": "rss",
       "usable_paths": [
         "crossref",
         "openalex-recall"
@@ -65,7 +115,7 @@
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 8
+    "degraded_source_failures": 6
   },
-  "total_degraded": 1
+  "total_degraded": 5
 }
