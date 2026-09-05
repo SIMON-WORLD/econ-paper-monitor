@@ -1,9 +1,9 @@
 {
   "categories": {
-    "needs_investigation": 5
+    "permanently_unavailable": 1
   },
-  "checked_at": "2026-09-05T07:22:58.472201+08:00",
-  "source_health_degraded_count": 5,
+  "checked_at": "2026-09-05T09:04:21.187493+08:00",
+  "source_health_degraded_count": 1,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -11,8 +11,13 @@
       "source": "cn-journals"
     },
     {
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=4; Journal of Finance: 1; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 14; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
+    },
+    {
       "category": "page_structure_change",
-      "sample_error": "feeds=19/41; Journal of Development Economics: 41 via official-generated; Economic Development and Cultural Change: HTTPError: HTTP Error 403: Forbidden; Economic Development and Cultural Change: 0 vi",
+      "sample_error": "feeds=25/41; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 14 via official-generated; Journal of Development Economics: 41 via official-generated; Economic Development",
       "source": "rss"
     },
     {
@@ -28,84 +33,24 @@
   ],
   "sources": [
     {
-      "category": "needs_investigation",
+      "category": "permanently_unavailable",
       "category_counts": {
-        "needs_investigation": 1
+        "permanently_unavailable": 1
       },
-      "journal_id": "american-journal-of-agricultural-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "American Journal of Agricultural Economics",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
       "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "international-economic-review",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "International Economic Review",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "journal-of-finance",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "Journal of Finance",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "rand-journal-of-economics",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "RAND Journal of Economics",
-      "status_category": null,
-      "status_source": null,
-      "usable_paths": [
-        "crossref",
-        "openalex-recall"
-      ]
-    },
-    {
-      "category": "needs_investigation",
-      "category_counts": {
-        "needs_investigation": 1
-      },
-      "journal_id": "the-world-economy",
-      "sample_error": "degraded coverage=supplemental level=degraded usable=crossref,openalex-recall",
-      "source": "The World Economy",
-      "status_category": "page_structure_change",
-      "status_source": "rss",
-      "usable_paths": [
-        "crossref",
+        "cnki-rss",
         "openalex-recall"
       ]
     }
   ],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 4
+    "degraded_source_failures": 5
   },
-  "total_degraded": 5
+  "total_degraded": 1
 }
