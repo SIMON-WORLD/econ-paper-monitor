@@ -1,7 +1,10 @@
 {
-  "categories": {},
-  "checked_at": "2026-09-05T23:39:39.456840+08:00",
-  "source_health_degraded_count": 0,
+  "categories": {
+    "needs_investigation": 1,
+    "permanently_unavailable": 1
+  },
+  "checked_at": "2026-09-06T01:45:48.038900+08:00",
+  "source_health_degraded_count": 2,
   "source_status_failures": [
     {
       "category": "needs_investigation",
@@ -9,13 +12,13 @@
       "source": "cn-journals"
     },
     {
-      "category": "needs_investigation",
-      "sample_error": "attempted=120; proxy_abstract_attempted=20; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical Social Sciences: elsevier-metadata-only; 2026-06-23 Mathematical So",
-      "source": "publisher-detail"
+      "category": "rate_limited",
+      "sample_error": "partial_success failures=2; Journal of Finance: 1; Journal of Financial Economics: 9; Review of Financial Studies: 3; Journal of Development Economics: 13; Economic Development and Cultural Change: 0;",
+      "source": "crossref"
     },
     {
       "category": "page_structure_change",
-      "sample_error": "feeds=53/103; Canadian Journal of Agricultural Economics: 9 via official-generated; Australian Journal of Agricultural and Resource Economics: 62 via official-generated; Applied Economic Perspectives ",
+      "sample_error": "feeds=25/41; Journal of Finance: 38 via official-generated; Journal of Financial Economics: 15 via official-generated; Journal of Development Economics: 41 via official-generated; Economic Development",
       "source": "rss"
     },
     {
@@ -27,17 +30,43 @@
       "category": "permanently_unavailable",
       "sample_error": "HTTPError: HTTP Error 404: Not Found",
       "source": "working-paper:bis-working-papers"
+    }
+  ],
+  "sources": [
+    {
+      "category": "needs_investigation",
+      "category_counts": {
+        "needs_investigation": 1
+      },
+      "journal_id": "journal-edcb877d78",
+      "sample_error": "HTTPError: HTTP Error 502: Bad Gateway",
+      "source": "数量经济技术经济研究",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
     },
     {
       "category": "permanently_unavailable",
-      "sample_error": "partial_success failures=1; nber: 30 via specialized-api; iza: 19 via html; world-bank-prwp: 30 via specialized-api; imf-working-papers: 30 via html; repec-nep-cna: 0 via html; repec-nep-dev: 0 via ht",
-      "source": "working-papers"
+      "category_counts": {
+        "permanently_unavailable": 1
+      },
+      "journal_id": "journal-379b4022ce",
+      "sample_error": "CBPT/CNKI returned captcha or validation page; needs authenticated or alternate source",
+      "source": "管理世界",
+      "status_category": "needs_investigation",
+      "status_source": "cn-journals",
+      "usable_paths": [
+        "cnki-rss",
+        "openalex-recall"
+      ]
     }
   ],
-  "sources": [],
   "status_json": {
     "aligned": true,
-    "degraded_source_failures": 6
+    "degraded_source_failures": 5
   },
-  "total_degraded": 0
+  "total_degraded": 2
 }
