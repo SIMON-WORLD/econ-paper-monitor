@@ -2,123 +2,119 @@
 
 ## Design Read
 
-Econ Papers Daily is a research-monitoring product. The interface should feel like a daily scholarly intelligence desk: dense enough for scanning, restrained enough to trust, and explicit about evidence.
+Econ Papers Daily / 每日之门 is a research-monitoring product centered on **first discovery**. The interface should feel like a daily scholarly intelligence desk: editorial, calm, dense enough for scanning, and explicit about evidence without exposing backend noise.
 
-## Visual System
+This document describes the current production direction; it is not a redesign brief.
 
-### Color Tokens
+## Current Visual System
 
-- `--ink`: `#1f2328`, primary text
-- `--muted`: `#667085`, secondary text
-- `--line`: `#d9dee7`, dividers and quiet borders
-- `--page`: `#f7f8fa`, page background
-- `--panel`: `#ffffff`, content panels
-- `--blue`: `#155da9`, links, focus, active state
-- `--blue-soft`: `#e8f1fb`, source and journal chips
-- `--red`: `#c62828`, China-related emphasis only
-- `--red-soft`: `#fdeaea`, China-related chip background
-- `--yellow`: `#8a6100`, needs-attention date state
-- `--yellow-soft`: `#fff4d6`, needs-attention date chip background
-- `--green`: `#2f6f4e`, high-confidence positive state
-- `--green-soft`: `#e7f4eb`, high-confidence chip background
+The production homepage uses a warm paper/editorial system rather than the older cool-gray card shell.
 
-Use one primary accent, blue, plus one semantic emphasis, red for China-related records. Avoid gradients, glass effects, heavy shadows, and decorative color.
+Core tokens in the current template include approximately:
 
-### Typography
+- paper background: `#f4f1ea`
+- ink: `#202426`
+- muted text: `#5f615e`
+- line/divider: `#d8d3c9`
+- soft surface: `#ece7dc`
+- primary blue: `#1d5f83`
+- deep blue: `#16445e`
+- China-related red: `#a94236`
+- light content surface: `#fbfaf7`
 
-Use the system UI stack for all public UI:
+Typography deliberately mixes an editorial serif for headlines with a restrained sans-serif UI stack and monospace for dates/counts. Avoid gradients, glass effects, heavy shadows and decorative color. Motion should remain subtle and respect `prefers-reduced-motion`.
 
-```css
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Noto Sans SC", sans-serif;
-```
+## Production Shell
 
-Use tabular numeric rendering for dates, counts, and DOI-like identifiers:
+Desktop uses a **sticky top header with horizontal navigation**, not a persistent left sidebar. On narrow screens the navigation collapses into a menu.
 
-```css
-font-variant-numeric: tabular-nums;
-```
+The homepage structure is:
 
-Avoid display fonts in data lists. The product's quality comes from hierarchy and labels, not decorative typography.
+1. Academic Door / Econ Papers Daily header
+2. editorial hero with Beijing-date / discovery count context
+3. compact overview statistics
+4. first-discovery timeline
+5. filters + search within the current timeline
+6. footer / secondary links
 
-### Layout
-
-- Public pages use a stable app shell: left navigation plus a main content area.
-- Homepage has two primary sections: TOP journal articles and working papers.
-- Related pages keep the same article-card vocabulary.
-- Avoid nested cards. Use panels for major areas and rows for records.
-- Use 8px radius for panels and records. Pills are allowed only for small tags.
+The timeline is the primary reading surface. Do not reintroduce a split “TOP journals vs working papers” homepage as a documentation-only assumption; journal articles, working papers and commentary can coexist in the monitored discovery stream while retaining distinct source types.
 
 ## Information Architecture
 
-Public navigation:
+Current primary navigation:
 
-- Today
-- China-related
-- Full-site search
-- Archive
-- Monitored journals
-- Working paper sources
+- 今日
+- 最近72小时
+- 中国研究
+- 期刊
+- 工作论文
+- 搜索
 - RSS
 
-Do not include backend status, quality audit, beta labels, or internal diagnostics in public navigation.
+Archive/history and other secondary surfaces may be reachable from contextual/footer links, but they are not required to occupy the primary header.
 
-## Record Card
+Do not place backend status, quality audits, beta labels, raw source failures or internal diagnostics in public navigation.
 
-Each record card must prioritize:
+## Timeline / Record Hierarchy
 
-1. First monitored date
-2. English title
-3. Chinese title, when available
-4. Authors
-5. Journal or source
-6. Official date label and date
-7. Evidence source
-8. DOI or article link
-9. Topic tags
-10. China-related tag, when applicable
+Each record should make the discovery chronology and paper identity easy to scan. Typical priority:
 
-Date labels:
+1. first-discovery time/date
+2. source/journal context
+3. title
+4. translated/secondary title when available
+5. authors
+6. source/type/topic/China-related tags
+7. detail/read link
+8. expandable evidence/date detail when useful
 
-- `First monitored`: monitor discovery date in Beijing time
-- `Official online`: publisher online date
-- `Official published`: publisher publication date
-- `Accepted`: accepted date
-- `Issue date`: volume/issue date, never treated as online date
-- `Official date pending`: no reliable official date yet
+The public timeline must never imply that publication date defines Daily Door chronology.
 
-Public copy should use Chinese labels:
+## Date Semantics
 
-- `首次监测`
-- `官方在线`
-- `官方发布`
-- `接受日期`
-- `卷期日期`
-- `官方日期待补`
-- `来源：出版社网页 / RSS / Crossref / 本地中文补充 / 聚合源`
+Public labels may include:
 
-## States
+- `首次监测` — Daily Door first discovery in Beijing time
+- `官方在线` — publisher online date
+- `官方发布` — publisher publication date
+- `接受日期` — accepted date
+- `卷期日期` — issue/volume date
+- `官方日期待补` — no reliable official date yet
 
-- China-related: red chip, fixed wording `与中国相关`
-- Official date pending: yellow chip, fixed wording `官方日期待补`
-- Publisher or RSS evidence: blue-soft chip
-- High-confidence publisher/PDF evidence: green-soft chip
+These dates are evidence fields. `firstSeenAt` / first discovery remains the timeline anchor; archive/publication dates must not back-write it.
 
-## Public Copy Rules
+## Evidence and States
 
-- Use plain Chinese labels.
-- Avoid internal phrases: `后台`, `质量抽检`, `Beta`, `失败`, `人工确认`, `待核`.
-- If a source is experimental, say `来源说明` or hide the source from public prominence.
-- Keep public explanations short; detailed diagnostics belong in admin pages.
+- China-related records may use the restrained red semantic accent.
+- Publisher/RSS/official evidence should be visually distinct from recall/aggregator evidence without overwhelming the card.
+- Missing official dates should be described plainly rather than fabricated.
+- Source-health internals (`healthy`, `supplemental-closed`, degraded-path messages, transport errors) belong in operational artifacts, not record-card copy.
 
-## Backend Pages
+Use short Chinese labels in public UI. Avoid exposing stack traces, raw HTTP failures, credential names, internal audit statuses or implementation jargon.
 
-Backend pages may show operational detail:
+## Interaction Rules
 
-- Fast monitor and full monitor status
-- Source success rates
-- Date pending counts
-- China-related quality checks
-- CNKI RSS / local supplement / GitHub source counts
-- Publisher detail failures
+- Preserve keyboard focus states and minimum touch target sizing.
+- Desktop hover may provide subtle affordances; core meaning cannot depend on hover.
+- Mobile must preserve timeline chronology and readable metadata without horizontal overflow.
+- Filters/search should not alter underlying first-discovery semantics.
+- Empty states should be explicit and calm, not treated as errors when the daily bucket is validly empty.
 
-Backend pages should not be linked from public navigation unless access protection is added.
+## Public vs Operational Surfaces
+
+Public pages are discovery/reading surfaces. Operational details belong in committed data artifacts, GitHub/Actions evidence or local operator tools.
+
+Operational information may include:
+
+- monitor/release health
+- source-path success/failure and coverage debt
+- metadata completeness
+- CNKI/UChicago local supplement freshness
+- scheduler/launcher/C-runner diagnostics
+- publisher detail failures
+
+These diagnostics should not be linked from public navigation unless a deliberate protected/admin product is introduced.
+
+## Design Change Rule
+
+Documentation must follow production reality; it must not silently redesign the product. Material navigation, product hierarchy or public semantic changes require a Daily Door product decision and normal implementation/verification. Routine responsive/accessibility refinements may evolve incrementally while preserving the first-discovery core.
