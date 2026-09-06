@@ -1,7 +1,5 @@
 """Audit the Windows CNKI/UChicago local supplement runtime chain.
 
-Purpose
--------
 The local supplement runs on the machine from a scheduled entry point
 (historically Task Scheduler) -> launcher ``local_admin/runner/run_local_supplements.ps1``
 on canonical E: -> the C: production runner checkout
@@ -10,41 +8,55 @@ on canonical E: -> the C: production runner checkout
 CNKI / UChicago data and (on success) push to ``origin/main`` and trigger the
 ``watchdog.yml`` workflow.
 
-This tool gives an unambiguous verdict and localizes which layer is failing:
-
-    scheduler -> launcher -> C-runner -> source fetch -> Git publication -> watchdog
-
-It is read-only. It never reads or prints credentials; the launcher log already
-redacts ``Authorization: Basic ...`` lines, and this module re-redacts any
-credential-looking fragment defensively.
+This tool is read-only. It never reads or prints credentials; the launcher log
+already redacts ``Authorization: Basic ...`` lines, and this module re-redacts
+any credential-looking fragment defensively.
 
 Verdicts
 --------
 * ``healthy``   - both CNKI and UChicago durable status are published/fresh AND
                   (when the launcher log is available) the last run ended ``ok``.
-* ``degraded``  - data was captured but the remote sync/publication could not be
-                  confirmed (e.g. ``end degraded``, a stale-but-present status,
-                  an incomplete source-health set, a push was skipped).
+* ``degraded``  - data was captured but remote sync/publication is unconfirmed
+                  (``end degraded``, a stale-but-present status, an incomplete
+                  source-health set, a skipped push).
 * ``blocked``   - health cannot be confirmed or an active failure occurred
                   (missing/invalid status, ``FAIL:`` in the launcher log, an
-                  unrecovered source fetch error, an expired run window).
+                  unrecovered source fetch error).
+
+Layers (each real, bounded, read-only)
+--------------------------------------
+* ``scheduler``  - attempts a read-only Task Scheduler probe (Windows) and reports
+                   registration / trigger / last-result evidence; only when the
+                   probe is unavailable or permission-limited is it classified as
+                   a visibility limitation. It never guesses absence.
+* ``launcher``   - the E: ``local-admin/runner`` launcher log outcome (last run block).
+* ``c_runner``   - bounded read-only evidence for the production runner checkout
+                   (existence, branch, HEAD, clean/dirty) or an unobservable/error
+                   classification when the path is absent / not readable.
+* ``source_fetch`` / ``git_publication`` / ``watchdog`` - parsed from the last run
+                   block of the launcher log.
 
 Recovery
 --------
-Run with ``--recovery`` to print the bounded, credential-free recovery procedure
-for the localized layer.
+``--recovery`` prints a bounded, credential-free recovery procedure for the
+localized (or unknown) layer.
 
 Usage
 -----
-    python scripts/audit_local_supplement_runtime.py [--cnki PATH] [--uchicago PATH] [--log PATH]
-                                                      [--max-age-hours 30] [--recovery]
+    python scripts/audit_local_supplement_runtime.py [--cnki PATH] [--uchicago PATH]
+        [--log PATH] [--runner PATH] [--scheduler-task NAME] [--max-age-hours 30]
+        [--recovery]
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import platform
 import re
+import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -53,6 +65,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CNKI = ROOT / "data" / "local_cnki_status.json"
 DEFAULT_UCHICAGO = ROOT / "data" / "local_uchicago_status.json"
 DEFAULT_LOG = ROOT / "local_admin" / "logs" / "local-supplements.log"
+DEFAULT_RUNNER = r"C:\Users\Administrator\Work\econ-paper-monitor\runner-worktree"
+DEFAULT_TASK_NAME = "Econ Papers Daily - Local Supplement"
 
 # Credential-ish fragments we refuse to echo even if they ever appear in input.
 _CRED_RE = re.compile(
@@ -74,6 +88,25 @@ def parse_timestamp(value: object) -> datetime | None:
         return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
     except ValueError:
         return None
+
+
+def _run_cmd(cmd: list[str], *, cwd: str | None = None, timeout: int = 20) -> tuple[int, str, str]:
+    """Run a bounded read-only command, returning (rc, stdout, stderr)."""
+    env = dict(os.environ)
+    env.setdefault("GIT_NO_LAZY_FETCH", "1")
+    env.setdefault("GIT_TERMINAL_PROMPT", "0")
+    try:
+        proc = subprocess.run(
+            cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout, env=env,
+            encoding="utf-8", errors="replace",
+        )
+        return proc.returncode, (proc.stdout or "").strip(), (proc.stderr or "").strip()
+    except FileNotFoundError:
+        return 127, "", "command not found"
+    except subprocess.TimeoutExpired:
+        return 124, "", "timed out"
+    except OSError as exc:
+        return 1, "", str(exc)[:120]
 
 
 def _status_verdict(payload: object, *, now: datetime, max_age_hours: float) -> dict:
@@ -131,14 +164,88 @@ def inspect_status(path: Path, *, now: datetime | None = None, max_age_hours: fl
     return verdict
 
 
+def inspect_runner(runner_path: str = DEFAULT_RUNNER, *, run_cmd: object = _run_cmd) -> dict:
+    """Collect bounded read-only evidence for the production runner checkout.
+
+    Returns ``observable`` + ``branch`` / ``head`` / ``clean`` / ``dirty`` when the
+    checkout exists and is readable, or ``unobservable`` with a reason
+    (``path_missing`` / ``git_error``) when it cannot be observed.
+    """
+    path = str(runner_path)
+    if not Path(path).exists():
+        return {"observable": False, "reason": "path_missing", "status": "unobservable", "path": path}
+    rc_b, branch, err_b = run_cmd(["git", "-C", path, "rev-parse", "--abbrev-ref", "HEAD"])
+    if rc_b != 0:
+        return {"observable": False, "reason": "git_error", "status": "unobservable",
+                "path": path, "error": redact(err_b)[:120]}
+    rc_h, head, _ = run_cmd(["git", "-C", path, "rev-parse", "HEAD"])
+    rc_s, status, _ = run_cmd(["git", "-C", path, "status", "--porcelain"])
+    dirty = rc_s == 0 and bool(status)
+    return {
+        "observable": True,
+        "status": "ok",
+        "path": path,
+        "branch": branch,
+        "head": head,
+        "clean": rc_s == 0 and not dirty,
+        "dirty": dirty,
+    }
+
+
+def probe_scheduler(task_name: str = DEFAULT_TASK_NAME, *,
+                    platform_name: str | None = None, run_cmd: object = _run_cmd) -> dict:
+    """Attempt a read-only scheduler probe (Windows).
+
+    Reports ``observable`` + registration/trigger/last-result evidence when the
+    environment permits; otherwise classifies the limitation reason
+    (``platform_unsupported`` / ``permission_limited`` / ``registration_not_found`` /
+    ``probe_error``). It never asserts absence.
+    """
+    pname = (platform_name or platform.system()).lower()
+    if pname != "windows":
+        return {"observable": False, "status": "unobservable", "task_name": task_name,
+                "limitation": "platform_unsupported",
+                "note": "Task Scheduler probe is Windows-only; not attempted on this platform."}
+
+    # Try the exact task name first.
+    rc, out, err = run_cmd(["schtasks", "/query", "/tn", task_name, "/v", "/fo", "LIST"])
+    if rc == 0 and out.strip():
+        return {"observable": True, "status": "registered", "task_name": task_name,
+                "registered": True, "evidence": redact(out)[:1200],
+                "note": "Task found; registration/trigger/last-result evidence captured."}
+
+    # Fall back to a full listing and search for the launcher/runner reference.
+    rc2, out2, err2 = run_cmd(["schtasks", "/query", "/fo", "CSV"])
+    if rc2 == 0 and out2:
+        lower = out2.casefold()
+        if "econ-paper-monitor" in lower or "run_local_supplements" in lower or "econ papers" in lower:
+            return {"observable": True, "status": "registered", "task_name": task_name,
+                    "registered": True, "evidence": redact(out2)[:1200],
+                    "note": "Task referenced in scheduler listing; evidence captured."}
+        return {"observable": False, "status": "unobservable", "task_name": task_name,
+                "limitation": "registration_not_found",
+                "note": ("No matching scheduler entry found by this name; periodic launcher "
+                         "runs in the log prove the chain is scheduled, so this is a "
+                         "registration/name visibility limitation, not an absence.")}
+
+    combined = (out + " " + err).casefold()
+    if "access is denied" in combined or "access denied" in combined or "error: access" in combined:
+        return {"observable": False, "status": "unobservable", "task_name": task_name,
+                "limitation": "permission_limited",
+                "note": "Task Scheduler probe failed due to insufficient privilege; visibility limitation."}
+    return {"observable": False, "status": "unobservable", "task_name": task_name,
+            "limitation": "probe_error", "detail": redact(err)[:120],
+            "note": "Task Scheduler probe errored; visibility limitation."}
+
+
 def inspect_launcher_log(text: str, *, now: datetime | None = None) -> dict:
     """Judge the LAST run block, plus per-layer markers within that block.
 
     The launcher appends every round to one file. Scrolling the whole file for
-    markers mis-labels the current state (historical many-run ''FAIL:'' lines
-    would mark a later successful round as failed). So we split into run blocks
-    on explicit ``[ts] start`` boundaries and terminal ``end ok`` / ``end degraded``
-    / ``FAIL:`` markers, then classify only the most recent block.
+    markers mis-labels the current state (historical ``FAIL:`` lines would mark a
+    later successful round as failed). So we split into run blocks on explicit
+    ``[ts] start`` boundaries and terminal ``end ok`` / ``end degraded`` /
+    ``FAIL:`` markers, then classify only the most recent block.
     """
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     line_re = re.compile(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]\s*(.*)$")
@@ -196,7 +303,6 @@ def inspect_launcher_log(text: str, *, now: datetime | None = None) -> dict:
         "outcome": "unknown",
     }
 
-    # Last-run timestamp = the newest [ts] line inside the last block header.
     last_ts = None
     for raw in text.splitlines():
         m = re.match(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]", raw)
@@ -223,7 +329,6 @@ def inspect_launcher_log(text: str, *, now: datetime | None = None) -> dict:
         result["outcome"] = "unknown"
 
     result["layers"] = {
-        # A recorded run exists; FAIL (in the last block) is the only launcher fault signal.
         "launcher": "fail" if m["fail_marker"] else "ok",
         "source_fetch": "fail" if (m["fetch_failed"] or m["reset_failed"]
                                    or m["cnki_capture_error"] or m["uchicago_failed"]) else "ok",
@@ -234,64 +339,68 @@ def inspect_launcher_log(text: str, *, now: datetime | None = None) -> dict:
     return result
 
 
+_DEFAULT_SCHEDULER = {
+    "observable": False,
+    "status": "unobservable",
+    "limitation": "not_probed",
+    "note": "Scheduler probe not attempted (default); visibility limitation.",
+}
+
+
 def assess(*, cnki_path: Path = DEFAULT_CNKI, uchicago_path: Path = DEFAULT_UCHICAGO,
-           log_text: str | None = None, now: datetime | None = None,
-           max_age_hours: float = 30.0) -> dict:
-    """Combine status + launcher log into a single verdict."""
+           log_text: str | None = None, runner_path: str | None = None,
+           runner: dict | None = None, scheduler: dict | None = None,
+           now: datetime | None = None, max_age_hours: float = 30.0) -> dict:
+    """Combine status + launcher log + C-runner evidence + scheduler into one verdict."""
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     cnki = inspect_status(cnki_path, now=now, max_age_hours=max_age_hours)
     uchi = inspect_status(uchicago_path, now=now, max_age_hours=max_age_hours)
     log = inspect_launcher_log(log_text, now=now) if log_text else {"available": False}
+    runner_result = runner if runner is not None else inspect_runner(runner_path) if runner_path else _DEFAULT_SCHEDULER_RUNNER()
+    sched_result = scheduler if scheduler is not None else _DEFAULT_SCHEDULER
 
-    # Determine overall verdict.
     status_ok = (["cnki", "uchicago"] if (cnki["ok"] and uchi["ok"]) else
                  (["cnki"] if cnki["ok"] else (["uchicago"] if uchi["ok"] else [])))
-    stale = (cnki.get("code") == "stale") or (uchi.get("code") == "stale")
     hard_fail_status = (not cnki["ok"] and cnki.get("code") != "stale") or \
                        (not uchi["ok"] and uchi.get("code") != "stale")
-
-    out = log.get("outcome")
-    # A stale-but-described status is a soft degrade, not a hard fail.
     stale_any = (cnki.get("code") == "stale") or (uchi.get("code") == "stale")
     both_ok = cnki["ok"] and uchi["ok"]
+
+    out = log.get("outcome")
     if hard_fail_status:
         verdict = "blocked"
     elif out == "failed":
         verdict = "blocked"
     elif out in ("degraded", "incomplete"):
-        # Last run ended degraded or did not produce a clean terminal marker.
         verdict = "degraded"
     elif both_ok:
-        # Both durable statuses are published/fresh => the chain produced + published.
         verdict = "healthy"
     elif stale_any:
-        # One or both statuses are stale but present => last-known-good, degraded.
         verdict = "degraded"
     elif not (cnki["ok"] or uchi["ok"]):
         verdict = "blocked"
     else:
         verdict = "degraded"
 
-    # Scheduler is not observable from this sandbox / read-only context.
-    scheduler = {
-        "observable": False,
-        "note": ("Task Scheduler registration is not readable from this sandbox "
-                 "(Get-ScheduledTask/schtasks return nothing). Periodic launcher runs "
-                 "in the log prove the chain is scheduled, but trigger/registration "
-                 "details are a visibility limitation, not an absence."),
-    }
-
     failing_layers = [layer for layer, status in log["layers"].items() if status == "fail"]
+    if runner_result.get("status") == "error":
+        failing_layers.append("c_runner")
+
     result = {
         "verdict": verdict,
         "cnki_status": cnki,
         "uchicago_status": uchi,
         "launcher": log,
-        "scheduler": scheduler,
+        "runner": runner_result,
+        "scheduler": sched_result,
         "failing_layers": failing_layers,
         "recovery": recovery_for(verdict, failing_layers),
     }
     return result
+
+
+def _DEFAULT_SCHEDULER_RUNNER() -> dict:
+    return {"observable": False, "status": "unobservable", "reason": "runner_not_configured"}
 
 
 def recovery_for(verdict: str, failing_layers: list[str]) -> list[str]:
@@ -304,22 +413,26 @@ def recovery_for(verdict: str, failing_layers: list[str]) -> list[str]:
         if layer == "launcher":
             steps.append("Launcher: re-run locally `local_admin/runner/run_local_supplements.ps1` once the"
                          " runner lock is clear; verify the last log line reaches 'end ok'.")
+        elif layer == "c_runner":
+            steps.append("C-runner: confirm the production runner checkout exists, is on `main`, and is not"
+                         " mid-run (clear the runner lock); verify `git status` is clean after the round.")
         elif layer == "source_fetch":
-            steps.append("Source fetch: confirm the CNKI/UChicago source of the failing journal is reachable from"
-                         " this machine's residential IP (no CI-only block). Re-run the affected"
-                         " `scripts/local_cnki_update.py` or `scripts/fetch_uchicago_local.py`.")
+            steps.append("Source fetch: confirm the failing CNKI/UChicago source is reachable from this machine's"
+                         " residential IP; re-run the affected `scripts/local_cnki_update.py` or"
+                         " `scripts/fetch_uchicago_local.py`.")
         elif layer == "git_publication":
-            steps.append("Git publication: verify connectivity to origin (git ls-remote origin refs/heads/main);"
+            steps.append("Git publication: verify connectivity to origin (`git ls-remote origin refs/heads/main`);"
                          " a single retry usually clears transient SSL-EOF/push stalls. Do not reset/rebase.")
         elif layer == "watchdog":
             steps.append("Watchdog: confirm the workflow run id printed after 'pushed UChicago supplement'; if"
                          " absent, trigger `gh workflow run watchdog.yml` on the repo manually.")
         else:
             steps.append(f"Unknown layer '{layer}': re-read the launcher log tail and the two durable status JSONs.")
-    steps.append("If the status timestamp is stale but no hard error is present, treat as DEGRADED (backfill on"
+    steps.append("If a status timestamp is stale but no hard error is present, treat as DEGRADED (backfill on"
                  " next scheduled round) rather than BLOCKED.")
     steps.append("Never re-author credentials or inspect token files manually; the launcher injects the machine"
-                 " token itself.")
+                 " token itself. Task Scheduler registration, if unobservable, is a visibility limitation."
+                 " Confirm it from an elevated session if registration accuracy is required.")
     return steps
 
 
@@ -329,8 +442,14 @@ def main() -> int:
     parser.add_argument("--uchicago", type=Path, default=DEFAULT_UCHICAGO)
     parser.add_argument("--log", type=Path, default=None,
                         help="Launcher log path (default: <repo>/local_admin/logs/local-supplements.log if present)")
+    parser.add_argument("--runner", type=str, default=DEFAULT_RUNNER,
+                        help="Production runner checkout path to observe")
+    parser.add_argument("--scheduler-task", type=str, default=DEFAULT_TASK_NAME,
+                        help="Candidate Task Scheduler task name to probe")
     parser.add_argument("--max-age-hours", type=float, default=30.0)
     parser.add_argument("--recovery", action="store_true", help="Print the bounded recovery procedure only")
+    parser.add_argument("--no-scheduler-probe", action="store_true",
+                        help="Skip the read-only Task Scheduler probe (treat as visibility limitation)")
     args = parser.parse_args()
 
     log_text = None
@@ -341,7 +460,11 @@ def main() -> int:
         except OSError:
             log_text = None
 
+    scheduler_res = _DEFAULT_SCHEDULER if args.no_scheduler_probe else probe_scheduler(args.scheduler_task)
+    runner_res = inspect_runner(args.runner)
+
     result = assess(cnki_path=args.cnki, uchicago_path=args.uchicago, log_text=log_text,
+                    runner_path=None, runner=runner_res, scheduler=scheduler_res,
                     max_age_hours=args.max_age_hours)
     if args.recovery:
         for step in result["recovery"]:
@@ -349,9 +472,7 @@ def main() -> int:
         return 0 if result["verdict"] == "healthy" else 1
 
     out = json.dumps(result, ensure_ascii=False, sort_keys=True)
-    # Single serialization; redact any credential-looking fragment in the JSON text.
     print(redact(out))
-    # exit 0 healthy, 1 degraded, 2 blocked
     return {"healthy": 0, "degraded": 1, "blocked": 2}[result["verdict"]]
 
 
